@@ -896,7 +896,15 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                '2th May 2019 to 2th Jul 2019',
+                                                                '${getJsonField(
+                                                                  taskViewPostReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.start_date''',
+                                                                ).toString()} to ${getJsonField(
+                                                                  taskViewPostReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.end_datetime''',
+                                                                ).toString()}',
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -936,7 +944,11 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                'Mornings',
+                                                                getJsonField(
+                                                                  taskViewPostReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.start_time''',
+                                                                ).toString(),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -959,73 +971,6 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                             4.0,
                                                                             0.0,
                                                                             4.0,
-                                                                            0.0),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              0.0),
-                                                                  child: Image
-                                                                      .asset(
-                                                                    'assets/images/Group_2234.png',
-                                                                    width: 16.0,
-                                                                    height:
-                                                                        16.0,
-                                                                    fit: BoxFit
-                                                                        .none,
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            4.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  'or',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Lato',
-                                                                        color: Color(
-                                                                            0xFFF6F6F6),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w300,
-                                                                      ),
-                                                                ),
-                                                              ),
-                                                              Text(
-                                                                'Afternoons',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: Color(
-                                                                          0xFFF6F6F6),
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            4.0,
-                                                                            0.0,
-                                                                            0.0,
                                                                             0.0),
                                                                 child:
                                                                     ClipRRect(
@@ -1147,7 +1092,11 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Text(
-                                                                      'Sun, ',
+                                                                      getJsonField(
+                                                                        taskViewPostReadResponse
+                                                                            .jsonBody,
+                                                                        r'''$.preferred_days''',
+                                                                      ).toString(),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -1480,7 +1429,13 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                 children: [
                                                   Flexible(
                                                     child: Text(
-                                                      'custom shopify stores website duplicates \n(clones/copies)adding animations to your \nwebsite video players, video backgrounds \ncustomized maps custom collections\nSquarespace element and website video\n players, video backgrounds customized maps custom collections...',
+                                                      TaskerpageBackendGroup
+                                                          .postReadCall
+                                                          .description(
+                                                            taskViewPostReadResponse
+                                                                .jsonBody,
+                                                          )
+                                                          .toString(),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium

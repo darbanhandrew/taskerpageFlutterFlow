@@ -9,7 +9,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -149,79 +148,6 @@ class _OnSiteAppointmentDeatelsWidgetState
                               height: 192.0,
                             ),
                             drawText: false,
-                          ),
-                        ],
-                      ),
-                    ),
-                  if ((functions.jsonToString(getJsonField(
-                            onSiteAppointmentDeatelsAppointmentReadResponse
-                                .jsonBody,
-                            r'''$.is_interviewee_accepted''',
-                          )) ==
-                          'true') &&
-                      (functions.jsonToString(getJsonField(
-                            onSiteAppointmentDeatelsAppointmentReadResponse
-                                .jsonBody,
-                            r'''$.is_interviewer_accepted''',
-                          )) ==
-                          'true'))
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              _model.scanQRCODE =
-                                  await FlutterBarcodeScanner.scanBarcode(
-                                '#C62828', // scanning line color
-                                'Cancel', // cancel button text
-                                true, // whether to show the flash icon
-                                ScanMode.QR,
-                              );
-
-                              setState(() {});
-                            },
-                            child: Container(
-                              width: 135.0,
-                              height: 44.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 10.0, 0.0),
-                                    child: Icon(
-                                      Icons.qr_code_scanner,
-                                      color: Colors.white,
-                                      size: 18.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Scan QR code',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
                           ),
                         ],
                       ),
