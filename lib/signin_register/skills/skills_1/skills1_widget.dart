@@ -1,5 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -65,7 +64,9 @@ class _Skills1WidgetState extends State<Skills1Widget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -111,8 +112,8 @@ class _Skills1WidgetState extends State<Skills1Widget> {
                                     child: SizedBox(
                                       width: 50.0,
                                       height: 50.0,
-                                      child: SpinKitFadingCircle(
-                                        color: Color(0xFFE23C12),
+                                      child: SpinKitThreeBounce(
+                                        color: Color(0xFF5450E2),
                                         size: 50.0,
                                       ),
                                     ),
@@ -154,74 +155,63 @@ class _Skills1WidgetState extends State<Skills1Widget> {
                                           hoverColor: Colors.transparent,
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
-                                            setState(() {
-                                              FFAppState().userServices =
-                                                  functions
-                                                      .updateUserServices(
-                                                          functions
-                                                              .updateUserServices(
-                                                                  FFAppState()
-                                                                      .userServices
-                                                                      .toList(),
-                                                                  getJsonField(
-                                                                    serviceCategoriesItem,
-                                                                    r'''$.id''',
-                                                                  ),
-                                                                  functions
-                                                                      .checkIfServiceExists(
-                                                                          FFAppState()
-                                                                              .userServices
-                                                                              .toList(),
-                                                                          null!,
-                                                                          getJsonField(
-                                                                            serviceCategoriesItem,
-                                                                            r'''$.id''',
-                                                                          )))
-                                                              .toList(),
-                                                          getJsonField(
-                                                            serviceCategoriesItem,
-                                                            r'''$.id''',
-                                                          ),
-                                                          functions
-                                                              .checkIfServiceCategoryExists(
-                                                                  FFAppState()
-                                                                      .userServices
-                                                                      .toList(),
-                                                                  getJsonField(
-                                                                    serviceCategoriesItem,
-                                                                    r'''$.id''',
-                                                                  )))
-                                                      .toList()
-                                                      .cast<
-                                                          UserServiceStruct>();
-                                            });
+                                            if (FFAppState()
+                                                .chosenServiceCategories
+                                                .contains(getJsonField(
+                                                  serviceCategoriesItem,
+                                                  r'''$.id''',
+                                                ))) {
+                                              setState(() {
+                                                FFAppState()
+                                                    .removeFromChosenServiceCategories(
+                                                        getJsonField(
+                                                  serviceCategoriesItem,
+                                                  r'''$.id''',
+                                                ));
+                                              });
+                                            } else {
+                                              setState(() {
+                                                FFAppState()
+                                                    .addToChosenServiceCategories(
+                                                        getJsonField(
+                                                  serviceCategoriesItem,
+                                                  r'''$.id''',
+                                                ));
+                                              });
+                                            }
                                           },
                                           child: Container(
                                             width: 100.0,
                                             height: 100.0,
                                             decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryBackground,
+                                              color: valueOrDefault<Color>(
+                                                FFAppState()
+                                                            .chosenServiceCategories
+                                                            .contains(
+                                                                getJsonField(
+                                                              serviceCategoriesItem,
+                                                              r'''$.id''',
+                                                            )) ==
+                                                        true
+                                                    ? Color(0xFF5450E2)
+                                                    : Color(0x00FFFFFF),
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryText,
+                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
                                               border: Border.all(
                                                 color: valueOrDefault<Color>(
-                                                  functions
-                                                          .checkIfServiceCategoryExists(
-                                                              FFAppState()
-                                                                  .userServices
-                                                                  .toList(),
-                                                              getJsonField(
+                                                  FFAppState()
+                                                              .chosenServiceCategories
+                                                              .contains(
+                                                                  getJsonField(
                                                                 serviceCategoriesItem,
                                                                 r'''$.id''',
-                                                              ))
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent3,
+                                                              )) ==
+                                                          true
+                                                      ? Color(0xFF5450E2)
+                                                      : Color(0xFF5E5D5D),
                                                   FlutterFlowTheme.of(context)
                                                       .secondaryText,
                                                 ),
@@ -243,7 +233,7 @@ class _Skills1WidgetState extends State<Skills1Widget> {
                                                           .getTranslatableItemString(
                                                               getJsonField(
                                                                 serviceCategoriesItem,
-                                                                r'''$.name''',
+                                                                r'''$.title''',
                                                               ),
                                                               'en'),
                                                       'Category',
@@ -253,8 +243,24 @@ class _Skills1WidgetState extends State<Skills1Widget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF5E5D5D),
+                                                          color: valueOrDefault<
+                                                              Color>(
+                                                            FFAppState()
+                                                                        .chosenServiceCategories
+                                                                        .contains(
+                                                                            getJsonField(
+                                                                          serviceCategoriesItem,
+                                                                          r'''$.id''',
+                                                                        )) ==
+                                                                    true
+                                                                ? Color(
+                                                                    0xFFF6F6F6)
+                                                                : Color(
+                                                                    0xFF5E5D5D),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                          ),
                                                           fontSize: 12.0,
                                                           fontWeight:
                                                               FontWeight.w500,

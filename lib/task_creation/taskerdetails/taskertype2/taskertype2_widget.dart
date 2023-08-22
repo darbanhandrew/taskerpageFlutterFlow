@@ -60,7 +60,9 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                     wrapWithModel(
                       model: _model.headerModel,
                       updateCallback: () => setState(() {}),
-                      child: HeaderWidget(),
+                      child: HeaderWidget(
+                        openDrawer: () async {},
+                      ),
                     ),
                     Padding(
                       padding:

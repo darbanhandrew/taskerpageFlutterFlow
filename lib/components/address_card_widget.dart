@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flip_card/flip_card.dart';
@@ -9,7 +10,12 @@ import 'address_card_model.dart';
 export 'address_card_model.dart';
 
 class AddressCardWidget extends StatefulWidget {
-  const AddressCardWidget({Key? key}) : super(key: key);
+  const AddressCardWidget({
+    Key? key,
+    required this.address,
+  }) : super(key: key);
+
+  final dynamic address;
 
   @override
   _AddressCardWidgetState createState() => _AddressCardWidgetState();
@@ -64,34 +70,21 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    'Konrad-Adenauer-Allee 1144263 Dortmund, \nGermany',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Lato',
-                          color: Color(0xFFF6F6F6),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-                      child: Container(
+              if (getJsonField(
+                widget.address,
+                r'''$.is_main_address''',
+              ))
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
                         width: 122.0,
                         height: 40.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF49A1FF),
+                          color: Color(0xFFEF0EB0),
                           borderRadius: BorderRadius.circular(15.0),
                         ),
                         child: Row(
@@ -99,7 +92,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Set to main',
+                              'Main Address',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -112,15 +105,102 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           ],
                         ),
                       ),
-                    ),
-                    Icon(
-                      Icons.delete_outlined,
-                      color: Color(0xFFF6F6F6),
-                      size: 26.0,
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    getJsonField(
+                      widget.address,
+                      r'''$.address''',
+                    ).toString(),
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: Color(0xFFF6F6F6),
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ],
               ),
+              if (!getJsonField(
+                widget.address,
+                r'''$.is_main_address''',
+              ))
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            var _shouldSetState = false;
+                            _model.apiResultzxfCopy =
+                                await TaskerpageBackendGroup.setAddressMainCall
+                                    .call(
+                              id: getJsonField(
+                                widget.address,
+                                r'''$.id''',
+                              ),
+                              apiGlobalKey: FFAppState().apiKey,
+                            );
+                            _shouldSetState = true;
+                            if ((_model.apiResultzxfCopy?.succeeded ?? true)) {
+                              FFAppState().clearMyAddressesCache();
+                              if (_shouldSetState) setState(() {});
+                              return;
+                            } else {
+                              if (_shouldSetState) setState(() {});
+                              return;
+                            }
+
+                            if (_shouldSetState) setState(() {});
+                          },
+                          child: Container(
+                            width: 122.0,
+                            height: 40.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFF49A1FF),
+                              borderRadius: BorderRadius.circular(15.0),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Set to main',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFFF6F6F6),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                      Icon(
+                        Icons.delete_outlined,
+                        color: Color(0xFFF6F6F6),
+                        size: 26.0,
+                      ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),
@@ -172,28 +252,57 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                       ),
                     ),
                   ),
-                  Container(
-                    width: 104.0,
-                    height: 44.0,
-                    decoration: BoxDecoration(
-                      color: Color(0xFF5450E2),
-                      borderRadius: BorderRadius.circular(5.0),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Delete',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFFF6F6F6),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      var _shouldSetState = false;
+                      _model.apiResultqzc =
+                          await TaskerpageBackendGroup.deleteAddressCall.call(
+                        id: getJsonField(
+                          widget.address,
+                          r'''$.id''',
                         ),
-                      ],
+                        apiGlobalKey: FFAppState().apiKey,
+                      );
+                      _shouldSetState = true;
+                      if ((_model.apiResultqzc?.succeeded ?? true)) {
+                        FFAppState().clearMyAddressesCache();
+                        if (_shouldSetState) setState(() {});
+                        return;
+                      } else {
+                        if (_shouldSetState) setState(() {});
+                        return;
+                      }
+
+                      if (_shouldSetState) setState(() {});
+                    },
+                    child: Container(
+                      width: 104.0,
+                      height: 44.0,
+                      decoration: BoxDecoration(
+                        color: Color(0xFF5450E2),
+                        borderRadius: BorderRadius.circular(5.0),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Delete',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Lato',
+                                  color: Color(0xFFF6F6F6),
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],

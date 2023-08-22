@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/user_rate_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -10,6 +11,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AlerModalMassageAcceptAppointmentModel extends FlutterFlowModel {
+  ///  State fields for stateful widgets in this component.
+
+  // Stores action output result for [Backend Call - API (appointment Update)] action in Container widget.
+  ApiCallResponse? apiResultfhx;
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}

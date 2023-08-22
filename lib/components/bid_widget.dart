@@ -13,7 +13,12 @@ import 'bid_model.dart';
 export 'bid_model.dart';
 
 class BidWidget extends StatefulWidget {
-  const BidWidget({Key? key}) : super(key: key);
+  const BidWidget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final int? id;
 
   @override
   _BidWidgetState createState() => _BidWidgetState();
@@ -105,7 +110,9 @@ class _BidWidgetState extends State<BidWidget> {
                           child: wrapWithModel(
                             model: _model.taskCardModel,
                             updateCallback: () => setState(() {}),
-                            child: TaskCardWidget(),
+                            child: TaskCardWidget(
+                              postId: widget.id!,
+                            ),
                           ),
                         ),
                       ],
@@ -217,6 +224,7 @@ class _BidWidgetState extends State<BidWidget> {
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
                               isSearchable: false,
+                              isMultiSelect: false,
                             ),
                           ),
                           Padding(
@@ -253,6 +261,7 @@ class _BidWidgetState extends State<BidWidget> {
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
                               isSearchable: false,
+                              isMultiSelect: false,
                             ),
                           ),
                         ],

@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -56,6 +57,24 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -73,7 +92,9 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -195,7 +216,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Flexible(
+                          Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,10 +238,10 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                                   ),
                                 ),
                                 Container(
-                                  width: 222.0,
+                                  width: double.infinity,
                                   decoration: BoxDecoration(),
                                   child: Container(
-                                    width: 222.0,
+                                    width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.textController1,
                                       obscureText: false,
@@ -490,7 +511,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                               ),
                             ],
                           ),
-                          Flexible(
+                          Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 0.0, 0.0, 0.0),
@@ -515,7 +536,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                                     ),
                                   ),
                                   Container(
-                                    width: 184.0,
+                                    width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.textController4,
                                       readOnly: true,
@@ -859,7 +880,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                               _shouldSetState = true;
                               if ((_model.createAddress?.succeeded ?? true)) {
                                 if (FFAppState().UserInformation.role ==
-                                    'Poster') {
+                                    'POSTER') {
                                   context.pushNamed('PostersDashboard');
                                 } else {
                                   context.pushNamed('Education');

@@ -77,7 +77,9 @@ class _Education2WidgetState extends State<Education2Widget> {
                             wrapWithModel(
                               model: _model.headerModel,
                               updateCallback: () => setState(() {}),
-                              child: HeaderWidget(),
+                              child: HeaderWidget(
+                                openDrawer: () async {},
+                              ),
                             ),
                           ],
                         ),
@@ -121,8 +123,8 @@ class _Education2WidgetState extends State<Education2Widget> {
                                           child: SizedBox(
                                             width: 50.0,
                                             height: 50.0,
-                                            child: SpinKitFadingCircle(
-                                              color: Color(0xFFE23C12),
+                                            child: SpinKitThreeBounce(
+                                              color: Color(0xFF5450E2),
                                               size: 50.0,
                                             ),
                                           ),

@@ -55,7 +55,9 @@ class _TaskPreviewWidgetState extends State<TaskPreviewWidget> {
                   wrapWithModel(
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
-                    child: HeaderWidget(),
+                    child: HeaderWidget(
+                      openDrawer: () async {},
+                    ),
                   ),
                 ],
               ),

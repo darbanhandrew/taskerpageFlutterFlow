@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
@@ -55,7 +56,9 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Expanded(
                 child: Column(
@@ -87,20 +90,74 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   32.0, 8.0, 32.0, 0.0),
-                              child: ListView(
-                                padding: EdgeInsets.zero,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Container(
-                                    height: 200.0,
-                                    child: wrapWithModel(
-                                      model: _model.skillCardModel,
-                                      updateCallback: () => setState(() {}),
-                                      child: SkillCardWidget(),
-                                    ),
-                                  ),
-                                ].divide(SizedBox(height: 24.0)),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future:
+                                    TaskerpageBackendGroup.myServicesCall.call(
+                                  apiGlobalKey: FFAppState().apiKey,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitThreeBounce(
+                                          color: Color(0xFF5450E2),
+                                          size: 50.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final listViewMyServicesResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final myServices =
+                                          TaskerpageBackendGroup.myServicesCall
+                                                  .myServices(
+                                                    listViewMyServicesResponse
+                                                        .jsonBody,
+                                                  )
+                                                  ?.toList() ??
+                                              [];
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: myServices.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 24.0),
+                                        itemBuilder:
+                                            (context, myServicesIndex) {
+                                          final myServicesItem =
+                                              myServices[myServicesIndex];
+                                          return Container(
+                                            height: 200.0,
+                                            child: wrapWithModel(
+                                              model: _model.skillCardModels
+                                                  .getModel(
+                                                myServicesIndex.toString(),
+                                                myServicesIndex,
+                                              ),
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: SkillCardWidget(
+                                                key: Key(
+                                                  'Keyq1g_${myServicesIndex.toString()}',
+                                                ),
+                                                userService: getJsonField(
+                                                  myServicesItem,
+                                                  r'''$''',
+                                                ),
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
                             Padding(

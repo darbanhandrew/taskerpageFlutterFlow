@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -88,7 +89,9 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -137,115 +140,74 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           32.0, 19.0, 32.0, 24.0),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF6F6F6),
-                              borderRadius: BorderRadius.circular(8.0),
-                              border: Border.all(
-                                color: Color(0xFFACABAB),
+                      child: FutureBuilder<ApiCallResponse>(
+                        future: TaskerpageBackendGroup.myAddressesCall.call(
+                          apiGlobalKey: FFAppState().apiKey,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50.0,
+                                height: 50.0,
+                                child: SpinKitThreeBounce(
+                                  color: Color(0xFF5450E2),
+                                  size: 50.0,
+                                ),
                               ),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  20.5, 20.0, 20.5, 20.0),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  if (FFAppState()
-                                          .DeleteAddressBackGroundColor ==
-                                      false)
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Konrad-Adenauer-Allee 1144263 Dortmund, \nGermany',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Color(0xFFACABAB),
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ],
+                            );
+                          }
+                          final listViewMyAddressesResponse = snapshot.data!;
+                          return Builder(
+                            builder: (context) {
+                              final myaddresses =
+                                  TaskerpageBackendGroup.myAddressesCall
+                                          .myAddressList(
+                                            listViewMyAddressesResponse
+                                                .jsonBody,
+                                          )
+                                          ?.toList() ??
+                                      [];
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: myaddresses.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 16.0),
+                                itemBuilder: (context, myaddressesIndex) {
+                                  final myaddressesItem =
+                                      myaddresses[myaddressesIndex];
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      borderRadius: BorderRadius.circular(8.0),
+                                      border: Border.all(
+                                        color: Color(0xFFACABAB),
+                                      ),
                                     ),
-                                  if (FFAppState()
-                                          .DeleteAddressBackGroundColor ==
-                                      true)
-                                    Padding(
+                                    child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 35.0, 0.0, 35.0),
-                                      child: Row(
+                                          20.5, 20.0, 20.5, 20.0),
+                                      child: Column(
                                         mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
                                         children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 16.0, 0.0),
-                                            child: Container(
-                                              width: 104.0,
-                                              height: 44.0,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFF3D3D3D),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                                border: Border.all(
-                                                  color: Color(0xFF5450E2),
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Cancel',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                          Container(
-                                            width: 104.0,
-                                            height: 44.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFF5450E2),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            child: Row(
+                                          if (FFAppState()
+                                                  .DeleteAddressBackGroundColor ==
+                                              false)
+                                            Row(
                                               mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
                                               children: [
                                                 Text(
-                                                  'Delete',
+                                                  'Konrad-Adenauer-Allee 1144263 Dortmund, \nGermany',
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Lato',
                                                         color:
-                                                            Color(0xFFF6F6F6),
+                                                            Color(0xFFACABAB),
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.w500,
@@ -253,16 +215,113 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                 ),
                                               ],
                                             ),
-                                          ),
+                                          if (FFAppState()
+                                                  .DeleteAddressBackGroundColor ==
+                                              true)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 35.0, 0.0, 35.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                16.0, 0.0),
+                                                    child: Container(
+                                                      width: 104.0,
+                                                      height: 44.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFF3D3D3D),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                        border: Border.all(
+                                                          color:
+                                                              Color(0xFF5450E2),
+                                                        ),
+                                                      ),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            'Cancel',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: Color(
+                                                                      0xFFF6F6F6),
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Container(
+                                                    width: 104.0,
+                                                    height: 44.0,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF5450E2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Delete',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: Color(
+                                                                    0xFFF6F6F6),
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ).animateOnPageLoad(animationsMap[
+                                                  'rowOnPageLoadAnimation']!),
+                                            ),
                                         ],
-                                      ).animateOnPageLoad(animationsMap[
-                                          'rowOnPageLoadAnimation']!),
+                                      ),
                                     ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ].divide(SizedBox(height: 16.0)),
+                                  );
+                                },
+                              );
+                            },
+                          );
+                        },
                       ),
                     ),
                     Padding(

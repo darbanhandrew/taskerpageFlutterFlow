@@ -71,7 +71,9 @@ class _AcceptedNewPasswordWidgetState extends State<AcceptedNewPasswordWidget> {
                   wrapWithModel(
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
-                    child: HeaderWidget(),
+                    child: HeaderWidget(
+                      openDrawer: () async {},
+                    ),
                   ),
                 ],
               ),

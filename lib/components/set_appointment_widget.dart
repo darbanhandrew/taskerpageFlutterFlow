@@ -1,4 +1,7 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/addresses_in_list_widget.dart';
+import '/components/aler_modal_massage_for_edit_widget.dart';
 import '/components/aler_modal_massage_share_address_widget.dart';
 import '/components/aler_modal_massage_share_phone_widget.dart';
 import '/components/aler_modal_massage_widget.dart';
@@ -21,9 +24,11 @@ class SetAppointmentWidget extends StatefulWidget {
   const SetAppointmentWidget({
     Key? key,
     required this.setOredit,
+    required this.id,
   }) : super(key: key);
 
   final bool? setOredit;
+  final int? id;
 
   @override
   _SetAppointmentWidgetState createState() => _SetAppointmentWidgetState();
@@ -185,7 +190,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
       ),
       child: Container(
         width: double.infinity,
-        height: 700.0,
+        height: 780.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -267,7 +272,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                           FlutterFlowRadioButton(
                             options: ['Online', 'By Phone', 'On-Site'].toList(),
                             onChanged: (val) => setState(() {}),
-                            controller: _model.radioButtonValueController1 ??=
+                            controller: _model.radioButtonValueController ??=
                                 FormFieldController<String>(null),
                             optionHeight: 32.0,
                             textStyle: FlutterFlowTheme.of(context)
@@ -295,7 +300,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                       endIndent: 32.0,
                       color: Color(0xD0ACABAB),
                     ),
-                    if (_model.radioButtonValue1 == 'On-Site')
+                    if (_model.radioButtonValue == 'On-Site')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 0.0, 32.0, 0.0),
@@ -321,48 +326,75 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                               animationsMap['rowOnActionTriggerAnimation1']!,
                             ),
                       ),
-                    if (_model.radioButtonValue1 == 'On-Site')
+                    if (_model.radioButtonValue == 'On-Site')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             26.0, 10.0, 32.0, 0.0),
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            FlutterFlowRadioButton(
-                              options: [
-                                'Konrad-Adenauer-Allee 1144263 Dortmund, \nGermany'
-                              ].toList(),
-                              onChanged: (val) => setState(() {}),
-                              controller: _model.radioButtonValueController2 ??=
-                                  FormFieldController<String>(null),
-                              optionHeight: 45.0,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .labelMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF212121),
-                                    fontWeight: FontWeight.w500,
+                        child: FutureBuilder<ApiCallResponse>(
+                          future: TaskerpageBackendGroup.myAddressesCall.call(
+                            apiGlobalKey: FFAppState().apiKey,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: SpinKitThreeBounce(
+                                    color: Color(0xFF5450E2),
+                                    size: 50.0,
                                   ),
-                              buttonPosition: RadioButtonPosition.left,
-                              direction: Axis.vertical,
-                              radioButtonColor: Color(0xFF211DAF),
-                              inactiveRadioButtonColor: Color(0xFF3D3D3D),
-                              toggleable: false,
-                              horizontalAlignment: WrapAlignment.start,
-                              verticalAlignment: WrapCrossAlignment.start,
-                            ),
-                          ].divide(SizedBox(height: 8.0)),
-                        )
-                            .animateOnPageLoad(
-                                animationsMap['listViewOnPageLoadAnimation']!)
-                            .animateOnActionTrigger(
-                              animationsMap[
-                                  'listViewOnActionTriggerAnimation']!,
-                            ),
+                                ),
+                              );
+                            }
+                            final listViewMyAddressesResponse = snapshot.data!;
+                            return Builder(
+                              builder: (context) {
+                                final myAdresses =
+                                    TaskerpageBackendGroup.myAddressesCall
+                                            .myAddressList(
+                                              listViewMyAddressesResponse
+                                                  .jsonBody,
+                                            )
+                                            ?.toList() ??
+                                        [];
+                                return ListView.separated(
+                                  padding: EdgeInsets.zero,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: myAdresses.length,
+                                  separatorBuilder: (_, __) =>
+                                      SizedBox(height: 8.0),
+                                  itemBuilder: (context, myAdressesIndex) {
+                                    final myAdressesItem =
+                                        myAdresses[myAdressesIndex];
+                                    return AddressesInListWidget(
+                                      key: Key(
+                                          'Keysyg_${myAdressesIndex}_of_${myAdresses.length}'),
+                                      parameter1: getJsonField(
+                                        myAdressesItem,
+                                        r'''$.lat_lang.lat''',
+                                      ),
+                                      parameter2: getJsonField(
+                                        myAdressesItem,
+                                        r'''$.lat_lang.lang''',
+                                      ),
+                                    );
+                                  },
+                                )
+                                    .animateOnPageLoad(animationsMap[
+                                        'listViewOnPageLoadAnimation']!)
+                                    .animateOnActionTrigger(
+                                      animationsMap[
+                                          'listViewOnActionTriggerAnimation']!,
+                                    );
+                              },
+                            );
+                          },
+                        ),
                       ),
-                    if (_model.radioButtonValue1 == 'On-Site')
+                    if (_model.radioButtonValue == 'On-Site')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 16.0, 32.0, 0.0),
@@ -411,7 +443,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                               animationsMap['rowOnActionTriggerAnimation2']!,
                             ),
                       ),
-                    if (_model.radioButtonValue1 == 'On-Site')
+                    if (_model.radioButtonValue == 'On-Site')
                       Divider(
                         height: 40.0,
                         thickness: 1.0,
@@ -446,7 +478,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -511,7 +543,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                             .override(
                                               fontFamily: 'Lato',
                                               color: Color(0xFF3D3D3D),
-                                              fontSize: 12.0,
+                                              fontSize: 13.0,
                                               fontWeight: FontWeight.w500,
                                             ),
                                       ),
@@ -576,7 +608,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         .override(
                                           fontFamily: 'Lato',
                                           color: Color(0xFF3D3D3D),
-                                          fontSize: 12.0,
+                                          fontSize: 13.0,
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
@@ -667,15 +699,99 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              setState(() {
-                                FFAppState().updateAppointmentStruct(
-                                  (e) => e
-                                    ..date = _model.datePicked1
-                                    ..time = dateTimeFormat(
-                                        'Hm', _model.datePicked2),
-                                );
-                              });
-                              if (_model.radioButtonValue1 == 'Online') {
+                              if (widget.setOredit == false) {
+                                setState(() {
+                                  FFAppState().updateAppointmentStruct(
+                                    (e) => e
+                                      ..date = _model.datePicked1
+                                      ..time = dateTimeFormat(
+                                          'Hm', _model.datePicked2),
+                                  );
+                                });
+                                if (_model.radioButtonValue == 'Online') {
+                                  setState(() {
+                                    FFAppState().updateAppointmentStruct(
+                                      (e) => e
+                                        ..appointmentType =
+                                            _model.radioButtonValue,
+                                    );
+                                  });
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return Padding(
+                                        padding:
+                                            MediaQuery.viewInsetsOf(context),
+                                        child: AlerModalMassageWidget(),
+                                      );
+                                    },
+                                  ).then((value) => setState(() {}));
+                                } else {
+                                  if (_model.radioButtonValue == 'By Phone') {
+                                    setState(() {
+                                      FFAppState().updateAppointmentStruct(
+                                        (e) => e
+                                          ..appointmentType =
+                                              _model.radioButtonValue,
+                                      );
+                                    });
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child:
+                                              AlerModalMassageSharePhoneWidget(),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
+                                  } else {
+                                    setState(() {
+                                      FFAppState().updateAppointmentStruct(
+                                        (e) => e
+                                          ..appointmentType =
+                                              _model.radioButtonValue,
+                                      );
+                                    });
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child:
+                                              AlerModalMassageShareAddressWidget(),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
+                                  }
+                                }
+                              } else {
+                                setState(() {
+                                  FFAppState().updateAppointmentStruct(
+                                    (e) => e
+                                      ..date = _model.datePicked1
+                                      ..time = dateTimeFormat(
+                                          'Hm', _model.datePicked2),
+                                  );
+                                });
+                                setState(() {
+                                  FFAppState().updateAppointmentStruct(
+                                    (e) => e
+                                      ..appointmentType =
+                                          _model.radioButtonValue,
+                                  );
+                                });
                                 await showModalBottomSheet(
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
@@ -684,66 +800,12 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   builder: (context) {
                                     return Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: AlerModalMassageWidget(),
+                                      child: AlerModalMassageForEditWidget(
+                                        id: widget.id!,
+                                      ),
                                     );
                                   },
                                 ).then((value) => setState(() {}));
-
-                                setState(() {
-                                  FFAppState().updateAppointmentStruct(
-                                    (e) => e
-                                      ..appointmentType =
-                                          _model.radioButtonValue1,
-                                  );
-                                });
-                              } else {
-                                if (_model.radioButtonValue1 == 'By Phone') {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child:
-                                            AlerModalMassageSharePhoneWidget(),
-                                      );
-                                    },
-                                  ).then((value) => setState(() {}));
-
-                                  setState(() {
-                                    FFAppState().updateAppointmentStruct(
-                                      (e) => e
-                                        ..appointmentType =
-                                            _model.radioButtonValue1,
-                                    );
-                                  });
-                                } else {
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child:
-                                            AlerModalMassageShareAddressWidget(),
-                                      );
-                                    },
-                                  ).then((value) => setState(() {}));
-
-                                  setState(() {
-                                    FFAppState().updateAppointmentStruct(
-                                      (e) => e
-                                        ..appointmentType =
-                                            _model.radioButtonValue1,
-                                    );
-                                  });
-                                }
                               }
                             },
                             child: Container(

@@ -63,7 +63,9 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),

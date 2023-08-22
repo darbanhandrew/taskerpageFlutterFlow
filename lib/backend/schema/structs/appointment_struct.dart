@@ -10,9 +10,13 @@ class AppointmentStruct extends BaseStruct {
     String? appointmentType,
     DateTime? date,
     String? time,
+    String? lat,
+    String? lng,
   })  : _appointmentType = appointmentType,
         _date = date,
-        _time = time;
+        _time = time,
+        _lat = lat,
+        _lng = lng;
 
   // "AppointmentType" field.
   String? _appointmentType;
@@ -32,11 +36,25 @@ class AppointmentStruct extends BaseStruct {
   set time(String? val) => _time = val;
   bool hasTime() => _time != null;
 
+  // "lat" field.
+  String? _lat;
+  String get lat => _lat ?? '';
+  set lat(String? val) => _lat = val;
+  bool hasLat() => _lat != null;
+
+  // "lng" field.
+  String? _lng;
+  String get lng => _lng ?? '';
+  set lng(String? val) => _lng = val;
+  bool hasLng() => _lng != null;
+
   static AppointmentStruct fromMap(Map<String, dynamic> data) =>
       AppointmentStruct(
         appointmentType: data['AppointmentType'] as String?,
         date: data['Date'] as DateTime?,
         time: data['Time'] as String?,
+        lat: data['lat'] as String?,
+        lng: data['lng'] as String?,
       );
 
   static AppointmentStruct? maybeFromMap(dynamic data) =>
@@ -46,6 +64,8 @@ class AppointmentStruct extends BaseStruct {
         'AppointmentType': _appointmentType,
         'Date': _date,
         'Time': _time,
+        'lat': _lat,
+        'lng': _lng,
       }.withoutNulls;
 
   @override
@@ -60,6 +80,14 @@ class AppointmentStruct extends BaseStruct {
         ),
         'Time': serializeParam(
           _time,
+          ParamType.String,
+        ),
+        'lat': serializeParam(
+          _lat,
+          ParamType.String,
+        ),
+        'lng': serializeParam(
+          _lng,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -81,6 +109,16 @@ class AppointmentStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        lat: deserializeParam(
+          data['lat'],
+          ParamType.String,
+          false,
+        ),
+        lng: deserializeParam(
+          data['lng'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -91,20 +129,27 @@ class AppointmentStruct extends BaseStruct {
     return other is AppointmentStruct &&
         appointmentType == other.appointmentType &&
         date == other.date &&
-        time == other.time;
+        time == other.time &&
+        lat == other.lat &&
+        lng == other.lng;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([appointmentType, date, time]);
+  int get hashCode =>
+      const ListEquality().hash([appointmentType, date, time, lat, lng]);
 }
 
 AppointmentStruct createAppointmentStruct({
   String? appointmentType,
   DateTime? date,
   String? time,
+  String? lat,
+  String? lng,
 }) =>
     AppointmentStruct(
       appointmentType: appointmentType,
       date: date,
       time: time,
+      lat: lat,
+      lng: lng,
     );

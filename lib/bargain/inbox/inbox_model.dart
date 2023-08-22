@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/bargain_filter_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
@@ -18,6 +19,10 @@ class InboxModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
+  // State field(s) for TabBar widget.
+  TabController? tabBarController;
+  int get tabBarCurrentIndex =>
+      tabBarController != null ? tabBarController!.index : 0;
 
   /// Initialization and disposal methods.
 
@@ -30,6 +35,7 @@ class InboxModel extends FlutterFlowModel {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
+    tabBarController?.dispose();
   }
 
   /// Action blocks are added here.

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/drope_down_languages_widget.dart';
@@ -5,6 +6,7 @@ import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -61,7 +63,9 @@ class _Task2WidgetState extends State<Task2Widget> {
                   wrapWithModel(
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
-                    child: HeaderWidget(),
+                    child: HeaderWidget(
+                      openDrawer: () async {},
+                    ),
                   ),
                 ],
               ),
@@ -127,89 +131,141 @@ class _Task2WidgetState extends State<Task2Widget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: GridView(
-                                padding: EdgeInsets.zero,
-                                gridDelegate:
-                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 16.0,
-                                  mainAxisSpacing: 8.0,
-                                  childAspectRatio: 4.0,
+                              child: FutureBuilder<ApiCallResponse>(
+                                future:
+                                    TaskerpageBackendGroup.getServicesCall.call(
+                                  category: FFAppState()
+                                      .TaskCreation
+                                      .relatedServiceCategory
+                                      .toString(),
+                                  apiGlobalKey: FFAppState().apiKey,
                                 ),
-                                shrinkWrap: true,
-                                scrollDirection: Axis.vertical,
-                                children: [
-                                  Container(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                        color: Color(0xFF5E5D5D),
-                                        width: 1.0,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitThreeBounce(
+                                          color: Color(0xFF5450E2),
+                                          size: 50.0,
+                                        ),
                                       ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15.0, 0.0, 15.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Baby-Sitting',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFF5E5D5D),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
+                                    );
+                                  }
+                                  final gridViewGetServicesResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final services =
+                                          TaskerpageBackendGroup.getServicesCall
+                                                  .servicesList(
+                                                    gridViewGetServicesResponse
+                                                        .jsonBody,
+                                                  )
+                                                  ?.toList() ??
+                                              [];
+                                      return GridView.builder(
+                                        padding: EdgeInsets.zero,
+                                        gridDelegate:
+                                            SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: 16.0,
+                                          mainAxisSpacing: 8.0,
+                                          childAspectRatio: 4.0,
+                                        ),
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: services.length,
+                                        itemBuilder: (context, servicesIndex) {
+                                          final servicesItem =
+                                              services[servicesIndex];
+                                          return InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              setState(() {
+                                                FFAppState()
+                                                    .updateTaskCreationStruct(
+                                                  (e) => e
+                                                    ..relatedService =
+                                                        getJsonField(
+                                                      servicesItem,
+                                                      r'''$.id''',
+                                                    ),
+                                                );
+                                              });
+                                            },
+                                            child: Container(
+                                              width: 100.0,
+                                              height: 100.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                                border: Border.all(
+                                                  color: getJsonField(
+                                                            servicesItem,
+                                                            r'''$.id''',
+                                                          ) ==
+                                                          FFAppState()
+                                                              .TaskCreation
+                                                              .relatedService
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : Color(0x00000000),
+                                                  width: 1.0,
                                                 ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Container(
-                                    width: 100.0,
-                                    height: 100.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      border: Border.all(
-                                        color: Color(0xFF5E5D5D),
-                                        width: 1.0,
-                                      ),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          15.0, 0.0, 15.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Gardening',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFF5E5D5D),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
+                                              ),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        15.0, 0.0, 15.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      valueOrDefault<String>(
+                                                        functions
+                                                            .getTranslatableItemString(
+                                                                getJsonField(
+                                                                  servicesItem,
+                                                                  r'''$.name''',
+                                                                ),
+                                                                'en'),
+                                                        'selectedService',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF5E5D5D),
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                    ),
+                                                  ],
                                                 ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
                           ],
@@ -246,42 +302,73 @@ class _Task2WidgetState extends State<Task2Widget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             90.0, 10.0, 90.0, 0.0),
-                        child: ListView(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          children: [
-                            Container(
-                              width: 230.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xFF5E5D5D),
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Educated Professional',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF5E5D5D),
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
+                        child: Builder(
+                          builder: (context) {
+                            final skillLevel =
+                                functions.returnSkillLevelEnums().toList();
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: skillLevel.length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 8.0),
+                              itemBuilder: (context, skillLevelIndex) {
+                                final skillLevelItem =
+                                    skillLevel[skillLevelIndex];
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e..skillLevel = skillLevelItem,
+                                      );
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 230.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                        color: FFAppState()
+                                                    .TaskCreation
+                                                    .skillLevel ==
+                                                skillLevelItem
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : Color(0x00000000),
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          skillLevelItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF5E5D5D),
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                         ),
+                                      ],
+                                    ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ].divide(SizedBox(height: 8.0)),
+                                );
+                              },
+                            );
+                          },
                         ),
                       ),
                       Divider(
@@ -472,9 +559,9 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 controller: _model.textController,
                                 onFieldSubmitted: (_) async {
                                   setState(() {
-                                    FFAppState().updateUserInformationStruct(
+                                    FFAppState().updateTaskCreationStruct(
                                       (e) => e
-                                        ..describation =
+                                        ..description =
                                             _model.textController.text,
                                     );
                                   });
@@ -616,10 +703,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                               ),
                             ),
                             Text(
-                              valueOrDefault<String>(
-                                _model.uploadedLocalFile.blurHash,
-                                'file',
-                              ),
+                              _model.uploadedLocalFile.height.toString(),
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -713,7 +797,38 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('Select_Address');
+                                      var _shouldSetState = false;
+                                      _model.apiResultv2j =
+                                          await TaskerpageBackendGroup
+                                              .updatePostCall
+                                              .call(
+                                        id: getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.id''',
+                                        ),
+                                        apiGlobalKey: FFAppState().apiKey,
+                                        relatedService: FFAppState()
+                                            .TaskCreation
+                                            .relatedService,
+                                        skillLevel: FFAppState()
+                                            .TaskCreation
+                                            .skillLevel,
+                                        taskerLanguagesList: FFAppState()
+                                            .LanguagesListForDropDown,
+                                        description: FFAppState()
+                                            .TaskCreation
+                                            .description,
+                                      );
+                                      _shouldSetState = true;
+                                      if ((_model.apiResultv2j?.succeeded ??
+                                          true)) {
+                                        context.pushNamed('Select_Address');
+                                      } else {
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+
+                                      if (_shouldSetState) setState(() {});
                                     },
                                     child: wrapWithModel(
                                       model: _model.buttonNextModel,

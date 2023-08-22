@@ -1,4 +1,7 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/addresses_in_list_widget.dart';
+import '/components/aler_modal_massage_for_edit_widget.dart';
 import '/components/aler_modal_massage_share_address_widget.dart';
 import '/components/aler_modal_massage_share_phone_widget.dart';
 import '/components/aler_modal_massage_widget.dart';
@@ -19,9 +22,7 @@ class SetAppointmentModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for RadioButton widget.
-  FormFieldController<String>? radioButtonValueController1;
-  // State field(s) for RadioButton widget.
-  FormFieldController<String>? radioButtonValueController2;
+  FormFieldController<String>? radioButtonValueController;
   DateTime? datePicked1;
   DateTime? datePicked2;
 
@@ -35,6 +36,5 @@ class SetAppointmentModel extends FlutterFlowModel {
 
   /// Additional helper methods are added here.
 
-  String? get radioButtonValue1 => radioButtonValueController1?.value;
-  String? get radioButtonValue2 => radioButtonValueController2?.value;
+  String? get radioButtonValue => radioButtonValueController?.value;
 }

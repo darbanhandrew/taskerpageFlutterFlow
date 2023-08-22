@@ -64,7 +64,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
@@ -63,7 +64,9 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -103,9 +106,21 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..role = 'Tasker',
+                                  (e) => e..role = 'TASKER',
                                 );
                               });
+                              _model.apiResult786 = await TaskerpageBackendGroup
+                                  .changeMyRoleCall
+                                  .call(
+                                userRole: FFAppState().UserInformation.role,
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+
+                              setState(() {});
                             },
                             child: Container(
                               width: 230.0,
@@ -166,9 +181,21 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..role = 'Poster',
+                                  (e) => e..role = 'POSTER',
                                 );
                               });
+                              _model.apiResult785 = await TaskerpageBackendGroup
+                                  .changeMyRoleCall
+                                  .call(
+                                userRole: FFAppState().UserInformation.role,
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+
+                              setState(() {});
                             },
                             child: Container(
                               width: 230.0,
@@ -248,7 +275,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               if (FFAppState().UserInformation.role ==
-                                  'Poster') {
+                                  'POSTER') {
                                 context.pushNamed('Skills-1');
                               } else {
                                 context.pushNamed('Skills-3');

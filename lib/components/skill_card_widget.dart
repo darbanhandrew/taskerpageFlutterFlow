@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -9,7 +10,12 @@ import 'skill_card_model.dart';
 export 'skill_card_model.dart';
 
 class SkillCardWidget extends StatefulWidget {
-  const SkillCardWidget({Key? key}) : super(key: key);
+  const SkillCardWidget({
+    Key? key,
+    required this.userService,
+  }) : super(key: key);
+
+  final dynamic userService;
 
   @override
   _SkillCardWidgetState createState() => _SkillCardWidgetState();
@@ -79,8 +85,11 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
                           ),
-                          child: Image.asset(
-                            'assets/images/Frame_2253.png',
+                          child: Image.network(
+                            getJsonField(
+                              widget.userService,
+                              r'''$.category.icon_url''',
+                            ),
                             fit: BoxFit.none,
                           ),
                         ),
@@ -88,7 +97,15 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(
                               10.0, 0.0, 0.0, 0.0),
                           child: Text(
-                            'Music',
+                            valueOrDefault<String>(
+                              functions.getTranslatableItemString(
+                                  getJsonField(
+                                    widget.userService,
+                                    r'''$.category.name''',
+                                  ),
+                                  'en'),
+                              'Category',
+                            ),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -159,7 +176,15 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'DJ',
+                                          valueOrDefault<String>(
+                                            functions.getTranslatableItemString(
+                                                getJsonField(
+                                                  widget.userService,
+                                                  r'''$.service.name''',
+                                                ),
+                                                'en'),
+                                            'skill',
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -245,7 +270,15 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  'DJ',
+                                  valueOrDefault<String>(
+                                    functions.getTranslatableItemString(
+                                        getJsonField(
+                                          widget.userService,
+                                          r'''$.service.name''',
+                                        ),
+                                        'en'),
+                                    'skill',
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -380,7 +413,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Self trained',
+                                        getJsonField(
+                                          widget.userService,
+                                          r'''$.service_skill_level''',
+                                        ).toString(),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(

@@ -81,7 +81,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                             wrapWithModel(
                               model: _model.headerModel,
                               updateCallback: () => setState(() {}),
-                              child: HeaderWidget(),
+                              child: HeaderWidget(
+                                openDrawer: () async {},
+                              ),
                             ),
                           ],
                         ),

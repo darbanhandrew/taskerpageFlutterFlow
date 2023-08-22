@@ -220,7 +220,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Task-1',
           path: '/task1',
-          builder: (context, params) => Task1Widget(),
+          builder: (context, params) => Task1Widget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'Select_Address',
@@ -280,17 +282,23 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'On_site_AppointmentDeatels',
           path: '/onSiteAppointmentDeatels',
-          builder: (context, params) => OnSiteAppointmentDeatelsWidget(),
+          builder: (context, params) => OnSiteAppointmentDeatelsWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'By_Phone_AppointmentDeatels',
           path: '/byPhoneAppointmentDeatels',
-          builder: (context, params) => ByPhoneAppointmentDeatelsWidget(),
+          builder: (context, params) => ByPhoneAppointmentDeatelsWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'Online_AppointmentDeatels',
           path: '/onlineAppointmentDeatels',
-          builder: (context, params) => OnlineAppointmentDeatelsWidget(),
+          builder: (context, params) => OnlineAppointmentDeatelsWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'MyPosts',
@@ -300,7 +308,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'MyInbox',
           path: '/myInbox',
-          builder: (context, params) => MyInboxWidget(),
+          builder: (context, params) => MyInboxWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'TaskersDashboard',
@@ -325,12 +335,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Poster_Profile_view',
           path: '/posterProfileView',
-          builder: (context, params) => PosterProfileViewWidget(),
+          builder: (context, params) => PosterProfileViewWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'Tasker_Profile_view',
           path: '/taskerProfileView',
-          builder: (context, params) => TaskerProfileViewWidget(),
+          builder: (context, params) => TaskerProfileViewWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'AddAddress',
@@ -362,7 +376,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'TaskView',
           path: '/taskView',
-          builder: (context, params) => TaskViewWidget(),
+          builder: (context, params) => TaskViewWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'TaskerHomePage',

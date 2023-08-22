@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/bottom_sheetfor_pay_widget.dart';
 import '/components/header_widget.dart';
 import '/components/home_page_footer_widget.dart';
@@ -6,6 +7,7 @@ import '/components/mini_tasker_card_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +59,9 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Flexible(
                 child: Column(
@@ -81,7 +85,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                       image: DecorationImage(
                                         fit: BoxFit.none,
                                         image: Image.asset(
-                                          'assets/images/Group_2236_(2).png',
+                                          'assets/images/Group_2236_(3).png',
                                         ).image,
                                       ),
                                     ),
@@ -123,43 +127,112 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                   ),
                                             ),
                                           ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              context.pushNamed(
-                                                  'Select_Contry_Language');
-                                            },
-                                            child: Container(
-                                              width: 141.0,
-                                              height: 38.0,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFE23C12),
-                                                borderRadius:
-                                                    BorderRadius.circular(5.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Become a Tasker',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: Colors.white,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 15.0, 0.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                        'Select_Contry_Language');
+                                                  },
+                                                  child: Container(
+                                                    width: 141.0,
+                                                    height: 38.0,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF5450E2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Find a job',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                         ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ],
-                                              ),
+                                                ),
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                        'Select_Contry_Language');
+                                                  },
+                                                  child: Container(
+                                                    width: 141.0,
+                                                    height: 38.0,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFF5450E2),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          'Hire a Tasker',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: Colors
+                                                                    .white,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ].divide(SizedBox(width: 8.0)),
                                             ),
                                           ),
                                         ],
@@ -171,59 +244,127 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 24.0, 0.0, 24.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 104.0,
-                                    height: 96.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFF6F6F6),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(0.0, 4.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(0.0),
-                                          child: Image.asset(
-                                            'assets/images/Gardening.png',
-                                            width: 25.0,
-                                            height: 25.0,
-                                            fit: BoxFit.cover,
-                                          ),
+                                  27.0, 20.0, 0.0, 20.0),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: TaskerpageBackendGroup
+                                    .serviceCategoryCall
+                                    .call(
+                                  apiGlobalKey: FFAppState().apiKey,
+                                ),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitThreeBounce(
+                                          color: Color(0xFF5450E2),
+                                          size: 50.0,
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
-                                          child: Text(
-                                            'Baby-Sitting',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFF212121),
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.bold,
+                                      ),
+                                    );
+                                  }
+                                  final rowServiceCategoryResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final categorys = getJsonField(
+                                        rowServiceCategoryResponse.jsonBody,
+                                        r'''$''',
+                                      ).toList();
+                                      return SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children:
+                                              List.generate(categorys.length,
+                                                  (categorysIndex) {
+                                            final categorysItem =
+                                                categorys[categorysIndex];
+                                            return Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 5.0, 0.0, 5.0),
+                                              child: Container(
+                                                width: 104.0,
+                                                height: 96.0,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFF6F6F6),
+                                                  boxShadow: [
+                                                    BoxShadow(
+                                                      blurRadius: 4.0,
+                                                      color: Color(0x33000000),
+                                                      offset: Offset(0.0, 4.0),
+                                                    )
+                                                  ],
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
                                                 ),
-                                          ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              0.0),
+                                                      child: Image.network(
+                                                        getJsonField(
+                                                          categorysItem,
+                                                          r'''$[:].icon_url''',
+                                                        ),
+                                                        width: 25.0,
+                                                        height: 25.0,
+                                                        fit: BoxFit.cover,
+                                                      ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  10.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Text(
+                                                        valueOrDefault<String>(
+                                                          functions
+                                                              .getTranslatableItemString(
+                                                                  getJsonField(
+                                                                    categorysItem,
+                                                                    r'''$.title''',
+                                                                  ),
+                                                                  'en'),
+                                                          'category',
+                                                        ),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: Color(
+                                                                  0xFF212121),
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }).divide(SizedBox(width: 8.0)),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ].divide(SizedBox(width: 7.5)),
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
                             Row(
@@ -1062,7 +1203,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                             Flexible(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 10.0, 32.0, 50.0),
+                                    27.0, 10.0, 0.0, 45.0),
                                 child: Container(
                                   width: double.infinity,
                                   height: 150.0,
@@ -1070,17 +1211,80 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                   ),
-                                  child: ListView(
-                                    padding: EdgeInsets.zero,
-                                    shrinkWrap: true,
+                                  child: SingleChildScrollView(
                                     scrollDirection: Axis.horizontal,
-                                    children: [
-                                      wrapWithModel(
-                                        model: _model.miniTaskerCardModel,
-                                        updateCallback: () => setState(() {}),
-                                        child: MiniTaskerCardWidget(),
-                                      ),
-                                    ].divide(SizedBox(width: 8.0)),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        FutureBuilder<ApiCallResponse>(
+                                          future: TaskerpageBackendGroup
+                                              .userProfileListCall
+                                              .call(
+                                            userRole: 'TASKER',
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          ),
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child: SpinKitThreeBounce(
+                                                    color: Color(0xFF5450E2),
+                                                    size: 50.0,
+                                                  ),
+                                                ),
+                                              );
+                                            }
+                                            final listViewUserProfileListResponse =
+                                                snapshot.data!;
+                                            return Builder(
+                                              builder: (context) {
+                                                final taskerList = getJsonField(
+                                                  listViewUserProfileListResponse
+                                                      .jsonBody,
+                                                  r'''$''',
+                                                ).toList().take(6).toList();
+                                                return ListView.separated(
+                                                  padding: EdgeInsets.zero,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  itemCount: taskerList.length,
+                                                  separatorBuilder: (_, __) =>
+                                                      SizedBox(width: 8.0),
+                                                  itemBuilder: (context,
+                                                      taskerListIndex) {
+                                                    final taskerListItem =
+                                                        taskerList[
+                                                            taskerListIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  5.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  5.0),
+                                                      child:
+                                                          MiniTaskerCardWidget(
+                                                        key: Key(
+                                                            'Keyzvx_${taskerListIndex}_of_${taskerList.length}'),
+                                                        id: getJsonField(
+                                                          taskerListItem,
+                                                          r'''$.id''',
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -1097,14 +1301,14 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          32.0, 19.0, 32.0, 0.0),
+                                          27.0, 19.0, 0.0, 0.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 10.0),
+                                                    5.0, 0.0, 0.0, 10.0),
                                             child: Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
@@ -1132,20 +1336,98 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFF6F6F6),
                                               ),
-                                              child: ListView(
-                                                padding: EdgeInsets.zero,
-                                                shrinkWrap: true,
+                                              child: SingleChildScrollView(
                                                 scrollDirection:
                                                     Axis.horizontal,
-                                                children: [
-                                                  wrapWithModel(
-                                                    model: _model
-                                                        .miniTaskCardModel,
-                                                    updateCallback: () =>
-                                                        setState(() {}),
-                                                    child: MiniTaskCardWidget(),
-                                                  ),
-                                                ].divide(SizedBox(width: 8.0)),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    FutureBuilder<
+                                                        ApiCallResponse>(
+                                                      future:
+                                                          TaskerpageBackendGroup
+                                                              .postsCall
+                                                              .call(
+                                                        apiGlobalKey:
+                                                            FFAppState().apiKey,
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  SpinKitThreeBounce(
+                                                                color: Color(
+                                                                    0xFF5450E2),
+                                                                size: 50.0,
+                                                              ),
+                                                            ),
+                                                          );
+                                                        }
+                                                        final listViewPostsResponse =
+                                                            snapshot.data!;
+                                                        return Builder(
+                                                          builder: (context) {
+                                                            final postsList =
+                                                                getJsonField(
+                                                              listViewPostsResponse
+                                                                  .jsonBody,
+                                                              r'''$''',
+                                                            )
+                                                                    .toList()
+                                                                    .take(6)
+                                                                    .toList();
+                                                            return ListView
+                                                                .separated(
+                                                              padding:
+                                                                  EdgeInsets
+                                                                      .zero,
+                                                              shrinkWrap: true,
+                                                              scrollDirection:
+                                                                  Axis.horizontal,
+                                                              itemCount:
+                                                                  postsList
+                                                                      .length,
+                                                              separatorBuilder:
+                                                                  (_, __) =>
+                                                                      SizedBox(
+                                                                          width:
+                                                                              8.0),
+                                                              itemBuilder: (context,
+                                                                  postsListIndex) {
+                                                                final postsListItem =
+                                                                    postsList[
+                                                                        postsListIndex];
+                                                                return Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          5.0),
+                                                                  child:
+                                                                      MiniTaskCardWidget(
+                                                                    key: Key(
+                                                                        'Key97t_${postsListIndex}_of_${postsList.length}'),
+                                                                    id: getJsonField(
+                                                                      postsListItem,
+                                                                      r'''$.id''',
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              },
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),

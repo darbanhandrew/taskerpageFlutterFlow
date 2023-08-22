@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -64,7 +65,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -102,6 +105,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              var _shouldSetState = false;
                               final selectedMedia = await selectMedia(
                                 mediaSource: MediaSource.photoGallery,
                                 multiImage: false,
@@ -136,6 +140,47 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                   return;
                                 }
                               }
+
+                              _model.apiResultoaj =
+                                  await TaskerpageBackendGroup.uploadCall.call(
+                                file: _model.uploadedLocalFile1,
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.apiResultoaj?.succeeded ?? true)) {
+                                setState(() {
+                                  FFAppState().updateUserInformationStruct(
+                                    (e) => e
+                                      ..avatar = getJsonField(
+                                        (_model.apiResultoaj?.jsonBody ?? ''),
+                                        r'''$.url''',
+                                      ).toString(),
+                                  );
+                                });
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Not done'),
+                                      content: Text('Not done'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 154.0,
@@ -177,6 +222,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              var _shouldSetState = false;
                               final selectedMedia = await selectMedia(
                                 multiImage: false,
                               );
@@ -210,6 +256,47 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                   return;
                                 }
                               }
+
+                              _model.apiResultCamera =
+                                  await TaskerpageBackendGroup.uploadCall.call(
+                                file: _model.uploadedLocalFile2,
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.apiResultCamera?.succeeded ?? true)) {
+                                setState(() {
+                                  FFAppState().updateUserInformationStruct(
+                                    (e) => e
+                                      ..avatar = getJsonField(
+                                        (_model.apiResultoaj?.jsonBody ?? ''),
+                                        r'''$.url''',
+                                      ).toString(),
+                                  );
+                                });
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Not done'),
+                                      content: Text('Not done'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 154.0,
@@ -269,7 +356,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
-                                    'https://picsum.photos/seed/639/600',
+                                    '${FFAppState().UserInformation.avatar}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -280,10 +367,24 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                     color: Color(0xFF5450E2),
                                     shape: BoxShape.circle,
                                   ),
-                                  child: Icon(
-                                    Icons.close_rounded,
-                                    color: Colors.white,
-                                    size: 15.0,
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e..avatar = '',
+                                        );
+                                      });
+                                    },
+                                    child: Icon(
+                                      Icons.close_rounded,
+                                      color: Colors.white,
+                                      size: 15.0,
+                                    ),
                                   ),
                                 ),
                               ],
@@ -294,7 +395,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -439,6 +540,19 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              await TaskerpageBackendGroup
+                                  .changeDescriptionAndProfileImageCall
+                                  .call(
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                apiGlobalKey: FFAppState().apiKey,
+                                description:
+                                    FFAppState().UserInformation.describation,
+                                avatar: FFAppState().UserInformation.avatar,
+                              );
+
                               context.pushNamed('TaskersDashboard');
                             },
                             child: Container(

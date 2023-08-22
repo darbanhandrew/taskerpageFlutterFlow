@@ -27,13 +27,11 @@ class CurrentUserStruct extends BaseStruct {
     String? postalCode,
     int? no,
     String? addressesCountry,
-    String? yearsofexperience,
     bool? insuranceProfileDeatels,
     String? describation,
     double? rate,
     String? educationTrainingName,
     String? nameofInstituteCompany,
-    String? profile,
     String? banner,
     String? driverLicense,
     double? radiosOfWork,
@@ -46,6 +44,8 @@ class CurrentUserStruct extends BaseStruct {
     List<String>? lanuagesListForPostTask,
     List<EducationStruct>? education,
     List<AddressesStruct>? addresses,
+    int? yearsofexperience,
+    String? avatar,
   })  : _email = email,
         _password = password,
         _country = country,
@@ -66,13 +66,11 @@ class CurrentUserStruct extends BaseStruct {
         _postalCode = postalCode,
         _no = no,
         _addressesCountry = addressesCountry,
-        _yearsofexperience = yearsofexperience,
         _insuranceProfileDeatels = insuranceProfileDeatels,
         _describation = describation,
         _rate = rate,
         _educationTrainingName = educationTrainingName,
         _nameofInstituteCompany = nameofInstituteCompany,
-        _profile = profile,
         _banner = banner,
         _driverLicense = driverLicense,
         _radiosOfWork = radiosOfWork,
@@ -84,7 +82,9 @@ class CurrentUserStruct extends BaseStruct {
         _educationType = educationType,
         _lanuagesListForPostTask = lanuagesListForPostTask,
         _education = education,
-        _addresses = addresses;
+        _addresses = addresses,
+        _yearsofexperience = yearsofexperience,
+        _avatar = avatar;
 
   // "Email" field.
   String? _email;
@@ -208,12 +208,6 @@ class CurrentUserStruct extends BaseStruct {
   set addressesCountry(String? val) => _addressesCountry = val;
   bool hasAddressesCountry() => _addressesCountry != null;
 
-  // "Yearsofexperience" field.
-  String? _yearsofexperience;
-  String get yearsofexperience => _yearsofexperience ?? '';
-  set yearsofexperience(String? val) => _yearsofexperience = val;
-  bool hasYearsofexperience() => _yearsofexperience != null;
-
   // "InsuranceProfileDeatels" field.
   bool? _insuranceProfileDeatels;
   bool get insuranceProfileDeatels => _insuranceProfileDeatels ?? false;
@@ -244,12 +238,6 @@ class CurrentUserStruct extends BaseStruct {
   String get nameofInstituteCompany => _nameofInstituteCompany ?? '';
   set nameofInstituteCompany(String? val) => _nameofInstituteCompany = val;
   bool hasNameofInstituteCompany() => _nameofInstituteCompany != null;
-
-  // "Profile" field.
-  String? _profile;
-  String get profile => _profile ?? '';
-  set profile(String? val) => _profile = val;
-  bool hasProfile() => _profile != null;
 
   // "Banner" field.
   String? _banner;
@@ -336,6 +324,20 @@ class CurrentUserStruct extends BaseStruct {
       updateFn(_addresses ??= []);
   bool hasAddresses() => _addresses != null;
 
+  // "Yearsofexperience" field.
+  int? _yearsofexperience;
+  int get yearsofexperience => _yearsofexperience ?? 0;
+  set yearsofexperience(int? val) => _yearsofexperience = val;
+  void incrementYearsofexperience(int amount) =>
+      _yearsofexperience = yearsofexperience + amount;
+  bool hasYearsofexperience() => _yearsofexperience != null;
+
+  // "avatar" field.
+  String? _avatar;
+  String get avatar => _avatar ?? '';
+  set avatar(String? val) => _avatar = val;
+  bool hasAvatar() => _avatar != null;
+
   static CurrentUserStruct fromMap(Map<String, dynamic> data) =>
       CurrentUserStruct(
         email: data['Email'] as String?,
@@ -358,13 +360,11 @@ class CurrentUserStruct extends BaseStruct {
         postalCode: data['PostalCode'] as String?,
         no: castToType<int>(data['No']),
         addressesCountry: data['AddressesCountry'] as String?,
-        yearsofexperience: data['Yearsofexperience'] as String?,
         insuranceProfileDeatels: data['InsuranceProfileDeatels'] as bool?,
         describation: data['Describation'] as String?,
         rate: castToType<double>(data['Rate']),
         educationTrainingName: data['EducationTrainingName'] as String?,
         nameofInstituteCompany: data['NameofInstituteCompany'] as String?,
-        profile: data['Profile'] as String?,
         banner: data['Banner'] as String?,
         driverLicense: data['driver_license'] as String?,
         radiosOfWork: castToType<double>(data['radios_of_work']),
@@ -383,6 +383,8 @@ class CurrentUserStruct extends BaseStruct {
           data['Addresses'],
           AddressesStruct.fromMap,
         ),
+        yearsofexperience: castToType<int>(data['Yearsofexperience']),
+        avatar: data['avatar'] as String?,
       );
 
   static CurrentUserStruct? maybeFromMap(dynamic data) =>
@@ -409,13 +411,11 @@ class CurrentUserStruct extends BaseStruct {
         'PostalCode': _postalCode,
         'No': _no,
         'AddressesCountry': _addressesCountry,
-        'Yearsofexperience': _yearsofexperience,
         'InsuranceProfileDeatels': _insuranceProfileDeatels,
         'Describation': _describation,
         'Rate': _rate,
         'EducationTrainingName': _educationTrainingName,
         'NameofInstituteCompany': _nameofInstituteCompany,
-        'Profile': _profile,
         'Banner': _banner,
         'driver_license': _driverLicense,
         'radios_of_work': _radiosOfWork,
@@ -428,6 +428,8 @@ class CurrentUserStruct extends BaseStruct {
         'lanuagesListForPostTask': _lanuagesListForPostTask,
         'Education': _education?.map((e) => e.toMap()).toList(),
         'Addresses': _addresses?.map((e) => e.toMap()).toList(),
+        'Yearsofexperience': _yearsofexperience,
+        'avatar': _avatar,
       }.withoutNulls;
 
   @override
@@ -512,10 +514,6 @@ class CurrentUserStruct extends BaseStruct {
           _addressesCountry,
           ParamType.String,
         ),
-        'Yearsofexperience': serializeParam(
-          _yearsofexperience,
-          ParamType.String,
-        ),
         'InsuranceProfileDeatels': serializeParam(
           _insuranceProfileDeatels,
           ParamType.bool,
@@ -534,10 +532,6 @@ class CurrentUserStruct extends BaseStruct {
         ),
         'NameofInstituteCompany': serializeParam(
           _nameofInstituteCompany,
-          ParamType.String,
-        ),
-        'Profile': serializeParam(
-          _profile,
           ParamType.String,
         ),
         'Banner': serializeParam(
@@ -590,6 +584,14 @@ class CurrentUserStruct extends BaseStruct {
           _addresses,
           ParamType.DataStruct,
           true,
+        ),
+        'Yearsofexperience': serializeParam(
+          _yearsofexperience,
+          ParamType.int,
+        ),
+        'avatar': serializeParam(
+          _avatar,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -695,11 +697,6 @@ class CurrentUserStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        yearsofexperience: deserializeParam(
-          data['Yearsofexperience'],
-          ParamType.String,
-          false,
-        ),
         insuranceProfileDeatels: deserializeParam(
           data['InsuranceProfileDeatels'],
           ParamType.bool,
@@ -722,11 +719,6 @@ class CurrentUserStruct extends BaseStruct {
         ),
         nameofInstituteCompany: deserializeParam(
           data['NameofInstituteCompany'],
-          ParamType.String,
-          false,
-        ),
-        profile: deserializeParam(
-          data['Profile'],
           ParamType.String,
           false,
         ),
@@ -792,6 +784,16 @@ class CurrentUserStruct extends BaseStruct {
           true,
           structBuilder: AddressesStruct.fromSerializableMap,
         ),
+        yearsofexperience: deserializeParam(
+          data['Yearsofexperience'],
+          ParamType.int,
+          false,
+        ),
+        avatar: deserializeParam(
+          data['avatar'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -821,13 +823,11 @@ class CurrentUserStruct extends BaseStruct {
         postalCode == other.postalCode &&
         no == other.no &&
         addressesCountry == other.addressesCountry &&
-        yearsofexperience == other.yearsofexperience &&
         insuranceProfileDeatels == other.insuranceProfileDeatels &&
         describation == other.describation &&
         rate == other.rate &&
         educationTrainingName == other.educationTrainingName &&
         nameofInstituteCompany == other.nameofInstituteCompany &&
-        profile == other.profile &&
         banner == other.banner &&
         driverLicense == other.driverLicense &&
         radiosOfWork == other.radiosOfWork &&
@@ -840,7 +840,9 @@ class CurrentUserStruct extends BaseStruct {
         listEquality.equals(
             lanuagesListForPostTask, other.lanuagesListForPostTask) &&
         listEquality.equals(education, other.education) &&
-        listEquality.equals(addresses, other.addresses);
+        listEquality.equals(addresses, other.addresses) &&
+        yearsofexperience == other.yearsofexperience &&
+        avatar == other.avatar;
   }
 
   @override
@@ -865,13 +867,11 @@ class CurrentUserStruct extends BaseStruct {
         postalCode,
         no,
         addressesCountry,
-        yearsofexperience,
         insuranceProfileDeatels,
         describation,
         rate,
         educationTrainingName,
         nameofInstituteCompany,
-        profile,
         banner,
         driverLicense,
         radiosOfWork,
@@ -883,7 +883,9 @@ class CurrentUserStruct extends BaseStruct {
         educationType,
         lanuagesListForPostTask,
         education,
-        addresses
+        addresses,
+        yearsofexperience,
+        avatar
       ]);
 }
 
@@ -908,13 +910,11 @@ CurrentUserStruct createCurrentUserStruct({
   String? postalCode,
   int? no,
   String? addressesCountry,
-  String? yearsofexperience,
   bool? insuranceProfileDeatels,
   String? describation,
   double? rate,
   String? educationTrainingName,
   String? nameofInstituteCompany,
-  String? profile,
   String? banner,
   String? driverLicense,
   double? radiosOfWork,
@@ -924,6 +924,8 @@ CurrentUserStruct createCurrentUserStruct({
   double? reviewAverage,
   String? dateOfBirth,
   String? educationType,
+  int? yearsofexperience,
+  String? avatar,
 }) =>
     CurrentUserStruct(
       email: email,
@@ -946,13 +948,11 @@ CurrentUserStruct createCurrentUserStruct({
       postalCode: postalCode,
       no: no,
       addressesCountry: addressesCountry,
-      yearsofexperience: yearsofexperience,
       insuranceProfileDeatels: insuranceProfileDeatels,
       describation: describation,
       rate: rate,
       educationTrainingName: educationTrainingName,
       nameofInstituteCompany: nameofInstituteCompany,
-      profile: profile,
       banner: banner,
       driverLicense: driverLicense,
       radiosOfWork: radiosOfWork,
@@ -962,4 +962,6 @@ CurrentUserStruct createCurrentUserStruct({
       reviewAverage: reviewAverage,
       dateOfBirth: dateOfBirth,
       educationType: educationType,
+      yearsofexperience: yearsofexperience,
+      avatar: avatar,
     );

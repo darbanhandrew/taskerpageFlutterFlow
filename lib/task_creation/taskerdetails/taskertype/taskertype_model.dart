@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +16,8 @@ class TaskertypeModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // State field(s) for Switch widget.
   bool? switchValue;
+  // Stores action output result for [Backend Call - API (updatePost)] action in Container widget.
+  ApiCallResponse? apiResultv2j;
 
   /// Initialization and disposal methods.
 

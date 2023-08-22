@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'flutter_flow/request_manager.dart';
 import '/backend/schema/structs/index.dart';
 import 'backend/api_requests/api_manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,17 +43,6 @@ class FFAppState extends ChangeNotifier {
       }
     });
     _safeInit(() {
-      if (prefs.containsKey('ff_TaskCreation')) {
-        try {
-          final serializedData = prefs.getString('ff_TaskCreation') ?? '{}';
-          _TaskCreation = TaskCreationStruct.fromSerializableMap(
-              jsonDecode(serializedData));
-        } catch (e) {
-          print("Can't decode persisted data type. Error: $e.");
-        }
-      }
-    });
-    _safeInit(() {
       if (prefs.containsKey('ff_userProfile')) {
         try {
           _userProfile = jsonDecode(prefs.getString('ff_userProfile') ?? '');
@@ -74,6 +64,50 @@ class FFAppState extends ChangeNotifier {
           print("Can't decode persisted data type. Error: $e.");
         }
       }
+    });
+    _safeInit(() {
+      _chosenServiceCategories = prefs
+              .getStringList('ff_chosenServiceCategories')
+              ?.map(int.parse)
+              .toList() ??
+          _chosenServiceCategories;
+    });
+    _safeInit(() {
+      if (prefs.containsKey('ff_DraftPost')) {
+        try {
+          _DraftPost = jsonDecode(prefs.getString('ff_DraftPost') ?? '');
+        } catch (e) {
+          print("Can't decode persisted json. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      if (prefs.containsKey('ff_TaskCreation')) {
+        try {
+          final serializedData = prefs.getString('ff_TaskCreation') ?? '{}';
+          _TaskCreation = TaskCreationStruct.fromSerializableMap(
+              jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      _relatedServiseCategory =
+          prefs.getInt('ff_relatedServiseCategory') ?? _relatedServiseCategory;
+    });
+    _safeInit(() {
+      _ONLINE = prefs.getString('ff_ONLINE') ?? _ONLINE;
+    });
+    _safeInit(() {
+      _BYPHONE = prefs.getString('ff_BYPHONE') ?? _BYPHONE;
+    });
+    _safeInit(() {
+      _INPERSON = prefs.getString('ff_INPERSON') ?? _INPERSON;
+    });
+    _safeInit(() {
+      _location =
+          _latLngFromString(prefs.getString('ff_location')) ?? _location;
     });
   }
 
@@ -359,18 +393,6 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_Appointment', _Appointment.serialize());
   }
 
-  TaskCreationStruct _TaskCreation = TaskCreationStruct();
-  TaskCreationStruct get TaskCreation => _TaskCreation;
-  set TaskCreation(TaskCreationStruct _value) {
-    _TaskCreation = _value;
-    prefs.setString('ff_TaskCreation', _value.serialize());
-  }
-
-  void updateTaskCreationStruct(Function(TaskCreationStruct) updateFn) {
-    updateFn(_TaskCreation);
-    prefs.setString('ff_TaskCreation', _TaskCreation.serialize());
-  }
-
   dynamic _userProfile;
   dynamic get userProfile => _userProfile;
   set userProfile(dynamic _value) {
@@ -408,6 +430,113 @@ class FFAppState extends ChangeNotifier {
     updateFn(_Address);
     prefs.setString('ff_Address', _Address.serialize());
   }
+
+  List<int> _chosenServiceCategories = [];
+  List<int> get chosenServiceCategories => _chosenServiceCategories;
+  set chosenServiceCategories(List<int> _value) {
+    _chosenServiceCategories = _value;
+    prefs.setStringList(
+        'ff_chosenServiceCategories', _value.map((x) => x.toString()).toList());
+  }
+
+  void addToChosenServiceCategories(int _value) {
+    _chosenServiceCategories.add(_value);
+    prefs.setStringList('ff_chosenServiceCategories',
+        _chosenServiceCategories.map((x) => x.toString()).toList());
+  }
+
+  void removeFromChosenServiceCategories(int _value) {
+    _chosenServiceCategories.remove(_value);
+    prefs.setStringList('ff_chosenServiceCategories',
+        _chosenServiceCategories.map((x) => x.toString()).toList());
+  }
+
+  void removeAtIndexFromChosenServiceCategories(int _index) {
+    _chosenServiceCategories.removeAt(_index);
+    prefs.setStringList('ff_chosenServiceCategories',
+        _chosenServiceCategories.map((x) => x.toString()).toList());
+  }
+
+  void updateChosenServiceCategoriesAtIndex(
+    int _index,
+    int Function(int) updateFn,
+  ) {
+    _chosenServiceCategories[_index] =
+        updateFn(_chosenServiceCategories[_index]);
+    prefs.setStringList('ff_chosenServiceCategories',
+        _chosenServiceCategories.map((x) => x.toString()).toList());
+  }
+
+  dynamic _DraftPost;
+  dynamic get DraftPost => _DraftPost;
+  set DraftPost(dynamic _value) {
+    _DraftPost = _value;
+    prefs.setString('ff_DraftPost', jsonEncode(_value));
+  }
+
+  TaskCreationStruct _TaskCreation = TaskCreationStruct();
+  TaskCreationStruct get TaskCreation => _TaskCreation;
+  set TaskCreation(TaskCreationStruct _value) {
+    _TaskCreation = _value;
+    prefs.setString('ff_TaskCreation', _value.serialize());
+  }
+
+  void updateTaskCreationStruct(Function(TaskCreationStruct) updateFn) {
+    updateFn(_TaskCreation);
+    prefs.setString('ff_TaskCreation', _TaskCreation.serialize());
+  }
+
+  int _relatedServiseCategory = 0;
+  int get relatedServiseCategory => _relatedServiseCategory;
+  set relatedServiseCategory(int _value) {
+    _relatedServiseCategory = _value;
+    prefs.setInt('ff_relatedServiseCategory', _value);
+  }
+
+  String _ONLINE = 'ONLINE ';
+  String get ONLINE => _ONLINE;
+  set ONLINE(String _value) {
+    _ONLINE = _value;
+    prefs.setString('ff_ONLINE', _value);
+  }
+
+  String _BYPHONE = 'BYPHONE';
+  String get BYPHONE => _BYPHONE;
+  set BYPHONE(String _value) {
+    _BYPHONE = _value;
+    prefs.setString('ff_BYPHONE', _value);
+  }
+
+  String _INPERSON = 'INPERSON';
+  String get INPERSON => _INPERSON;
+  set INPERSON(String _value) {
+    _INPERSON = _value;
+    prefs.setString('ff_INPERSON', _value);
+  }
+
+  LatLng? _location;
+  LatLng? get location => _location;
+  set location(LatLng? _value) {
+    _location = _value;
+    _value != null
+        ? prefs.setString('ff_location', _value.serialize())
+        : prefs.remove('ff_location');
+  }
+
+  final _myAddressesManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> myAddresses({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _myAddressesManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearMyAddressesCache() => _myAddressesManager.clear();
+  void clearMyAddressesCacheKey(String? uniqueKey) =>
+      _myAddressesManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

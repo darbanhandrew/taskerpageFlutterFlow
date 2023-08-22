@@ -71,6 +71,7 @@ class _SignUpVerificationRequestWidgetState
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
         FFAppState().requstNewCode = false;
+        FFAppState().IsntCorecctPassword = false;
       });
     });
 
@@ -117,7 +118,9 @@ class _SignUpVerificationRequestWidgetState
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -128,20 +131,18 @@ class _SignUpVerificationRequestWidgetState
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Flexible(
-                            child: Text(
-                              FFAppState().requstNewCode == false
-                                  ? 'We just sent you a sms to below  number!'
-                                  : 'We just sent you a sms to below  number again !',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
+                          Text(
+                            FFAppState().requstNewCode == false
+                                ? 'We just sent you a sms to below  number!'
+                                : 'We just sent you a sms to below  number again !',
+                            textAlign: TextAlign.center,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Lato',
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
                           ),
                         ],
                       ),
@@ -344,15 +345,15 @@ class _SignUpVerificationRequestWidgetState
                           shape: PinCodeFieldShape.box,
                           activeColor: FlutterFlowTheme.of(context).primary,
                           inactiveColor:
-                              FFAppState().IsntCorecctPassword == false
-                                  ? Color(0xFF5E5D5D)
-                                  : Color(0xFFD20202),
+                              FFAppState().IsntCorecctPassword == true
+                                  ? Color(0xFFD20202)
+                                  : Color(0xFF5E5D5D),
                           selectedColor: FlutterFlowTheme.of(context).secondary,
                           activeFillColor: FlutterFlowTheme.of(context).primary,
                           inactiveFillColor:
-                              FFAppState().IsntCorecctPassword == false
-                                  ? Color(0xFF5E5D5D)
-                                  : Color(0xFFD20202),
+                              FFAppState().IsntCorecctPassword == true
+                                  ? Color(0xFFD20202)
+                                  : Color(0xFF5E5D5D),
                           selectedFillColor:
                               FlutterFlowTheme.of(context).secondary,
                         ),

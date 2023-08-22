@@ -226,7 +226,9 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          languagesItem,
+                                          languagesItem == 'EN'
+                                              ? 'English'
+                                              : 'Germany',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -337,7 +339,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                     value: _model.checkboxValue1 ??=
                                         FFAppState()
                                             .LanguagesListForDropDown
-                                            .contains('Germany'),
+                                            .contains('DE'),
                                     onChanged: (newValue) async {
                                       setState(() =>
                                           _model.checkboxValue1 = newValue!);
@@ -345,13 +347,13 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         setState(() {
                                           FFAppState()
                                               .addToLanguagesListForDropDown(
-                                                  'Germany');
+                                                  'DE');
                                         });
                                       } else {
                                         setState(() {
                                           FFAppState()
                                               .removeFromLanguagesListForDropDown(
-                                                  'Germany');
+                                                  'DE');
                                         });
                                       }
                                     },
@@ -394,7 +396,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                     value: _model.checkboxValue2 ??=
                                         FFAppState()
                                             .LanguagesListForDropDown
-                                            .contains('English'),
+                                            .contains('EN'),
                                     onChanged: (newValue) async {
                                       setState(() =>
                                           _model.checkboxValue2 = newValue!);
@@ -402,13 +404,13 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         setState(() {
                                           FFAppState()
                                               .addToLanguagesListForDropDown(
-                                                  'English');
+                                                  'EN');
                                         });
                                       } else {
                                         setState(() {
                                           FFAppState()
                                               .removeFromLanguagesListForDropDown(
-                                                  'English');
+                                                  'EN');
                                         });
                                       }
                                     },

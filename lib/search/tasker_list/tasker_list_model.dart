@@ -1,5 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
-import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_tasker_list_widget.dart';
 import '/components/tasker_card_widget.dart';
@@ -19,26 +19,18 @@ class TaskerListModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
-  // Model for TaskerCard component.
-  late TaskerCardModel taskerCardModel;
-  // Model for NavBar component.
-  late NavBarModel navBarModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
-    taskerCardModel = createModel(context, () => TaskerCardModel());
-    navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
-    taskerCardModel.dispose();
-    navBarModel.dispose();
   }
 
   /// Action blocks are added here.

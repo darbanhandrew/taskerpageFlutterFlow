@@ -1,7 +1,8 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
+import '/components/my_post_card_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_task_list_widget.dart';
-import '/components/task_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -55,7 +56,9 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
@@ -164,17 +167,53 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 0.0),
-                          child: ListView(
-                            padding: EdgeInsets.zero,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            children: [
-                              wrapWithModel(
-                                model: _model.taskCardModel,
-                                updateCallback: () => setState(() {}),
-                                child: TaskCardWidget(),
-                              ),
-                            ].divide(SizedBox(height: 20.0)),
+                          child: FutureBuilder<ApiCallResponse>(
+                            future: TaskerpageBackendGroup.myPostsCall.call(
+                              apiGlobalKey: FFAppState().apiKey,
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitThreeBounce(
+                                      color: Color(0xFF5450E2),
+                                      size: 50.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final listViewMyPostsResponse = snapshot.data!;
+                              return Builder(
+                                builder: (context) {
+                                  final myPosts = getJsonField(
+                                    listViewMyPostsResponse.jsonBody,
+                                    r'''$''',
+                                  ).toList();
+                                  return ListView.separated(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: myPosts.length,
+                                    separatorBuilder: (_, __) =>
+                                        SizedBox(height: 20.0),
+                                    itemBuilder: (context, myPostsIndex) {
+                                      final myPostsItem = myPosts[myPostsIndex];
+                                      return MyPostCardWidget(
+                                        key: Key(
+                                            'Keyuo2_${myPostsIndex}_of_${myPosts.length}'),
+                                        postId: getJsonField(
+                                          myPostsItem,
+                                          r'''$.id''',
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ),
                       ],

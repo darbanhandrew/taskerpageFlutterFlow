@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -65,7 +66,9 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                     wrapWithModel(
                       model: _model.headerModel,
                       updateCallback: () => setState(() {}),
-                      child: HeaderWidget(),
+                      child: HeaderWidget(
+                        openDrawer: () async {},
+                      ),
                     ),
                     Padding(
                       padding:
@@ -125,7 +128,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().TaskerType == 'Male'
                                     ? Color(0xFF5450E2)
@@ -176,7 +179,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().TaskerType == 'Female'
                                     ? Color(0xFF5450E2)
@@ -236,7 +239,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color:
                                     FFAppState().TaskerType == 'Doesn\'t matter'
@@ -318,7 +321,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().TaskerAge == '<20'
                                     ? Color(0xFF5450E2)
@@ -369,7 +372,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().TaskerAge == '20-40'
                                     ? Color(0xFF5450E2)
@@ -430,7 +433,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().TaskerAge == '40>'
                                     ? Color(0xFF5450E2)
@@ -481,7 +484,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 36.0,
+                              height: 41.0,
                               decoration: BoxDecoration(
                                 color:
                                     FFAppState().TaskerAge == 'Doesn\'t matter'
@@ -617,7 +620,26 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('Taskertype2');
+                              var _shouldSetState = false;
+                              _model.apiResultv2j = await TaskerpageBackendGroup
+                                  .updatePostCall
+                                  .call(
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                apiGlobalKey: FFAppState().apiKey,
+                                identified: FFAppState().Identified,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.apiResultv2j?.succeeded ?? true)) {
+                                context.pushNamed('Select_Address');
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 104.0,

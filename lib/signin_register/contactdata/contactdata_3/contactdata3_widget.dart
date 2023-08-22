@@ -1,3 +1,4 @@
+import '/components/drawer_content_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
@@ -103,6 +104,24 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -120,7 +139,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),

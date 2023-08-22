@@ -54,7 +54,9 @@ class _ProflewelcomeWidgetState extends State<ProflewelcomeWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               ClipRRect(
                 borderRadius: BorderRadius.circular(0.0),

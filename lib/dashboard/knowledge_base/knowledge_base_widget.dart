@@ -1,7 +1,9 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -54,7 +56,9 @@ class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Expanded(
                 child: Column(
@@ -100,54 +104,130 @@ class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 0.0, 24.0),
+                          EdgeInsetsDirectional.fromSTEB(27.0, 24.0, 0.0, 24.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Container(
-                            width: 104.0,
-                            height: 96.0,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFF6F6F6),
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 4.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0.0, 4.0),
-                                )
-                              ],
-                              borderRadius: BorderRadius.circular(10.0),
+                          FutureBuilder<ApiCallResponse>(
+                            future:
+                                TaskerpageBackendGroup.serviceCategoryCall.call(
+                              apiGlobalKey: FFAppState().apiKey,
                             ),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ClipRRect(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  child: Image.asset(
-                                    'assets/images/Gardening.png',
-                                    width: 25.0,
-                                    height: 25.0,
-                                    fit: BoxFit.cover,
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitThreeBounce(
+                                      color: Color(0xFF5450E2),
+                                      size: 50.0,
+                                    ),
                                   ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 10.0, 0.0, 0.0),
-                                  child: Text(
-                                    'Baby-Sitting',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF212121),
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                  ),
-                                ),
-                              ],
-                            ),
+                                );
+                              }
+                              final rowServiceCategoryResponse = snapshot.data!;
+                              return Builder(
+                                builder: (context) {
+                                  final categorys = getJsonField(
+                                    rowServiceCategoryResponse.jsonBody,
+                                    r'''$''',
+                                  ).toList();
+                                  return SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(categorys.length,
+                                          (categorysIndex) {
+                                        final categorysItem =
+                                            categorys[categorysIndex];
+                                        return Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  5.0, 5.0, 0.0, 5.0),
+                                          child: InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              setState(() {});
+                                            },
+                                            child: Container(
+                                              width: 104.0,
+                                              height: 96.0,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFF6F6F6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(0.0, 4.0),
+                                                  )
+                                                ],
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  ClipRRect(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            0.0),
+                                                    child: Image.network(
+                                                      getJsonField(
+                                                        categorysItem,
+                                                        r'''$[:].icon_url''',
+                                                      ),
+                                                      width: 25.0,
+                                                      height: 25.0,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 10.0,
+                                                                0.0, 0.0),
+                                                    child: Text(
+                                                      valueOrDefault<String>(
+                                                        functions
+                                                            .getTranslatableItemString(
+                                                                getJsonField(
+                                                                  categorysItem,
+                                                                  r'''$.title''',
+                                                                ),
+                                                                'en'),
+                                                        'category',
+                                                      ),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF212121),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).divide(SizedBox(width: 8.0)),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
                         ].divide(SizedBox(width: 7.5)),
                       ),

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/user_rate_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,7 +13,12 @@ import 'aler_modal_massage_accept_appointment_model.dart';
 export 'aler_modal_massage_accept_appointment_model.dart';
 
 class AlerModalMassageAcceptAppointmentWidget extends StatefulWidget {
-  const AlerModalMassageAcceptAppointmentWidget({Key? key}) : super(key: key);
+  const AlerModalMassageAcceptAppointmentWidget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final int? id;
 
   @override
   _AlerModalMassageAcceptAppointmentWidgetState createState() =>
@@ -181,22 +187,39 @@ class _AlerModalMassageAcceptAppointmentWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: UserRateWidget(
-                                  acceptAppointment: true,
-                                ),
-                              );
-                            },
-                          ).then((value) => setState(() {}));
+                          var _shouldSetState = false;
+                          _model.apiResultfhx = await TaskerpageBackendGroup
+                              .appointmentUpdateCall
+                              .call(
+                            isIntervieweeAccepted: true,
+                            isInterviewerAccepted: true,
+                            id: widget.id,
+                            apiGlobalKey: FFAppState().apiKey,
+                          );
+                          _shouldSetState = true;
+                          if ((_model.apiResultfhx?.succeeded ?? true)) {
+                            await showModalBottomSheet(
+                              isScrollControlled: true,
+                              backgroundColor: Colors.transparent,
+                              enableDrag: false,
+                              context: context,
+                              builder: (context) {
+                                return Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: UserRateWidget(
+                                    acceptAppointment: true,
+                                  ),
+                                );
+                              },
+                            ).then((value) => setState(() {}));
 
-                          Navigator.pop(context);
+                            Navigator.pop(context);
+                          } else {
+                            if (_shouldSetState) setState(() {});
+                            return;
+                          }
+
+                          if (_shouldSetState) setState(() {});
                         },
                         child: Container(
                           width: 129.0,

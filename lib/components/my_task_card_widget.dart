@@ -355,36 +355,27 @@ class _MyTaskCardWidgetState extends State<MyTaskCardWidget> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            InkWell(
-              splashColor: Colors.transparent,
-              focusColor: Colors.transparent,
-              hoverColor: Colors.transparent,
-              highlightColor: Colors.transparent,
-              onTap: () async {
-                context.pushNamed('MyInbox');
-              },
-              child: Container(
-                width: 168.0,
-                height: 44.0,
-                decoration: BoxDecoration(
-                  color: Color(0xFF5450E2),
-                  borderRadius: BorderRadius.circular(5.0),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'View Related Bargains',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: Colors.white,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ],
-                ),
+            Container(
+              width: 168.0,
+              height: 44.0,
+              decoration: BoxDecoration(
+                color: Color(0xFF5450E2),
+                borderRadius: BorderRadius.circular(5.0),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'View Related Bargains',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: Colors.white,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ],
               ),
             ),
           ],

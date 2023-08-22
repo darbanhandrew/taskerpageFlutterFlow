@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
@@ -44,6 +46,8 @@ class CalendarModel extends FlutterFlowModel {
   int? countControllerValue3;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
+  // Stores action output result for [Backend Call - API (updatePost)] action in button_Next widget.
+  ApiCallResponse? apiResult32y;
 
   /// Initialization and disposal methods.
 

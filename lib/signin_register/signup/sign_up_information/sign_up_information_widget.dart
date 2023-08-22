@@ -72,8 +72,9 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
+              SingleChildScrollView(
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -85,7 +86,9 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -798,6 +801,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                     10.0, 4.0, 5.0, 4.0),
                                 hidesUnderline: true,
                                 isSearchable: false,
+                                isMultiSelect: false,
                               ),
                             ],
                           ),
@@ -1001,6 +1005,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
                               isSearchable: false,
+                              isMultiSelect: false,
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -1065,6 +1070,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                     10.0, 4.0, 5.0, 4.0),
                                 hidesUnderline: true,
                                 isSearchable: false,
+                                isMultiSelect: false,
                               ),
                             ),
                             FlutterFlowDropDown<String>(
@@ -1101,6 +1107,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
                               isSearchable: false,
+                              isMultiSelect: false,
                             ),
                           ],
                         ),

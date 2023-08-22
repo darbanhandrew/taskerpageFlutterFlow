@@ -1,5 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/bottom_sheetfor_pay_widget.dart';
-import '/components/edit_icon_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -18,24 +18,16 @@ class TaskerProfileViewModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
-  // Model for editIcon component.
-  late EditIconModel editIconModel1;
-  // Model for editIcon component.
-  late EditIconModel editIconModel2;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    editIconModel1 = createModel(context, () => EditIconModel());
-    editIconModel2 = createModel(context, () => EditIconModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    editIconModel1.dispose();
-    editIconModel2.dispose();
   }
 
   /// Action blocks are added here.

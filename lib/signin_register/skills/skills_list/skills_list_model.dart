@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
@@ -17,8 +18,8 @@ class SkillsListModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
-  // Model for skillCard component.
-  late SkillCardModel skillCardModel;
+  // Models for skillCard dynamic component.
+  late FlutterFlowDynamicModels<SkillCardModel> skillCardModels;
   // Model for NavBar component.
   late NavBarModel navBarModel;
 
@@ -27,7 +28,7 @@ class SkillsListModel extends FlutterFlowModel {
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
-    skillCardModel = createModel(context, () => SkillCardModel());
+    skillCardModels = FlutterFlowDynamicModels(() => SkillCardModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
 
@@ -35,7 +36,7 @@ class SkillsListModel extends FlutterFlowModel {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
-    skillCardModel.dispose();
+    skillCardModels.dispose();
     navBarModel.dispose();
   }
 

@@ -65,7 +65,9 @@ class _SelectContryLanguageWidgetState
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -92,7 +94,7 @@ class _SelectContryLanguageWidgetState
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 30.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [

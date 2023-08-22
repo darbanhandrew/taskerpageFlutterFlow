@@ -84,7 +84,9 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),

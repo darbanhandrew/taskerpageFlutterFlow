@@ -191,3 +191,34 @@ List<UserServiceStruct> jsonToUserServices(dynamic userServicesJson) {
   }
   return userServices;
 }
+
+List<dynamic> getSelectedServiceCategoriesJson(
+  List<int> selectedServiceCategoryIds,
+  dynamic servieCategoriesJson,
+) {
+  // return all objects in serviceCategoriesJson which their id is included in selectedServiceCategoryIds
+  final selectedServiceCategoriesJson = <dynamic>[];
+  for (final serviceCategoryJson in servieCategoriesJson) {
+    if (selectedServiceCategoryIds.contains(serviceCategoryJson['id'])) {
+      selectedServiceCategoriesJson.add(serviceCategoryJson);
+    }
+  }
+  return selectedServiceCategoriesJson;
+}
+
+List<String> returnSkillLevelEnums() {
+  /// [ EDUCATED_PROFESSIONALS, EXPERIENCED_SELF_TRAINED, SELF_TRAINED ]
+
+  return ['EDUCATED_PROFESSIONALS', 'EXPERIENCED_SELF_TRAINED', 'SELF_TRAINED'];
+}
+
+String? jsonToString(dynamic json) {
+  // convert a simple json field to string
+  if (json == null) {
+    return null;
+  } else if (json is String) {
+    return json;
+  } else {
+    return json.toString();
+  }
+}

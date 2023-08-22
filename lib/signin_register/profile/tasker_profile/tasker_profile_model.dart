@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
 import '/components/header_widget.dart';
@@ -33,8 +34,6 @@ class TaskerProfileModel extends FlutterFlowModel {
   late EditIconModel editIconModel5;
   // Model for editIcon component.
   late EditIconModel editIconModel6;
-  // Model for editIcon component.
-  late EditIconModel editIconModel7;
   bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -61,7 +60,6 @@ class TaskerProfileModel extends FlutterFlowModel {
     editIconModel4 = createModel(context, () => EditIconModel());
     editIconModel5 = createModel(context, () => EditIconModel());
     editIconModel6 = createModel(context, () => EditIconModel());
-    editIconModel7 = createModel(context, () => EditIconModel());
   }
 
   void dispose() {
@@ -73,7 +71,6 @@ class TaskerProfileModel extends FlutterFlowModel {
     editIconModel4.dispose();
     editIconModel5.dispose();
     editIconModel6.dispose();
-    editIconModel7.dispose();
   }
 
   /// Action blocks are added here.

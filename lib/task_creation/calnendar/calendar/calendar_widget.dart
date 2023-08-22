@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
@@ -59,7 +61,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Expanded(
                 child: SingleChildScrollView(
@@ -214,6 +218,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   onChanged: (newValue) async {
                                     setState(
                                         () => _model.checkboxValue = newValue!);
+                                    if (newValue!) {
+                                      setState(() {
+                                        FFAppState().updateTaskCreationStruct(
+                                          (e) => e..repeatDate = true,
+                                        );
+                                      });
+                                    } else {
+                                      setState(() {
+                                        FFAppState().updateTaskCreationStruct(
+                                          (e) => e..repeatDate = false,
+                                        );
+                                      });
+                                    }
                                   },
                                   activeColor: Color(0xFF211DAF),
                                   checkColor: Colors.white,
@@ -259,6 +276,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       FFAppState().addToRepeatType(
                                           'Monthly on day ${dateTimeFormat('d', _model.datePicked1)}');
                                     });
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..repeatType = _model.dropDownValue1,
+                                      );
+                                    });
                                   },
                                   height: 41.0,
                                   textStyle: FlutterFlowTheme.of(context)
@@ -284,6 +307,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       10.0, 4.0, 10.0, 4.0),
                                   hidesUnderline: true,
                                   isSearchable: false,
+                                  isMultiSelect: false,
                                 ),
                               ),
                             ],
@@ -352,8 +376,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         ),
                                   ),
                                   count: _model.countControllerValue1 ??= 1,
-                                  updateCount: (count) => setState(() =>
-                                      _model.countControllerValue1 = count),
+                                  updateCount: (count) async {
+                                    setState(() =>
+                                        _model.countControllerValue1 = count);
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..repeatEvery =
+                                              '${_model.countControllerValue1?.toString()} ${_model.dropDownValue2}',
+                                      );
+                                    });
+                                  },
                                   stepSize: 1,
                                   minimum: 1,
                                   contentPadding:
@@ -378,6 +411,13 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       setState(() {
                                         FFAppState().addToRepeatType(
                                             'Monthly on ${dateTimeFormat('EEEE', _model.datePicked1)}');
+                                      });
+                                      setState(() {
+                                        FFAppState().updateTaskCreationStruct(
+                                          (e) => e
+                                            ..repeatEvery =
+                                                '${_model.countControllerValue1?.toString()} ${_model.dropDownValue2}',
+                                        );
                                       });
                                     },
                                     width: 100.0,
@@ -404,6 +444,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         10.0, 4.0, 10.0, 4.0),
                                     hidesUnderline: true,
                                     isSearchable: false,
+                                    isMultiSelect: false,
                                   ),
                                 ),
                               ),
@@ -775,8 +816,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       _model.dropDownValueController3 ??=
                                           FormFieldController<String>(null),
                                   options: FFAppState().RepeatType,
-                                  onChanged: (val) => setState(
-                                      () => _model.dropDownValue3 = val),
+                                  onChanged: (val) async {
+                                    setState(() => _model.dropDownValue3 = val);
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..monthlyRepeatType =
+                                              _model.dropDownValue3,
+                                      );
+                                    });
+                                  },
                                   height: 41.0,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -801,6 +850,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       10.0, 4.0, 10.0, 4.0),
                                   hidesUnderline: true,
                                   isSearchable: false,
+                                  isMultiSelect: false,
                                 ),
                               ),
                             ],
@@ -841,7 +891,16 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     2.0, 0.0, 0.0, 0.0),
                                 child: FlutterFlowRadioButton(
                                   options: ['Never', 'On', 'After'].toList(),
-                                  onChanged: (val) => setState(() {}),
+                                  onChanged: (val) async {
+                                    setState(() {});
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..endDateType =
+                                              _model.radioButtonValue,
+                                      );
+                                    });
+                                  },
                                   controller:
                                       _model.radioButtonValueController ??=
                                           FormFieldController<String>(null),
@@ -1047,10 +1106,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                     ),
                                                     count: _model
                                                         .countControllerValue2 ??= 2,
-                                                    updateCount: (count) =>
-                                                        setState(() => _model
-                                                                .countControllerValue2 =
-                                                            count),
+                                                    updateCount: (count) async {
+                                                      setState(() => _model
+                                                              .countControllerValue2 =
+                                                          count);
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskCreationStruct(
+                                                          (e) => e
+                                                            ..session = _model
+                                                                .countControllerValue2,
+                                                        );
+                                                      });
+                                                    },
                                                     stepSize: 1,
                                                     minimum: 2,
                                                     contentPadding:
@@ -1509,8 +1577,18 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         ),
                                   ),
                                   count: _model.countControllerValue3 ??= 1,
-                                  updateCount: (count) => setState(() =>
-                                      _model.countControllerValue3 = count),
+                                  updateCount: (count) async {
+                                    setState(() =>
+                                        _model.countControllerValue3 = count);
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..sessionDuration = _model
+                                              .countControllerValue3
+                                              ?.toString(),
+                                      );
+                                    });
+                                  },
                                   stepSize: 1,
                                   minimum: 1,
                                   contentPadding:
@@ -1603,7 +1681,45 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Taskertype');
+                                var _shouldSetState = false;
+                                _model.apiResult32y =
+                                    await TaskerpageBackendGroup.updatePostCall
+                                        .call(
+                                  id: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.id''',
+                                  ),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                  startDate: dateTimeFormat(
+                                      'y-M-d', _model.datePicked1),
+                                  repeatDate:
+                                      FFAppState().TaskCreation.repeatDate,
+                                  repeatType:
+                                      FFAppState().TaskCreation.repeatType,
+                                  repeatEvery:
+                                      FFAppState().TaskCreation.repeatEvery,
+                                  preferredDays:
+                                      FFAppState().daysOFweekSelection,
+                                  endDateType:
+                                      FFAppState().TaskCreation.endDateType,
+                                  endDatetime: dateTimeFormat(
+                                      'y-M-d', _model.datePicked2),
+                                  session: FFAppState().TaskCreation.session,
+                                  startTime: FFAppState().StartingTime,
+                                  customStartTime: dateTimeFormat(
+                                      'y-M-d', _model.datePicked3),
+                                  sessionDuration:
+                                      FFAppState().TaskCreation.sessionDuration,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResult32y?.succeeded ?? true)) {
+                                  context.pushNamed('Taskertype');
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (_shouldSetState) setState(() {});
                               },
                               child: wrapWithModel(
                                 model: _model.buttonNextModel,

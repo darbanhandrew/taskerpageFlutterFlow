@@ -53,7 +53,9 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
               wrapWithModel(
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
-                child: HeaderWidget(),
+                child: HeaderWidget(
+                  openDrawer: () async {},
+                ),
               ),
               Expanded(
                 child: Padding(

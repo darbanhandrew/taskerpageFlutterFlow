@@ -1,3 +1,4 @@
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -27,12 +28,15 @@ class Contactdata7Model extends FlutterFlowModel {
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     pinCodeController = TextEditingController();
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -40,6 +44,7 @@ class Contactdata7Model extends FlutterFlowModel {
     headerModel.dispose();
     textController?.dispose();
     pinCodeController?.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

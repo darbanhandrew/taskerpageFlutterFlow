@@ -1,0 +1,375 @@
+import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'skill_level_sheet_model.dart';
+export 'skill_level_sheet_model.dart';
+
+class SkillLevelSheetWidget extends StatefulWidget {
+  const SkillLevelSheetWidget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final int? id;
+
+  @override
+  _SkillLevelSheetWidgetState createState() => _SkillLevelSheetWidgetState();
+}
+
+class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
+  late SkillLevelSheetModel _model;
+
+  @override
+  void setState(VoidCallback callback) {
+    super.setState(callback);
+    _model.onUpdate();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _model = createModel(context, () => SkillLevelSheetModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.editableUserService =
+          await TaskerpageBackendGroup.getUserServiceByIdCall.call(
+        id: widget.id,
+        apiGlobalKey: FFAppState().apiKey,
+      );
+      if ((_model.editableUserService?.succeeded ?? true)) {
+        setState(() {
+          _model.chosenSkillLevel =
+              TaskerpageBackendGroup.getUserServiceByIdCall
+                  .serviceSkillLevel(
+                    (_model.editableUserService?.jsonBody ?? ''),
+                  )
+                  .toString()
+                  .toString();
+        });
+      } else {
+        return;
+      }
+    });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    _model.maybeDispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
+    return Material(
+      color: Colors.transparent,
+      elevation: 5.0,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(0.0),
+          bottomRight: Radius.circular(0.0),
+          topLeft: Radius.circular(16.0),
+          topRight: Radius.circular(16.0),
+        ),
+      ),
+      child: Container(
+        width: double.infinity,
+        height: MediaQuery.sizeOf(context).height * 0.5,
+        decoration: BoxDecoration(
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(0.0),
+            bottomRight: Radius.circular(0.0),
+            topLeft: Radius.circular(16.0),
+            topRight: Radius.circular(16.0),
+          ),
+        ),
+        child: FutureBuilder<ApiCallResponse>(
+          future: TaskerpageBackendGroup.getUserServiceByIdCall.call(
+            id: widget.id,
+            apiGlobalKey: FFAppState().apiKey,
+          ),
+          builder: (context, snapshot) {
+            // Customize what your widget looks like when it's loading.
+            if (!snapshot.hasData) {
+              return Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitThreeBounce(
+                    color: Color(0xFF5450E2),
+                    size: 50.0,
+                  ),
+                ),
+              );
+            }
+            final columnGetUserServiceByIdResponse = snapshot.data!;
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 20.0,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${TaskerpageBackendGroup.getUserServiceByIdCall.serviceCategory(
+                                    columnGetUserServiceByIdResponse.jsonBody,
+                                  ).toString()} ${TaskerpageBackendGroup.getUserServiceByIdCall.service(
+                                    columnGetUserServiceByIdResponse.jsonBody,
+                                  ).toString()}',
+                              textAlign: TextAlign.justify,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF292929),
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            90.0, 25.0, 90.0, 0.0),
+                        child: Builder(
+                          builder: (context) {
+                            final skillLevls =
+                                functions.returnSkillLevelEnums().toList();
+                            return ListView.separated(
+                              padding: EdgeInsets.zero,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemCount: skillLevls.length,
+                              separatorBuilder: (_, __) =>
+                                  SizedBox(height: 8.0),
+                              itemBuilder: (context, skillLevlsIndex) {
+                                final skillLevlsItem =
+                                    skillLevls[skillLevlsIndex];
+                                return InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    _model.updatePage(() {
+                                      _model.chosenSkillLevel = skillLevlsItem;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 230.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: _model.chosenSkillLevel ==
+                                              skillLevlsItem
+                                          ? Color(0xFF5450E2)
+                                          : Color(0xFF5E5D5D),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                        color: _model.chosenSkillLevel ==
+                                                skillLevlsItem
+                                            ? Color(0xFF5450E2)
+                                            : Color(0xFF5E5D5D),
+                                        width: 1.0,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          skillLevlsItem,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    _model.chosenSkillLevel ==
+                                                            skillLevlsItem
+                                                        ? Color(0xFFF6F6F6)
+                                                        : Color(0xFF5E5D5D),
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(32.0, 35.0, 32.0, 0.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await TaskerpageBackendGroup.deleteUserServiceByIdCall
+                              .call(
+                            id: widget.id,
+                            apiGlobalKey: FFAppState().apiKey,
+                          );
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 116.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(5.0),
+                            border: Border.all(
+                              color: Color(0xFFE8083F),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Delete',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFFE8083F),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          var _shouldSetState = false;
+                          _model.editedUserService =
+                              await TaskerpageBackendGroup.editUserServiceCall
+                                  .call(
+                            serviceCategory: getJsonField(
+                              columnGetUserServiceByIdResponse.jsonBody,
+                              r'''$.service_category.id''',
+                            ),
+                            service: getJsonField(
+                              columnGetUserServiceByIdResponse.jsonBody,
+                              r'''$.service.id''',
+                            ),
+                            userProfile: TaskerpageBackendGroup
+                                .getUserServiceByIdCall
+                                .userProfile(
+                              columnGetUserServiceByIdResponse.jsonBody,
+                            ),
+                            id: widget.id,
+                            apiGlobalKey: FFAppState().apiKey,
+                            serviceSkillLevel: _model.chosenSkillLevel,
+                          );
+                          _shouldSetState = true;
+                          if ((_model.editedUserService?.succeeded ?? true)) {
+                            Navigator.pop(context);
+                          } else {
+                            if (_shouldSetState) setState(() {});
+                            return;
+                          }
+
+                          if (_shouldSetState) setState(() {});
+                        },
+                        child: Container(
+                          width: 116.0,
+                          height: 40.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF5450E2),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Save',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Colors.white,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ].divide(SizedBox(width: 20.0)),
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+}

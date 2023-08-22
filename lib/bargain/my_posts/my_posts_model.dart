@@ -1,7 +1,8 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
+import '/components/my_post_card_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_task_list_widget.dart';
-import '/components/task_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -17,22 +18,18 @@ class MyPostsModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
-  // Model for TaskCard component.
-  late TaskCardModel taskCardModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
-    taskCardModel = createModel(context, () => TaskCardModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
-    taskCardModel.dispose();
   }
 
   /// Action blocks are added here.

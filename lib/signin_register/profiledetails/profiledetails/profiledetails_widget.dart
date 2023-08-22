@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/header_widget.dart';
@@ -91,7 +92,9 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -166,9 +169,8 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                 setState(() {
                                   FFAppState().updateUserInformationStruct(
                                     (e) => e
-                                      ..yearsofexperience = _model
-                                          .countControllerValue
-                                          ?.toString(),
+                                      ..yearsofexperience =
+                                          _model.countControllerValue,
                                   );
                                 });
                               },
@@ -333,7 +335,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                   onTap: () async {
                                     setState(() {
                                       FFAppState().updateUserInformationStruct(
-                                        (e) => e..driverLicense = 'Car',
+                                        (e) => e..driverLicense = 'CAR',
                                       );
                                     });
                                   },
@@ -395,7 +397,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                   onTap: () async {
                                     setState(() {
                                       FFAppState().updateUserInformationStruct(
-                                        (e) => e..driverLicense = 'Truck',
+                                        (e) => e..driverLicense = 'TRUCK',
                                       );
                                     });
                                   },
@@ -507,6 +509,24 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              await TaskerpageBackendGroup
+                                  .changeProfileDeatelsCall
+                                  .call(
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                apiGlobalKey: FFAppState().apiKey,
+                                hasInsurance: _model.switchValue,
+                                yearsOfExperience: FFAppState()
+                                    .UserInformation
+                                    .yearsofexperience,
+                                driverLicense:
+                                    FFAppState().UserInformation.driverLicense,
+                                userLanguagesList:
+                                    FFAppState().LanguagesListForDropDown,
+                              );
+
                               context.pushNamed('Profiledetails2');
                             },
                             child: Container(

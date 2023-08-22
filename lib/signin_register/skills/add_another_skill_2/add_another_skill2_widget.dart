@@ -62,7 +62,9 @@ class _AddAnotherSkill2WidgetState extends State<AddAnotherSkill2Widget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),

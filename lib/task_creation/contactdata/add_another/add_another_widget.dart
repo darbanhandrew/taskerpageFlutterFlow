@@ -76,7 +76,9 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -198,7 +200,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Flexible(
+                          Expanded(
                             child: Column(
                               mainAxisSize: MainAxisSize.max,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -220,10 +222,10 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                                   ),
                                 ),
                                 Container(
-                                  width: 222.0,
+                                  width: double.infinity,
                                   decoration: BoxDecoration(),
                                   child: Container(
-                                    width: 222.0,
+                                    width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.textController1,
                                       obscureText: false,
@@ -493,7 +495,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                               ),
                             ],
                           ),
-                          Flexible(
+                          Expanded(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   8.0, 0.0, 0.0, 0.0),
@@ -518,7 +520,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                                     ),
                                   ),
                                   Container(
-                                    width: 184.0,
+                                    width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.textController4,
                                       readOnly: true,

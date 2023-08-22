@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
@@ -14,6 +15,10 @@ class ProfileInterstedModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
+  // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
+  ApiCallResponse? apiResult786;
+  // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
+  ApiCallResponse? apiResult785;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
 

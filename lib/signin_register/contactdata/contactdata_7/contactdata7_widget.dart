@@ -1,3 +1,4 @@
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -149,6 +150,24 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -166,7 +185,9 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(),
+                          child: HeaderWidget(
+                            openDrawer: () async {},
+                          ),
                         ),
                       ],
                     ),
@@ -276,6 +297,7 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                                     10.0, 4.0, 5.0, 4.0),
                                 hidesUnderline: true,
                                 isSearchable: false,
+                                isMultiSelect: false,
                               ),
                             ],
                           ),
@@ -304,7 +326,8 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                                     ),
                                   ),
                                   Container(
-                                    width: 200.0,
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(),
                                     child: TextFormField(
                                       controller: _model.textController,
                                       obscureText: false,

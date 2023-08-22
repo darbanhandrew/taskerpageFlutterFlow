@@ -134,7 +134,15 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                               size: 30.0,
                             ),
                             onPressed: () async {
-                              context.pushNamed('Task-1');
+                              context.pushNamed(
+                                'Task-1',
+                                queryParameters: {
+                                  'id': serializeParam(
+                                    null,
+                                    ParamType.int,
+                                  ),
+                                }.withoutNulls,
+                              );
                             },
                           ),
                         ),

@@ -60,7 +60,9 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                     wrapWithModel(
                       model: _model.headerModel,
                       updateCallback: () => setState(() {}),
-                      child: HeaderWidget(),
+                      child: HeaderWidget(
+                        openDrawer: () async {},
+                      ),
                     ),
                     Padding(
                       padding:
@@ -302,6 +304,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
                               isSearchable: false,
+                              isMultiSelect: false,
                             ),
                           ),
                           Text(
@@ -460,6 +463,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
                               isSearchable: false,
+                              isMultiSelect: false,
                             ),
                           ),
                           Text(

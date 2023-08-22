@@ -1,3 +1,4 @@
+import '/components/drawer_content_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
@@ -21,12 +22,15 @@ class Contactdata3Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -34,6 +38,7 @@ class Contactdata3Model extends FlutterFlowModel {
     instantTimer?.cancel();
     headerModel.dispose();
     navigateBackModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.
