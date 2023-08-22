@@ -335,9 +335,10 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                               .getTranslatableItemString(
                                                                   getJsonField(
                                                                     categorysItem,
-                                                                    r'''$.title''',
+                                                                    r'''$.translations''',
                                                                   ),
-                                                                  'en'),
+                                                                  'en',
+                                                                  'title'),
                                                           'category',
                                                         ),
                                                         style: FlutterFlowTheme

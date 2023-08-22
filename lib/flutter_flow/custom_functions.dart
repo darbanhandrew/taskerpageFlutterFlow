@@ -147,18 +147,20 @@ bool checkIfServiceExists(
 }
 
 String? getTranslatableItemString(
-  List<dynamic>? title,
+  dynamic title,
   String languageCode,
+  String? key,
 ) {
-  if (title == null) {
+  // return title[languageCode][key] or not found
+  if (title == null || languageCode == null || key == null) {
     return null;
   }
-  for (final item in title) {
-    if (item['language'] == languageCode) {
-      return item['value'];
-    }
+
+  if (title[languageCode] != null && title[languageCode][key] != null) {
+    return title[languageCode][key];
   }
-  return title.first['value'];
+
+  return 'not found';
 }
 
 dynamic userServicesToJson(List<UserServiceStruct>? userServices) {

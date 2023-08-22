@@ -199,9 +199,10 @@ class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
                                                             .getTranslatableItemString(
                                                                 getJsonField(
                                                                   categorysItem,
-                                                                  r'''$.title''',
+                                                                  r'''$.translations''',
                                                                 ),
-                                                                'en'),
+                                                                'en',
+                                                                'title'),
                                                         'category',
                                                       ),
                                                       style: FlutterFlowTheme

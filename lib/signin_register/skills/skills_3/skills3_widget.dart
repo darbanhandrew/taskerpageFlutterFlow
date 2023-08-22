@@ -232,9 +232,10 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                                           .getTranslatableItemString(
                                                               getJsonField(
                                                                 serviceCategoriesItem,
-                                                                r'''$.title''',
+                                                                r'''$.translations''',
                                                               ),
-                                                              'en'),
+                                                              'en',
+                                                              'title'),
                                                       'Category',
                                                     ),
                                                     style: FlutterFlowTheme.of(

@@ -273,9 +273,10 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                                   .getTranslatableItemString(
                                                                       getJsonField(
                                                                         categorysItem,
-                                                                        r'''$.title''',
+                                                                        r'''$.translations''',
                                                                       ),
-                                                                      'en'),
+                                                                      'en',
+                                                                      'title'),
                                                               'category',
                                                             ),
                                                             style: FlutterFlowTheme

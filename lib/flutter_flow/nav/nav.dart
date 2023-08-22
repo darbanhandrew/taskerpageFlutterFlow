@@ -38,12 +38,12 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       initialLocation: '/',
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
-      errorBuilder: (context, state) => MainHomePageWidget(),
+      errorBuilder: (context, state) => SignInWidget(),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => MainHomePageWidget(),
+          builder: (context, _) => SignInWidget(),
         ),
         FFRoute(
           name: 'Select_Contry_Language',

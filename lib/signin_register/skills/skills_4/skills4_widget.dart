@@ -192,9 +192,10 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                           functions.getTranslatableItemString(
                                               getJsonField(
                                                 serviceCategoryIdsItem,
-                                                r'''$.name''',
+                                                r'''$.translations''',
                                               ),
-                                              'en'),
+                                              'en',
+                                              'title'),
                                           'selectedCategory',
                                         ),
                                         style: FlutterFlowTheme.of(context)
@@ -427,9 +428,10 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                           .getTranslatableItemString(
                                                               getJsonField(
                                                                 servicesItem,
-                                                                r'''$.name''',
+                                                                r'''$.translations''',
                                                               ),
-                                                              'en'),
+                                                              'en',
+                                                              'title'),
                                                       'selectedService',
                                                     ),
                                                     style: FlutterFlowTheme.of(

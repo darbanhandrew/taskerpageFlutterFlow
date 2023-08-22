@@ -237,9 +237,10 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                               .getTranslatableItemString(
                                                                   getJsonField(
                                                                     categorysItem,
-                                                                    r'''$.title''',
+                                                                    r'''$.translations''',
                                                                   ),
-                                                                  'en'),
+                                                                  'en',
+                                                                  'title'),
                                                           'category',
                                                         ),
                                                         style: FlutterFlowTheme

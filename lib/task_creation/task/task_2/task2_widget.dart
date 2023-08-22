@@ -239,9 +239,10 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                             .getTranslatableItemString(
                                                                 getJsonField(
                                                                   servicesItem,
-                                                                  r'''$.name''',
+                                                                  r'''$.translations''',
                                                                 ),
-                                                                'en'),
+                                                                'en',
+                                                                'title'),
                                                         'selectedService',
                                                       ),
                                                       style: FlutterFlowTheme

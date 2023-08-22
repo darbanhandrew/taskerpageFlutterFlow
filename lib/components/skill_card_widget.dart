@@ -101,9 +101,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                               functions.getTranslatableItemString(
                                   getJsonField(
                                     widget.userService,
-                                    r'''$.category.name''',
+                                    r'''$.category.translations''',
                                   ),
-                                  'en'),
+                                  'en',
+                                  'title'),
                               'Category',
                             ),
                             style: FlutterFlowTheme.of(context)
@@ -180,9 +181,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                             functions.getTranslatableItemString(
                                                 getJsonField(
                                                   widget.userService,
-                                                  r'''$.service.name''',
+                                                  r'''$.service.translations''',
                                                 ),
-                                                'en'),
+                                                'en',
+                                                'title'),
                                             'skill',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -274,9 +276,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                     functions.getTranslatableItemString(
                                         getJsonField(
                                           widget.userService,
-                                          r'''$.service.name''',
+                                          r'''$.service.translations''',
                                         ),
-                                        'en'),
+                                        'en',
+                                        'title'),
                                     'skill',
                                   ),
                                   style: FlutterFlowTheme.of(context)

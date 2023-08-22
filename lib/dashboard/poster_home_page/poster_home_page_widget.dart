@@ -306,9 +306,10 @@ class _PosterHomePageWidgetState extends State<PosterHomePageWidget> {
                                                                     functions.getTranslatableItemString(
                                                                         getJsonField(
                                                                           categorysItem,
-                                                                          r'''$.title''',
+                                                                          r'''$.translations''',
                                                                         ),
-                                                                        'en'),
+                                                                        'en',
+                                                                        'title'),
                                                                     'category',
                                                                   ),
                                                                   style: FlutterFlowTheme.of(
