@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/privacy_policy_widget.dart';
@@ -27,6 +28,10 @@ class SignUpModel extends FlutterFlowModel {
   TextEditingController? textController3;
   late bool passwordVisibility2;
   String? Function(BuildContext, String?)? textController3Validator;
+  // Stores action output result for [Backend Call - API (register)] action in Container widget.
+  ApiCallResponse? apiResultpij;
+  // Stores action output result for [Backend Call - API (login)] action in Container widget.
+  ApiCallResponse? login;
 
   /// Initialization and disposal methods.
 

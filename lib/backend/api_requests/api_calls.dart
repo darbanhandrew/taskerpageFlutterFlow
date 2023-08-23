@@ -62,6 +62,13 @@ class TaskerpageBackendGroup {
   static MyBargainsPostCall myBargainsPostCall = MyBargainsPostCall();
   static MyReviewsCall myReviewsCall = MyReviewsCall();
   static ReviewsAboutMeCall reviewsAboutMeCall = ReviewsAboutMeCall();
+  static SendVerifacationCall sendVerifacationCall = SendVerifacationCall();
+  static CheckVerficationCall checkVerficationCall = CheckVerficationCall();
+  static UpdateUserProfileCall updateUserProfileCall = UpdateUserProfileCall();
+  static StripeCall stripeCall = StripeCall();
+  static GetUserServicesCall getUserServicesCall = GetUserServicesCall();
+  static EducationPartialUpdateCall educationPartialUpdateCall =
+      EducationPartialUpdateCall();
 }
 
 class RegisterCall {
@@ -86,7 +93,6 @@ class RegisterCall {
       callType: ApiCallType.POST,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       body: body,
@@ -369,6 +375,16 @@ class UserProfileMeCall {
   dynamic dateOfBirth(dynamic response) => getJsonField(
         response,
         r'''$.date_of_birth''',
+      );
+  dynamic selectedServicesCategory(dynamic response) => getJsonField(
+        response,
+        r'''$.user_services[:].service_category.id''',
+        true,
+      );
+  dynamic selectedServices(dynamic response) => getJsonField(
+        response,
+        r'''$.user_services[:].service.id''',
+        true,
       );
 }
 
@@ -737,7 +753,6 @@ class MyAddressesCall {
 class GetServicesCall {
   Future<ApiCallResponse> call({
     String? category = '',
-    String? nameContains = '',
     String? apiGlobalKey =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
   }) {
@@ -751,7 +766,6 @@ class GetServicesCall {
       },
       params: {
         'category': category,
-        'name_contains': nameContains,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1222,9 +1236,9 @@ class ChangeProfileDeatelsCall {
 
     final body = '''
 {
-  "user_languages": [
+  "user_languages": 
     ${userLanguages}
-  ],
+  ,
   "driver_license": "${driverLicense}",
   "years_of_experience": ${yearsOfExperience},
   "has_insurance": ${hasInsurance}
@@ -1337,7 +1351,7 @@ class ChangeDescriptionAndProfileImageCall {
     final body = '''
 {
   "description": "${description}",
-  "avatar": "${avatar}"
+  "avatar_url": "${avatar}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'changeDescriptionAndProfileImage',
@@ -1710,7 +1724,7 @@ class UpdatePostCall {
     bool? repeatDate,
     String? repeatType = '',
     String? repeatEvery = '',
-    String? preferredDays = '',
+    List<String>? preferredDaysList,
     String? monthlyRepeatType = '',
     String? endDateType = '',
     int? session,
@@ -1720,18 +1734,26 @@ class UpdatePostCall {
     int? relatedService,
     int? relatedServiceCategory,
     int? id,
-    int? taskerAge,
+    String? taskerAge = '',
     bool? identified,
+    String? taskerGender = '',
+    int? yearsOfExperience,
+    bool? insurance,
+    String? driverLicense = '',
+    bool? travelCosts,
+    String? payPerHour = '',
+    bool? cancellationPenalty,
+    String? payCancellationPerHour = '',
+    String? cancellationBeforeAppointment = '',
     String? apiGlobalKey =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
   }) {
     final taskerLanguages = _serializeList(taskerLanguagesList);
+    final preferredDays = _serializeList(preferredDaysList);
 
     final body = '''
 {
-  "tasker_languages": [
-    ${taskerLanguages}
-  ],
+  "tasker_languages": ${taskerLanguages},
   "description": "${description}",
   "radius_of_work": ${radiusOfWork},
   "is_verified": ${isVerified},
@@ -1744,10 +1766,10 @@ class UpdatePostCall {
   "is_periodic": ${isPeriodic},
   "num_sessions": ${numSessions},
   "session_duration": "${sessionDuration}",
-  "repeat_date": ${repeatDate},
+  "repeat_date": "${repeatDate}",
   "repeat_type": "${repeatType}",
   "repeat_every": "${repeatEvery}",
-  "preferred_days": "${preferredDays}",
+  "days_of_week": ${preferredDays},
   "monthly_repeat_type": "${monthlyRepeatType}",
   "end_date_type": "${endDateType}",
   "session": ${session},
@@ -1756,8 +1778,17 @@ class UpdatePostCall {
   "post_status": ${postStatus},
   "related_service": ${relatedService},
   "related_service_category": ${relatedServiceCategory},
-  "tasker_age": ${taskerAge},
-  "identified": ${identified}
+  "tasker_age": "${taskerAge}",
+  "identified": ${identified},
+  "tasker_gender": "${taskerGender}",
+  "years_of_experience": ${yearsOfExperience},
+  "insurance": ${insurance},
+  "driver_license": "${driverLicense}",
+  "travel_costs": ${travelCosts},
+  "pay_per_hour": "${payPerHour}",
+  "cancellation_penalty": ${cancellationPenalty},
+  "pay_cancellation_per_hour": "${payCancellationPerHour}",
+  "cancellation_before_appointment": "${cancellationBeforeAppointment}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'updatePost',
@@ -3088,6 +3119,203 @@ class ReviewsAboutMeCall {
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class SendVerifacationCall {
+  Future<ApiCallResponse> call({
+    String? to = '',
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "to": "${to}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'sendVerifacation',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/verfiy/send/',
+      callType: ApiCallType.POST,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class CheckVerficationCall {
+  Future<ApiCallResponse> call({
+    String? to = '',
+    String? code = '',
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "to": "${to}",
+  "code": "${code}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'checkVerfication',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/verify/check/',
+      callType: ApiCallType.POST,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class UpdateUserProfileCall {
+  Future<ApiCallResponse> call({
+    int? id,
+    String? userTitle = '',
+    String? firstName = '',
+    String? lastName = '',
+    String? phoneNumber = '',
+    String? dateOfBirth = '',
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "user_title": "${userTitle}",
+  "date_of_birth": "${dateOfBirth}",
+  "first_name": "${firstName}",
+  "last_name": "${lastName}",
+  "phone_number": "${phoneNumber}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'update user profile',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/user-profile/${id}/',
+      callType: ApiCallType.PATCH,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class StripeCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? image = '',
+    int? price,
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "name": "string",
+  "image": "string",
+  "price": 0,
+  "success_url": "string",
+  "cancel_url": "string"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'stripe',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/stripe/create_checkout_session/',
+      callType: ApiCallType.POST,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetUserServicesCall {
+  Future<ApiCallResponse> call({
+    int? service,
+    int? serviceCategory,
+    int? userProfile,
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get user services',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/user-service/',
+      callType: ApiCallType.GET,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+      },
+      params: {
+        'service': service,
+        'service_category': serviceCategory,
+        'user_profile': userProfile,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class EducationPartialUpdateCall {
+  Future<ApiCallResponse> call({
+    int? id,
+    String? schoolTitle = '',
+    String? title = '',
+    String? certificateUrl = '',
+    String? educationLevel = '',
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "title": "${title}",
+  "school_title": "${schoolTitle}",
+  "certificate_url": "${certificateUrl}",
+  "education_level": "${educationLevel}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'educationPartialUpdate',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/education/${id}/',
+      callType: ApiCallType.PATCH,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

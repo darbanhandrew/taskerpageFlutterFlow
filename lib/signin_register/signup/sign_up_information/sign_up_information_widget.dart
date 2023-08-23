@@ -37,13 +37,16 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResult1in =
-          await TaskerpageBackendGroup.userProfileBasicInfoCall.call();
-      if ((_model.apiResult1in?.succeeded ?? true)) {
+      _model.apiResultlk7 = await TaskerpageBackendGroup.userProfileMeCall.call(
+        apiGlobalKey: FFAppState().apiKey,
+      );
+      if ((_model.apiResultlk7?.succeeded ?? true)) {
+        setState(() {
+          FFAppState().userProfile = (_model.apiResultlk7?.jsonBody ?? '');
+        });
+      } else {
         return;
       }
-
-      return;
     });
 
     _model.textController1 ??= TextEditingController();
@@ -153,7 +156,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..accounttype = 'Private',
+                                  (e) => e..accounttype = 'private',
                                 );
                               });
                             },
@@ -163,7 +166,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               decoration: BoxDecoration(
                                 color:
                                     FFAppState().UserInformation.accounttype ==
-                                            'Private'
+                                            'private'
                                         ? Color(0xFF5450E2)
                                         : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
@@ -171,7 +174,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   color: FFAppState()
                                               .UserInformation
                                               .accounttype ==
-                                          'Private'
+                                          'private'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -193,7 +196,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             color: FFAppState()
                                                         .UserInformation
                                                         .accounttype ==
-                                                    'Private'
+                                                    'private'
                                                 ? Color(0xFFF6F6F6)
                                                 : FlutterFlowTheme.of(context)
                                                     .primaryText,
@@ -214,7 +217,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..accounttype = 'Company',
+                                  (e) => e..accounttype = 'company',
                                 );
                               });
                             },
@@ -224,7 +227,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               decoration: BoxDecoration(
                                 color:
                                     FFAppState().UserInformation.accounttype ==
-                                            'Company'
+                                            'company'
                                         ? Color(0xFF5450E2)
                                         : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
@@ -232,7 +235,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   color: FFAppState()
                                               .UserInformation
                                               .accounttype ==
-                                          'Company'
+                                          'company'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -254,7 +257,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             color: FFAppState()
                                                         .UserInformation
                                                         .accounttype ==
-                                                    'Company'
+                                                    'company'
                                                 ? Color(0xFFF6F6F6)
                                                 : FlutterFlowTheme.of(context)
                                                     .primaryText,
@@ -317,7 +320,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..title = 'Mrs',
+                                  (e) => e..title = 'MRS',
                                 );
                               });
                             },
@@ -326,13 +329,13 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color:
-                                    FFAppState().UserInformation.title == 'Mrs'
+                                    FFAppState().UserInformation.title == 'MRS'
                                         ? Color(0xFF5450E2)
                                         : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.title ==
-                                          'Mrs'
+                                          'MRS'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -354,7 +357,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             color: FFAppState()
                                                         .UserInformation
                                                         .title ==
-                                                    'Mrs'
+                                                    'MRS'
                                                 ? Color(0xFFF6F6F6)
                                                 : FlutterFlowTheme.of(context)
                                                     .primaryText,
@@ -375,7 +378,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..title = 'Mr.',
+                                  (e) => e..title = 'MR',
                                 );
                               });
                             },
@@ -384,15 +387,15 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color:
-                                    FFAppState().UserInformation.title == 'Mr.'
+                                    FFAppState().UserInformation.title == 'MR'
                                         ? Color(0xFF5450E2)
                                         : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().UserInformation.title ==
-                                          'Mr.'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                  color:
+                                      FFAppState().UserInformation.title == 'MR'
+                                          ? Color(0xFF5450E2)
+                                          : Color(0xFF5E5D5D),
                                   width: 1.0,
                                 ),
                               ),
@@ -412,7 +415,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             color: FFAppState()
                                                         .UserInformation
                                                         .title ==
-                                                    'Mr.'
+                                                    'MR'
                                                 ? Color(0xFFF6F6F6)
                                                 : FlutterFlowTheme.of(context)
                                                     .primaryText,
@@ -443,7 +446,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..title = 'Mx.',
+                                  (e) => e..title = 'MX',
                                 );
                               });
                             },
@@ -452,15 +455,15 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color:
-                                    FFAppState().UserInformation.title == 'Mx.'
+                                    FFAppState().UserInformation.title == 'MX'
                                         ? Color(0xFF5450E2)
                                         : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().UserInformation.title ==
-                                          'Mx.'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                  color:
+                                      FFAppState().UserInformation.title == 'MX'
+                                          ? Color(0xFF5450E2)
+                                          : Color(0xFF5E5D5D),
                                   width: 1.0,
                                 ),
                               ),
@@ -480,7 +483,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             color: FFAppState()
                                                         .UserInformation
                                                         .title ==
-                                                    'Mx.'
+                                                    'MX'
                                                 ? Color(0xFFF6F6F6)
                                                 : FlutterFlowTheme.of(context)
                                                     .primaryText,
@@ -1193,7 +1196,9 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   FFAppState().updateUserInformationStruct(
                                     (e) => e
                                       ..dateOfBirth =
-                                          '${_model.dropDownValue2}-${_model.dropDownValue3}-${_model.dropDownValue4}',
+                                          '${_model.dropDownValue2}-${_model.dropDownValue3}-${_model.dropDownValue4}'
+                                      ..mobilenumber =
+                                          _model.textController3.text,
                                   );
                                 });
                                 _model.userProfileBasicInfoResult =
@@ -1207,7 +1212,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   firstName: _model.textController1.text,
                                   lastName: _model.textController2.text,
                                   phoneNumber:
-                                      FFAppState().UserInformation.mobilenumber,
+                                      '${_model.dropDownValue1} ${_model.textController3.text}',
                                   dateOfBirth: dateTimeFormat(
                                       'y-MM-dd', _model.datePicked),
                                   id: getJsonField(
@@ -1220,21 +1225,16 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             ?.succeeded ??
                                         true) ==
                                     true) {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Done'),
-                                        content: Text('Done'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                  context.pushNamed(
+                                    'Sign-up-Verification-Request',
+                                    queryParameters: {
+                                      'phoneNumber': serializeParam(
+                                        FFAppState()
+                                            .UserInformation
+                                            .mobilenumber,
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
                                   );
                                 } else {
                                   await showDialog(
@@ -1257,15 +1257,8 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   return;
                                 }
 
-                                context.pushNamed(
-                                  'Sign-up-Verification-Request',
-                                  queryParameters: {
-                                    'phoneNumber': serializeParam(
-                                      FFAppState().UserInformation.mobilenumber,
-                                      ParamType.String,
-                                    ),
-                                  }.withoutNulls,
-                                );
+                                if (_shouldSetState) setState(() {});
+                                return;
                               } else {
                                 if (_shouldSetState) setState(() {});
                                 return;

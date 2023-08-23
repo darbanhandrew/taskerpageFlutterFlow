@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -7,20 +8,20 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'drope_down_languages_model.dart';
-export 'drope_down_languages_model.dart';
+import 'drope_down_languages_post_model.dart';
+export 'drope_down_languages_post_model.dart';
 
-class DropeDownLanguagesWidget extends StatefulWidget {
-  const DropeDownLanguagesWidget({Key? key}) : super(key: key);
+class DropeDownLanguagesPostWidget extends StatefulWidget {
+  const DropeDownLanguagesPostWidget({Key? key}) : super(key: key);
 
   @override
-  _DropeDownLanguagesWidgetState createState() =>
-      _DropeDownLanguagesWidgetState();
+  _DropeDownLanguagesPostWidgetState createState() =>
+      _DropeDownLanguagesPostWidgetState();
 }
 
-class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
-    with TickerProviderStateMixin {
-  late DropeDownLanguagesModel _model;
+class _DropeDownLanguagesPostWidgetState
+    extends State<DropeDownLanguagesPostWidget> with TickerProviderStateMixin {
+  late DropeDownLanguagesPostModel _model;
 
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
@@ -72,7 +73,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => DropeDownLanguagesModel());
+    _model = createModel(context, () => DropeDownLanguagesPostModel());
 
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -208,7 +209,8 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                         child: Builder(
                           builder: (context) {
                             final languages = FFAppState()
-                                .LanguagesListForDropDown
+                                .TaskCreation
+                                .languages
                                 .toList()
                                 .take(2)
                                 .toList();
@@ -253,8 +255,13 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                             onTap: () async {
                                               setState(() {
                                                 FFAppState()
-                                                    .removeFromLanguagesListForDropDown(
-                                                        languagesItem);
+                                                    .updateTaskCreationStruct(
+                                                  (e) => e
+                                                    ..updateLanguages(
+                                                      (e) => e.remove(
+                                                          languagesItem),
+                                                    ),
+                                                );
                                               });
                                             },
                                             child: Icon(
@@ -349,15 +356,21 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                           _model.checkboxValue1 = newValue!);
                                       if (newValue!) {
                                         setState(() {
-                                          FFAppState()
-                                              .addToLanguagesListForDropDown(
-                                                  'DE');
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updateLanguages(
+                                                (e) => e.add('DE'),
+                                              ),
+                                          );
                                         });
                                       } else {
                                         setState(() {
-                                          FFAppState()
-                                              .removeFromLanguagesListForDropDown(
-                                                  'DE');
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updateLanguages(
+                                                (e) => e.remove('DE'),
+                                              ),
+                                          );
                                         });
                                       }
                                     },
@@ -406,15 +419,21 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                           _model.checkboxValue2 = newValue!);
                                       if (newValue!) {
                                         setState(() {
-                                          FFAppState()
-                                              .addToLanguagesListForDropDown(
-                                                  'EN');
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updateLanguages(
+                                                (e) => e.add('EN'),
+                                              ),
+                                          );
                                         });
                                       } else {
                                         setState(() {
-                                          FFAppState()
-                                              .removeFromLanguagesListForDropDown(
-                                                  'EN');
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updateLanguages(
+                                                (e) => e.add('EN'),
+                                              ),
+                                          );
                                         });
                                       }
                                     },

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -14,12 +15,12 @@ class Task1Model extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (initiatePost)] action in Task-1 widget.
+  ApiCallResponse? createPost;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
-  // Stores action output result for [Backend Call - API (createPost)] action in button_Next widget.
-  ApiCallResponse? succses;
 
   /// Initialization and disposal methods.
 

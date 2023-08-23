@@ -224,3 +224,39 @@ String? jsonToString(dynamic json) {
     return json.toString();
   }
 }
+
+int? jsonToInt(dynamic json) {
+  // convert json to int
+  if (json is int) {
+    return json;
+  } else if (json is String) {
+    return int.tryParse(json);
+  } else {
+    return null;
+  }
+}
+
+List<dynamic> generateDaysOfWeekRange() {
+  // generate an array of objects for each day of week, short and long name
+  final List<String> daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  final List<String> daysOfWeekShort = [
+    'Sun',
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat'
+  ];
+
+  final List<Map<String, String>> days = [];
+
+  for (int i = 0; i < daysOfWeek.length; i++) {
+    days.add({
+      'name': daysOfWeek[i],
+      'shortName': daysOfWeekShort[i],
+    });
+  }
+
+  return days;
+}

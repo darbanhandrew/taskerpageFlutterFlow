@@ -617,29 +617,36 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Container(
-                      width: 104.0,
-                      height: 44.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Pay',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {},
+                      child: Container(
+                        width: 104.0,
+                        height: 44.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF5450E2),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Pay',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.white,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],

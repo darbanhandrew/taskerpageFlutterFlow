@@ -127,13 +127,13 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().UserInformation.role ==
-                                        'Tasker'
+                                        'TASKER'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.role ==
-                                          'Tasker'
+                                          'TASKER'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -152,7 +152,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                           color: FFAppState()
                                                       .UserInformation
                                                       .role ==
-                                                  'Tasker'
+                                                  'TASKER'
                                               ? Color(0xFFF6F6F6)
                                               : Color(0xFF5E5D5D),
                                           fontSize: 14.0,
@@ -202,13 +202,13 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().UserInformation.role ==
-                                        'Poster'
+                                        'POSTER'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.role ==
-                                          'Poster'
+                                          'POSTER'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -227,7 +227,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                           color: FFAppState()
                                                       .UserInformation
                                                       .role ==
-                                                  'Poster'
+                                                  'POSTER'
                                               ? Color(0xFFF6F6F6)
                                               : Color(0xFF5E5D5D),
                                           fontSize: 14.0,

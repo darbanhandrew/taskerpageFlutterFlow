@@ -21,6 +21,8 @@ class TaskersDashboardModel extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
+  // Models for MiniTaskCard dynamic component.
+  late FlutterFlowDynamicModels<MiniTaskCardModel> miniTaskCardModels;
   // Model for NavBar component.
   late NavBarModel navBarModel;
 
@@ -29,6 +31,7 @@ class TaskersDashboardModel extends FlutterFlowModel {
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
+    miniTaskCardModels = FlutterFlowDynamicModels(() => MiniTaskCardModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
 
@@ -36,6 +39,7 @@ class TaskersDashboardModel extends FlutterFlowModel {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
+    miniTaskCardModels.dispose();
     navBarModel.dispose();
   }
 

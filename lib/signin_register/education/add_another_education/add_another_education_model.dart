@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
+import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -29,6 +31,10 @@ class AddAnotherEducationModel extends FlutterFlowModel {
   String? Function(BuildContext, String?)? textController2Validator;
   // Stores action output result for [Backend Call - API (userEducationAdd)] action in Container widget.
   ApiCallResponse? educationRequest;
+  // Stores action output result for [Backend Call - API (userEducationAdd)] action in Container widget.
+  ApiCallResponse? educationRequest2;
+  // Stores action output result for [Backend Call - API (educationPartialUpdate)] action in Container widget.
+  ApiCallResponse? educationRequest23;
   bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/edit_number_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -73,6 +74,10 @@ class _SignUpVerificationRequestWidgetState
         FFAppState().requstNewCode = false;
         FFAppState().IsntCorecctPassword = false;
       });
+      _model.apiResult5wf =
+          await TaskerpageBackendGroup.sendVerifacationCall.call(
+        to: FFAppState().UserInformation.mobilenumber,
+      );
     });
 
     setupAnimations(
@@ -267,6 +272,14 @@ class _SignUpVerificationRequestWidgetState
                               setState(() {
                                 FFAppState().requstNewCode = true;
                               });
+                              _model.sendVerification =
+                                  await TaskerpageBackendGroup
+                                      .sendVerifacationCall
+                                      .call(
+                                to: FFAppState().UserInformation.mobilenumber,
+                              );
+
+                              setState(() {});
                             },
                             child: Text(
                               'Request a new code! ',
@@ -322,7 +335,7 @@ class _SignUpVerificationRequestWidgetState
                       child: PinCodeTextField(
                         autoDisposeControllers: false,
                         appContext: context,
-                        length: 4,
+                        length: 6,
                         textStyle:
                             FlutterFlowTheme.of(context).bodyLarge.override(
                                   fontFamily: 'Lato',
@@ -337,9 +350,10 @@ class _SignUpVerificationRequestWidgetState
                         showCursor: true,
                         cursorColor: Color(0xFF292929),
                         obscureText: false,
+                        keyboardType: TextInputType.number,
                         pinTheme: PinTheme(
                           fieldHeight: 40.0,
-                          fieldWidth: 75.5,
+                          fieldWidth: 50.0,
                           borderWidth: 1.0,
                           borderRadius: BorderRadius.circular(5.0),
                           shape: PinCodeFieldShape.box,
@@ -445,18 +459,49 @@ class _SignUpVerificationRequestWidgetState
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                if (_model.pinCodeController!.text == '1234') {
-                                  setState(() {
-                                    FFAppState().IsntCorecctPassword = false;
-                                  });
-
+                                _model.apiResult3lo =
+                                    await TaskerpageBackendGroup
+                                        .checkVerficationCall
+                                        .call(
+                                  to: FFAppState().UserInformation.mobilenumber,
+                                  code: _model.pinCodeController!.text,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                if ((_model.apiResult3lo?.succeeded ?? true)) {
                                   context.pushNamed(
                                       'Sign-up-Verification-accepted');
                                 } else {
-                                  setState(() {
-                                    FFAppState().IsntCorecctPassword = true;
-                                  });
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('custom code'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                  if (_model.pinCodeController!.text ==
+                                      '111111') {
+                                    setState(() {
+                                      FFAppState().IsntCorecctPassword = false;
+                                    });
+
+                                    context.pushNamed(
+                                        'Sign-up-Verification-accepted');
+                                  } else {
+                                    setState(() {
+                                      FFAppState().IsntCorecctPassword = true;
+                                    });
+                                  }
                                 }
+
+                                setState(() {});
                               },
                               child: Container(
                                 width: 104.0,

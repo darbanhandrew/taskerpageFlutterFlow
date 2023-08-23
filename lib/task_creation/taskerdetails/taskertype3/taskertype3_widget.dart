@@ -1,3 +1,5 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
@@ -141,8 +143,17 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                     ),
                               ),
                               count: _model.countControllerValue1 ??= 10,
-                              updateCount: (count) => setState(
-                                  () => _model.countControllerValue1 = count),
+                              updateCount: (count) async {
+                                setState(
+                                    () => _model.countControllerValue1 = count);
+                                setState(() {
+                                  FFAppState().updateTaskCreationStruct(
+                                    (e) => e
+                                      ..maxDistance =
+                                          _model.countControllerValue1,
+                                  );
+                                });
+                              },
                               stepSize: 1,
                               contentPadding: EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 5.0, 0.0),
@@ -190,9 +201,22 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Switch.adaptive(
-                              value: _model.switchValue1 ??= true,
+                              value: _model.switchValue1 ??= false,
                               onChanged: (newValue) async {
                                 setState(() => _model.switchValue1 = newValue!);
+                                if (newValue!) {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..paytravelcosts = true,
+                                    );
+                                  });
+                                } else {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..paytravelcosts = false,
+                                    );
+                                  });
+                                }
                               },
                               activeColor: FlutterFlowTheme.of(context).primary,
                               activeTrackColor: Color(0xFFFAD1C6),
@@ -203,124 +227,145 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'How much',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Container(
-                              width: 60.0,
-                              height: 41.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(5.0),
-                                shape: BoxShape.rectangle,
-                                border: Border.all(
-                                  color: Color(0xFF5E5D5D),
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: FlutterFlowCountController(
-                                decrementIconBuilder: (enabled) => Icon(
-                                  Icons.keyboard_arrow_up_rounded,
-                                  color: enabled
-                                      ? Color(0xFFF06543)
-                                      : FlutterFlowTheme.of(context).alternate,
-                                  size: 15.0,
-                                ),
-                                incrementIconBuilder: (enabled) => Icon(
-                                  Icons.keyboard_arrow_down_rounded,
-                                  color: enabled
-                                      ? Color(0xFFF06543)
-                                      : FlutterFlowTheme.of(context).alternate,
-                                  size: 15.0,
-                                ),
-                                countBuilder: (count) => Text(
-                                  count.toString(),
-                                  style: FlutterFlowTheme.of(context)
-                                      .titleLarge
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        fontSize: 13.0,
-                                      ),
-                                ),
-                                count: _model.countControllerValue2 ??= 2,
-                                updateCount: (count) => setState(
-                                    () => _model.countControllerValue2 = count),
-                                stepSize: 1,
-                                contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                    5.0, 0.0, 5.0, 0.0),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 10.0, 0.0),
-                            child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController1 ??=
-                                  FormFieldController<String>(
-                                _model.dropDownValue1 ??= '\$',
-                              ),
-                              options: ['\$'],
-                              onChanged: (val) =>
-                                  setState(() => _model.dropDownValue1 = val),
-                              width: 42.0,
-                              height: 41.0,
-                              textStyle: FlutterFlowTheme.of(context)
+                    if (_model.switchValue1 ?? true)
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 15.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'How much',
+                              style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Lato',
+                                    color: Colors.black,
                                     fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Color(0xFF3D3D3D),
-                                size: 15.0,
-                              ),
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              elevation: 2.0,
-                              borderColor: Color(0xFF5E5D5D),
-                              borderWidth: 1.0,
-                              borderRadius: 5.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 4.0, 5.0, 4.0),
-                              hidesUnderline: true,
-                              isSearchable: false,
-                              isMultiSelect: false,
                             ),
-                          ),
-                          Text(
-                            'Per hour',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: Container(
+                                width: 60.0,
+                                height: 41.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color: Color(0xFF5E5D5D),
+                                    width: 1.0,
+                                  ),
                                 ),
-                          ),
-                        ],
+                                child: FlutterFlowCountController(
+                                  decrementIconBuilder: (enabled) => Icon(
+                                    Icons.keyboard_arrow_up_rounded,
+                                    color: enabled
+                                        ? Color(0xFFF06543)
+                                        : FlutterFlowTheme.of(context)
+                                            .alternate,
+                                    size: 15.0,
+                                  ),
+                                  incrementIconBuilder: (enabled) => Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: enabled
+                                        ? Color(0xFFF06543)
+                                        : FlutterFlowTheme.of(context)
+                                            .alternate,
+                                    size: 15.0,
+                                  ),
+                                  countBuilder: (count) => Text(
+                                    count.toString(),
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          fontSize: 13.0,
+                                        ),
+                                  ),
+                                  count: _model.countControllerValue2 ??= 2,
+                                  updateCount: (count) async {
+                                    setState(() =>
+                                        _model.countControllerValue2 = count);
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..paytravelcostsPerhour =
+                                              '${_model.countControllerValue2?.toString()} ${_model.dropDownValue1}',
+                                      );
+                                    });
+                                  },
+                                  stepSize: 1,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 5.0, 0.0),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 10.0, 0.0),
+                              child: FlutterFlowDropDown<String>(
+                                controller: _model.dropDownValueController1 ??=
+                                    FormFieldController<String>(
+                                  _model.dropDownValue1 ??= '\$',
+                                ),
+                                options: ['\$'],
+                                onChanged: (val) async {
+                                  setState(() => _model.dropDownValue1 = val);
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e
+                                        ..paytravelcostsPerhour =
+                                            '${_model.countControllerValue2?.toString()} ${_model.dropDownValue1}',
+                                    );
+                                  });
+                                },
+                                width: 42.0,
+                                height: 41.0,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      fontSize: 14.0,
+                                    ),
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: Color(0xFF3D3D3D),
+                                  size: 15.0,
+                                ),
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                elevation: 2.0,
+                                borderColor: Color(0xFF5E5D5D),
+                                borderWidth: 1.0,
+                                borderRadius: 5.0,
+                                margin: EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 4.0, 5.0, 4.0),
+                                hidesUnderline: true,
+                                isSearchable: false,
+                                isMultiSelect: false,
+                              ),
+                            ),
+                            Text(
+                              'Per hour',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
                     Divider(
                       height: 32.0,
                       thickness: 1.0,
@@ -349,9 +394,24 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                           Align(
                             alignment: AlignmentDirectional(0.0, 0.0),
                             child: Switch.adaptive(
-                              value: _model.switchValue2 ??= true,
+                              value: _model.switchValue2 ??= false,
                               onChanged: (newValue) async {
                                 setState(() => _model.switchValue2 = newValue!);
+                                if (newValue!) {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) =>
+                                          e..cancellationPenaltyApplies = true,
+                                    );
+                                  });
+                                } else {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) =>
+                                          e..cancellationPenaltyApplies = false,
+                                    );
+                                  });
+                                }
                               },
                               activeColor: FlutterFlowTheme.of(context).primary,
                               activeTrackColor: Color(0xFFFAD1C6),
@@ -362,28 +422,165 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Text(
-                            'How much',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
+                    if (_model.switchValue2 ?? true)
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 15.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'How much',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 0.0, 0.0),
+                              child: Container(
+                                width: 60.0,
+                                height: 41.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  shape: BoxShape.rectangle,
+                                  border: Border.all(
+                                    color: Color(0xFF5E5D5D),
+                                    width: 1.0,
+                                  ),
                                 ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 0.0, 0.0),
-                            child: Container(
+                                child: FlutterFlowCountController(
+                                  decrementIconBuilder: (enabled) => Icon(
+                                    Icons.keyboard_arrow_up_rounded,
+                                    color: enabled
+                                        ? Color(0xFFF06543)
+                                        : FlutterFlowTheme.of(context)
+                                            .alternate,
+                                    size: 15.0,
+                                  ),
+                                  incrementIconBuilder: (enabled) => Icon(
+                                    Icons.keyboard_arrow_down_rounded,
+                                    color: enabled
+                                        ? Color(0xFFF06543)
+                                        : FlutterFlowTheme.of(context)
+                                            .alternate,
+                                    size: 15.0,
+                                  ),
+                                  countBuilder: (count) => Text(
+                                    count.toString(),
+                                    style: FlutterFlowTheme.of(context)
+                                        .titleLarge
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          fontSize: 13.0,
+                                        ),
+                                  ),
+                                  count: _model.countControllerValue3 ??= 2,
+                                  updateCount: (count) async {
+                                    setState(() =>
+                                        _model.countControllerValue3 = count);
+                                    setState(() {
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e
+                                          ..cancellationPenaltyPerhour =
+                                              '${_model.countControllerValue3?.toString()} ${_model.dropDownValue2}',
+                                      );
+                                    });
+                                  },
+                                  stepSize: 1,
+                                  contentPadding:
+                                      EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 5.0, 0.0),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  10.0, 0.0, 10.0, 0.0),
+                              child: FlutterFlowDropDown<String>(
+                                controller: _model.dropDownValueController2 ??=
+                                    FormFieldController<String>(
+                                  _model.dropDownValue2 ??= '\$',
+                                ),
+                                options: ['\$'],
+                                onChanged: (val) async {
+                                  setState(() => _model.dropDownValue2 = val);
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e
+                                        ..cancellationPenaltyPerhour =
+                                            '${_model.countControllerValue3?.toString()} ${_model.dropDownValue2}',
+                                    );
+                                  });
+                                },
+                                width: 42.0,
+                                height: 41.0,
+                                textStyle: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      fontSize: 14.0,
+                                    ),
+                                icon: Icon(
+                                  Icons.keyboard_arrow_down_rounded,
+                                  color: Color(0xFF3D3D3D),
+                                  size: 15.0,
+                                ),
+                                fillColor: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                elevation: 2.0,
+                                borderColor: Color(0xFF5E5D5D),
+                                borderWidth: 1.0,
+                                borderRadius: 5.0,
+                                margin: EdgeInsetsDirectional.fromSTEB(
+                                    10.0, 4.0, 5.0, 4.0),
+                                hidesUnderline: true,
+                                isSearchable: false,
+                                isMultiSelect: false,
+                              ),
+                            ),
+                            Text(
+                              'Per hour',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    if (_model.switchValue2 ?? true)
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 20.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'If cancelled before due date later than',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Container(
                               width: 60.0,
                               height: 41.0,
                               decoration: BoxDecoration(
@@ -420,143 +617,38 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                         fontSize: 13.0,
                                       ),
                                 ),
-                                count: _model.countControllerValue3 ??= 2,
-                                updateCount: (count) => setState(
-                                    () => _model.countControllerValue3 = count),
+                                count: _model.countControllerValue4 ??= 10,
+                                updateCount: (count) async {
+                                  setState(() =>
+                                      _model.countControllerValue4 = count);
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e
+                                        ..ifCancelledBefore = _model
+                                            .countControllerValue4
+                                            ?.toString(),
+                                    );
+                                  });
+                                },
                                 stepSize: 1,
                                 contentPadding: EdgeInsetsDirectional.fromSTEB(
                                     5.0, 0.0, 5.0, 0.0),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                10.0, 0.0, 10.0, 0.0),
-                            child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController2 ??=
-                                  FormFieldController<String>(
-                                _model.dropDownValue2 ??= '\$',
-                              ),
-                              options: ['\$'],
-                              onChanged: (val) =>
-                                  setState(() => _model.dropDownValue2 = val),
-                              width: 42.0,
-                              height: 41.0,
-                              textStyle: FlutterFlowTheme.of(context)
+                            Text(
+                              'hrs',
+                              style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Lato',
+                                    color: Colors.black,
                                     fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Color(0xFF3D3D3D),
-                                size: 15.0,
-                              ),
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              elevation: 2.0,
-                              borderColor: Color(0xFF5E5D5D),
-                              borderWidth: 1.0,
-                              borderRadius: 5.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 4.0, 5.0, 4.0),
-                              hidesUnderline: true,
-                              isSearchable: false,
-                              isMultiSelect: false,
                             ),
-                          ),
-                          Text(
-                            'Per hour',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'If cancelled before due date later than',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          Container(
-                            width: 60.0,
-                            height: 41.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(5.0),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Color(0xFF5E5D5D),
-                                width: 1.0,
-                              ),
-                            ),
-                            child: FlutterFlowCountController(
-                              decrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 15.0,
-                              ),
-                              incrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 15.0,
-                              ),
-                              countBuilder: (count) => Text(
-                                count.toString(),
-                                style: FlutterFlowTheme.of(context)
-                                    .titleLarge
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      fontSize: 13.0,
-                                    ),
-                              ),
-                              count: _model.countControllerValue4 ??= 10,
-                              updateCount: (count) => setState(
-                                  () => _model.countControllerValue4 = count),
-                              stepSize: 1,
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 0.0, 5.0, 0.0),
-                            ),
-                          ),
-                          Text(
-                            'hrs',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -628,7 +720,97 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('TaskPreview');
+                              var _shouldSetState = false;
+                              _model.apiResultgfm = await TaskerpageBackendGroup
+                                  .updatePostCall
+                                  .call(
+                                taskerLanguagesList:
+                                    FFAppState().TaskCreation.languages,
+                                description:
+                                    FFAppState().TaskCreation.description,
+                                radiusOfWork:
+                                    FFAppState().TaskCreation.maxDistance,
+                                skillLevel:
+                                    FFAppState().TaskCreation.skillLevel,
+                                startDate: FFAppState().TaskCreation.startDate,
+                                startTime: FFAppState().TaskCreation.startTime,
+                                customStartTime:
+                                    FFAppState().TaskCreation.customStartTime,
+                                endDatetime:
+                                    FFAppState().TaskCreation.endDatetime,
+                                repeatType:
+                                    FFAppState().TaskCreation.repeatType,
+                                repeatEvery:
+                                    FFAppState().TaskCreation.repeatEvery,
+                                repeatDate:
+                                    FFAppState().TaskCreation.repeatDate,
+                                endDateType:
+                                    FFAppState().TaskCreation.endDateType,
+                                postStatus: 4,
+                                postOpenCloseStatus: 'OPEN',
+                                poster: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                session: FFAppState().TaskCreation.session,
+                                sessionDuration:
+                                    FFAppState().TaskCreation.sessionDuration,
+                                address: FFAppState().TaskCreation.address,
+                                taskerAge: FFAppState().TaskerAge,
+                                relatedService:
+                                    FFAppState().TaskCreation.relatedService,
+                                relatedServiceCategory: FFAppState()
+                                    .TaskCreation
+                                    .relatedServiceCategory,
+                                apiGlobalKey: FFAppState().apiKey,
+                                id: FFAppState().TaskCreation.id,
+                                monthlyRepeatType:
+                                    FFAppState().TaskCreation.monthlyRepeatType,
+                                preferredDaysList:
+                                    FFAppState().TaskCreation.preferredDays,
+                                taskerGender: FFAppState().TaskerType,
+                                isVerified: false,
+                                isPeriodic:
+                                    FFAppState().TaskCreation.repeatDate,
+                                numSessions:
+                                    FFAppState().TaskCreation.numSessions,
+                                identified: FFAppState().Identified,
+                                yearsOfExperience:
+                                    FFAppState().TaskCreation.yearsofExperience,
+                                insurance: FFAppState().TaskCreation.insurance,
+                                driverLicense:
+                                    FFAppState().TaskCreation.driverslicense,
+                                travelCosts:
+                                    FFAppState().TaskCreation.paytravelcosts,
+                                payPerHour: FFAppState()
+                                    .TaskCreation
+                                    .paytravelcostsPerhour,
+                                cancellationPenalty: FFAppState()
+                                    .TaskCreation
+                                    .cancellationPenaltyApplies,
+                                payCancellationPerHour: FFAppState()
+                                    .TaskCreation
+                                    .cancellationPenaltyPerhour,
+                                cancellationBeforeAppointment:
+                                    FFAppState().TaskCreation.ifCancelledBefore,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.apiResultgfm?.succeeded ?? true)) {
+                                context.pushNamed(
+                                  'TaskView',
+                                  queryParameters: {
+                                    'id': serializeParam(
+                                      FFAppState().TaskCreation.id,
+                                      ParamType.int,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

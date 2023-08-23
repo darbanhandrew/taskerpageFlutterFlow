@@ -710,8 +710,8 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                                                                         .jsonBody,
                                                                   ) ==
                                                                   true
-                                                              ? 'Try permium'
-                                                              : 'You\'r permium',
+                                                              ? 'You\'r permium'
+                                                              : 'Try permium',
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -1469,13 +1469,24 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                                                                       0.0,
                                                                       0.0,
                                                                       5.0),
-                                                          child:
-                                                              MiniTaskCardWidget(
-                                                            key: Key(
-                                                                'Keyg57_${postsListIndex}_of_${postsList.length}'),
-                                                            id: getJsonField(
-                                                              postsListItem,
-                                                              r'''$.id''',
+                                                          child: wrapWithModel(
+                                                            model: _model
+                                                                .miniTaskCardModels
+                                                                .getModel(
+                                                              postsListItem
+                                                                  .toString(),
+                                                              postsListIndex,
+                                                            ),
+                                                            updateCallback:
+                                                                () => setState(
+                                                                    () {}),
+                                                            child:
+                                                                MiniTaskCardWidget(
+                                                              key: Key(
+                                                                'Keyg57_${postsListItem.toString()}',
+                                                              ),
+                                                              post:
+                                                                  postsListItem,
                                                             ),
                                                           ),
                                                         );

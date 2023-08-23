@@ -24,7 +24,6 @@ class TaskCreationStruct extends BaseStruct {
     bool? repeatDate,
     String? repeatType,
     String? repeatEvery,
-    String? preferredDays,
     String? monthlyRepeatType,
     String? endDateType,
     int? poster,
@@ -33,6 +32,20 @@ class TaskCreationStruct extends BaseStruct {
     int? relatedService,
     int? relatedServiceCategory,
     int? session,
+    String? file,
+    String? date,
+    int? yearsofExperience,
+    List<String>? languages,
+    bool? insurance,
+    String? driverslicense,
+    int? maxDistance,
+    bool? paytravelcosts,
+    String? paytravelcostsPerhour,
+    bool? cancellationPenaltyApplies,
+    String? cancellationPenaltyPerhour,
+    String? ifCancelledBefore,
+    int? id,
+    List<String>? preferredDays,
   })  : _taskerLanguages = taskerLanguages,
         _description = description,
         _radiusOfWork = radiusOfWork,
@@ -50,7 +63,6 @@ class TaskCreationStruct extends BaseStruct {
         _repeatDate = repeatDate,
         _repeatType = repeatType,
         _repeatEvery = repeatEvery,
-        _preferredDays = preferredDays,
         _monthlyRepeatType = monthlyRepeatType,
         _endDateType = endDateType,
         _poster = poster,
@@ -58,7 +70,21 @@ class TaskCreationStruct extends BaseStruct {
         _postStatus = postStatus,
         _relatedService = relatedService,
         _relatedServiceCategory = relatedServiceCategory,
-        _session = session;
+        _session = session,
+        _file = file,
+        _date = date,
+        _yearsofExperience = yearsofExperience,
+        _languages = languages,
+        _insurance = insurance,
+        _driverslicense = driverslicense,
+        _maxDistance = maxDistance,
+        _paytravelcosts = paytravelcosts,
+        _paytravelcostsPerhour = paytravelcostsPerhour,
+        _cancellationPenaltyApplies = cancellationPenaltyApplies,
+        _cancellationPenaltyPerhour = cancellationPenaltyPerhour,
+        _ifCancelledBefore = ifCancelledBefore,
+        _id = id,
+        _preferredDays = preferredDays;
 
   // "tasker_languages" field.
   List<String>? _taskerLanguages;
@@ -167,12 +193,6 @@ class TaskCreationStruct extends BaseStruct {
   set repeatEvery(String? val) => _repeatEvery = val;
   bool hasRepeatEvery() => _repeatEvery != null;
 
-  // "preferred_days" field.
-  String? _preferredDays;
-  String get preferredDays => _preferredDays ?? '';
-  set preferredDays(String? val) => _preferredDays = val;
-  bool hasPreferredDays() => _preferredDays != null;
-
   // "monthly_repeat_type" field.
   String? _monthlyRepeatType;
   String get monthlyRepeatType => _monthlyRepeatType ?? '';
@@ -229,6 +249,100 @@ class TaskCreationStruct extends BaseStruct {
   void incrementSession(int amount) => _session = session + amount;
   bool hasSession() => _session != null;
 
+  // "file" field.
+  String? _file;
+  String get file => _file ?? '';
+  set file(String? val) => _file = val;
+  bool hasFile() => _file != null;
+
+  // "date" field.
+  String? _date;
+  String get date => _date ?? '';
+  set date(String? val) => _date = val;
+  bool hasDate() => _date != null;
+
+  // "YearsofExperience" field.
+  int? _yearsofExperience;
+  int get yearsofExperience => _yearsofExperience ?? 0;
+  set yearsofExperience(int? val) => _yearsofExperience = val;
+  void incrementYearsofExperience(int amount) =>
+      _yearsofExperience = yearsofExperience + amount;
+  bool hasYearsofExperience() => _yearsofExperience != null;
+
+  // "Languages" field.
+  List<String>? _languages;
+  List<String> get languages => _languages ?? const [];
+  set languages(List<String>? val) => _languages = val;
+  void updateLanguages(Function(List<String>) updateFn) =>
+      updateFn(_languages ??= []);
+  bool hasLanguages() => _languages != null;
+
+  // "Insurance" field.
+  bool? _insurance;
+  bool get insurance => _insurance ?? false;
+  set insurance(bool? val) => _insurance = val;
+  bool hasInsurance() => _insurance != null;
+
+  // "Driverslicense" field.
+  String? _driverslicense;
+  String get driverslicense => _driverslicense ?? '';
+  set driverslicense(String? val) => _driverslicense = val;
+  bool hasDriverslicense() => _driverslicense != null;
+
+  // "MaxDistance" field.
+  int? _maxDistance;
+  int get maxDistance => _maxDistance ?? 0;
+  set maxDistance(int? val) => _maxDistance = val;
+  void incrementMaxDistance(int amount) => _maxDistance = maxDistance + amount;
+  bool hasMaxDistance() => _maxDistance != null;
+
+  // "Paytravelcosts" field.
+  bool? _paytravelcosts;
+  bool get paytravelcosts => _paytravelcosts ?? false;
+  set paytravelcosts(bool? val) => _paytravelcosts = val;
+  bool hasPaytravelcosts() => _paytravelcosts != null;
+
+  // "PaytravelcostsPerhour" field.
+  String? _paytravelcostsPerhour;
+  String get paytravelcostsPerhour => _paytravelcostsPerhour ?? '';
+  set paytravelcostsPerhour(String? val) => _paytravelcostsPerhour = val;
+  bool hasPaytravelcostsPerhour() => _paytravelcostsPerhour != null;
+
+  // "CancellationPenaltyApplies" field.
+  bool? _cancellationPenaltyApplies;
+  bool get cancellationPenaltyApplies => _cancellationPenaltyApplies ?? false;
+  set cancellationPenaltyApplies(bool? val) =>
+      _cancellationPenaltyApplies = val;
+  bool hasCancellationPenaltyApplies() => _cancellationPenaltyApplies != null;
+
+  // "CancellationPenaltyPerhour" field.
+  String? _cancellationPenaltyPerhour;
+  String get cancellationPenaltyPerhour => _cancellationPenaltyPerhour ?? '';
+  set cancellationPenaltyPerhour(String? val) =>
+      _cancellationPenaltyPerhour = val;
+  bool hasCancellationPenaltyPerhour() => _cancellationPenaltyPerhour != null;
+
+  // "If_cancelled_before" field.
+  String? _ifCancelledBefore;
+  String get ifCancelledBefore => _ifCancelledBefore ?? '';
+  set ifCancelledBefore(String? val) => _ifCancelledBefore = val;
+  bool hasIfCancelledBefore() => _ifCancelledBefore != null;
+
+  // "id" field.
+  int? _id;
+  int get id => _id ?? 0;
+  set id(int? val) => _id = val;
+  void incrementId(int amount) => _id = id + amount;
+  bool hasId() => _id != null;
+
+  // "preferred_days" field.
+  List<String>? _preferredDays;
+  List<String> get preferredDays => _preferredDays ?? const [];
+  set preferredDays(List<String>? val) => _preferredDays = val;
+  void updatePreferredDays(Function(List<String>) updateFn) =>
+      updateFn(_preferredDays ??= []);
+  bool hasPreferredDays() => _preferredDays != null;
+
   static TaskCreationStruct fromMap(Map<String, dynamic> data) =>
       TaskCreationStruct(
         taskerLanguages: getDataList(data['tasker_languages']),
@@ -248,7 +362,6 @@ class TaskCreationStruct extends BaseStruct {
         repeatDate: data['repeat_date'] as bool?,
         repeatType: data['repeat_type'] as String?,
         repeatEvery: data['repeat_every'] as String?,
-        preferredDays: data['preferred_days'] as String?,
         monthlyRepeatType: data['monthly_repeat_type'] as String?,
         endDateType: data['end_date_type'] as String?,
         poster: castToType<int>(data['poster']),
@@ -258,6 +371,21 @@ class TaskCreationStruct extends BaseStruct {
         relatedServiceCategory:
             castToType<int>(data['related_service_category']),
         session: castToType<int>(data['session']),
+        file: data['file'] as String?,
+        date: data['date'] as String?,
+        yearsofExperience: castToType<int>(data['YearsofExperience']),
+        languages: getDataList(data['Languages']),
+        insurance: data['Insurance'] as bool?,
+        driverslicense: data['Driverslicense'] as String?,
+        maxDistance: castToType<int>(data['MaxDistance']),
+        paytravelcosts: data['Paytravelcosts'] as bool?,
+        paytravelcostsPerhour: data['PaytravelcostsPerhour'] as String?,
+        cancellationPenaltyApplies: data['CancellationPenaltyApplies'] as bool?,
+        cancellationPenaltyPerhour:
+            data['CancellationPenaltyPerhour'] as String?,
+        ifCancelledBefore: data['If_cancelled_before'] as String?,
+        id: castToType<int>(data['id']),
+        preferredDays: getDataList(data['preferred_days']),
       );
 
   static TaskCreationStruct? maybeFromMap(dynamic data) =>
@@ -281,7 +409,6 @@ class TaskCreationStruct extends BaseStruct {
         'repeat_date': _repeatDate,
         'repeat_type': _repeatType,
         'repeat_every': _repeatEvery,
-        'preferred_days': _preferredDays,
         'monthly_repeat_type': _monthlyRepeatType,
         'end_date_type': _endDateType,
         'poster': _poster,
@@ -290,6 +417,20 @@ class TaskCreationStruct extends BaseStruct {
         'related_service': _relatedService,
         'related_service_category': _relatedServiceCategory,
         'session': _session,
+        'file': _file,
+        'date': _date,
+        'YearsofExperience': _yearsofExperience,
+        'Languages': _languages,
+        'Insurance': _insurance,
+        'Driverslicense': _driverslicense,
+        'MaxDistance': _maxDistance,
+        'Paytravelcosts': _paytravelcosts,
+        'PaytravelcostsPerhour': _paytravelcostsPerhour,
+        'CancellationPenaltyApplies': _cancellationPenaltyApplies,
+        'CancellationPenaltyPerhour': _cancellationPenaltyPerhour,
+        'If_cancelled_before': _ifCancelledBefore,
+        'id': _id,
+        'preferred_days': _preferredDays,
       }.withoutNulls;
 
   @override
@@ -363,10 +504,6 @@ class TaskCreationStruct extends BaseStruct {
           _repeatEvery,
           ParamType.String,
         ),
-        'preferred_days': serializeParam(
-          _preferredDays,
-          ParamType.String,
-        ),
         'monthly_repeat_type': serializeParam(
           _monthlyRepeatType,
           ParamType.String,
@@ -398,6 +535,64 @@ class TaskCreationStruct extends BaseStruct {
         'session': serializeParam(
           _session,
           ParamType.int,
+        ),
+        'file': serializeParam(
+          _file,
+          ParamType.String,
+        ),
+        'date': serializeParam(
+          _date,
+          ParamType.String,
+        ),
+        'YearsofExperience': serializeParam(
+          _yearsofExperience,
+          ParamType.int,
+        ),
+        'Languages': serializeParam(
+          _languages,
+          ParamType.String,
+          true,
+        ),
+        'Insurance': serializeParam(
+          _insurance,
+          ParamType.bool,
+        ),
+        'Driverslicense': serializeParam(
+          _driverslicense,
+          ParamType.String,
+        ),
+        'MaxDistance': serializeParam(
+          _maxDistance,
+          ParamType.int,
+        ),
+        'Paytravelcosts': serializeParam(
+          _paytravelcosts,
+          ParamType.bool,
+        ),
+        'PaytravelcostsPerhour': serializeParam(
+          _paytravelcostsPerhour,
+          ParamType.String,
+        ),
+        'CancellationPenaltyApplies': serializeParam(
+          _cancellationPenaltyApplies,
+          ParamType.bool,
+        ),
+        'CancellationPenaltyPerhour': serializeParam(
+          _cancellationPenaltyPerhour,
+          ParamType.String,
+        ),
+        'If_cancelled_before': serializeParam(
+          _ifCancelledBefore,
+          ParamType.String,
+        ),
+        'id': serializeParam(
+          _id,
+          ParamType.int,
+        ),
+        'preferred_days': serializeParam(
+          _preferredDays,
+          ParamType.String,
+          true,
         ),
       }.withoutNulls;
 
@@ -488,11 +683,6 @@ class TaskCreationStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        preferredDays: deserializeParam(
-          data['preferred_days'],
-          ParamType.String,
-          false,
-        ),
         monthlyRepeatType: deserializeParam(
           data['monthly_repeat_type'],
           ParamType.String,
@@ -533,6 +723,76 @@ class TaskCreationStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        file: deserializeParam(
+          data['file'],
+          ParamType.String,
+          false,
+        ),
+        date: deserializeParam(
+          data['date'],
+          ParamType.String,
+          false,
+        ),
+        yearsofExperience: deserializeParam(
+          data['YearsofExperience'],
+          ParamType.int,
+          false,
+        ),
+        languages: deserializeParam<String>(
+          data['Languages'],
+          ParamType.String,
+          true,
+        ),
+        insurance: deserializeParam(
+          data['Insurance'],
+          ParamType.bool,
+          false,
+        ),
+        driverslicense: deserializeParam(
+          data['Driverslicense'],
+          ParamType.String,
+          false,
+        ),
+        maxDistance: deserializeParam(
+          data['MaxDistance'],
+          ParamType.int,
+          false,
+        ),
+        paytravelcosts: deserializeParam(
+          data['Paytravelcosts'],
+          ParamType.bool,
+          false,
+        ),
+        paytravelcostsPerhour: deserializeParam(
+          data['PaytravelcostsPerhour'],
+          ParamType.String,
+          false,
+        ),
+        cancellationPenaltyApplies: deserializeParam(
+          data['CancellationPenaltyApplies'],
+          ParamType.bool,
+          false,
+        ),
+        cancellationPenaltyPerhour: deserializeParam(
+          data['CancellationPenaltyPerhour'],
+          ParamType.String,
+          false,
+        ),
+        ifCancelledBefore: deserializeParam(
+          data['If_cancelled_before'],
+          ParamType.String,
+          false,
+        ),
+        id: deserializeParam(
+          data['id'],
+          ParamType.int,
+          false,
+        ),
+        preferredDays: deserializeParam<String>(
+          data['preferred_days'],
+          ParamType.String,
+          true,
+        ),
       );
 
   @override
@@ -559,7 +819,6 @@ class TaskCreationStruct extends BaseStruct {
         repeatDate == other.repeatDate &&
         repeatType == other.repeatType &&
         repeatEvery == other.repeatEvery &&
-        preferredDays == other.preferredDays &&
         monthlyRepeatType == other.monthlyRepeatType &&
         endDateType == other.endDateType &&
         poster == other.poster &&
@@ -567,7 +826,21 @@ class TaskCreationStruct extends BaseStruct {
         postStatus == other.postStatus &&
         relatedService == other.relatedService &&
         relatedServiceCategory == other.relatedServiceCategory &&
-        session == other.session;
+        session == other.session &&
+        file == other.file &&
+        date == other.date &&
+        yearsofExperience == other.yearsofExperience &&
+        listEquality.equals(languages, other.languages) &&
+        insurance == other.insurance &&
+        driverslicense == other.driverslicense &&
+        maxDistance == other.maxDistance &&
+        paytravelcosts == other.paytravelcosts &&
+        paytravelcostsPerhour == other.paytravelcostsPerhour &&
+        cancellationPenaltyApplies == other.cancellationPenaltyApplies &&
+        cancellationPenaltyPerhour == other.cancellationPenaltyPerhour &&
+        ifCancelledBefore == other.ifCancelledBefore &&
+        id == other.id &&
+        listEquality.equals(preferredDays, other.preferredDays);
   }
 
   @override
@@ -589,7 +862,6 @@ class TaskCreationStruct extends BaseStruct {
         repeatDate,
         repeatType,
         repeatEvery,
-        preferredDays,
         monthlyRepeatType,
         endDateType,
         poster,
@@ -597,7 +869,21 @@ class TaskCreationStruct extends BaseStruct {
         postStatus,
         relatedService,
         relatedServiceCategory,
-        session
+        session,
+        file,
+        date,
+        yearsofExperience,
+        languages,
+        insurance,
+        driverslicense,
+        maxDistance,
+        paytravelcosts,
+        paytravelcostsPerhour,
+        cancellationPenaltyApplies,
+        cancellationPenaltyPerhour,
+        ifCancelledBefore,
+        id,
+        preferredDays
       ]);
 }
 
@@ -618,7 +904,6 @@ TaskCreationStruct createTaskCreationStruct({
   bool? repeatDate,
   String? repeatType,
   String? repeatEvery,
-  String? preferredDays,
   String? monthlyRepeatType,
   String? endDateType,
   int? poster,
@@ -627,6 +912,18 @@ TaskCreationStruct createTaskCreationStruct({
   int? relatedService,
   int? relatedServiceCategory,
   int? session,
+  String? file,
+  String? date,
+  int? yearsofExperience,
+  bool? insurance,
+  String? driverslicense,
+  int? maxDistance,
+  bool? paytravelcosts,
+  String? paytravelcostsPerhour,
+  bool? cancellationPenaltyApplies,
+  String? cancellationPenaltyPerhour,
+  String? ifCancelledBefore,
+  int? id,
 }) =>
     TaskCreationStruct(
       description: description,
@@ -645,7 +942,6 @@ TaskCreationStruct createTaskCreationStruct({
       repeatDate: repeatDate,
       repeatType: repeatType,
       repeatEvery: repeatEvery,
-      preferredDays: preferredDays,
       monthlyRepeatType: monthlyRepeatType,
       endDateType: endDateType,
       poster: poster,
@@ -654,4 +950,16 @@ TaskCreationStruct createTaskCreationStruct({
       relatedService: relatedService,
       relatedServiceCategory: relatedServiceCategory,
       session: session,
+      file: file,
+      date: date,
+      yearsofExperience: yearsofExperience,
+      insurance: insurance,
+      driverslicense: driverslicense,
+      maxDistance: maxDistance,
+      paytravelcosts: paytravelcosts,
+      paytravelcostsPerhour: paytravelcostsPerhour,
+      cancellationPenaltyApplies: cancellationPenaltyApplies,
+      cancellationPenaltyPerhour: cancellationPenaltyPerhour,
+      ifCancelledBefore: ifCancelledBefore,
+      id: id,
     );

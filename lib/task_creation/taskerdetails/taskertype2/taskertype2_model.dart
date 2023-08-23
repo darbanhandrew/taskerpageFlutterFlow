@@ -1,6 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drope_down_languages_widget.dart';
+import '/components/drope_down_languages_post_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -18,8 +18,8 @@ class Taskertype2Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // State field(s) for CountController widget.
   int? countControllerValue;
-  // Model for dropeDownLanguages component.
-  late DropeDownLanguagesModel dropeDownLanguagesModel;
+  // Model for dropeDownLanguagesPost component.
+  late DropeDownLanguagesPostModel dropeDownLanguagesPostModel;
   // State field(s) for Switch widget.
   bool? switchValue;
   // Model for button_Next component.
@@ -29,15 +29,15 @@ class Taskertype2Model extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    dropeDownLanguagesModel =
-        createModel(context, () => DropeDownLanguagesModel());
+    dropeDownLanguagesPostModel =
+        createModel(context, () => DropeDownLanguagesPostModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    dropeDownLanguagesModel.dispose();
+    dropeDownLanguagesPostModel.dispose();
     buttonNextModel.dispose();
   }
 

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/edit_number_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -15,11 +16,17 @@ class SignUpVerificationRequestModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (sendVerifacation)] action in Sign-up-Verification-Request widget.
+  ApiCallResponse? apiResult5wf;
   // Model for Header component.
   late HeaderModel headerModel;
+  // Stores action output result for [Backend Call - API (sendVerifacation)] action in Text widget.
+  ApiCallResponse? sendVerification;
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;
   String? Function(BuildContext, String?)? pinCodeControllerValidator;
+  // Stores action output result for [Backend Call - API (checkVerfication)] action in Container widget.
+  ApiCallResponse? apiResult3lo;
 
   /// Initialization and disposal methods.
 

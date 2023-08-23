@@ -26,6 +26,8 @@ class ProfiledetailsModel extends FlutterFlowModel {
   late DropeDownLanguagesModel dropeDownLanguagesModel;
   // State field(s) for Switch widget.
   bool? switchValue;
+  // Stores action output result for [Backend Call - API (changeProfileDeatels)] action in Container widget.
+  ApiCallResponse? updateUserProfile;
 
   /// Initialization and disposal methods.
 

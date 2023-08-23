@@ -109,6 +109,18 @@ class FFAppState extends ChangeNotifier {
       _location =
           _latLngFromString(prefs.getString('ff_location')) ?? _location;
     });
+    _safeInit(() {
+      _selectedServices =
+          prefs.getStringList('ff_selectedServices')?.map(int.parse).toList() ??
+              _selectedServices;
+    });
+    _safeInit(() {
+      _selectedServiceCategory = prefs
+              .getStringList('ff_selectedServiceCategory')
+              ?.map(int.parse)
+              .toList() ??
+          _selectedServiceCategory;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -307,12 +319,6 @@ class FFAppState extends ChangeNotifier {
   String get StartingTime => _StartingTime;
   set StartingTime(String _value) {
     _StartingTime = _value;
-  }
-
-  String _daysOFweekSelection = '';
-  String get daysOFweekSelection => _daysOFweekSelection;
-  set daysOFweekSelection(String _value) {
-    _daysOFweekSelection = _value;
   }
 
   int _id = 0;
@@ -521,6 +527,77 @@ class FFAppState extends ChangeNotifier {
     _value != null
         ? prefs.setString('ff_location', _value.serialize())
         : prefs.remove('ff_location');
+  }
+
+  List<int> _selectedServices = [];
+  List<int> get selectedServices => _selectedServices;
+  set selectedServices(List<int> _value) {
+    _selectedServices = _value;
+    prefs.setStringList(
+        'ff_selectedServices', _value.map((x) => x.toString()).toList());
+  }
+
+  void addToSelectedServices(int _value) {
+    _selectedServices.add(_value);
+    prefs.setStringList('ff_selectedServices',
+        _selectedServices.map((x) => x.toString()).toList());
+  }
+
+  void removeFromSelectedServices(int _value) {
+    _selectedServices.remove(_value);
+    prefs.setStringList('ff_selectedServices',
+        _selectedServices.map((x) => x.toString()).toList());
+  }
+
+  void removeAtIndexFromSelectedServices(int _index) {
+    _selectedServices.removeAt(_index);
+    prefs.setStringList('ff_selectedServices',
+        _selectedServices.map((x) => x.toString()).toList());
+  }
+
+  void updateSelectedServicesAtIndex(
+    int _index,
+    int Function(int) updateFn,
+  ) {
+    _selectedServices[_index] = updateFn(_selectedServices[_index]);
+    prefs.setStringList('ff_selectedServices',
+        _selectedServices.map((x) => x.toString()).toList());
+  }
+
+  List<int> _selectedServiceCategory = [];
+  List<int> get selectedServiceCategory => _selectedServiceCategory;
+  set selectedServiceCategory(List<int> _value) {
+    _selectedServiceCategory = _value;
+    prefs.setStringList(
+        'ff_selectedServiceCategory', _value.map((x) => x.toString()).toList());
+  }
+
+  void addToSelectedServiceCategory(int _value) {
+    _selectedServiceCategory.add(_value);
+    prefs.setStringList('ff_selectedServiceCategory',
+        _selectedServiceCategory.map((x) => x.toString()).toList());
+  }
+
+  void removeFromSelectedServiceCategory(int _value) {
+    _selectedServiceCategory.remove(_value);
+    prefs.setStringList('ff_selectedServiceCategory',
+        _selectedServiceCategory.map((x) => x.toString()).toList());
+  }
+
+  void removeAtIndexFromSelectedServiceCategory(int _index) {
+    _selectedServiceCategory.removeAt(_index);
+    prefs.setStringList('ff_selectedServiceCategory',
+        _selectedServiceCategory.map((x) => x.toString()).toList());
+  }
+
+  void updateSelectedServiceCategoryAtIndex(
+    int _index,
+    int Function(int) updateFn,
+  ) {
+    _selectedServiceCategory[_index] =
+        updateFn(_selectedServiceCategory[_index]);
+    prefs.setStringList('ff_selectedServiceCategory',
+        _selectedServiceCategory.map((x) => x.toString()).toList());
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

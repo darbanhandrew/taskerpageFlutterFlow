@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +12,10 @@ export 'skill_level_sheet_model.dart';
 class SkillLevelSheetWidget extends StatefulWidget {
   const SkillLevelSheetWidget({
     Key? key,
-    required this.id,
+    required this.userService,
   }) : super(key: key);
 
-  final int? id;
+  final dynamic userService;
 
   @override
   _SkillLevelSheetWidgetState createState() => _SkillLevelSheetWidgetState();
@@ -35,28 +34,6 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SkillLevelSheetModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.editableUserService =
-          await TaskerpageBackendGroup.getUserServiceByIdCall.call(
-        id: widget.id,
-        apiGlobalKey: FFAppState().apiKey,
-      );
-      if ((_model.editableUserService?.succeeded ?? true)) {
-        setState(() {
-          _model.chosenSkillLevel =
-              TaskerpageBackendGroup.getUserServiceByIdCall
-                  .serviceSkillLevel(
-                    (_model.editableUserService?.jsonBody ?? ''),
-                  )
-                  .toString()
-                  .toString();
-        });
-      } else {
-        return;
-      }
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -97,7 +74,10 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
         ),
         child: FutureBuilder<ApiCallResponse>(
           future: TaskerpageBackendGroup.getUserServiceByIdCall.call(
-            id: widget.id,
+            id: getJsonField(
+              widget.userService,
+              r'''$.id''',
+            ),
             apiGlobalKey: FFAppState().apiKey,
           ),
           builder: (context, snapshot) {
@@ -155,11 +135,13 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '${TaskerpageBackendGroup.getUserServiceByIdCall.serviceCategory(
+                              '${functions.getTranslatableItemString(getJsonField(
                                     columnGetUserServiceByIdResponse.jsonBody,
-                                  ).toString()} ${TaskerpageBackendGroup.getUserServiceByIdCall.service(
+                                    r'''$.service_category.translations''',
+                                  ), 'en', 'title')}-${functions.getTranslatableItemString(getJsonField(
                                     columnGetUserServiceByIdResponse.jsonBody,
-                                  ).toString()}',
+                                    r'''$.service.translations''',
+                                  ), 'en', 'title')} Skill level',
                               textAlign: TextAlign.justify,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -196,7 +178,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    _model.updatePage(() {
+                                    setState(() {
                                       _model.chosenSkillLevel = skillLevlsItem;
                                     });
                                   },
@@ -204,16 +186,43 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                     width: 230.0,
                                     height: 40.0,
                                     decoration: BoxDecoration(
-                                      color: _model.chosenSkillLevel ==
-                                              skillLevlsItem
-                                          ? Color(0xFF5450E2)
-                                          : Color(0xFF5E5D5D),
+                                      color: () {
+                                        if ((_model.chosenSkillLevel == null ||
+                                                _model.chosenSkillLevel ==
+                                                    '') &&
+                                            (skillLevlsItem ==
+                                                getJsonField(
+                                                  widget.userService,
+                                                  r'''$.service_skill_level''',
+                                                ))) {
+                                          return Color(0xFF5450E2);
+                                        } else if (_model.chosenSkillLevel ==
+                                            skillLevlsItem) {
+                                          return Color(0xFF5450E2);
+                                        } else {
+                                          return Color(0x00FFFFFF);
+                                        }
+                                      }(),
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
-                                        color: _model.chosenSkillLevel ==
-                                                skillLevlsItem
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                        color: () {
+                                          if ((_model.chosenSkillLevel ==
+                                                      null ||
+                                                  _model.chosenSkillLevel ==
+                                                      '') &&
+                                              (skillLevlsItem ==
+                                                  getJsonField(
+                                                    widget.userService,
+                                                    r'''$.service_skill_level''',
+                                                  ))) {
+                                            return Color(0xFF5450E2);
+                                          } else if (_model.chosenSkillLevel ==
+                                              skillLevlsItem) {
+                                            return Color(0xFF5450E2);
+                                          } else {
+                                            return Color(0xFF5E5D5D);
+                                          }
+                                        }(),
                                         width: 1.0,
                                       ),
                                     ),
@@ -228,11 +237,25 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
-                                                color:
-                                                    _model.chosenSkillLevel ==
-                                                            skillLevlsItem
-                                                        ? Color(0xFFF6F6F6)
-                                                        : Color(0xFF5E5D5D),
+                                                color: () {
+                                                  if ((_model.chosenSkillLevel ==
+                                                              null ||
+                                                          _model.chosenSkillLevel ==
+                                                              '') &&
+                                                      (skillLevlsItem ==
+                                                          getJsonField(
+                                                            widget.userService,
+                                                            r'''$.service_skill_level''',
+                                                          ))) {
+                                                    return Color(0xFFF6F6F6);
+                                                  } else if (_model
+                                                          .chosenSkillLevel ==
+                                                      skillLevlsItem) {
+                                                    return Color(0xFFF6F6F6);
+                                                  } else {
+                                                    return Color(0xFF5E5D5D);
+                                                  }
+                                                }(),
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -262,12 +285,32 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          await TaskerpageBackendGroup.deleteUserServiceByIdCall
+                          var _shouldSetState = false;
+                          _model.delete = await TaskerpageBackendGroup
+                              .deleteUserServiceByIdCall
                               .call(
-                            id: widget.id,
+                            id: getJsonField(
+                              widget.userService,
+                              r'''$.id''',
+                            ),
                             apiGlobalKey: FFAppState().apiKey,
                           );
-                          Navigator.pop(context);
+                          _shouldSetState = true;
+                          if ((_model.delete?.succeeded ?? true)) {
+                            setState(() {
+                              FFAppState()
+                                  .removeFromSelectedServices(getJsonField(
+                                columnGetUserServiceByIdResponse.jsonBody,
+                                r'''$.service.id''',
+                              ));
+                            });
+                            Navigator.pop(context);
+                          } else {
+                            if (_shouldSetState) setState(() {});
+                            return;
+                          }
+
+                          if (_shouldSetState) setState(() {});
                         },
                         child: Container(
                           width: 116.0,
@@ -322,12 +365,28 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                 .userProfile(
                               columnGetUserServiceByIdResponse.jsonBody,
                             ),
-                            id: widget.id,
+                            id: getJsonField(
+                              widget.userService,
+                              r'''$.id''',
+                            ),
                             apiGlobalKey: FFAppState().apiKey,
                             serviceSkillLevel: _model.chosenSkillLevel,
                           );
                           _shouldSetState = true;
                           if ((_model.editedUserService?.succeeded ?? true)) {
+                            _model.updatePage(() {
+                              FFAppState()
+                                  .removeFromSelectedServices(getJsonField(
+                                widget.userService,
+                                r'''$.service.id''',
+                              ));
+                            });
+                            _model.updatePage(() {
+                              FFAppState().addToSelectedServices(getJsonField(
+                                columnGetUserServiceByIdResponse.jsonBody,
+                                r'''$.service.id''',
+                              ));
+                            });
                             Navigator.pop(context);
                           } else {
                             if (_shouldSetState) setState(() {});

@@ -30,6 +30,8 @@ class Profiledetails2Model extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - API (changeDescriptionAndProfileImage)] action in Container widget.
+  ApiCallResponse? update;
 
   /// Initialization and disposal methods.
 

@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -620,26 +619,7 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var _shouldSetState = false;
-                              _model.apiResultv2j = await TaskerpageBackendGroup
-                                  .updatePostCall
-                                  .call(
-                                id: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
-                                apiGlobalKey: FFAppState().apiKey,
-                                identified: FFAppState().Identified,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.apiResultv2j?.succeeded ?? true)) {
-                                context.pushNamed('Select_Address');
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
-
-                              if (_shouldSetState) setState(() {});
+                              context.pushNamed('Taskertype2');
                             },
                             child: Container(
                               width: 104.0,

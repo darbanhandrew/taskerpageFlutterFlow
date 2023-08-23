@@ -346,7 +346,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                       color: FFAppState()
                                                   .UserInformation
                                                   .driverLicense ==
-                                              'Car'
+                                              'CAR'
                                           ? Color(0xFF5450E2)
                                           : Color(0x00000000),
                                       borderRadius: BorderRadius.circular(5.0),
@@ -354,7 +354,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                         color: FFAppState()
                                                     .UserInformation
                                                     .driverLicense ==
-                                                'Car'
+                                                'CAR'
                                             ? Color(0xFF5450E2)
                                             : Color(0xFF5E5D5D),
                                         width: 1.0,
@@ -377,7 +377,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                                   color: FFAppState()
                                                               .UserInformation
                                                               .driverLicense ==
-                                                          'Car'
+                                                          'CAR'
                                                       ? Color(0xFFF6F6F6)
                                                       : Color(0xFF5E5D5D),
                                                   fontSize: 12.0,
@@ -408,7 +408,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                       color: FFAppState()
                                                   .UserInformation
                                                   .driverLicense ==
-                                              'Truck'
+                                              'TRUCK'
                                           ? Color(0xFF5450E2)
                                           : Color(0x00000000),
                                       borderRadius: BorderRadius.circular(5.0),
@@ -416,7 +416,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                         color: FFAppState()
                                                     .UserInformation
                                                     .driverLicense ==
-                                                'Truck'
+                                                'TRUCK'
                                             ? Color(0xFF5450E2)
                                             : Color(0xFF5E5D5D),
                                         width: 1.0,
@@ -439,7 +439,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                                   color: FFAppState()
                                                               .UserInformation
                                                               .driverLicense ==
-                                                          'Truck'
+                                                          'TRUCK'
                                                       ? Color(0xFFF6F6F6)
                                                       : Color(0xFF5E5D5D),
                                                   fontSize: 12.0,
@@ -509,9 +509,11 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await TaskerpageBackendGroup
-                                  .changeProfileDeatelsCall
-                                  .call(
+                              var _shouldSetState = false;
+                              _model.updateUserProfile =
+                                  await TaskerpageBackendGroup
+                                      .changeProfileDeatelsCall
+                                      .call(
                                 id: getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.id''',
@@ -526,8 +528,16 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                 userLanguagesList:
                                     FFAppState().LanguagesListForDropDown,
                               );
+                              _shouldSetState = true;
+                              if ((_model.updateUserProfile?.succeeded ??
+                                  true)) {
+                                context.pushNamed('Profiledetails2');
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
 
-                              context.pushNamed('Profiledetails2');
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 104.0,

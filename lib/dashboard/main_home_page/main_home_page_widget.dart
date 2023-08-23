@@ -1412,12 +1412,24 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                                           0.0,
                                                                           5.0),
                                                                   child:
-                                                                      MiniTaskCardWidget(
-                                                                    key: Key(
-                                                                        'Key97t_${postsListIndex}_of_${postsList.length}'),
-                                                                    id: getJsonField(
-                                                                      postsListItem,
-                                                                      r'''$.id''',
+                                                                      wrapWithModel(
+                                                                    model: _model
+                                                                        .miniTaskCardModels
+                                                                        .getModel(
+                                                                      postsListItem
+                                                                          .toString(),
+                                                                      postsListIndex,
+                                                                    ),
+                                                                    updateCallback: () =>
+                                                                        setState(
+                                                                            () {}),
+                                                                    child:
+                                                                        MiniTaskCardWidget(
+                                                                      key: Key(
+                                                                        'Key97t_${postsListItem.toString()}',
+                                                                      ),
+                                                                      post:
+                                                                          postsListItem,
                                                                     ),
                                                                   ),
                                                                 );

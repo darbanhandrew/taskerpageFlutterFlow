@@ -108,11 +108,42 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 28.0, 32.0, 28.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    'This how your task will be shown to public ',
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF3A3A3A),
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w900,
+                                        ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                           Container(
                             width: MediaQuery.sizeOf(context).width * 1.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 4.0,
+                                  color: Color(0x33000000),
+                                  spreadRadius: 2.0,
+                                )
+                              ],
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -1500,6 +1531,119 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                         ],
                       ),
                     ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 60.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 5.0,
+                              color: Color(0x33000000),
+                              offset: Offset(5.0, 5.0),
+                              spreadRadius: 10.0,
+                            )
+                          ],
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.safePop();
+                                },
+                                child: Container(
+                                  width: 96.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0x005450E2),
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(
+                                      color: Color(0xFF5450E2),
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 5.0, 0.0),
+                                        child: Icon(
+                                          Icons.arrow_back_ios_rounded,
+                                          color: Color(0xFF5450E2),
+                                          size: 10.0,
+                                        ),
+                                      ),
+                                      Text(
+                                        'Back',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFF5450E2),
+                                              fontSize: 14.0,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Flexible(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed('MyPosts');
+                                  },
+                                  child: Container(
+                                    width: 181.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF5450E2),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'PUBLISH TASK',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/privacy_policy_widget.dart';
@@ -544,6 +545,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                var _shouldSetState = false;
                                 if (_model.textController2.text ==
                                     _model.textController3.text) {
                                   setState(() {
@@ -553,11 +555,50 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                             _model.textController3.text,
                                     );
                                   });
-
-                                  context.pushNamed('Sign-up-information');
                                 } else {
+                                  if (_shouldSetState) setState(() {});
                                   return;
                                 }
+
+                                _model.apiResultpij =
+                                    await TaskerpageBackendGroup.registerCall
+                                        .call(
+                                  password:
+                                      FFAppState().UserInformation.password,
+                                  username: _model.textController1.text,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResultpij?.succeeded ?? true)) {
+                                  _model.login = await TaskerpageBackendGroup
+                                      .loginCall
+                                      .call(
+                                    username: _model.textController1.text,
+                                    password: _model.textController2.text,
+                                    apiGlobalKey: ' ',
+                                  );
+                                  _shouldSetState = true;
+                                  if ((_model.login?.succeeded ?? true)) {
+                                    setState(() {
+                                      FFAppState().apiKey = getJsonField(
+                                        (_model.login?.jsonBody ?? ''),
+                                        r'''$.access''',
+                                      ).toString();
+                                    });
+
+                                    context.pushNamed('Sign-up-information');
+                                  } else {
+                                    if (_shouldSetState) setState(() {});
+                                    return;
+                                  }
+
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (_shouldSetState) setState(() {});
                               },
                               child: Container(
                                 width: 100.0,

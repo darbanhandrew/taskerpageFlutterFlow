@@ -171,143 +171,149 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                 ),
                               ],
                             ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      27.0, 20.0, 0.0, 20.0),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: TaskerpageBackendGroup
-                                        .serviceCategoryCall
-                                        .call(
-                                      apiGlobalKey: FFAppState().apiKey,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: SpinKitThreeBounce(
-                                              color: Color(0xFF5450E2),
-                                              size: 50.0,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      final rowServiceCategoryResponse =
-                                          snapshot.data!;
-                                      return Builder(
-                                        builder: (context) {
-                                          final categorys = getJsonField(
-                                            rowServiceCategoryResponse.jsonBody,
-                                            r'''$''',
-                                          ).toList();
-                                          return SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: List.generate(
-                                                  categorys.length,
-                                                  (categorysIndex) {
-                                                final categorysItem =
-                                                    categorys[categorysIndex];
-                                                return Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          5.0, 5.0, 0.0, 5.0),
-                                                  child: Container(
-                                                    width: 104.0,
-                                                    height: 96.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Color(0xFFF6F6F6),
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          blurRadius: 4.0,
-                                                          color:
-                                                              Color(0x33000000),
-                                                          offset:
-                                                              Offset(0.0, 4.0),
-                                                        )
-                                                      ],
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              10.0),
-                                                    ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      0.0),
-                                                          child: Image.network(
-                                                            getJsonField(
-                                                              categorysItem,
-                                                              r'''$[:].icon_url''',
-                                                            ),
-                                                            width: 25.0,
-                                                            height: 25.0,
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      10.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            valueOrDefault<
-                                                                String>(
-                                                              functions
-                                                                  .getTranslatableItemString(
-                                                                      getJsonField(
-                                                                        categorysItem,
-                                                                        r'''$.translations''',
-                                                                      ),
-                                                                      'en',
-                                                                      'title'),
-                                                              'category',
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF212121),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                );
-                                              }).divide(SizedBox(width: 8.0)),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        27.0, 20.0, 0.0, 20.0),
+                                    child: FutureBuilder<ApiCallResponse>(
+                                      future: TaskerpageBackendGroup
+                                          .serviceCategoryCall
+                                          .call(
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: SpinKitThreeBounce(
+                                                color: Color(0xFF5450E2),
+                                                size: 50.0,
+                                              ),
                                             ),
                                           );
-                                        },
-                                      );
-                                    },
+                                        }
+                                        final rowServiceCategoryResponse =
+                                            snapshot.data!;
+                                        return Builder(
+                                          builder: (context) {
+                                            final categorys = getJsonField(
+                                              rowServiceCategoryResponse
+                                                  .jsonBody,
+                                              r'''$''',
+                                            ).toList();
+                                            return SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: List.generate(
+                                                    categorys.length,
+                                                    (categorysIndex) {
+                                                  final categorysItem =
+                                                      categorys[categorysIndex];
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(5.0, 5.0,
+                                                                0.0, 5.0),
+                                                    child: Container(
+                                                      width: 104.0,
+                                                      height: 96.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0xFFF6F6F6),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 4.0,
+                                                            color: Color(
+                                                                0x33000000),
+                                                            offset: Offset(
+                                                                0.0, 4.0),
+                                                          )
+                                                        ],
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        0.0),
+                                                            child:
+                                                                Image.network(
+                                                              getJsonField(
+                                                                categorysItem,
+                                                                r'''$[:].icon_url''',
+                                                              ),
+                                                              width: 25.0,
+                                                              height: 25.0,
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        10.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              valueOrDefault<
+                                                                  String>(
+                                                                functions.getTranslatableItemString(
+                                                                    getJsonField(
+                                                                      categorysItem,
+                                                                      r'''$.translations''',
+                                                                    ),
+                                                                    'en',
+                                                                    'title'),
+                                                                'category',
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Lato',
+                                                                    color: Color(
+                                                                        0xFF212121),
+                                                                    fontSize:
+                                                                        14.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  );
+                                                }).divide(SizedBox(width: 8.0)),
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
                                   ),
-                                ),
-                              ].divide(SizedBox(width: 7.5)),
+                                ],
+                              ),
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
@@ -1681,12 +1687,24 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                                           0.0,
                                                                           5.0),
                                                                   child:
-                                                                      MiniTaskCardWidget(
-                                                                    key: Key(
-                                                                        'Keyhmi_${postsListIndex}_of_${postsList.length}'),
-                                                                    id: getJsonField(
-                                                                      postsListItem,
-                                                                      r'''$.id''',
+                                                                      wrapWithModel(
+                                                                    model: _model
+                                                                        .miniTaskCardModels
+                                                                        .getModel(
+                                                                      postsListItem
+                                                                          .toString(),
+                                                                      postsListIndex,
+                                                                    ),
+                                                                    updateCallback: () =>
+                                                                        setState(
+                                                                            () {}),
+                                                                    child:
+                                                                        MiniTaskCardWidget(
+                                                                      key: Key(
+                                                                        'Keyhmi_${postsListItem.toString()}',
+                                                                      ),
+                                                                      post:
+                                                                          postsListItem,
                                                                     ),
                                                                   ),
                                                                 );

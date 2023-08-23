@@ -51,8 +51,6 @@ export '/signin_register/contactdata/contactdata_6/contactdata6_widget.dart'
     show Contactdata6Widget;
 export '/signin_register/contactdata/contactdata_9/contactdata9_widget.dart'
     show Contactdata9Widget;
-export '/signin_register/education/education/education_widget.dart'
-    show EducationWidget;
 export '/signin_register/education/education_2/education2_widget.dart'
     show Education2Widget;
 export '/signin_register/profiledetails/profiledetails/profiledetails_widget.dart'
@@ -75,8 +73,6 @@ export '/task_creation/taskerdetails/taskertype2/taskertype2_widget.dart'
     show Taskertype2Widget;
 export '/task_creation/taskerdetails/taskertype3/taskertype3_widget.dart'
     show Taskertype3Widget;
-export '/task_creation/preview/task_preview/task_preview_widget.dart'
-    show TaskPreviewWidget;
 export '/search/task_list/task_list_widget.dart' show TaskListWidget;
 export '/search/tasker_list/tasker_list_widget.dart' show TaskerListWidget;
 export '/bargain/inbox/inbox_widget.dart' show InboxWidget;
@@ -111,8 +107,6 @@ export '/signin_register/skills/add_another_skill_2/add_another_skill2_widget.da
     show AddAnotherSkill2Widget;
 export '/signin_register/education/add_another_education/add_another_education_widget.dart'
     show AddAnotherEducationWidget;
-export '/signin_register/education/edit_education/edit_education_widget.dart'
-    show EditEducationWidget;
 export '/task_creation/preview/task_view/task_view_widget.dart'
     show TaskViewWidget;
 export '/dashboard/tasker_home_page/tasker_home_page_widget.dart'

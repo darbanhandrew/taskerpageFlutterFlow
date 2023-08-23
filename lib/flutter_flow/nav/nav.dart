@@ -150,7 +150,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Contactdata-1',
           path: '/contactdata1',
-          builder: (context, params) => Contactdata1Widget(),
+          builder: (context, params) => Contactdata1Widget(
+            taskCreation: params.getParam('taskCreation', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'Contactdata-2',
@@ -181,11 +183,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Contactdata-9',
           path: '/contactdata9',
           builder: (context, params) => Contactdata9Widget(),
-        ),
-        FFRoute(
-          name: 'Education',
-          path: '/education',
-          builder: (context, params) => EducationWidget(),
         ),
         FFRoute(
           name: 'Education-2',
@@ -248,11 +245,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Taskertype3',
           path: '/taskertype3',
           builder: (context, params) => Taskertype3Widget(),
-        ),
-        FFRoute(
-          name: 'TaskPreview',
-          path: '/taskPreview',
-          builder: (context, params) => TaskPreviewWidget(),
         ),
         FFRoute(
           name: 'TaskList',
@@ -364,13 +356,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Add_another_education',
           path: '/addAnotherEducation',
-          builder: (context, params) => AddAnotherEducationWidget(),
-        ),
-        FFRoute(
-          name: 'Edit_education',
-          path: '/editEducation',
-          builder: (context, params) => EditEducationWidget(
-            id: params.getParam('id', ParamType.int),
+          builder: (context, params) => AddAnotherEducationWidget(
+            isSignUp: params.getParam('isSignUp', ParamType.bool),
+            education: params.getParam('education', ParamType.JSON),
           ),
         ),
         FFRoute(

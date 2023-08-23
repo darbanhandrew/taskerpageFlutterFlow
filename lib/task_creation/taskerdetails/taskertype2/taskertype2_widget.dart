@@ -1,6 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drope_down_languages_widget.dart';
+import '/components/drope_down_languages_post_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -144,8 +144,17 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     ),
                               ),
                               count: _model.countControllerValue ??= 2,
-                              updateCount: (count) => setState(
-                                  () => _model.countControllerValue = count),
+                              updateCount: (count) async {
+                                setState(
+                                    () => _model.countControllerValue = count);
+                                setState(() {
+                                  FFAppState().updateTaskCreationStruct(
+                                    (e) => e
+                                      ..yearsofExperience =
+                                          _model.countControllerValue,
+                                  );
+                                });
+                              },
                               stepSize: 1,
                               contentPadding: EdgeInsetsDirectional.fromSTEB(
                                   5.0, 0.0, 5.0, 0.0),
@@ -182,9 +191,9 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                         children: [
                           Expanded(
                             child: wrapWithModel(
-                              model: _model.dropeDownLanguagesModel,
+                              model: _model.dropeDownLanguagesPostModel,
                               updateCallback: () => setState(() {}),
-                              child: DropeDownLanguagesWidget(),
+                              child: DropeDownLanguagesPostWidget(),
                             ),
                           ),
                         ],
@@ -221,6 +230,19 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                               value: _model.switchValue ??= true,
                               onChanged: (newValue) async {
                                 setState(() => _model.switchValue = newValue!);
+                                if (newValue!) {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..insurance = true,
+                                    );
+                                  });
+                                } else {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..insurance = false,
+                                    );
+                                  });
+                                }
                               },
                               activeColor: FlutterFlowTheme.of(context).primary,
                               activeTrackColor: Color(0xFFFAD1C6),
@@ -285,8 +307,8 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..driverLicense = 'Car',
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e..driverslicense = 'CAR',
                                       );
                                     });
                                   },
@@ -295,17 +317,17 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     height: 100.0,
                                     decoration: BoxDecoration(
                                       color: FFAppState()
-                                                  .UserInformation
-                                                  .driverLicense ==
-                                              'Car'
+                                                  .TaskCreation
+                                                  .driverslicense ==
+                                              'CAR'
                                           ? Color(0xFF5450E2)
                                           : Color(0x00000000),
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
                                         color: FFAppState()
-                                                    .UserInformation
-                                                    .driverLicense ==
-                                                'Car'
+                                                    .TaskCreation
+                                                    .driverslicense ==
+                                                'CAR'
                                             ? Color(0xFF5450E2)
                                             : Color(0xFF5E5D5D),
                                         width: 1.0,
@@ -326,9 +348,9 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                 .override(
                                                   fontFamily: 'Lato',
                                                   color: FFAppState()
-                                                              .UserInformation
-                                                              .driverLicense ==
-                                                          'Car'
+                                                              .TaskCreation
+                                                              .driverslicense ==
+                                                          'CAR'
                                                       ? Color(0xFFF6F6F6)
                                                       : Color(0xFF5E5D5D),
                                                   fontSize: 12.0,
@@ -347,8 +369,8 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..driverLicense = 'Truck',
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e..driverslicense = 'TRUCK',
                                       );
                                     });
                                   },
@@ -357,17 +379,17 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     height: 100.0,
                                     decoration: BoxDecoration(
                                       color: FFAppState()
-                                                  .UserInformation
-                                                  .driverLicense ==
-                                              'Truck'
+                                                  .TaskCreation
+                                                  .driverslicense ==
+                                              'TRUCK'
                                           ? Color(0xFF5450E2)
                                           : Color(0x00000000),
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
                                         color: FFAppState()
-                                                    .UserInformation
-                                                    .driverLicense ==
-                                                'Truck'
+                                                    .TaskCreation
+                                                    .driverslicense ==
+                                                'TRUCK'
                                             ? Color(0xFF5450E2)
                                             : Color(0xFF5E5D5D),
                                         width: 1.0,
@@ -388,9 +410,9 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                 .override(
                                                   fontFamily: 'Lato',
                                                   color: FFAppState()
-                                                              .UserInformation
-                                                              .driverLicense ==
-                                                          'Truck'
+                                                              .TaskCreation
+                                                              .driverslicense ==
+                                                          'TRUCK'
                                                       ? Color(0xFFF6F6F6)
                                                       : Color(0xFF5E5D5D),
                                                   fontSize: 12.0,

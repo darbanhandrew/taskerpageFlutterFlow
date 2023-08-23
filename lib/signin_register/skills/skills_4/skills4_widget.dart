@@ -58,6 +58,16 @@ class _Skills4WidgetState extends State<Skills4Widget> {
               .toList()
               .cast<dynamic>();
         });
+        setState(() {
+          FFAppState().selectedServices =
+              TaskerpageBackendGroup.userProfileMeCall
+                  .selectedServices(
+                    (_model.apiResultekd?.jsonBody ?? ''),
+                  )!
+                  .cast<int>()
+                  .toList()
+                  .cast<int>();
+        });
         return;
       } else {
         return;
@@ -313,61 +323,127 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             var _shouldSetState = false;
-                                            _model.createdUserService =
-                                                await TaskerpageBackendGroup
-                                                    .createUserServiceCall
-                                                    .call(
-                                              serviceCategory: _model
-                                                  .selectedServiceCategory,
-                                              service: getJsonField(
-                                                servicesItem,
-                                                r'''$.id''',
-                                              ),
-                                              serviceSkillLevel: 'SELF_TRAINED',
-                                              userProfile: getJsonField(
-                                                FFAppState().userProfile,
-                                                r'''$.id''',
-                                              ),
-                                              apiGlobalKey: FFAppState().apiKey,
-                                            );
-                                            _shouldSetState = true;
-                                            if ((_model.createdUserService
-                                                    ?.succeeded ??
-                                                true)) {
-                                              await showModalBottomSheet(
-                                                isScrollControlled: true,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                enableDrag: false,
-                                                context: context,
-                                                builder: (context) {
-                                                  return GestureDetector(
-                                                    onTap: () => FocusScope.of(
-                                                            context)
-                                                        .requestFocus(
-                                                            _model.unfocusNode),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          SkillLevelSheetWidget(
-                                                        id: getJsonField(
-                                                          (_model.createdUserService
-                                                                  ?.jsonBody ??
-                                                              ''),
-                                                          r'''$.id''',
+                                            if (!FFAppState()
+                                                .selectedServices
+                                                .contains(getJsonField(
+                                                  servicesItem,
+                                                  r'''$.id''',
+                                                ))) {
+                                              _model.createdUserService =
+                                                  await TaskerpageBackendGroup
+                                                      .createUserServiceCall
+                                                      .call(
+                                                serviceCategory: _model
+                                                    .selectedServiceCategory,
+                                                service: getJsonField(
+                                                  servicesItem,
+                                                  r'''$.id''',
+                                                ),
+                                                serviceSkillLevel:
+                                                    'SELF_TRAINED',
+                                                userProfile: getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.id''',
+                                                ),
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                              );
+                                              _shouldSetState = true;
+                                              if ((_model.createdUserService
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => FocusScope
+                                                              .of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            SkillLevelSheetWidget(
+                                                          userService:
+                                                              getJsonField(
+                                                            (_model.createdUserService
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                            r'''$[0]''',
+                                                          ),
                                                         ),
                                                       ),
-                                                    ),
-                                                  );
-                                                },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                                    );
+                                                  },
+                                                ).then(
+                                                    (value) => setState(() {}));
+                                              } else {
+                                                if (_shouldSetState)
+                                                  setState(() {});
+                                                return;
+                                              }
                                             } else {
-                                              if (_shouldSetState)
-                                                setState(() {});
-                                              return;
+                                              _model.userServiceGet =
+                                                  await TaskerpageBackendGroup
+                                                      .getUserServicesCall
+                                                      .call(
+                                                service: getJsonField(
+                                                  servicesItem,
+                                                  r'''$.id''',
+                                                ),
+                                                serviceCategory: _model
+                                                    .selectedServiceCategory,
+                                                userProfile: getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.id''',
+                                                ),
+                                              );
+                                              _shouldSetState = true;
+                                              if ((_model.userServiceGet
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => FocusScope
+                                                              .of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            SkillLevelSheetWidget(
+                                                          userService:
+                                                              getJsonField(
+                                                            (_model.userServiceGet
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                            r'''$[0]''',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then(
+                                                    (value) => setState(() {}));
+                                              } else {
+                                                if (_shouldSetState)
+                                                  setState(() {});
+                                                return;
+                                              }
                                             }
 
                                             if (_shouldSetState)
@@ -377,37 +453,27 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                             width: 100.0,
                                             height: 100.0,
                                             decoration: BoxDecoration(
-                                              color: _model.userServices
-                                                          .where((e) =>
+                                              color: FFAppState()
+                                                          .selectedServices
+                                                          .contains(
                                                               getJsonField(
-                                                                e,
-                                                                r'''$.service.id''',
-                                                              ) ==
-                                                              getJsonField(
-                                                                servicesItem,
-                                                                r'''$.id''',
-                                                              ))
-                                                          .toList()
-                                                          .length >
-                                                      0
+                                                            servicesItem,
+                                                            r'''$.id''',
+                                                          )) ==
+                                                      true
                                                   ? Color(0xFF5450E2)
                                                   : Color(0x00FFFFFF),
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
                                               border: Border.all(
-                                                color: _model.userServices
-                                                            .where((e) =>
+                                                color: FFAppState()
+                                                            .selectedServices
+                                                            .contains(
                                                                 getJsonField(
-                                                                  e,
-                                                                  r'''$.service.id''',
-                                                                ) ==
-                                                                getJsonField(
-                                                                  servicesItem,
-                                                                  r'''$.id''',
-                                                                ))
-                                                            .toList()
-                                                            .length >
-                                                        0
+                                                              servicesItem,
+                                                              r'''$.id''',
+                                                            )) ==
+                                                        true
                                                     ? Color(0xFF5450E2)
                                                     : Color(0xFF5E5D5D),
                                                 width: 1.0,
@@ -439,17 +505,14 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color: functions
-                                                                  .checkIfServiceExists(
-                                                                      FFAppState()
-                                                                          .userServices
-                                                                          .toList(),
-                                                                      getJsonField(
+                                                          color: FFAppState()
+                                                                      .selectedServices
+                                                                      .contains(
+                                                                          getJsonField(
                                                                         servicesItem,
                                                                         r'''$.id''',
-                                                                      ),
-                                                                      _model
-                                                                          .selectedServiceCategory!)
+                                                                      )) ==
+                                                                  true
                                                               ? Color(
                                                                   0xFFF6F6F6)
                                                               : Color(

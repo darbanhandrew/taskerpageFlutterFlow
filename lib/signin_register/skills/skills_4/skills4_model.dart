@@ -41,6 +41,8 @@ class Skills4Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Stores action output result for [Backend Call - API (createUserService)] action in Container widget.
   ApiCallResponse? createdUserService;
+  // Stores action output result for [Backend Call - API (Get user services)] action in Container widget.
+  ApiCallResponse? userServiceGet;
 
   /// Initialization and disposal methods.
 

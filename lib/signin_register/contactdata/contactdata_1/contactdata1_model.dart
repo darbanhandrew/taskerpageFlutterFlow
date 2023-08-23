@@ -41,6 +41,8 @@ class Contactdata1Model extends FlutterFlowModel {
   String? Function(BuildContext, String?)? textController6Validator;
   // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
   ApiCallResponse? createAddress;
+  // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
+  ApiCallResponse? createAddress1;
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 

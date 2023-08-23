@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
@@ -8,6 +7,7 @@ import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -273,10 +273,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   onChanged: (val) async {
                                     setState(() => _model.dropDownValue1 = val);
                                     setState(() {
-                                      FFAppState().addToRepeatType(
-                                          'Monthly on day ${dateTimeFormat('d', _model.datePicked1)}');
-                                    });
-                                    setState(() {
                                       FFAppState().updateTaskCreationStruct(
                                         (e) => e
                                           ..repeatType = _model.dropDownValue1,
@@ -409,10 +405,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       setState(
                                           () => _model.dropDownValue2 = val);
                                       setState(() {
-                                        FFAppState().addToRepeatType(
-                                            'Monthly on ${dateTimeFormat('EEEE', _model.datePicked1)}');
-                                      });
-                                      setState(() {
                                         FFAppState().updateTaskCreationStruct(
                                           (e) => e
                                             ..repeatEvery =
@@ -490,312 +482,117 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               32.0, 22.0, 32.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 's';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 's'
+                          child: Builder(
+                            builder: (context) {
+                              final daysOfWeek =
+                                  functions.generateDaysOfWeekRange().toList();
+                              return Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: List.generate(daysOfWeek.length,
+                                    (daysOfWeekIndex) {
+                                  final daysOfWeekItem =
+                                      daysOfWeek[daysOfWeekIndex];
+                                  return InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (FFAppState()
+                                          .TaskCreation
+                                          .preferredDays
+                                          .contains(getJsonField(
+                                            daysOfWeekItem,
+                                            r'''$.shortName''',
+                                          ).toString())) {
+                                        setState(() {
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updatePreferredDays(
+                                                (e) => e.remove(getJsonField(
+                                                  daysOfWeekItem,
+                                                  r'''$.shortName''',
+                                                ).toString()),
+                                              ),
+                                          );
+                                        });
+                                      } else {
+                                        setState(() {
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updatePreferredDays(
+                                                (e) => e.remove(getJsonField(
+                                                  daysOfWeekItem,
+                                                  r'''$.shortName''',
+                                                ).toString()),
+                                              ),
+                                          );
+                                        });
+                                        setState(() {
+                                          FFAppState().updateTaskCreationStruct(
+                                            (e) => e
+                                              ..updatePreferredDays(
+                                                (e) => e.add(getJsonField(
+                                                  daysOfWeekItem,
+                                                  r'''$.shortName''',
+                                                ).toString()),
+                                              ),
+                                          );
+                                        });
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 30.0,
+                                      height: 30.0,
+                                      decoration: BoxDecoration(
+                                        color: FFAppState()
+                                                .TaskCreation
+                                                .preferredDays
+                                                .contains(getJsonField(
+                                                  daysOfWeekItem,
+                                                  r'''$.shortName''',
+                                                ).toString())
                                             ? Color(0xFF5450E2)
                                             : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'S',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      's'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                        shape: BoxShape.circle,
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 'm';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 'm'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'M',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      'm'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            getJsonField(
+                                              daysOfWeekItem,
+                                              r'''$.name''',
+                                            ).toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: FFAppState()
+                                                          .TaskCreation
+                                                          .preferredDays
+                                                          .contains(
+                                                              getJsonField(
+                                                            daysOfWeekItem,
+                                                            r'''$.shortName''',
+                                                          ).toString())
+                                                      ? Color(0xFFF6F6F6)
+                                                      : Colors.black,
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 't';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 't'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'T',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      't'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 'w';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 'w'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'W',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      'w'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 'te';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 'te'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'T',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      'te'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 'f';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 'f'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'F',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      'f'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  setState(() {
-                                    FFAppState().daysOFweekSelection = 'sa';
-                                  });
-                                },
-                                child: Container(
-                                  width: 30.0,
-                                  height: 30.0,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        FFAppState().daysOFweekSelection == 'sa'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFD9D9D9),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'S',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .daysOFweekSelection ==
-                                                      'sa'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Colors.black,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ].divide(SizedBox(width: 16.0)),
+                                    ),
+                                  );
+                                }).divide(SizedBox(width: 10.0)),
+                              );
+                            },
                           ),
                         ),
                       if ((_model.checkboxValue == true) &&
@@ -815,7 +612,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   controller:
                                       _model.dropDownValueController3 ??=
                                           FormFieldController<String>(null),
-                                  options: FFAppState().RepeatType,
+                                  options: [
+                                    'Monthly on the same day',
+                                    'Monthly on Third Friday'
+                                  ],
                                   onChanged: (val) async {
                                     setState(() => _model.dropDownValue3 = val);
                                     setState(() {
@@ -956,8 +756,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                       lastDate: DateTime(2050),
                                                     );
 
+                                                    TimeOfDay? _datePicked2Time;
                                                     if (_datePicked2Date !=
                                                         null) {
+                                                      _datePicked2Time =
+                                                          await showTimePicker(
+                                                        context: context,
+                                                        initialTime: TimeOfDay
+                                                            .fromDateTime(
+                                                                getCurrentTimestamp),
+                                                      );
+                                                    }
+
+                                                    if (_datePicked2Date !=
+                                                            null &&
+                                                        _datePicked2Time !=
+                                                            null) {
                                                       setState(() {
                                                         _model.datePicked2 =
                                                             DateTime(
@@ -965,6 +779,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                           _datePicked2Date
                                                               .month,
                                                           _datePicked2Date.day,
+                                                          _datePicked2Time!
+                                                              .hour,
+                                                          _datePicked2Time
+                                                              .minute,
                                                         );
                                                       });
                                                     }
@@ -1681,45 +1499,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                var _shouldSetState = false;
-                                _model.apiResult32y =
-                                    await TaskerpageBackendGroup.updatePostCall
-                                        .call(
-                                  id: getJsonField(
-                                    FFAppState().userProfile,
-                                    r'''$.id''',
-                                  ),
-                                  apiGlobalKey: FFAppState().apiKey,
-                                  startDate: dateTimeFormat(
-                                      'y-M-d', _model.datePicked1),
-                                  repeatDate:
-                                      FFAppState().TaskCreation.repeatDate,
-                                  repeatType:
-                                      FFAppState().TaskCreation.repeatType,
-                                  repeatEvery:
-                                      FFAppState().TaskCreation.repeatEvery,
-                                  preferredDays:
-                                      FFAppState().daysOFweekSelection,
-                                  endDateType:
-                                      FFAppState().TaskCreation.endDateType,
-                                  endDatetime: dateTimeFormat(
-                                      'y-M-d', _model.datePicked2),
-                                  session: FFAppState().TaskCreation.session,
-                                  startTime: FFAppState().StartingTime,
-                                  customStartTime: dateTimeFormat(
-                                      'y-M-d', _model.datePicked3),
-                                  sessionDuration:
-                                      FFAppState().TaskCreation.sessionDuration,
-                                );
-                                _shouldSetState = true;
-                                if ((_model.apiResult32y?.succeeded ?? true)) {
-                                  context.pushNamed('Taskertype');
-                                } else {
-                                  if (_shouldSetState) setState(() {});
-                                  return;
-                                }
+                                setState(() {
+                                  FFAppState().updateTaskCreationStruct(
+                                    (e) => e
+                                      ..startDate = dateTimeFormat(
+                                          'y-M-d', _model.datePicked1)
+                                      ..endDatetime =
+                                          _model.datePicked2?.toString()
+                                      ..customStartTime = dateTimeFormat(
+                                          'jm', _model.datePicked3),
+                                  );
+                                });
 
-                                if (_shouldSetState) setState(() {});
+                                context.pushNamed('Taskertype');
                               },
                               child: wrapWithModel(
                                 model: _model.buttonNextModel,

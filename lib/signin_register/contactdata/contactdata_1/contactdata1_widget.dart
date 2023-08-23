@@ -16,7 +16,13 @@ import 'contactdata1_model.dart';
 export 'contactdata1_model.dart';
 
 class Contactdata1Widget extends StatefulWidget {
-  const Contactdata1Widget({Key? key}) : super(key: key);
+  const Contactdata1Widget({
+    Key? key,
+    bool? taskCreation,
+  })  : this.taskCreation = taskCreation ?? false,
+        super(key: key);
+
+  final bool taskCreation;
 
   @override
   _Contactdata1WidgetState createState() => _Contactdata1WidgetState();
@@ -818,117 +824,272 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (FFAppState().UserInformation.role ==
-                                  'Poster') {
-                                context.pushNamed('Poster_Profile');
-                              } else {
-                                context.pushNamed('Education');
-                              }
-                            },
-                            child: Text(
-                              'I\'ll do it later',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
+                          if (widget.taskCreation)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.safePop();
+                              },
+                              child: Container(
+                                width: 104.0,
+                                height: 40.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0x00FFFFFF),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                    color: Color(0xFF5450E2),
+                                    width: 1.0,
                                   ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Discard',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Color(0xFF5450E2),
+                                            fontSize: 14.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              var _shouldSetState = false;
-                              setState(() {
-                                FFAppState().updateAddressStruct(
-                                  (e) => e
-                                    ..address = _model.placePickerValue.address
-                                    ..city = _model.placePickerValue.city
-                                    ..country = _model.placePickerValue.country
-                                    ..postalCode =
-                                        _model.placePickerValue.zipCode
-                                    ..state = _model.placePickerValue.state,
-                                );
-                              });
-                              _model.createAddress =
-                                  await TaskerpageBackendGroup.addressCreateCall
-                                      .call(
-                                address: FFAppState().Address.address,
-                                city: FFAppState().Address.city,
-                                country: FFAppState().Address.country,
-                                postalCode: FFAppState().Address.postalCode,
-                                state: FFAppState().Address.state,
-                                aptNo: FFAppState().Address.aptNo,
-                                streetAddress:
-                                    FFAppState().Address.streetAddress,
-                                locationLat: FFAppState().Address.locationLat,
-                                locationLng: FFAppState().Address.locationLng,
-                                isMainAddress:
-                                    FFAppState().Address.isMainAddress,
-                                userProfile: FFAppState().Address.userProfile,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.createAddress?.succeeded ?? true)) {
+                          if (!widget.taskCreation)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
                                 if (FFAppState().UserInformation.role ==
-                                    'POSTER') {
-                                  context.pushNamed('PostersDashboard');
+                                    'Poster') {
+                                  context.pushNamed('Poster_Profile');
                                 } else {
-                                  context.pushNamed('Education');
+                                  context.pushNamed(
+                                    'Add_another_education',
+                                    queryParameters: {
+                                      'isSignUp': serializeParam(
+                                        true,
+                                        ParamType.bool,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                }
+                              },
+                              child: Text(
+                                'I\'ll do it later',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF8A8A8A),
+                                      fontSize: 14.0,
+                                    ),
+                              ),
+                            ),
+                          if (!widget.taskCreation)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                var _shouldSetState = false;
+                                setState(() {
+                                  FFAppState().updateAddressStruct(
+                                    (e) => e
+                                      ..address =
+                                          _model.placePickerValue.address
+                                      ..city = _model.placePickerValue.city
+                                      ..country =
+                                          _model.placePickerValue.country
+                                      ..postalCode =
+                                          _model.placePickerValue.zipCode
+                                      ..state = _model.placePickerValue.state
+                                      ..streetAddress =
+                                          _model.placePickerValue.address,
+                                  );
+                                });
+                                _model.createAddress =
+                                    await TaskerpageBackendGroup
+                                        .addressCreateCall
+                                        .call(
+                                  address: FFAppState().Address.address,
+                                  city: FFAppState().Address.city,
+                                  country: FFAppState().Address.country,
+                                  postalCode: FFAppState().Address.postalCode,
+                                  state: FFAppState().Address.state,
+                                  aptNo: FFAppState().Address.aptNo,
+                                  streetAddress:
+                                      FFAppState().Address.streetAddress,
+                                  locationLat: FFAppState().Address.locationLat,
+                                  locationLng: FFAppState().Address.locationLng,
+                                  isMainAddress:
+                                      FFAppState().Address.isMainAddress,
+                                  userProfile: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.id''',
+                                  ),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.createAddress?.succeeded ?? true)) {
+                                  if (FFAppState().UserInformation.role ==
+                                      'POSTER') {
+                                    context.pushNamed('PostersDashboard');
+                                  } else {
+                                    context.pushNamed(
+                                      'Add_another_education',
+                                      queryParameters: {
+                                        'isSignUp': serializeParam(
+                                          true,
+                                          ParamType.bool,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  }
+
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
                                 }
 
                                 if (_shouldSetState) setState(() {});
-                                return;
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
-
-                              if (_shouldSetState) setState(() {});
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Save',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5.0, 0.0, 0.0, 0.0),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios_rounded,
-                                      color: Colors.white,
-                                      size: 10.0,
+                              },
+                              child: Container(
+                                width: 104.0,
+                                height: 40.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF5450E2),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Save',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                          ),
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                        size: 10.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
+                          if (widget.taskCreation)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                var _shouldSetState = false;
+                                setState(() {
+                                  FFAppState().updateAddressStruct(
+                                    (e) => e
+                                      ..address =
+                                          _model.placePickerValue.address
+                                      ..city = _model.placePickerValue.city
+                                      ..country =
+                                          _model.placePickerValue.country
+                                      ..postalCode =
+                                          _model.placePickerValue.zipCode
+                                      ..state = _model.placePickerValue.state
+                                      ..streetAddress =
+                                          _model.placePickerValue.address,
+                                  );
+                                });
+                                _model.createAddress1 =
+                                    await TaskerpageBackendGroup
+                                        .addressCreateCall
+                                        .call(
+                                  address: FFAppState().Address.address,
+                                  city: FFAppState().Address.city,
+                                  country: FFAppState().Address.country,
+                                  postalCode: FFAppState().Address.postalCode,
+                                  state: FFAppState().Address.state,
+                                  aptNo: FFAppState().Address.aptNo,
+                                  streetAddress:
+                                      FFAppState().Address.streetAddress,
+                                  locationLat: FFAppState().Address.locationLat,
+                                  locationLng: FFAppState().Address.locationLng,
+                                  isMainAddress:
+                                      FFAppState().Address.isMainAddress,
+                                  userProfile: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.id''',
+                                  ),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.createAddress1?.succeeded ??
+                                    true)) {
+                                  context.safePop();
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (_shouldSetState) setState(() {});
+                              },
+                              child: Container(
+                                width: 104.0,
+                                height: 40.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF5450E2),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: Icon(
+                                        Icons.add_outlined,
+                                        color: Colors.white,
+                                        size: 10.0,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Add',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
                         ],
                       ),
                     ),

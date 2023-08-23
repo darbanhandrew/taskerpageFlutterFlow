@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -35,7 +36,26 @@ class _Task1WidgetState extends State<Task1Widget> {
     _model = createModel(context, () => Task1Model());
 
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {});
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id == null) {
+        _model.createPost = await TaskerpageBackendGroup.initiatePostCall.call(
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.createPost?.succeeded ?? true)) {
+          FFAppState().update(() {
+            FFAppState().TaskCreation = TaskCreationStruct(
+              id: getJsonField(
+                (_model.createPost?.jsonBody ?? ''),
+                r'''$.id''',
+              ),
+            );
+          });
+          return;
+        } else {
+          return;
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -165,7 +185,7 @@ class _Task1WidgetState extends State<Task1Widget> {
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             if (FFAppState()
-                                                    .relatedServiseCategory ==
+                                                    .relatedServiseCategory !=
                                                 null) {
                                               setState(() {
                                                 FFAppState()
@@ -297,23 +317,7 @@ class _Task1WidgetState extends State<Task1Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var _shouldSetState = false;
-                              _model.succses = await TaskerpageBackendGroup
-                                  .createPostCall
-                                  .call(
-                                relatedServiceCategory:
-                                    FFAppState().relatedServiseCategory,
-                                apiGlobalKey: FFAppState().apiKey,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.succses?.succeeded ?? true)) {
-                                context.pushNamed('Task-2');
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
-
-                              if (_shouldSetState) setState(() {});
+                              context.pushNamed('Task-2');
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

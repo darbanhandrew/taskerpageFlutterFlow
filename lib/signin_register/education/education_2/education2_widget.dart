@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -367,46 +368,102 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                   Colors
                                                                       .transparent,
                                                               onTap: () async {
-                                                                setState(() {
-                                                                  FFAppState()
-                                                                          .AddCertificateForEducation =
-                                                                      true;
-                                                                });
-                                                                await showModalBottomSheet(
-                                                                  isScrollControlled:
-                                                                      true,
-                                                                  backgroundColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  enableDrag:
-                                                                      false,
-                                                                  context:
-                                                                      context,
-                                                                  builder:
-                                                                      (context) {
-                                                                    return GestureDetector(
-                                                                      onTap: () => FocusScope.of(
-                                                                              context)
-                                                                          .requestFocus(
-                                                                              _model.unfocusNode),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            MediaQuery.viewInsetsOf(context),
-                                                                        child:
-                                                                            ViewCertificateWidget(
-                                                                          certificateUrl:
-                                                                              getJsonField(
-                                                                            myEducationListItem,
-                                                                            r'''$.certificate_url''',
-                                                                          ).toString(),
-                                                                        ),
+                                                                if (functions.jsonToString(
+                                                                            getJsonField(
+                                                                          myEducationListItem,
+                                                                          r'''$.certificate_url''',
+                                                                        )) ==
+                                                                        null ||
+                                                                    functions.jsonToString(
+                                                                            getJsonField(
+                                                                          myEducationListItem,
+                                                                          r'''$.certificate_url''',
+                                                                        )) ==
+                                                                        '') {
+                                                                  context
+                                                                      .pushNamed(
+                                                                    'Add_another_education',
+                                                                    queryParameters:
+                                                                        {
+                                                                      'isSignUp':
+                                                                          serializeParam(
+                                                                        false,
+                                                                        ParamType
+                                                                            .bool,
                                                                       ),
-                                                                    );
-                                                                  },
-                                                                ).then((value) =>
-                                                                    setState(
-                                                                        () {}));
+                                                                      'education':
+                                                                          serializeParam(
+                                                                        myEducationListItem,
+                                                                        ParamType
+                                                                            .JSON,
+                                                                      ),
+                                                                    }.withoutNulls,
+                                                                  );
+                                                                } else {
+                                                                  await showModalBottomSheet(
+                                                                    isScrollControlled:
+                                                                        true,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    enableDrag:
+                                                                        false,
+                                                                    context:
+                                                                        context,
+                                                                    builder:
+                                                                        (context) {
+                                                                      return GestureDetector(
+                                                                        onTap: () =>
+                                                                            FocusScope.of(context).requestFocus(_model.unfocusNode),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding:
+                                                                              MediaQuery.viewInsetsOf(context),
+                                                                          child:
+                                                                              ViewCertificateWidget(
+                                                                            certificateUrl:
+                                                                                getJsonField(
+                                                                              myEducationListItem,
+                                                                              r'''$.certificate_url''',
+                                                                            ).toString(),
+                                                                            updateCertificateUrl:
+                                                                                () async {
+                                                                              var _shouldSetState = false;
+                                                                              _model.apiResultd72 = await TaskerpageBackendGroup.educationPartialUpdateCall.call(
+                                                                                id: getJsonField(
+                                                                                  myEducationListItem,
+                                                                                  r'''$.id''',
+                                                                                ),
+                                                                                schoolTitle: getJsonField(
+                                                                                  myEducationListItem,
+                                                                                  r'''$.school_title''',
+                                                                                ).toString(),
+                                                                                title: getJsonField(
+                                                                                  myEducationListItem,
+                                                                                  r'''$.title''',
+                                                                                ).toString(),
+                                                                                certificateUrl: getJsonField(
+                                                                                  myEducationListItem,
+                                                                                  r'''$.certificate_url''',
+                                                                                ).toString(),
+                                                                              );
+                                                                              _shouldSetState = true;
+                                                                              if ((_model.apiResultd72?.succeeded ?? true)) {
+                                                                                Navigator.pop(context);
+                                                                              } else {
+                                                                                return;
+                                                                              }
+                                                                            },
+                                                                          ),
+                                                                        ),
+                                                                      );
+                                                                    },
+                                                                  ).then((value) =>
+                                                                      setState(
+                                                                          () {}));
+                                                                }
+
+                                                                setState(() {});
                                                               },
                                                               child: Container(
                                                                 width: 150.0,
@@ -429,7 +486,18 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                           .center,
                                                                   children: [
                                                                     Text(
-                                                                      'View certificate',
+                                                                      functions.jsonToString(getJsonField(
+                                                                                    myEducationListItem,
+                                                                                    r'''$.certificate_url''',
+                                                                                  )) ==
+                                                                                  null ||
+                                                                              functions.jsonToString(getJsonField(
+                                                                                    myEducationListItem,
+                                                                                    r'''$.certificate_url''',
+                                                                                  )) ==
+                                                                                  ''
+                                                                          ? '+ Add Certificate'
+                                                                          : ' View Certificate',
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -461,17 +529,20 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                               onTap: () async {
                                                                 context
                                                                     .pushNamed(
-                                                                  'Edit_education',
+                                                                  'Add_another_education',
                                                                   queryParameters:
                                                                       {
-                                                                    'id':
+                                                                    'isSignUp':
                                                                         serializeParam(
-                                                                      getJsonField(
-                                                                        myEducationListItem,
-                                                                        r'''$.id''',
-                                                                      ),
+                                                                      false,
                                                                       ParamType
-                                                                          .int,
+                                                                          .bool,
+                                                                    ),
+                                                                    'education':
+                                                                        serializeParam(
+                                                                      myEducationListItem,
+                                                                      ParamType
+                                                                          .JSON,
                                                                     ),
                                                                   }.withoutNulls,
                                                                 );
@@ -519,7 +590,14 @@ class _Education2WidgetState extends State<Education2Widget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           context.pushNamed(
-                                              'Add_another_education');
+                                            'Add_another_education',
+                                            queryParameters: {
+                                              'isSignUp': serializeParam(
+                                                false,
+                                                ParamType.bool,
+                                              ),
+                                            }.withoutNulls,
+                                          );
                                         },
                                         child: Container(
                                           width: 252.0,

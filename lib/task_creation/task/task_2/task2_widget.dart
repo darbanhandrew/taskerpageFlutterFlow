@@ -203,23 +203,29 @@ class _Task2WidgetState extends State<Task2Widget> {
                                               width: 100.0,
                                               height: 100.0,
                                               decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
+                                                color: functions.jsonToInt(
+                                                            getJsonField(
+                                                          servicesItem,
+                                                          r'''$.id''',
+                                                        )) ==
+                                                        FFAppState()
+                                                            .TaskCreation
+                                                            .relatedService
+                                                    ? Color(0xFF5450E2)
+                                                    : Color(0x00FFFFFF),
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                                 border: Border.all(
-                                                  color: getJsonField(
+                                                  color: functions.jsonToInt(
+                                                              getJsonField(
                                                             servicesItem,
                                                             r'''$.id''',
-                                                          ) ==
+                                                          )) ==
                                                           FFAppState()
                                                               .TaskCreation
                                                               .relatedService
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : Color(0x00000000),
+                                                      ? Color(0xFF5450E2)
+                                                      : Color(0xFF5E5D5D),
                                                   width: 1.0,
                                                 ),
                                               ),
@@ -250,8 +256,18 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF5E5D5D),
+                                                            color: functions.jsonToInt(
+                                                                        getJsonField(
+                                                                      servicesItem,
+                                                                      r'''$.id''',
+                                                                    )) ==
+                                                                    FFAppState()
+                                                                        .TaskCreation
+                                                                        .relatedService
+                                                                ? Color(
+                                                                    0xFFF6F6F6)
+                                                                : Color(
+                                                                    0xFF5E5D5D),
                                                             fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -333,17 +349,20 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     width: 230.0,
                                     height: 40.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
+                                      color: FFAppState()
+                                                  .TaskCreation
+                                                  .skillLevel ==
+                                              skillLevelItem
+                                          ? Color(0xFF5450E2)
+                                          : Color(0x00FFFFFF),
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .TaskCreation
                                                     .skillLevel ==
                                                 skillLevelItem
-                                            ? FlutterFlowTheme.of(context)
-                                                .primary
-                                            : Color(0x00000000),
+                                            ? Color(0xFF5450E2)
+                                            : Color(0xFF5E5D5D),
                                         width: 1.0,
                                       ),
                                     ),
@@ -358,7 +377,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
-                                                color: Color(0xFF5E5D5D),
+                                                color: FFAppState()
+                                                            .TaskCreation
+                                                            .skillLevel ==
+                                                        skillLevelItem
+                                                    ? Color(0xFFF6F6F6)
+                                                    : Color(0xFF5E5D5D),
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -406,8 +430,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                                       () => _model.switchValue1 = newValue!);
                                   if (newValue!) {
                                     setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..skillBringsowntools = true,
+                                      FFAppState().updateTaskCreationStruct(
+                                        (e) => e,
                                       );
                                     });
                                   } else {
@@ -558,15 +582,6 @@ class _Task2WidgetState extends State<Task2Widget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.textController,
-                                onFieldSubmitted: (_) async {
-                                  setState(() {
-                                    FFAppState().updateTaskCreationStruct(
-                                      (e) => e
-                                        ..description =
-                                            _model.textController.text,
-                                    );
-                                  });
-                                },
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelStyle:
@@ -636,8 +651,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                var _shouldSetState = false;
                                 final selectedFiles = await selectFiles(
-                                  allowedExtensions: ['pdf'],
                                   multiFile: false,
                                 );
                                 if (selectedFiles != null) {
@@ -667,6 +682,30 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     return;
                                   }
                                 }
+
+                                _model.apiResultqsy =
+                                    await TaskerpageBackendGroup.uploadCall
+                                        .call(
+                                  file: _model.uploadedLocalFile,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResultqsy?.succeeded ?? true)) {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e
+                                        ..file = getJsonField(
+                                          (_model.apiResultqsy?.jsonBody ?? ''),
+                                          r'''$.url''',
+                                        ).toString(),
+                                    );
+                                  });
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (_shouldSetState) setState(() {});
                               },
                               child: Container(
                                 width: 120.0,
@@ -704,7 +743,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                               ),
                             ),
                             Text(
-                              _model.uploadedLocalFile.height.toString(),
+                              FFAppState().TaskCreation.file,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -798,38 +837,15 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      var _shouldSetState = false;
-                                      _model.apiResultv2j =
-                                          await TaskerpageBackendGroup
-                                              .updatePostCall
-                                              .call(
-                                        id: getJsonField(
-                                          FFAppState().userProfile,
-                                          r'''$.id''',
-                                        ),
-                                        apiGlobalKey: FFAppState().apiKey,
-                                        relatedService: FFAppState()
-                                            .TaskCreation
-                                            .relatedService,
-                                        skillLevel: FFAppState()
-                                            .TaskCreation
-                                            .skillLevel,
-                                        taskerLanguagesList: FFAppState()
-                                            .LanguagesListForDropDown,
-                                        description: FFAppState()
-                                            .TaskCreation
-                                            .description,
-                                      );
-                                      _shouldSetState = true;
-                                      if ((_model.apiResultv2j?.succeeded ??
-                                          true)) {
-                                        context.pushNamed('Select_Address');
-                                      } else {
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      }
+                                      setState(() {
+                                        FFAppState().updateTaskCreationStruct(
+                                          (e) => e
+                                            ..description =
+                                                _model.textController.text,
+                                        );
+                                      });
 
-                                      if (_shouldSetState) setState(() {});
+                                      context.pushNamed('Select_Address');
                                     },
                                     child: wrapWithModel(
                                       model: _model.buttonNextModel,

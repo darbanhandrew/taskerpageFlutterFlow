@@ -335,39 +335,34 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Stack(
-                              alignment: AlignmentDirectional(0.0, 1.3),
-                              children: [
-                                Container(
-                                  width: 100.0,
-                                  height: 100.0,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
+                    if (FFAppState().UserInformation.avatar != null &&
+                        FFAppState().UserInformation.avatar != '')
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 15.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Stack(
+                                alignment: AlignmentDirectional(0.0, 1.3),
+                                children: [
+                                  Container(
+                                    width: 100.0,
+                                    height: 100.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      'https://taskerpage.darkube.app${FFAppState().UserInformation.avatar}',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
-                                  child: Image.network(
-                                    '${FFAppState().UserInformation.avatar}',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                                Container(
-                                  width: 20.0,
-                                  height: 20.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: InkWell(
+                                  InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
@@ -380,19 +375,40 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                         );
                                       });
                                     },
-                                    child: Icon(
-                                      Icons.close_rounded,
-                                      color: Colors.white,
-                                      size: 15.0,
+                                    child: Container(
+                                      width: 20.0,
+                                      height: 20.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF5450E2),
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          setState(() {
+                                            FFAppState()
+                                                .updateUserInformationStruct(
+                                              (e) => e..avatar = '',
+                                            );
+                                          });
+                                        },
+                                        child: Icon(
+                                          Icons.close_rounded,
+                                          color: Colors.white,
+                                          size: 15.0,
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
@@ -540,7 +556,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await TaskerpageBackendGroup
+                              var _shouldSetState = false;
+                              _model.update = await TaskerpageBackendGroup
                                   .changeDescriptionAndProfileImageCall
                                   .call(
                                 id: getJsonField(
@@ -548,12 +565,18 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                   r'''$.id''',
                                 ),
                                 apiGlobalKey: FFAppState().apiKey,
-                                description:
-                                    FFAppState().UserInformation.describation,
+                                description: _model.textController.text,
                                 avatar: FFAppState().UserInformation.avatar,
                               );
+                              _shouldSetState = true;
+                              if ((_model.update?.succeeded ?? true)) {
+                                context.pushNamed('TaskersDashboard');
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
 
-                              context.pushNamed('TaskersDashboard');
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 104.0,

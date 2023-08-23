@@ -18,6 +18,8 @@ class TaskerHomePageModel extends FlutterFlowModel {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
+  // Models for MiniTaskCard dynamic component.
+  late FlutterFlowDynamicModels<MiniTaskCardModel> miniTaskCardModels;
   // Model for homePageFooter component.
   late HomePageFooterModel homePageFooterModel;
   // Model for NavBar component.
@@ -27,6 +29,7 @@ class TaskerHomePageModel extends FlutterFlowModel {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    miniTaskCardModels = FlutterFlowDynamicModels(() => MiniTaskCardModel());
     homePageFooterModel = createModel(context, () => HomePageFooterModel());
     navBarModel = createModel(context, () => NavBarModel());
   }
@@ -34,6 +37,7 @@ class TaskerHomePageModel extends FlutterFlowModel {
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
+    miniTaskCardModels.dispose();
     homePageFooterModel.dispose();
     navBarModel.dispose();
   }

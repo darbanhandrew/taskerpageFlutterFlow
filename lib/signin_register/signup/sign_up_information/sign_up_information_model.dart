@@ -19,8 +19,8 @@ class SignUpInformationModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (userProfileBasicInfo)] action in Sign-up-information widget.
-  ApiCallResponse? apiResult1in;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Sign-up-information widget.
+  ApiCallResponse? apiResultlk7;
   // Model for Header component.
   late HeaderModel headerModel;
   // State field(s) for TextField widget.

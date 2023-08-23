@@ -31,10 +31,10 @@ class Task2Model extends FlutterFlowModel {
   FFUploadedFile uploadedLocalFile =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultqsy;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
-  // Stores action output result for [Backend Call - API (updatePost)] action in button_Next widget.
-  ApiCallResponse? apiResultv2j;
 
   /// Initialization and disposal methods.
 

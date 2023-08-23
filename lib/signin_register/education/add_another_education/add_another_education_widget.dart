@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
+import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -14,7 +16,15 @@ import 'add_another_education_model.dart';
 export 'add_another_education_model.dart';
 
 class AddAnotherEducationWidget extends StatefulWidget {
-  const AddAnotherEducationWidget({Key? key}) : super(key: key);
+  const AddAnotherEducationWidget({
+    Key? key,
+    bool? isSignUp,
+    this.education,
+  })  : this.isSignUp = isSignUp ?? false,
+        super(key: key);
+
+  final bool isSignUp;
+  final dynamic education;
 
   @override
   _AddAnotherEducationWidgetState createState() =>
@@ -39,10 +49,28 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
           (e) => e..educationType = null,
         );
       });
+      if (widget.education != null) {
+        setState(() {
+          _model.certificateUrl = getJsonField(
+            widget.education,
+            r'''$.certificate_url''',
+          ).toString().toString();
+        });
+      } else {
+        return;
+      }
     });
 
-    _model.textController1 ??= TextEditingController();
-    _model.textController2 ??= TextEditingController();
+    _model.textController1 ??= TextEditingController(
+        text: functions.jsonToString(getJsonField(
+      widget.education,
+      r'''$.title''',
+    )));
+    _model.textController2 ??= TextEditingController(
+        text: functions.jsonToString(getJsonField(
+      widget.education,
+      r'''$.school_title''',
+    )));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -95,7 +123,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'Add trainings and education you \nparticipated',
+                                widget.education != null
+                                    ? 'Edit your education'
+                                    : 'Add trainings and education you participated',
                                 textAlign: TextAlign.center,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -144,19 +174,47 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: FFAppState()
-                                                      .UserInformation
-                                                      .educationType ==
-                                                  'Degree'
+                                          color: (FFAppState()
+                                                          .UserInformation
+                                                          .educationType ==
+                                                      'Degree') ||
+                                                  ((FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              null ||
+                                                          FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              '') &&
+                                                      (functions.jsonToString(
+                                                              getJsonField(
+                                                            widget.education,
+                                                            r'''$.education_level''',
+                                                          )) ==
+                                                          'Degree'))
                                               ? Color(0xFF5450E2)
                                               : Color(0x00000000),
                                           borderRadius:
                                               BorderRadius.circular(5.0),
                                           border: Border.all(
-                                            color: FFAppState()
-                                                        .UserInformation
-                                                        .educationType ==
-                                                    'Degree'
+                                            color: (FFAppState()
+                                                            .UserInformation
+                                                            .educationType ==
+                                                        'Degree') ||
+                                                    ((FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                null ||
+                                                            FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                '') &&
+                                                        (functions.jsonToString(
+                                                                getJsonField(
+                                                              widget.education,
+                                                              r'''$.education_level''',
+                                                            )) ==
+                                                            'Degree'))
                                                 ? Color(0xFF5450E2)
                                                 : Color(0xFF5E5D5D),
                                             width: 1.0,
@@ -212,19 +270,47 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: FFAppState()
-                                                      .UserInformation
-                                                      .educationType ==
-                                                  'Training'
+                                          color: (FFAppState()
+                                                          .UserInformation
+                                                          .educationType ==
+                                                      'Training') ||
+                                                  ((FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              null ||
+                                                          FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              '') &&
+                                                      (functions.jsonToString(
+                                                              getJsonField(
+                                                            widget.education,
+                                                            r'''$.education_level''',
+                                                          )) ==
+                                                          'Training'))
                                               ? Color(0xFF5450E2)
                                               : Color(0x00000000),
                                           borderRadius:
                                               BorderRadius.circular(5.0),
                                           border: Border.all(
-                                            color: FFAppState()
-                                                        .UserInformation
-                                                        .educationType ==
-                                                    'Training'
+                                            color: (FFAppState()
+                                                            .UserInformation
+                                                            .educationType ==
+                                                        'Training') ||
+                                                    ((FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                null ||
+                                                            FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                '') &&
+                                                        (functions.jsonToString(
+                                                                getJsonField(
+                                                              widget.education,
+                                                              r'''$.education_level''',
+                                                            )) ==
+                                                            'Training'))
                                                 ? Color(0xFF5450E2)
                                                 : Color(0xFF5E5D5D),
                                             width: 1.0,
@@ -240,7 +326,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Training',
+                                                'Training ',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyMedium
@@ -262,31 +348,6 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         ),
                                       ),
                                     ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 8.0, 32.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: GridView(
-                                  padding: EdgeInsets.zero,
-                                  gridDelegate:
-                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: 2,
-                                    crossAxisSpacing: 16.0,
-                                    mainAxisSpacing: 8.0,
-                                    childAspectRatio: 4.0,
-                                  ),
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  children: [
                                     InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -304,19 +365,47 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: FFAppState()
-                                                      .UserInformation
-                                                      .educationType ==
-                                                  'Student'
+                                          color: (FFAppState()
+                                                          .UserInformation
+                                                          .educationType ==
+                                                      'Student') ||
+                                                  ((FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              null ||
+                                                          FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              '') &&
+                                                      (functions.jsonToString(
+                                                              getJsonField(
+                                                            widget.education,
+                                                            r'''$.education_level''',
+                                                          )) ==
+                                                          'Student'))
                                               ? Color(0xFF5450E2)
                                               : Color(0x00000000),
                                           borderRadius:
                                               BorderRadius.circular(5.0),
                                           border: Border.all(
-                                            color: FFAppState()
-                                                        .UserInformation
-                                                        .educationType ==
-                                                    'Student '
+                                            color: (FFAppState()
+                                                            .UserInformation
+                                                            .educationType ==
+                                                        'Student') ||
+                                                    ((FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                null ||
+                                                            FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                '') &&
+                                                        (functions.jsonToString(
+                                                                getJsonField(
+                                                              widget.education,
+                                                              r'''$.education_level''',
+                                                            )) ==
+                                                            'Student'))
                                                 ? Color(0xFF5450E2)
                                                 : Color(0xFF5E5D5D),
                                             width: 1.0,
@@ -332,7 +421,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Text(
-                                                'Student ',
+                                                'Student',
                                                 style: FlutterFlowTheme.of(
                                                         context)
                                                     .bodyMedium
@@ -372,19 +461,47 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: FFAppState()
-                                                      .UserInformation
-                                                      .educationType ==
-                                                  'Participation'
+                                          color: (FFAppState()
+                                                          .UserInformation
+                                                          .educationType ==
+                                                      'Participation') ||
+                                                  ((FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              null ||
+                                                          FFAppState()
+                                                                  .UserInformation
+                                                                  .educationType ==
+                                                              '') &&
+                                                      (functions.jsonToString(
+                                                              getJsonField(
+                                                            widget.education,
+                                                            r'''$.education_level''',
+                                                          )) ==
+                                                          'Participation'))
                                               ? Color(0xFF5450E2)
                                               : Color(0x00000000),
                                           borderRadius:
                                               BorderRadius.circular(5.0),
                                           border: Border.all(
-                                            color: FFAppState()
-                                                        .UserInformation
-                                                        .educationType ==
-                                                    'Participation'
+                                            color: (FFAppState()
+                                                            .UserInformation
+                                                            .educationType ==
+                                                        'Participation') ||
+                                                    ((FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                null ||
+                                                            FFAppState()
+                                                                    .UserInformation
+                                                                    .educationType ==
+                                                                '') &&
+                                                        (functions.jsonToString(
+                                                                getJsonField(
+                                                              widget.education,
+                                                              r'''$.education_level''',
+                                                            )) ==
+                                                            'Participation'))
                                                 ? Color(0xFF5450E2)
                                                 : Color(0xFF5E5D5D),
                                             width: 1.0,
@@ -650,10 +767,39 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  setState(() {
-                                    FFAppState().AddCertificateForEducation =
-                                        true;
-                                  });
+                                  if (_model.certificateUrl != null &&
+                                      _model.certificateUrl != '') {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () => FocusScope.of(context)
+                                              .requestFocus(_model.unfocusNode),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: ViewCertificateWidget(
+                                              certificateUrl:
+                                                  _model.certificateUrl!,
+                                              updateCertificateUrl: () async {
+                                                setState(() {
+                                                  _model.certificateUrl = '';
+                                                });
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => setState(() {}));
+                                  } else {
+                                    setState(() {
+                                      FFAppState().AddCertificateForEducation =
+                                          true;
+                                    });
+                                  }
                                 },
                                 child: Container(
                                   width: 147.0,
@@ -670,7 +816,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         valueOrDefault<String>(
                                           _model.certificateUrl != null &&
                                                   _model.certificateUrl != ''
-                                              ? _model.certificateUrl
+                                              ? 'View Certificate'
                                               : '+ Add certificate',
                                           '+ Add certificate',
                                         ),
@@ -724,7 +870,11 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  context.safePop();
+                                  if (!widget.isSignUp) {
+                                    context.safePop();
+                                  } else {
+                                    context.pushNamed('Profiledetails');
+                                  }
                                 },
                                 child: Container(
                                   width: 104.0,
@@ -733,7 +883,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(
-                                      color: Color(0xFF5450E2),
+                                      color: widget.isSignUp
+                                          ? Colors.transparent
+                                          : Color(0xFF5450E2),
                                     ),
                                   ),
                                   child: Row(
@@ -741,12 +893,22 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        'Cancel',
+                                        () {
+                                          if (widget.isSignUp) {
+                                            return 'i\'ll do it later';
+                                          } else if (widget.education != null) {
+                                            return 'Discard';
+                                          } else {
+                                            return 'Cancel';
+                                          }
+                                        }(),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Lato',
-                                              color: Color(0xFF5450E2),
+                                              color: widget.isSignUp
+                                                  ? Color(0xFF8A8A8A)
+                                                  : Color(0xFF5450E2),
                                               fontSize: 14.0,
                                             ),
                                       ),
@@ -754,96 +916,313 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   ),
                                 ),
                               ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  var _shouldSetState = false;
-                                  _model.educationRequest =
-                                      await TaskerpageBackendGroup
-                                          .userEducationAddCall
-                                          .call(
-                                    title: _model.textController1.text,
-                                    schoolTitle: _model.textController2.text,
-                                    educationLevel: 'HIGH_SCHOOL',
-                                    certificateUrl: _model.certificateUrl,
-                                    relatedUserProfile: getJsonField(
-                                      FFAppState().userProfile,
-                                      r'''$.id''',
-                                    ),
-                                    apiGlobalKey: FFAppState().apiKey,
-                                  );
-                                  _shouldSetState = true;
-                                  if ((_model.educationRequest?.succeeded ??
-                                          true) !=
-                                      true) {
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(
-                                        content: Text(
-                                          'Not Done',
-                                          style: TextStyle(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
+                              if (!(!widget.isSignUp &&
+                                  (widget.education != null)))
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    var _shouldSetState = false;
+                                    _model.educationRequest =
+                                        await TaskerpageBackendGroup
+                                            .userEducationAddCall
+                                            .call(
+                                      title: _model.textController1.text,
+                                      schoolTitle: _model.textController2.text,
+                                      educationLevel: FFAppState()
+                                          .UserInformation
+                                          .educationType,
+                                      certificateUrl: _model.certificateUrl,
+                                      relatedUserProfile: getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.id''',
+                                      ),
+                                      apiGlobalKey: FFAppState().apiKey,
+                                    );
+                                    _shouldSetState = true;
+                                    if ((_model.educationRequest?.succeeded ??
+                                            true) !=
+                                        true) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Not Done',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor: Color(0xFFE8083F),
+                                          action: SnackBarAction(
+                                            label: 'close',
+                                            textColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            onPressed: () async {
+                                              ScaffoldMessenger.of(context)
+                                                  .hideCurrentSnackBar();
+                                            },
                                           ),
                                         ),
-                                        duration: Duration(milliseconds: 4000),
-                                        backgroundColor: Color(0xFFE8083F),
-                                        action: SnackBarAction(
-                                          label: 'close',
-                                          textColor:
-                                              FlutterFlowTheme.of(context)
-                                                  .primaryText,
-                                          onPressed: () async {
-                                            ScaffoldMessenger.of(context)
-                                                .hideCurrentSnackBar();
-                                          },
-                                        ),
-                                      ),
-                                    );
+                                      );
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
+
+                                    context.pushNamed('Education-2');
+
+                                    setState(() {
+                                      FFAppState().updateUserInformationStruct(
+                                        (e) => e..educationType = '',
+                                      );
+                                    });
                                     if (_shouldSetState) setState(() {});
-                                    return;
-                                  }
-
-                                  context.pushNamed('Education-2');
-
-                                  if (_shouldSetState) setState(() {});
-                                },
-                                child: Container(
-                                  width: 104.0,
-                                  height: 40.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 5.0, 0.0),
-                                        child: Icon(
-                                          Icons.add_rounded,
-                                          color: Colors.white,
-                                          size: 10.0,
+                                  },
+                                  child: Container(
+                                    width: 104.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF5450E2),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 5.0, 0.0),
+                                          child: Icon(
+                                            Icons.add_rounded,
+                                            color: Colors.white,
+                                            size: 10.0,
+                                          ),
                                         ),
-                                      ),
-                                      Text(
-                                        'Add',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: Colors.white,
-                                              fontSize: 14.0,
-                                            ),
-                                      ),
-                                    ],
+                                        Text(
+                                          'Add',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
+                              if (widget.isSignUp && (widget.education != null))
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    var _shouldSetState = false;
+                                    _model.educationRequest2 =
+                                        await TaskerpageBackendGroup
+                                            .userEducationAddCall
+                                            .call(
+                                      title: _model.textController1.text,
+                                      schoolTitle: _model.textController2.text,
+                                      educationLevel: FFAppState()
+                                          .UserInformation
+                                          .educationType,
+                                      certificateUrl: _model.certificateUrl,
+                                      relatedUserProfile: getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.id''',
+                                      ),
+                                      apiGlobalKey: FFAppState().apiKey,
+                                    );
+                                    _shouldSetState = true;
+                                    if (!(_model.educationRequest2?.succeeded ??
+                                        true)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Not Done',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor: Color(0xFFE8083F),
+                                          action: SnackBarAction(
+                                            label: 'close',
+                                            textColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            onPressed: () async {
+                                              ScaffoldMessenger.of(context)
+                                                  .hideCurrentSnackBar();
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
+
+                                    context.pushNamed('Profiledetails');
+
+                                    setState(() {
+                                      FFAppState().updateUserInformationStruct(
+                                        (e) => e..educationType = '',
+                                      );
+                                    });
+                                    if (_shouldSetState) setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 104.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF5450E2),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Next',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                              ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  5.0, 0.0, 0.0, 0.0),
+                                          child: Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: Colors.white,
+                                            size: 10.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              if (widget.education != null)
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    var _shouldSetState = false;
+                                    _model.educationRequest23 =
+                                        await TaskerpageBackendGroup
+                                            .educationPartialUpdateCall
+                                            .call(
+                                      id: getJsonField(
+                                        widget.education,
+                                        r'''$.id''',
+                                      ),
+                                      schoolTitle: _model.textController2.text,
+                                      title: _model.textController1.text,
+                                      certificateUrl: _model.certificateUrl,
+                                      apiGlobalKey: FFAppState().apiKey,
+                                      educationLevel: FFAppState()
+                                          .UserInformation
+                                          .educationType,
+                                    );
+                                    _shouldSetState = true;
+                                    if (!(_model
+                                            .educationRequest23?.succeeded ??
+                                        true)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Not Done',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor: Color(0xFFE8083F),
+                                          action: SnackBarAction(
+                                            label: 'close',
+                                            textColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .primaryText,
+                                            onPressed: () async {
+                                              ScaffoldMessenger.of(context)
+                                                  .hideCurrentSnackBar();
+                                            },
+                                          ),
+                                        ),
+                                      );
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
+                                    context.safePop();
+                                    setState(() {
+                                      FFAppState().updateUserInformationStruct(
+                                        (e) => e..educationType = '',
+                                      );
+                                    });
+                                    if (_shouldSetState) setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 104.0,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFF5450E2),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Save',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                              ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  5.0, 0.0, 0.0, 0.0),
+                                          child: Icon(
+                                            Icons.arrow_forward_ios_rounded,
+                                            color: Colors.white,
+                                            size: 10.0,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                             ],
                           ),
                         ),

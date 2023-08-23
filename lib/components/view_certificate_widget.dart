@@ -14,9 +14,11 @@ class ViewCertificateWidget extends StatefulWidget {
   const ViewCertificateWidget({
     Key? key,
     required this.certificateUrl,
+    required this.updateCertificateUrl,
   }) : super(key: key);
 
   final String? certificateUrl;
+  final Future<dynamic> Function()? updateCertificateUrl;
 
   @override
   _ViewCertificateWidgetState createState() => _ViewCertificateWidgetState();
@@ -94,13 +96,28 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
             padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 20.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.end,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        await widget.updateCertificateUrl?.call();
+                        Navigator.pop(context);
+                      },
+                      child: Icon(
+                        Icons.delete_outline,
+                        color: Color(0xFFF81113),
+                        size: 24.0,
+                      ),
+                    ),
                     InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -117,18 +134,17 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                     ),
                   ],
                 ),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.network(
-                    'https://picsum.photos/seed/801/600',
-                    width: MediaQuery.sizeOf(context).width * 0.7,
-                    height: 350.0,
-                    fit: BoxFit.cover,
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      'https://taskerpage.darkube.app${widget.certificateUrl}',
+                      width: MediaQuery.sizeOf(context).width * 0.7,
+                      height: 350.0,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [],
                 ),
               ],
             ),
