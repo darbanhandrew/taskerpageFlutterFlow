@@ -106,97 +106,116 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                 alignment: AlignmentDirectional(0.0, 0.0),
                 child: Stack(
                   children: [
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: 40.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(
-                          color: Color(0xFF5E5D5D),
-                          width: 1.0,
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        if (FFAppState().SelectLanguageDropDown) {
+                          setState(() {
+                            FFAppState().SelectLanguageDropDown = false;
+                          });
+                        } else {
+                          setState(() {
+                            FFAppState().SelectLanguageDropDown = true;
+                          });
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 40.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          borderRadius: BorderRadius.circular(5.0),
+                          border: Border.all(
+                            color: Color(0xFF5E5D5D),
+                            width: 1.0,
+                          ),
                         ),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            15.0, 0.0, 15.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              width: 150.0,
-                              height: 20.0,
-                              decoration: BoxDecoration(
-                                color: Color(0x00FFFFFF),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              15.0, 0.0, 15.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Container(
+                                width: 150.0,
+                                height: 20.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0x00FFFFFF),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    if ((FFAppState().SelectLanguageDropDown ==
+                                            false) &&
+                                        (FFAppState()
+                                                .LanguagesListForDropDown
+                                                .length ==
+                                            0))
+                                      Text(
+                                        'Select your language',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFF3D3D3D),
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.normal,
+                                            ),
+                                      ),
+                                  ],
+                                ),
                               ),
-                              child: Row(
+                              Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  if ((FFAppState().SelectLanguageDropDown ==
-                                          false) ||
-                                      (FFAppState()
-                                              .LanguagesListForDropDown
-                                              .length ==
-                                          0))
-                                    Text(
-                                      'Select your language',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFF3D3D3D),
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.normal,
-                                          ),
+                                  if (FFAppState().SelectLanguageDropDown ==
+                                      true)
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        setState(() {
+                                          FFAppState().SelectLanguageDropDown =
+                                              false;
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.keyboard_arrow_up_rounded,
+                                        color: Color(0xFF3D3D3D),
+                                        size: 24.0,
+                                      ),
+                                    ),
+                                  if (FFAppState().SelectLanguageDropDown ==
+                                      false)
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        setState(() {
+                                          FFAppState().SelectLanguageDropDown =
+                                              true;
+                                        });
+                                      },
+                                      child: Icon(
+                                        Icons.keyboard_arrow_down_rounded,
+                                        color: Color(0xFF3D3D3D),
+                                        size: 24.0,
+                                      ),
                                     ),
                                 ],
                               ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                if (FFAppState().SelectLanguageDropDown == true)
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      setState(() {
-                                        FFAppState().SelectLanguageDropDown =
-                                            false;
-                                      });
-                                    },
-                                    child: Icon(
-                                      Icons.keyboard_arrow_up_rounded,
-                                      color: Color(0xFF3D3D3D),
-                                      size: 24.0,
-                                    ),
-                                  ),
-                                if (FFAppState().SelectLanguageDropDown ==
-                                    false)
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      setState(() {
-                                        FFAppState().SelectLanguageDropDown =
-                                            true;
-                                      });
-                                    },
-                                    child: Icon(
-                                      Icons.keyboard_arrow_down_rounded,
-                                      color: Color(0xFF3D3D3D),
-                                      size: 24.0,
-                                    ),
-                                  ),
-                              ],
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -326,46 +345,49 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         fontWeight: FontWeight.normal,
                                       ),
                                 ),
-                                Theme(
-                                  data: ThemeData(
-                                    checkboxTheme: CheckboxThemeData(
-                                      visualDensity: VisualDensity.compact,
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(3.0),
+                                if (!FFAppState()
+                                    .LanguagesListForDropDown
+                                    .contains('DE'))
+                                  Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: CheckboxThemeData(
+                                        visualDensity: VisualDensity.compact,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(3.0),
+                                        ),
                                       ),
+                                      unselectedWidgetColor: Color(0xFF5E5D5D),
                                     ),
-                                    unselectedWidgetColor: Color(0xFF5E5D5D),
-                                  ),
-                                  child: Checkbox(
-                                    value: _model.checkboxValue1 ??=
-                                        FFAppState()
-                                            .LanguagesListForDropDown
-                                            .contains('DE'),
-                                    onChanged: (newValue) async {
-                                      setState(() =>
-                                          _model.checkboxValue1 = newValue!);
-                                      if (newValue!) {
-                                        setState(() {
+                                    child: Checkbox(
+                                      value: _model.checkboxValue1 ??=
                                           FFAppState()
-                                              .addToLanguagesListForDropDown(
-                                                  'DE');
-                                        });
-                                      } else {
-                                        setState(() {
-                                          FFAppState()
-                                              .removeFromLanguagesListForDropDown(
-                                                  'DE');
-                                        });
-                                      }
-                                    },
-                                    activeColor: Color(0xFF5450E2),
-                                    checkColor:
-                                        FlutterFlowTheme.of(context).info,
+                                              .LanguagesListForDropDown
+                                              .contains('DE'),
+                                      onChanged: (newValue) async {
+                                        setState(() =>
+                                            _model.checkboxValue1 = newValue!);
+                                        if (newValue!) {
+                                          setState(() {
+                                            FFAppState()
+                                                .addToLanguagesListForDropDown(
+                                                    'DE');
+                                          });
+                                        } else {
+                                          setState(() {
+                                            FFAppState()
+                                                .removeFromLanguagesListForDropDown(
+                                                    'DE');
+                                          });
+                                        }
+                                      },
+                                      activeColor: Color(0xFF5450E2),
+                                      checkColor:
+                                          FlutterFlowTheme.of(context).info,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                             Row(
@@ -383,46 +405,49 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         fontWeight: FontWeight.normal,
                                       ),
                                 ),
-                                Theme(
-                                  data: ThemeData(
-                                    checkboxTheme: CheckboxThemeData(
-                                      visualDensity: VisualDensity.compact,
-                                      materialTapTargetSize:
-                                          MaterialTapTargetSize.shrinkWrap,
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(3.0),
+                                if (!FFAppState()
+                                    .LanguagesListForDropDown
+                                    .contains('EN'))
+                                  Theme(
+                                    data: ThemeData(
+                                      checkboxTheme: CheckboxThemeData(
+                                        visualDensity: VisualDensity.compact,
+                                        materialTapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(3.0),
+                                        ),
                                       ),
+                                      unselectedWidgetColor: Color(0xFF5E5D5D),
                                     ),
-                                    unselectedWidgetColor: Color(0xFF5E5D5D),
-                                  ),
-                                  child: Checkbox(
-                                    value: _model.checkboxValue2 ??=
-                                        FFAppState()
-                                            .LanguagesListForDropDown
-                                            .contains('EN'),
-                                    onChanged: (newValue) async {
-                                      setState(() =>
-                                          _model.checkboxValue2 = newValue!);
-                                      if (newValue!) {
-                                        setState(() {
+                                    child: Checkbox(
+                                      value: _model.checkboxValue2 ??=
                                           FFAppState()
-                                              .addToLanguagesListForDropDown(
-                                                  'EN');
-                                        });
-                                      } else {
-                                        setState(() {
-                                          FFAppState()
-                                              .removeFromLanguagesListForDropDown(
-                                                  'EN');
-                                        });
-                                      }
-                                    },
-                                    activeColor: Color(0xFF5450E2),
-                                    checkColor:
-                                        FlutterFlowTheme.of(context).info,
+                                              .LanguagesListForDropDown
+                                              .contains('EN'),
+                                      onChanged: (newValue) async {
+                                        setState(() =>
+                                            _model.checkboxValue2 = newValue!);
+                                        if (newValue!) {
+                                          setState(() {
+                                            FFAppState()
+                                                .addToLanguagesListForDropDown(
+                                                    'EN');
+                                          });
+                                        } else {
+                                          setState(() {
+                                            FFAppState()
+                                                .removeFromLanguagesListForDropDown(
+                                                    'EN');
+                                          });
+                                        }
+                                      },
+                                      activeColor: Color(0xFF5450E2),
+                                      checkColor:
+                                          FlutterFlowTheme.of(context).info,
+                                    ),
                                   ),
-                                ),
                               ],
                             ),
                           ].divide(SizedBox(height: 8.0)),

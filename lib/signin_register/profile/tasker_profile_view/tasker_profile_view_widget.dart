@@ -1,5 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/bottom_sheetfor_pay_widget.dart';
+import '/components/comit_to_post_sheet_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -58,110 +58,6 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
         ),
       ],
     ),
-    'listViewOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
   };
 
   @override
@@ -175,13 +71,6 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
         FFAppState().PostsReviews = 'Post';
       });
     });
-
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -382,7 +271,23 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                           child: Padding(
                                             padding: MediaQuery.viewInsetsOf(
                                                 context),
-                                            child: BottomSheetforPayWidget(),
+                                            child: ComitToPostSheetWidget(
+                                              id: widget.id!,
+                                              name: TaskerpageBackendGroup
+                                                  .userProfileReadCall
+                                                  .name(
+                                                    taskerProfileViewUserProfileReadResponse
+                                                        .jsonBody,
+                                                  )
+                                                  .toString(),
+                                              family: TaskerpageBackendGroup
+                                                  .userProfileReadCall
+                                                  .family(
+                                                    taskerProfileViewUserProfileReadResponse
+                                                        .jsonBody,
+                                                  )
+                                                  .toString(),
+                                            ),
                                           ),
                                         );
                                       },
@@ -1447,13 +1352,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                             ),
                                           ),
                                         ].divide(SizedBox(height: 8.0)),
-                                      )
-                                          .animateOnPageLoad(animationsMap[
-                                              'listViewOnPageLoadAnimation1']!)
-                                          .animateOnActionTrigger(
-                                            animationsMap[
-                                                'listViewOnActionTriggerAnimation1']!,
-                                          ),
+                                      ),
                                     ),
                                   if (FFAppState().PostsReviews == 'Post')
                                     Row(
@@ -1508,13 +1407,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                           ),
                                         ),
                                       ],
-                                    )
-                                        .animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation1']!)
-                                        .animateOnActionTrigger(
-                                          animationsMap[
-                                              'rowOnActionTriggerAnimation1']!,
-                                        ),
+                                    ),
                                   if (FFAppState().PostsReviews == 'Reviews')
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -1746,13 +1639,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                 ),
                                               );
                                             },
-                                          )
-                                              .animateOnPageLoad(animationsMap[
-                                                  'listViewOnPageLoadAnimation2']!)
-                                              .animateOnActionTrigger(
-                                                animationsMap[
-                                                    'listViewOnActionTriggerAnimation2']!,
-                                              );
+                                          );
                                         },
                                       ),
                                     ),
@@ -1809,13 +1696,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                           ),
                                         ),
                                       ],
-                                    )
-                                        .animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation2']!)
-                                        .animateOnActionTrigger(
-                                          animationsMap[
-                                              'rowOnActionTriggerAnimation2']!,
-                                        ),
+                                    ),
                                 ],
                               ),
                             ),

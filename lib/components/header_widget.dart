@@ -139,7 +139,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       shape: BoxShape.circle,
                     ),
                     child: Image.network(
-                      'https://picsum.photos/seed/508/600',
+                      FFAppState().UserInformation.avatar != null &&
+                              FFAppState().UserInformation.avatar != ''
+                          ? 'https://taskerpage.darkube.app${FFAppState().UserInformation.avatar}'
+                          : 'https://picsum.photos/see/508/600',
                       fit: BoxFit.cover,
                     ),
                   ),

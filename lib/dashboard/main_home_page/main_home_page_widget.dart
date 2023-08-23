@@ -1272,10 +1272,8 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                           MiniTaskerCardWidget(
                                                         key: Key(
                                                             'Keyzvx_${taskerListIndex}_of_${taskerList.length}'),
-                                                        id: getJsonField(
-                                                          taskerListItem,
-                                                          r'''$.id''',
-                                                        ),
+                                                        userProfile:
+                                                            taskerListItem,
                                                       ),
                                                     );
                                                   },

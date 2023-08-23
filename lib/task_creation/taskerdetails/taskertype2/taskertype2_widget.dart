@@ -1,6 +1,5 @@
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drope_down_languages_post_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -162,49 +161,6 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                           ),
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Languages',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF292929),
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 10.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: wrapWithModel(
-                              model: _model.dropeDownLanguagesPostModel,
-                              updateCallback: () => setState(() {}),
-                              child: DropeDownLanguagesPostWidget(),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      height: 32.0,
-                      thickness: 1.0,
-                      indent: 32.0,
-                      endIndent: 32.0,
-                      color: Color(0xFFDEDEDE),
                     ),
                     Padding(
                       padding:

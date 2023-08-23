@@ -298,10 +298,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                 return TaskCardWidget(
                                                   key: Key(
                                                       'Key8un_${postsIndex}_of_${posts.length}'),
-                                                  postId: getJsonField(
-                                                    postsItem,
-                                                    r'''$.id''',
-                                                  ),
+                                                  post: postsItem,
                                                 );
                                               },
                                             );

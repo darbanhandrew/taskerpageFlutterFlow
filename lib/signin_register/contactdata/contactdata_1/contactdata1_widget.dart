@@ -1016,8 +1016,13 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                                       ..city = _model.placePickerValue.city
                                       ..country =
                                           _model.placePickerValue.country
-                                      ..postalCode =
-                                          _model.placePickerValue.zipCode
+                                      ..postalCode = _model.placePickerValue
+                                                      .zipCode !=
+                                                  null &&
+                                              _model.placePickerValue.zipCode !=
+                                                  ''
+                                          ? _model.placePickerValue.zipCode
+                                          : _model.textController3.text
                                       ..state = _model.placePickerValue.state
                                       ..streetAddress =
                                           _model.placePickerValue.address,

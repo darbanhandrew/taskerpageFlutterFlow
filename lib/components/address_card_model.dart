@@ -8,6 +8,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class AddressCardModel extends FlutterFlowModel {
+  ///  Local state fields for this component.
+
+  bool isMain = false;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Backend Call - API (setAddressMain)] action in Container widget.

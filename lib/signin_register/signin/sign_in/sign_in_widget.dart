@@ -343,17 +343,18 @@ class _SignInWidgetState extends State<SignInWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            'Password is not correct !',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFFD20202),
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
+                          if (!true)
+                            Text(
+                              'Password is not correct !',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFFD20202),
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                         ],
                       ),
                     ),
@@ -490,7 +491,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Log-in',
+                                      FFAppState().isApiCall ? '...' : 'Login',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

@@ -185,8 +185,8 @@ class _Task1WidgetState extends State<Task1Widget> {
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             if (FFAppState()
-                                                    .relatedServiseCategory !=
-                                                null) {
+                                                    .relatedServiseCategory >
+                                                0) {
                                               setState(() {
                                                 FFAppState()
                                                     .relatedServiseCategory = 0;
@@ -317,7 +317,27 @@ class _Task1WidgetState extends State<Task1Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('Task-2');
+                              if (FFAppState().relatedServiseCategory > 0) {
+                                context.pushNamed('Task-2');
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Notice'),
+                                      content:
+                                          Text('you must choose one category'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              }
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

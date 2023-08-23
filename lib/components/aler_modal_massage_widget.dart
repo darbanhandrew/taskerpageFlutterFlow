@@ -177,6 +177,7 @@ class _AlerModalMassageWidgetState extends State<AlerModalMassageWidget>
                                 FFAppState().UserInformation.role == 'POSTER'
                                     ? false
                                     : true,
+                            appointmentGoal: 'goals',
                           );
                           _shouldSetState = true;
                           if ((_model.apiResultt8a?.succeeded ?? true)) {

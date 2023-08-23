@@ -58,110 +58,6 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
         ),
       ],
     ),
-    'listViewOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
   };
 
   @override
@@ -175,13 +71,6 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
         FFAppState().PostsReviews = 'Post';
       });
     });
-
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -847,13 +736,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                                 ),
                                               );
                                             },
-                                          )
-                                              .animateOnPageLoad(animationsMap[
-                                                  'listViewOnPageLoadAnimation1']!)
-                                              .animateOnActionTrigger(
-                                                animationsMap[
-                                                    'listViewOnActionTriggerAnimation1']!,
-                                              );
+                                          );
                                         },
                                       ),
                                     ),
@@ -910,13 +793,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                           ),
                                         ),
                                       ],
-                                    )
-                                        .animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation1']!)
-                                        .animateOnActionTrigger(
-                                          animationsMap[
-                                              'rowOnActionTriggerAnimation1']!,
-                                        ),
+                                    ),
                                   if (FFAppState().PostsReviews == 'Reviews')
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -1148,13 +1025,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                                 ),
                                               );
                                             },
-                                          )
-                                              .animateOnPageLoad(animationsMap[
-                                                  'listViewOnPageLoadAnimation2']!)
-                                              .animateOnActionTrigger(
-                                                animationsMap[
-                                                    'listViewOnActionTriggerAnimation2']!,
-                                              );
+                                          );
                                         },
                                       ),
                                     ),
@@ -1211,13 +1082,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                           ),
                                         ),
                                       ],
-                                    )
-                                        .animateOnPageLoad(animationsMap[
-                                            'rowOnPageLoadAnimation2']!)
-                                        .animateOnActionTrigger(
-                                          animationsMap[
-                                              'rowOnActionTriggerAnimation2']!,
-                                        ),
+                                    ),
                                 ],
                               ),
                             ),

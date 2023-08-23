@@ -314,7 +314,7 @@ class _SignUpVerificationRequestWidgetState
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 3.0, 0.0, 0.0, 0.0),
                             child: Text(
-                              'Enter your 4 digit code here!',
+                              'Enter your 6 digit code here!',
                               textAlign: TextAlign.justify,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -357,19 +357,12 @@ class _SignUpVerificationRequestWidgetState
                           borderWidth: 1.0,
                           borderRadius: BorderRadius.circular(5.0),
                           shape: PinCodeFieldShape.box,
-                          activeColor: FlutterFlowTheme.of(context).primary,
-                          inactiveColor:
-                              FFAppState().IsntCorecctPassword == true
-                                  ? Color(0xFFD20202)
-                                  : Color(0xFF5E5D5D),
-                          selectedColor: FlutterFlowTheme.of(context).secondary,
-                          activeFillColor: FlutterFlowTheme.of(context).primary,
-                          inactiveFillColor:
-                              FFAppState().IsntCorecctPassword == true
-                                  ? Color(0xFFD20202)
-                                  : Color(0xFF5E5D5D),
-                          selectedFillColor:
-                              FlutterFlowTheme.of(context).secondary,
+                          activeColor: Color(0xFF5450E2),
+                          inactiveColor: Color(0xFF3D3D3D),
+                          selectedColor: Color(0xFF3D3D3D),
+                          activeFillColor: Color(0xFF5450E2),
+                          inactiveFillColor: Color(0xFF3D3D3D),
+                          selectedFillColor: Color(0xFF3D3D3D),
                         ),
                         controller: _model.pinCodeController,
                         onChanged: (_) {},
@@ -451,89 +444,86 @@ class _SignUpVerificationRequestWidgetState
                               ),
                             ),
                           ),
-                          if (_model.pinCodeController!.text != null &&
-                              _model.pinCodeController!.text != '')
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                _model.apiResult3lo =
-                                    await TaskerpageBackendGroup
-                                        .checkVerficationCall
-                                        .call(
-                                  to: FFAppState().UserInformation.mobilenumber,
-                                  code: _model.pinCodeController!.text,
-                                  apiGlobalKey: FFAppState().apiKey,
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              _model.apiResult3lo = await TaskerpageBackendGroup
+                                  .checkVerficationCall
+                                  .call(
+                                to: FFAppState().UserInformation.mobilenumber,
+                                code: _model.pinCodeController!.text,
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              if ((_model.apiResult3lo?.succeeded ?? true)) {
+                                context
+                                    .pushNamed('Sign-up-Verification-accepted');
+                              } else {
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('custom code'),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
                                 );
-                                if ((_model.apiResult3lo?.succeeded ?? true)) {
+                                if (_model.pinCodeController!.text ==
+                                    '111111') {
+                                  setState(() {
+                                    FFAppState().IsntCorecctPassword = false;
+                                  });
+
                                   context.pushNamed(
                                       'Sign-up-Verification-accepted');
                                 } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('custom code'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                  if (_model.pinCodeController!.text ==
-                                      '111111') {
-                                    setState(() {
-                                      FFAppState().IsntCorecctPassword = false;
-                                    });
-
-                                    context.pushNamed(
-                                        'Sign-up-Verification-accepted');
-                                  } else {
-                                    setState(() {
-                                      FFAppState().IsntCorecctPassword = true;
-                                    });
-                                  }
+                                  setState(() {
+                                    FFAppState().IsntCorecctPassword = true;
+                                  });
                                 }
+                              }
 
-                                setState(() {});
-                              },
-                              child: Container(
-                                width: 104.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF5450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Verify',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                              setState(() {});
+                            },
+                            child: Container(
+                              width: 104.0,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF5450E2),
+                                borderRadius: BorderRadius.circular(5.0),
                               ),
-                            )
-                                .animateOnPageLoad(animationsMap[
-                                    'containerOnPageLoadAnimation']!)
-                                .animateOnActionTrigger(
-                                  animationsMap[
-                                      'containerOnActionTriggerAnimation']!,
-                                ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Verify',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                              .animateOnPageLoad(animationsMap[
+                                  'containerOnPageLoadAnimation']!)
+                              .animateOnActionTrigger(
+                                animationsMap[
+                                    'containerOnActionTriggerAnimation']!,
+                              ),
                         ],
                       ),
                     ),

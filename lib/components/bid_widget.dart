@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/task_card_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -15,10 +16,12 @@ export 'bid_model.dart';
 class BidWidget extends StatefulWidget {
   const BidWidget({
     Key? key,
-    required this.id,
+    required this.post,
+    required this.bargaineeId,
   }) : super(key: key);
 
-  final int? id;
+  final dynamic post;
+  final int? bargaineeId;
 
   @override
   _BidWidgetState createState() => _BidWidgetState();
@@ -111,7 +114,7 @@ class _BidWidgetState extends State<BidWidget> {
                             model: _model.taskCardModel,
                             updateCallback: () => setState(() {}),
                             child: TaskCardWidget(
-                              postId: widget.id!,
+                              post: widget.post!,
                             ),
                           ),
                         ),
@@ -280,12 +283,35 @@ class _BidWidgetState extends State<BidWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              var _shouldSetState = false;
                               setState(() {
                                 FFAppState().BidReq =
                                     '${_model.countControllerValue?.toString()} ${_model.dropDownValue1} ${_model.dropDownValue2}';
                               });
+                              _model.bId = await TaskerpageBackendGroup
+                                  .createBargainCall
+                                  .call(
+                                price: _model.countControllerValue,
+                                postId: getJsonField(
+                                  widget.post,
+                                  r'''$.id''',
+                                ),
+                                apiGlobalKey: FFAppState().apiKey,
+                                bargainer: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.id''',
+                                ),
+                                bargainee: widget.bargaineeId,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.bId?.succeeded ?? true)) {
+                                context.pushNamed('chat');
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
 
-                              context.pushNamed('chat');
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 160.0,

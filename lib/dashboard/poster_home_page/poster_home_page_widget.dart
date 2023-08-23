@@ -1368,10 +1368,8 @@ class _PosterHomePageWidgetState extends State<PosterHomePageWidget> {
                                                                 MiniTaskerCardWidget(
                                                               key: Key(
                                                                   'Keya3t_${taskerListIndex}_of_${taskerList.length}'),
-                                                              id: getJsonField(
-                                                                taskerListItem,
-                                                                r'''$.id''',
-                                                              ),
+                                                              userProfile:
+                                                                  taskerListItem,
                                                             ),
                                                           );
                                                         },

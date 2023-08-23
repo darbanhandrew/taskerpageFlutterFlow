@@ -44,20 +44,22 @@ class _NavBarWidgetState extends State<NavBarWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 8.0),
+      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 6.5),
       child: Container(
         width: double.infinity,
-        height: 90.0,
+        height: 70.0,
         decoration: BoxDecoration(
           color: Color(0x00FFFFFF),
         ),
         child: Align(
           alignment: AlignmentDirectional(0.0, 0.0),
           child: Stack(
+            alignment: AlignmentDirectional(0.0, 0.0),
             children: [
               Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Material(
                     color: Colors.transparent,
@@ -76,108 +78,100 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 1.0),
-                      child: FlutterFlowIconButton(
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                    child: FlutterFlowIconButton(
+                      borderColor: Colors.transparent,
+                      borderRadius: 30.0,
+                      borderWidth: 1.0,
+                      buttonSize: 50.0,
+                      icon: Icon(
+                        Icons.home,
+                        color: Color(0xFF5E5D5D),
+                        size: 21.0,
+                      ),
+                      onPressed: () async {
+                        context.pushNamed('MainHomePage');
+                      },
+                    ),
+                  ),
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 50.0,
+                    icon: Icon(
+                      Icons.chat_bubble_rounded,
+                      color: Color(0xFF5E5D5D),
+                      size: 24.0,
+                    ),
+                    onPressed: () async {
+                      context.pushNamed('inbox');
+                    },
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      FlutterFlowIconButton(
                         borderColor: Colors.transparent,
-                        borderRadius: 30.0,
+                        borderRadius: 25.0,
                         borderWidth: 1.0,
-                        buttonSize: 50.0,
+                        buttonSize: 60.0,
+                        fillColor: Color(0xFFF06543),
                         icon: Icon(
-                          Icons.home,
-                          color: Color(0xFF5E5D5D),
-                          size: 20.0,
+                          Icons.add,
+                          color: Colors.white,
+                          size: 30.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed('MainHomePage');
+                          context.pushNamed(
+                            'Task-1',
+                            queryParameters: {
+                              'id': serializeParam(
+                                null,
+                                ParamType.int,
+                              ),
+                            }.withoutNulls,
+                          );
                         },
                       ),
+                    ],
+                  ),
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 50.0,
+                    icon: Icon(
+                      Icons.chair_rounded,
+                      color: Color(0xFF5E5D5D),
+                      size: 25.0,
                     ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 50.0,
-                      icon: Icon(
-                        Icons.chat_bubble_rounded,
-                        color: Color(0xFF5E5D5D),
-                        size: 24.0,
-                      ),
-                      onPressed: () async {
-                        context.pushNamed('inbox');
-                      },
+                    onPressed: () async {
+                      context.pushNamed('AppointmentList');
+                    },
+                  ),
+                  FlutterFlowIconButton(
+                    borderColor: Colors.transparent,
+                    borderRadius: 30.0,
+                    borderWidth: 1.0,
+                    buttonSize: 50.0,
+                    icon: Icon(
+                      Icons.pie_chart,
+                      color: Color(0xFF5E5D5D),
+                      size: 25.0,
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 7.0),
-                          child: FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 25.0,
-                            borderWidth: 1.0,
-                            buttonSize: 60.0,
-                            fillColor: Color(0xFFF06543),
-                            icon: Icon(
-                              Icons.add,
-                              color: Colors.white,
-                              size: 30.0,
-                            ),
-                            onPressed: () async {
-                              context.pushNamed(
-                                'Task-1',
-                                queryParameters: {
-                                  'id': serializeParam(
-                                    null,
-                                    ParamType.int,
-                                  ),
-                                }.withoutNulls,
-                              );
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 50.0,
-                      icon: Icon(
-                        Icons.chair_rounded,
-                        color: Color(0xFF5E5D5D),
-                        size: 24.0,
-                      ),
-                      onPressed: () async {
-                        context.pushNamed('AppointmentList');
-                      },
-                    ),
-                    FlutterFlowIconButton(
-                      borderColor: Colors.transparent,
-                      borderRadius: 30.0,
-                      borderWidth: 1.0,
-                      buttonSize: 50.0,
-                      icon: Icon(
-                        Icons.pie_chart,
-                        color: Color(0xFF5E5D5D),
-                        size: 24.0,
-                      ),
-                      onPressed: () async {
-                        context.pushNamed('TaskersDashboard');
-                      },
-                    ),
-                  ],
-                ),
+                    onPressed: () async {
+                      context.pushNamed('TaskersDashboard');
+                    },
+                  ),
+                ],
               ),
             ],
           ),

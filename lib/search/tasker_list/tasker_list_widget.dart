@@ -298,10 +298,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                               return TaskerCardWidget(
                                                 key: Key(
                                                     'Key1gn_${taskerListIndex}_of_${taskerList.length}'),
-                                                id: getJsonField(
-                                                  taskerListItem,
-                                                  r'''$.id''',
-                                                ),
+                                                userProfile: taskerListItem,
                                               );
                                             },
                                           );

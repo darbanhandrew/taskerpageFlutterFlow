@@ -498,17 +498,18 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Text(
-                              'Password is not mach !',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFFD20202),
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
+                            if (false)
+                              Text(
+                                'Password is not mach !',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFFD20202),
+                                      fontSize: 13.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
                           ],
                         ),
                       ),
@@ -518,17 +519,18 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          Text(
-                            'E-mail  address already exist !',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFFD20202),
-                                  fontSize: 13.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
+                          if (false)
+                            Text(
+                              'E-mail  address already exist !',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFFD20202),
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                         ],
                       ),
                     ),
@@ -554,6 +556,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         ..password =
                                             _model.textController3.text,
                                     );
+                                  });
+                                  setState(() {
+                                    FFAppState().isApiCall = true;
                                   });
                                 } else {
                                   if (_shouldSetState) setState(() {});
@@ -583,6 +588,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                         (_model.login?.jsonBody ?? ''),
                                         r'''$.access''',
                                       ).toString();
+                                      FFAppState().isApiCall = false;
                                     });
 
                                     context.pushNamed('Sign-up-information');
@@ -612,7 +618,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      'Register',
+                                      FFAppState().isApiCall
+                                          ? '...'
+                                          : 'Register',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

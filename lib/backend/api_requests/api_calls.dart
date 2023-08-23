@@ -69,6 +69,10 @@ class TaskerpageBackendGroup {
   static GetUserServicesCall getUserServicesCall = GetUserServicesCall();
   static EducationPartialUpdateCall educationPartialUpdateCall =
       EducationPartialUpdateCall();
+  static UpdateStatusPostCall updateStatusPostCall = UpdateStatusPostCall();
+  static CreateBargainCall createBargainCall = CreateBargainCall();
+  static GetServiceCategoryByIdCall getServiceCategoryByIdCall =
+      GetServiceCategoryByIdCall();
 }
 
 class RegisterCall {
@@ -441,7 +445,6 @@ class ServiceCategoryListCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': '${apiGlobalKey}',
       },
       params: {
         'is_active': "${isActive}",
@@ -1713,7 +1716,7 @@ class UpdatePostCall {
     int? radiusOfWork,
     bool? isVerified,
     String? postOpenCloseStatus = '',
-    String? skillLevel = '',
+    List<String>? skillLevelList,
     String? startDate = '',
     String? startTime = '',
     String? customStartTime = '',
@@ -1724,7 +1727,7 @@ class UpdatePostCall {
     bool? repeatDate,
     String? repeatType = '',
     String? repeatEvery = '',
-    List<String>? preferredDaysList,
+    String? preferredDays = '',
     String? monthlyRepeatType = '',
     String? endDateType = '',
     int? session,
@@ -1745,11 +1748,13 @@ class UpdatePostCall {
     bool? cancellationPenalty,
     String? payCancellationPerHour = '',
     String? cancellationBeforeAppointment = '',
+    List<String>? daysOfWeekList,
     String? apiGlobalKey =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
   }) {
     final taskerLanguages = _serializeList(taskerLanguagesList);
-    final preferredDays = _serializeList(preferredDaysList);
+    final skillLevel = _serializeList(skillLevelList);
+    final daysOfWeek = _serializeList(daysOfWeekList);
 
     final body = '''
 {
@@ -1758,7 +1763,7 @@ class UpdatePostCall {
   "radius_of_work": ${radiusOfWork},
   "is_verified": ${isVerified},
   "post_open_close_status": "${postOpenCloseStatus}",
-  "skill_level": "${skillLevel}",
+  "skill_level": ${skillLevel},
   "start_date": "${startDate}",
   "start_time": "${startTime}",
   "custom_start_time": "${customStartTime}",
@@ -1769,7 +1774,7 @@ class UpdatePostCall {
   "repeat_date": "${repeatDate}",
   "repeat_type": "${repeatType}",
   "repeat_every": "${repeatEvery}",
-  "days_of_week": ${preferredDays},
+  "days_of_week": ${daysOfWeek},
   "monthly_repeat_type": "${monthlyRepeatType}",
   "end_date_type": "${endDateType}",
   "session": ${session},
@@ -2263,7 +2268,6 @@ class UserProfileListCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': '${apiGlobalKey}',
       },
       params: {
         'user_role': userRole,
@@ -2658,7 +2662,6 @@ class AppointmentListCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       returnBody: true,
@@ -2754,8 +2757,6 @@ class CreateAppointmentCall {
     String? meetingLink = '',
     String? appointmentLocationLat = '',
     String? appointmentLocationLng = '',
-    int? reviewCount,
-    int? reviewAverage,
     bool? isIntervieweeAccepted,
     bool? isInterviewerAccepted,
     String? appointmentTime = '',
@@ -2771,8 +2772,6 @@ class CreateAppointmentCall {
   "meeting_link": "${meetingLink}",
   "appointment_location_lat": "${appointmentLocationLat}",
   "appointment_location_lng": "${appointmentLocationLng}",
-  "review_count": ${reviewCount},
-  "review_average": ${reviewAverage},
   "is_interviewer_accepted": ${isInterviewerAccepted},
   "is_interviewee_accepted": ${isIntervieweeAccepted},
   "appointment_time": "${appointmentTime}"
@@ -2783,7 +2782,6 @@ class CreateAppointmentCall {
       callType: ApiCallType.POST,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       body: body,
@@ -2859,7 +2857,6 @@ class MyAppointmentCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': '${apiGlobalKey}',
       },
       params: {
         'is_interviewee_accepted': isIntervieweeAccepted,
@@ -3275,6 +3272,7 @@ class GetUserServicesCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
       },
       params: {
         'service': service,
@@ -3312,6 +3310,7 @@ class EducationPartialUpdateCall {
       callType: ApiCallType.PATCH,
       headers: {
         ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       body: body,
@@ -3322,6 +3321,120 @@ class EducationPartialUpdateCall {
       cache: false,
     );
   }
+}
+
+class UpdateStatusPostCall {
+  Future<ApiCallResponse> call({
+    int? postStatus,
+    int? id,
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "post_status": ${postStatus}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'UpdateStatusPost',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
+      callType: ApiCallType.PATCH,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class CreateBargainCall {
+  Future<ApiCallResponse> call({
+    int? price,
+    int? bargainee,
+    int? bargainer,
+    int? postId,
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = '''
+{
+  "price": ${price},
+  "bargainee": ${bargainee},
+  "bargainer": ${bargainer},
+  "post_id": ${postId}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'CreateBargain',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/bargain/',
+      callType: ApiCallType.POST,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetServiceCategoryByIdCall {
+  Future<ApiCallResponse> call({
+    int? id,
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getServiceCategoryById',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/service-category/${id}/',
+      callType: ApiCallType.GET,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.id''',
+      );
+  dynamic translations(dynamic response) => getJsonField(
+        response,
+        r'''$.translations''',
+      );
+  dynamic createdAt(dynamic response) => getJsonField(
+        response,
+        r'''$.created_at''',
+      );
+  dynamic modifiedAt(dynamic response) => getJsonField(
+        response,
+        r'''$.modified_at''',
+      );
+  dynamic iconUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.icon_url''',
+      );
+  dynamic isActive(dynamic response) => getJsonField(
+        response,
+        r'''$.is_active''',
+      );
+  dynamic state(dynamic response) => getJsonField(
+        response,
+        r'''$.state''',
+      );
 }
 
 /// End Taskerpage Backend Group Code

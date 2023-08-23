@@ -446,7 +446,7 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   3.0, 0.0, 0.0, 0.0),
                               child: Text(
-                                'Enter your 4 digit code here!',
+                                'Enter your 6 digit code here!',
                                 textAlign: TextAlign.justify,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -474,7 +474,7 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                         child: PinCodeTextField(
                           autoDisposeControllers: false,
                           appContext: context,
-                          length: 4,
+                          length: 6,
                           textStyle: FlutterFlowTheme.of(context).bodyLarge,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           enableActiveFill: false,
@@ -484,29 +484,19 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                           showCursor: true,
                           cursorColor: Color(0xFF292929),
                           obscureText: false,
+                          keyboardType: TextInputType.number,
                           pinTheme: PinTheme(
                             fieldHeight: 40.0,
-                            fieldWidth: 75.5,
+                            fieldWidth: 50.0,
                             borderWidth: 1.0,
                             borderRadius: BorderRadius.circular(5.0),
                             shape: PinCodeFieldShape.box,
-                            activeColor: FlutterFlowTheme.of(context).primary,
-                            inactiveColor: FFAppState()
-                                        .IsNotCorrectPasswordNewPhonNumber ==
-                                    false
-                                ? Color(0xFF3D3D3D)
-                                : Color(0xFFFF0000),
-                            selectedColor:
-                                FlutterFlowTheme.of(context).secondary,
-                            activeFillColor:
-                                FlutterFlowTheme.of(context).primary,
-                            inactiveFillColor: FFAppState()
-                                        .IsNotCorrectPasswordNewPhonNumber ==
-                                    false
-                                ? Color(0xFF3D3D3D)
-                                : Color(0xFFFF0000),
-                            selectedFillColor:
-                                FlutterFlowTheme.of(context).secondary,
+                            activeColor: Color(0xFF5450E0),
+                            inactiveColor: Color(0xFF5450E0),
+                            selectedColor: Color(0xCCDFDFDF),
+                            activeFillColor: Color(0xFF5450E0),
+                            inactiveFillColor: Color(0xFF5450E0),
+                            selectedFillColor: Color(0xCCDFDFDF),
                           ),
                           controller: _model.pinCodeController,
                           onChanged: (_) {},

@@ -82,16 +82,51 @@ class _Task2WidgetState extends State<Task2Widget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text(
-                              'Category',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
+                            FutureBuilder<ApiCallResponse>(
+                              future: TaskerpageBackendGroup
+                                  .getServiceCategoryByIdCall
+                                  .call(
+                                id: FFAppState().relatedServiseCategory,
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: SpinKitThreeBounce(
+                                        color: Color(0xFF5450E2),
+                                        size: 50.0,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final textGetServiceCategoryByIdResponse =
+                                    snapshot.data!;
+                                return Text(
+                                  valueOrDefault<String>(
+                                    functions.getTranslatableItemString(
+                                        TaskerpageBackendGroup
+                                            .getServiceCategoryByIdCall
+                                            .translations(
+                                          textGetServiceCategoryByIdResponse
+                                              .jsonBody,
+                                        ),
+                                        'en',
+                                        'title'),
+                                    'Category',
                                   ),
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -135,8 +170,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 future:
                                     TaskerpageBackendGroup.getServicesCall.call(
                                   category: FFAppState()
-                                      .TaskCreation
-                                      .relatedServiceCategory
+                                      .relatedServiseCategory
                                       .toString(),
                                   apiGlobalKey: FFAppState().apiKey,
                                 ),
@@ -403,111 +437,117 @@ class _Task2WidgetState extends State<Task2Widget> {
                         endIndent: 32.0,
                         color: Color(0xFFE3E3E3),
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Brings own tools',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF3D3D3D),
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Switch.adaptive(
-                                value: _model.switchValue1 ??= true,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.switchValue1 = newValue!);
-                                  if (newValue!) {
-                                    setState(() {
-                                      FFAppState().updateTaskCreationStruct(
-                                        (e) => e,
-                                      );
-                                    });
-                                  } else {
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..skillBringsowntools = false,
-                                      );
-                                    });
-                                  }
-                                },
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                activeTrackColor: Color(0xFFFAD1C6),
-                                inactiveTrackColor: Color(0xFFECECEC),
-                                inactiveThumbColor: Color(0xFF3D3D3D),
+                      if (false)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Brings own tools',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF3D3D3D),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
                               ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 10.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Buys material',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF3D3D3D),
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                            Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Switch.adaptive(
-                                value: _model.switchValue2 ??= true,
-                                onChanged: (newValue) async {
-                                  setState(
-                                      () => _model.switchValue2 = newValue!);
-                                  if (newValue!) {
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..skillBuysmaterial = true,
-                                      );
-                                    });
-                                  } else {
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..skillBuysmaterial = false,
-                                      );
-                                    });
-                                  }
-                                },
-                                activeColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                activeTrackColor: Color(0xFFFAD1C6),
-                                inactiveTrackColor: Color(0xFFECECEC),
-                                inactiveThumbColor: Color(0xFF3D3D3D),
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Switch.adaptive(
+                                  value: _model.switchValue1 ??= true,
+                                  onChanged: (newValue) async {
+                                    setState(
+                                        () => _model.switchValue1 = newValue!);
+                                    if (newValue!) {
+                                      setState(() {
+                                        FFAppState().updateTaskCreationStruct(
+                                          (e) => e,
+                                        );
+                                      });
+                                    } else {
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e..skillBringsowntools = false,
+                                        );
+                                      });
+                                    }
+                                  },
+                                  activeColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  activeTrackColor: Color(0xFFFAD1C6),
+                                  inactiveTrackColor: Color(0xFFECECEC),
+                                  inactiveThumbColor: Color(0xFF3D3D3D),
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Divider(
-                        height: 48.0,
-                        thickness: 1.0,
-                        indent: 32.0,
-                        endIndent: 32.0,
-                        color: Color(0xFFE3E3E3),
-                      ),
+                      if (false)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 10.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Buys material',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF3D3D3D),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                child: Switch.adaptive(
+                                  value: _model.switchValue2 ??= true,
+                                  onChanged: (newValue) async {
+                                    setState(
+                                        () => _model.switchValue2 = newValue!);
+                                    if (newValue!) {
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e..skillBuysmaterial = true,
+                                        );
+                                      });
+                                    } else {
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e..skillBuysmaterial = false,
+                                        );
+                                      });
+                                    }
+                                  },
+                                  activeColor:
+                                      FlutterFlowTheme.of(context).primary,
+                                  activeTrackColor: Color(0xFFFAD1C6),
+                                  inactiveTrackColor: Color(0xFFECECEC),
+                                  inactiveThumbColor: Color(0xFF3D3D3D),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (false)
+                        Divider(
+                          height: 48.0,
+                          thickness: 1.0,
+                          indent: 32.0,
+                          endIndent: 32.0,
+                          color: Color(0xFFE3E3E3),
+                        ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 0.0, 32.0, 10.0),
@@ -742,16 +782,34 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 ),
                               ),
                             ),
-                            Text(
-                              FFAppState().TaskCreation.file,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF494949),
-                                    fontSize: 12.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                await launchURL(FFAppState()
+                                        .TaskCreation
+                                        .hasFile()
+                                    ? 'https://taskerpage.darkube.app${FFAppState().TaskCreation.file}'
+                                    : ' ');
+                              },
+                              child: Text(
+                                FFAppState().TaskCreation.hasFile()
+                                    ? 'https://taskerpage.darkube.app${FFAppState().TaskCreation.file}'
+                                    : ' '.maybeHandleOverflow(
+                                        maxChars: 20,
+                                        replacement: '…',
+                                      ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF494949),
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
                             ),
                           ],
                         ),

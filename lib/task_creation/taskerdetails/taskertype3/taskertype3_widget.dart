@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -677,41 +678,50 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 96.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(
-                              color: Color(0x005450E2),
-                              borderRadius: BorderRadius.circular(5.0),
-                              border: Border.all(
-                                color: Color(0xFF5450E2),
-                                width: 1.0,
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.safePop();
+                            },
+                            child: Container(
+                              width: 96.0,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: Color(0x005450E2),
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(
+                                  color: Color(0xFF5450E2),
+                                  width: 1.0,
+                                ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 5.0, 0.0),
-                                  child: Icon(
-                                    Icons.arrow_back_ios_rounded,
-                                    color: Color(0xFF5450E2),
-                                    size: 10.0,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 5.0, 0.0),
+                                    child: Icon(
+                                      Icons.arrow_back_ios_rounded,
+                                      color: Color(0xFF5450E2),
+                                      size: 10.0,
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  'Back',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFF5450E2),
-                                        fontSize: 14.0,
-                                      ),
-                                ),
-                              ],
+                                  Text(
+                                    'Back',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF5450E2),
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                           InkWell(
@@ -728,71 +738,169 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                     FFAppState().TaskCreation.languages,
                                 description:
                                     FFAppState().TaskCreation.description,
-                                radiusOfWork:
-                                    FFAppState().TaskCreation.maxDistance,
-                                skillLevel:
-                                    FFAppState().TaskCreation.skillLevel,
+                                radiusOfWork: valueOrDefault<int>(
+                                  FFAppState().TaskCreation.maxDistance,
+                                  10,
+                                ),
+                                skillLevelList: functions.stringToArrayOfString(
+                                    FFAppState().TaskCreation.skillLevel),
                                 startDate: FFAppState().TaskCreation.startDate,
-                                startTime: FFAppState().TaskCreation.startTime,
+                                startTime: FFAppState()
+                                                .TaskCreation
+                                                .startTime !=
+                                            null &&
+                                        FFAppState().TaskCreation.startTime !=
+                                            ''
+                                    ? FFAppState().TaskCreation.startTime
+                                    : null,
                                 customStartTime:
                                     FFAppState().TaskCreation.customStartTime,
-                                endDatetime:
-                                    FFAppState().TaskCreation.endDatetime,
-                                repeatType:
-                                    FFAppState().TaskCreation.repeatType,
-                                repeatEvery:
-                                    FFAppState().TaskCreation.repeatEvery,
+                                endDatetime: FFAppState()
+                                                .TaskCreation
+                                                .endDatetime ==
+                                            null ||
+                                        FFAppState().TaskCreation.endDatetime ==
+                                            ''
+                                    ? null
+                                    : FFAppState().TaskCreation.endDatetime,
+                                repeatType: FFAppState()
+                                                .TaskCreation
+                                                .repeatType !=
+                                            null &&
+                                        FFAppState().TaskCreation.repeatType !=
+                                            ''
+                                    ? FFAppState().TaskCreation.repeatType
+                                    : null,
+                                repeatEvery: FFAppState()
+                                                .TaskCreation
+                                                .repeatEvery !=
+                                            null &&
+                                        FFAppState().TaskCreation.repeatEvery !=
+                                            ''
+                                    ? FFAppState().TaskCreation.repeatEvery
+                                    : null,
                                 repeatDate:
                                     FFAppState().TaskCreation.repeatDate,
-                                endDateType:
-                                    FFAppState().TaskCreation.endDateType,
+                                endDateType: FFAppState()
+                                                .TaskCreation
+                                                .endDateType !=
+                                            null &&
+                                        FFAppState().TaskCreation.endDateType !=
+                                            ''
+                                    ? FFAppState().TaskCreation.endDateType
+                                    : null,
                                 postStatus: 4,
                                 postOpenCloseStatus: 'OPEN',
                                 poster: getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.id''',
                                 ),
-                                session: FFAppState().TaskCreation.session,
-                                sessionDuration:
-                                    FFAppState().TaskCreation.sessionDuration,
+                                session: valueOrDefault<int>(
+                                  FFAppState().TaskCreation.session,
+                                  1,
+                                ),
+                                sessionDuration: FFAppState()
+                                                .TaskCreation
+                                                .sessionDuration !=
+                                            null &&
+                                        FFAppState()
+                                                .TaskCreation
+                                                .sessionDuration !=
+                                            ''
+                                    ? FFAppState().TaskCreation.sessionDuration
+                                    : null,
                                 address: FFAppState().TaskCreation.address,
                                 taskerAge: FFAppState().TaskerAge,
                                 relatedService:
                                     FFAppState().TaskCreation.relatedService,
-                                relatedServiceCategory: FFAppState()
-                                    .TaskCreation
-                                    .relatedServiceCategory,
+                                relatedServiceCategory:
+                                    FFAppState().relatedServiseCategory,
                                 apiGlobalKey: FFAppState().apiKey,
                                 id: FFAppState().TaskCreation.id,
-                                monthlyRepeatType:
-                                    FFAppState().TaskCreation.monthlyRepeatType,
-                                preferredDaysList:
-                                    FFAppState().TaskCreation.preferredDays,
+                                monthlyRepeatType: FFAppState()
+                                        .TaskCreation
+                                        .hasMonthlyRepeatType()
+                                    ? FFAppState()
+                                        .TaskCreation
+                                        .monthlyRepeatType
+                                    : null,
+                                preferredDays: functions
+                                    .convertShortWeekDayToLong(FFAppState()
+                                        .TaskCreation
+                                        .daysOfWeek
+                                        .toList()),
                                 taskerGender: FFAppState().TaskerType,
                                 isVerified: false,
                                 isPeriodic:
                                     FFAppState().TaskCreation.repeatDate,
                                 numSessions:
-                                    FFAppState().TaskCreation.numSessions,
+                                    FFAppState().TaskCreation.numSessions ==
+                                            null
+                                        ? null
+                                        : FFAppState().TaskCreation.numSessions,
                                 identified: FFAppState().Identified,
-                                yearsOfExperience:
-                                    FFAppState().TaskCreation.yearsofExperience,
+                                yearsOfExperience: FFAppState()
+                                            .TaskCreation
+                                            .yearsofExperience ==
+                                        null
+                                    ? 1
+                                    : FFAppState()
+                                        .TaskCreation
+                                        .yearsofExperience,
                                 insurance: FFAppState().TaskCreation.insurance,
-                                driverLicense:
-                                    FFAppState().TaskCreation.driverslicense,
+                                driverLicense: FFAppState()
+                                                .TaskCreation
+                                                .driverslicense ==
+                                            null ||
+                                        FFAppState()
+                                                .TaskCreation
+                                                .driverslicense ==
+                                            ''
+                                    ? 'CAR'
+                                    : FFAppState().TaskCreation.driverslicense,
                                 travelCosts:
                                     FFAppState().TaskCreation.paytravelcosts,
                                 payPerHour: FFAppState()
-                                    .TaskCreation
-                                    .paytravelcostsPerhour,
+                                                .TaskCreation
+                                                .paytravelcostsPerhour ==
+                                            null ||
+                                        FFAppState()
+                                                .TaskCreation
+                                                .paytravelcostsPerhour ==
+                                            ''
+                                    ? null
+                                    : FFAppState()
+                                        .TaskCreation
+                                        .paytravelcostsPerhour,
                                 cancellationPenalty: FFAppState()
                                     .TaskCreation
                                     .cancellationPenaltyApplies,
                                 payCancellationPerHour: FFAppState()
-                                    .TaskCreation
-                                    .cancellationPenaltyPerhour,
-                                cancellationBeforeAppointment:
-                                    FFAppState().TaskCreation.ifCancelledBefore,
+                                                .TaskCreation
+                                                .cancellationPenaltyPerhour ==
+                                            null ||
+                                        FFAppState()
+                                                .TaskCreation
+                                                .cancellationPenaltyPerhour ==
+                                            ''
+                                    ? null
+                                    : FFAppState()
+                                        .TaskCreation
+                                        .cancellationPenaltyPerhour,
+                                cancellationBeforeAppointment: FFAppState()
+                                                .TaskCreation
+                                                .ifCancelledBefore ==
+                                            null ||
+                                        FFAppState()
+                                                .TaskCreation
+                                                .ifCancelledBefore ==
+                                            ''
+                                    ? null
+                                    : FFAppState()
+                                        .TaskCreation
+                                        .ifCancelledBefore,
+                                daysOfWeekList:
+                                    FFAppState().TaskCreation.daysOfWeek,
                               );
                               _shouldSetState = true;
                               if ((_model.apiResultgfm?.succeeded ?? true)) {

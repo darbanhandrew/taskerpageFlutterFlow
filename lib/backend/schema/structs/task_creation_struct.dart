@@ -18,7 +18,6 @@ class TaskCreationStruct extends BaseStruct {
     String? customStartTime,
     String? endDatetime,
     String? isPeriodic,
-    String? daysOfWeek,
     int? numSessions,
     String? sessionDuration,
     bool? repeatDate,
@@ -45,7 +44,8 @@ class TaskCreationStruct extends BaseStruct {
     String? cancellationPenaltyPerhour,
     String? ifCancelledBefore,
     int? id,
-    List<String>? preferredDays,
+    String? preferredDays,
+    List<String>? daysOfWeek,
   })  : _taskerLanguages = taskerLanguages,
         _description = description,
         _radiusOfWork = radiusOfWork,
@@ -57,7 +57,6 @@ class TaskCreationStruct extends BaseStruct {
         _customStartTime = customStartTime,
         _endDatetime = endDatetime,
         _isPeriodic = isPeriodic,
-        _daysOfWeek = daysOfWeek,
         _numSessions = numSessions,
         _sessionDuration = sessionDuration,
         _repeatDate = repeatDate,
@@ -84,7 +83,8 @@ class TaskCreationStruct extends BaseStruct {
         _cancellationPenaltyPerhour = cancellationPenaltyPerhour,
         _ifCancelledBefore = ifCancelledBefore,
         _id = id,
-        _preferredDays = preferredDays;
+        _preferredDays = preferredDays,
+        _daysOfWeek = daysOfWeek;
 
   // "tasker_languages" field.
   List<String>? _taskerLanguages;
@@ -155,12 +155,6 @@ class TaskCreationStruct extends BaseStruct {
   String get isPeriodic => _isPeriodic ?? '';
   set isPeriodic(String? val) => _isPeriodic = val;
   bool hasIsPeriodic() => _isPeriodic != null;
-
-  // "days_of_week" field.
-  String? _daysOfWeek;
-  String get daysOfWeek => _daysOfWeek ?? '';
-  set daysOfWeek(String? val) => _daysOfWeek = val;
-  bool hasDaysOfWeek() => _daysOfWeek != null;
 
   // "num_sessions" field.
   int? _numSessions;
@@ -336,12 +330,18 @@ class TaskCreationStruct extends BaseStruct {
   bool hasId() => _id != null;
 
   // "preferred_days" field.
-  List<String>? _preferredDays;
-  List<String> get preferredDays => _preferredDays ?? const [];
-  set preferredDays(List<String>? val) => _preferredDays = val;
-  void updatePreferredDays(Function(List<String>) updateFn) =>
-      updateFn(_preferredDays ??= []);
+  String? _preferredDays;
+  String get preferredDays => _preferredDays ?? '';
+  set preferredDays(String? val) => _preferredDays = val;
   bool hasPreferredDays() => _preferredDays != null;
+
+  // "days_of_week" field.
+  List<String>? _daysOfWeek;
+  List<String> get daysOfWeek => _daysOfWeek ?? const [];
+  set daysOfWeek(List<String>? val) => _daysOfWeek = val;
+  void updateDaysOfWeek(Function(List<String>) updateFn) =>
+      updateFn(_daysOfWeek ??= []);
+  bool hasDaysOfWeek() => _daysOfWeek != null;
 
   static TaskCreationStruct fromMap(Map<String, dynamic> data) =>
       TaskCreationStruct(
@@ -356,7 +356,6 @@ class TaskCreationStruct extends BaseStruct {
         customStartTime: data['custom_start_time'] as String?,
         endDatetime: data['end_datetime'] as String?,
         isPeriodic: data['is_periodic'] as String?,
-        daysOfWeek: data['days_of_week'] as String?,
         numSessions: castToType<int>(data['num_sessions']),
         sessionDuration: data['session_duration'] as String?,
         repeatDate: data['repeat_date'] as bool?,
@@ -385,7 +384,8 @@ class TaskCreationStruct extends BaseStruct {
             data['CancellationPenaltyPerhour'] as String?,
         ifCancelledBefore: data['If_cancelled_before'] as String?,
         id: castToType<int>(data['id']),
-        preferredDays: getDataList(data['preferred_days']),
+        preferredDays: data['preferred_days'] as String?,
+        daysOfWeek: getDataList(data['days_of_week']),
       );
 
   static TaskCreationStruct? maybeFromMap(dynamic data) =>
@@ -403,7 +403,6 @@ class TaskCreationStruct extends BaseStruct {
         'custom_start_time': _customStartTime,
         'end_datetime': _endDatetime,
         'is_periodic': _isPeriodic,
-        'days_of_week': _daysOfWeek,
         'num_sessions': _numSessions,
         'session_duration': _sessionDuration,
         'repeat_date': _repeatDate,
@@ -431,6 +430,7 @@ class TaskCreationStruct extends BaseStruct {
         'If_cancelled_before': _ifCancelledBefore,
         'id': _id,
         'preferred_days': _preferredDays,
+        'days_of_week': _daysOfWeek,
       }.withoutNulls;
 
   @override
@@ -478,10 +478,6 @@ class TaskCreationStruct extends BaseStruct {
         ),
         'is_periodic': serializeParam(
           _isPeriodic,
-          ParamType.String,
-        ),
-        'days_of_week': serializeParam(
-          _daysOfWeek,
           ParamType.String,
         ),
         'num_sessions': serializeParam(
@@ -592,6 +588,10 @@ class TaskCreationStruct extends BaseStruct {
         'preferred_days': serializeParam(
           _preferredDays,
           ParamType.String,
+        ),
+        'days_of_week': serializeParam(
+          _daysOfWeek,
+          ParamType.String,
           true,
         ),
       }.withoutNulls;
@@ -650,11 +650,6 @@ class TaskCreationStruct extends BaseStruct {
         ),
         isPeriodic: deserializeParam(
           data['is_periodic'],
-          ParamType.String,
-          false,
-        ),
-        daysOfWeek: deserializeParam(
-          data['days_of_week'],
           ParamType.String,
           false,
         ),
@@ -788,8 +783,13 @@ class TaskCreationStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
-        preferredDays: deserializeParam<String>(
+        preferredDays: deserializeParam(
           data['preferred_days'],
+          ParamType.String,
+          false,
+        ),
+        daysOfWeek: deserializeParam<String>(
+          data['days_of_week'],
           ParamType.String,
           true,
         ),
@@ -813,7 +813,6 @@ class TaskCreationStruct extends BaseStruct {
         customStartTime == other.customStartTime &&
         endDatetime == other.endDatetime &&
         isPeriodic == other.isPeriodic &&
-        daysOfWeek == other.daysOfWeek &&
         numSessions == other.numSessions &&
         sessionDuration == other.sessionDuration &&
         repeatDate == other.repeatDate &&
@@ -840,7 +839,8 @@ class TaskCreationStruct extends BaseStruct {
         cancellationPenaltyPerhour == other.cancellationPenaltyPerhour &&
         ifCancelledBefore == other.ifCancelledBefore &&
         id == other.id &&
-        listEquality.equals(preferredDays, other.preferredDays);
+        preferredDays == other.preferredDays &&
+        listEquality.equals(daysOfWeek, other.daysOfWeek);
   }
 
   @override
@@ -856,7 +856,6 @@ class TaskCreationStruct extends BaseStruct {
         customStartTime,
         endDatetime,
         isPeriodic,
-        daysOfWeek,
         numSessions,
         sessionDuration,
         repeatDate,
@@ -883,7 +882,8 @@ class TaskCreationStruct extends BaseStruct {
         cancellationPenaltyPerhour,
         ifCancelledBefore,
         id,
-        preferredDays
+        preferredDays,
+        daysOfWeek
       ]);
 }
 
@@ -898,7 +898,6 @@ TaskCreationStruct createTaskCreationStruct({
   String? customStartTime,
   String? endDatetime,
   String? isPeriodic,
-  String? daysOfWeek,
   int? numSessions,
   String? sessionDuration,
   bool? repeatDate,
@@ -924,6 +923,7 @@ TaskCreationStruct createTaskCreationStruct({
   String? cancellationPenaltyPerhour,
   String? ifCancelledBefore,
   int? id,
+  String? preferredDays,
 }) =>
     TaskCreationStruct(
       description: description,
@@ -936,7 +936,6 @@ TaskCreationStruct createTaskCreationStruct({
       customStartTime: customStartTime,
       endDatetime: endDatetime,
       isPeriodic: isPeriodic,
-      daysOfWeek: daysOfWeek,
       numSessions: numSessions,
       sessionDuration: sessionDuration,
       repeatDate: repeatDate,
@@ -962,4 +961,5 @@ TaskCreationStruct createTaskCreationStruct({
       cancellationPenaltyPerhour: cancellationPenaltyPerhour,
       ifCancelledBefore: ifCancelledBefore,
       id: id,
+      preferredDays: preferredDays,
     );

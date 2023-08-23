@@ -79,6 +79,7 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
           top: true,
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
                 child: SingleChildScrollView(

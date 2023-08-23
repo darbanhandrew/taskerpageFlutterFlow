@@ -1418,10 +1418,8 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                               MiniTaskerCardWidget(
                                                             key: Key(
                                                                 'Keym7c_${taskerListIndex}_of_${taskerList.length}'),
-                                                            id: getJsonField(
-                                                              taskerListItem,
-                                                              r'''$.id''',
-                                                            ),
+                                                            userProfile:
+                                                                taskerListItem,
                                                           ),
                                                         );
                                                       },

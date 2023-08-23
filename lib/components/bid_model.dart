@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/task_card_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -23,6 +24,8 @@ class BidModel extends FlutterFlowModel {
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
+  // Stores action output result for [Backend Call - API (CreateBargain)] action in Container widget.
+  ApiCallResponse? bId;
 
   /// Initialization and disposal methods.
 

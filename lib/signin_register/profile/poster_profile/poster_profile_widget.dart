@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -840,7 +841,17 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                     );
                                                                   },
                                                                   child: Text(
-                                                                    'Post a job',
+                                                                    valueOrDefault<
+                                                                        String>(
+                                                                      functions.getTranslatableItemString(
+                                                                          getJsonField(
+                                                                            myPostsItem,
+                                                                            r'''$.related_service_category.translations''',
+                                                                          ),
+                                                                          'en',
+                                                                          'title'),
+                                                                      'post',
+                                                                    ),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1170,43 +1181,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
-                                                                  children: [
-                                                                    Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF5450E2),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(15.0),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            15.0,
-                                                                            5.0,
-                                                                            15.0,
-                                                                            5.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Gardening',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: Color(0xFFF6F6F6),
-                                                                                    fontSize: 12.0,
-                                                                                    fontWeight: FontWeight.normal,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
+                                                                  children: [],
                                                                 ),
                                                               ),
                                                               Row(

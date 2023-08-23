@@ -203,10 +203,9 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                   myaddressesItem,
                                                   r'''$.id''',
                                                 )) ==
-                                                getJsonField(
-                                                  myaddressesItem,
-                                                  r'''$.id''',
-                                                )
+                                                FFAppState()
+                                                    .TaskCreation
+                                                    .address
                                             ? Color(0xFF5450E2)
                                             : Color(0xFFF6F6F6),
                                         borderRadius:
@@ -217,10 +216,9 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                         myaddressesItem,
                                                         r'''$.id''',
                                                       )) ==
-                                                      getJsonField(
-                                                        myaddressesItem,
-                                                        r'''$.id''',
-                                                      )
+                                                      FFAppState()
+                                                          .TaskCreation
+                                                          .address
                                                   ? Color(0xFF5450E2)
                                                   : Color(0xFFACABAB),
                                         ),
@@ -237,33 +235,34 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                               Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
-                                                  Text(
-                                                    getJsonField(
-                                                      myaddressesItem,
-                                                      r'''$.address''',
-                                                    ).toString(),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: functions.jsonToInt(
-                                                                      getJsonField(
-                                                                    myaddressesItem,
-                                                                    r'''$.id''',
-                                                                  )) ==
-                                                                  getJsonField(
-                                                                    myaddressesItem,
-                                                                    r'''$.id''',
-                                                                  )
-                                                              ? Color(
-                                                                  0xFFF6F6F6)
-                                                              : Color(
-                                                                  0xFFACABAB),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      getJsonField(
+                                                        myaddressesItem,
+                                                        r'''$.address''',
+                                                      ).toString(),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: functions.jsonToInt(
+                                                                        getJsonField(
+                                                                      myaddressesItem,
+                                                                      r'''$.id''',
+                                                                    )) ==
+                                                                    FFAppState()
+                                                                        .TaskCreation
+                                                                        .address
+                                                                ? Color(
+                                                                    0xFFF6F6F6)
+                                                                : Color(
+                                                                    0xFFACABAB),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),

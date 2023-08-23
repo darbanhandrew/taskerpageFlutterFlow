@@ -260,3 +260,66 @@ List<dynamic> generateDaysOfWeekRange() {
 
   return days;
 }
+
+String? convertStringtoAllCaps(String? lowercased) {
+  // convert String to All Caps
+  if (lowercased == null) {
+    return null;
+  } else {
+    return lowercased.toUpperCase();
+  }
+}
+
+String? capitalizeFirstLetter(String? input) {
+  if (input == null) {
+    return null;
+  }
+
+  return input.toUpperCase()[0] + input.substring(1).toLowerCase();
+}
+
+String? convertShortWeekDayToLong(List<String>? weekday) {
+  // convert List of short weekdays to a list of long weekdays concatenated
+  if (weekday == null) {
+    return null;
+  }
+  final longWeekdays = <String>[];
+  for (final day in weekday) {
+    switch (day) {
+      case 'Mon':
+        longWeekdays.add('Monday');
+        break;
+      case 'Tue':
+        longWeekdays.add('Tuesday');
+        break;
+      case 'Wed':
+        longWeekdays.add('Wednesday');
+        break;
+      case 'Thu':
+        longWeekdays.add('Thursday');
+        break;
+      case 'Fri':
+        longWeekdays.add('Friday');
+        break;
+      case 'Sat':
+        longWeekdays.add('Saturday');
+        break;
+      case 'Sun':
+        longWeekdays.add('Sunday');
+        break;
+      default:
+        break;
+    }
+  }
+  return longWeekdays.join(', ');
+}
+
+List<String>? stringToArrayOfString(String? input) {
+  // convert string to array of string
+  if (input == null) {
+    return null;
+  }
+  final List<String> result = [];
+  result.add(input);
+  return result;
+}

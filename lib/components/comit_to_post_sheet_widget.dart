@@ -183,10 +183,7 @@ class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {
                               child: TaskCardWidget(
                                 key: Key(
                                     'Keys73_${userPostsIndex}_of_${userPosts.length}'),
-                                postId: getJsonField(
-                                  userPostsItem,
-                                  r'''$.id''',
-                                ),
+                                post: userPostsItem,
                               ),
                             );
                           },

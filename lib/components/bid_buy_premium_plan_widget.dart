@@ -12,10 +12,10 @@ export 'bid_buy_premium_plan_model.dart';
 class BidBuyPremiumPlanWidget extends StatefulWidget {
   const BidBuyPremiumPlanWidget({
     Key? key,
-    required this.id,
+    required this.post,
   }) : super(key: key);
 
-  final int? id;
+  final dynamic post;
 
   @override
   _BidBuyPremiumPlanWidgetState createState() =>
@@ -109,7 +109,7 @@ class _BidBuyPremiumPlanWidgetState extends State<BidBuyPremiumPlanWidget> {
                             model: _model.taskCardModel,
                             updateCallback: () => setState(() {}),
                             child: TaskCardWidget(
-                              postId: widget.id!,
+                              post: widget.post!,
                             ),
                           ),
                         ),

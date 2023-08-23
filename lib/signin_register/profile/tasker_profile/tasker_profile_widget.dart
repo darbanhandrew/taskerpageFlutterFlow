@@ -56,58 +56,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
         ),
       ],
     ),
-    'listViewOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(25.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
   };
 
   @override
@@ -123,13 +71,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
         FFAppState().BannerCheck = false;
       });
     });
-
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -1660,9 +1601,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 ),
                                               ),
                                             ].divide(SizedBox(height: 8.0)),
-                                          ).animateOnActionTrigger(
-                                            animationsMap[
-                                                'listViewOnActionTriggerAnimation1']!,
                                           ),
                                         ),
                                       if (FFAppState().PostsReviews == 'Post')
@@ -1725,9 +1663,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               ),
                                             ),
                                           ],
-                                        ).animateOnActionTrigger(
-                                          animationsMap[
-                                              'rowOnActionTriggerAnimation1']!,
                                         ),
                                       if (FFAppState().PostsReviews ==
                                           'Reviews')
@@ -1991,9 +1926,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                         ),
                                                       );
                                                     },
-                                                  ).animateOnActionTrigger(
-                                                    animationsMap[
-                                                        'listViewOnActionTriggerAnimation2']!,
                                                   );
                                                 },
                                               );
@@ -2061,9 +1993,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               ),
                                             ),
                                           ],
-                                        ).animateOnActionTrigger(
-                                          animationsMap[
-                                              'rowOnActionTriggerAnimation2']!,
                                         ),
                                     ],
                                   ),

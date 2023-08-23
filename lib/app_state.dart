@@ -600,6 +600,12 @@ class FFAppState extends ChangeNotifier {
         _selectedServiceCategory.map((x) => x.toString()).toList());
   }
 
+  bool _isApiCall = false;
+  bool get isApiCall => _isApiCall;
+  set isApiCall(bool _value) {
+    _isApiCall = _value;
+  }
+
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> myAddresses({
     String? uniqueQueryKey,

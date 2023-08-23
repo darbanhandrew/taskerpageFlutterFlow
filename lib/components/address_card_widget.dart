@@ -111,17 +111,19 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Text(
-                    getJsonField(
-                      widget.address,
-                      r'''$.address''',
-                    ).toString(),
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Lato',
-                          color: Color(0xFFF6F6F6),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                  Flexible(
+                    child: Text(
+                      getJsonField(
+                        widget.address,
+                        r'''$.address''',
+                      ).toString(),
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Lato',
+                            color: Color(0xFFF6F6F6),
+                            fontSize: 14.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                    ),
                   ),
                 ],
               ),

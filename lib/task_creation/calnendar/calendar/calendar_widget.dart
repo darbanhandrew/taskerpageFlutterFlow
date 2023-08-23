@@ -221,13 +221,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     if (newValue!) {
                                       setState(() {
                                         FFAppState().updateTaskCreationStruct(
-                                          (e) => e..repeatDate = true,
+                                          (e) => e
+                                            ..repeatDate = true
+                                            ..isPeriodic = true.toString(),
                                         );
                                       });
                                     } else {
                                       setState(() {
                                         FFAppState().updateTaskCreationStruct(
-                                          (e) => e..repeatDate = false,
+                                          (e) => e
+                                            ..repeatDate = false
+                                            ..isPeriodic = false.toString(),
                                         );
                                       });
                                     }
@@ -502,7 +506,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     onTap: () async {
                                       if (FFAppState()
                                           .TaskCreation
-                                          .preferredDays
+                                          .daysOfWeek
                                           .contains(getJsonField(
                                             daysOfWeekItem,
                                             r'''$.shortName''',
@@ -510,7 +514,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         setState(() {
                                           FFAppState().updateTaskCreationStruct(
                                             (e) => e
-                                              ..updatePreferredDays(
+                                              ..updateDaysOfWeek(
                                                 (e) => e.remove(getJsonField(
                                                   daysOfWeekItem,
                                                   r'''$.shortName''',
@@ -522,7 +526,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         setState(() {
                                           FFAppState().updateTaskCreationStruct(
                                             (e) => e
-                                              ..updatePreferredDays(
+                                              ..updateDaysOfWeek(
                                                 (e) => e.remove(getJsonField(
                                                   daysOfWeekItem,
                                                   r'''$.shortName''',
@@ -533,7 +537,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         setState(() {
                                           FFAppState().updateTaskCreationStruct(
                                             (e) => e
-                                              ..updatePreferredDays(
+                                              ..updateDaysOfWeek(
                                                 (e) => e.add(getJsonField(
                                                   daysOfWeekItem,
                                                   r'''$.shortName''',
@@ -549,7 +553,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       decoration: BoxDecoration(
                                         color: FFAppState()
                                                 .TaskCreation
-                                                .preferredDays
+                                                .daysOfWeek
                                                 .contains(getJsonField(
                                                   daysOfWeekItem,
                                                   r'''$.shortName''',
@@ -574,7 +578,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                   fontFamily: 'Lato',
                                                   color: FFAppState()
                                                           .TaskCreation
-                                                          .preferredDays
+                                                          .daysOfWeek
                                                           .contains(
                                                               getJsonField(
                                                             daysOfWeekItem,
@@ -697,7 +701,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       FFAppState().updateTaskCreationStruct(
                                         (e) => e
                                           ..endDateType =
-                                              _model.radioButtonValue,
+                                              functions.convertStringtoAllCaps(
+                                                  _model.radioButtonValue),
                                       );
                                     });
                                   },
@@ -933,6 +938,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                             .updateTaskCreationStruct(
                                                           (e) => e
                                                             ..session = _model
+                                                                .countControllerValue2
+                                                            ..numSessions = _model
                                                                 .countControllerValue2,
                                                         );
                                                       });
@@ -1222,6 +1229,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     } else {
                                       setState(() {
                                         FFAppState().exactstartingtime = false;
+                                        FFAppState().updateTaskCreationStruct(
+                                          (e) => e..startTime = 'custom',
+                                        );
                                       });
                                     }
                                   },
@@ -1503,13 +1513,51 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   FFAppState().updateTaskCreationStruct(
                                     (e) => e
                                       ..startDate = dateTimeFormat(
-                                          'y-M-d', _model.datePicked1)
-                                      ..endDatetime =
-                                          _model.datePicked2?.toString()
+                                          'yyyy-MM-dd', _model.datePicked1)
+                                      ..endDatetime = dateTimeFormat(
+                                          'yyyy-MM-ddTHH:mm:ss.SSSSSS',
+                                          _model.datePicked2)
                                       ..customStartTime = dateTimeFormat(
-                                          'jm', _model.datePicked3),
+                                          'HH:mm', _model.datePicked3),
                                   );
                                 });
+                                if (FFAppState().StartingTime ==
+                                    'Morning (7:00-12:00)') {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..startTime = 'morning',
+                                    );
+                                  });
+                                } else if (FFAppState().StartingTime ==
+                                    'Evening (18:00-24:00)') {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..startTime = 'afternoon',
+                                    );
+                                  });
+                                } else if (FFAppState().StartingTime ==
+                                    ' Afternoon (12:00-18:00)') {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..startTime = 'evening',
+                                    );
+                                  });
+                                } else if (FFAppState()
+                                        .TaskCreation
+                                        .startTime ==
+                                    'custom') {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..startTime = 'custom',
+                                    );
+                                  });
+                                } else {
+                                  setState(() {
+                                    FFAppState().updateTaskCreationStruct(
+                                      (e) => e..startTime = null,
+                                    );
+                                  });
+                                }
 
                                 context.pushNamed('Taskertype');
                               },
