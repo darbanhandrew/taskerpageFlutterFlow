@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/comit_to_post_sheet_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -587,7 +588,10 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                             MainAxisSize.max,
                                                         children: [
                                                           Text(
-                                                            'Gardening',
+                                                            getJsonField(
+                                                              userServicesItem,
+                                                              r'''$.related.service_category.translation.en.title''',
+                                                            ).toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -667,7 +671,10 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                                             MainAxisAlignment.center,
                                                                         children: [
                                                                           Text(
-                                                                            'Garden Construction',
+                                                                            getJsonField(
+                                                                              userServicesItem,
+                                                                              r'''$.related.service.translation.en.title''',
+                                                                            ).toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: Color(0xFFF6F6F6),
@@ -749,7 +756,10 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                                             MainAxisAlignment.center,
                                                                         children: [
                                                                           Text(
-                                                                            'Self trained',
+                                                                            getJsonField(
+                                                                              userServicesItem,
+                                                                              r'''$.skill_level''',
+                                                                            ).toString(),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: Color(0xFFF6F6F6),
@@ -1009,7 +1019,10 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                   ),
                                                 ),
                                                 Text(
-                                                  'Gardening Master',
+                                                  getJsonField(
+                                                    userEducationItem,
+                                                    r'''$.title''',
+                                                  ).toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -1052,19 +1065,24 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                           ),
                                                     ),
                                                   ),
-                                                  Text(
-                                                    'Gardening School of\nDortmund',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF212121),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                  Flexible(
+                                                    child: Text(
+                                                      getJsonField(
+                                                        userEducationItem,
+                                                        r'''$.school.title''',
+                                                      ).toString(),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF212121),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                    ),
                                                   ),
                                                 ],
                                               ),
@@ -1081,7 +1099,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                             .fromSTEB(0.0, 0.0,
                                                                 8.0, 0.0),
                                                     child: Text(
-                                                      'Type:',
+                                                      'Type: ',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -1118,7 +1136,10 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                                 .center,
                                                         children: [
                                                           Text(
-                                                            'Participation',
+                                                            getJsonField(
+                                                              userEducationItem,
+                                                              r'''$.education.level''',
+                                                            ).toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
                                                                 .bodyMedium
@@ -1953,6 +1974,16 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                         ],
                       ),
                     ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      wrapWithModel(
+                        model: _model.navBarModel,
+                        updateCallback: () => setState(() {}),
+                        child: NavBarWidget(),
+                      ),
+                    ],
                   ),
                 ],
               ),

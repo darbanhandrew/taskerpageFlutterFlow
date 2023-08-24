@@ -916,8 +916,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   ),
                                 ),
                               ),
-                              if (!(!widget.isSignUp &&
-                                  (widget.education != null)))
+                              if (false)
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -1020,7 +1019,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     ),
                                   ),
                                 ),
-                              if (widget.isSignUp && (widget.education != null))
+                              if (!widget.isSignUp &&
+                                  (widget.education != null))
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,

@@ -903,7 +903,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                           : FlutterFlowTheme.of(
                                                                   context)
                                                               .alternate,
-                                                      size: 15.0,
+                                                      size: 30.0,
                                                     ),
                                                     incrementIconBuilder:
                                                         (enabled) => Icon(
@@ -914,7 +914,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                           : FlutterFlowTheme.of(
                                                                   context)
                                                               .alternate,
-                                                      size: 15.0,
+                                                      size: 30.0,
                                                     ),
                                                     countBuilder: (count) =>
                                                         Text(
@@ -1558,6 +1558,29 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     );
                                   });
                                 }
+
+                                setState(() {
+                                  _model.updateCalendarDataStruct(
+                                    (e) => e
+                                      ..startDate = _model.datePicked1
+                                      ..isPeriodic = _model.checkboxValue
+                                      ..periodType = _model.dropDownValue1
+                                      ..endType = _model.radioButtonValue
+                                      ..endDateOn = _model.datePicked2
+                                      ..endDateAfterSessions =
+                                          _model.countControllerValue2
+                                      ..isExactStartingTime = _model.switchValue
+                                      ..exactStartTime = _model.datePicked3
+                                      ..rangeStartTime =
+                                          FFAppState().TaskCreation.skillLevel
+                                      ..sessionDuration =
+                                          '${_model.countControllerValue3?.toString()} Hour'
+                                      ..periodicPreferredWeekDays = FFAppState()
+                                          .TaskCreation
+                                          .daysOfWeek
+                                          .toList(),
+                                  );
+                                });
 
                                 context.pushNamed('Taskertype');
                               },

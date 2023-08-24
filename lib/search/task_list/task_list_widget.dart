@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/filter_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_task_list_widget.dart';
 import '/components/task_card_widget.dart';
@@ -316,6 +317,16 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                     ),
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavBarWidget(),
+                  ),
+                ],
               ),
             ],
           ),

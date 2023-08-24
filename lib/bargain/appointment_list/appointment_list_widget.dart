@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/set_appointment_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -1716,6 +1717,16 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                         ),
                       ),
                     ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      wrapWithModel(
+                        model: _model.navBarModel,
+                        updateCallback: () => setState(() {}),
+                        child: NavBarWidget(),
+                      ),
+                    ],
                   ),
                 ],
               ),

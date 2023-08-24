@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -727,7 +728,10 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    'Gardening',
+                                                                    getJsonField(
+                                                                      myServicesItem,
+                                                                      r'''$.related_service_category.translation.en.title''',
+                                                                    ).toString(),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -794,7 +798,10 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                                 mainAxisAlignment: MainAxisAlignment.center,
                                                                                 children: [
                                                                                   Text(
-                                                                                    'Garden Construction',
+                                                                                    getJsonField(
+                                                                                      myServicesItem,
+                                                                                      r'''$.related_service.translation.en.title''',
+                                                                                    ).toString(),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           fontFamily: 'Lato',
                                                                                           color: Color(0xFFF6F6F6),
@@ -2891,28 +2898,33 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    Container(
-                                                                      width:
-                                                                          20.0,
-                                                                      height:
-                                                                          20.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF5450E2),
-                                                                        shape: BoxShape
-                                                                            .circle,
+                                                                    if (getJsonField(
+                                                                          myAddressesItem,
+                                                                          r'''$.is_main_address''',
+                                                                        ) !=
+                                                                        null)
+                                                                      Container(
+                                                                        width:
+                                                                            20.0,
+                                                                        height:
+                                                                            20.0,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Color(0xFF5450E2),
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .home,
+                                                                          color:
+                                                                              Colors.white,
+                                                                          size:
+                                                                              7.0,
+                                                                        ),
                                                                       ),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .home,
-                                                                        color: Colors
-                                                                            .white,
-                                                                        size:
-                                                                            7.0,
-                                                                      ),
-                                                                    ),
                                                                   ],
                                                                 ),
                                                                 Divider(
@@ -2942,6 +2954,16 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                             ],
                           ),
                         ),
+                      ),
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          wrapWithModel(
+                            model: _model.navBarModel,
+                            updateCallback: () => setState(() {}),
+                            child: NavBarWidget(),
+                          ),
+                        ],
                       ),
                     ],
                   ),

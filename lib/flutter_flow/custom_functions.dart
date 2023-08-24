@@ -323,3 +323,7 @@ List<String>? stringToArrayOfString(String? input) {
   result.add(input);
   return result;
 }
+
+dynamic calendarDataToJson(PosCalendarStruct? calendarData) {
+  return null;
+}

@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/set_appointment_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -25,11 +26,15 @@ class AppointmentListModel extends FlutterFlowModel {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
+    navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
@@ -37,6 +42,7 @@ class AppointmentListModel extends FlutterFlowModel {
     headerModel.dispose();
     navigateBackModel.dispose();
     tabBarController?.dispose();
+    navBarModel.dispose();
   }
 
   /// Action blocks are added here.

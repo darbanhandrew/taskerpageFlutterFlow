@@ -73,6 +73,8 @@ class TaskerpageBackendGroup {
   static CreateBargainCall createBargainCall = CreateBargainCall();
   static GetServiceCategoryByIdCall getServiceCategoryByIdCall =
       GetServiceCategoryByIdCall();
+  static UpdatePostCalendarDataCall updatePostCalendarDataCall =
+      UpdatePostCalendarDataCall();
 }
 
 class RegisterCall {
@@ -3435,6 +3437,34 @@ class GetServiceCategoryByIdCall {
         response,
         r'''$.state''',
       );
+}
+
+class UpdatePostCalendarDataCall {
+  Future<ApiCallResponse> call({
+    dynamic? bodyJson,
+    int? id,
+    String? apiGlobalKey =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjk1MTE5NjIyLCJpYXQiOjE2OTI1Mjc2MjIsImp0aSI6IjM5NzIzMDhhNzE0MTRhZDA5OTgwMzY0NWY3NmUyODVkIiwidXNlcl9pZCI6MX0.N0a0DJNhmznV8bTW29MlgguD-MxKSvKmQgoEeZVz5XQ',
+  }) {
+    final body = _serializeJson(bodyJson);
+    final body = '''
+${body}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updatePostCalendarData',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}',
+      callType: ApiCallType.PATCH,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+      },
+      params: {},
+      body: body,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
 }
 
 /// End Taskerpage Backend Group Code

@@ -17,6 +17,8 @@ class Contactdata1Model extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // State field(s) for PlacePicker widget.
@@ -43,18 +45,17 @@ class Contactdata1Model extends FlutterFlowModel {
   ApiCallResponse? createAddress;
   // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
   ApiCallResponse? createAddress1;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
     drawerContentModel = createModel(context, () => DrawerContentModel());
+    headerModel = createModel(context, () => HeaderModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    drawerContentModel.dispose();
     headerModel.dispose();
     textController1?.dispose();
     textController2?.dispose();
@@ -62,7 +63,6 @@ class Contactdata1Model extends FlutterFlowModel {
     textController4?.dispose();
     textController5?.dispose();
     textController6?.dispose();
-    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/comit_to_post_sheet_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -1339,6 +1340,16 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                         ],
                       ),
                     ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      wrapWithModel(
+                        model: _model.navBarModel,
+                        updateCallback: () => setState(() {}),
+                        child: NavBarWidget(),
+                      ),
+                    ],
                   ),
                 ],
               ),

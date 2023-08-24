@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/bargain_filter_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_bargain_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -24,11 +25,15 @@ class InboxModel extends FlutterFlowModel {
   int get tabBarCurrentIndex =>
       tabBarController != null ? tabBarController!.index : 0;
 
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
+
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
+    navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
@@ -36,6 +41,7 @@ class InboxModel extends FlutterFlowModel {
     headerModel.dispose();
     navigateBackModel.dispose();
     tabBarController?.dispose();
+    navBarModel.dispose();
   }
 
   /// Action blocks are added here.

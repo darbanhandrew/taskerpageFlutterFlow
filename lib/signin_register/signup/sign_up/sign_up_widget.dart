@@ -59,6 +59,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Drawer(
+          elevation: 16.0,
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -77,7 +80,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],

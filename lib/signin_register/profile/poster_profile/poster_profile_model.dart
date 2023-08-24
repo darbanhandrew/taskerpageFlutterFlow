@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
 import '/components/header_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -31,6 +32,8 @@ class PosterProfileModel extends FlutterFlowModel {
   late EditIconModel editIconModel3;
   // Model for editIcon component.
   late EditIconModel editIconModel4;
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
   bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -55,6 +58,7 @@ class PosterProfileModel extends FlutterFlowModel {
     editIconModel2 = createModel(context, () => EditIconModel());
     editIconModel3 = createModel(context, () => EditIconModel());
     editIconModel4 = createModel(context, () => EditIconModel());
+    navBarModel = createModel(context, () => NavBarModel());
   }
 
   void dispose() {
@@ -64,6 +68,7 @@ class PosterProfileModel extends FlutterFlowModel {
     editIconModel2.dispose();
     editIconModel3.dispose();
     editIconModel4.dispose();
+    navBarModel.dispose();
   }
 
   /// Action blocks are added here.

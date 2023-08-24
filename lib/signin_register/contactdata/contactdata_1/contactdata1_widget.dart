@@ -99,7 +99,9 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget> {
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],

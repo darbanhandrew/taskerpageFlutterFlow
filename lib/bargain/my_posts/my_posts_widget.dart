@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/my_post_card_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_task_list_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -220,6 +221,16 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                     ),
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavBarWidget(),
+                  ),
+                ],
               ),
             ],
           ),
