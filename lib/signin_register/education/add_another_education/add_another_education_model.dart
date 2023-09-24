@@ -1,11 +1,14 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -33,6 +36,8 @@ class AddAnotherEducationModel extends FlutterFlowModel {
   ApiCallResponse? educationRequest;
   // Stores action output result for [Backend Call - API (userEducationAdd)] action in Container widget.
   ApiCallResponse? educationRequest2;
+  // Stores action output result for [Backend Call - API (userEducationAdd)] action in Container widget.
+  ApiCallResponse? educationRequest236;
   // Stores action output result for [Backend Call - API (educationPartialUpdate)] action in Container widget.
   ApiCallResponse? educationRequest23;
   bool isDataUploading1 = false;
@@ -40,15 +45,21 @@ class AddAnotherEducationModel extends FlutterFlowModel {
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
   // Stores action output result for [Backend Call - API (upload)] action in Container widget.
-  ApiCallResponse? uploadedFromGallery;
+  ApiCallResponse? apiResultekx;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx2;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -56,6 +67,7 @@ class AddAnotherEducationModel extends FlutterFlowModel {
     headerModel.dispose();
     textController1?.dispose();
     textController2?.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.
@@ -64,16 +76,20 @@ class AddAnotherEducationModel extends FlutterFlowModel {
     BuildContext context, {
     required FFUploadedFile? uploadedFile,
   }) async {
-    ApiCallResponse? uploadFromGalleryCopy;
+    dynamic? uploadFileResponse;
 
-    uploadFromGalleryCopy = await TaskerpageBackendGroup.uploadCall.call(
-      file: uploadedFile,
-      apiGlobalKey: FFAppState().apiKey,
+    uploadFileResponse = await actions.uploadFile(
+      uploadedLocalFile2,
+      FFAppState().apiKey,
     );
-    if ((uploadedFromGallery?.succeeded ?? true) == true) {
+    if (getJsonField(
+          uploadFileResponse,
+          r'''$.message.name''',
+        ) !=
+        null) {
       certificateUrl = getJsonField(
-        (uploadedFromGallery?.jsonBody ?? ''),
-        r'''$.url''',
+        uploadFileResponse,
+        r'''$.message.file_url''',
       ).toString().toString();
     } else {
       await showDialog(

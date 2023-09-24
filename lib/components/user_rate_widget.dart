@@ -1,4 +1,4 @@
-import '/backend/schema/structs/index.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +12,12 @@ export 'user_rate_model.dart';
 class UserRateWidget extends StatefulWidget {
   const UserRateWidget({
     Key? key,
-    required this.acceptAppointment,
+    required this.appointmentId,
+    required this.action,
   }) : super(key: key);
 
-  final bool? acceptAppointment;
+  final String? appointmentId;
+  final Future<dynamic> Function()? action;
 
   @override
   _UserRateWidgetState createState() => _UserRateWidgetState();
@@ -63,7 +65,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
       ),
       child: Container(
         width: double.infinity,
-        height: 490.0,
+        height: MediaQuery.sizeOf(context).height * 0.7,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -82,10 +84,19 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Icon(
-                    Icons.close_rounded,
-                    color: FlutterFlowTheme.of(context).secondaryText,
-                    size: 20.0,
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      Navigator.pop(context);
+                    },
+                    child: Icon(
+                      Icons.close_rounded,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 20.0,
+                    ),
                   ),
                 ],
               ),
@@ -139,7 +150,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                       color: Color(0xFFFBD927),
                     ),
                     direction: Axis.horizontal,
-                    initialRating: _model.ratingBarValue ??= 3.5,
+                    initialRating: _model.ratingBarValue ??= 3.0,
                     unratedColor: Color(0xFFFFF3C2),
                     itemCount: 5,
                     itemSize: 50.0,
@@ -216,7 +227,11 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                           borderRadius: BorderRadius.circular(5.0),
                         ),
                       ),
-                      style: FlutterFlowTheme.of(context).bodyMedium,
+                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                            fontFamily: 'Lato',
+                            color: Color(0xFF212121),
+                            fontSize: 14.0,
+                          ),
                       maxLines: 10,
                       validator:
                           _model.textControllerValidator.asValidator(context),
@@ -237,8 +252,6 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.pushNamed('inbox');
-
                       Navigator.pop(context);
                     },
                     child: Container(
@@ -276,31 +289,73 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      if (widget.acceptAppointment == true) {
-                        setState(() {
-                          FFAppState().updateReviewStruct(
-                            (e) => e
-                              ..rate = _model.ratingBarValue
-                              ..description = _model.textController.text,
-                          );
-                        });
+                      var _shouldSetState = false;
+                      _model.appointmentRead =
+                          await TaskerpageBackendGroup.appointmentReadCall.call(
+                        id: widget.appointmentId,
+                        apiGlobalKey: FFAppState().apiKey,
+                      );
+                      _shouldSetState = true;
+                      if ((_model.appointmentRead?.succeeded ?? true)) {
+                        _model.reviewCreated =
+                            await TaskerpageBackendGroup.reviewCreateCall.call(
+                          reviewedOn: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ) ==
+                                  getJsonField(
+                                    (_model.appointmentRead?.jsonBody ?? ''),
+                                    r'''$.data.poster''',
+                                  )
+                              ? getJsonField(
+                                  (_model.appointmentRead?.jsonBody ?? ''),
+                                  r'''$.data.tasker''',
+                                ).toString()
+                              : getJsonField(
+                                  (_model.appointmentRead?.jsonBody ?? ''),
+                                  r'''$.data.poster''',
+                                ).toString(),
+                          appointment: getJsonField(
+                            (_model.appointmentRead?.jsonBody ?? ''),
+                            r'''$.data.name''',
+                          ).toString(),
+                          reviewedBy: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ) ==
+                                  getJsonField(
+                                    (_model.appointmentRead?.jsonBody ?? ''),
+                                    r'''$.data.tasker''',
+                                  )
+                              ? getJsonField(
+                                  (_model.appointmentRead?.jsonBody ?? ''),
+                                  r'''$.data.tasker''',
+                                ).toString()
+                              : getJsonField(
+                                  (_model.appointmentRead?.jsonBody ?? ''),
+                                  r'''$.data.poster''',
+                                ).toString(),
+                          reviewRate: _model.ratingBarValue,
+                          comment: _model.textController.text,
+                          apiGlobalKey: FFAppState().apiKey,
+                        );
+                        _shouldSetState = true;
+                        if ((_model.reviewCreated?.succeeded ?? true)) {
+                          await widget.action?.call();
+                          Navigator.pop(context);
+                        } else {
+                          if (_shouldSetState) setState(() {});
+                          return;
+                        }
 
-                        context.pushNamed('AppointmentList');
-
-                        Navigator.pop(context);
+                        if (_shouldSetState) setState(() {});
+                        return;
                       } else {
-                        setState(() {
-                          FFAppState().updateReviewStruct(
-                            (e) => e
-                              ..rate = _model.ratingBarValue
-                              ..description = _model.textController.text,
-                          );
-                        });
-
-                        context.pushNamed('inbox');
-
-                        Navigator.pop(context);
+                        if (_shouldSetState) setState(() {});
+                        return;
                       }
+
+                      if (_shouldSetState) setState(() {});
                     },
                     child: Container(
                       width: 116.0,

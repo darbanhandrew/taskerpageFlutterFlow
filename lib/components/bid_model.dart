@@ -1,14 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/task_card_widget.dart';
-import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
 class BidModel extends FlutterFlowModel {
@@ -16,16 +17,15 @@ class BidModel extends FlutterFlowModel {
 
   // Model for TaskCard component.
   late TaskCardModel taskCardModel;
-  // State field(s) for CountController widget.
-  int? countControllerValue;
+  // State field(s) for BidAmount widget.
+  TextEditingController? bidAmountController;
+  final bidAmountMask = MaskTextInputFormatter(mask: '###.###.###');
+  String? Function(BuildContext, String?)? bidAmountControllerValidator;
   // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
-  // Stores action output result for [Backend Call - API (CreateBargain)] action in Container widget.
-  ApiCallResponse? bId;
+  String? dropDownValue;
+  FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Backend Call - API (Create Bid)] action in Container widget.
+  ApiCallResponse? bidCreated;
 
   /// Initialization and disposal methods.
 
@@ -35,6 +35,7 @@ class BidModel extends FlutterFlowModel {
 
   void dispose() {
     taskCardModel.dispose();
+    bidAmountController?.dispose();
   }
 
   /// Action blocks are added here.

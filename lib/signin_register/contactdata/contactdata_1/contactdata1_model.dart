@@ -2,13 +2,19 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/place.dart';
+import 'dart:async';
 import 'dart:io';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,26 +29,28 @@ class Contactdata1Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // State field(s) for PlacePicker widget.
   var placePickerValue = FFPlace();
-  // State field(s) for TextField widget.
-  TextEditingController? textController1;
-  String? Function(BuildContext, String?)? textController1Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController2;
-  String? Function(BuildContext, String?)? textController2Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController3;
-  String? Function(BuildContext, String?)? textController3Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController4;
-  String? Function(BuildContext, String?)? textController4Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController5;
-  String? Function(BuildContext, String?)? textController5Validator;
-  // State field(s) for TextField widget.
-  TextEditingController? textController6;
-  String? Function(BuildContext, String?)? textController6Validator;
+  // State field(s) for Street widget.
+  TextEditingController? streetController;
+  String? Function(BuildContext, String?)? streetControllerValidator;
+  // State field(s) for No widget.
+  TextEditingController? noController;
+  String? Function(BuildContext, String?)? noControllerValidator;
+  // State field(s) for PostalCode widget.
+  TextEditingController? postalCodeController;
+  String? Function(BuildContext, String?)? postalCodeControllerValidator;
+  // State field(s) for City widget.
+  TextEditingController? cityController;
+  String? Function(BuildContext, String?)? cityControllerValidator;
+  // State field(s) for State widget.
+  TextEditingController? stateController;
+  String? Function(BuildContext, String?)? stateControllerValidator;
+  // State field(s) for Country widget.
+  TextEditingController? countryController;
+  String? Function(BuildContext, String?)? countryControllerValidator;
   // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
   ApiCallResponse? createAddress;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? apiResultpek;
   // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
   ApiCallResponse? createAddress1;
 
@@ -57,12 +65,12 @@ class Contactdata1Model extends FlutterFlowModel {
     unfocusNode.dispose();
     drawerContentModel.dispose();
     headerModel.dispose();
-    textController1?.dispose();
-    textController2?.dispose();
-    textController3?.dispose();
-    textController4?.dispose();
-    textController5?.dispose();
-    textController6?.dispose();
+    streetController?.dispose();
+    noController?.dispose();
+    postalCodeController?.dispose();
+    cityController?.dispose();
+    stateController?.dispose();
+    countryController?.dispose();
   }
 
   /// Action blocks are added here.

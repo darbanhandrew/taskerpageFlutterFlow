@@ -1,10 +1,13 @@
+import '/backend/api_requests/api_calls.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -81,32 +84,6 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
         ),
       ],
     ),
-    'pinCodeOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, -5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'pinCodeOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, -5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
   };
 
   @override
@@ -117,13 +94,15 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       setState(() {
-        FFAppState().ReqestNewCode = '';
-        FFAppState().IsNotCorrectPasswordNewPhonNumber = false;
+        FFAppState().editPhone = false;
       });
     });
 
-    _model.textController ??=
-        TextEditingController(text: FFAppState().UserInformation.mobilenumber);
+    _model.textController ??= TextEditingController(
+        text: getJsonField(
+      FFAppState().userProfile,
+      r'''$.data.phone_number''',
+    ).toString().toString());
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -186,13 +165,14 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],
                     ),
-                    if (FFAppState().ReqestNewCode != null &&
-                        FFAppState().ReqestNewCode != '')
+                    if (FFAppState().editPhone == true)
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
@@ -266,11 +246,8 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                               ),
                               FlutterFlowDropDown<String>(
                                 controller: _model.dropDownValueController ??=
-                                    FormFieldController<String>(
-                                  _model.dropDownValue ??=
-                                      FFAppState().UserInformation.countrycode,
-                                ),
-                                options: ['Option 1'],
+                                    FormFieldController<String>(null),
+                                options: ['+98', '+91'],
                                 onChanged: (val) =>
                                     setState(() => _model.dropDownValue = val),
                                 width: 121.0,
@@ -407,12 +384,41 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              var _shouldSetState = false;
                               setState(() {
-                                FFAppState().ReqestNewCode = 'Send Code';
+                                FFAppState().editPhone = true;
                               });
+                              _model.sendCode2 = await TaskerpageBackendGroup
+                                  .userProfileReadCall
+                                  .call(
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.name''',
+                                ).toString(),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.sendCode2?.succeeded ?? true)) {
+                                _model.apiResult5wf =
+                                    await TaskerpageBackendGroup
+                                        .sendToVerificationCodeCall
+                                        .call(
+                                  to: '+${functions.extractNumber(getJsonField(
+                                    (_model.sendCode2?.jsonBody ?? ''),
+                                    r'''$.data.phone_number''',
+                                  ).toString())}',
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Text(
-                              'Request a new code! ',
+                              'Request  code ! ',
                               textAlign: TextAlign.justify,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -466,50 +472,54 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                               animationsMap['rowOnActionTriggerAnimation2']!,
                             ),
                       ),
-                    if (FFAppState().ReqestNewCode != null &&
-                        FFAppState().ReqestNewCode != '')
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            30.0, 16.0, 30.0, 0.0),
-                        child: PinCodeTextField(
-                          autoDisposeControllers: false,
-                          appContext: context,
-                          length: 6,
-                          textStyle: FlutterFlowTheme.of(context).bodyLarge,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          enableActiveFill: false,
-                          autoFocus: false,
-                          enablePinAutofill: false,
-                          errorTextSpace: 16.0,
-                          showCursor: true,
-                          cursorColor: Color(0xFF292929),
-                          obscureText: false,
-                          keyboardType: TextInputType.number,
-                          pinTheme: PinTheme(
-                            fieldHeight: 40.0,
-                            fieldWidth: 50.0,
-                            borderWidth: 1.0,
-                            borderRadius: BorderRadius.circular(5.0),
-                            shape: PinCodeFieldShape.box,
-                            activeColor: Color(0xFF5450E0),
-                            inactiveColor: Color(0xFF5450E0),
-                            selectedColor: Color(0xCCDFDFDF),
-                            activeFillColor: Color(0xFF5450E0),
-                            inactiveFillColor: Color(0xFF5450E0),
-                            selectedFillColor: Color(0xCCDFDFDF),
-                          ),
-                          controller: _model.pinCodeController,
-                          onChanged: (_) {},
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          validator: _model.pinCodeControllerValidator
-                              .asValidator(context),
-                        )
-                            .animateOnPageLoad(
-                                animationsMap['pinCodeOnPageLoadAnimation']!)
-                            .animateOnActionTrigger(
-                              animationsMap['pinCodeOnActionTriggerAnimation']!,
-                            ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(30.0, 16.0, 30.0, 0.0),
+                      child: PinCodeTextField(
+                        autoDisposeControllers: false,
+                        appContext: context,
+                        length: 6,
+                        textStyle:
+                            FlutterFlowTheme.of(context).bodyLarge.override(
+                                  fontFamily: 'Lato',
+                                  color: Color(0xFF212121),
+                                  fontSize: 14.0,
+                                ),
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        enableActiveFill: false,
+                        autoFocus: false,
+                        enablePinAutofill: false,
+                        errorTextSpace: 16.0,
+                        showCursor: true,
+                        cursorColor: Color(0xFF292929),
+                        obscureText: false,
+                        keyboardType: TextInputType.number,
+                        pinTheme: PinTheme(
+                          fieldHeight: 40.0,
+                          fieldWidth: 50.0,
+                          borderWidth: 1.0,
+                          borderRadius: BorderRadius.circular(5.0),
+                          shape: PinCodeFieldShape.box,
+                          activeColor: Color(0xFF5450E2),
+                          inactiveColor:
+                              (_model.apiResult3lo9?.succeeded ?? true)
+                                  ? Color(0xFF3D3D3D)
+                                  : Color(0xFFF81113),
+                          selectedColor: Color(0xFF3D3D3D),
+                          activeFillColor: Color(0xFF5450E2),
+                          inactiveFillColor:
+                              (_model.apiResult3lo9?.succeeded ?? true)
+                                  ? Color(0xFF3D3D3D)
+                                  : Color(0xFFF81113),
+                          selectedFillColor: Color(0xFF3D3D3D),
+                        ),
+                        controller: _model.pinCodeController,
+                        onChanged: (_) {},
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: _model.pinCodeControllerValidator
+                            .asValidator(context),
                       ),
+                    ),
                   ],
                 ),
               ),
@@ -583,52 +593,84 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                               ),
                             ),
                           ),
-                          if (FFAppState().ReqestNewCode != null &&
-                              FFAppState().ReqestNewCode != '')
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                if ((_model.pinCodeController!.text != null &&
-                                        _model.pinCodeController!.text != '') &&
-                                    (_model.pinCodeController!.text ==
-                                        '1234')) {
-                                  context.pushNamed('Contactdata-9');
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              var _shouldSetState = false;
+                              _model.apiResult3lo9 =
+                                  await TaskerpageBackendGroup
+                                      .checkVerificationCodeCall
+                                      .call(
+                                to: getJsonField(
+                                  (_model.sendCode2?.jsonBody ?? ''),
+                                  r'''$.data.phone_number''',
+                                ).toString(),
+                                code: _model.pinCodeController!.text,
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.apiResult3lo9?.succeeded ?? true) &&
+                                  (functions.jsonToString(getJsonField(
+                                        (_model.apiResult3lo9?.jsonBody ?? ''),
+                                        r'''$.message.status''',
+                                      )) ==
+                                      'approved')) {
+                                _model.apiResult77u9 =
+                                    await TaskerpageBackendGroup
+                                        .updatePhoneVerificationCall
+                                        .call(
+                                  id: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ).toString(),
+                                  phoneVerified: 1,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResult77u9?.succeeded ?? true)) {
+                                  context.safePop();
                                 } else {
-                                  setState(() {
-                                    FFAppState()
-                                            .IsNotCorrectPasswordNewPhonNumber =
-                                        true;
-                                  });
+                                  if (_shouldSetState) setState(() {});
+                                  return;
                                 }
-                              },
-                              child: Container(
-                                width: 104.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF5450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Verify',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
+                            },
+                            child: Container(
+                              width: 104.0,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF5450E2),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Verify',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
                         ],
                       ),
                     ),

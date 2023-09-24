@@ -1,11 +1,12 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -26,8 +27,8 @@ class ProfiledetailsModel extends FlutterFlowModel {
   late DropeDownLanguagesModel dropeDownLanguagesModel;
   // State field(s) for Switch widget.
   bool? switchValue;
-  // Stores action output result for [Backend Call - API (changeProfileDeatels)] action in Container widget.
-  ApiCallResponse? updateUserProfile;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
@@ -35,12 +36,14 @@ class ProfiledetailsModel extends FlutterFlowModel {
     headerModel = createModel(context, () => HeaderModel());
     dropeDownLanguagesModel =
         createModel(context, () => DropeDownLanguagesModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     dropeDownLanguagesModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

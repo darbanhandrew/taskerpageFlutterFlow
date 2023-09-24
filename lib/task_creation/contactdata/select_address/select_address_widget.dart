@@ -1,10 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,7 +19,12 @@ import 'select_address_model.dart';
 export 'select_address_model.dart';
 
 class SelectAddressWidget extends StatefulWidget {
-  const SelectAddressWidget({Key? key}) : super(key: key);
+  const SelectAddressWidget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final String? id;
 
   @override
   _SelectAddressWidgetState createState() => _SelectAddressWidgetState();
@@ -50,6 +58,50 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id == null || widget.id == '') {
+        context.pushNamed('Task-1');
+      } else {
+        _model.apiResultu37 = await TaskerpageBackendGroup.postReadCall.call(
+          id: widget.id,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResultu37?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..taskAddress = TaskAddressStruct(
+                  address: getJsonField(
+                    (_model.apiResultu37?.jsonBody ?? ''),
+                    r'''$.data.address''',
+                  ).toString().toString(),
+                  fullAddress: getJsonField(
+                    (_model.apiResultu37?.jsonBody ?? ''),
+                    r'''$.data.full_address''',
+                  ).toString().toString(),
+                  latitude: getJsonField(
+                    (_model.apiResultu37?.jsonBody ?? ''),
+                    r'''$.data.latitude''',
+                  ),
+                  longitude: getJsonField(
+                    (_model.apiResultu37?.jsonBody ?? ''),
+                    r'''$.data.longitude''',
+                  ),
+                  country: getJsonField(
+                    (_model.apiResultu37?.jsonBody ?? ''),
+                    r'''$.data.country''',
+                  ).toString().toString(),
+                  city: getJsonField(
+                    (_model.apiResultu37?.jsonBody ?? ''),
+                    r'''$.data.city''',
+                  ).toString().toString(),
+                ),
+            );
+          });
+        } else {
+          return;
+        }
+      }
+
       setState(() {
         FFAppState().DeleteAddressBackGroundColor = false;
       });
@@ -74,6 +126,24 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -92,7 +162,28 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigationBarModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigationBarWidget(
+                                currentPage: 'select_address',
+                                postId: widget.id,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -145,6 +236,13 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                       child: FutureBuilder<ApiCallResponse>(
                         future: TaskerpageBackendGroup.myAddressesCall.call(
                           apiGlobalKey: FFAppState().apiKey,
+                          fields:
+                              '[\"latitude\",\"longitude\",\"address\",\"name\",\"city\",\"country\"]',
+                          filters:
+                              '[[\"customer_profile\",\"=\",\"${getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.name''',
+                          ).toString()}\"]]',
                         ),
                         builder: (context, snapshot) {
                           // Customize what your widget looks like when it's loading.
@@ -188,39 +286,64 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       setState(() {
-                                        FFAppState().updateTaskCreationStruct(
+                                        FFAppState().updateCreateTaskStruct(
                                           (e) => e
-                                            ..address = getJsonField(
-                                              myaddressesItem,
-                                              r'''$.id''',
+                                            ..taskAddress = TaskAddressStruct(
+                                              address: getJsonField(
+                                                myaddressesItem,
+                                                r'''$.name''',
+                                              ).toString(),
+                                              fullAddress: getJsonField(
+                                                myaddressesItem,
+                                                r'''$.address''',
+                                              ).toString(),
+                                              latitude: getJsonField(
+                                                myaddressesItem,
+                                                r'''$.latitude''',
+                                              ),
+                                              longitude: getJsonField(
+                                                myaddressesItem,
+                                                r'''$.longitude''',
+                                              ),
+                                              country: getJsonField(
+                                                myaddressesItem,
+                                                r'''$.country''',
+                                              ).toString(),
+                                              city: getJsonField(
+                                                myaddressesItem,
+                                                r'''$.city''',
+                                              ).toString(),
                                             ),
                                         );
                                       });
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color: functions.jsonToInt(getJsonField(
-                                                  myaddressesItem,
-                                                  r'''$.id''',
-                                                )) ==
-                                                FFAppState()
-                                                    .TaskCreation
-                                                    .address
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFFF6F6F6),
+                                        color:
+                                            functions.jsonToString(getJsonField(
+                                                      myaddressesItem,
+                                                      r'''$.name''',
+                                                    )) ==
+                                                    FFAppState()
+                                                        .createTask
+                                                        .taskAddress
+                                                        .address
+                                                ? Color(0xFF5450E2)
+                                                : Color(0xFFF6F6F6),
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                         border: Border.all(
-                                          color:
-                                              functions.jsonToInt(getJsonField(
-                                                        myaddressesItem,
-                                                        r'''$.id''',
-                                                      )) ==
-                                                      FFAppState()
-                                                          .TaskCreation
-                                                          .address
-                                                  ? Color(0xFF5450E2)
-                                                  : Color(0xFFACABAB),
+                                          color: functions.jsonToString(
+                                                      getJsonField(
+                                                    myaddressesItem,
+                                                    r'''$.name''',
+                                                  )) ==
+                                                  FFAppState()
+                                                      .createTask
+                                                      .taskAddress
+                                                      .address
+                                              ? Color(0xFF5450E2)
+                                              : Color(0xFFACABAB),
                                         ),
                                       ),
                                       child: Padding(
@@ -246,13 +369,14 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: functions.jsonToInt(
+                                                            color: functions.jsonToString(
                                                                         getJsonField(
                                                                       myaddressesItem,
-                                                                      r'''$.id''',
+                                                                      r'''$.name''',
                                                                     )) ==
                                                                     FFAppState()
-                                                                        .TaskCreation
+                                                                        .createTask
+                                                                        .taskAddress
                                                                         .address
                                                                 ? Color(
                                                                     0xFFF6F6F6)
@@ -469,7 +593,53 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('Calendar');
+                              var _shouldSetState = false;
+                              _model.updatedAddress =
+                                  await TaskerpageBackendGroup
+                                      .updateTaskAddressCall
+                                      .call(
+                                id: widget.id,
+                                address:
+                                    FFAppState().createTask.taskAddress.address,
+                                fullAddress: FFAppState()
+                                    .createTask
+                                    .taskAddress
+                                    .fullAddress,
+                                latitude: FFAppState()
+                                    .createTask
+                                    .taskAddress
+                                    .latitude
+                                    .toString(),
+                                longitude: FFAppState()
+                                    .createTask
+                                    .taskAddress
+                                    .longitude
+                                    .toString(),
+                                city: FFAppState().createTask.taskAddress.city,
+                                country:
+                                    FFAppState().createTask.taskAddress.country,
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.updatedAddress?.succeeded ?? true)) {
+                                context.pushNamed(
+                                  'Calendar',
+                                  queryParameters: {
+                                    'id': serializeParam(
+                                      getJsonField(
+                                        (_model.updatedAddress?.jsonBody ?? ''),
+                                        r'''$.data.name''',
+                                      ).toString(),
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

@@ -63,7 +63,7 @@ class _LeaveChatWidgetState extends State<LeaveChatWidget>
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
@@ -165,11 +165,12 @@ class _LeaveChatWidgetState extends State<LeaveChatWidget>
                               return Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
                                 child: UserRateWidget(
-                                  acceptAppointment: false,
+                                  appointmentId: '',
+                                  action: () async {},
                                 ),
                               );
                             },
-                          ).then((value) => setState(() {}));
+                          ).then((value) => safeSetState(() {}));
 
                           Navigator.pop(context);
                         },

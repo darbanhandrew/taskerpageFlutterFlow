@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -65,7 +64,7 @@ class _AlerModalMassageSharePhoneWidgetState
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
@@ -180,41 +179,7 @@ class _AlerModalMassageSharePhoneWidgetState
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () async {
-                          var _shouldSetState = false;
-                          _model.apiResultt8a = await TaskerpageBackendGroup
-                              .createAppointmentCall
-                              .call(
-                            apiGlobalKey: FFAppState().apiKey,
-                            appointmentType:
-                                FFAppState().Appointment.appointmentType,
-                            appointmentTime:
-                                '${dateTimeFormat('y-M-d', FFAppState().Appointment.date)} ${FFAppState().Appointment.time}',
-                            appointmentLocationLat:
-                                FFAppState().Appointment.lat,
-                            appointmentLocationLng:
-                                FFAppState().Appointment.lng,
-                            isInterviewerAccepted:
-                                FFAppState().UserInformation.role == 'POSTER'
-                                    ? true
-                                    : false,
-                            isIntervieweeAccepted:
-                                FFAppState().UserInformation.role == 'POSTER'
-                                    ? false
-                                    : true,
-                          );
-                          _shouldSetState = true;
-                          if ((_model.apiResultt8a?.succeeded ?? true)) {
-                            Navigator.pop(context);
-
-                            context.pushNamed('AppointmentList');
-                          } else {
-                            if (_shouldSetState) setState(() {});
-                            return;
-                          }
-
-                          if (_shouldSetState) setState(() {});
-                        },
+                        onTap: () async {},
                         child: Container(
                           width: 129.0,
                           height: 44.0,

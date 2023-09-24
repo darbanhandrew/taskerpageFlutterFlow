@@ -1,14 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/task_card_widget.dart';
-import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 import 'bid_model.dart';
 export 'bid_model.dart';
@@ -17,11 +18,11 @@ class BidWidget extends StatefulWidget {
   const BidWidget({
     Key? key,
     required this.post,
-    required this.bargaineeId,
+    required this.poster,
   }) : super(key: key);
 
   final dynamic post;
-  final int? bargaineeId;
+  final String? poster;
 
   @override
   _BidWidgetState createState() => _BidWidgetState();
@@ -49,6 +50,7 @@ class _BidWidgetState extends State<BidWidget> {
       });
     });
 
+    _model.bidAmountController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -145,102 +147,82 @@ class _BidWidgetState extends State<BidWidget> {
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 80.0,
-                            height: 41.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(5.0),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Color(0xFF5E5D5D),
-                                width: 1.0,
-                              ),
-                            ),
-                            child: FlutterFlowCountController(
-                              decrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 15.0,
-                              ),
-                              incrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 15.0,
-                              ),
-                              countBuilder: (count) => Text(
-                                count.toString(),
-                                style: FlutterFlowTheme.of(context)
-                                    .titleLarge
+                          Expanded(
+                            child: TextFormField(
+                              controller: _model.bidAmountController,
+                              autofocus: true,
+                              obscureText: false,
+                              decoration: InputDecoration(
+                                isDense: true,
+                                labelStyle:
+                                    FlutterFlowTheme.of(context).labelMedium,
+                                hintText: 'Bid amount',
+                                hintStyle: FlutterFlowTheme.of(context)
+                                    .labelMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      fontSize: 13.0,
+                                      color: Color(0x535E5D5D),
                                     ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFF3D3D3D),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: Color(0xFF2E29EC),
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                errorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                focusedErrorBorder: OutlineInputBorder(
+                                  borderSide: BorderSide(
+                                    color: FlutterFlowTheme.of(context).error,
+                                    width: 1.0,
+                                  ),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                prefixIcon: Icon(
+                                  Icons.euro,
+                                  color: Color(0xFF5450E2),
+                                ),
                               ),
-                              count: _model.countControllerValue ??= 160,
-                              updateCount: (count) => setState(
-                                  () => _model.countControllerValue = count),
-                              stepSize: 1,
-                              minimum: 0,
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 0.0, 5.0, 0.0),
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    fontSize: 14.0,
+                                  ),
+                              keyboardType:
+                                  const TextInputType.numberWithOptions(
+                                      signed: true, decimal: true),
+                              validator: _model.bidAmountControllerValidator
+                                  .asValidator(context),
+                              inputFormatters: [_model.bidAmountMask],
                             ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 10.0, 0.0, 10.0, 0.0),
                             child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController1 ??=
+                              controller: _model.dropDownValueController ??=
                                   FormFieldController<String>(
-                                _model.dropDownValue1 ??= '\$',
+                                _model.dropDownValue ??= 'Per hour',
                               ),
-                              options: ['\$'],
+                              options: ['Per hour', 'Per Session', 'Total'],
                               onChanged: (val) =>
-                                  setState(() => _model.dropDownValue1 = val),
-                              width: 42.0,
-                              height: 41.0,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    fontSize: 14.0,
-                                  ),
-                              icon: Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: Color(0xFF3D3D3D),
-                                size: 15.0,
-                              ),
-                              fillColor: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              elevation: 2.0,
-                              borderColor: Color(0xFF5E5D5D),
-                              borderWidth: 1.0,
-                              borderRadius: 5.0,
-                              margin: EdgeInsetsDirectional.fromSTEB(
-                                  10.0, 4.0, 5.0, 4.0),
-                              hidesUnderline: true,
-                              isSearchable: false,
-                              isMultiSelect: false,
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 10.0, 0.0),
-                            child: FlutterFlowDropDown<String>(
-                              controller: _model.dropDownValueController2 ??=
-                                  FormFieldController<String>(
-                                _model.dropDownValue2 ??= 'Per hour',
-                              ),
-                              options: ['Per hour'],
-                              onChanged: (val) =>
-                                  setState(() => _model.dropDownValue2 = val),
+                                  setState(() => _model.dropDownValue = val),
                               width: 92.0,
                               height: 41.0,
                               textStyle: FlutterFlowTheme.of(context)
@@ -284,28 +266,26 @@ class _BidWidgetState extends State<BidWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               var _shouldSetState = false;
-                              setState(() {
-                                FFAppState().BidReq =
-                                    '${_model.countControllerValue?.toString()} ${_model.dropDownValue1} ${_model.dropDownValue2}';
-                              });
-                              _model.bId = await TaskerpageBackendGroup
-                                  .createBargainCall
+                              _model.bidCreated = await TaskerpageBackendGroup
+                                  .createBidCall
                                   .call(
-                                price: _model.countControllerValue,
-                                postId: getJsonField(
-                                  widget.post,
-                                  r'''$.id''',
-                                ),
-                                apiGlobalKey: FFAppState().apiKey,
-                                bargainer: getJsonField(
+                                price: functions.extractNumber(
+                                    _model.bidAmountController.text),
+                                priceType: _model.dropDownValue,
+                                bider: getJsonField(
                                   FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
-                                bargainee: widget.bargaineeId,
+                                  r'''$.data.name''',
+                                ).toString(),
+                                post: getJsonField(
+                                  widget.post,
+                                  r'''$.name''',
+                                ).toString(),
+                                poster: widget.poster,
+                                apiGlobalKey: FFAppState().apiKey,
                               );
                               _shouldSetState = true;
-                              if ((_model.bId?.succeeded ?? true)) {
-                                context.pushNamed('chat');
+                              if ((_model.bidCreated?.succeeded ?? true)) {
+                                Navigator.pop(context);
                               } else {
                                 if (_shouldSetState) setState(() {});
                                 return;
@@ -325,7 +305,7 @@ class _BidWidgetState extends State<BidWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    'Start Chat',
+                                    'Place Bid',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

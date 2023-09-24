@@ -1,10 +1,16 @@
+import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +18,12 @@ import 'taskertype2_model.dart';
 export 'taskertype2_model.dart';
 
 class Taskertype2Widget extends StatefulWidget {
-  const Taskertype2Widget({Key? key}) : super(key: key);
+  const Taskertype2Widget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final String? id;
 
   @override
   _Taskertype2WidgetState createState() => _Taskertype2WidgetState();
@@ -27,6 +38,43 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => Taskertype2Model());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id == null || widget.id == '') {
+        context.pushNamed('Task-1');
+      } else {
+        _model.apiResult6km = await TaskerpageBackendGroup.postReadCall.call(
+          id: widget.id,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResult6km?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..updateTaskerType(
+                  (e) => e
+                    ..yearsOfExperience = functions.jsonToInt(getJsonField(
+                      (_model.apiResult6km?.jsonBody ?? ''),
+                      r'''$.data.years_of_experience''',
+                    ))
+                    ..insurance = valueOrDefault<bool>(
+                      functions.jsonIntToBoolean(getJsonField(
+                        (_model.apiResult6km?.jsonBody ?? ''),
+                        r'''$.data.insurance''',
+                      )),
+                      false,
+                    )
+                    ..driverLicense = getJsonField(
+                      (_model.apiResult6km?.jsonBody ?? ''),
+                      r'''$.data.driver_license''',
+                    ).toString().toString(),
+                ),
+            );
+          });
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -47,6 +95,24 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -60,8 +126,29 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                       model: _model.headerModel,
                       updateCallback: () => setState(() {}),
                       child: HeaderWidget(
-                        openDrawer: () async {},
+                        openDrawer: () async {
+                          scaffoldKey.currentState!.openDrawer();
+                        },
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigationBarModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigationBarWidget(
+                                currentPage: 'tasker_type2',
+                                postId: widget.id,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:
@@ -106,7 +193,7 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                             ),
                           ),
                           Container(
-                            width: 60.0,
+                            width: 80.0,
                             height: 41.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
@@ -120,18 +207,18 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                             ),
                             child: FlutterFlowCountController(
                               decrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 15.0,
-                              ),
-                              incrementIconBuilder: (enabled) => Icon(
                                 Icons.keyboard_arrow_down_rounded,
                                 color: enabled
                                     ? Color(0xFFF06543)
                                     : FlutterFlowTheme.of(context).alternate,
-                                size: 15.0,
+                                size: 20.0,
+                              ),
+                              incrementIconBuilder: (enabled) => Icon(
+                                Icons.keyboard_arrow_up_rounded,
+                                color: enabled
+                                    ? Color(0xFFF06543)
+                                    : FlutterFlowTheme.of(context).alternate,
+                                size: 20.0,
                               ),
                               countBuilder: (count) => Text(
                                 count.toString(),
@@ -142,15 +229,25 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                       fontSize: 13.0,
                                     ),
                               ),
-                              count: _model.countControllerValue ??= 2,
+                              count: _model.countControllerValue ??=
+                                  valueOrDefault<int>(
+                                FFAppState()
+                                    .createTask
+                                    .taskerType
+                                    .yearsOfExperience,
+                                1,
+                              ),
                               updateCount: (count) async {
                                 setState(
                                     () => _model.countControllerValue = count);
                                 setState(() {
-                                  FFAppState().updateTaskCreationStruct(
+                                  FFAppState().updateCreateTaskStruct(
                                     (e) => e
-                                      ..yearsofExperience =
-                                          _model.countControllerValue,
+                                      ..updateTaskerType(
+                                        (e) => e
+                                          ..yearsOfExperience =
+                                              _model.countControllerValue,
+                                      ),
                                   );
                                 });
                               },
@@ -181,21 +278,28 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Switch.adaptive(
-                              value: _model.switchValue ??= true,
+                              value: _model.switchValue ??=
+                                  FFAppState().createTask.taskerType.insurance,
                               onChanged: (newValue) async {
                                 setState(() => _model.switchValue = newValue!);
                                 if (newValue!) {
                                   setState(() {
-                                    FFAppState().updateTaskCreationStruct(
-                                      (e) => e..insurance = true,
+                                    FFAppState().updateCreateTaskStruct(
+                                      (e) => e
+                                        ..updateTaskerType(
+                                          (e) => e..insurance = true,
+                                        ),
                                     );
                                   });
                                 } else {
                                   setState(() {
-                                    FFAppState().updateTaskCreationStruct(
-                                      (e) => e..insurance = false,
+                                    FFAppState().updateCreateTaskStruct(
+                                      (e) => e
+                                        ..updateTaskerType(
+                                          (e) => e..insurance = false,
+                                        ),
                                     );
                                   });
                                 }
@@ -263,8 +367,11 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     setState(() {
-                                      FFAppState().updateTaskCreationStruct(
-                                        (e) => e..driverslicense = 'CAR',
+                                      FFAppState().updateCreateTaskStruct(
+                                        (e) => e
+                                          ..updateTaskerType(
+                                            (e) => e..driverLicense = 'Car',
+                                          ),
                                       );
                                     });
                                   },
@@ -273,17 +380,19 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     height: 100.0,
                                     decoration: BoxDecoration(
                                       color: FFAppState()
-                                                  .TaskCreation
-                                                  .driverslicense ==
-                                              'CAR'
+                                                  .createTask
+                                                  .taskerType
+                                                  .driverLicense ==
+                                              'Car'
                                           ? Color(0xFF5450E2)
                                           : Color(0x00000000),
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
                                         color: FFAppState()
-                                                    .TaskCreation
-                                                    .driverslicense ==
-                                                'CAR'
+                                                    .createTask
+                                                    .taskerType
+                                                    .driverLicense ==
+                                                'Car'
                                             ? Color(0xFF5450E2)
                                             : Color(0xFF5E5D5D),
                                         width: 1.0,
@@ -304,9 +413,10 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                 .override(
                                                   fontFamily: 'Lato',
                                                   color: FFAppState()
-                                                              .TaskCreation
-                                                              .driverslicense ==
-                                                          'CAR'
+                                                              .createTask
+                                                              .taskerType
+                                                              .driverLicense ==
+                                                          'Car'
                                                       ? Color(0xFFF6F6F6)
                                                       : Color(0xFF5E5D5D),
                                                   fontSize: 12.0,
@@ -325,8 +435,11 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     setState(() {
-                                      FFAppState().updateTaskCreationStruct(
-                                        (e) => e..driverslicense = 'TRUCK',
+                                      FFAppState().updateCreateTaskStruct(
+                                        (e) => e
+                                          ..updateTaskerType(
+                                            (e) => e..driverLicense = 'Truck',
+                                          ),
                                       );
                                     });
                                   },
@@ -335,17 +448,19 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     height: 100.0,
                                     decoration: BoxDecoration(
                                       color: FFAppState()
-                                                  .TaskCreation
-                                                  .driverslicense ==
-                                              'TRUCK'
+                                                  .createTask
+                                                  .taskerType
+                                                  .driverLicense ==
+                                              'Truck'
                                           ? Color(0xFF5450E2)
                                           : Color(0x00000000),
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
                                         color: FFAppState()
-                                                    .TaskCreation
-                                                    .driverslicense ==
-                                                'TRUCK'
+                                                    .createTask
+                                                    .taskerType
+                                                    .driverLicense ==
+                                                'Truck'
                                             ? Color(0xFF5450E2)
                                             : Color(0xFF5E5D5D),
                                         width: 1.0,
@@ -366,9 +481,10 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                 .override(
                                                   fontFamily: 'Lato',
                                                   color: FFAppState()
-                                                              .TaskCreation
-                                                              .driverslicense ==
-                                                          'TRUCK'
+                                                              .createTask
+                                                              .taskerType
+                                                              .driverLicense ==
+                                                          'Truck'
                                                       ? Color(0xFFF6F6F6)
                                                       : Color(0xFF5E5D5D),
                                                   fontSize: 12.0,
@@ -466,7 +582,47 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('Taskertype3');
+                              var _shouldSetState = false;
+                              _model.updatedTaskerType =
+                                  await TaskerpageBackendGroup
+                                      .updateTaskerTypeTwoCall
+                                      .call(
+                                id: widget.id,
+                                driverLicense: FFAppState()
+                                    .createTask
+                                    .taskerType
+                                    .driverLicense,
+                                insurance: valueOrDefault<int>(
+                                  functions.booltoInt(FFAppState()
+                                      .createTask
+                                      .taskerType
+                                      .insurance),
+                                  0,
+                                ),
+                                yearsOfExperience: FFAppState()
+                                    .createTask
+                                    .taskerType
+                                    .yearsOfExperience
+                                    .toString(),
+                              );
+                              _shouldSetState = true;
+                              if ((_model.updatedTaskerType?.succeeded ??
+                                  true)) {
+                                context.pushNamed(
+                                  'Taskertype3',
+                                  queryParameters: {
+                                    'id': serializeParam(
+                                      widget.id,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

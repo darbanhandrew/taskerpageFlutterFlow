@@ -10,8 +10,8 @@ export '/signin_register/signup/sign_up_verification_accepted/sign_up_verificati
     show SignUpVerificationAcceptedWidget;
 export '/signin_register/signin/sign_in_information/sign_in_information_widget.dart'
     show SignInInformationWidget;
-export '/signin_register/signin/sign_in_verification_request/sign_in_verification_request_widget.dart'
-    show SignInVerificationRequestWidget;
+export '/signin_register/signin/email_verification/email_verification_widget.dart'
+    show EmailVerificationWidget;
 export '/signin_register/signin/sign_in_verification_accepted/sign_in_verification_accepted_widget.dart'
     show SignInVerificationAcceptedWidget;
 export '/signin_register/signin/sign_in/sign_in_widget.dart' show SignInWidget;
@@ -119,3 +119,16 @@ export '/task_creation/contactdata/add_another/add_another_widget.dart'
 export '/dashboard/categories/categories_widget.dart' show CategoriesWidget;
 export '/dashboard/knowledge_base/knowledge_base_widget.dart'
     show KnowledgeBaseWidget;
+export '/dashboard/main_home_page_for_ad/main_home_page_for_ad_widget.dart'
+    show MainHomePageForAdWidget;
+export '/bargain/scaned_q_r_c_o_d_e/scaned_q_r_c_o_d_e_widget.dart'
+    show ScanedQRCODEWidget;
+export '/signin_register/signup/sign_up_verification_code/sign_up_verification_code_widget.dart'
+    show SignUpVerificationCodeWidget;
+export '/dashboard/web_home/web_home_widget.dart' show WebHomeWidget;
+export '/subscription/paymentshistory/paymentshistory_widget.dart'
+    show PaymentshistoryWidget;
+export '/dashboard/issue_list/issue_list_widget.dart' show IssueListWidget;
+export '/test/test_widget.dart' show TestWidget;
+export '/dashboard/notification_log/notification_log_widget.dart'
+    show NotificationLogWidget;

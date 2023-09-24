@@ -1,4 +1,4 @@
-import '/backend/schema/structs/index.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,10 @@ class UserRateModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
+  // Stores action output result for [Backend Call - API (appointmentRead)] action in Container widget.
+  ApiCallResponse? appointmentRead;
+  // Stores action output result for [Backend Call - API (Review Create)] action in Container widget.
+  ApiCallResponse? reviewCreated;
 
   /// Initialization and disposal methods.
 

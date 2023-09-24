@@ -1,12 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -38,17 +41,36 @@ class PosterProfileModel extends FlutterFlowModel {
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx9Copy779;
+  // Stores action output result for [Backend Call - API (update banner)] action in Container widget.
+  ApiCallResponse? apiResult59uCopy290;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx9Copy77Copy0;
+  // Stores action output result for [Backend Call - API (update banner)] action in Container widget.
+  ApiCallResponse? apiResult59uCopy29Copy7;
   bool isDataUploading3 = false;
   FFUploadedFile uploadedLocalFile3 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx902;
+  // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
+  ApiCallResponse? apiResult59u95;
   bool isDataUploading4 = false;
   FFUploadedFile uploadedLocalFile4 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? test;
+  // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
+  ApiCallResponse? apiResult59uCopy05;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
@@ -59,6 +81,7 @@ class PosterProfileModel extends FlutterFlowModel {
     editIconModel3 = createModel(context, () => EditIconModel());
     editIconModel4 = createModel(context, () => EditIconModel());
     navBarModel = createModel(context, () => NavBarModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -69,6 +92,7 @@ class PosterProfileModel extends FlutterFlowModel {
     editIconModel3.dispose();
     editIconModel4.dispose();
     navBarModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

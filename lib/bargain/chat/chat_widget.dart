@@ -1,10 +1,10 @@
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
 import '/components/leave_chat_widget.dart';
-import '/components/set_appointment_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -216,7 +216,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    ).then((value) => safeSetState(() {}));
                                   },
                                   child: Container(
                                     width: 96.0,
@@ -508,34 +508,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                               hoverColor: Colors.transparent,
                                               highlightColor:
                                                   Colors.transparent,
-                                              onTap: () async {
-                                                await showModalBottomSheet(
-                                                  isScrollControlled: true,
-                                                  backgroundColor:
-                                                      Colors.transparent,
-                                                  enableDrag: false,
-                                                  context: context,
-                                                  builder: (context) {
-                                                    return GestureDetector(
-                                                      onTap: () => FocusScope
-                                                              .of(context)
-                                                          .requestFocus(_model
-                                                              .unfocusNode),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            SetAppointmentWidget(
-                                                          setOredit: true,
-                                                          id: 0,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                ).then(
-                                                    (value) => setState(() {}));
-                                              },
+                                              onTap: () async {},
                                               child: Container(
                                                 height: 26.0,
                                                 decoration: BoxDecoration(
@@ -608,8 +581,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                       ),
                                                     );
                                                   },
-                                                ).then(
-                                                    (value) => setState(() {}));
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
                                               },
                                               child: Container(
                                                 height: 26.0,
@@ -681,8 +654,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                       ),
                                                     );
                                                   },
-                                                ).then(
-                                                    (value) => setState(() {}));
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
                                               },
                                               child: Container(
                                                 height: 26.0,
@@ -796,27 +769,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                context: context,
-                                builder: (context) {
-                                  return GestureDetector(
-                                    onTap: () => FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode),
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: SetAppointmentWidget(
-                                        setOredit: false,
-                                        id: 0,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ).then((value) => setState(() {}));
-                            },
+                            onTap: () async {},
                             child: Container(
                               height: 26.0,
                               decoration: BoxDecoration(

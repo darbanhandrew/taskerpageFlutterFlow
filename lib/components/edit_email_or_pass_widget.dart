@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:expandable/expandable.dart';
@@ -32,6 +33,9 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
     _model.textController1 ??= TextEditingController();
     _model.textController2 ??= TextEditingController();
     _model.textController3 ??= TextEditingController();
+    _model.textController4 ??= TextEditingController();
+    _model.textController5 ??= TextEditingController();
+    _model.textController6 ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -466,7 +470,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                 controller:
                                                     _model.textController3,
                                                 obscureText:
-                                                    !_model.passwordVisibility,
+                                                    !_model.passwordVisibility1,
                                                 decoration: InputDecoration(
                                                   isDense: true,
                                                   labelStyle:
@@ -535,14 +539,14 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   suffixIcon: InkWell(
                                                     onTap: () => setState(
                                                       () => _model
-                                                              .passwordVisibility =
+                                                              .passwordVisibility1 =
                                                           !_model
-                                                              .passwordVisibility,
+                                                              .passwordVisibility1,
                                                     ),
                                                     focusNode: FocusNode(
                                                         skipTraversal: true),
                                                     child: Icon(
-                                                      _model.passwordVisibility
+                                                      _model.passwordVisibility1
                                                           ? Icons
                                                               .visibility_outlined
                                                           : Icons
@@ -567,34 +571,6 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                             ),
                                           ],
                                         ),
-                                        if (_model.textController3.text !=
-                                            FFAppState()
-                                                .UserInformation
-                                                .password)
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Password is not correct !',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFFD20202),
-                                                        fontSize: 13.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -611,24 +587,80 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  if ((_model.textController3
-                                                              .text ==
+                                                  var _shouldSetState = false;
+                                                  _model.apiResultix4 =
+                                                      await TaskerpageBackendGroup
+                                                          .loginCall
+                                                          .call(
+                                                    useJwt: 1,
+                                                    username: getJsonField(
+                                                      FFAppState().userProfile,
+                                                      r'''$.data.user''',
+                                                    ).toString(),
+                                                    password: _model
+                                                        .textController3.text,
+                                                    apiGlobalKey:
+                                                        FFAppState().apiKey,
+                                                  );
+                                                  _shouldSetState = true;
+                                                  if ((_model.apiResultix4
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    _model.apiResultmm7 =
+                                                        await TaskerpageBackendGroup
+                                                            .updateEmailAddressCall
+                                                            .call(
+                                                      id: getJsonField(
+                                                        FFAppState()
+                                                            .userProfile,
+                                                        r'''$.data.name''',
+                                                      ).toString(),
+                                                      email: _model
+                                                          .textController1.text,
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    );
+                                                    _shouldSetState = true;
+                                                    if ((_model.apiResultmm7
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      _model.apiResultwnj =
+                                                          await TaskerpageBackendGroup
+                                                              .updateEmailVerivicationCall
+                                                              .call(
+                                                        id: getJsonField(
                                                           FFAppState()
-                                                              .UserInformation
-                                                              .password) &&
-                                                      (_model.textController1
-                                                              .text ==
-                                                          _model.textController2
-                                                              .text)) {
-                                                    setState(() {
-                                                      FFAppState()
-                                                              .NotificationForAnewPassOrEmail =
-                                                          true;
-                                                    });
-                                                    Navigator.pop(context);
+                                                              .userProfile,
+                                                          r'''$.data.name''',
+                                                        ).toString(),
+                                                        emailVerified: 0,
+                                                        apiGlobalKey:
+                                                            FFAppState().apiKey,
+                                                      );
+                                                      _shouldSetState = true;
+                                                      if ((_model.apiResultwnj
+                                                              ?.succeeded ??
+                                                          true)) {
+                                                        context.pushNamed(
+                                                            'email_verification');
+                                                      } else {
+                                                        if (_shouldSetState)
+                                                          setState(() {});
+                                                        return;
+                                                      }
+                                                    } else {
+                                                      if (_shouldSetState)
+                                                        setState(() {});
+                                                      return;
+                                                    }
                                                   } else {
+                                                    if (_shouldSetState)
+                                                      setState(() {});
                                                     return;
                                                   }
+
+                                                  if (_shouldSetState)
+                                                    setState(() {});
                                                 },
                                                 child: Container(
                                                   width: 100.0,
@@ -730,11 +762,415 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
+                                                  0.0, 15.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Tasker.Page password',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF3D3D3D),
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: TextFormField(
+                                                controller:
+                                                    _model.textController4,
+                                                obscureText:
+                                                    !_model.passwordVisibility2,
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  labelStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium,
+                                                  hintText:
+                                                      'Type Tasker.Page password',
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF3D3D3D),
+                                                        fontSize: 12.0,
+                                                      ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFF5E5D5D),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE8083F),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE8083F),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  prefixIcon: Icon(
+                                                    Icons.lock_outlined,
+                                                    color: Color(0xFF212121),
+                                                    size: 18.0,
+                                                  ),
+                                                  suffixIcon: InkWell(
+                                                    onTap: () => setState(
+                                                      () => _model
+                                                              .passwordVisibility2 =
+                                                          !_model
+                                                              .passwordVisibility2,
+                                                    ),
+                                                    focusNode: FocusNode(
+                                                        skipTraversal: true),
+                                                    child: Icon(
+                                                      _model.passwordVisibility2
+                                                          ? Icons
+                                                              .visibility_outlined
+                                                          : Icons
+                                                              .visibility_off_outlined,
+                                                      size: 22,
+                                                    ),
+                                                  ),
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF212121),
+                                                          fontSize: 14.0,
+                                                        ),
+                                                validator: _model
+                                                    .textController4Validator
+                                                    .asValidator(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 15.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'New password',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF3D3D3D),
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: TextFormField(
+                                                controller:
+                                                    _model.textController5,
+                                                obscureText:
+                                                    !_model.passwordVisibility3,
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  labelStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium,
+                                                  hintText: 'Type new password',
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF3D3D3D),
+                                                        fontSize: 12.0,
+                                                      ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFF5E5D5D),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE8083F),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE8083F),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  prefixIcon: Icon(
+                                                    Icons.lock_outlined,
+                                                    color: Color(0xFF212121),
+                                                    size: 18.0,
+                                                  ),
+                                                  suffixIcon: InkWell(
+                                                    onTap: () => setState(
+                                                      () => _model
+                                                              .passwordVisibility3 =
+                                                          !_model
+                                                              .passwordVisibility3,
+                                                    ),
+                                                    focusNode: FocusNode(
+                                                        skipTraversal: true),
+                                                    child: Icon(
+                                                      _model.passwordVisibility3
+                                                          ? Icons
+                                                              .visibility_outlined
+                                                          : Icons
+                                                              .visibility_off_outlined,
+                                                      size: 22,
+                                                    ),
+                                                  ),
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF212121),
+                                                          fontSize: 14.0,
+                                                        ),
+                                                validator: _model
+                                                    .textController5Validator
+                                                    .asValidator(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 15.0, 0.0, 8.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Confirm new password',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF3D3D3D),
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.w600,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Expanded(
+                                              child: TextFormField(
+                                                controller:
+                                                    _model.textController6,
+                                                obscureText:
+                                                    !_model.passwordVisibility4,
+                                                decoration: InputDecoration(
+                                                  isDense: true,
+                                                  labelStyle:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium,
+                                                  hintText:
+                                                      'Type confirm new password',
+                                                  hintStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .labelMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF3D3D3D),
+                                                        fontSize: 12.0,
+                                                      ),
+                                                  enabledBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFF5E5D5D),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  errorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE8083F),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  focusedErrorBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color: Color(0xFFE8083F),
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            5.0),
+                                                  ),
+                                                  prefixIcon: Icon(
+                                                    Icons.lock_outlined,
+                                                    color: Color(0xFF212121),
+                                                    size: 18.0,
+                                                  ),
+                                                  suffixIcon: InkWell(
+                                                    onTap: () => setState(
+                                                      () => _model
+                                                              .passwordVisibility4 =
+                                                          !_model
+                                                              .passwordVisibility4,
+                                                    ),
+                                                    focusNode: FocusNode(
+                                                        skipTraversal: true),
+                                                    child: Icon(
+                                                      _model.passwordVisibility4
+                                                          ? Icons
+                                                              .visibility_outlined
+                                                          : Icons
+                                                              .visibility_off_outlined,
+                                                      size: 22,
+                                                    ),
+                                                  ),
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF212121),
+                                                          fontSize: 14.0,
+                                                        ),
+                                                validator: _model
+                                                    .textController6Validator
+                                                    .asValidator(context),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 8.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                                MainAxisAlignment.end,
                                             children: [
                                               InkWell(
                                                 splashColor: Colors.transparent,
@@ -743,51 +1179,119 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  setState(() {
-                                                    FFAppState()
-                                                            .NotificationForAnewPassOrEmail =
-                                                        true;
-                                                  });
-                                                  Navigator.pop(context);
+                                                  var _shouldSetState = false;
+                                                  if (_model.textController5
+                                                          .text ==
+                                                      _model.textController6
+                                                          .text) {
+                                                    _model.apiResultblh =
+                                                        await TaskerpageBackendGroup
+                                                            .loginCall
+                                                            .call(
+                                                      useJwt: 1,
+                                                      username: getJsonField(
+                                                        FFAppState()
+                                                            .userProfile,
+                                                        r'''$.data.user''',
+                                                      ).toString(),
+                                                      password: _model
+                                                          .textController3.text,
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    );
+                                                    _shouldSetState = true;
+                                                    if ((_model.apiResultblh
+                                                            ?.succeeded ??
+                                                        true)) {
+                                                      _model.apiResultnjr =
+                                                          await TaskerpageBackendGroup
+                                                              .updatePasswordCall
+                                                              .call(
+                                                        id: getJsonField(
+                                                          FFAppState()
+                                                              .userProfile,
+                                                          r'''$.data.name''',
+                                                        ).toString(),
+                                                        password: _model
+                                                            .textController5
+                                                            .text,
+                                                        apiGlobalKey:
+                                                            FFAppState().apiKey,
+                                                      );
+                                                      _shouldSetState = true;
+                                                      if ((_model.apiResultnjr
+                                                              ?.succeeded ??
+                                                          true)) {
+                                                        await showDialog(
+                                                          context: context,
+                                                          builder:
+                                                              (alertDialogContext) {
+                                                            return AlertDialog(
+                                                              title: Text(
+                                                                  'New password'),
+                                                              content: Text(
+                                                                  'Your password has been successfully changed'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      } else {
+                                                        if (_shouldSetState)
+                                                          setState(() {});
+                                                        return;
+                                                      }
+                                                    } else {
+                                                      if (_shouldSetState)
+                                                        setState(() {});
+                                                      return;
+                                                    }
+                                                  } else {
+                                                    if (_shouldSetState)
+                                                      setState(() {});
+                                                    return;
+                                                  }
+
+                                                  if (_shouldSetState)
+                                                    setState(() {});
                                                 },
                                                 child: Container(
-                                                  height: 40.0,
+                                                  width: 100.0,
+                                                  height: 41.0,
                                                   decoration: BoxDecoration(
                                                     color: Color(0xFF5450E2),
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             5.0),
                                                   ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          'Reset Password',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                color: Colors
-                                                                    .white,
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'Save',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color:
+                                                                  Colors.white,
+                                                              fontSize: 13.0,
+                                                            ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                               ),

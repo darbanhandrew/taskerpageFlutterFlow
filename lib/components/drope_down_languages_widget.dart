@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -103,7 +104,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
           children: [
             Expanded(
               child: Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: AlignmentDirectional(0.00, 0.00),
                 child: Stack(
                   children: [
                     InkWell(
@@ -220,10 +221,10 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: AlignmentDirectional(0.00, 0.00),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            15.0, 7.0, 40.0, 0.0),
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(8.0, 7.0, 40.0, 0.0),
                         child: Builder(
                           builder: (context) {
                             final languages = FFAppState()
@@ -249,7 +250,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          languagesItem == 'EN'
+                                          languagesItem == 'En'
                                               ? 'English'
                                               : 'Germany',
                                           style: FlutterFlowTheme.of(context)
@@ -274,6 +275,14 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                                 FFAppState()
                                                     .removeFromLanguagesListForDropDown(
                                                         languagesItem);
+                                              });
+                                              setState(() {
+                                                FFAppState().updateTaskStruct(
+                                                  (e) => e
+                                                    ..language = FFAppState()
+                                                        .LanguagesListForDropDown
+                                                        .toList(),
+                                                );
                                               });
                                             },
                                             child: Icon(
@@ -345,49 +354,59 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         fontWeight: FontWeight.normal,
                                       ),
                                 ),
-                                if (!FFAppState()
-                                    .LanguagesListForDropDown
-                                    .contains('DE'))
-                                  Theme(
-                                    data: ThemeData(
-                                      checkboxTheme: CheckboxThemeData(
-                                        visualDensity: VisualDensity.compact,
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(3.0),
-                                        ),
+                                Theme(
+                                  data: ThemeData(
+                                    checkboxTheme: CheckboxThemeData(
+                                      visualDensity: VisualDensity.compact,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(3.0),
                                       ),
-                                      unselectedWidgetColor: Color(0xFF5E5D5D),
                                     ),
-                                    child: Checkbox(
-                                      value: _model.checkboxValue1 ??=
-                                          FFAppState()
-                                              .LanguagesListForDropDown
-                                              .contains('DE'),
-                                      onChanged: (newValue) async {
-                                        setState(() =>
-                                            _model.checkboxValue1 = newValue!);
-                                        if (newValue!) {
-                                          setState(() {
-                                            FFAppState()
-                                                .addToLanguagesListForDropDown(
-                                                    'DE');
-                                          });
-                                        } else {
-                                          setState(() {
-                                            FFAppState()
-                                                .removeFromLanguagesListForDropDown(
-                                                    'DE');
-                                          });
-                                        }
-                                      },
-                                      activeColor: Color(0xFF5450E2),
-                                      checkColor:
-                                          FlutterFlowTheme.of(context).info,
-                                    ),
+                                    unselectedWidgetColor: Color(0xFF5E5D5D),
                                   ),
+                                  child: Checkbox(
+                                    value: _model.checkboxValue1 ??= false,
+                                    onChanged: (newValue) async {
+                                      setState(() =>
+                                          _model.checkboxValue1 = newValue!);
+                                      if (newValue!) {
+                                        setState(() {
+                                          FFAppState()
+                                              .addToLanguagesListForDropDown(
+                                                  'De');
+                                        });
+                                        setState(() {
+                                          FFAppState().updateTaskStruct(
+                                            (e) => e
+                                              ..language = FFAppState()
+                                                  .LanguagesListForDropDown
+                                                  .toList(),
+                                          );
+                                        });
+                                      } else {
+                                        setState(() {
+                                          FFAppState()
+                                              .removeFromLanguagesListForDropDown(
+                                                  'DE');
+                                        });
+                                        setState(() {
+                                          FFAppState().updateTaskStruct(
+                                            (e) => e
+                                              ..language = FFAppState()
+                                                  .LanguagesListForDropDown
+                                                  .toList(),
+                                          );
+                                        });
+                                      }
+                                    },
+                                    activeColor: Color(0xFF5450E2),
+                                    checkColor:
+                                        FlutterFlowTheme.of(context).info,
+                                  ),
+                                ),
                               ],
                             ),
                             Row(
@@ -405,49 +424,43 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         fontWeight: FontWeight.normal,
                                       ),
                                 ),
-                                if (!FFAppState()
-                                    .LanguagesListForDropDown
-                                    .contains('EN'))
-                                  Theme(
-                                    data: ThemeData(
-                                      checkboxTheme: CheckboxThemeData(
-                                        visualDensity: VisualDensity.compact,
-                                        materialTapTargetSize:
-                                            MaterialTapTargetSize.shrinkWrap,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(3.0),
-                                        ),
+                                Theme(
+                                  data: ThemeData(
+                                    checkboxTheme: CheckboxThemeData(
+                                      visualDensity: VisualDensity.compact,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(3.0),
                                       ),
-                                      unselectedWidgetColor: Color(0xFF5E5D5D),
                                     ),
-                                    child: Checkbox(
-                                      value: _model.checkboxValue2 ??=
-                                          FFAppState()
-                                              .LanguagesListForDropDown
-                                              .contains('EN'),
-                                      onChanged: (newValue) async {
-                                        setState(() =>
-                                            _model.checkboxValue2 = newValue!);
-                                        if (newValue!) {
-                                          setState(() {
-                                            FFAppState()
-                                                .addToLanguagesListForDropDown(
-                                                    'EN');
-                                          });
-                                        } else {
-                                          setState(() {
-                                            FFAppState()
-                                                .removeFromLanguagesListForDropDown(
-                                                    'EN');
-                                          });
-                                        }
-                                      },
-                                      activeColor: Color(0xFF5450E2),
-                                      checkColor:
-                                          FlutterFlowTheme.of(context).info,
-                                    ),
+                                    unselectedWidgetColor: Color(0xFF5E5D5D),
                                   ),
+                                  child: Checkbox(
+                                    value: _model.checkboxValue2 ??= false,
+                                    onChanged: (newValue) async {
+                                      setState(() =>
+                                          _model.checkboxValue2 = newValue!);
+                                      if (newValue!) {
+                                        setState(() {
+                                          FFAppState()
+                                              .addToLanguagesListForDropDown(
+                                                  'En');
+                                        });
+                                      } else {
+                                        setState(() {
+                                          FFAppState()
+                                              .removeFromLanguagesListForDropDown(
+                                                  'EN');
+                                        });
+                                      }
+                                    },
+                                    activeColor: Color(0xFF5450E2),
+                                    checkColor:
+                                        FlutterFlowTheme.of(context).info,
+                                  ),
+                                ),
                               ],
                             ),
                           ].divide(SizedBox(height: 8.0)),

@@ -1,14 +1,20 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/random_data_util.dart' as random_data;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -21,6 +27,8 @@ class TaskerProfileModel extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Get Customer Ad)] action in Tasker_Profile widget.
+  ApiCallResponse? ad;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for editIcon component.
@@ -41,17 +49,36 @@ class TaskerProfileModel extends FlutterFlowModel {
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx9Copy77;
+  // Stores action output result for [Backend Call - API (update banner)] action in Container widget.
+  ApiCallResponse? apiResult59uCopy29;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx9Copy77Copy;
+  // Stores action output result for [Backend Call - API (update banner)] action in Container widget.
+  ApiCallResponse? apiResult59uCopy29Copy;
   bool isDataUploading3 = false;
   FFUploadedFile uploadedLocalFile3 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx9;
+  // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
+  ApiCallResponse? apiResult59u;
   bool isDataUploading4 = false;
   FFUploadedFile uploadedLocalFile4 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
+
+  // Stores action output result for [Backend Call - API (upload)] action in Container widget.
+  ApiCallResponse? apiResultekx9Copy;
+  // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
+  ApiCallResponse? apiResult59uCopy;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
@@ -64,6 +91,7 @@ class TaskerProfileModel extends FlutterFlowModel {
     editIconModel5 = createModel(context, () => EditIconModel());
     editIconModel6 = createModel(context, () => EditIconModel());
     navBarModel = createModel(context, () => NavBarModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -76,6 +104,7 @@ class TaskerProfileModel extends FlutterFlowModel {
     editIconModel5.dispose();
     editIconModel6.dispose();
     navBarModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

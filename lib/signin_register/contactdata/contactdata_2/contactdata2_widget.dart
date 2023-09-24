@@ -6,6 +6,8 @@ import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -82,154 +84,175 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Flexible(
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          wrapWithModel(
-                            model: _model.headerModel,
-                            updateCallback: () => setState(() {}),
-                            child: HeaderWidget(
-                              openDrawer: () async {},
-                            ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        wrapWithModel(
+                          model: _model.headerModel,
+                          updateCallback: () => setState(() {}),
+                          child: HeaderWidget(
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.navigateBackModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavigateBackWidget(
-                                  text: 'Addresses',
-                                ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigateBackModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigateBackWidget(
+                                text: 'Addresses',
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 8.0, 32.0, 24.0),
-                        child: FutureBuilder<ApiCallResponse>(
-                          future: FFAppState().myAddresses(
-                            uniqueQueryKey: 'myAddresses',
-                            requestFn: () =>
-                                TaskerpageBackendGroup.myAddressesCall.call(
-                              apiGlobalKey: FFAppState().apiKey,
-                            ),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitThreeBounce(
-                                    color: Color(0xFF5450E2),
-                                    size: 50.0,
-                                  ),
-                                ),
-                              );
-                            }
-                            final listViewMyAddressesResponse = snapshot.data!;
-                            return Builder(
-                              builder: (context) {
-                                final myMainAddresses =
-                                    TaskerpageBackendGroup.myAddressesCall
-                                            .myAddressList(
-                                              listViewMyAddressesResponse
-                                                  .jsonBody,
-                                            )
-                                            ?.toList() ??
-                                        [];
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: myMainAddresses.length,
-                                  separatorBuilder: (_, __) =>
-                                      SizedBox(height: 24.0),
-                                  itemBuilder: (context, myMainAddressesIndex) {
-                                    final myMainAddressesItem =
-                                        myMainAddresses[myMainAddressesIndex];
-                                    return AddressCardWidget(
-                                      key: Key(
-                                          'Key481_${myMainAddressesIndex}_of_${myMainAddresses.length}'),
-                                      address:
-                                          TaskerpageBackendGroup.myAddressesCall
-                                              .myAddressList(
-                                                listViewMyAddressesResponse
-                                                    .jsonBody,
-                                              )
-                                              .take(5)
-                                              .toList()
-                                              .first,
+                        ),
+                      ],
+                    ),
+                    SingleChildScrollView(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 8.0, 32.0, 24.0),
+                            child: FutureBuilder<ApiCallResponse>(
+                              future: (_model.apiRequestCompleter ??=
+                                      Completer<ApiCallResponse>()
+                                        ..complete(TaskerpageBackendGroup
+                                            .myAddressesCall
+                                            .call(
+                                          apiGlobalKey: FFAppState().apiKey,
+                                          fields:
+                                              '[\"is_main_address\",\"name\",\"address\"]',
+                                          filters:
+                                              '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                            FFAppState().userProfile,
+                                            r'''$.data.name''',
+                                          ).toString()}\"]]',
+                                        )))
+                                  .future,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: SpinKitThreeBounce(
+                                        color: Color(0xFF5450E2),
+                                        size: 50.0,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final listViewMyAddressesResponse =
+                                    snapshot.data!;
+                                return Builder(
+                                  builder: (context) {
+                                    final myMainAddresses = getJsonField(
+                                      listViewMyAddressesResponse.jsonBody,
+                                      r'''$.data''',
+                                    ).toList();
+                                    return ListView.separated(
+                                      padding: EdgeInsets.zero,
+                                      primary: false,
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: myMainAddresses.length,
+                                      separatorBuilder: (_, __) =>
+                                          SizedBox(height: 24.0),
+                                      itemBuilder:
+                                          (context, myMainAddressesIndex) {
+                                        final myMainAddressesItem =
+                                            myMainAddresses[
+                                                myMainAddressesIndex];
+                                        return AddressCardWidget(
+                                          key: Key(
+                                              'Key481_${myMainAddressesIndex}_of_${myMainAddresses.length}'),
+                                          address: myMainAddressesItem,
+                                          action: () async {
+                                            setState(() => _model
+                                                .apiRequestCompleter = null);
+                                            await _model
+                                                .waitForApiRequestCompleted();
+                                          },
+                                        );
+                                      },
                                     );
                                   },
                                 );
                               },
-                            );
-                          },
-                        ),
+                            ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 32.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('Contactdata-1');
-                              },
-                              child: Container(
-                                width: 180.0,
-                                height: 44.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFF5450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '+ Add another addresses',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFFF6F6F6),
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 32.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed(
+                                'Contactdata-1',
+                                queryParameters: {
+                                  'addAnother': serializeParam(
+                                    true,
+                                    ParamType.bool,
+                                  ),
+                                }.withoutNulls,
+                              );
+                            },
+                            child: Container(
+                              width: 180.0,
+                              height: 44.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFF5450E2),
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    '+ Add another addresses',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFFF6F6F6),
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
               Column(

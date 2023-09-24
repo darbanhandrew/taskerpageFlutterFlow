@@ -1,8 +1,10 @@
+import '/components/drawer_content_widget.dart';
 import '/components/footer_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -38,12 +40,15 @@ class SignInInformationModel extends FlutterFlowModel {
   FormFieldController<String>? dropDownValueController4;
   // Model for footer component.
   late FooterModel footerModel;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     footerModel = createModel(context, () => FooterModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -53,6 +58,7 @@ class SignInInformationModel extends FlutterFlowModel {
     textController2?.dispose();
     textController3?.dispose();
     footerModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

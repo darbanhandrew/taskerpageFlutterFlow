@@ -1,4 +1,3 @@
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -13,12 +12,12 @@ export 'addresses_in_list_model.dart';
 class AddressesInListWidget extends StatefulWidget {
   const AddressesInListWidget({
     Key? key,
-    this.parameter1,
-    this.parameter2,
+    required this.action,
+    required this.address,
   }) : super(key: key);
 
-  final dynamic parameter1;
-  final dynamic parameter2;
+  final Future<dynamic> Function()? action;
+  final dynamic address;
 
   @override
   _AddressesInListWidgetState createState() => _AddressesInListWidgetState();
@@ -56,13 +55,7 @@ class _AddressesInListWidgetState extends State<AddressesInListWidget> {
       options: ['Konrad-Adenauer-Allee 1144263 Dortmund, \nGermany'].toList(),
       onChanged: (val) async {
         setState(() {});
-        setState(() {
-          FFAppState().updateAppointmentStruct(
-            (e) => e
-              ..lat = widget.parameter1?.toString()
-              ..lng = widget.parameter2?.toString(),
-          );
-        });
+        await widget.action?.call();
       },
       controller: _model.radioButtonValueController ??=
           FormFieldController<String>(null),

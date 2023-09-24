@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/skill_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -48,6 +50,24 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -57,7 +77,9 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
-                  openDrawer: () async {},
+                  openDrawer: () async {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                 ),
               ),
               Expanded(
@@ -92,8 +114,15 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                   32.0, 8.0, 32.0, 0.0),
                               child: FutureBuilder<ApiCallResponse>(
                                 future:
-                                    TaskerpageBackendGroup.myServicesCall.call(
+                                    TaskerpageBackendGroup.serviceListCall.call(
                                   apiGlobalKey: FFAppState().apiKey,
+                                  fields:
+                                      '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\"]',
+                                  filters:
+                                      '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ).toString()}\"]]',
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -109,20 +138,17 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                       ),
                                     );
                                   }
-                                  final listViewMyServicesResponse =
+                                  final listViewServiceListResponse =
                                       snapshot.data!;
                                   return Builder(
                                     builder: (context) {
-                                      final myServices =
-                                          TaskerpageBackendGroup.myServicesCall
-                                                  .myServices(
-                                                    listViewMyServicesResponse
-                                                        .jsonBody,
-                                                  )
-                                                  ?.toList() ??
-                                              [];
+                                      final myServices = getJsonField(
+                                        listViewServiceListResponse.jsonBody,
+                                        r'''$.data''',
+                                      ).toList();
                                       return ListView.separated(
                                         padding: EdgeInsets.zero,
+                                        primary: false,
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
                                         itemCount: myServices.length,
@@ -133,7 +159,8 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                           final myServicesItem =
                                               myServices[myServicesIndex];
                                           return Container(
-                                            height: 200.0,
+                                            height: 285.0,
+                                            decoration: BoxDecoration(),
                                             child: wrapWithModel(
                                               model: _model.skillCardModels
                                                   .getModel(
@@ -144,12 +171,9 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                                   setState(() {}),
                                               child: SkillCardWidget(
                                                 key: Key(
-                                                  'Keyq1g_${myServicesIndex.toString()}',
+                                                  'Key5mz_${myServicesIndex.toString()}',
                                                 ),
-                                                userService: getJsonField(
-                                                  myServicesItem,
-                                                  r'''$''',
-                                                ),
+                                                userService: myServicesItem,
                                               ),
                                             ),
                                           );
@@ -162,7 +186,7 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 24.0, 32.0, 0.0),
+                                  32.0, 24.0, 32.0, 20.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -173,7 +197,15 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.pushNamed('add_another_skill');
+                                      context.pushNamed(
+                                        'Skills-3',
+                                        queryParameters: {
+                                          'addAnother': serializeParam(
+                                            true,
+                                            ParamType.bool,
+                                          ),
+                                        }.withoutNulls,
+                                      );
                                     },
                                     child: Container(
                                       width: 180.0,

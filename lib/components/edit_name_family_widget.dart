@@ -1,4 +1,4 @@
-import '/backend/schema/structs/index.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +29,16 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
     super.initState();
     _model = createModel(context, () => EditNameFamilyModel());
 
-    _model.textController1 ??=
-        TextEditingController(text: FFAppState().UserInformation.firstname);
-    _model.textController2 ??=
-        TextEditingController(text: FFAppState().UserInformation.lastname);
+    _model.textController1 ??= TextEditingController(
+        text: getJsonField(
+      FFAppState().userProfile,
+      r'''$.data.first_name''',
+    ).toString().toString());
+    _model.textController2 ??= TextEditingController(
+        text: getJsonField(
+      FFAppState().userProfile,
+      r'''$.data.last_name''',
+    ).toString().toString());
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -142,7 +148,7 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                                   .labelMedium
                                   .override(
                                     fontFamily: 'Lato',
-                                    color: Color(0xFF3D3D3D),
+                                    color: Color(0x723D3D3D),
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -236,7 +242,7 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                                   .labelMedium
                                   .override(
                                     fontFamily: 'Lato',
-                                    color: Color(0xFF3D3D3D),
+                                    color: Color(0x723D3D3D),
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
@@ -321,7 +327,7 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                                 .override(
                                   fontFamily: 'Lato',
                                   color: Color(0xFF5450E2),
-                                  fontSize: 12.0,
+                                  fontSize: 13.0,
                                   fontWeight: FontWeight.w500,
                                 ),
                           ),
@@ -336,14 +342,37 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        setState(() {
-                          FFAppState().updateUserInformationStruct(
-                            (e) => e
-                              ..firstname = _model.textController1.text
-                              ..lastname = _model.textController2.text,
+                        var _shouldSetState = false;
+                        _model.update = await TaskerpageBackendGroup
+                            .updateNameAndLastNameCall
+                            .call(
+                          id: getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.name''',
+                          ).toString(),
+                          firstName: _model.textController1.text,
+                          lastName: _model.textController2.text,
+                          apiGlobalKey: FFAppState().apiKey,
+                        );
+                        _shouldSetState = true;
+                        if ((_model.update?.succeeded ?? true)) {
+                          _model.profile = await TaskerpageBackendGroup
+                              .userProfileMeCall
+                              .call(
+                            apiGlobalKey: FFAppState().apiKey,
                           );
-                        });
-                        Navigator.pop(context);
+                          _shouldSetState = true;
+                          setState(() {
+                            FFAppState().userProfile =
+                                (_model.profile?.jsonBody ?? '');
+                          });
+                          Navigator.pop(context);
+                        } else {
+                          if (_shouldSetState) setState(() {});
+                          return;
+                        }
+
+                        if (_shouldSetState) setState(() {});
                       },
                       child: Container(
                         width: 120.0,
@@ -363,7 +392,7 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                                   .override(
                                     fontFamily: 'Lato',
                                     color: Colors.white,
-                                    fontSize: 12.0,
+                                    fontSize: 13.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),

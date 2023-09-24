@@ -1,6 +1,12 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -10,7 +16,12 @@ import 'taskertype_model.dart';
 export 'taskertype_model.dart';
 
 class TaskertypeWidget extends StatefulWidget {
-  const TaskertypeWidget({Key? key}) : super(key: key);
+  const TaskertypeWidget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final String? id;
 
   @override
   _TaskertypeWidgetState createState() => _TaskertypeWidgetState();
@@ -28,6 +39,37 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id != null && widget.id != '') {
+        _model.apiResultl1j = await TaskerpageBackendGroup.postReadCall.call(
+          id: widget.id,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResultl1j?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..updateTaskerType(
+                  (e) => e
+                    ..taskerGender = getJsonField(
+                      (_model.apiResultl1j?.jsonBody ?? ''),
+                      r'''$.data.tasker_gender''',
+                    ).toString().toString()
+                    ..taskerAgeRange = getJsonField(
+                      (_model.apiResultl1j?.jsonBody ?? ''),
+                      r'''$.data.tasker_age_range''',
+                    ).toString().toString()
+                    ..identified = functions.jsonIntToBoolean(getJsonField(
+                      (_model.apiResultl1j?.jsonBody ?? ''),
+                      r'''$.data.identified''',
+                    )),
+                ),
+            );
+          });
+        }
+      } else {
+        context.pushNamed('Task-1');
+      }
+
       setState(() {
         FFAppState().TaskerAge = '';
         FFAppState().TaskerType = '';
@@ -53,6 +95,24 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -66,8 +126,29 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                       model: _model.headerModel,
                       updateCallback: () => setState(() {}),
                       child: HeaderWidget(
-                        openDrawer: () async {},
+                        openDrawer: () async {
+                          scaffoldKey.currentState!.openDrawer();
+                        },
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigationBarModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigationBarWidget(
+                                currentPage: 'tasker_type1',
+                                postId: widget.id,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:
@@ -122,19 +203,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerType = 'Male';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) => e..taskerGender = 'Male',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().TaskerType == 'Male'
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerGender ==
+                                        'Male'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerType == 'Male'
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerGender ==
+                                          'Male'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -153,7 +247,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState().TaskerType ==
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerGender ==
                                                     'Male'
                                                 ? Colors.white
                                                 : Color(0xFF5E5D5D),
@@ -173,19 +270,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerType = 'Female';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) => e..taskerGender = 'Female',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().TaskerType == 'Female'
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerGender ==
+                                        'Female'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerType == 'Female'
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerGender ==
+                                          'Female'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -204,7 +314,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState().TaskerType ==
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerGender ==
                                                     'Female'
                                                 ? Colors.white
                                                 : Color(0xFF5E5D5D),
@@ -233,20 +346,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerType = 'Doesn\'t matter';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) =>
+                                          e..taskerGender = 'Dosn\'t  matter',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color:
-                                    FFAppState().TaskerType == 'Doesn\'t matter'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0x00000000),
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerGender ==
+                                        'Doesn\'t matter'
+                                    ? Color(0xFF5450E2)
+                                    : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerType ==
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerGender ==
                                           'Doesn\'t matter'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
@@ -266,7 +391,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState().TaskerType ==
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerGender ==
                                                     'Doesn\'t matter'
                                                 ? Colors.white
                                                 : Color(0xFF5E5D5D),
@@ -315,19 +443,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerAge = '<20';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) => e..taskerAgeRange = '<20',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().TaskerAge == '<20'
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerAgeRange ==
+                                        '<20'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerAge == '<20'
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerAgeRange ==
+                                          '<20'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -346,10 +487,13 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color:
-                                                FFAppState().TaskerAge == '<20'
-                                                    ? Colors.white
-                                                    : Color(0xFF5E5D5D),
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerAgeRange ==
+                                                    '<20'
+                                                ? Colors.white
+                                                : Color(0xFF5E5D5D),
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -366,19 +510,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerAge = '20-40';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) => e..taskerAgeRange = '20-40',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().TaskerAge == '20-40'
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerAgeRange ==
+                                        '20-40'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerAge == '20-40'
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerAgeRange ==
+                                          '20-40'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -397,7 +554,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState().TaskerAge ==
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerAgeRange ==
                                                     '20-40'
                                                 ? Colors.white
                                                 : Color(0xFF5E5D5D),
@@ -427,19 +587,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerAge = '40>';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) => e..taskerAgeRange = '40>',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().TaskerAge == '40>'
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerAgeRange ==
+                                        '40>'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerAge == '40>'
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerAgeRange ==
+                                          '40>'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -458,10 +631,13 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color:
-                                                FFAppState().TaskerAge == '40>'
-                                                    ? Colors.white
-                                                    : Color(0xFF5E5D5D),
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerAgeRange ==
+                                                    '40>'
+                                                ? Colors.white
+                                                : Color(0xFF5E5D5D),
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -478,20 +654,32 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               setState(() {
-                                FFAppState().TaskerAge = 'Doesn\'t matter';
+                                FFAppState().updateCreateTaskStruct(
+                                  (e) => e
+                                    ..updateTaskerType(
+                                      (e) =>
+                                          e..taskerAgeRange = 'Doesn\'t matter',
+                                    ),
+                                );
                               });
                             },
                             child: Container(
                               width: 155.0,
                               height: 41.0,
                               decoration: BoxDecoration(
-                                color:
-                                    FFAppState().TaskerAge == 'Doesn\'t matter'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0x00000000),
+                                color: FFAppState()
+                                            .createTask
+                                            .taskerType
+                                            .taskerAgeRange ==
+                                        'Doesn\'t matter'
+                                    ? Color(0xFF5450E2)
+                                    : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
-                                  color: FFAppState().TaskerAge ==
+                                  color: FFAppState()
+                                              .createTask
+                                              .taskerType
+                                              .taskerAgeRange ==
                                           'Doesn\'t matter'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
@@ -511,7 +699,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState().TaskerAge ==
+                                            color: FFAppState()
+                                                        .createTask
+                                                        .taskerType
+                                                        .taskerAgeRange ==
                                                     'Doesn\'t matter'
                                                 ? Colors.white
                                                 : Color(0xFF5E5D5D),
@@ -554,18 +745,29 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Switch.adaptive(
-                              value: _model.switchValue ??= true,
+                              value: _model.switchValue ??=
+                                  FFAppState().createTask.taskerType.identified,
                               onChanged: (newValue) async {
                                 setState(() => _model.switchValue = newValue!);
                                 if (newValue!) {
                                   setState(() {
-                                    FFAppState().Identified = true;
+                                    FFAppState().updateCreateTaskStruct(
+                                      (e) => e
+                                        ..updateTaskerType(
+                                          (e) => e..identified = true,
+                                        ),
+                                    );
                                   });
                                 } else {
                                   setState(() {
-                                    FFAppState().Identified = false;
+                                    FFAppState().updateCreateTaskStruct(
+                                      (e) => e
+                                        ..updateTaskerType(
+                                          (e) => e..identified = false,
+                                        ),
+                                    );
                                   });
                                 }
                               },
@@ -577,13 +779,6 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                           ),
                         ],
                       ),
-                    ),
-                    Divider(
-                      height: 32.0,
-                      thickness: 1.0,
-                      indent: 32.0,
-                      endIndent: 32.0,
-                      color: Color(0xFFDEDEDE),
                     ),
                   ],
                 ),
@@ -619,7 +814,44 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('Taskertype2');
+                              var _shouldSetState = false;
+                              _model.updateTAskerType =
+                                  await TaskerpageBackendGroup
+                                      .updateTaskerTypeCall
+                                      .call(
+                                id: widget.id,
+                                taskerGender: FFAppState()
+                                    .createTask
+                                    .taskerType
+                                    .taskerGender,
+                                taskerAgeRange: FFAppState()
+                                    .createTask
+                                    .taskerType
+                                    .taskerAgeRange,
+                                identified: functions.booltoInt(FFAppState()
+                                    .createTask
+                                    .taskerType
+                                    .identified),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.updateTAskerType?.succeeded ??
+                                  true)) {
+                                context.pushNamed(
+                                  'Taskertype2',
+                                  queryParameters: {
+                                    'id': serializeParam(
+                                      widget.id,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 104.0,

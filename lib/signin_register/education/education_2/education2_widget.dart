@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -58,6 +60,24 @@ class _Education2WidgetState extends State<Education2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -79,7 +99,9 @@ class _Education2WidgetState extends State<Education2Widget> {
                               model: _model.headerModel,
                               updateCallback: () => setState(() {}),
                               child: HeaderWidget(
-                                openDrawer: () async {},
+                                openDrawer: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
                               ),
                             ),
                           ],
@@ -116,6 +138,13 @@ class _Education2WidgetState extends State<Education2Widget> {
                                         .myEducationsCall
                                         .call(
                                       apiGlobalKey: FFAppState().apiKey,
+                                      filters:
+                                          '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString()}\"]]',
+                                      fields:
+                                          '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
                                     ),
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
@@ -138,10 +167,11 @@ class _Education2WidgetState extends State<Education2Widget> {
                                           final myEducationList = getJsonField(
                                             listViewMyEducationsResponse
                                                 .jsonBody,
-                                            r'''$''',
+                                            r'''$.data''',
                                           ).toList();
                                           return ListView.separated(
                                             padding: EdgeInsets.zero,
+                                            primary: false,
                                             shrinkWrap: true,
                                             scrollDirection: Axis.vertical,
                                             itemCount: myEducationList.length,
@@ -323,7 +353,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                           Text(
                                                             getJsonField(
                                                               myEducationListItem,
-                                                              r'''$.education_level''',
+                                                              r'''$.education_type''',
                                                             ).toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -371,13 +401,13 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                 if (functions.jsonToString(
                                                                             getJsonField(
                                                                           myEducationListItem,
-                                                                          r'''$.certificate_url''',
+                                                                          r'''$.certificate''',
                                                                         )) ==
                                                                         null ||
                                                                     functions.jsonToString(
                                                                             getJsonField(
                                                                           myEducationListItem,
-                                                                          r'''$.certificate_url''',
+                                                                          r'''$.certificate''',
                                                                         )) ==
                                                                         '') {
                                                                   context
@@ -424,7 +454,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                             certificateUrl:
                                                                                 getJsonField(
                                                                               myEducationListItem,
-                                                                              r'''$.certificate_url''',
+                                                                              r'''$.certificate''',
                                                                             ).toString(),
                                                                             updateCertificateUrl:
                                                                                 () async {
@@ -444,7 +474,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                                 ).toString(),
                                                                                 certificateUrl: getJsonField(
                                                                                   myEducationListItem,
-                                                                                  r'''$.certificate_url''',
+                                                                                  r'''$.certificate''',
                                                                                 ).toString(),
                                                                               );
                                                                               _shouldSetState = true;
@@ -459,7 +489,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                       );
                                                                     },
                                                                   ).then((value) =>
-                                                                      setState(
+                                                                      safeSetState(
                                                                           () {}));
                                                                 }
 
@@ -486,18 +516,17 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                           .center,
                                                                   children: [
                                                                     Text(
-                                                                      functions.jsonToString(getJsonField(
-                                                                                    myEducationListItem,
-                                                                                    r'''$.certificate_url''',
-                                                                                  )) ==
-                                                                                  null ||
-                                                                              functions.jsonToString(getJsonField(
-                                                                                    myEducationListItem,
-                                                                                    r'''$.certificate_url''',
-                                                                                  )) ==
-                                                                                  ''
-                                                                          ? '+ Add Certificate'
-                                                                          : ' View Certificate',
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        functions.jsonToString(getJsonField(
+                                                                                  myEducationListItem,
+                                                                                  r'''$.certificate''',
+                                                                                )) !=
+                                                                                ''
+                                                                            ? 'View Certificate'
+                                                                            : '+ Add certificate',
+                                                                        '+ Add certificate',
+                                                                      ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -596,6 +625,10 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                 false,
                                                 ParamType.bool,
                                               ),
+                                              'addAnother': serializeParam(
+                                                true,
+                                                ParamType.bool,
+                                              ),
                                             }.withoutNulls,
                                           );
                                         },
@@ -654,7 +687,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                               sigmaY: 2.0,
                             ),
                             child: Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Container(
                                 width: 269.0,
                                 height: 149.0,

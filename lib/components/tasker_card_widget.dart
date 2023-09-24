@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -103,10 +104,12 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    getJsonField(
-                                      widget.userProfile,
-                                      r'''$.created_at''',
-                                    ).toString(),
+                                    dateTimeFormat(
+                                        'yMMMd',
+                                        functions.jsonToDateTime(getJsonField(
+                                          widget.userProfile,
+                                          r'''$.creation''',
+                                        ))),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -193,43 +196,19 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                         Stack(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/ssq.png',
-                                width: 67.0,
-                                height: 67.0,
-                                fit: BoxFit.none,
+                            Container(
+                              width: 60.0,
+                              height: 60.0,
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
                               ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 0.0, 16.0),
-                              child: Text(
-                                '61 €',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFFF6F6F6),
-                                      fontSize: 15.5,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 0.0),
-                              child: Text(
-                                'per hour',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFFF6F6F6),
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                              child: Image.network(
+                                'https://taskerpage.com${getJsonField(
+                                  widget.userProfile,
+                                  r'''$.avatar''',
+                                ).toString()}',
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ],
@@ -260,7 +239,7 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                       Text(
                         '${getJsonField(
                           widget.userProfile,
-                          r'''$.fisrt_name''',
+                          r'''$.first_name''',
                         ).toString()} ${getJsonField(
                           widget.userProfile,
                           r'''$.last_name''',
@@ -278,10 +257,10 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                         child: Text(
                           '${getJsonField(
                             widget.userProfile,
-                            r'''$.addresses[0].city''',
+                            r'''$.city''',
                           ).toString()}| ${getJsonField(
                             widget.userProfile,
-                            r'''$.user_languages[0]''',
+                            r'''$.country''',
                           ).toString()}',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
@@ -456,7 +435,7 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                     'id': serializeParam(
                       getJsonField(
                         widget.userProfile,
-                        r'''$.id''',
+                        r'''$.name''',
                       ),
                       ParamType.int,
                     ),

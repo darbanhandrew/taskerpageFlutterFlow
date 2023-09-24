@@ -7,13 +7,17 @@ import 'flutter_flow/flutter_flow_util.dart';
 import 'dart:convert';
 
 class FFAppState extends ChangeNotifier {
-  static final FFAppState _instance = FFAppState._internal();
+  static FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
     return _instance;
   }
 
   FFAppState._internal();
+
+  static void reset() {
+    _instance = FFAppState._internal();
+  }
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
@@ -66,13 +70,6 @@ class FFAppState extends ChangeNotifier {
       }
     });
     _safeInit(() {
-      _chosenServiceCategories = prefs
-              .getStringList('ff_chosenServiceCategories')
-              ?.map(int.parse)
-              .toList() ??
-          _chosenServiceCategories;
-    });
-    _safeInit(() {
       if (prefs.containsKey('ff_DraftPost')) {
         try {
           _DraftPost = jsonDecode(prefs.getString('ff_DraftPost') ?? '');
@@ -110,16 +107,77 @@ class FFAppState extends ChangeNotifier {
           _latLngFromString(prefs.getString('ff_location')) ?? _location;
     });
     _safeInit(() {
-      _selectedServices =
-          prefs.getStringList('ff_selectedServices')?.map(int.parse).toList() ??
-              _selectedServices;
-    });
-    _safeInit(() {
       _selectedServiceCategory = prefs
               .getStringList('ff_selectedServiceCategory')
               ?.map(int.parse)
               .toList() ??
           _selectedServiceCategory;
+    });
+    _safeInit(() {
+      _appApiKey = prefs.getString('ff_appApiKey') ?? _appApiKey;
+    });
+    _safeInit(() {
+      _ChhosenSkillCategory = prefs.getStringList('ff_ChhosenSkillCategory') ??
+          _ChhosenSkillCategory;
+    });
+    _safeInit(() {
+      _SelectServices =
+          prefs.getStringList('ff_SelectServices') ?? _SelectServices;
+    });
+    _safeInit(() {
+      if (prefs.containsKey('ff_task')) {
+        try {
+          final serializedData = prefs.getString('ff_task') ?? '{}';
+          _task =
+              CrateTaskStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      _taskSearchString =
+          prefs.getString('ff_taskSearchString') ?? _taskSearchString;
+    });
+    _safeInit(() {
+      _mapView = prefs.getBool('ff_mapView') ?? _mapView;
+    });
+    _safeInit(() {
+      if (prefs.containsKey('ff_taskerFilter')) {
+        try {
+          final serializedData = prefs.getString('ff_taskerFilter') ?? '{}';
+          _taskerFilter = TaskerFilterStruct.fromSerializableMap(
+              jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      _baseUrl = prefs.getString('ff_baseUrl') ?? _baseUrl;
+    });
+    _safeInit(() {
+      _appUrl = prefs.getString('ff_appUrl') ?? _appUrl;
+    });
+    _safeInit(() {
+      if (prefs.containsKey('ff_createTask')) {
+        try {
+          final serializedData = prefs.getString('ff_createTask') ?? '{}';
+          _createTask =
+              CreateTaskStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      if (prefs.containsKey('ff_globalSocket')) {
+        try {
+          _globalSocket = jsonDecode(prefs.getString('ff_globalSocket') ?? '');
+        } catch (e) {
+          print("Can't decode persisted json. Error: $e.");
+        }
+      }
     });
   }
 
@@ -289,6 +347,10 @@ class FFAppState extends ChangeNotifier {
     _userServices[_index] = updateFn(_userServices[_index]);
   }
 
+  void insertAtIndexInUserServices(int _index, UserServiceStruct _value) {
+    _userServices.insert(_index, _value);
+  }
+
   List<String> _LanguagesListForDropDown = [];
   List<String> get LanguagesListForDropDown => _LanguagesListForDropDown;
   set LanguagesListForDropDown(List<String> _value) {
@@ -313,6 +375,10 @@ class FFAppState extends ChangeNotifier {
   ) {
     _LanguagesListForDropDown[_index] =
         updateFn(_LanguagesListForDropDown[_index]);
+  }
+
+  void insertAtIndexInLanguagesListForDropDown(int _index, String _value) {
+    _LanguagesListForDropDown.insert(_index, _value);
   }
 
   String _StartingTime = '';
@@ -351,6 +417,10 @@ class FFAppState extends ChangeNotifier {
     String Function(String) updateFn,
   ) {
     _RepeatType[_index] = updateFn(_RepeatType[_index]);
+  }
+
+  void insertAtIndexInRepeatType(int _index, String _value) {
+    _RepeatType.insert(_index, _value);
   }
 
   String _TaskerType = '';
@@ -418,7 +488,7 @@ class FFAppState extends ChangeNotifier {
     _exactstartingtime = _value;
   }
 
-  String _apiKey = 'hello';
+  String _apiKey = '';
   String get apiKey => _apiKey;
   set apiKey(String _value) {
     _apiKey = _value;
@@ -435,42 +505,6 @@ class FFAppState extends ChangeNotifier {
   void updateAddressStruct(Function(AddressesStruct) updateFn) {
     updateFn(_Address);
     prefs.setString('ff_Address', _Address.serialize());
-  }
-
-  List<int> _chosenServiceCategories = [];
-  List<int> get chosenServiceCategories => _chosenServiceCategories;
-  set chosenServiceCategories(List<int> _value) {
-    _chosenServiceCategories = _value;
-    prefs.setStringList(
-        'ff_chosenServiceCategories', _value.map((x) => x.toString()).toList());
-  }
-
-  void addToChosenServiceCategories(int _value) {
-    _chosenServiceCategories.add(_value);
-    prefs.setStringList('ff_chosenServiceCategories',
-        _chosenServiceCategories.map((x) => x.toString()).toList());
-  }
-
-  void removeFromChosenServiceCategories(int _value) {
-    _chosenServiceCategories.remove(_value);
-    prefs.setStringList('ff_chosenServiceCategories',
-        _chosenServiceCategories.map((x) => x.toString()).toList());
-  }
-
-  void removeAtIndexFromChosenServiceCategories(int _index) {
-    _chosenServiceCategories.removeAt(_index);
-    prefs.setStringList('ff_chosenServiceCategories',
-        _chosenServiceCategories.map((x) => x.toString()).toList());
-  }
-
-  void updateChosenServiceCategoriesAtIndex(
-    int _index,
-    int Function(int) updateFn,
-  ) {
-    _chosenServiceCategories[_index] =
-        updateFn(_chosenServiceCategories[_index]);
-    prefs.setStringList('ff_chosenServiceCategories',
-        _chosenServiceCategories.map((x) => x.toString()).toList());
   }
 
   dynamic _DraftPost;
@@ -529,41 +563,6 @@ class FFAppState extends ChangeNotifier {
         : prefs.remove('ff_location');
   }
 
-  List<int> _selectedServices = [];
-  List<int> get selectedServices => _selectedServices;
-  set selectedServices(List<int> _value) {
-    _selectedServices = _value;
-    prefs.setStringList(
-        'ff_selectedServices', _value.map((x) => x.toString()).toList());
-  }
-
-  void addToSelectedServices(int _value) {
-    _selectedServices.add(_value);
-    prefs.setStringList('ff_selectedServices',
-        _selectedServices.map((x) => x.toString()).toList());
-  }
-
-  void removeFromSelectedServices(int _value) {
-    _selectedServices.remove(_value);
-    prefs.setStringList('ff_selectedServices',
-        _selectedServices.map((x) => x.toString()).toList());
-  }
-
-  void removeAtIndexFromSelectedServices(int _index) {
-    _selectedServices.removeAt(_index);
-    prefs.setStringList('ff_selectedServices',
-        _selectedServices.map((x) => x.toString()).toList());
-  }
-
-  void updateSelectedServicesAtIndex(
-    int _index,
-    int Function(int) updateFn,
-  ) {
-    _selectedServices[_index] = updateFn(_selectedServices[_index]);
-    prefs.setStringList('ff_selectedServices',
-        _selectedServices.map((x) => x.toString()).toList());
-  }
-
   List<int> _selectedServiceCategory = [];
   List<int> get selectedServiceCategory => _selectedServiceCategory;
   set selectedServiceCategory(List<int> _value) {
@@ -600,10 +599,246 @@ class FFAppState extends ChangeNotifier {
         _selectedServiceCategory.map((x) => x.toString()).toList());
   }
 
+  void insertAtIndexInSelectedServiceCategory(int _index, int _value) {
+    _selectedServiceCategory.insert(_index, _value);
+    prefs.setStringList('ff_selectedServiceCategory',
+        _selectedServiceCategory.map((x) => x.toString()).toList());
+  }
+
   bool _isApiCall = false;
   bool get isApiCall => _isApiCall;
   set isApiCall(bool _value) {
     _isApiCall = _value;
+  }
+
+  bool _closeAd = false;
+  bool get closeAd => _closeAd;
+  set closeAd(bool _value) {
+    _closeAd = _value;
+  }
+
+  String _appApiKey = 'token 58d674f26c65799:577ceab4127df24';
+  String get appApiKey => _appApiKey;
+  set appApiKey(String _value) {
+    _appApiKey = _value;
+    prefs.setString('ff_appApiKey', _value);
+  }
+
+  List<String> _ChhosenSkillCategory = [];
+  List<String> get ChhosenSkillCategory => _ChhosenSkillCategory;
+  set ChhosenSkillCategory(List<String> _value) {
+    _ChhosenSkillCategory = _value;
+    prefs.setStringList('ff_ChhosenSkillCategory', _value);
+  }
+
+  void addToChhosenSkillCategory(String _value) {
+    _ChhosenSkillCategory.add(_value);
+    prefs.setStringList('ff_ChhosenSkillCategory', _ChhosenSkillCategory);
+  }
+
+  void removeFromChhosenSkillCategory(String _value) {
+    _ChhosenSkillCategory.remove(_value);
+    prefs.setStringList('ff_ChhosenSkillCategory', _ChhosenSkillCategory);
+  }
+
+  void removeAtIndexFromChhosenSkillCategory(int _index) {
+    _ChhosenSkillCategory.removeAt(_index);
+    prefs.setStringList('ff_ChhosenSkillCategory', _ChhosenSkillCategory);
+  }
+
+  void updateChhosenSkillCategoryAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _ChhosenSkillCategory[_index] = updateFn(_ChhosenSkillCategory[_index]);
+    prefs.setStringList('ff_ChhosenSkillCategory', _ChhosenSkillCategory);
+  }
+
+  void insertAtIndexInChhosenSkillCategory(int _index, String _value) {
+    _ChhosenSkillCategory.insert(_index, _value);
+    prefs.setStringList('ff_ChhosenSkillCategory', _ChhosenSkillCategory);
+  }
+
+  List<String> _SelectServices = [];
+  List<String> get SelectServices => _SelectServices;
+  set SelectServices(List<String> _value) {
+    _SelectServices = _value;
+    prefs.setStringList('ff_SelectServices', _value);
+  }
+
+  void addToSelectServices(String _value) {
+    _SelectServices.add(_value);
+    prefs.setStringList('ff_SelectServices', _SelectServices);
+  }
+
+  void removeFromSelectServices(String _value) {
+    _SelectServices.remove(_value);
+    prefs.setStringList('ff_SelectServices', _SelectServices);
+  }
+
+  void removeAtIndexFromSelectServices(int _index) {
+    _SelectServices.removeAt(_index);
+    prefs.setStringList('ff_SelectServices', _SelectServices);
+  }
+
+  void updateSelectServicesAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _SelectServices[_index] = updateFn(_SelectServices[_index]);
+    prefs.setStringList('ff_SelectServices', _SelectServices);
+  }
+
+  void insertAtIndexInSelectServices(int _index, String _value) {
+    _SelectServices.insert(_index, _value);
+    prefs.setStringList('ff_SelectServices', _SelectServices);
+  }
+
+  CrateTaskStruct _task = CrateTaskStruct();
+  CrateTaskStruct get task => _task;
+  set task(CrateTaskStruct _value) {
+    _task = _value;
+    prefs.setString('ff_task', _value.serialize());
+  }
+
+  void updateTaskStruct(Function(CrateTaskStruct) updateFn) {
+    updateFn(_task);
+    prefs.setString('ff_task', _task.serialize());
+  }
+
+  FilterStruct _taskFilter = FilterStruct.fromSerializableMap(jsonDecode(
+      '{\"anyLocation\":\"true\",\"anySkill\":\"true\",\"anyDate\":\"true\",\"anyTaskerGender\":\"true\",\"onlyOpen\":\"true\",\"anytasker\":\"true\"}'));
+  FilterStruct get taskFilter => _taskFilter;
+  set taskFilter(FilterStruct _value) {
+    _taskFilter = _value;
+  }
+
+  void updateTaskFilterStruct(Function(FilterStruct) updateFn) {
+    updateFn(_taskFilter);
+  }
+
+  String _taskSearchString = '[]';
+  String get taskSearchString => _taskSearchString;
+  set taskSearchString(String _value) {
+    _taskSearchString = _value;
+    prefs.setString('ff_taskSearchString', _value);
+  }
+
+  bool _mapView = false;
+  bool get mapView => _mapView;
+  set mapView(bool _value) {
+    _mapView = _value;
+    prefs.setBool('ff_mapView', _value);
+  }
+
+  TaskerFilterStruct _taskerFilter = TaskerFilterStruct();
+  TaskerFilterStruct get taskerFilter => _taskerFilter;
+  set taskerFilter(TaskerFilterStruct _value) {
+    _taskerFilter = _value;
+    prefs.setString('ff_taskerFilter', _value.serialize());
+  }
+
+  void updateTaskerFilterStruct(Function(TaskerFilterStruct) updateFn) {
+    updateFn(_taskerFilter);
+    prefs.setString('ff_taskerFilter', _taskerFilter.serialize());
+  }
+
+  String _baseUrl = 'https://taskerpage.com';
+  String get baseUrl => _baseUrl;
+  set baseUrl(String _value) {
+    _baseUrl = _value;
+    prefs.setString('ff_baseUrl', _value);
+  }
+
+  bool _ScanedQRCODE = false;
+  bool get ScanedQRCODE => _ScanedQRCODE;
+  set ScanedQRCODE(bool _value) {
+    _ScanedQRCODE = _value;
+  }
+
+  bool _mapORlist = false;
+  bool get mapORlist => _mapORlist;
+  set mapORlist(bool _value) {
+    _mapORlist = _value;
+  }
+
+  int _checkNavbarState = 0;
+  int get checkNavbarState => _checkNavbarState;
+  set checkNavbarState(int _value) {
+    _checkNavbarState = _value;
+  }
+
+  String _appUrl = 'https://app.taskerpage.com';
+  String get appUrl => _appUrl;
+  set appUrl(String _value) {
+    _appUrl = _value;
+    prefs.setString('ff_appUrl', _value);
+  }
+
+  bool _editPhone = false;
+  bool get editPhone => _editPhone;
+  set editPhone(bool _value) {
+    _editPhone = _value;
+  }
+
+  List<SkillOptionsStruct> _skillOptions = [];
+  List<SkillOptionsStruct> get skillOptions => _skillOptions;
+  set skillOptions(List<SkillOptionsStruct> _value) {
+    _skillOptions = _value;
+  }
+
+  void addToSkillOptions(SkillOptionsStruct _value) {
+    _skillOptions.add(_value);
+  }
+
+  void removeFromSkillOptions(SkillOptionsStruct _value) {
+    _skillOptions.remove(_value);
+  }
+
+  void removeAtIndexFromSkillOptions(int _index) {
+    _skillOptions.removeAt(_index);
+  }
+
+  void updateSkillOptionsAtIndex(
+    int _index,
+    SkillOptionsStruct Function(SkillOptionsStruct) updateFn,
+  ) {
+    _skillOptions[_index] = updateFn(_skillOptions[_index]);
+  }
+
+  void insertAtIndexInSkillOptions(int _index, SkillOptionsStruct _value) {
+    _skillOptions.insert(_index, _value);
+  }
+
+  CreateTaskStruct _createTask = CreateTaskStruct();
+  CreateTaskStruct get createTask => _createTask;
+  set createTask(CreateTaskStruct _value) {
+    _createTask = _value;
+    prefs.setString('ff_createTask', _value.serialize());
+  }
+
+  void updateCreateTaskStruct(Function(CreateTaskStruct) updateFn) {
+    updateFn(_createTask);
+    prefs.setString('ff_createTask', _createTask.serialize());
+  }
+
+  dynamic _globalSocket;
+  dynamic get globalSocket => _globalSocket;
+  set globalSocket(dynamic _value) {
+    _globalSocket = _value;
+    prefs.setString('ff_globalSocket', jsonEncode(_value));
+  }
+
+  bool _loading = false;
+  bool get loading => _loading;
+  set loading(bool _value) {
+    _loading = _value;
+  }
+
+  bool _startdate = false;
+  bool get startdate => _startdate;
+  set startdate(bool _value) {
+    _startdate = _value;
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

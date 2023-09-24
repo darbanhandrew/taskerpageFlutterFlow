@@ -2,6 +2,8 @@
     package="com.mycompany.taskerpage"
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -57,7 +59,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
-        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyAlYryPgbMysjEa3HiTG74jpI8cDC_hR_8"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDwVp7h1uFnc_P0AZt8hfqC3mXN9ljCT80"/>
 
 
     </application>

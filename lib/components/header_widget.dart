@@ -1,6 +1,9 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +36,15 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     super.initState();
     _model = createModel(context, () => HeaderModel());
 
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await actions.connectToSocket(
+        'wss://taskerpage.com/socket.io',
+        '1',
+        () async {},
+      );
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -62,19 +74,19 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-        child: InkWell(
-          splashColor: Colors.transparent,
-          focusColor: Colors.transparent,
-          hoverColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          onTap: () async {
-            await widget.openDrawer?.call();
-          },
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                await widget.openDrawer?.call();
+              },
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -82,19 +94,10 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        await widget.openDrawer?.call();
-                      },
-                      child: Icon(
-                        Icons.menu_rounded,
-                        color: Color(0xFF5450E2),
-                        size: 25.0,
-                      ),
+                    child: Icon(
+                      Icons.menu_rounded,
+                      color: Color(0xFF5450E2),
+                      size: 25.0,
                     ),
                   ),
                   ClipRRect(
@@ -108,10 +111,22 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   ),
                 ],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.pushNamed('notification_log');
+                  },
+                  onLongPress: () async {
+                    await actions.registerDeviceIdInFcmToken();
+                  },
+                  child: Container(
                     width: 32.0,
                     height: 32.0,
                     decoration: BoxDecoration(
@@ -128,38 +143,48 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       size: 23.0,
                     ),
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      if (FFAppState().UserInformation.role == 'Poster') {
-                        context.pushNamed('Poster_Profile');
-                      } else {
-                        context.pushNamed('Tasker_Profile');
-                      }
-                    },
-                    child: Container(
-                      width: 37.0,
-                      height: 37.0,
-                      clipBehavior: Clip.antiAlias,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                      ),
-                      child: Image.network(
-                        FFAppState().UserInformation.avatar != null &&
-                                FFAppState().UserInformation.avatar != ''
-                            ? 'https://taskerpage.darkube.app${FFAppState().UserInformation.avatar}'
-                            : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
-                        fit: BoxFit.cover,
-                      ),
+                ),
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    if (functions.jsonToString(getJsonField(
+                          FFAppState().userProfile,
+                          r'''$.data.role''',
+                        )) ==
+                        'Poster') {
+                      context.pushNamed('Poster_Profile');
+                    } else {
+                      context.pushNamed('Tasker_Profile');
+                    }
+                  },
+                  child: Container(
+                    width: 37.0,
+                    height: 37.0,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.network(
+                      getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.avatar''',
+                              ) !=
+                              null
+                          ? 'https://taskerpage.com${getJsonField(
+                              FFAppState().userProfile,
+                              r'''$.data.avatar''',
+                            ).toString()}'
+                          : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+                      fit: BoxFit.cover,
                     ),
                   ),
-                ].divide(SizedBox(width: 8.0)),
-              ),
-            ],
-          ),
+                ),
+              ].divide(SizedBox(width: 8.0)),
+            ),
+          ],
         ),
       ),
     );

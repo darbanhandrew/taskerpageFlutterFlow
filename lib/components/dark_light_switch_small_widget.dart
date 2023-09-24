@@ -100,7 +100,7 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
           alignment: AlignmentDirectional(0.0, 0.0),
           children: [
             Align(
-              alignment: AlignmentDirectional(-0.9, 0.0),
+              alignment: AlignmentDirectional(-0.90, 0.00),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                 child: Icon(
@@ -111,7 +111,7 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(1.0, 0.0),
+              alignment: AlignmentDirectional(1.00, 0.00),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 6.0, 0.0),
                 child: Icon(
@@ -121,17 +121,15 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
                 ),
               ),
             ),
-            if ((Theme.of(context).brightness == Brightness.dark) == true)
+            if (!true)
               Align(
-                alignment: AlignmentDirectional(1.0, 0.0),
+                alignment: AlignmentDirectional(1.00, 0.00),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onTap: () async {
-                    setDarkModeSetting(context, ThemeMode.dark);
-                  },
+                  onTap: () async {},
                   child: Container(
                     width: 25.0,
                     height: 25.0,
@@ -152,17 +150,15 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
                   animationsMap['containerOnActionTriggerAnimation1']!,
                 ),
               ),
-            if ((Theme.of(context).brightness == Brightness.dark) == true)
+            if (false)
               Align(
-                alignment: AlignmentDirectional(-1.0, 0.0),
+                alignment: AlignmentDirectional(-1.00, 0.00),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
-                  onTap: () async {
-                    setDarkModeSetting(context, ThemeMode.light);
-                  },
+                  onTap: () async {},
                   child: Container(
                     width: 25.0,
                     height: 25.0,

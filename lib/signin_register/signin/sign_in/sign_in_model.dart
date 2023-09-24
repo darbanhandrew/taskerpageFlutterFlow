@@ -1,8 +1,14 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,6 +17,8 @@ class SignInModel extends FlutterFlowModel {
   ///  Local state fields for this page.
 
   String apiKey = '';
+
+  String apiSecret = '';
 
   ///  State fields for stateful widgets in this page.
 
@@ -27,15 +35,20 @@ class SignInModel extends FlutterFlowModel {
   // State field(s) for Switch widget.
   bool? switchValue;
   // Stores action output result for [Backend Call - API (login)] action in Container widget.
-  ApiCallResponse? loginReult;
+  ApiCallResponse? login;
+  // Stores action output result for [Backend Call - API (Generate keys)] action in Container widget.
+  ApiCallResponse? apiResultfu7;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
-  ApiCallResponse? apiResult6nl;
+  ApiCallResponse? apiResultem2;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     passwordVisibility = false;
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -43,6 +56,7 @@ class SignInModel extends FlutterFlowModel {
     headerModel.dispose();
     textController1?.dispose();
     textController2?.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

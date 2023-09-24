@@ -1,5 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/user_rate_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -72,7 +71,7 @@ class _AlerModalMassageRejectAppointmentWidgetState
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
@@ -165,39 +164,19 @@ class _AlerModalMassageRejectAppointmentWidgetState
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
                         onTap: () async {
-                          var _shouldSetState = false;
-                          _model.apiResultfp3 = await TaskerpageBackendGroup
-                              .appointmentUpdateCall
+                          _model.apiResultsxx = await TaskerpageBackendGroup
+                              .updateAppointmentCall
                               .call(
-                            isIntervieweeAccepted: false,
-                            isInterviewerAccepted: false,
-                            id: widget.id,
+                            name: widget.id?.toString(),
+                            isPosterAccepted: 0,
+                            isTaskerAccepted: 0,
                             apiGlobalKey: FFAppState().apiKey,
                           );
-                          _shouldSetState = true;
-                          if ((_model.apiResultfp3?.succeeded ?? true)) {
-                            await showModalBottomSheet(
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              enableDrag: false,
-                              context: context,
-                              builder: (context) {
-                                return Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: UserRateWidget(
-                                    acceptAppointment: false,
-                                  ),
-                                );
-                              },
-                            ).then((value) => setState(() {}));
-
+                          if ((_model.apiResultsxx?.succeeded ?? true)) {
                             Navigator.pop(context);
-                          } else {
-                            if (_shouldSetState) setState(() {});
-                            return;
                           }
 
-                          if (_shouldSetState) setState(() {});
+                          setState(() {});
                         },
                         child: Container(
                           width: 129.0,

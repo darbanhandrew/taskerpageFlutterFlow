@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/skill_level_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,7 +17,7 @@ class Skills4Model extends FlutterFlowModel {
 
   dynamic serviceCategoriesJson;
 
-  int? selectedServiceCategory;
+  String? selectedServiceCategory;
 
   String? selectedSkillLevel = '';
 
@@ -33,48 +35,33 @@ class Skills4Model extends FlutterFlowModel {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (serviceCategoryList)] action in Skills-4 widget.
-  ApiCallResponse? apiResultmry;
-  // Stores action output result for [Backend Call - API (userProfileMe)] action in Skills-4 widget.
-  ApiCallResponse? apiResultekd;
+  // Stores action output result for [Backend Call - API (Service List)] action in Skills-4 widget.
+  ApiCallResponse? apiResultuqp;
   // Model for Header component.
   late HeaderModel headerModel;
   // Stores action output result for [Backend Call - API (createUserService)] action in Container widget.
   ApiCallResponse? createdUserService;
   // Stores action output result for [Backend Call - API (Get user services)] action in Container widget.
   ApiCallResponse? userServiceGet;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.
 
-  Future updateUserServices(BuildContext context) async {
-    ApiCallResponse? apiResultekdCopy;
-
-    apiResultekdCopy = await TaskerpageBackendGroup.userProfileMeCall.call(
-      apiGlobalKey: FFAppState().apiKey,
-    );
-    if ((apiResultekd?.succeeded ?? true)) {
-      userServices = getJsonField(
-        (apiResultekd?.jsonBody ?? ''),
-        r'''$.user_services''',
-      )!
-          .toList()
-          .cast<dynamic>();
-      return;
-    } else {
-      return;
-    }
-  }
+  Future updateUserServices(BuildContext context) async {}
 
   /// Additional helper methods are added here.
 }

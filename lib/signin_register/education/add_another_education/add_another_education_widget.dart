@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -20,11 +22,14 @@ class AddAnotherEducationWidget extends StatefulWidget {
     Key? key,
     bool? isSignUp,
     this.education,
+    bool? addAnother,
   })  : this.isSignUp = isSignUp ?? false,
+        this.addAnother = addAnother ?? false,
         super(key: key);
 
   final bool isSignUp;
   final dynamic education;
+  final bool addAnother;
 
   @override
   _AddAnotherEducationWidgetState createState() =>
@@ -53,7 +58,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
         setState(() {
           _model.certificateUrl = getJsonField(
             widget.education,
-            r'''$.certificate_url''',
+            r'''$.certificate''',
           ).toString().toString();
         });
       } else {
@@ -62,15 +67,19 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
     });
 
     _model.textController1 ??= TextEditingController(
-        text: functions.jsonToString(getJsonField(
-      widget.education,
-      r'''$.title''',
-    )));
+        text: widget.education != null
+            ? getJsonField(
+                widget.education,
+                r'''$.title''',
+              ).toString().toString()
+            : '');
     _model.textController2 ??= TextEditingController(
-        text: functions.jsonToString(getJsonField(
-      widget.education,
-      r'''$.school_title''',
-    )));
+        text: widget.education != null
+            ? getJsonField(
+                widget.education,
+                r'''$.school_title''',
+              ).toString().toString()
+            : '');
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -90,6 +99,24 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Stack(
@@ -110,7 +137,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                               model: _model.headerModel,
                               updateCallback: () => setState(() {}),
                               child: HeaderWidget(
-                                openDrawer: () async {},
+                                openDrawer: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
                               ),
                             ),
                           ],
@@ -793,7 +822,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                           ),
                                         );
                                       },
-                                    ).then((value) => setState(() {}));
+                                    ).then((value) => safeSetState(() {}));
                                   } else {
                                     setState(() {
                                       FFAppState().AddCertificateForEducation =
@@ -916,7 +945,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   ),
                                 ),
                               ),
-                              if (false)
+                              if (widget.education != null)
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -930,13 +959,13 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                             .call(
                                       title: _model.textController1.text,
                                       schoolTitle: _model.textController2.text,
-                                      educationLevel: FFAppState()
+                                      educationType: FFAppState()
                                           .UserInformation
                                           .educationType,
-                                      certificateUrl: _model.certificateUrl,
-                                      relatedUserProfile: getJsonField(
+                                      certificate: _model.certificateUrl,
+                                      customerProfile: getJsonField(
                                         FFAppState().userProfile,
-                                        r'''$.id''',
+                                        r'''$.data.name''',
                                       ),
                                       apiGlobalKey: FFAppState().apiKey,
                                     );
@@ -1020,7 +1049,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   ),
                                 ),
                               if (!widget.isSignUp &&
-                                  (widget.education != null))
+                                  (widget.education == null) &&
+                                  (widget.addAnother == false))
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -1034,19 +1064,28 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                             .call(
                                       title: _model.textController1.text,
                                       schoolTitle: _model.textController2.text,
-                                      educationLevel: FFAppState()
+                                      educationType: FFAppState()
                                           .UserInformation
                                           .educationType,
-                                      certificateUrl: _model.certificateUrl,
-                                      relatedUserProfile: getJsonField(
+                                      certificate: _model.certificateUrl,
+                                      customerProfile: getJsonField(
                                         FFAppState().userProfile,
-                                        r'''$.id''',
+                                        r'''$.data.name''',
                                       ),
                                       apiGlobalKey: FFAppState().apiKey,
                                     );
                                     _shouldSetState = true;
-                                    if (!(_model.educationRequest2?.succeeded ??
+                                    if ((_model.educationRequest2?.succeeded ??
                                         true)) {
+                                      context.pushNamed('Profiledetails');
+
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e..educationType = '',
+                                        );
+                                      });
+                                    } else {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -1077,13 +1116,6 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       return;
                                     }
 
-                                    context.pushNamed('Profiledetails');
-
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..educationType = '',
-                                      );
-                                    });
                                     if (_shouldSetState) setState(() {});
                                   },
                                   child: Container(
@@ -1122,7 +1154,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     ),
                                   ),
                                 ),
-                              if (widget.education != null)
+                              if ((widget.education != null) ||
+                                  (widget.addAnother == true))
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
@@ -1130,61 +1163,125 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     var _shouldSetState = false;
-                                    _model.educationRequest23 =
-                                        await TaskerpageBackendGroup
-                                            .educationPartialUpdateCall
-                                            .call(
-                                      id: getJsonField(
-                                        widget.education,
-                                        r'''$.id''',
-                                      ),
-                                      schoolTitle: _model.textController2.text,
-                                      title: _model.textController1.text,
-                                      certificateUrl: _model.certificateUrl,
-                                      apiGlobalKey: FFAppState().apiKey,
-                                      educationLevel: FFAppState()
-                                          .UserInformation
-                                          .educationType,
-                                    );
-                                    _shouldSetState = true;
-                                    if (!(_model
-                                            .educationRequest23?.succeeded ??
-                                        true)) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Not Done',
-                                            style: TextStyle(
-                                              color:
+                                    if (widget.addAnother == true) {
+                                      _model.educationRequest236 =
+                                          await TaskerpageBackendGroup
+                                              .userEducationAddCall
+                                              .call(
+                                        title: _model.textController1.text,
+                                        schoolTitle:
+                                            _model.textController2.text,
+                                        educationType: FFAppState()
+                                            .UserInformation
+                                            .educationType,
+                                        certificate: _model.certificateUrl,
+                                        customerProfile: getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ),
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      _shouldSetState = true;
+                                      if ((_model
+                                              .educationRequest236?.succeeded ??
+                                          true)) {
+                                        context.safePop();
+                                        setState(() {
+                                          FFAppState()
+                                              .updateUserInformationStruct(
+                                            (e) => e..educationType = '',
+                                          );
+                                        });
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Not Done',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor: Color(0xFFE8083F),
+                                            action: SnackBarAction(
+                                              label: 'close',
+                                              textColor:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
+                                              onPressed: () async {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                              },
                                             ),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor: Color(0xFFE8083F),
-                                          action: SnackBarAction(
-                                            label: 'close',
-                                            textColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            onPressed: () async {
-                                              ScaffoldMessenger.of(context)
-                                                  .hideCurrentSnackBar();
-                                            },
-                                          ),
+                                        );
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+                                    } else {
+                                      _model.educationRequest23 =
+                                          await TaskerpageBackendGroup
+                                              .educationPartialUpdateCall
+                                              .call(
+                                        id: getJsonField(
+                                          widget.education,
+                                          r'''$.name''',
                                         ),
+                                        schoolTitle:
+                                            _model.textController2.text,
+                                        title: _model.textController1.text,
+                                        certificateUrl: _model.certificateUrl,
+                                        apiGlobalKey: FFAppState().apiKey,
+                                        educationLevel: FFAppState()
+                                            .UserInformation
+                                            .educationType,
                                       );
-                                      if (_shouldSetState) setState(() {});
-                                      return;
+                                      _shouldSetState = true;
+                                      if (!(_model
+                                              .educationRequest23?.succeeded ??
+                                          true)) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Not Done',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor: Color(0xFFE8083F),
+                                            action: SnackBarAction(
+                                              label: 'close',
+                                              textColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              onPressed: () async {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+                                      context.safePop();
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e..educationType = '',
+                                        );
+                                      });
                                     }
-                                    context.safePop();
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..educationType = '',
-                                      );
-                                    });
+
                                     if (_shouldSetState) setState(() {});
                                   },
                                   child: Container(
@@ -1238,37 +1335,169 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                   decoration: BoxDecoration(
                     color: Color(0x00FFFFFF),
                   ),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(0.0),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(
-                        sigmaX: 2.0,
-                        sigmaY: 2.0,
-                      ),
-                      child: Align(
-                        alignment: AlignmentDirectional(0.0, 0.0),
-                        child: Container(
-                          width: 269.0,
-                          height: 149.0,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFF6F6F6),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 15.0),
-                                child: InkWell(
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      setState(() {
+                        FFAppState().AddCertificateForEducation = false;
+                      });
+                    },
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0.0),
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 2.0,
+                          sigmaY: 2.0,
+                        ),
+                        child: Align(
+                          alignment: AlignmentDirectional(0.00, 0.00),
+                          child: Container(
+                            width: 269.0,
+                            height: 149.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFF6F6F6),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 15.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      final selectedMedia = await selectMedia(
+                                        mediaSource: MediaSource.photoGallery,
+                                        multiImage: false,
+                                      );
+                                      if (selectedMedia != null &&
+                                          selectedMedia.every((m) =>
+                                              validateFileFormat(
+                                                  m.storagePath, context))) {
+                                        setState(() =>
+                                            _model.isDataUploading1 = true);
+                                        var selectedUploadedFiles =
+                                            <FFUploadedFile>[];
+
+                                        try {
+                                          selectedUploadedFiles = selectedMedia
+                                              .map((m) => FFUploadedFile(
+                                                    name: m.storagePath
+                                                        .split('/')
+                                                        .last,
+                                                    bytes: m.bytes,
+                                                    height:
+                                                        m.dimensions?.height,
+                                                    width: m.dimensions?.width,
+                                                    blurHash: m.blurHash,
+                                                  ))
+                                              .toList();
+                                        } finally {
+                                          _model.isDataUploading1 = false;
+                                        }
+                                        if (selectedUploadedFiles.length ==
+                                            selectedMedia.length) {
+                                          setState(() {
+                                            _model.uploadedLocalFile1 =
+                                                selectedUploadedFiles.first;
+                                          });
+                                        } else {
+                                          setState(() {});
+                                          return;
+                                        }
+                                      }
+
+                                      _model.apiResultekx =
+                                          await TaskerpageBackendGroup
+                                              .uploadCall
+                                              .call(
+                                        file: _model.uploadedLocalFile1,
+                                        apiGlobalKey: FFAppState().apiKey,
+                                        doctype: 'Customer Education',
+                                        docname: getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ).toString(),
+                                      );
+                                      if ((_model.apiResultekx?.succeeded ??
+                                          true)) {
+                                        setState(() {
+                                          _model.certificateUrl = getJsonField(
+                                            (_model.apiResultekx?.jsonBody ??
+                                                ''),
+                                            r'''$.message.file_url''',
+                                          ).toString();
+                                        });
+                                      } else {
+                                        await showDialog(
+                                          context: context,
+                                          builder: (alertDialogContext) {
+                                            return AlertDialog(
+                                              title: Text('Not Done'),
+                                              content: Text('Not Done'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          alertDialogContext),
+                                                  child: Text('Ok'),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        );
+                                      }
+
+                                      setState(() {
+                                        FFAppState()
+                                            .AddCertificateForEducation = false;
+                                      });
+
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 209.0,
+                                      height: 44.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF5450E2),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'From Gallery',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Colors.white,
+                                                  fontSize: 14.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     final selectedMedia = await selectMedia(
-                                      mediaSource: MediaSource.photoGallery,
                                       multiImage: false,
                                     );
                                     if (selectedMedia != null &&
@@ -1276,7 +1505,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                             validateFileFormat(
                                                 m.storagePath, context))) {
                                       setState(
-                                          () => _model.isDataUploading1 = true);
+                                          () => _model.isDataUploading2 = true);
                                       var selectedUploadedFiles =
                                           <FFUploadedFile>[];
 
@@ -1293,12 +1522,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                 ))
                                             .toList();
                                       } finally {
-                                        _model.isDataUploading1 = false;
+                                        _model.isDataUploading2 = false;
                                       }
                                       if (selectedUploadedFiles.length ==
                                           selectedMedia.length) {
                                         setState(() {
-                                          _model.uploadedLocalFile1 =
+                                          _model.uploadedLocalFile2 =
                                               selectedUploadedFiles.first;
                                         });
                                       } else {
@@ -1307,22 +1536,24 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       }
                                     }
 
-                                    _model.uploadedFromGallery =
+                                    _model.apiResultekx2 =
                                         await TaskerpageBackendGroup.uploadCall
                                             .call(
                                       file: _model.uploadedLocalFile1,
                                       apiGlobalKey: FFAppState().apiKey,
+                                      doctype: 'Customer Education',
+                                      docname: getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString(),
                                     );
-                                    if ((_model.uploadedFromGallery
-                                                ?.succeeded ??
-                                            true) ==
-                                        true) {
+                                    if ((_model.apiResultekx2?.succeeded ??
+                                        true)) {
                                       setState(() {
                                         _model.certificateUrl = getJsonField(
-                                          (_model.uploadedFromGallery
-                                                  ?.jsonBody ??
+                                          (_model.apiResultekx2?.jsonBody ??
                                               ''),
-                                          r'''$.url''',
+                                          r'''$.message.file_url''',
                                         ).toString();
                                       });
                                     } else {
@@ -1364,7 +1595,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          'From Gallery',
+                                          'Take Photo',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -1377,84 +1608,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     ),
                                   ),
                                 ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  final selectedMedia = await selectMedia(
-                                    multiImage: false,
-                                  );
-                                  if (selectedMedia != null &&
-                                      selectedMedia.every((m) =>
-                                          validateFileFormat(
-                                              m.storagePath, context))) {
-                                    setState(
-                                        () => _model.isDataUploading2 = true);
-                                    var selectedUploadedFiles =
-                                        <FFUploadedFile>[];
-
-                                    try {
-                                      selectedUploadedFiles = selectedMedia
-                                          .map((m) => FFUploadedFile(
-                                                name: m.storagePath
-                                                    .split('/')
-                                                    .last,
-                                                bytes: m.bytes,
-                                                height: m.dimensions?.height,
-                                                width: m.dimensions?.width,
-                                                blurHash: m.blurHash,
-                                              ))
-                                          .toList();
-                                    } finally {
-                                      _model.isDataUploading2 = false;
-                                    }
-                                    if (selectedUploadedFiles.length ==
-                                        selectedMedia.length) {
-                                      setState(() {
-                                        _model.uploadedLocalFile2 =
-                                            selectedUploadedFiles.first;
-                                      });
-                                    } else {
-                                      setState(() {});
-                                      return;
-                                    }
-                                  }
-
-                                  await _model.upload(
-                                    context,
-                                    uploadedFile: _model.uploadedLocalFile2,
-                                  );
-                                  setState(() {});
-                                },
-                                child: Container(
-                                  width: 209.0,
-                                  height: 44.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Take Photo',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: Colors.white,
-                                              fontSize: 14.0,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                       ),

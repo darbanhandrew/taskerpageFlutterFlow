@@ -1,10 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -16,10 +18,10 @@ export 'task1_model.dart';
 class Task1Widget extends StatefulWidget {
   const Task1Widget({
     Key? key,
-    required this.id,
+    this.id,
   }) : super(key: key);
 
-  final int? id;
+  final String? id;
 
   @override
   _Task1WidgetState createState() => _Task1WidgetState();
@@ -37,23 +39,28 @@ class _Task1WidgetState extends State<Task1Widget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.id == null) {
-        _model.createPost = await TaskerpageBackendGroup.initiatePostCall.call(
+      if (widget.id != null && widget.id != '') {
+        _model.apiResulture = await TaskerpageBackendGroup.postReadCall.call(
+          id: widget.id,
           apiGlobalKey: FFAppState().apiKey,
         );
-        if ((_model.createPost?.succeeded ?? true)) {
-          FFAppState().update(() {
-            FFAppState().TaskCreation = TaskCreationStruct(
-              id: getJsonField(
-                (_model.createPost?.jsonBody ?? ''),
-                r'''$.id''',
-              ),
+        if ((_model.apiResulture?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..skillCategory = getJsonField(
+                  (_model.apiResulture?.jsonBody ?? ''),
+                  r'''$.data.skill_category_name''',
+                ).toString().toString(),
             );
           });
-          return;
         } else {
           return;
         }
+      } else {
+        setState(() {
+          FFAppState().createTask = CreateTaskStruct();
+        });
       }
     });
 
@@ -76,6 +83,24 @@ class _Task1WidgetState extends State<Task1Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -94,7 +119,28 @@ class _Task1WidgetState extends State<Task1Widget> {
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigationBarModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigationBarWidget(
+                                currentPage: 'task1',
+                                postId: widget.id,
+                              ),
+                            ),
                           ),
                         ),
                       ],
@@ -131,7 +177,6 @@ class _Task1WidgetState extends State<Task1Widget> {
                               future: TaskerpageBackendGroup
                                   .serviceCategoryListCall
                                   .call(
-                                isActive: true,
                                 apiGlobalKey: FFAppState().apiKey,
                               ),
                               builder: (context, snapshot) {
@@ -185,19 +230,29 @@ class _Task1WidgetState extends State<Task1Widget> {
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             if (FFAppState()
-                                                    .relatedServiseCategory >
-                                                0) {
+                                                    .task
+                                                    .skillCategory ==
+                                                getJsonField(
+                                                  serviceCategoriesItem,
+                                                  r'''$.name''',
+                                                )) {
                                               setState(() {
                                                 FFAppState()
-                                                    .relatedServiseCategory = 0;
+                                                    .updateCreateTaskStruct(
+                                                  (e) =>
+                                                      e..skillCategory = null,
+                                                );
                                               });
                                             } else {
                                               setState(() {
                                                 FFAppState()
-                                                        .relatedServiseCategory =
-                                                    getJsonField(
-                                                  serviceCategoriesItem,
-                                                  r'''$.id''',
+                                                    .updateCreateTaskStruct(
+                                                  (e) => e
+                                                    ..skillCategory =
+                                                        getJsonField(
+                                                      serviceCategoriesItem,
+                                                      r'''$.name''',
+                                                    ).toString(),
                                                 );
                                               });
                                             }
@@ -206,25 +261,35 @@ class _Task1WidgetState extends State<Task1Widget> {
                                             width: 100.0,
                                             height: 100.0,
                                             decoration: BoxDecoration(
-                                              color: FFAppState()
-                                                          .relatedServiseCategory ==
-                                                      getJsonField(
-                                                        serviceCategoriesItem,
-                                                        r'''$.id''',
-                                                      )
-                                                  ? Color(0xFF5450E2)
-                                                  : Color(0x00FFFFFF),
+                                              color: valueOrDefault<Color>(
+                                                FFAppState()
+                                                            .createTask
+                                                            .skillCategory ==
+                                                        getJsonField(
+                                                          serviceCategoriesItem,
+                                                          r'''$.name''',
+                                                        )
+                                                    ? Color(0xFF5450E2)
+                                                    : Color(0x00FFFFFF),
+                                                FlutterFlowTheme.of(context)
+                                                    .secondaryText,
+                                              ),
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
                                               border: Border.all(
-                                                color: FFAppState()
-                                                            .relatedServiseCategory ==
-                                                        getJsonField(
-                                                          serviceCategoriesItem,
-                                                          r'''$.id''',
-                                                        )
-                                                    ? Color(0xFF5450E2)
-                                                    : Color(0xFF5E5D5D),
+                                                color: valueOrDefault<Color>(
+                                                  FFAppState()
+                                                              .createTask
+                                                              .skillCategory ==
+                                                          getJsonField(
+                                                            serviceCategoriesItem,
+                                                            r'''$.name''',
+                                                          )
+                                                      ? Color(0xFF5450E2)
+                                                      : Color(0xFF5E5D5D),
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryText,
+                                                ),
                                                 width: 1.0,
                                               ),
                                             ),
@@ -238,32 +303,37 @@ class _Task1WidgetState extends State<Task1Widget> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    valueOrDefault<String>(
-                                                      functions
-                                                          .getTranslatableItemString(
-                                                              getJsonField(
-                                                                serviceCategoriesItem,
-                                                                r'''$.translations''',
-                                                              ),
-                                                              'en',
-                                                              'title'),
-                                                      'Category',
-                                                    ),
+                                                    getJsonField(
+                                                      serviceCategoriesItem,
+                                                      r'''$.name''',
+                                                    )
+                                                        .toString()
+                                                        .maybeHandleOverflow(
+                                                          maxChars: 17,
+                                                          replacement: '…',
+                                                        ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color: FFAppState()
-                                                                      .relatedServiseCategory ==
-                                                                  getJsonField(
-                                                                    serviceCategoriesItem,
-                                                                    r'''$.id''',
-                                                                  )
-                                                              ? Color(
-                                                                  0xFFF6F6F6)
-                                                              : Color(
-                                                                  0xFF5E5D5D),
+                                                          color: valueOrDefault<
+                                                              Color>(
+                                                            FFAppState()
+                                                                        .createTask
+                                                                        .skillCategory ==
+                                                                    getJsonField(
+                                                                      serviceCategoriesItem,
+                                                                      r'''$.name''',
+                                                                    )
+                                                                ? Color(
+                                                                    0xFFF6F6F6)
+                                                                : Color(
+                                                                    0xFF5E5D5D),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondaryText,
+                                                          ),
                                                           fontSize: 12.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -317,8 +387,69 @@ class _Task1WidgetState extends State<Task1Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (FFAppState().relatedServiseCategory > 0) {
-                                context.pushNamed('Task-2');
+                              var _shouldSetState = false;
+                              if ((FFAppState().createTask.skillCategory !=
+                                          null &&
+                                      FFAppState().createTask.skillCategory !=
+                                          '') &&
+                                  (widget.id == null || widget.id == '')) {
+                                _model.create = await TaskerpageBackendGroup
+                                    .taskCreationSkillCategoryCall
+                                    .call(
+                                  skillCategoryName:
+                                      FFAppState().createTask.skillCategory,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                  poster: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ).toString(),
+                                );
+                                _shouldSetState = true;
+                                if ((_model.create?.succeeded ?? true)) {
+                                  context.pushNamed(
+                                    'Task-2',
+                                    queryParameters: {
+                                      'id': serializeParam(
+                                        getJsonField(
+                                          (_model.create?.jsonBody ?? ''),
+                                          r'''$.data.name''',
+                                        ).toString(),
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+                              } else if (widget.id != null && widget.id != '') {
+                                _model.apiResultggw =
+                                    await TaskerpageBackendGroup
+                                        .updateSkillCategoryInTaskCall
+                                        .call(
+                                  id: widget.id,
+                                  skillCategoryName:
+                                      FFAppState().createTask.skillCategory,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResultggw?.succeeded ?? true)) {
+                                  context.pushNamed(
+                                    'Task-2',
+                                    queryParameters: {
+                                      'id': serializeParam(
+                                        getJsonField(
+                                          (_model.apiResultggw?.jsonBody ?? ''),
+                                          r'''$.data.name''',
+                                        ).toString(),
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
                               } else {
                                 await showDialog(
                                   context: context,
@@ -338,6 +469,8 @@ class _Task1WidgetState extends State<Task1Widget> {
                                   },
                                 );
                               }
+
+                              if (_shouldSetState) setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

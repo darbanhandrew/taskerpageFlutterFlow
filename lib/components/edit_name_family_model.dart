@@ -1,4 +1,4 @@
-import '/backend/schema/structs/index.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +15,10 @@ class EditNameFamilyModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController2;
   String? Function(BuildContext, String?)? textController2Validator;
+  // Stores action output result for [Backend Call - API (update name and last name)] action in Container widget.
+  ApiCallResponse? update;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? profile;
 
   /// Initialization and disposal methods.
 

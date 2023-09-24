@@ -1,15 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/addresses_in_list_widget.dart';
-import '/components/aler_modal_massage_for_edit_widget.dart';
-import '/components/aler_modal_massage_share_address_widget.dart';
-import '/components/aler_modal_massage_share_phone_widget.dart';
-import '/components/aler_modal_massage_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -25,10 +20,12 @@ class SetAppointmentWidget extends StatefulWidget {
     Key? key,
     required this.setOredit,
     required this.id,
+    required this.postID,
   }) : super(key: key);
 
   final bool? setOredit;
   final int? id;
+  final String? postID;
 
   @override
   _SetAppointmentWidgetState createState() => _SetAppointmentWidgetState();
@@ -65,33 +62,19 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
         ),
       ],
     ),
-    'listViewOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 450.ms,
-          begin: Offset(0.0, -5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'listViewOnActionTriggerAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 450.ms,
-          begin: Offset(0.0, -5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
     'rowOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 500.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation3': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       applyInitialState: true,
       effects: [
@@ -117,7 +100,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
         ),
       ],
     ),
-    'dividerOnPageLoadAnimation': AnimationInfo(
+    'rowOnPageLoadAnimation4': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       applyInitialState: true,
       effects: [
@@ -130,7 +113,85 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
         ),
       ],
     ),
-    'dividerOnActionTriggerAnimation': AnimationInfo(
+    'rowOnActionTriggerAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 450.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation5': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 450.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation4': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 450.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'dividerOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 450.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'dividerOnActionTriggerAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 450.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'dividerOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 450.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'dividerOnActionTriggerAnimation2': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
       applyInitialState: true,
       effects: [
@@ -190,7 +251,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
       ),
       child: Container(
         width: double.infinity,
-        height: 780.0,
+        height: MediaQuery.sizeOf(context).height * 0.7,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -200,115 +261,77 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
             topRight: Radius.circular(16.0),
           ),
         ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-              child: Container(
-                width: 124.0,
-                height: 4.0,
-                decoration: BoxDecoration(
-                  color: Color(0xFFD9D9D9),
-                  borderRadius: BorderRadius.circular(8.0),
+        child: FutureBuilder<ApiCallResponse>(
+          future: TaskerpageBackendGroup.postReadCall.call(
+            id: widget.postID,
+            apiGlobalKey: FFAppState().apiKey,
+          ),
+          builder: (context, snapshot) {
+            // Customize what your widget looks like when it's loading.
+            if (!snapshot.hasData) {
+              return Center(
+                child: SizedBox(
+                  width: 50.0,
+                  height: 50.0,
+                  child: SpinKitThreeBounce(
+                    color: Color(0xFF5450E2),
+                    size: 50.0,
+                  ),
                 ),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 18.0),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            widget.setOredit == true
-                                ? 'Edit Appointment'
-                                : 'Set Appointment',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF292929),
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+              );
+            }
+            final columnPostReadResponse = snapshot.data!;
+            return Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            0.0, 12.0, 0.0, 24.0),
+                        child: Container(
+                          width: 124.0,
+                          height: 4.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFFD9D9D9),
+                            borderRadius: BorderRadius.circular(8.0),
                           ),
-                        ],
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Select appointment type',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF222222),
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(26.0, 10.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          FlutterFlowRadioButton(
-                            options: ['Online', 'By Phone', 'On-Site'].toList(),
-                            onChanged: (val) => setState(() {}),
-                            controller: _model.radioButtonValueController ??=
-                                FormFieldController<String>(null),
-                            optionHeight: 32.0,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF212121),
-                                  fontWeight: FontWeight.w500,
-                                ),
-                            buttonPosition: RadioButtonPosition.left,
-                            direction: Axis.vertical,
-                            radioButtonColor: Color(0xFF211DAF),
-                            inactiveRadioButtonColor: Color(0xFF3D3D3D),
-                            toggleable: false,
-                            horizontalAlignment: WrapAlignment.start,
-                            verticalAlignment: WrapCrossAlignment.start,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      height: 40.0,
-                      thickness: 1.0,
-                      indent: 32.0,
-                      endIndent: 32.0,
-                      color: Color(0xD0ACABAB),
-                    ),
-                    if (_model.radioButtonValue == 'On-Site')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 0.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              'Select appointment location',
+                              widget.setOredit == true
+                                  ? 'Edit Appointment'
+                                  : 'Set Appointment',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF292929),
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 24.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Select appointment type',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -319,367 +342,417 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   ),
                             ),
                           ],
-                        )
-                            .animateOnPageLoad(
-                                animationsMap['rowOnPageLoadAnimation1']!)
-                            .animateOnActionTrigger(
-                              animationsMap['rowOnActionTriggerAnimation1']!,
-                            ),
+                        ),
                       ),
-                    if (_model.radioButtonValue == 'On-Site')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             26.0, 10.0, 32.0, 0.0),
-                        child: FutureBuilder<ApiCallResponse>(
-                          future: TaskerpageBackendGroup.myAddressesCall.call(
-                            apiGlobalKey: FFAppState().apiKey,
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50.0,
-                                  height: 50.0,
-                                  child: SpinKitThreeBounce(
-                                    color: Color(0xFF5450E2),
-                                    size: 50.0,
-                                  ),
-                                ),
-                              );
-                            }
-                            final listViewMyAddressesResponse = snapshot.data!;
-                            return Builder(
-                              builder: (context) {
-                                final myAdresses =
-                                    TaskerpageBackendGroup.myAddressesCall
-                                            .myAddressList(
-                                              listViewMyAddressesResponse
-                                                  .jsonBody,
-                                            )
-                                            ?.toList() ??
-                                        [];
-                                return ListView.separated(
-                                  padding: EdgeInsets.zero,
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.vertical,
-                                  itemCount: myAdresses.length,
-                                  separatorBuilder: (_, __) =>
-                                      SizedBox(height: 8.0),
-                                  itemBuilder: (context, myAdressesIndex) {
-                                    final myAdressesItem =
-                                        myAdresses[myAdressesIndex];
-                                    return AddressesInListWidget(
-                                      key: Key(
-                                          'Keysyg_${myAdressesIndex}_of_${myAdresses.length}'),
-                                      parameter1: getJsonField(
-                                        myAdressesItem,
-                                        r'''$.lat_lang.lat''',
-                                      ),
-                                      parameter2: getJsonField(
-                                        myAdressesItem,
-                                        r'''$.lat_lang.lang''',
-                                      ),
-                                    );
-                                  },
-                                )
-                                    .animateOnPageLoad(animationsMap[
-                                        'listViewOnPageLoadAnimation']!)
-                                    .animateOnActionTrigger(
-                                      animationsMap[
-                                          'listViewOnActionTriggerAnimation']!,
-                                    );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    if (_model.radioButtonValue == 'On-Site')
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 16.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('AddAddress');
-                              },
-                              child: Icon(
-                                Icons.add_rounded,
-                                color: Color(0xFF5450E2),
-                                size: 20.0,
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('AddAddress');
-                              },
-                              child: Text(
-                                'Add new Location',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF5450E2),
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
+                            FlutterFlowRadioButton(
+                              options:
+                                  ['Online', 'By Phone', 'On-Site'].toList(),
+                              onChanged: (val) => setState(() {}),
+                              controller: _model.radioButtonValueController ??=
+                                  FormFieldController<String>(null),
+                              optionHeight: 32.0,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .labelMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF212121),
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                              buttonPosition: RadioButtonPosition.left,
+                              direction: Axis.vertical,
+                              radioButtonColor: Color(0xFF211DAF),
+                              inactiveRadioButtonColor: Color(0xFF3D3D3D),
+                              toggleable: false,
+                              horizontalAlignment: WrapAlignment.start,
+                              verticalAlignment: WrapCrossAlignment.start,
                             ),
                           ],
-                        )
-                            .animateOnPageLoad(
-                                animationsMap['rowOnPageLoadAnimation2']!)
-                            .animateOnActionTrigger(
-                              animationsMap['rowOnActionTriggerAnimation2']!,
-                            ),
+                        ),
                       ),
-                    if (_model.radioButtonValue == 'On-Site')
                       Divider(
                         height: 40.0,
                         thickness: 1.0,
                         indent: 32.0,
                         endIndent: 32.0,
                         color: Color(0xD0ACABAB),
-                      )
-                          .animateOnPageLoad(
-                              animationsMap['dividerOnPageLoadAnimation']!)
-                          .animateOnActionTrigger(
-                            animationsMap['dividerOnActionTriggerAnimation']!,
-                          ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            'Sort by',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.black,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                final _datePicked1Date = await showDatePicker(
-                                  context: context,
-                                  initialDate: getCurrentTimestamp,
-                                  firstDate: getCurrentTimestamp,
-                                  lastDate: DateTime(2050),
-                                );
-
-                                if (_datePicked1Date != null) {
-                                  setState(() {
-                                    _model.datePicked1 = DateTime(
-                                      _datePicked1Date.year,
-                                      _datePicked1Date.month,
-                                      _datePicked1Date.day,
-                                    );
-                                  });
-                                }
-                              },
-                              child: Container(
-                                width: 100.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    color: Color(0xFF3D3D3D),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 0.0, 15.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 8.0, 0.0),
-                                        child: Icon(
-                                          Icons.date_range_rounded,
-                                          color: Color(0xFF3D3D3D),
-                                          size: 20.0,
-                                        ),
-                                      ),
-                                      Text(
-                                        valueOrDefault<String>(
-                                          dateTimeFormat(
-                                              'yMMMd', _model.datePicked1),
-                                          'Select Date',
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: Color(0xFF3D3D3D),
-                                              fontSize: 13.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                      if ((_model.radioButtonValue == 'On-Site') &&
+                          (functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role''',
+                              )) ==
+                              'Poster'))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Select appointment location',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF222222),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                               ),
+                            ],
+                          )
+                              .animateOnPageLoad(
+                                  animationsMap['rowOnPageLoadAnimation1']!)
+                              .animateOnActionTrigger(
+                                animationsMap['rowOnActionTriggerAnimation1']!,
+                              ),
+                        ),
+                      if ((_model.radioButtonValue == 'On-Site') &&
+                          (functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role''',
+                              )) ==
+                              'Poster'))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 15.0, 0.0, 0.0),
+                          child: FutureBuilder<ApiCallResponse>(
+                            future: TaskerpageBackendGroup.myAddressesCall.call(
+                              apiGlobalKey: FFAppState().apiKey,
+                              fields:
+                                  '[\"latitude\",\"longitude\",\"address\",\"name\",\"city\",\"country\"]',
+                              filters:
+                                  '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.name''',
+                              ).toString()}\"]]',
                             ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitThreeBounce(
+                                      color: Color(0xFF5450E2),
+                                      size: 50.0,
+                                    ),
+                                  ),
+                                );
+                              }
+                              final rowMyAddressesResponse = snapshot.data!;
+                              return Builder(
+                                builder: (context) {
+                                  final myAddress = getJsonField(
+                                    rowMyAddressesResponse.jsonBody,
+                                    r'''$.data''',
+                                  ).toList();
+                                  return SingleChildScrollView(
+                                    scrollDirection: Axis.horizontal,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(myAddress.length,
+                                          (myAddressIndex) {
+                                        final myAddressItem =
+                                            myAddress[myAddressIndex];
+                                        return InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            setState(() {
+                                              _model.selectedAddress =
+                                                  getJsonField(
+                                                myAddressItem,
+                                                r'''$.name''',
+                                              ).toString();
+                                              _model.selectedLatitude =
+                                                  getJsonField(
+                                                myAddressItem,
+                                                r'''$.latitude''',
+                                              );
+                                              _model.selectedLongitude =
+                                                  getJsonField(
+                                                myAddressItem,
+                                                r'''$.longitude''',
+                                              );
+                                            });
+                                          },
+                                          child: Container(
+                                            width: 230.0,
+                                            height: 100.0,
+                                            decoration: BoxDecoration(
+                                              color: functions.jsonToString(
+                                                          getJsonField(
+                                                        myAddressItem,
+                                                        r'''$.name''',
+                                                      )) ==
+                                                      _model.selectedAddress
+                                                  ? Color(0xFF5450E2)
+                                                  : Color(0xFFF6F6F6),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                              border: Border.all(
+                                                color: functions.jsonToString(
+                                                            getJsonField(
+                                                          myAddressItem,
+                                                          r'''$.name''',
+                                                        )) ==
+                                                        _model.selectedAddress
+                                                    ? Color(0xFF5450E2)
+                                                    : Color(0xFFACABAB),
+                                              ),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 8.0, 8.0, 8.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  if (FFAppState()
+                                                          .DeleteAddressBackGroundColor ==
+                                                      false)
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(
+                                                            getJsonField(
+                                                              myAddressItem,
+                                                              r'''$.address''',
+                                                            ).toString(),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: functions.jsonToString(
+                                                                              getJsonField(
+                                                                            myAddressItem,
+                                                                            r'''$.name''',
+                                                                          )) ==
+                                                                          _model
+                                                                              .selectedAddress
+                                                                      ? Color(
+                                                                          0xFFF6F6F6)
+                                                                      : Color(
+                                                                          0xFFACABAB),
+                                                                  fontSize:
+                                                                      13.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  if (FFAppState()
+                                                          .DeleteAddressBackGroundColor ==
+                                                      true)
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  35.0,
+                                                                  0.0,
+                                                                  35.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        16.0,
+                                                                        0.0),
+                                                            child: Container(
+                                                              width: 104.0,
+                                                              height: 44.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0xFF3D3D3D),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            5.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: Color(
+                                                                      0xFF5450E2),
+                                                                ),
+                                                              ),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Text(
+                                                                    'Cancel',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Lato',
+                                                                          color:
+                                                                              Color(0xFFF6F6F6),
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Container(
+                                                            width: 104.0,
+                                                            height: 44.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFF5450E2),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'Delete',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lato',
+                                                                        color: Color(
+                                                                            0xFFF6F6F6),
+                                                                        fontSize:
+                                                                            14.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ).animateOnPageLoad(
+                                                          animationsMap[
+                                                              'rowOnPageLoadAnimation2']!),
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }).divide(SizedBox(width: 8.0)),
+                                    ),
+                                  );
+                                },
+                              );
+                            },
                           ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          InkWell(
+                        ),
+                      if ((_model.radioButtonValue == 'On-Site') &&
+                          (functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role''',
+                              )) ==
+                              'Poster'))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 16.0, 32.0, 0.0),
+                          child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              final _datePicked2Time = await showTimePicker(
-                                context: context,
-                                initialTime:
-                                    TimeOfDay.fromDateTime(getCurrentTimestamp),
-                              );
-                              if (_datePicked2Time != null) {
-                                setState(() {
-                                  _model.datePicked2 = DateTime(
-                                    getCurrentTimestamp.year,
-                                    getCurrentTimestamp.month,
-                                    getCurrentTimestamp.day,
-                                    _datePicked2Time.hour,
-                                    _datePicked2Time.minute,
-                                  );
-                                });
-                              }
-                            },
-                            child: Container(
-                              width: 120.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xFF3D3D3D),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Select Time',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF3D3D3D),
-                                          fontSize: 13.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                              context.pushNamed(
+                                'Contactdata-1',
+                                queryParameters: {
+                                  'addAnother': serializeParam(
+                                    true,
+                                    ParamType.bool,
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                40.0, 0.0, 0.0, 0.0),
+                                }.withoutNulls,
+                              );
+                            },
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 10.0, 0.0),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed(
+                                      'Contactdata-1',
+                                      queryParameters: {
+                                        'addAnother': serializeParam(
+                                          true,
+                                          ParamType.bool,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  },
                                   child: Icon(
-                                    Icons.access_time_sharp,
-                                    color: Color(0xFF212121),
+                                    Icons.add_rounded,
+                                    color: Color(0xFF5450E2),
                                     size: 20.0,
                                   ),
                                 ),
-                                Text(
-                                  'At ${dateTimeFormat('Hm', _model.datePicked2)}',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFF212121),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          32.0, 30.0, 32.0, 20.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              Navigator.pop(context);
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 44.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xFF5450E2),
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Cancel',
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed(
+                                      'Contactdata-1',
+                                      queryParameters: {
+                                        'addAnother': serializeParam(
+                                          true,
+                                          ParamType.bool,
+                                        ),
+                                      }.withoutNulls,
+                                    );
+                                  },
+                                  child: Text(
+                                    'Add new Location',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -689,161 +762,650 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                           fontWeight: FontWeight.w500,
                                         ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (widget.setOredit == false) {
-                                setState(() {
-                                  FFAppState().updateAppointmentStruct(
-                                    (e) => e
-                                      ..date = _model.datePicked1
-                                      ..time = dateTimeFormat(
-                                          'Hm', _model.datePicked2),
-                                  );
-                                });
-                                if (_model.radioButtonValue == 'Online') {
-                                  setState(() {
-                                    FFAppState().updateAppointmentStruct(
-                                      (e) => e
-                                        ..appointmentType =
-                                            _model.radioButtonValue,
-                                    );
-                                  });
-                                  await showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    backgroundColor: Colors.transparent,
-                                    enableDrag: false,
-                                    context: context,
-                                    builder: (context) {
-                                      return Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: AlerModalMassageWidget(),
-                                      );
-                                    },
-                                  ).then((value) => setState(() {}));
-                                } else {
-                                  if (_model.radioButtonValue == 'By Phone') {
-                                    setState(() {
-                                      FFAppState().updateAppointmentStruct(
-                                        (e) => e
-                                          ..appointmentType =
-                                              _model.radioButtonValue,
-                                      );
-                                    });
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child:
-                                              AlerModalMassageSharePhoneWidget(),
-                                        );
-                                      },
-                                    ).then((value) => setState(() {}));
-                                  } else {
-                                    setState(() {
-                                      FFAppState().updateAppointmentStruct(
-                                        (e) => e
-                                          ..appointmentType =
-                                              _model.radioButtonValue,
-                                      );
-                                    });
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return Padding(
-                                          padding:
-                                              MediaQuery.viewInsetsOf(context),
-                                          child:
-                                              AlerModalMassageShareAddressWidget(),
-                                        );
-                                      },
-                                    ).then((value) => setState(() {}));
-                                  }
-                                }
-                              } else {
-                                setState(() {
-                                  FFAppState().updateAppointmentStruct(
-                                    (e) => e
-                                      ..date = _model.datePicked1
-                                      ..time = dateTimeFormat(
-                                          'Hm', _model.datePicked2),
-                                  );
-                                });
-                                setState(() {
-                                  FFAppState().updateAppointmentStruct(
-                                    (e) => e
-                                      ..appointmentType =
-                                          _model.radioButtonValue,
-                                  );
-                                });
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: AlerModalMassageForEditWidget(
-                                        id: widget.id!,
+                          )
+                              .animateOnPageLoad(
+                                  animationsMap['rowOnPageLoadAnimation3']!)
+                              .animateOnActionTrigger(
+                                animationsMap['rowOnActionTriggerAnimation2']!,
+                              ),
+                        ),
+                      if ((_model.radioButtonValue == 'On-Site') &&
+                          (functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role''',
+                              )) ==
+                              'Tasker'))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Appointment address',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF222222),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ],
+                          )
+                              .animateOnPageLoad(
+                                  animationsMap['rowOnPageLoadAnimation4']!)
+                              .animateOnActionTrigger(
+                                animationsMap['rowOnActionTriggerAnimation3']!,
+                              ),
+                        ),
+                      if ((_model.radioButtonValue == 'On-Site') &&
+                          (functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role''',
+                              )) ==
+                              'Tasker'))
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 15.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  getJsonField(
+                                    columnPostReadResponse.jsonBody,
+                                    r'''$.data.full_address''',
+                                  ).toString(),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF5450E2),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                    );
-                                  },
-                                ).then((value) => setState(() {}));
-                              }
-                            },
-                            child: Container(
-                              width: 129.0,
-                              height: 44.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                ),
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    widget.setOredit == true
-                                        ? 'Edit Appointment'
-                                        : 'Set Appointment',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                            ],
+                          )
+                              .animateOnPageLoad(
+                                  animationsMap['rowOnPageLoadAnimation5']!)
+                              .animateOnActionTrigger(
+                                animationsMap['rowOnActionTriggerAnimation4']!,
+                              ),
+                        ),
+                      if (_model.radioButtonValue == 'On-Site')
+                        Divider(
+                          height: 40.0,
+                          thickness: 1.0,
+                          indent: 32.0,
+                          endIndent: 32.0,
+                          color: Color(0xD0ACABAB),
+                        )
+                            .animateOnPageLoad(
+                                animationsMap['dividerOnPageLoadAnimation1']!)
+                            .animateOnActionTrigger(
+                              animationsMap[
+                                  'dividerOnActionTriggerAnimation1']!,
+                            ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Appointment Date',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
                                   ),
-                                ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 15.0, 32.0, 8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  final _datePicked1Date = await showDatePicker(
+                                    context: context,
+                                    initialDate: getCurrentTimestamp,
+                                    firstDate: getCurrentTimestamp,
+                                    lastDate: DateTime(2050),
+                                  );
+
+                                  if (_datePicked1Date != null) {
+                                    safeSetState(() {
+                                      _model.datePicked1 = DateTime(
+                                        _datePicked1Date.year,
+                                        _datePicked1Date.month,
+                                        _datePicked1Date.day,
+                                      );
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  width: 100.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(
+                                      color: Color(0xFF3D3D3D),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 8.0, 0.0),
+                                          child: Icon(
+                                            Icons.date_range_rounded,
+                                            color: Color(0xFF3D3D3D),
+                                            size: 20.0,
+                                          ),
+                                        ),
+                                        Text(
+                                          valueOrDefault<String>(
+                                            dateTimeFormat(
+                                                'yMMMd', _model.datePicked1),
+                                            'Select Start Date',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF3D3D3D),
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ].divide(SizedBox(width: 10.0)),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      if (_model.radioButtonValue == 'On-Site')
+                        Divider(
+                          height: 40.0,
+                          thickness: 1.0,
+                          indent: 32.0,
+                          endIndent: 32.0,
+                          color: Color(0xD0ACABAB),
+                        )
+                            .animateOnPageLoad(
+                                animationsMap['dividerOnPageLoadAnimation2']!)
+                            .animateOnActionTrigger(
+                              animationsMap[
+                                  'dividerOnActionTriggerAnimation2']!,
+                            ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Appointment Time',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.black,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 15.0, 32.0, 8.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  final _datePicked2Time = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.fromDateTime(
+                                        getCurrentTimestamp),
+                                  );
+                                  if (_datePicked2Time != null) {
+                                    safeSetState(() {
+                                      _model.datePicked2 = DateTime(
+                                        getCurrentTimestamp.year,
+                                        getCurrentTimestamp.month,
+                                        getCurrentTimestamp.day,
+                                        _datePicked2Time.hour,
+                                        _datePicked2Time.minute,
+                                      );
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  width: 100.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(
+                                      color: Color(0xFF3D3D3D),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 8.0, 0.0),
+                                          child: Icon(
+                                            Icons.more_time,
+                                            color: Color(0xFF3D3D3D),
+                                            size: 20.0,
+                                          ),
+                                        ),
+                                        Text(
+                                          valueOrDefault<String>(
+                                            dateTimeFormat(
+                                                'H:mm', _model.datePicked2),
+                                            'Select Start Time',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF3D3D3D),
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  final _datePicked3Time = await showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.fromDateTime(
+                                        getCurrentTimestamp),
+                                  );
+                                  if (_datePicked3Time != null) {
+                                    safeSetState(() {
+                                      _model.datePicked3 = DateTime(
+                                        getCurrentTimestamp.year,
+                                        getCurrentTimestamp.month,
+                                        getCurrentTimestamp.day,
+                                        _datePicked3Time.hour,
+                                        _datePicked3Time.minute,
+                                      );
+                                    });
+                                  }
+                                },
+                                child: Container(
+                                  width: 100.0,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    border: Border.all(
+                                      color: Color(0xFF3D3D3D),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 8.0, 0.0),
+                                          child: Icon(
+                                            Icons.access_time,
+                                            color: Color(0xFF3D3D3D),
+                                            size: 20.0,
+                                          ),
+                                        ),
+                                        Text(
+                                          valueOrDefault<String>(
+                                            dateTimeFormat(
+                                                'H:mm', _model.datePicked3),
+                                            'Select End Time',
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF3D3D3D),
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ].divide(SizedBox(width: 8.0)),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Suggest your interval to choose the appointment time !',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0x77212121),
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ],
+                Padding(
+                  padding:
+                      EdgeInsetsDirectional.fromSTEB(32.0, 30.0, 32.0, 20.0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          Navigator.pop(context);
+                        },
+                        child: Container(
+                          width: 104.0,
+                          height: 44.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(5.0),
+                            border: Border.all(
+                              color: Color(0xFF5450E2),
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Cancel',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF5450E2),
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          var _shouldSetState = false;
+                          if ((_model.selectedLatitude == 0.0) &&
+                              (_model.selectedLongitude == 0.0) &&
+                              (_model.radioButtonValue == 'On-Site')) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Choose a valid address',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 13.0,
+                                  ),
+                                ),
+                                duration: Duration(milliseconds: 4000),
+                                backgroundColor: Color(0xFFDD2525),
+                              ),
+                            );
+                          } else {
+                            if (functions.jsonToString(getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.role''',
+                                )) ==
+                                'Poster') {
+                              _model.createdAppointment =
+                                  await TaskerpageBackendGroup
+                                      .createAppointmentCall
+                                      .call(
+                                appointmentType: _model.radioButtonValue,
+                                meetingLink: '',
+                                appointmentLocationLat:
+                                    _model.selectedLatitude.toString(),
+                                appointmentLocationLng:
+                                    _model.selectedLongitude.toString(),
+                                isTaskerAccepted:
+                                    functions.jsonToString(getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.role_profile_name''',
+                                            )) ==
+                                            'Tasker'
+                                        ? '1'
+                                        : '0',
+                                isPosterAccepted:
+                                    functions.jsonToString(getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.role_profile_name''',
+                                            )) ==
+                                            'Poster'
+                                        ? '1'
+                                        : '0',
+                                appointmentTime: dateTimeFormat(
+                                    'yyyy/MM/dd HH:mm:ss', _model.datePicked1),
+                                tasker: functions.jsonToString(getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.role_profile_name''',
+                                        )) ==
+                                        'Tasker'
+                                    ? getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString()
+                                    : widget.id?.toString(),
+                                poster: functions.jsonToString(getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.role_profile_name''',
+                                        )) ==
+                                        'Tasker'
+                                    ? widget.id?.toString()
+                                    : getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString(),
+                                apiGlobalKey: FFAppState().apiKey,
+                                post: widget.postID,
+                                appointmentEndTime:
+                                    dateTimeFormat('Hm', _model.datePicked3),
+                                appointmentStartTime:
+                                    dateTimeFormat('Hm', _model.datePicked2),
+                              );
+                              _shouldSetState = true;
+                              if ((_model.createdAppointment?.succeeded ??
+                                  true)) {
+                                Navigator.pop(context);
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+                            } else {
+                              _model.createdAppointment2 =
+                                  await TaskerpageBackendGroup
+                                      .createAppointmentCall
+                                      .call(
+                                appointmentType: _model.radioButtonValue,
+                                meetingLink: '',
+                                appointmentLocationLat: getJsonField(
+                                  columnPostReadResponse.jsonBody,
+                                  r'''$.data.latitude''',
+                                ).toString(),
+                                appointmentLocationLng: getJsonField(
+                                  columnPostReadResponse.jsonBody,
+                                  r'''$.data.longitude''',
+                                ).toString(),
+                                isTaskerAccepted:
+                                    functions.jsonToString(getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.role_profile_name''',
+                                            )) ==
+                                            'Tasker'
+                                        ? '1'
+                                        : '0',
+                                isPosterAccepted:
+                                    functions.jsonToString(getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.role_profile_name''',
+                                            )) ==
+                                            'Poster'
+                                        ? '1'
+                                        : '0',
+                                appointmentTime: dateTimeFormat(
+                                    'yyyy/MM/dd HH:mm:ss', _model.datePicked1),
+                                tasker: functions.jsonToString(getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.role_profile_name''',
+                                        )) ==
+                                        'Tasker'
+                                    ? getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString()
+                                    : widget.id?.toString(),
+                                poster: functions.jsonToString(getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.role_profile_name''',
+                                        )) ==
+                                        'Tasker'
+                                    ? widget.id?.toString()
+                                    : getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString(),
+                                apiGlobalKey: FFAppState().apiKey,
+                                post: widget.postID,
+                                appointmentEndTime:
+                                    dateTimeFormat('Hm', _model.datePicked3),
+                                appointmentStartTime:
+                                    dateTimeFormat('Hm', _model.datePicked2),
+                              );
+                              _shouldSetState = true;
+                              if ((_model.createdAppointment2?.succeeded ??
+                                  true)) {
+                                Navigator.pop(context);
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
+                            }
+                          }
+
+                          if (_shouldSetState) setState(() {});
+                        },
+                        child: Container(
+                          width: 129.0,
+                          height: 44.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF5450E2),
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Set appointment',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ].divide(SizedBox(width: 10.0)),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

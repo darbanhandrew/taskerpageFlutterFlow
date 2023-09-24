@@ -1,7 +1,5 @@
-import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -196,58 +194,6 @@ class _SkillOptionWidgetState extends State<SkillOptionWidget> {
               height: 20.0,
               thickness: 1.0,
               color: Color(0xFFE3E3E3),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: FlutterFlowChoiceChips(
-                      options: [
-                        ChipData('Option 1', Icons.accessible_forward_rounded),
-                        ChipData('Option 2', Icons.adb)
-                      ],
-                      onChanged: (val) =>
-                          setState(() => _model.choiceChipsValue = val?.first),
-                      selectedChipStyle: ChipStyle(
-                        backgroundColor: Color(0xFF5450E2),
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.white,
-                                  fontSize: 12.0,
-                                ),
-                        iconColor: Colors.white,
-                        iconSize: 18.0,
-                        elevation: 4.0,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      unselectedChipStyle: ChipStyle(
-                        backgroundColor: Color(0xFFF6F6F6),
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyMedium.override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF5450E2),
-                                  fontSize: 12.0,
-                                ),
-                        iconColor: Color(0xFF5450E2),
-                        iconSize: 18.0,
-                        elevation: 0.0,
-                        borderRadius: BorderRadius.circular(15.0),
-                      ),
-                      chipSpacing: 12.0,
-                      rowSpacing: 12.0,
-                      multiselect: false,
-                      alignment: WrapAlignment.start,
-                      controller: _model.choiceChipsValueController ??=
-                          FormFieldController<List<String>>(
-                        [],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
             ),
             Divider(
               height: 45.0,

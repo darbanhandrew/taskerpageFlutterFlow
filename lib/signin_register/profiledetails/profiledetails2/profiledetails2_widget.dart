@@ -1,10 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +24,40 @@ class Profiledetails2Widget extends StatefulWidget {
   _Profiledetails2WidgetState createState() => _Profiledetails2WidgetState();
 }
 
-class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
+class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
+    with TickerProviderStateMixin {
   late Profiledetails2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  var hasRowTriggered = false;
+  final animationsMap = {
+    'rowOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      applyInitialState: false,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -10.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: false,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -15.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -29,6 +65,17 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
     _model = createModel(context, () => Profiledetails2Model());
 
     _model.textController ??= TextEditingController();
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+
+    SchedulerBinding.instance.addPostFrameCallback((_) {
+      animationsMap['rowOnPageLoadAnimation']!.controller.forward(from: 0.0);
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -48,6 +95,24 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -66,7 +131,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],
@@ -105,7 +172,6 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var _shouldSetState = false;
                               final selectedMedia = await selectMedia(
                                 mediaSource: MediaSource.photoGallery,
                                 multiImage: false,
@@ -141,31 +207,35 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                 }
                               }
 
-                              _model.apiResultoaj =
+                              _model.apiResultekx3 =
                                   await TaskerpageBackendGroup.uploadCall.call(
                                 file: _model.uploadedLocalFile1,
                                 apiGlobalKey: FFAppState().apiKey,
+                                doctype: 'Customer Profile',
+                                docname: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.name''',
+                                ).toString(),
                               );
-                              _shouldSetState = true;
-                              if ((_model.apiResultoaj?.succeeded ?? true)) {
+                              if ((_model.apiResultekx3?.succeeded ?? true)) {
+                                setState(() {
+                                  _model.avatarURL = getJsonField(
+                                    (_model.apiResultekx3?.jsonBody ?? ''),
+                                    r'''$.message.file_url''',
+                                  ).toString();
+                                });
                                 setState(() {
                                   FFAppState().updateUserInformationStruct(
-                                    (e) => e
-                                      ..avatar = getJsonField(
-                                        (_model.apiResultoaj?.jsonBody ?? ''),
-                                        r'''$.url''',
-                                      ).toString(),
+                                    (e) => e..avatar = _model.avatarURL,
                                   );
                                 });
-                                if (_shouldSetState) setState(() {});
-                                return;
                               } else {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: Text('Not done'),
-                                      content: Text('Not done'),
+                                      title: Text('Not Done'),
+                                      content: Text('Not Done'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -176,11 +246,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                     );
                                   },
                                 );
-                                if (_shouldSetState) setState(() {});
-                                return;
                               }
 
-                              if (_shouldSetState) setState(() {});
+                              setState(() {});
                             },
                             child: Container(
                               width: 154.0,
@@ -222,7 +290,6 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var _shouldSetState = false;
                               final selectedMedia = await selectMedia(
                                 multiImage: false,
                               );
@@ -257,31 +324,35 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                 }
                               }
 
-                              _model.apiResultCamera =
+                              _model.apiResultekx4 =
                                   await TaskerpageBackendGroup.uploadCall.call(
-                                file: _model.uploadedLocalFile2,
+                                file: _model.uploadedLocalFile1,
                                 apiGlobalKey: FFAppState().apiKey,
+                                doctype: 'Customer Profile',
+                                docname: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.name''',
+                                ).toString(),
                               );
-                              _shouldSetState = true;
-                              if ((_model.apiResultCamera?.succeeded ?? true)) {
+                              if ((_model.apiResultekx4?.succeeded ?? true)) {
+                                setState(() {
+                                  _model.avatarURL = getJsonField(
+                                    (_model.apiResultekx3?.jsonBody ?? ''),
+                                    r'''$.message.file_url''',
+                                  ).toString();
+                                });
                                 setState(() {
                                   FFAppState().updateUserInformationStruct(
-                                    (e) => e
-                                      ..avatar = getJsonField(
-                                        (_model.apiResultoaj?.jsonBody ?? ''),
-                                        r'''$.url''',
-                                      ).toString(),
+                                    (e) => e..avatar = _model.avatarURL,
                                   );
                                 });
-                                if (_shouldSetState) setState(() {});
-                                return;
                               } else {
                                 await showDialog(
                                   context: context,
                                   builder: (alertDialogContext) {
                                     return AlertDialog(
-                                      title: Text('Not done'),
-                                      content: Text('Not done'),
+                                      title: Text('Not Done'),
+                                      content: Text('Not Done'),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -292,11 +363,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                     );
                                   },
                                 );
-                                if (_shouldSetState) setState(() {});
-                                return;
                               }
 
-                              if (_shouldSetState) setState(() {});
+                              setState(() {});
                             },
                             child: Container(
                               width: 154.0,
@@ -335,8 +404,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                         ],
                       ),
                     ),
-                    if (FFAppState().UserInformation.avatar != null &&
-                        FFAppState().UserInformation.avatar != '')
+                    if (_model.avatarURL != null && _model.avatarURL != '')
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 15.0, 32.0, 0.0),
@@ -346,7 +414,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Stack(
                                 alignment: AlignmentDirectional(0.0, 1.3),
                                 children: [
@@ -358,7 +426,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      'https://taskerpage.darkube.app${FFAppState().UserInformation.avatar}',
+                                      'https://taskerpage.com${_model.avatarURL}',
                                       fit: BoxFit.cover,
                                     ),
                                   ),
@@ -368,6 +436,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      setState(() {
+                                        _model.avatarURL = '';
+                                      });
                                       setState(() {
                                         FFAppState()
                                             .updateUserInformationStruct(
@@ -382,24 +453,10 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                                         color: Color(0xFF5450E2),
                                         shape: BoxShape.circle,
                                       ),
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          setState(() {
-                                            FFAppState()
-                                                .updateUserInformationStruct(
-                                              (e) => e..avatar = '',
-                                            );
-                                          });
-                                        },
-                                        child: Icon(
-                                          Icons.close_rounded,
-                                          color: Colors.white,
-                                          size: 15.0,
-                                        ),
+                                      child: Icon(
+                                        Icons.close_rounded,
+                                        color: Colors.white,
+                                        size: 15.0,
                                       ),
                                     ),
                                   ),
@@ -407,7 +464,12 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                               ),
                             ),
                           ],
-                        ),
+                        )
+                            .animateOnPageLoad(
+                                animationsMap['rowOnPageLoadAnimation']!)
+                            .animateOnActionTrigger(
+                                animationsMap['rowOnActionTriggerAnimation']!,
+                                hasBeenTriggered: hasRowTriggered),
                       ),
                     Padding(
                       padding:
@@ -558,19 +620,52 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget> {
                             onTap: () async {
                               var _shouldSetState = false;
                               _model.update = await TaskerpageBackendGroup
-                                  .changeDescriptionAndProfileImageCall
+                                  .updateProfileDeatelsCall
                                   .call(
                                 id: getJsonField(
                                   FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
+                                  r'''$.data.name''',
+                                ).toString(),
                                 apiGlobalKey: FFAppState().apiKey,
-                                description: _model.textController.text,
+                                yearsOfExperience: FFAppState()
+                                    .UserInformation
+                                    .yearsofexperience,
+                                insurance: FFAppState()
+                                    .UserInformation
+                                    .insuranceProfileDeatels,
+                                driversLicense:
+                                    FFAppState().UserInformation.driverLicense,
+                                describtion: _model.textController.text,
+                                language: functions.arrayToString(FFAppState()
+                                    .LanguagesListForDropDown
+                                    .toList()),
                                 avatar: FFAppState().UserInformation.avatar,
                               );
                               _shouldSetState = true;
                               if ((_model.update?.succeeded ?? true)) {
-                                context.pushNamed('TaskersDashboard');
+                                if (functions.jsonToString(getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.role''',
+                                    )) ==
+                                    'Tasker') {
+                                  context.pushNamed('TaskersDashboard');
+                                } else {
+                                  context.pushNamed('PostersDashboard');
+                                }
+
+                                _model.apiResulteh8 =
+                                    await TaskerpageBackendGroup
+                                        .userProfileMeCall
+                                        .call(
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResulteh8?.succeeded ?? true)) {
+                                  FFAppState().update(() {
+                                    FFAppState().userProfile =
+                                        (_model.apiResulteh8?.jsonBody ?? '');
+                                  });
+                                }
                               } else {
                                 if (_shouldSetState) setState(() {});
                                 return;

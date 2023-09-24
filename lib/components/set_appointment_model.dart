@@ -1,15 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/addresses_in_list_widget.dart';
-import '/components/aler_modal_massage_for_edit_widget.dart';
-import '/components/aler_modal_massage_share_address_widget.dart';
-import '/components/aler_modal_massage_share_phone_widget.dart';
-import '/components/aler_modal_massage_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -19,12 +14,25 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class SetAppointmentModel extends FlutterFlowModel {
+  ///  Local state fields for this component.
+
+  String? selectedAddress;
+
+  double selectedLatitude = 0.0;
+
+  double selectedLongitude = 0.0;
+
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for RadioButton widget.
   FormFieldController<String>? radioButtonValueController;
   DateTime? datePicked1;
   DateTime? datePicked2;
+  DateTime? datePicked3;
+  // Stores action output result for [Backend Call - API (create appointment)] action in Container widget.
+  ApiCallResponse? createdAppointment;
+  // Stores action output result for [Backend Call - API (create appointment)] action in Container widget.
+  ApiCallResponse? createdAppointment2;
 
   /// Initialization and disposal methods.
 

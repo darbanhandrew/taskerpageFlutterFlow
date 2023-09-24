@@ -1,4 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/mini_tasker_card_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -6,6 +8,8 @@ import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -73,6 +77,24 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Colors.white,
+            drawer: Container(
+              width: MediaQuery.sizeOf(context).width * 0.85,
+              child: Drawer(
+                elevation: 16.0,
+                child: Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE8EAFF),
+                  ),
+                  child: wrapWithModel(
+                    model: _model.drawerContentModel,
+                    updateCallback: () => setState(() {}),
+                    child: DrawerContentWidget(),
+                  ),
+                ),
+              ),
+            ),
             body: SafeArea(
               top: true,
               child: Column(
@@ -82,7 +104,9 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
-                      openDrawer: () async {},
+                      openDrawer: () async {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
                     ),
                   ),
                   Expanded(
@@ -111,7 +135,7 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                           Flexible(
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  27.0, 8.0, 27.0, 0.0),
+                                  27.0, 8.0, 27.0, 20.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
@@ -756,12 +780,27 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                         ApiCallResponse>(
                                                       future:
                                                           TaskerpageBackendGroup
-                                                              .myAppointmentCall
+                                                              .appointmentListCall
                                                               .call(
-                                                        isIntervieweeAccepted:
-                                                            true,
-                                                        isInterviewerAccepted:
-                                                            true,
+                                                        filters: '[[\"${functions.jsonToString(getJsonField(
+                                                              FFAppState()
+                                                                  .userProfile,
+                                                              r'''$.data.role_profile_name''',
+                                                            )) == 'Tasker' ? 'tasker' : 'poster'}\",\"=\",\"${getJsonField(
+                                                          FFAppState()
+                                                              .userProfile,
+                                                          r'''$.data.name''',
+                                                        ).toString()}\"],[\"is_${functions.jsonToString(getJsonField(
+                                                              FFAppState()
+                                                                  .userProfile,
+                                                              r'''$.data.role_profile_name''',
+                                                            )) == 'Tasker' ? 'tasker' : 'poster'}_accepted\",\"=\",\"1\"],[\"is_${functions.jsonToString(getJsonField(
+                                                              FFAppState()
+                                                                  .userProfile,
+                                                              r'''$.data.role_profile_name''',
+                                                            )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"1\"]]',
+                                                        fields:
+                                                            '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\"]',
                                                         apiGlobalKey:
                                                             FFAppState().apiKey,
                                                       ),
@@ -782,24 +821,32 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                             ),
                                                           );
                                                         }
-                                                        final listViewMyAppointmentResponse =
+                                                        final listViewAppointmentListResponse =
                                                             snapshot.data!;
                                                         return Builder(
                                                           builder: (context) {
                                                             final appointments =
                                                                 getJsonField(
-                                                              listViewMyAppointmentResponse
+                                                              listViewAppointmentListResponse
                                                                   .jsonBody,
-                                                              r'''$''',
+                                                              r'''$.data''',
                                                             )
                                                                     .toList()
                                                                     .take(3)
                                                                     .toList();
+                                                            if (appointments
+                                                                .isEmpty) {
+                                                              return EmtyContainerWidget(
+                                                                goTo:
+                                                                    () async {},
+                                                              );
+                                                            }
                                                             return ListView
                                                                 .separated(
                                                               padding:
                                                                   EdgeInsets
                                                                       .zero,
+                                                              primary: false,
                                                               shrinkWrap: true,
                                                               scrollDirection:
                                                                   Axis.vertical,
@@ -820,167 +867,184 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
-                                                                          5.0,
+                                                                          0.0,
                                                                           5.0,
                                                                           0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width:
-                                                                        100.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                          blurRadius:
-                                                                              4.0,
-                                                                          color:
-                                                                              Color(0x33000000),
-                                                                          offset: Offset(
-                                                                              0.0,
-                                                                              2.0),
-                                                                        )
-                                                                      ],
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              10.0),
+                                                                  child: FutureBuilder<
+                                                                      ApiCallResponse>(
+                                                                    future: TaskerpageBackendGroup
+                                                                        .customerProfileDetailsCall
+                                                                        .call(
+                                                                      name: functions.jsonToString(
+                                                                                  getJsonField(
+                                                                                FFAppState().userProfile,
+                                                                                r'''$.data.role_profile_name''',
+                                                                              )) ==
+                                                                              'Tasker'
+                                                                          ? functions.jsonToString(
+                                                                              getJsonField(
+                                                                              appointmentsItem,
+                                                                              r'''$.poster''',
+                                                                            ))
+                                                                          : functions
+                                                                              .jsonToString(getJsonField(
+                                                                              appointmentsItem,
+                                                                              r'''$.tasker''',
+                                                                            )),
+                                                                      apiGlobalKey:
+                                                                          FFAppState()
+                                                                              .apiKey,
                                                                     ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          16.0,
-                                                                          12.0,
-                                                                          13.0,
-                                                                          12.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.spaceBetween,
-                                                                        children: [
-                                                                          Row(
+                                                                    builder:
+                                                                        (context,
+                                                                            snapshot) {
+                                                                      // Customize what your widget looks like when it's loading.
+                                                                      if (!snapshot
+                                                                          .hasData) {
+                                                                        return Center(
+                                                                          child:
+                                                                              SizedBox(
+                                                                            width:
+                                                                                50.0,
+                                                                            height:
+                                                                                50.0,
+                                                                            child:
+                                                                                SpinKitThreeBounce(
+                                                                              color: Color(0xFF5450E2),
+                                                                              size: 50.0,
+                                                                            ),
+                                                                          ),
+                                                                        );
+                                                                      }
+                                                                      final containerCustomerProfileDetailsResponse =
+                                                                          snapshot
+                                                                              .data!;
+                                                                      return Container(
+                                                                        width:
+                                                                            100.0,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              Colors.white,
+                                                                          boxShadow: [
+                                                                            BoxShadow(
+                                                                              blurRadius: 4.0,
+                                                                              color: Color(0x33000000),
+                                                                              offset: Offset(0.0, 2.0),
+                                                                            )
+                                                                          ],
+                                                                          borderRadius:
+                                                                              BorderRadius.circular(10.0),
+                                                                        ),
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              16.0,
+                                                                              12.0,
+                                                                              13.0,
+                                                                              12.0),
+                                                                          child:
+                                                                              Row(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
                                                                             children: [
-                                                                              Container(
-                                                                                width: 60.0,
-                                                                                height: 60.0,
-                                                                                clipBehavior: Clip.antiAlias,
-                                                                                decoration: BoxDecoration(
-                                                                                  shape: BoxShape.circle,
-                                                                                ),
-                                                                                child: Image.network(
-                                                                                  getJsonField(
-                                                                                            appointmentsItem,
-                                                                                            r'''$.interviewee.id''',
-                                                                                          ) ==
-                                                                                          getJsonField(
-                                                                                            FFAppState().userProfile,
-                                                                                            r'''$.id''',
-                                                                                          )
-                                                                                      ? getJsonField(
-                                                                                          appointmentsItem,
-                                                                                          r'''$.interviewer.avatar''',
-                                                                                        )
-                                                                                      : getJsonField(
-                                                                                          appointmentsItem,
-                                                                                          r'''$.interviewee.avatar''',
-                                                                                        ),
-                                                                                  fit: BoxFit.cover,
-                                                                                ),
-                                                                              ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                                                                child: Column(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                                                                  children: [
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          getJsonField(
-                                                                                                    appointmentsItem,
-                                                                                                    r'''$.interviewee.id''',
-                                                                                                  ) ==
-                                                                                                  getJsonField(
-                                                                                                    FFAppState().userProfile,
-                                                                                                    r'''$.id''',
-                                                                                                  )
-                                                                                              ? '${getJsonField(
-                                                                                                  appointmentsItem,
-                                                                                                  r'''$.interviewer.first_name''',
-                                                                                                ).toString()} ${getJsonField(
-                                                                                                  appointmentsItem,
-                                                                                                  r'''$.interviewer.last_name''',
-                                                                                                ).toString()}'
-                                                                                              : '${getJsonField(
-                                                                                                  appointmentsItem,
-                                                                                                  r'''$.interviewee.first_name''',
-                                                                                                ).toString()} ${getJsonField(
-                                                                                                  appointmentsItem,
-                                                                                                  r'''$.interviewee.last_name''',
-                                                                                                ).toString()}',
-                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                fontFamily: 'Lato',
-                                                                                                color: Colors.black,
-                                                                                                fontSize: 14.0,
-                                                                                                fontWeight: FontWeight.bold,
-                                                                                              ),
-                                                                                        ),
-                                                                                      ],
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Container(
+                                                                                    width: 60.0,
+                                                                                    height: 60.0,
+                                                                                    clipBehavior: Clip.antiAlias,
+                                                                                    decoration: BoxDecoration(
+                                                                                      shape: BoxShape.circle,
                                                                                     ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
-                                                                                      child: Text(
-                                                                                        getJsonField(
-                                                                                          appointmentsItem,
-                                                                                          r'''$.appointment_type''',
-                                                                                        ).toString(),
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: Colors.black,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.w500,
+                                                                                    child: Image.network(
+                                                                                      '${FFAppState().baseUrl}${getJsonField(
+                                                                                        containerCustomerProfileDetailsResponse.jsonBody,
+                                                                                        r'''$.data.avatar''',
+                                                                                      ).toString()}',
+                                                                                      fit: BoxFit.cover,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                    child: Column(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.center,
+                                                                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                                                                      children: [
+                                                                                        Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              '${getJsonField(
+                                                                                                containerCustomerProfileDetailsResponse.jsonBody,
+                                                                                                r'''$.data.first_name''',
+                                                                                              ).toString()} ${getJsonField(
+                                                                                                containerCustomerProfileDetailsResponse.jsonBody,
+                                                                                                r'''$.data.last_name''',
+                                                                                              ).toString()}',
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Lato',
+                                                                                                    color: Colors.black,
+                                                                                                    fontSize: 14.0,
+                                                                                                    fontWeight: FontWeight.bold,
+                                                                                                  ),
                                                                                             ),
-                                                                                      ),
-                                                                                    ),
-                                                                                    Row(
-                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                      children: [
-                                                                                        Text(
-                                                                                          getJsonField(
-                                                                                            appointmentsItem,
-                                                                                            r'''$.appointment_time''',
-                                                                                          ).toString(),
-                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                fontFamily: 'Lato',
-                                                                                                color: Colors.black,
-                                                                                                fontSize: 12.0,
-                                                                                                fontWeight: FontWeight.w500,
-                                                                                              ),
+                                                                                          ],
                                                                                         ),
                                                                                         Padding(
-                                                                                          padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
-                                                                                          child: Icon(
-                                                                                            Icons.info_outline_rounded,
-                                                                                            color: Color(0xFF212121),
-                                                                                            size: 18.0,
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
+                                                                                          child: Text(
+                                                                                            getJsonField(
+                                                                                              appointmentsItem,
+                                                                                              r'''$.appointment_type''',
+                                                                                            ).toString(),
+                                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                  fontFamily: 'Lato',
+                                                                                                  color: Colors.black,
+                                                                                                  fontSize: 14.0,
+                                                                                                  fontWeight: FontWeight.w500,
+                                                                                                ),
                                                                                           ),
+                                                                                        ),
+                                                                                        Row(
+                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                          children: [
+                                                                                            Text(
+                                                                                              getJsonField(
+                                                                                                appointmentsItem,
+                                                                                                r'''$.appointment_time''',
+                                                                                              ).toString(),
+                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                    fontFamily: 'Lato',
+                                                                                                    color: Colors.black,
+                                                                                                    fontSize: 12.0,
+                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                  ),
+                                                                                            ),
+                                                                                            Padding(
+                                                                                              padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
+                                                                                              child: Icon(
+                                                                                                Icons.info_outline_rounded,
+                                                                                                color: Color(0xFF212121),
+                                                                                                size: 18.0,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ],
                                                                                         ),
                                                                                       ],
                                                                                     ),
-                                                                                  ],
-                                                                                ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
+                                                                        ),
+                                                                      );
+                                                                    },
                                                                   ),
                                                                 );
                                                               },
@@ -1019,9 +1083,8 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                             height: 26.0,
                                                             decoration:
                                                                 BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
+                                                              color: Color(
+                                                                  0x00FFFFFF),
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
@@ -1211,7 +1274,11 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                     .spaceBetween,
                                                             children: [
                                                               Text(
-                                                                '4',
+                                                                getJsonField(
+                                                                  postersDashboardUserProfileMeResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.review_average''',
+                                                                ).toString(),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -1239,7 +1306,12 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                 ),
                                                                 direction: Axis
                                                                     .horizontal,
-                                                                rating: 4.0,
+                                                                rating:
+                                                                    getJsonField(
+                                                                  postersDashboardUserProfileMeResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.review_average''',
+                                                                ),
                                                                 unratedColor: Color(
                                                                     0x4D676767),
                                                                 itemCount: 5,
@@ -1360,11 +1432,20 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                           children: [
                                             FutureBuilder<ApiCallResponse>(
                                               future: TaskerpageBackendGroup
-                                                  .userProfileListCall
+                                                  .customerProfileListCall
                                                   .call(
-                                                userRole: 'TASKER',
+                                                filters: valueOrDefault<String>(
+                                                  functions
+                                                      .convertDataTypeToTaskerFilter(
+                                                          FFAppState()
+                                                              .taskerFilter),
+                                                  '[]',
+                                                ),
                                                 apiGlobalKey:
                                                     FFAppState().apiKey,
+                                                fields:
+                                                    '[\"city\",\"country\",\"name\",\"creation\",\"date_of_birth\",\"first_name\",\"last_name\",\"review_average\",\"review_count\",\"avatar\",\"latitude\",\"longitude\"]',
+                                                orderBy: 'creation desc',
                                               ),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -1381,15 +1462,15 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                     ),
                                                   );
                                                 }
-                                                final listViewUserProfileListResponse =
+                                                final listViewCustomerProfileListResponse =
                                                     snapshot.data!;
                                                 return Builder(
                                                   builder: (context) {
                                                     final taskerList =
                                                         getJsonField(
-                                                      listViewUserProfileListResponse
+                                                      listViewCustomerProfileListResponse
                                                           .jsonBody,
-                                                      r'''$''',
+                                                      r'''$.data''',
                                                     ).toList().take(6).toList();
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
@@ -1437,20 +1518,20 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                               ),
                             ),
                           ),
-                          Column(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              wrapWithModel(
-                                model: _model.navBarModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavBarWidget(),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
+                  ),
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      wrapWithModel(
+                        model: _model.navBarModel,
+                        updateCallback: () => setState(() {}),
+                        child: NavBarWidget(),
+                      ),
+                    ],
                   ),
                 ],
               ),

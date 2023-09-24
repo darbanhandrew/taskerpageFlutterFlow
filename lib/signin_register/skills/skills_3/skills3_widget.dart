@@ -1,8 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,13 @@ import 'skills3_model.dart';
 export 'skills3_model.dart';
 
 class Skills3Widget extends StatefulWidget {
-  const Skills3Widget({Key? key}) : super(key: key);
+  const Skills3Widget({
+    Key? key,
+    bool? addAnother,
+  })  : this.addAnother = addAnother ?? false,
+        super(key: key);
+
+  final bool addAnother;
 
   @override
   _Skills3WidgetState createState() => _Skills3WidgetState();
@@ -46,6 +53,24 @@ class _Skills3WidgetState extends State<Skills3Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -64,7 +89,9 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],
@@ -101,7 +128,6 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                               future: TaskerpageBackendGroup
                                   .serviceCategoryListCall
                                   .call(
-                                isActive: true,
                                 apiGlobalKey: FFAppState().apiKey,
                               ),
                               builder: (context, snapshot) {
@@ -155,27 +181,27 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                           highlightColor: Colors.transparent,
                                           onTap: () async {
                                             if (FFAppState()
-                                                .chosenServiceCategories
+                                                .ChhosenSkillCategory
                                                 .contains(getJsonField(
                                                   serviceCategoriesItem,
-                                                  r'''$.id''',
-                                                ))) {
+                                                  r'''$.name''',
+                                                ).toString())) {
                                               setState(() {
                                                 FFAppState()
-                                                    .removeFromChosenServiceCategories(
+                                                    .removeFromChhosenSkillCategory(
                                                         getJsonField(
                                                   serviceCategoriesItem,
-                                                  r'''$.id''',
-                                                ));
+                                                  r'''$.name''',
+                                                ).toString());
                                               });
                                             } else {
                                               setState(() {
                                                 FFAppState()
-                                                    .addToChosenServiceCategories(
+                                                    .addToChhosenSkillCategory(
                                                         getJsonField(
                                                   serviceCategoriesItem,
-                                                  r'''$.id''',
-                                                ));
+                                                  r'''$.name''',
+                                                ).toString());
                                               });
                                             }
                                           },
@@ -185,12 +211,12 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                             decoration: BoxDecoration(
                                               color: valueOrDefault<Color>(
                                                 FFAppState()
-                                                            .chosenServiceCategories
+                                                            .ChhosenSkillCategory
                                                             .contains(
                                                                 getJsonField(
                                                               serviceCategoriesItem,
-                                                              r'''$.id''',
-                                                            )) ==
+                                                              r'''$.name''',
+                                                            ).toString()) ==
                                                         true
                                                     ? Color(0xFF5450E2)
                                                     : Color(0x00FFFFFF),
@@ -202,12 +228,12 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                               border: Border.all(
                                                 color: valueOrDefault<Color>(
                                                   FFAppState()
-                                                              .chosenServiceCategories
+                                                              .ChhosenSkillCategory
                                                               .contains(
                                                                   getJsonField(
                                                                 serviceCategoriesItem,
-                                                                r'''$.id''',
-                                                              )) ==
+                                                                r'''$.name''',
+                                                              ).toString()) ==
                                                           true
                                                       ? Color(0xFF5450E2)
                                                       : Color(0xFF5E5D5D),
@@ -227,17 +253,15 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    valueOrDefault<String>(
-                                                      functions
-                                                          .getTranslatableItemString(
-                                                              getJsonField(
-                                                                serviceCategoriesItem,
-                                                                r'''$.translations''',
-                                                              ),
-                                                              'en',
-                                                              'title'),
-                                                      'Category',
-                                                    ),
+                                                    getJsonField(
+                                                      serviceCategoriesItem,
+                                                      r'''$.name''',
+                                                    )
+                                                        .toString()
+                                                        .maybeHandleOverflow(
+                                                          maxChars: 17,
+                                                          replacement: '…',
+                                                        ),
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -246,17 +270,15 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                                           color: valueOrDefault<
                                                               Color>(
                                                             FFAppState()
-                                                                        .chosenServiceCategories
+                                                                        .ChhosenSkillCategory
                                                                         .contains(
                                                                             getJsonField(
                                                                           serviceCategoriesItem,
-                                                                          r'''$.id''',
-                                                                        )) ==
+                                                                          r'''$.name''',
+                                                                        ).toString()) ==
                                                                     true
-                                                                ? Color(
-                                                                    0xFFF6F6F6)
-                                                                : Color(
-                                                                    0xFF5E5D5D),
+                                                                ? Color(0xFFF6F6F6)
+                                                                : Color(0xFF5E5D5D),
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .secondaryText,
@@ -308,32 +330,41 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Contactdata-1');
-                            },
-                            child: Text(
-                              'I\'ll do it later',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                  ),
+                          if (!widget.addAnother)
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Contactdata-1');
+                              },
+                              child: Text(
+                                'I\'ll do it later',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF8A8A8A),
+                                      fontSize: 14.0,
+                                    ),
+                              ),
                             ),
-                          ),
                           InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('Skills-4');
+                              context.pushNamed(
+                                'Skills-4',
+                                queryParameters: {
+                                  'addAnother': serializeParam(
+                                    widget.addAnother ? true : false,
+                                    ParamType.bool,
+                                  ),
+                                }.withoutNulls,
+                              );
                             },
                             child: Container(
                               width: 104.0,

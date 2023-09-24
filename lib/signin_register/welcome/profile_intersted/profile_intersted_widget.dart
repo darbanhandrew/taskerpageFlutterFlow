@@ -1,9 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -47,6 +49,24 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -65,7 +85,9 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],
@@ -106,7 +128,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..role = 'TASKER',
+                                  (e) => e..role = 'Tasker',
                                 );
                               });
                               _model.apiResult786 = await TaskerpageBackendGroup
@@ -115,8 +137,10 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                 userRole: FFAppState().UserInformation.role,
                                 id: getJsonField(
                                   FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
+                                  r'''$.data.name''',
+                                ).toString(),
+                                roleProfileName:
+                                    FFAppState().UserInformation.role,
                                 apiGlobalKey: FFAppState().apiKey,
                               );
 
@@ -127,13 +151,13 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().UserInformation.role ==
-                                        'TASKER'
+                                        'Tasker'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.role ==
-                                          'TASKER'
+                                          'Tasker'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -152,7 +176,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                           color: FFAppState()
                                                       .UserInformation
                                                       .role ==
-                                                  'TASKER'
+                                                  'Tasker'
                                               ? Color(0xFFF6F6F6)
                                               : Color(0xFF5E5D5D),
                                           fontSize: 14.0,
@@ -181,7 +205,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             onTap: () async {
                               setState(() {
                                 FFAppState().updateUserInformationStruct(
-                                  (e) => e..role = 'POSTER',
+                                  (e) => e..role = 'Poster',
                                 );
                               });
                               _model.apiResult785 = await TaskerpageBackendGroup
@@ -190,8 +214,10 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                 userRole: FFAppState().UserInformation.role,
                                 id: getJsonField(
                                   FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
+                                  r'''$.data.name''',
+                                ).toString(),
+                                roleProfileName:
+                                    FFAppState().UserInformation.role,
                                 apiGlobalKey: FFAppState().apiKey,
                               );
 
@@ -202,13 +228,13 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               height: 40.0,
                               decoration: BoxDecoration(
                                 color: FFAppState().UserInformation.role ==
-                                        'POSTER'
+                                        'Poster'
                                     ? Color(0xFF5450E2)
                                     : Color(0x00000000),
                                 borderRadius: BorderRadius.circular(5.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.role ==
-                                          'POSTER'
+                                          'Poster'
                                       ? Color(0xFF5450E2)
                                       : Color(0xFF5E5D5D),
                                   width: 1.0,
@@ -227,7 +253,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                           color: FFAppState()
                                                       .UserInformation
                                                       .role ==
-                                                  'POSTER'
+                                                  'Poster'
                                               ? Color(0xFFF6F6F6)
                                               : Color(0xFF5E5D5D),
                                           fontSize: 14.0,
@@ -280,6 +306,18 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               } else {
                                 context.pushNamed('Skills-3');
                               }
+
+                              _model.apiResults8k = await TaskerpageBackendGroup
+                                  .userProfileMeCall
+                                  .call(
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              setState(() {
+                                FFAppState().userProfile =
+                                    (_model.apiResults8k?.jsonBody ?? '');
+                              });
+
+                              setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

@@ -2,6 +2,7 @@ import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -90,7 +91,9 @@ class _Contactdata9WidgetState extends State<Contactdata9Widget> {
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
-                      openDrawer: () async {},
+                      openDrawer: () async {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
                     ),
                   ),
                 ],

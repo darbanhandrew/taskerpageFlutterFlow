@@ -1,14 +1,20 @@
-import '/components/addresses_modal_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_calendar.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/emty_container_widget.dart';
+import '/flutter_flow/flutter_flow_drop_down.dart';
+import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/place.dart';
+import 'dart:io';
+import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,30 +22,19 @@ import 'filter_model.dart';
 export 'filter_model.dart';
 
 class FilterWidget extends StatefulWidget {
-  const FilterWidget({Key? key}) : super(key: key);
+  const FilterWidget({
+    Key? key,
+    required this.action,
+  }) : super(key: key);
+
+  final Future<dynamic> Function()? action;
 
   @override
   _FilterWidgetState createState() => _FilterWidgetState();
 }
 
-class _FilterWidgetState extends State<FilterWidget>
-    with TickerProviderStateMixin {
+class _FilterWidgetState extends State<FilterWidget> {
   late FilterModel _model;
-
-  final animationsMap = {
-    'rowOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 15.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void setState(VoidCallback callback) {
@@ -51,8 +46,6 @@ class _FilterWidgetState extends State<FilterWidget>
   void initState() {
     super.initState();
     _model = createModel(context, () => FilterModel());
-
-    _model.textController ??= TextEditingController();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -132,29 +125,94 @@ class _FilterWidgetState extends State<FilterWidget>
                                     size: 21.0,
                                   ),
                                 ),
-                                Text(
-                                  'Filters',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.black,
-                                        fontSize: 17.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      FFAppState().updateTaskFilterStruct(
+                                        (e) => e
+                                          ..updateTaskerTypeFilter(
+                                            (e) => e
+                                              ..languages =
+                                                  _model.dropDownValue2
+                                              ..hasInsurance =
+                                                  _model.switchValue5
+                                              ..hasIdentification =
+                                                  _model.switchValue6,
+                                          )
+                                          ..anyLocation = _model.switchValue1
+                                          ..anyDate = _model.switchValue3
+                                          ..anyTaskerGender =
+                                              _model.switchValue4
+                                          ..onlyOpen = _model.switchValue7,
+                                      );
+                                    });
+                                    if (_model.placePickerValue != null) {
+                                      setState(() {
+                                        FFAppState().updateTaskFilterStruct(
+                                          (e) => e
+                                            ..updateLocationFilter(
+                                              (e) => e
+                                                ..latLng = _model
+                                                    .placePickerValue.latLng
+                                                ..address = _model
+                                                    .placePickerValue.address
+                                                ..radius = _model.sliderValue,
+                                            ),
+                                        );
+                                      });
+                                    }
+                                    _model.updatePage(() {
+                                      FFAppState().taskSearchString =
+                                          functions.convertDataTypeToFilter(
+                                              FFAppState().taskFilter)!;
+                                    });
+                                    await widget.action?.call();
+                                    Navigator.pop(context);
+                                  },
+                                  child: Text(
+                                    'Apply Filters',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Colors.black,
+                                          fontSize: 17.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                  ),
                                 ),
                               ],
                             ),
-                            Text(
-                              'Clear All',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFFE23C12),
-                                    fontSize: 15.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                FFAppState().update(() {
+                                  FFAppState().taskFilter = FilterStruct
+                                      .fromSerializableMap(jsonDecode(
+                                          '{\"anyLocation\":\"true\",\"anySkill\":\"true\",\"anyDate\":\"true\",\"anyTaskerGender\":\"true\",\"onlyOpen\":\"true\",\"anytasker\":\"true\"}'));
+                                  FFAppState().taskSearchString = '[]';
+                                });
+                                await widget.action?.call();
+                                Navigator.pop(context);
+                              },
+                              child: Text(
+                                'Clear All',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFFE23C12),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
@@ -227,14 +285,40 @@ class _FilterWidgetState extends State<FilterWidget>
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Switch.adaptive(
                                                   value: _model.switchValue1 ??=
-                                                      true,
+                                                      FFAppState()
+                                                              .taskFilter
+                                                              .hasAnyLocation()
+                                                          ? FFAppState()
+                                                              .taskFilter
+                                                              .anyLocation
+                                                          : true,
                                                   onChanged: (newValue) async {
                                                     setState(() =>
                                                         _model.switchValue1 =
                                                             newValue!);
+                                                    if (newValue!) {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anyLocation = true
+                                                            ..locationFilter =
+                                                                null,
+                                                        );
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anyLocation =
+                                                                false,
+                                                        );
+                                                      });
+                                                    }
                                                   },
                                                   activeColor:
                                                       FlutterFlowTheme.of(
@@ -251,322 +335,451 @@ class _FilterWidgetState extends State<FilterWidget>
                                             ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: Row(
+                                        if (!_model.switchValue1!)
+                                          Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
-                                              Expanded(
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      enableDrag: false,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              AddressesModalWidget(),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        setState(() {}));
-                                                  },
-                                                  child: Container(
-                                                    width: 100.0,
-                                                    height: 41.0,
-                                                    decoration: BoxDecoration(
-                                                      color: Colors.white,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                      border: Border.all(
-                                                        color:
-                                                            Color(0xFF5E5D5D),
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  13.0,
-                                                                  0.0,
-                                                                  11.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                child: Icon(
-                                                                  Icons
-                                                                      .add_location_alt_outlined,
-                                                                  color: Color(
-                                                                      0xFF212121),
-                                                                  size: 18.0,
-                                                                ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 24.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    16.0),
+                                                        child: Container(
+                                                          width: 100.0,
+                                                          height: 41.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Colors.white,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        5.0),
+                                                            border: Border.all(
+                                                              color: Color(
+                                                                  0xFF5E5D5D),
+                                                            ),
+                                                          ),
+                                                          child: FutureBuilder<
+                                                              ApiCallResponse>(
+                                                            future: FFAppState()
+                                                                .myAddresses(
+                                                              requestFn: () =>
+                                                                  TaskerpageBackendGroup
+                                                                      .myAddressesCall
+                                                                      .call(
+                                                                apiGlobalKey:
+                                                                    FFAppState()
+                                                                        .apiKey,
+                                                                fields:
+                                                                    '[\"name\",\"address\",\"latitude\",\"longitude\"]',
+                                                                filters:
+                                                                    '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                                  FFAppState()
+                                                                      .userProfile,
+                                                                  r'''$.data.name''',
+                                                                ).toString()}\"]]',
                                                               ),
-                                                              Text(
-                                                                'My Address',
-                                                                style: FlutterFlowTheme.of(
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 50.0,
+                                                                    height:
+                                                                        50.0,
+                                                                    child:
+                                                                        SpinKitThreeBounce(
+                                                                      color: Color(
+                                                                          0xFF5450E2),
+                                                                      size:
+                                                                          50.0,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              final dropDownMyAddressesResponse =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return FlutterFlowDropDown<
+                                                                  String>(
+                                                                controller: _model
+                                                                        .dropDownValueController1 ??=
+                                                                    FormFieldController<
+                                                                        String>(
+                                                                  _model
+                                                                      .dropDownValue1 ??= FFAppState()
+                                                                          .taskFilter
+                                                                          .locationFilter
+                                                                          .hasAddressName()
+                                                                      ? FFAppState()
+                                                                          .taskFilter
+                                                                          .locationFilter
+                                                                          .addressName
+                                                                          .toString()
+                                                                      : '',
+                                                                ),
+                                                                options: functions
+                                                                    .jsonListToStringList(
+                                                                        getJsonField(
+                                                                  dropDownMyAddressesResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data[:].name''',
+                                                                ))!,
+                                                                optionLabels: functions
+                                                                    .jsonListToStringList(
+                                                                        getJsonField(
+                                                                  dropDownMyAddressesResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data[:].address''',
+                                                                ))!,
+                                                                onChanged:
+                                                                    (val) async {
+                                                                  setState(() =>
+                                                                      _model.dropDownValue1 =
+                                                                          val);
+                                                                  var _shouldSetState =
+                                                                      false;
+                                                                  _model.selectedAddress =
+                                                                      await TaskerpageBackendGroup
+                                                                          .getAddressDetailsCall
+                                                                          .call(
+                                                                    name: _model
+                                                                        .dropDownValue1,
+                                                                    apiGlobalKey:
+                                                                        FFAppState()
+                                                                            .apiKey,
+                                                                  );
+                                                                  _shouldSetState =
+                                                                      true;
+                                                                  if ((_model.selectedAddress
+                                                                              ?.succeeded ??
+                                                                          true) ==
+                                                                      true) {
+                                                                    setState(
+                                                                        () {
+                                                                      FFAppState()
+                                                                          .updateTaskFilterStruct(
+                                                                        (e) => e
+                                                                          ..anyLocation =
+                                                                              false
+                                                                          ..updateLocationFilter(
+                                                                            (e) => e
+                                                                              ..address = TaskerpageBackendGroup.getAddressDetailsCall
+                                                                                  .address(
+                                                                                    (_model.selectedAddress?.jsonBody ?? ''),
+                                                                                  )
+                                                                                  .toString()
+                                                                              ..latitude = TaskerpageBackendGroup.getAddressDetailsCall.latitude(
+                                                                                (_model.selectedAddress?.jsonBody ?? ''),
+                                                                              )
+                                                                              ..longitude = TaskerpageBackendGroup.getAddressDetailsCall.longitude(
+                                                                                (_model.selectedAddress?.jsonBody ?? ''),
+                                                                              )
+                                                                              ..radius = _model.sliderValue
+                                                                              ..addressName = TaskerpageBackendGroup.getAddressDetailsCall.name(
+                                                                                (_model.selectedAddress?.jsonBody ?? ''),
+                                                                              ),
+                                                                          ),
+                                                                      );
+                                                                    });
+                                                                    if (_shouldSetState)
+                                                                      setState(
+                                                                          () {});
+                                                                    return;
+                                                                  } else {
+                                                                    if (_shouldSetState)
+                                                                      setState(
+                                                                          () {});
+                                                                    return;
+                                                                  }
+
+                                                                  if (_shouldSetState)
+                                                                    setState(
+                                                                        () {});
+                                                                },
+                                                                width: 300.0,
+                                                                height: double
+                                                                    .infinity,
+                                                                searchHintTextStyle:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Lato',
+                                                                          fontSize:
+                                                                              13.0,
+                                                                        ),
+                                                                textStyle: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Lato',
                                                                       color: Color(
-                                                                          0xFF3D3D3D),
+                                                                          0xFF212121),
                                                                       fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
+                                                                          13.0,
                                                                     ),
+                                                                hintText:
+                                                                    'Please select...',
+                                                                searchHintText:
+                                                                    'Search for an item...',
+                                                                icon: Icon(
+                                                                  Icons
+                                                                      .keyboard_arrow_down_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryText,
+                                                                  size: 24.0,
+                                                                ),
+                                                                fillColor: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                elevation: 2.0,
+                                                                borderColor:
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                borderWidth:
+                                                                    2.0,
+                                                                borderRadius:
+                                                                    8.0,
+                                                                margin: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        4.0,
+                                                                        16.0,
+                                                                        4.0),
+                                                                hidesUnderline:
+                                                                    true,
+                                                                isSearchable:
+                                                                    true,
+                                                                isMultiSelect:
+                                                                    false,
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  FlutterFlowPlacePicker(
+                                                    iOSGoogleMapsApiKey:
+                                                        'AIzaSyCgpzFUjgw8UZBnXqMU1RwIXgsyX7BRh30',
+                                                    androidGoogleMapsApiKey:
+                                                        'AIzaSyDwVp7h1uFnc_P0AZt8hfqC3mXN9ljCT80',
+                                                    webGoogleMapsApiKey:
+                                                        'AIzaSyCyPQNRa7hLuEHr1tggvht9gV5kK1tHjXI',
+                                                    onSelect: (place) async {
+                                                      setState(() => _model
+                                                              .placePickerValue =
+                                                          place);
+                                                    },
+                                                    defaultText:
+                                                        'Select Location',
+                                                    icon: Icon(
+                                                      Icons.place,
+                                                      color: Color(0xFF5450E2),
+                                                      size: 14.0,
+                                                    ),
+                                                    buttonOptions:
+                                                        FFButtonOptions(
+                                                      width: 200.0,
+                                                      height: 40.0,
+                                                      color: Color(0x00E23C12),
+                                                      textStyle:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleSmall
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: Color(
+                                                                    0xFF5450E2),
+                                                                fontSize: 14.0,
                                                               ),
-                                                            ],
-                                                          ),
-                                                          Icon(
-                                                            Icons
-                                                                .keyboard_arrow_down_rounded,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .secondaryText,
-                                                            size: 18.0,
-                                                          ),
-                                                        ],
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            Color(0xFF5450E2),
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Flexible(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0,
+                                                                  16.0),
+                                                      child: AutoSizeText(
+                                                        _model.placePickerValue
+                                                                    .latLng !=
+                                                                null
+                                                            ? _model
+                                                                .placePickerValue
+                                                                .address
+                                                            : 'pleas choose another place !',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              fontSize: 16.0,
+                                                            ),
+                                                        minFontSize: 12.0,
                                                       ),
                                                     ),
                                                   ),
+                                                ],
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 24.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'Distance',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .displaySmall
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF212121),
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: TextFormField(
-                                                  controller:
-                                                      _model.textController,
-                                                  obscureText: false,
-                                                  decoration: InputDecoration(
-                                                    isDense: true,
-                                                    labelStyle:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMedium,
-                                                    hintText:
-                                                        'Enter your Location, City or Zipcode',
-                                                    hintStyle: FlutterFlowTheme
-                                                            .of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF3D3D3D),
-                                                          fontSize: 12.0,
-                                                        ),
-                                                    enabledBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFF5E5D5D),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        23.0, 24.0, 23.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'From 0 km',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .displaySmall
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF212121),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondary,
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
+                                                    Text(
+                                                      ' To 100 km',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .displaySmall
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF212121),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
                                                     ),
-                                                    errorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFE8083F),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                    ),
-                                                    focusedErrorBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
-                                                            Color(0xFFE8083F),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                    ),
-                                                    prefixIcon: Icon(
-                                                      Icons
-                                                          .add_location_alt_outlined,
-                                                      color: Color(0xFF212121),
-                                                      size: 18.0,
-                                                    ),
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium,
-                                                  validator: _model
-                                                      .textControllerValidator
-                                                      .asValidator(context),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Distance',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
+                                              Slider(
+                                                activeColor: Color(0xFF5450E2),
+                                                inactiveColor:
+                                                    Color(0xFFADB5FC),
+                                                min: 0.0,
+                                                max: 100.0,
+                                                value: _model.sliderValue ??=
+                                                    valueOrDefault<double>(
+                                                  FFAppState()
+                                                      .taskFilter
+                                                      .locationFilter
+                                                      .radius,
+                                                  20.0,
+                                                ),
+                                                label: _model.sliderValue
+                                                    .toString(),
+                                                divisions: 10,
+                                                onChanged: (newValue) {
+                                                  setState(() => _model
+                                                      .sliderValue = newValue);
+                                                },
+                                              ),
+                                              Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    '${_model.sliderValue?.toString()} km',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
                                                         .displaySmall
                                                         .override(
                                                           fontFamily: 'Lato',
                                                           color:
-                                                              Color(0xFF212121),
-                                                          fontSize: 16.0,
+                                                              Color(0xFF494949),
+                                                          fontSize: 13.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  23.0, 24.0, 23.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'From 0 km',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displaySmall
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF212121),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                              Text(
-                                                ' To 100 km',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displaySmall
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF212121),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        SliderTheme(
-                                          data: SliderThemeData(
-                                            showValueIndicator:
-                                                ShowValueIndicator.always,
-                                          ),
-                                          child: Slider(
-                                            activeColor: Color(0xFF5450E2),
-                                            inactiveColor: Color(0xFFADB5FC),
-                                            min: 0.0,
-                                            max: 100.0,
-                                            value: _model.sliderValue ??= 20.0,
-                                            label:
-                                                _model.sliderValue.toString(),
-                                            onChanged: (newValue) {
-                                              setState(() => _model
-                                                  .sliderValue = newValue);
-                                            },
-                                          ),
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              '${_model.sliderValue?.toString()} km',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .displaySmall
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFF494949),
-                                                    fontSize: 13.0,
-                                                    fontWeight: FontWeight.bold,
                                                   ),
-                                            ),
-                                          ],
-                                        ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                       ],
                                     ),
                                     theme: ExpandableThemeData(
@@ -628,424 +841,61 @@ class _FilterWidgetState extends State<FilterWidget>
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: GridView(
-                                                  padding: EdgeInsets.zero,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 16.0,
-                                                    mainAxisSpacing: 8.0,
-                                                    childAspectRatio: 4.7,
-                                                  ),
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  children: [
-                                                    Container(
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                        border: Border.all(
-                                                          color:
-                                                              Color(0xFF5450E2),
-                                                          width: 1.0,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    0.0,
-                                                                    15.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'Gardening',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        13.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0x00FFFFFF),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                        border: Border.all(
-                                                          color:
-                                                              Color(0xFF5E5D5D),
-                                                          width: 1.0,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    0.0,
-                                                                    15.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'Baby-Sitting',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    color: Color(
-                                                                        0xFF5E5D5D),
-                                                                    fontSize:
-                                                                        13.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Skills',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .displaySmall
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: Colors.black,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 24.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: GridView(
-                                                  padding: EdgeInsets.zero,
-                                                  gridDelegate:
-                                                      SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: 2,
-                                                    crossAxisSpacing: 16.0,
-                                                    mainAxisSpacing: 8.0,
-                                                    childAspectRatio: 4.7,
-                                                  ),
-                                                  shrinkWrap: true,
-                                                  scrollDirection:
-                                                      Axis.vertical,
-                                                  children: [
-                                                    Container(
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                        border: Border.all(
-                                                          color:
-                                                              Color(0xFF5450E2),
-                                                          width: 1.0,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    0.0,
-                                                                    15.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'Garden Care',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    color: Colors
-                                                                        .white,
-                                                                    fontSize:
-                                                                        13.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Container(
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0x00FFFFFF),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(5.0),
-                                                        border: Border.all(
-                                                          color:
-                                                              Color(0xFF5E5D5D),
-                                                          width: 1.0,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    0.0,
-                                                                    15.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Text(
-                                                              'Garden Construction ',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    color: Color(
-                                                                        0xFF5E5D5D),
-                                                                    fontSize:
-                                                                        13.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        ListView(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          children: [
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      'Garden Care Skill level',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .displaySmall
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Colors.black,
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 10.0, 0.0, 24.0),
-                                                  child: ListView(
-                                                    padding: EdgeInsets.zero,
-                                                    shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.vertical,
-                                                    children: [
-                                                      Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Container(
-                                                            width: 217.0,
-                                                            height: 36.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0x00FFFFFF),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          5.0),
-                                                              border:
-                                                                  Border.all(
-                                                                color: Color(
-                                                                    0xFF5E5D5D),
-                                                              ),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          15.0,
-                                                                          0.0,
-                                                                          15.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    'Educated Professional',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color:
-                                                                              Color(0xFF5E5D5D),
-                                                                          fontSize:
-                                                                              13.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ].divide(
-                                                        SizedBox(height: 8.0)),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ],
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 15.0),
+                                                  0.0, 8.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Brings own tools',
+                                                'Any',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
                                                           color:
-                                                              Color(0xFF212121),
-                                                          fontSize: 14.0,
+                                                              Color(0xFF292929),
+                                                          fontSize: 15.0,
                                                           fontWeight:
                                                               FontWeight.bold,
                                                         ),
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Switch.adaptive(
                                                   value: _model.switchValue2 ??=
-                                                      true,
+                                                      FFAppState()
+                                                              .taskFilter
+                                                              .hasAnySkill()
+                                                          ? FFAppState()
+                                                              .taskFilter
+                                                              .anySkill
+                                                          : true,
                                                   onChanged: (newValue) async {
                                                     setState(() =>
                                                         _model.switchValue2 =
                                                             newValue!);
+                                                    if (newValue!) {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anySkill = true,
+                                                        );
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anySkill = false
+                                                            ..skillFilter =
+                                                                null,
+                                                        );
+                                                      });
+                                                    }
                                                   },
                                                   activeColor:
                                                       FlutterFlowTheme.of(
@@ -1062,45 +912,572 @@ class _FilterWidgetState extends State<FilterWidget>
                                             ],
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Text(
-                                              'Buys material',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFF212121),
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.bold,
+                                        if (!_model.switchValue2!)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 20.0, 0.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future: TaskerpageBackendGroup
+                                                        .serviceCategoryListCall
+                                                        .call(
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                SpinKitThreeBounce(
+                                                              color: Color(
+                                                                  0xFF5450E2),
+                                                              size: 50.0,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final gridViewServiceCategoryListResponse =
+                                                          snapshot.data!;
+                                                      return Builder(
+                                                        builder: (context) {
+                                                          final skillCategoryList =
+                                                              getJsonField(
+                                                            gridViewServiceCategoryListResponse
+                                                                .jsonBody,
+                                                            r'''$.data''',
+                                                          ).toList();
+                                                          return GridView
+                                                              .builder(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            gridDelegate:
+                                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                              crossAxisCount: 2,
+                                                              crossAxisSpacing:
+                                                                  16.0,
+                                                              mainAxisSpacing:
+                                                                  8.0,
+                                                              childAspectRatio:
+                                                                  4.7,
+                                                            ),
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                skillCategoryList
+                                                                    .length,
+                                                            itemBuilder: (context,
+                                                                skillCategoryListIndex) {
+                                                              final skillCategoryListItem =
+                                                                  skillCategoryList[
+                                                                      skillCategoryListIndex];
+                                                              return InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    FFAppState()
+                                                                        .updateTaskFilterStruct(
+                                                                      (e) => e
+                                                                        ..updateSkillFilter(
+                                                                          (e) => e
+                                                                            ..skillCategoryName = getJsonField(
+                                                                              skillCategoryListItem,
+                                                                              r'''$.name''',
+                                                                            ).toString(),
+                                                                        ),
+                                                                    );
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 100.0,
+                                                                  height: 100.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FFAppState()
+                                                                                .taskFilter
+                                                                                .skillFilter
+                                                                                .skillCategoryName ==
+                                                                            getJsonField(
+                                                                              skillCategoryListItem,
+                                                                              r'''$.name''',
+                                                                            )
+                                                                        ? Color(
+                                                                            0xFF5450E2)
+                                                                        : Color(
+                                                                            0x005E5D5D),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5.0),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
+                                                                      color: FFAppState().taskFilter.skillFilter.skillCategoryName ==
+                                                                              getJsonField(
+                                                                                skillCategoryListItem,
+                                                                                r'''$.name''',
+                                                                              )
+                                                                          ? Color(0xFF5450E2)
+                                                                          : Color(0xFF5E5D5D),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            15.0,
+                                                                            0.0,
+                                                                            15.0,
+                                                                            0.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Text(
+                                                                          getJsonField(
+                                                                            skillCategoryListItem,
+                                                                            r'''$.name''',
+                                                                          ).toString().maybeHandleOverflow(
+                                                                                maxChars: 17,
+                                                                                replacement: '…',
+                                                                              ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                color: functions.jsonToString(getJsonField(
+                                                                                          skillCategoryListItem,
+                                                                                          r'''$.name''',
+                                                                                        )) ==
+                                                                                        FFAppState().taskFilter.skillFilter.skillCategoryName
+                                                                                    ? Colors.white
+                                                                                    : Color(0xFF5E5D5D),
+                                                                                fontSize: 13.0,
+                                                                                fontWeight: FontWeight.w500,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      );
+                                                    },
                                                   ),
+                                                ),
+                                              ],
                                             ),
-                                            Align(
-                                              alignment: AlignmentDirectional(
-                                                  0.0, 0.0),
-                                              child: Switch.adaptive(
-                                                value: _model.switchValue3 ??=
-                                                    true,
-                                                onChanged: (newValue) async {
-                                                  setState(() =>
-                                                      _model.switchValue3 =
-                                                          newValue!);
-                                                },
-                                                activeColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                activeTrackColor:
-                                                    Color(0xFFFAD1C6),
-                                                inactiveTrackColor:
-                                                    Color(0xFFECECEC),
-                                                inactiveThumbColor:
-                                                    Color(0xFF3D3D3D),
+                                          ),
+                                        if (!_model.switchValue2!)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 24.0, 0.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Skills',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .displaySmall
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color: Colors.black,
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        if (!_model.switchValue2!)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 10.0, 0.0, 24.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Expanded(
+                                                  child: FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future:
+                                                        TaskerpageBackendGroup
+                                                            .getServicesCall
+                                                            .call(
+                                                      category:
+                                                          '[[\"skill_category_name\",\"=\",\"${valueOrDefault<String>(
+                                                        FFAppState()
+                                                            .taskFilter
+                                                            .skillFilter
+                                                            .skillCategoryName,
+                                                        'Gardening',
+                                                      )}\"]]',
+                                                      fields: '[\"name\"]',
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                SpinKitThreeBounce(
+                                                              color: Color(
+                                                                  0xFF5450E2),
+                                                              size: 50.0,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final gridViewGetServicesResponse =
+                                                          snapshot.data!;
+                                                      return Builder(
+                                                        builder: (context) {
+                                                          final skillList =
+                                                              getJsonField(
+                                                            gridViewGetServicesResponse
+                                                                .jsonBody,
+                                                            r'''$.data''',
+                                                          ).toList();
+                                                          if (skillList
+                                                              .isEmpty) {
+                                                            return EmtyContainerWidget(
+                                                              title:
+                                                                  'choos a skill category !',
+                                                              goTo: () async {},
+                                                            );
+                                                          }
+                                                          return GridView
+                                                              .builder(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            gridDelegate:
+                                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                              crossAxisCount: 2,
+                                                              crossAxisSpacing:
+                                                                  16.0,
+                                                              mainAxisSpacing:
+                                                                  8.0,
+                                                              childAspectRatio:
+                                                                  4.7,
+                                                            ),
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount: skillList
+                                                                .length,
+                                                            itemBuilder: (context,
+                                                                skillListIndex) {
+                                                              final skillListItem =
+                                                                  skillList[
+                                                                      skillListIndex];
+                                                              return InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    FFAppState()
+                                                                        .updateTaskFilterStruct(
+                                                                      (e) => e
+                                                                        ..updateSkillFilter(
+                                                                          (e) => e
+                                                                            ..skillName = getJsonField(
+                                                                              skillListItem,
+                                                                              r'''$.name''',
+                                                                            ).toString(),
+                                                                        ),
+                                                                    );
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    Container(
+                                                                  width: 100.0,
+                                                                  height: 100.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: functions.jsonToString(
+                                                                                getJsonField(
+                                                                              skillListItem,
+                                                                              r'''$.name''',
+                                                                            )) ==
+                                                                            FFAppState()
+                                                                                .taskFilter
+                                                                                .skillFilter
+                                                                                .skillName
+                                                                        ? Color(
+                                                                            0xFF5450E2)
+                                                                        : Color(
+                                                                            0x005E5D5D),
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            5.0),
+                                                                    border:
+                                                                        Border
+                                                                            .all(
+                                                                      color: functions.jsonToString(getJsonField(
+                                                                                skillListItem,
+                                                                                r'''$.name''',
+                                                                              )) ==
+                                                                              FFAppState().taskFilter.skillFilter.skillName
+                                                                          ? Color(0xFF5450E2)
+                                                                          : Color(0xFF5E5D5D),
+                                                                      width:
+                                                                          1.0,
+                                                                    ),
+                                                                  ),
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            15.0,
+                                                                            0.0,
+                                                                            15.0,
+                                                                            0.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .center,
+                                                                      children: [
+                                                                        Text(
+                                                                          getJsonField(
+                                                                            skillListItem,
+                                                                            r'''$.name''',
+                                                                          ).toString().maybeHandleOverflow(
+                                                                                maxChars: 17,
+                                                                                replacement: '…',
+                                                                              ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                color: functions.jsonToString(getJsonField(
+                                                                                          skillListItem,
+                                                                                          r'''$.name''',
+                                                                                        )) ==
+                                                                                        FFAppState().taskFilter.skillFilter.skillName
+                                                                                    ? Colors.white
+                                                                                    : Color(0xFF5E5D5D),
+                                                                                fontSize: 13.0,
+                                                                                fontWeight: FontWeight.w500,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ListView(
+                                          padding: EdgeInsets.zero,
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          children: [
+                                            if (!_model.switchValue2!)
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Garden Care Skill level',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .displaySmall
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 10.0,
+                                                                0.0, 24.0),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        final skillLevelList =
+                                                            functions
+                                                                .returnSkillLevelEnums()
+                                                                .toList();
+                                                        return ListView
+                                                            .separated(
+                                                          padding:
+                                                              EdgeInsets.zero,
+                                                          shrinkWrap: true,
+                                                          scrollDirection:
+                                                              Axis.vertical,
+                                                          itemCount:
+                                                              skillLevelList
+                                                                  .length,
+                                                          separatorBuilder: (_,
+                                                                  __) =>
+                                                              SizedBox(
+                                                                  height: 8.0),
+                                                          itemBuilder: (context,
+                                                              skillLevelListIndex) {
+                                                            final skillLevelListItem =
+                                                                skillLevelList[
+                                                                    skillLevelListIndex];
+                                                            return Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    setState(
+                                                                        () {
+                                                                      FFAppState()
+                                                                          .updateTaskFilterStruct(
+                                                                        (e) => e
+                                                                          ..updateSkillFilter(
+                                                                            (e) => e
+                                                                              ..skillLevel = skillLevelListItem,
+                                                                          ),
+                                                                      );
+                                                                    });
+                                                                  },
+                                                                  child:
+                                                                      Container(
+                                                                    width:
+                                                                        217.0,
+                                                                    height:
+                                                                        36.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: skillLevelListItem == FFAppState().taskFilter.skillFilter.skillLevel
+                                                                          ? Color(
+                                                                              0xFF5450E2)
+                                                                          : Color(
+                                                                              0x00000000),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              5.0),
+                                                                      border:
+                                                                          Border
+                                                                              .all(
+                                                                        color: skillLevelListItem ==
+                                                                                FFAppState().taskFilter.skillFilter.skillLevel
+                                                                            ? Color(0xFF5450E2)
+                                                                            : Color(0xFF5E5D5D),
+                                                                      ),
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          15.0,
+                                                                          0.0,
+                                                                          15.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            skillLevelListItem,
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: skillLevelListItem == FFAppState().taskFilter.skillFilter.skillLevel ? Colors.white : Color(0xFF5E5D5D),
+                                                                                  fontSize: 13.0,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            );
+                                                          },
+                                                        );
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
                                               ),
-                                            ),
                                           ],
                                         ),
                                       ],
@@ -1164,7 +1541,7 @@ class _FilterWidgetState extends State<FilterWidget>
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 24.0),
+                                                  0.0, 8.0, 0.0, 24.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
@@ -1186,14 +1563,34 @@ class _FilterWidgetState extends State<FilterWidget>
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Switch.adaptive(
-                                                  value: _model.switchValue4 ??=
-                                                      true,
+                                                  value: _model.switchValue3 ??=
+                                                      FFAppState()
+                                                          .taskFilter
+                                                          .anyDate,
                                                   onChanged: (newValue) async {
                                                     setState(() =>
-                                                        _model.switchValue4 =
+                                                        _model.switchValue3 =
                                                             newValue!);
+                                                    if (newValue!) {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) =>
+                                                              e..anyDate = true,
+                                                        );
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anyDate = false
+                                                            ..dateFilter = null,
+                                                        );
+                                                      });
+                                                    }
                                                   },
                                                   activeColor:
                                                       FlutterFlowTheme.of(
@@ -1210,79 +1607,135 @@ class _FilterWidgetState extends State<FilterWidget>
                                             ],
                                           ),
                                         ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Expanded(
-                                              child: Container(
-                                                width: 100.0,
-                                                height: 41.0,
-                                                decoration: BoxDecoration(
-                                                  color: Colors.white,
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          5.0),
-                                                  border: Border.all(
-                                                    color: Color(0xFF5E5D5D),
-                                                  ),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          13.0, 0.0, 11.0, 0.0),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Row(
+                                        if (!_model.switchValue3!)
+                                          Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Expanded(
+                                                child: InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    final _datePickedDate =
+                                                        await showDatePicker(
+                                                      context: context,
+                                                      initialDate:
+                                                          getCurrentTimestamp,
+                                                      firstDate:
+                                                          getCurrentTimestamp,
+                                                      lastDate: DateTime(2050),
+                                                    );
+
+                                                    if (_datePickedDate !=
+                                                        null) {
+                                                      safeSetState(() {
+                                                        _model.datePicked =
+                                                            DateTime(
+                                                          _datePickedDate.year,
+                                                          _datePickedDate.month,
+                                                          _datePickedDate.day,
+                                                        );
+                                                      });
+                                                    }
+                                                    setState(() {
+                                                      FFAppState()
+                                                          .updateTaskFilterStruct(
+                                                        (e) => e
+                                                          ..dateFilter =
+                                                              _model.datePicked
+                                                          ..anyDate = false,
+                                                      );
+                                                    });
+                                                  },
+                                                  child: Container(
+                                                    width: 100.0,
+                                                    height: 41.0,
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5.0),
+                                                      border: Border.all(
+                                                        color:
+                                                            Color(0xFF5E5D5D),
+                                                      ),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  13.0,
+                                                                  0.0,
+                                                                  11.0,
+                                                                  0.0),
+                                                      child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        8.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              Icons
-                                                                  .date_range_rounded,
-                                                              color: Color(
-                                                                  0xFF212121),
-                                                              size: 18.0,
-                                                            ),
-                                                          ),
-                                                          Text(
-                                                            '13th Nov 2018 - 30th Dec 2018',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0),
+                                                                child: Icon(
+                                                                  Icons
+                                                                      .date_range_rounded,
                                                                   color: Color(
-                                                                      0xFF3D3D3D),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
+                                                                      0xFF212121),
+                                                                  size: 18.0,
                                                                 ),
+                                                              ),
+                                                              Text(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                                  dateTimeFormat(
+                                                                      'yMMMd',
+                                                                      _model
+                                                                          .datePicked),
+                                                                  'select date',
+                                                                ),
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Lato',
+                                                                      color: Color(
+                                                                          0xFF3D3D3D),
+                                                                      fontSize:
+                                                                          12.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .w500,
+                                                                    ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
-                                                    ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
+                                            ],
+                                          ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -1292,61 +1745,6 @@ class _FilterWidgetState extends State<FilterWidget>
                                               color: Color(0xFFF6F6F6),
                                               borderRadius:
                                                   BorderRadius.circular(5.0),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      10.0, 0.0, 10.0, 10.0),
-                                              child: FlutterFlowCalendar(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                iconColor: Color(0xFF211DAF),
-                                                weekFormat: false,
-                                                weekStartsMonday: false,
-                                                rowHeight: 35.0,
-                                                onChange: (DateTimeRange?
-                                                    newSelectedDate) {
-                                                  setState(() => _model
-                                                          .calendarSelectedDay =
-                                                      newSelectedDate);
-                                                },
-                                                titleStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 20.0,
-                                                        ),
-                                                dayOfWeekStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelLarge
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 14.0,
-                                                        ),
-                                                dateStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 12.0,
-                                                        ),
-                                                selectedDateStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleSmall
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 14.0,
-                                                        ),
-                                                inactiveDateStyle:
-                                                    FlutterFlowTheme.of(context)
-                                                        .labelMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 12.0,
-                                                        ),
-                                              ),
                                             ),
                                           ),
                                         ),
@@ -1407,20 +1805,18 @@ class _FilterWidgetState extends State<FilterWidget>
                                     ),
                                     expanded: Column(
                                       mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
                                       children: [
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
+                                                  0.0, 8.0, 0.0, 0.0),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                'Any',
+                                                'Any tasker',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -1435,14 +1831,35 @@ class _FilterWidgetState extends State<FilterWidget>
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                    0.00, 0.00),
                                                 child: Switch.adaptive(
-                                                  value: _model.switchValue5 ??=
-                                                      true,
+                                                  value: _model.switchValue4 ??=
+                                                      FFAppState()
+                                                          .taskFilter
+                                                          .anytasker,
                                                   onChanged: (newValue) async {
                                                     setState(() =>
-                                                        _model.switchValue5 =
+                                                        _model.switchValue4 =
                                                             newValue!);
+                                                    if (newValue!) {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anytasker = true
+                                                            ..taskerTypeFilter =
+                                                                null,
+                                                        );
+                                                      });
+                                                    } else {
+                                                      setState(() {
+                                                        FFAppState()
+                                                            .updateTaskFilterStruct(
+                                                          (e) => e
+                                                            ..anytasker = false,
+                                                        );
+                                                      });
+                                                    }
                                                   },
                                                   activeColor:
                                                       FlutterFlowTheme.of(
@@ -1459,670 +1876,557 @@ class _FilterWidgetState extends State<FilterWidget>
                                             ],
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: FlutterFlowRadioButton(
-                                                  options: ['Male', 'Female']
-                                                      .toList(),
-                                                  onChanged: (val) =>
-                                                      setState(() {}),
-                                                  controller: _model
-                                                          .radioButtonValueController1 ??=
-                                                      FormFieldController<
-                                                          String>(null),
-                                                  optionHeight: 35.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelMedium,
-                                                  buttonPosition:
-                                                      RadioButtonPosition.left,
-                                                  direction: Axis.vertical,
-                                                  radioButtonColor:
-                                                      Color(0xFF211DAF),
-                                                  inactiveRadioButtonColor:
-                                                      Color(0xFF3D3D3D),
-                                                  toggleable: false,
-                                                  horizontalAlignment:
-                                                      WrapAlignment.start,
-                                                  verticalAlignment:
-                                                      WrapCrossAlignment.start,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Row(
+                                        if (!_model.switchValue4!)
+                                          Column(
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
+                                                MainAxisAlignment.start,
                                             children: [
-                                              Text(
-                                                'Any',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF292929),
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Switch.adaptive(
-                                                  value: _model.switchValue6 ??=
-                                                      true,
-                                                  onChanged: (newValue) async {
-                                                    setState(() =>
-                                                        _model.switchValue6 =
-                                                            newValue!);
-                                                  },
-                                                  activeColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  activeTrackColor:
-                                                      Color(0xFFFAD1C6),
-                                                  inactiveTrackColor:
-                                                      Color(0xFFECECEC),
-                                                  inactiveThumbColor:
-                                                      Color(0xFF3D3D3D),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 20.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Tasker gender',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF292929),
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: FlutterFlowRadioButton(
-                                                  options: [
-                                                    '<20',
-                                                    '20 - 40',
-                                                    '40>'
-                                                  ].toList(),
-                                                  onChanged: (val) =>
-                                                      setState(() {}),
-                                                  controller: _model
-                                                          .radioButtonValueController2 ??=
-                                                      FormFieldController<
-                                                          String>(null),
-                                                  optionHeight: 35.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelMedium,
-                                                  buttonPosition:
-                                                      RadioButtonPosition.left,
-                                                  direction: Axis.vertical,
-                                                  radioButtonColor:
-                                                      Color(0xFF211DAF),
-                                                  inactiveRadioButtonColor:
-                                                      Color(0xFF3D3D3D),
-                                                  toggleable: false,
-                                                  horizontalAlignment:
-                                                      WrapAlignment.start,
-                                                  verticalAlignment:
-                                                      WrapCrossAlignment.start,
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 8.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child:
+                                                          FlutterFlowRadioButton(
+                                                        options: [
+                                                          'Male',
+                                                          'Female',
+                                                          'any'
+                                                        ].toList(),
+                                                        onChanged: (val) async {
+                                                          setState(() {});
+                                                          setState(() {
+                                                            FFAppState()
+                                                                .updateTaskFilterStruct(
+                                                              (e) => e
+                                                                ..updateTaskerTypeFilter(
+                                                                  (e) => e
+                                                                    ..gender = _model.radioButtonValue1 ==
+                                                                            'any'
+                                                                        ? ''
+                                                                        : _model
+                                                                            .radioButtonValue1,
+                                                                ),
+                                                            );
+                                                          });
+                                                        },
+                                                        controller: _model
+                                                                .radioButtonValueController1 ??=
+                                                            FormFieldController<
+                                                                    String>(
+                                                                FFAppState()
+                                                                    .taskFilter
+                                                                    .taskerTypeFilter
+                                                                    .gender),
+                                                        optionHeight: 35.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium,
+                                                        buttonPosition:
+                                                            RadioButtonPosition
+                                                                .left,
+                                                        direction:
+                                                            Axis.vertical,
+                                                        radioButtonColor:
+                                                            Color(0xFF211DAF),
+                                                        inactiveRadioButtonColor:
+                                                            Color(0xFF3D3D3D),
+                                                        toggleable: false,
+                                                        horizontalAlignment:
+                                                            WrapAlignment.start,
+                                                        verticalAlignment:
+                                                            WrapCrossAlignment
+                                                                .start,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Languages',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF292929),
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 20.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Tasker age',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF292929),
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
                                               ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 10.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: Align(
-                                                  alignment:
-                                                      AlignmentDirectional(
-                                                          0.0, 0.0),
-                                                  child: Stack(
-                                                    children: [
-                                                      Container(
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width *
-                                                                1.0,
-                                                        height: 40.0,
-                                                        decoration:
-                                                            BoxDecoration(
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 8.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child:
+                                                          FlutterFlowRadioButton(
+                                                        options: [
+                                                          '<20',
+                                                          '20-40',
+                                                          '40>',
+                                                          'Dosn\'t matter'
+                                                        ].toList(),
+                                                        onChanged: (val) async {
+                                                          setState(() {});
+                                                          setState(() {
+                                                            FFAppState()
+                                                                .updateTaskFilterStruct(
+                                                              (e) => e
+                                                                ..updateTaskerTypeFilter(
+                                                                  (e) => e
+                                                                    ..ageRange = _model.radioButtonValue2 ==
+                                                                            'Dosn\'t matter'
+                                                                        ? ''
+                                                                        : _model
+                                                                            .radioButtonValue2,
+                                                                ),
+                                                            );
+                                                          });
+                                                        },
+                                                        controller: _model
+                                                                .radioButtonValueController2 ??=
+                                                            FormFieldController<
+                                                                    String>(
+                                                                FFAppState()
+                                                                    .taskFilter
+                                                                    .taskerTypeFilter
+                                                                    .ageRange),
+                                                        optionHeight: 35.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium,
+                                                        buttonPosition:
+                                                            RadioButtonPosition
+                                                                .left,
+                                                        direction:
+                                                            Axis.vertical,
+                                                        radioButtonColor:
+                                                            Color(0xFF211DAF),
+                                                        inactiveRadioButtonColor:
+                                                            Color(0xFF3D3D3D),
+                                                        toggleable: false,
+                                                        horizontalAlignment:
+                                                            WrapAlignment.start,
+                                                        verticalAlignment:
+                                                            WrapCrossAlignment
+                                                                .start,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 25.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'Languages',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF292929),
+                                                            fontSize: 15.0,
+                                                            fontWeight:
+                                                                FontWeight.w600,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 10.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child:
+                                                          FlutterFlowDropDown<
+                                                              String>(
+                                                        controller: _model
+                                                                .dropDownValueController2 ??=
+                                                            FormFieldController<
+                                                                String>(
+                                                          _model.dropDownValue2 ??=
+                                                              FFAppState()
+                                                                  .taskFilter
+                                                                  .taskerTypeFilter
+                                                                  .languages,
+                                                        ),
+                                                        options: ['En', 'De'],
+                                                        onChanged: (val) =>
+                                                            setState(() => _model
+                                                                    .dropDownValue2 =
+                                                                val),
+                                                        width: 300.0,
+                                                        height: 41.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: Color(
+                                                                      0xFF5E5D5D),
+                                                                  fontSize:
+                                                                      13.0,
+                                                                ),
+                                                        hintText:
+                                                            'Please select...',
+                                                        icon: Icon(
+                                                          Icons
+                                                              .keyboard_arrow_down_rounded,
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .secondaryBackground,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      5.0),
-                                                          border: Border.all(
-                                                            color: Color(
-                                                                0xFF5E5D5D),
-                                                            width: 1.0,
-                                                          ),
+                                                              .secondaryText,
+                                                          size: 24.0,
                                                         ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      0.0,
-                                                                      15.0,
-                                                                      0.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              if (FFAppState()
-                                                                      .SelectLanguageDropDown ==
-                                                                  false)
-                                                                Text(
-                                                                  'Select your language',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Lato',
-                                                                        color: Color(
-                                                                            0xFF3D3D3D),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        fontWeight:
-                                                                            FontWeight.normal,
-                                                                      ),
-                                                                ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  if (FFAppState()
-                                                                          .SelectLanguageDropDown ==
-                                                                      true)
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        setState(
-                                                                            () {
-                                                                          FFAppState().SelectLanguageDropDown =
-                                                                              false;
-                                                                        });
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .keyboard_arrow_up_rounded,
-                                                                        color: Color(
-                                                                            0xFF3D3D3D),
-                                                                        size:
-                                                                            24.0,
-                                                                      ),
-                                                                    ),
-                                                                  if (FFAppState()
-                                                                          .SelectLanguageDropDown ==
-                                                                      false)
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        setState(
-                                                                            () {
-                                                                          FFAppState().SelectLanguageDropDown =
-                                                                              true;
-                                                                        });
-                                                                      },
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .keyboard_arrow_down_rounded,
-                                                                        color: Color(
-                                                                            0xFF3D3D3D),
-                                                                        size:
-                                                                            24.0,
-                                                                      ),
-                                                                    ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      7.0,
-                                                                      40.0,
-                                                                      0.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Container(
-                                                                height: 26.0,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Color(
-                                                                      0xFF5450E2),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              15.0),
-                                                                ),
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          10.0,
-                                                                          0.0,
-                                                                          10.0,
-                                                                          0.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Text(
-                                                                        'Germany',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: Color(0xFFF6F6F6),
-                                                                              fontSize: 12.0,
-                                                                            ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .close_rounded,
-                                                                          color:
-                                                                              Color(0xFFF6F6F6),
-                                                                          size:
-                                                                              15.0,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        if (FFAppState()
-                                                .SelectLanguageDropDown ==
-                                            true)
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Flexible(
-                                                  child: Container(
-                                                    height: 200.0,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                      border: Border.all(
-                                                        color:
+                                                        fillColor: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        elevation: 2.0,
+                                                        borderColor:
                                                             Color(0xFF5E5D5D),
-                                                        width: 1.0,
+                                                        borderWidth: 0.0,
+                                                        borderRadius: 8.0,
+                                                        margin:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    16.0,
+                                                                    4.0,
+                                                                    16.0,
+                                                                    4.0),
+                                                        hidesUnderline: true,
+                                                        isSearchable: false,
+                                                        isMultiSelect: false,
                                                       ),
                                                     ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  15.0,
-                                                                  10.0,
-                                                                  10.0,
-                                                                  10.0),
-                                                      child: ListView(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        children: [
-                                                          Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            children: [
-                                                              Text(
-                                                                'Germany',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: Color(
-                                                                          0xFF3D3D3D),
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
-                                                              ),
-                                                              Theme(
-                                                                data: ThemeData(
-                                                                  checkboxTheme:
-                                                                      CheckboxThemeData(
-                                                                    visualDensity:
-                                                                        VisualDensity
-                                                                            .compact,
-                                                                    materialTapTargetSize:
-                                                                        MaterialTapTargetSize
-                                                                            .shrinkWrap,
-                                                                    shape:
-                                                                        RoundedRectangleBorder(
-                                                                      borderRadius:
-                                                                          BorderRadius.circular(
-                                                                              3.0),
-                                                                    ),
-                                                                  ),
-                                                                  unselectedWidgetColor:
-                                                                      Color(
-                                                                          0xFF5E5D5D),
-                                                                ),
-                                                                child: Checkbox(
-                                                                  value: _model
-                                                                          .checkboxValue ??=
-                                                                      false,
-                                                                  onChanged:
-                                                                      (newValue) async {
-                                                                    setState(() =>
-                                                                        _model.checkboxValue =
-                                                                            newValue!);
-                                                                  },
-                                                                  activeColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                  checkColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .info,
-                                                                ),
-                                                              ),
-                                                            ],
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 15.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Insurance',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF292929),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
                                                           ),
-                                                        ].divide(SizedBox(
-                                                            height: 8.0)),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.00, 0.00),
+                                                      child: Switch.adaptive(
+                                                        value: _model
+                                                                .switchValue5 ??=
+                                                            FFAppState()
+                                                                .taskFilter
+                                                                .taskerTypeFilter
+                                                                .hasInsurance,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          setState(() => _model
+                                                                  .switchValue5 =
+                                                              newValue!);
+                                                          if (newValue!) {
+                                                            setState(() {
+                                                              FFAppState()
+                                                                  .updateTaskFilterStruct(
+                                                                (e) => e
+                                                                  ..updateTaskerTypeFilter(
+                                                                    (e) => e
+                                                                      ..hasInsurance =
+                                                                          true,
+                                                                  ),
+                                                              );
+                                                            });
+                                                          } else {
+                                                            setState(() {
+                                                              FFAppState()
+                                                                  .updateTaskFilterStruct(
+                                                                (e) => e
+                                                                  ..updateTaskerTypeFilter(
+                                                                    (e) => e
+                                                                      ..hasInsurance =
+                                                                          !true,
+                                                                  ),
+                                                              );
+                                                            });
+                                                          }
+                                                        },
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        activeTrackColor:
+                                                            Color(0xFFFAD1C6),
+                                                        inactiveTrackColor:
+                                                            Color(0xFFECECEC),
+                                                        inactiveThumbColor:
+                                                            Color(0xFF3D3D3D),
                                                       ),
                                                     ),
-                                                  ),
+                                                  ],
                                                 ),
-                                              ],
-                                            ).animateOnPageLoad(animationsMap[
-                                                'rowOnPageLoadAnimation']!),
-                                          ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Identified',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF292929),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
                                               ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Switch.adaptive(
-                                                  value: _model.switchValue7 ??=
-                                                      true,
-                                                  onChanged: (newValue) async {
-                                                    setState(() =>
-                                                        _model.switchValue7 =
-                                                            newValue!);
-                                                  },
-                                                  activeColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  activeTrackColor:
-                                                      Color(0xFFFAD1C6),
-                                                  inactiveTrackColor:
-                                                      Color(0xFFECECEC),
-                                                  inactiveThumbColor:
-                                                      Color(0xFF3D3D3D),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 15.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Text(
+                                                      'Identified',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF292929),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                    Align(
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.00, 0.00),
+                                                      child: Switch.adaptive(
+                                                        value: _model
+                                                                .switchValue6 ??=
+                                                            FFAppState()
+                                                                .taskFilter
+                                                                .taskerTypeFilter
+                                                                .hasIdentification,
+                                                        onChanged:
+                                                            (newValue) async {
+                                                          setState(() => _model
+                                                                  .switchValue6 =
+                                                              newValue!);
+                                                          if (newValue!) {
+                                                            setState(() {
+                                                              FFAppState()
+                                                                  .updateTaskFilterStruct(
+                                                                (e) => e
+                                                                  ..updateTaskerTypeFilter(
+                                                                    (e) => e
+                                                                      ..hasIdentification =
+                                                                          true,
+                                                                  ),
+                                                              );
+                                                            });
+                                                          } else {
+                                                            setState(() {
+                                                              FFAppState()
+                                                                  .updateTaskFilterStruct(
+                                                                (e) => e
+                                                                  ..updateTaskerTypeFilter(
+                                                                    (e) => e
+                                                                      ..hasIdentification =
+                                                                          false,
+                                                                  ),
+                                                              );
+                                                            });
+                                                          }
+                                                        },
+                                                        activeColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        activeTrackColor:
+                                                            Color(0xFFFAD1C6),
+                                                        inactiveTrackColor:
+                                                            Color(0xFFECECEC),
+                                                        inactiveThumbColor:
+                                                            Color(0xFF3D3D3D),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 24.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      'Driver‘s license',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF212121),
+                                                            fontSize: 16.0,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 15.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child:
+                                                          FlutterFlowRadioButton(
+                                                        options: [
+                                                          'Car',
+                                                          'Truck',
+                                                          'any'
+                                                        ].toList(),
+                                                        onChanged: (val) async {
+                                                          setState(() {});
+                                                          setState(() {
+                                                            FFAppState()
+                                                                .updateTaskFilterStruct(
+                                                              (e) => e
+                                                                ..updateTaskerTypeFilter(
+                                                                  (e) => e
+                                                                    ..driverLicense = _model.radioButtonValue3 ==
+                                                                            'any'
+                                                                        ? ''
+                                                                        : _model
+                                                                            .radioButtonValue3,
+                                                                ),
+                                                            );
+                                                          });
+                                                        },
+                                                        controller: _model
+                                                                .radioButtonValueController3 ??=
+                                                            FormFieldController<
+                                                                    String>(
+                                                                FFAppState()
+                                                                    .taskFilter
+                                                                    .taskerTypeFilter
+                                                                    .driverLicense),
+                                                        optionHeight: 35.0,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelMedium,
+                                                        buttonPosition:
+                                                            RadioButtonPosition
+                                                                .left,
+                                                        direction:
+                                                            Axis.vertical,
+                                                        radioButtonColor:
+                                                            Color(0xFF211DAF),
+                                                        inactiveRadioButtonColor:
+                                                            Color(0xFF3D3D3D),
+                                                        toggleable: false,
+                                                        horizontalAlignment:
+                                                            WrapAlignment.start,
+                                                        verticalAlignment:
+                                                            WrapCrossAlignment
+                                                                .start,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ),
                                             ],
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text(
-                                                'Insured',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF292929),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
-                                                child: Switch.adaptive(
-                                                  value: _model.switchValue8 ??=
-                                                      true,
-                                                  onChanged: (newValue) async {
-                                                    setState(() =>
-                                                        _model.switchValue8 =
-                                                            newValue!);
-                                                  },
-                                                  activeColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary,
-                                                  activeTrackColor:
-                                                      Color(0xFFFAD1C6),
-                                                  inactiveTrackColor:
-                                                      Color(0xFFECECEC),
-                                                  inactiveThumbColor:
-                                                      Color(0xFF3D3D3D),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 24.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Driver‘s license',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF212121),
-                                                          fontSize: 16.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                child: FlutterFlowRadioButton(
-                                                  options:
-                                                      ['Car', 'Truck'].toList(),
-                                                  onChanged: (val) =>
-                                                      setState(() {}),
-                                                  controller: _model
-                                                          .radioButtonValueController3 ??=
-                                                      FormFieldController<
-                                                          String>(null),
-                                                  optionHeight: 35.0,
-                                                  textStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .labelMedium,
-                                                  buttonPosition:
-                                                      RadioButtonPosition.left,
-                                                  direction: Axis.vertical,
-                                                  radioButtonColor:
-                                                      Color(0xFF211DAF),
-                                                  inactiveRadioButtonColor:
-                                                      Color(0xFF3D3D3D),
-                                                  toggleable: false,
-                                                  horizontalAlignment:
-                                                      WrapAlignment.start,
-                                                  verticalAlignment:
-                                                      WrapCrossAlignment.start,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
                                       ],
                                     ),
                                     theme: ExpandableThemeData(
@@ -2165,12 +2469,26 @@ class _FilterWidgetState extends State<FilterWidget>
                                   ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.0, 0.0),
+                              alignment: AlignmentDirectional(0.00, 0.00),
                               child: Switch.adaptive(
-                                value: _model.switchValue9 ??= true,
+                                value: _model.switchValue7 ??=
+                                    FFAppState().taskFilter.onlyOpen,
                                 onChanged: (newValue) async {
                                   setState(
-                                      () => _model.switchValue9 = newValue!);
+                                      () => _model.switchValue7 = newValue!);
+                                  if (newValue!) {
+                                    setState(() {
+                                      FFAppState().updateTaskFilterStruct(
+                                        (e) => e..onlyOpen = true,
+                                      );
+                                    });
+                                  } else {
+                                    setState(() {
+                                      FFAppState().updateTaskFilterStruct(
+                                        (e) => e..onlyOpen = false,
+                                      );
+                                    });
+                                  }
                                 },
                                 activeColor:
                                     FlutterFlowTheme.of(context).primary,

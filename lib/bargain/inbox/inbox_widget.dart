@@ -1,11 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/bargain_filter_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
+import '/components/set_appointment_widget.dart';
 import '/components/sort_bargain_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,7 +19,12 @@ import 'inbox_model.dart';
 export 'inbox_model.dart';
 
 class InboxWidget extends StatefulWidget {
-  const InboxWidget({Key? key}) : super(key: key);
+  const InboxWidget({
+    Key? key,
+    required this.postID,
+  }) : super(key: key);
+
+  final int? postID;
 
   @override
   _InboxWidgetState createState() => _InboxWidgetState();
@@ -36,7 +45,7 @@ class _InboxWidgetState extends State<InboxWidget>
       vsync: this,
       length: 2,
       initialIndex: 0,
-    );
+    )..addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -56,6 +65,24 @@ class _InboxWidgetState extends State<InboxWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -65,7 +92,9 @@ class _InboxWidgetState extends State<InboxWidget>
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
-                  openDrawer: () async {},
+                  openDrawer: () async {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                 ),
               ),
               Padding(
@@ -74,7 +103,7 @@ class _InboxWidgetState extends State<InboxWidget>
                   model: _model.navigateBackModel,
                   updateCallback: () => setState(() {}),
                   child: NavigateBackWidget(
-                    text: 'Bargain',
+                    text: 'Bids',
                   ),
                 ),
               ),
@@ -104,11 +133,10 @@ class _InboxWidgetState extends State<InboxWidget>
                               text: 'Inbox',
                             ),
                             Tab(
-                              text: 'Archive',
+                              text: 'My sugestion bid',
                             ),
                           ],
                           controller: _model.tabBarController,
-                          onTap: (value) => setState(() {}),
                         ),
                       ),
                       Expanded(
@@ -156,8 +184,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
                                             },
                                             child: ClipRRect(
                                               borderRadius:
@@ -198,7 +226,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: Text(
                                             'Filters',
@@ -243,8 +272,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
                                             },
                                             child: ClipRRect(
                                               borderRadius:
@@ -284,7 +313,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: Text(
                                             'Relevance',
@@ -307,8 +337,21 @@ class _InboxWidgetState extends State<InboxWidget>
                                           0.0, 24.0, 0.0, 0.0),
                                       child: FutureBuilder<ApiCallResponse>(
                                         future: TaskerpageBackendGroup
-                                            .myBargainsCall
+                                            .bidListCall
                                             .call(
+                                          filters:
+                                              '[[\"poster\",\"=\",\"${getJsonField(
+                                            FFAppState().userProfile,
+                                            r'''$.data.name''',
+                                          ).toString()}\"],[\"docstatus\",\"<\",\"2\"],[\"post\",\"=\",\"${widget.postID?.toString()}\"]]',
+                                          fields:
+                                              '[\"name\",\"price\",\"price_type\",\"bider\",\"post\",\"poster\",\"docstatus\",\"modified_by\",\"creation\",\"modified_by\"]',
+                                          orderBy: valueOrDefault<String>(
+                                            FFAppState().BargainUserFilter
+                                                ? 'creation asc'
+                                                : 'creation desc',
+                                            'creation desc',
+                                          ),
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {
@@ -325,17 +368,18 @@ class _InboxWidgetState extends State<InboxWidget>
                                               ),
                                             );
                                           }
-                                          final listViewMyBargainsResponse =
+                                          final listViewBidListResponse =
                                               snapshot.data!;
                                           return Builder(
                                             builder: (context) {
                                               final myBargains = getJsonField(
-                                                listViewMyBargainsResponse
+                                                listViewBidListResponse
                                                     .jsonBody,
-                                                r'''$''',
+                                                r'''$.data''',
                                               ).toList();
                                               return ListView.separated(
                                                 padding: EdgeInsets.zero,
+                                                primary: false,
                                                 shrinkWrap: true,
                                                 scrollDirection: Axis.vertical,
                                                 itemCount: myBargains.length,
@@ -346,313 +390,388 @@ class _InboxWidgetState extends State<InboxWidget>
                                                   final myBargainsItem =
                                                       myBargains[
                                                           myBargainsIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      context.pushNamed('chat');
-                                                    },
-                                                    child: Container(
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color:
-                                                            Color(0xFFF6F6F6),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(10.0),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    16.0,
-                                                                    16.0,
-                                                                    13.0,
-                                                                    23.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Row(
+                                                  return FutureBuilder<
+                                                      ApiCallResponse>(
+                                                    future:
+                                                        TaskerpageBackendGroup
+                                                            .userProfileReadCall
+                                                            .call(
+                                                      id: getJsonField(
+                                                        myBargainsItem,
+                                                        r'''$.bider''',
+                                                      ).toString(),
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    ),
+                                                    builder:
+                                                        (context, snapshot) {
+                                                      // Customize what your widget looks like when it's loading.
+                                                      if (!snapshot.hasData) {
+                                                        return Center(
+                                                          child: SizedBox(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            child:
+                                                                SpinKitThreeBounce(
+                                                              color: Color(
+                                                                  0xFF5450E2),
+                                                              size: 50.0,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }
+                                                      final containerUserProfileReadResponse =
+                                                          snapshot.data!;
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return GestureDetector(
+                                                                onTap: () => FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode),
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      SetAppointmentWidget(
+                                                                    setOredit:
+                                                                        false,
+                                                                    id: getJsonField(
+                                                                      containerUserProfileReadResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.name''',
+                                                                    ),
+                                                                    postID: widget
+                                                                        .postID!
+                                                                        .toString(),
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
+                                                        },
+                                                        child: Container(
+                                                          width: 100.0,
+                                                          height: 120.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFFF6F6F6),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        15.0,
+                                                                        20.0,
+                                                                        15.0),
+                                                            child: Row(
                                                               mainAxisSize:
                                                                   MainAxisSize
                                                                       .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
                                                               children: [
-                                                                Container(
-                                                                  width: 60.0,
-                                                                  height: 60.0,
-                                                                  clipBehavior:
-                                                                      Clip.antiAlias,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                  child: Image
-                                                                      .network(
-                                                                    getJsonField(
-                                                                              myBargainsItem,
-                                                                              r'''$.bargainer.id''',
-                                                                            ) ==
-                                                                            getJsonField(
-                                                                              FFAppState().userProfile,
-                                                                              r'''$.id''',
-                                                                            )
-                                                                        ? getJsonField(
-                                                                            myBargainsItem,
-                                                                            r'''$.bargainee.avatar''',
-                                                                          )
-                                                                        : getJsonField(
-                                                                            myBargainsItem,
-                                                                            r'''$.bargainer.avatar''',
-                                                                          ),
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    InkWell(
+                                                                      splashColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      focusColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      hoverColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .transparent,
+                                                                      onTap:
+                                                                          () async {
+                                                                        context
+                                                                            .pushNamed(
+                                                                          'Tasker_Profile_view',
+                                                                          queryParameters:
+                                                                              {
+                                                                            'id':
+                                                                                serializeParam(
+                                                                              getJsonField(
+                                                                                containerUserProfileReadResponse.jsonBody,
+                                                                                r'''$.data.name''',
+                                                                              ),
+                                                                              ParamType.int,
+                                                                            ),
+                                                                          }.withoutNulls,
+                                                                        );
+                                                                      },
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            60.0,
+                                                                        height:
+                                                                            60.0,
+                                                                        clipBehavior:
+                                                                            Clip.antiAlias,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child: Image
+                                                                            .network(
+                                                                          '${FFAppState().baseUrl}${getJsonField(
+                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                            r'''$.data.avatar''',
+                                                                          ).toString()}',
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           8.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
-                                                                    children: [
-                                                                      Row(
+                                                                      child:
+                                                                          Column(
                                                                         mainAxisSize:
                                                                             MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
                                                                         children: [
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                child: InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    context.pushNamed(
+                                                                                      'Tasker_Profile_view',
+                                                                                      queryParameters: {
+                                                                                        'id': serializeParam(
+                                                                                          getJsonField(
+                                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                                            r'''$.data.name''',
+                                                                                          ),
+                                                                                          ParamType.int,
+                                                                                        ),
+                                                                                      }.withoutNulls,
+                                                                                    );
+                                                                                  },
+                                                                                  child: Text(
+                                                                                    '${getJsonField(
+                                                                                      containerUserProfileReadResponse.jsonBody,
+                                                                                      r'''$.data.first_name''',
+                                                                                    ).toString()} ${getJsonField(
+                                                                                      containerUserProfileReadResponse.jsonBody,
+                                                                                      r'''$.data.last_name''',
+                                                                                    ).toString()}',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: Colors.black,
+                                                                                          fontSize: 14.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
+                                                                                child: Container(
+                                                                                  width: 90.0,
+                                                                                  height: 17.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: Color(0xFF03CA17),
+                                                                                    borderRadius: BorderRadius.circular(15.0),
+                                                                                  ),
+                                                                                  child: Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 5.0, 0.0),
+                                                                                    child: Row(
+                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                      children: [
+                                                                                        Text(
+                                                                                          getJsonField(
+                                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                                            r'''$.data.review_average''',
+                                                                                          ).toString(),
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                fontFamily: 'Lato',
+                                                                                                color: Color(0xFFF6F6F6),
+                                                                                                fontSize: 10.0,
+                                                                                                fontWeight: FontWeight.w500,
+                                                                                              ),
+                                                                                        ),
+                                                                                        RatingBarIndicator(
+                                                                                          itemBuilder: (context, index) => Icon(
+                                                                                            Icons.star_rounded,
+                                                                                            color: Colors.white,
+                                                                                          ),
+                                                                                          direction: Axis.horizontal,
+                                                                                          rating: getJsonField(
+                                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                                            r'''$.data.review_average''',
+                                                                                          ),
+                                                                                          unratedColor: Color(0x4D676767),
+                                                                                          itemCount: 5,
+                                                                                          itemSize: 10.0,
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                           Padding(
                                                                             padding: EdgeInsetsDirectional.fromSTEB(
                                                                                 0.0,
+                                                                                6.0,
                                                                                 0.0,
-                                                                                5.0,
-                                                                                0.0),
+                                                                                6.0),
                                                                             child:
                                                                                 Text(
-                                                                              getJsonField(
-                                                                                        myBargainsItem,
-                                                                                        r'''$.bargainer.id''',
-                                                                                      ) ==
-                                                                                      getJsonField(
-                                                                                        FFAppState().userProfile,
-                                                                                        r'''$.id''',
-                                                                                      )
-                                                                                  ? '${getJsonField(
-                                                                                      myBargainsItem,
-                                                                                      r'''$.bargainee.first_name''',
-                                                                                    ).toString()} ${getJsonField(
-                                                                                      myBargainsItem,
-                                                                                      r'''$.bargainee.last_name''',
-                                                                                    ).toString()}'
-                                                                                  : '${getJsonField(
-                                                                                      myBargainsItem,
-                                                                                      r'''$.bargainer.first_name''',
-                                                                                    ).toString()} ${getJsonField(
-                                                                                      myBargainsItem,
-                                                                                      r'''$.bargainer.last_name	''',
-                                                                                    ).toString()}',
+                                                                              'Post ${widget.postID?.toString()}',
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Lato',
                                                                                     color: Colors.black,
                                                                                     fontSize: 14.0,
-                                                                                    fontWeight: FontWeight.bold,
+                                                                                    fontWeight: FontWeight.w500,
                                                                                   ),
                                                                             ),
                                                                           ),
-                                                                          Container(
-                                                                            width:
-                                                                                70.0,
-                                                                            height:
-                                                                                17.0,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: Color(0xFF03CA17),
-                                                                              borderRadius: BorderRadius.circular(15.0),
-                                                                            ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 5.0, 0.0),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    (getJsonField(
-                                                                                                  myBargainsItem,
-                                                                                                  r'''$.bargainer.id''',
-                                                                                                ) ==
-                                                                                                getJsonField(
-                                                                                                  FFAppState().userProfile,
-                                                                                                  r'''$.id''',
-                                                                                                )
-                                                                                            ? getJsonField(
-                                                                                                myBargainsItem,
-                                                                                                r'''$.bargainee.review_average''',
-                                                                                              )
-                                                                                            : getJsonField(
-                                                                                                myBargainsItem,
-                                                                                                r'''$.bargainer.review_average''',
-                                                                                              ))
-                                                                                        .toString(),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: Color(0xFFF6F6F6),
-                                                                                          fontSize: 10.0,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                        ),
-                                                                                  ),
-                                                                                  RatingBarIndicator(
-                                                                                    itemBuilder: (context, index) => Icon(
-                                                                                      Icons.star_rounded,
-                                                                                      color: Colors.white,
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Text(
+                                                                                'Sugestion for you :',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Lato',
+                                                                                      color: Colors.black,
+                                                                                      fontSize: 12.0,
+                                                                                      fontWeight: FontWeight.w500,
                                                                                     ),
-                                                                                    direction: Axis.horizontal,
-                                                                                    rating: getJsonField(
-                                                                                              myBargainsItem,
-                                                                                              r'''$.bargainer.id''',
-                                                                                            ) ==
-                                                                                            getJsonField(
-                                                                                              FFAppState().userProfile,
-                                                                                              r'''$.id''',
-                                                                                            )
-                                                                                        ? getJsonField(
-                                                                                            myBargainsItem,
-                                                                                            r'''$.bargainee.review_average''',
-                                                                                          )
-                                                                                        : getJsonField(
-                                                                                            myBargainsItem,
-                                                                                            r'''$.bargainer.review_average''',
-                                                                                          ),
-                                                                                    unratedColor: Color(0x4D676767),
-                                                                                    itemCount: 5,
-                                                                                    itemSize: 10.0,
-                                                                                  ),
-                                                                                ],
                                                                               ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  getJsonField(
+                                                                                    myBargainsItem,
+                                                                                    r'''$.price''',
+                                                                                  ).toString(),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Lato',
+                                                                                        color: Colors.black,
+                                                                                        fontSize: 12.0,
+                                                                                        fontWeight: FontWeight.w500,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                                                                child: Icon(
+                                                                                  Icons.euro,
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  size: 15.0,
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                6.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              dateTimeFormat(
+                                                                                  'yMMMd',
+                                                                                  functions.jsonToDateTime(getJsonField(
+                                                                                    myBargainsItem,
+                                                                                    r'''$.creation''',
+                                                                                  ))),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Lato',
+                                                                                    color: Colors.black,
+                                                                                    fontSize: 12.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
                                                                             ),
                                                                           ),
                                                                         ],
                                                                       ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            6.0,
-                                                                            0.0,
-                                                                            6.0),
-                                                                        child:
-                                                                            Text(
-                                                                          'Post ${getJsonField(
-                                                                            myBargainsItem,
-                                                                            r'''$.post_id''',
-                                                                          ).toString()}',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: Colors.black,
-                                                                                fontSize: 14.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
-                                                                        ),
-                                                                      ),
-                                                                      Text(
-                                                                        getJsonField(
-                                                                          myBargainsItem,
-                                                                          r'''$.created_at''',
-                                                                        ).toString(),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: Colors.black,
-                                                                              fontSize: 12.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Container(
-                                                                  width: 12.0,
-                                                                  height: 12.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFF5450E2),
-                                                                    shape: BoxShape
-                                                                        .circle,
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      context.pushNamed(
-                                                                          'chat');
-                                                                    },
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .chevron_right_rounded,
-                                                                      color: Color(
-                                                                          0xFF212121),
-                                                                      size:
-                                                                          27.0,
                                                                     ),
-                                                                  ),
+                                                                  ],
+                                                                ),
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          12.0,
+                                                                      height:
+                                                                          12.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Color(
+                                                                            0xFF5450E2),
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                      ),
+                                                                    ),
+                                                                  ],
                                                                 ),
                                                               ],
                                                             ),
-                                                          ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
+                                                      );
+                                                    },
                                                   );
                                                 },
                                               );
@@ -706,8 +825,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
                                             },
                                             child: ClipRRect(
                                               borderRadius:
@@ -748,7 +867,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: Text(
                                             'Filters',
@@ -793,8 +913,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
                                             },
                                             child: ClipRRect(
                                               borderRadius:
@@ -834,7 +954,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: Text(
                                             'Relevance',
@@ -853,256 +974,300 @@ class _InboxWidgetState extends State<InboxWidget>
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 0.0),
-                                    child: ListView(
-                                      padding: EdgeInsets.zero,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      children: [
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            context.pushNamed('chat');
-                                          },
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFF6F6F6),
-                                              borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                        0.0, 20.0, 0.0, 10.0),
+                                    child: FutureBuilder<ApiCallResponse>(
+                                      future:
+                                          TaskerpageBackendGroup.myBidCall.call(
+                                        apiGlobalKey: FFAppState().apiKey,
+                                        fields:
+                                            '[\"name\",\"price\",\"price_type\",\"post\",\"creation\",\"poster\"]',
+                                        filters:
+                                            '[[\"bider\",\"=\",\"${getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ).toString()}\"],[\"post\",\"=\",\"${widget.postID?.toString()}\"]]',
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: SpinKitThreeBounce(
+                                                color: Color(0xFF5450E2),
+                                                size: 50.0,
+                                              ),
                                             ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      16.0, 16.0, 13.0, 23.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Container(
-                                                        width: 60.0,
-                                                        height: 60.0,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
+                                          );
+                                        }
+                                        final listViewMyBidResponse =
+                                            snapshot.data!;
+                                        return Builder(
+                                          builder: (context) {
+                                            final myBids = getJsonField(
+                                              listViewMyBidResponse.jsonBody,
+                                              r'''$.data''',
+                                            ).toList().take(3).toList();
+                                            return ListView.separated(
+                                              padding: EdgeInsets.zero,
+                                              primary: false,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: myBids.length,
+                                              separatorBuilder: (_, __) =>
+                                                  SizedBox(height: 8.0),
+                                              itemBuilder:
+                                                  (context, myBidsIndex) {
+                                                final myBidsItem =
+                                                    myBids[myBidsIndex];
+                                                return FutureBuilder<
+                                                    ApiCallResponse>(
+                                                  future: TaskerpageBackendGroup
+                                                      .userProfileReadCall
+                                                      .call(
+                                                    id: getJsonField(
+                                                      myBidsItem,
+                                                      r'''$.poster''',
+                                                    ).toString(),
+                                                    apiGlobalKey:
+                                                        FFAppState().apiKey,
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          child:
+                                                              SpinKitThreeBounce(
+                                                            color: Color(
+                                                                0xFF5450E2),
+                                                            size: 50.0,
+                                                          ),
+                                                        ),
+                                                      );
+                                                    }
+                                                    final containerUserProfileReadResponse =
+                                                        snapshot.data!;
+                                                    return InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        if (functions
+                                                                .jsonToString(
+                                                                    getJsonField(
+                                                              containerUserProfileReadResponse
+                                                                  .jsonBody,
+                                                              r'''$.data.role''',
+                                                            )) ==
+                                                            'Tasker') {
+                                                          context.pushNamed(
+                                                            'Tasker_Profile_view',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  containerUserProfileReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.name''',
+                                                                ),
+                                                                ParamType.int,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          context.pushNamed(
+                                                            'Poster_Profile_view',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  containerUserProfileReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.name''',
+                                                                ),
+                                                                ParamType.int,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        }
+                                                      },
+                                                      child: Container(
                                                         decoration:
                                                             BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
+                                                          color:
+                                                              Color(0xFFF6F6F6),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      10.0),
                                                         ),
-                                                        child: Image.asset(
-                                                          'assets/images/sd.png',
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    8.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .start,
-                                                          children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    'Steve Brown',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color:
-                                                                              Colors.black,
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                  ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      16.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              Container(
+                                                                width: 60.0,
+                                                                height: 60.0,
+                                                                clipBehavior: Clip
+                                                                    .antiAlias,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  shape: BoxShape
+                                                                      .circle,
                                                                 ),
-                                                                Container(
-                                                                  width: 70.0,
-                                                                  height: 17.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Color(
-                                                                        0xFF03CA17),
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            15.0),
-                                                                  ),
-                                                                  child:
-                                                                      Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                child: Image
+                                                                    .network(
+                                                                  '${FFAppState().baseUrl}${getJsonField(
+                                                                    containerUserProfileReadResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data.avatar''',
+                                                                  ).toString()}',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              ),
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            6.0,
-                                                                            0.0,
-                                                                            5.0,
-                                                                            0.0),
-                                                                    child: Row(
+                                                                            8.0,
+                                                                            8.0,
+                                                                            15.0,
+                                                                            8.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                                      child:
+                                                                          Text(
+                                                                        '${getJsonField(
+                                                                          containerUserProfileReadResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data.first_name''',
+                                                                        ).toString()} ${getJsonField(
+                                                                          containerUserProfileReadResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data.last_name''',
+                                                                        ).toString()}',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              decoration: TextDecoration.underline,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Row(
                                                                       mainAxisSize:
                                                                           MainAxisSize
                                                                               .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
+                                                                      crossAxisAlignment:
+                                                                          CrossAxisAlignment
+                                                                              .start,
                                                                       children: [
-                                                                        Text(
-                                                                          '4',
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: Color(0xFFF6F6F6),
-                                                                                fontSize: 10.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
-                                                                        ),
-                                                                        RatingBarIndicator(
-                                                                          itemBuilder: (context, index) =>
-                                                                              Icon(
-                                                                            Icons.star_rounded,
-                                                                            color:
-                                                                                Colors.white,
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              8.0),
+                                                                          child:
+                                                                              Text(
+                                                                            'Your sugestion : ${getJsonField(
+                                                                              myBidsItem,
+                                                                              r'''$.price''',
+                                                                            ).toString()}',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  fontSize: 12.0,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
                                                                           ),
-                                                                          direction:
-                                                                              Axis.horizontal,
-                                                                          rating:
-                                                                              4.0,
-                                                                          unratedColor:
-                                                                              Color(0x4D676767),
-                                                                          itemCount:
-                                                                              5,
-                                                                          itemSize:
-                                                                              10.0,
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.euro,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                15.0,
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          6.0,
-                                                                          0.0,
-                                                                          6.0),
-                                                              child: Text(
-                                                                'Post 1',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: Colors
-                                                                          .black,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        myBidsItem,
+                                                                        r'''$.creation''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Color(0xFF616161),
+                                                                            fontSize:
+                                                                                12.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w300,
+                                                                          ),
                                                                     ),
+                                                                  ],
+                                                                ),
                                                               ),
-                                                            ),
-                                                            Text(
-                                                              '2021/4/2, 12:38:42 P.M',
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyMedium
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        'Lato',
-                                                                    color: Colors
-                                                                        .black,
-                                                                    fontSize:
-                                                                        12.0,
-                                                                    fontWeight:
-                                                                        FontWeight
-                                                                            .w500,
-                                                                  ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    5.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                                'chat');
-                                                          },
-                                                          child: Icon(
-                                                            Icons
-                                                                .chevron_right_rounded,
-                                                            color: Color(
-                                                                0xFF212121),
-                                                            size: 27.0,
+                                                            ],
                                                           ),
                                                         ),
                                                       ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                      ].divide(SizedBox(height: 20.0)),
+                                                    );
+                                                  },
+                                                );
+                                              },
+                                            );
+                                          },
+                                        );
+                                      },
                                     ),
                                   ),
                                 ],

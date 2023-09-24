@@ -78,9 +78,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SignInInformationWidget(),
         ),
         FFRoute(
-          name: 'Sign-in-Verification-Request',
-          path: '/signInVerificationRequest',
-          builder: (context, params) => SignInVerificationRequestWidget(),
+          name: 'email_verification',
+          path: '/emailVerification',
+          builder: (context, params) => EmailVerificationWidget(),
         ),
         FFRoute(
           name: 'Sign-in-Verification-accepted',
@@ -124,7 +124,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'Profile-intersted',
-          path: '/profileIntersted',
+          path: '/profileInterested',
           builder: (context, params) => ProfileInterstedWidget(),
         ),
         FFRoute(
@@ -135,12 +135,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Skills-3',
           path: '/skills3',
-          builder: (context, params) => Skills3Widget(),
+          builder: (context, params) => Skills3Widget(
+            addAnother: params.getParam('addAnother', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'Skills-4',
           path: '/skills4',
-          builder: (context, params) => Skills4Widget(),
+          builder: (context, params) => Skills4Widget(
+            addAnother: params.getParam('addAnother', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'Skills_List',
@@ -152,6 +156,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/contactdata1',
           builder: (context, params) => Contactdata1Widget(
             taskCreation: params.getParam('taskCreation', ParamType.bool),
+            addAnother: params.getParam('addAnother', ParamType.bool),
           ),
         ),
         FFRoute(
@@ -211,40 +216,50 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'SuccessFul',
-          path: '/successFul',
+          path: '/successfull',
           builder: (context, params) => SuccessFulWidget(),
         ),
         FFRoute(
           name: 'Task-1',
           path: '/task1',
           builder: (context, params) => Task1Widget(
-            id: params.getParam('id', ParamType.int),
+            id: params.getParam('id', ParamType.String),
           ),
         ),
         FFRoute(
           name: 'Select_Address',
           path: '/selectAddress',
-          builder: (context, params) => SelectAddressWidget(),
+          builder: (context, params) => SelectAddressWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'Calendar',
           path: '/calendar',
-          builder: (context, params) => CalendarWidget(),
+          builder: (context, params) => CalendarWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'Taskertype',
           path: '/taskertype',
-          builder: (context, params) => TaskertypeWidget(),
+          builder: (context, params) => TaskertypeWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'Taskertype2',
           path: '/taskertype2',
-          builder: (context, params) => Taskertype2Widget(),
+          builder: (context, params) => Taskertype2Widget(
+            id: params.getParam('id', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'Taskertype3',
           path: '/taskertype3',
-          builder: (context, params) => Taskertype3Widget(),
+          builder: (context, params) => Taskertype3Widget(
+            id: params.getParam('id', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'TaskList',
@@ -259,7 +274,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'inbox',
           path: '/inbox',
-          builder: (context, params) => InboxWidget(),
+          builder: (context, params) => InboxWidget(
+            postID: params.getParam('postID', ParamType.int),
+          ),
         ),
         FFRoute(
           name: 'chat',
@@ -275,21 +292,21 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'On_site_AppointmentDeatels',
           path: '/onSiteAppointmentDeatels',
           builder: (context, params) => OnSiteAppointmentDeatelsWidget(
-            id: params.getParam('id', ParamType.int),
+            appointmentId: params.getParam('appointmentId', ParamType.String),
           ),
         ),
         FFRoute(
           name: 'By_Phone_AppointmentDeatels',
           path: '/byPhoneAppointmentDeatels',
           builder: (context, params) => ByPhoneAppointmentDeatelsWidget(
-            id: params.getParam('id', ParamType.int),
+            appointmentId: params.getParam('appointmentId', ParamType.String),
           ),
         ),
         FFRoute(
           name: 'Online_AppointmentDeatels',
           path: '/onlineAppointmentDeatels',
           builder: (context, params) => OnlineAppointmentDeatelsWidget(
-            id: params.getParam('id', ParamType.int),
+            appointmentId: params.getParam('appointmentId', ParamType.String),
           ),
         ),
         FFRoute(
@@ -300,9 +317,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'MyInbox',
           path: '/myInbox',
-          builder: (context, params) => MyInboxWidget(
-            id: params.getParam('id', ParamType.int),
-          ),
+          builder: (context, params) => MyInboxWidget(),
         ),
         FFRoute(
           name: 'TaskersDashboard',
@@ -359,6 +374,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AddAnotherEducationWidget(
             isSignUp: params.getParam('isSignUp', ParamType.bool),
             education: params.getParam('education', ParamType.JSON),
+            addAnother: params.getParam('addAnother', ParamType.bool),
           ),
         ),
         FFRoute(
@@ -381,7 +397,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Task-2',
           path: '/task2',
-          builder: (context, params) => Task2Widget(),
+          builder: (context, params) => Task2Widget(
+            id: params.getParam('id', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'Add_another',
@@ -397,6 +415,48 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'KnowledgeBase',
           path: '/knowledgeBase',
           builder: (context, params) => KnowledgeBaseWidget(),
+        ),
+        FFRoute(
+          name: 'MainHomePageForAd',
+          path: '/mainHomePageForAd',
+          builder: (context, params) => MainHomePageForAdWidget(),
+        ),
+        FFRoute(
+          name: 'scaned_QRCODE',
+          path: '/scanedQRCODE',
+          builder: (context, params) => ScanedQRCODEWidget(
+            appointmentID: params.getParam('appointmentID', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'Sign-up-Verification-Code',
+          path: '/signUpVerificationCode',
+          builder: (context, params) => SignUpVerificationCodeWidget(),
+        ),
+        FFRoute(
+          name: 'webHome',
+          path: '/webHome',
+          builder: (context, params) => WebHomeWidget(),
+        ),
+        FFRoute(
+          name: 'paymentshistory',
+          path: '/paymentshistory',
+          builder: (context, params) => PaymentshistoryWidget(),
+        ),
+        FFRoute(
+          name: 'issue_list',
+          path: '/issueList',
+          builder: (context, params) => IssueListWidget(),
+        ),
+        FFRoute(
+          name: 'test',
+          path: '/test',
+          builder: (context, params) => TestWidget(),
+        ),
+        FFRoute(
+          name: 'notification_log',
+          path: '/notificationLog',
+          builder: (context, params) => NotificationLogWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

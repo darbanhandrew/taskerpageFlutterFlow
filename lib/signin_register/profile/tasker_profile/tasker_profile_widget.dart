@@ -1,14 +1,20 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/random_data_util.dart' as random_data;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -71,6 +77,28 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
         FFAppState().ProfileCheck = false;
         FFAppState().BannerCheck = false;
       });
+      _model.ad = await TaskerpageBackendGroup.getCustomerAdCall.call(
+        customerProfile: getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.name''',
+        ).toString().toString(),
+        apiGlobalKey: FFAppState().apiKey,
+        position: 'profile',
+      );
+      if ((getJsonField(
+                (_model.ad?.jsonBody ?? ''),
+                r'''$.message.title''',
+              ) !=
+              null) &&
+          (random_data.randomInteger(0, 1) == 0)) {
+        setState(() {
+          FFAppState().closeAd = true;
+        });
+      } else {
+        setState(() {
+          FFAppState().closeAd = false;
+        });
+      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -114,6 +142,24 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF6F6F6),
+            drawer: Container(
+              width: MediaQuery.sizeOf(context).width * 0.85,
+              child: Drawer(
+                elevation: 16.0,
+                child: Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE8EAFF),
+                  ),
+                  child: wrapWithModel(
+                    model: _model.drawerContentModel,
+                    updateCallback: () => setState(() {}),
+                    child: DrawerContentWidget(),
+                  ),
+                ),
+              ),
+            ),
             body: SafeArea(
               top: true,
               child: Stack(
@@ -125,7 +171,9 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                         model: _model.headerModel,
                         updateCallback: () => setState(() {}),
                         child: HeaderWidget(
-                          openDrawer: () async {},
+                          openDrawer: () async {
+                            scaffoldKey.currentState!.openDrawer();
+                          },
                         ),
                       ),
                       Expanded(
@@ -138,81 +186,441 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                 children: [
                                   Stack(
                                     children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 183.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
-                                          image: DecorationImage(
-                                            fit: BoxFit.cover,
-                                            image: Image.asset(
-                                              'assets/images/woman-gardner-greenhouse_1.png',
-                                            ).image,
-                                          ),
-                                        ),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8.0, 8.0, 8.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.end,
-                                                children: [
-                                                  InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .BannerCheck = true;
-                                                      });
-                                                    },
-                                                    child: wrapWithModel(
-                                                      model:
-                                                          _model.editIconModel1,
-                                                      updateCallback: () =>
-                                                          setState(() {}),
-                                                      child: EditIconWidget(),
+                                      Stack(
+                                        children: [
+                                          Stack(
+                                            children: [
+                                              FutureBuilder<ApiCallResponse>(
+                                                future: TaskerpageBackendGroup
+                                                    .getCustomerAdCall
+                                                    .call(
+                                                  customerProfile: getJsonField(
+                                                    FFAppState().userProfile,
+                                                    r'''$.data.name''',
+                                                  ).toString(),
+                                                  apiGlobalKey:
+                                                      FFAppState().apiKey,
+                                                  position: 'profile',
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            SpinKitThreeBounce(
+                                                          color:
+                                                              Color(0xFF5450E2),
+                                                          size: 50.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final containerGetCustomerAdResponse =
+                                                      snapshot.data!;
+                                                  return Container(
+                                                    width: MediaQuery.sizeOf(
+                                                                context)
+                                                            .width *
+                                                        1.0,
+                                                    height: 183.0,
+                                                    decoration: BoxDecoration(
+                                                      color: FlutterFlowTheme
+                                                              .of(context)
+                                                          .secondaryBackground,
+                                                      image: DecorationImage(
+                                                        fit: BoxFit.cover,
+                                                        image:
+                                                            CachedNetworkImageProvider(
+                                                          () {
+                                                            if ((getJsonField(
+                                                                      containerGetCustomerAdResponse
+                                                                          .jsonBody,
+                                                                      r'''$.message.title''',
+                                                                    ) !=
+                                                                    null) &&
+                                                                (random_data
+                                                                        .randomInteger(
+                                                                            0,
+                                                                            1) ==
+                                                                    0) &&
+                                                                FFAppState()
+                                                                    .closeAd) {
+                                                              return '${FFAppState().baseUrl}${getJsonField(
+                                                                containerGetCustomerAdResponse
+                                                                    .jsonBody,
+                                                                r'''$.message.image''',
+                                                              ).toString()}';
+                                                            } else if ((getJsonField(
+                                                                      containerGetCustomerAdResponse
+                                                                          .jsonBody,
+                                                                      r'''$.message.title''',
+                                                                    ) !=
+                                                                    null) &&
+                                                                (random_data
+                                                                        .randomInteger(
+                                                                            0,
+                                                                            1) ==
+                                                                    1)) {
+                                                              return (getJsonField(
+                                                                        taskerProfileUserProfileMeResponse
+                                                                            .jsonBody,
+                                                                        r'''$.data.banner''',
+                                                                      ) !=
+                                                                      null
+                                                                  ? '${FFAppState().baseUrl}${getJsonField(
+                                                                      taskerProfileUserProfileMeResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.banner''',
+                                                                    ).toString()}'
+                                                                  : '${FFAppState().baseUrl}/files/Group 213.png');
+                                                            } else {
+                                                              return (getJsonField(
+                                                                        taskerProfileUserProfileMeResponse
+                                                                            .jsonBody,
+                                                                        r'''$.data.banner''',
+                                                                      ) !=
+                                                                      null
+                                                                  ? '${FFAppState().baseUrl}${getJsonField(
+                                                                      taskerProfileUserProfileMeResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.banner''',
+                                                                    ).toString()}'
+                                                                  : '${FFAppState().baseUrl}/files/Group 213.png');
+                                                            }
+                                                          }(),
+                                                        ),
+                                                      ),
                                                     ),
-                                                  ),
-                                                ],
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      8.0,
+                                                                      8.0,
+                                                                      0.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .end,
+                                                            children: [
+                                                              InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  setState(() {
+                                                                    FFAppState()
+                                                                            .BannerCheck =
+                                                                        true;
+                                                                  });
+                                                                },
+                                                                child:
+                                                                    wrapWithModel(
+                                                                  model: _model
+                                                                      .editIconModel1,
+                                                                  updateCallback:
+                                                                      () => setState(
+                                                                          () {}),
+                                                                  child:
+                                                                      EditIconWidget(),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  );
+                                                },
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  35.0, 100.0, 0.0, 0.0),
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFF6F6F6),
-                                              shape: BoxShape.circle,
-                                            ),
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    0.00, 0.00),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(35.0, 100.0,
+                                                          0.0, 0.0),
+                                                  child: Container(
+                                                    width: 100.0,
+                                                    height: 100.0,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0xFFF6F6F6),
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            0.00, 0.00),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                        ),
+                                          if (FFAppState().closeAd)
+                                            Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Container(
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          1.0,
+                                                      height: 183.0,
+                                                      decoration: BoxDecoration(
+                                                        color:
+                                                            Color(0x53000000),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(5.0),
+                                                        border: Border.all(
+                                                          color:
+                                                              Color(0x00FFFFFF),
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    8.0,
+                                                                    32.0,
+                                                                    20.0),
+                                                        child: Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .start,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    setState(
+                                                                        () {
+                                                                      FFAppState()
+                                                                              .closeAd =
+                                                                          false;
+                                                                    });
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .close_rounded,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          170.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            15.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Text(
+                                                                          getJsonField(
+                                                                            (_model.ad?.jsonBody ??
+                                                                                ''),
+                                                                            r'''$.message.title''',
+                                                                          ).toString(),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                color: Colors.white,
+                                                                                fontSize: 15.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .start,
+                                                                      children: [
+                                                                        Flexible(
+                                                                          child:
+                                                                              Text(
+                                                                            getJsonField(
+                                                                              (_model.ad?.jsonBody ?? ''),
+                                                                              r'''$.message.description''',
+                                                                            ).toString(),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Colors.white,
+                                                                                  fontSize: 12.0,
+                                                                                  fontWeight: FontWeight.normal,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          170.0,
+                                                                          30.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      await launchURL(
+                                                                          getJsonField(
+                                                                        (_model.ad?.jsonBody ??
+                                                                            ''),
+                                                                        r'''$.message.action_url''',
+                                                                      ).toString());
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          113.0,
+                                                                      height:
+                                                                          36.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Color(
+                                                                            0xFF5450E2),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(5.0),
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'See more ..',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Colors.white,
+                                                                                  fontSize: 12.0,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                        ],
                                       ),
                                       Stack(
                                         children: [
@@ -228,12 +636,18 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Image.network(
-                                                TaskerpageBackendGroup
-                                                    .userProfileMeCall
-                                                    .avatar(
-                                                  taskerProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                ),
+                                                getJsonField(
+                                                          taskerProfileUserProfileMeResponse
+                                                              .jsonBody,
+                                                          r'''$.data.avatar''',
+                                                        ) !=
+                                                        null
+                                                    ? 'https://taskerpage.com${getJsonField(
+                                                        taskerProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.avatar''',
+                                                      ).toString()}'
+                                                    : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -280,13 +694,15 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          '${TaskerpageBackendGroup.userProfileMeCall.name(
-                                                taskerProfileUserProfileMeResponse
-                                                    .jsonBody,
-                                              ).toString()} ${TaskerpageBackendGroup.userProfileMeCall.family(
-                                                taskerProfileUserProfileMeResponse
-                                                    .jsonBody,
-                                              ).toString()}',
+                                          '${getJsonField(
+                                            taskerProfileUserProfileMeResponse
+                                                .jsonBody,
+                                            r'''$.data.first_name''',
+                                          ).toString()} ${getJsonField(
+                                            taskerProfileUserProfileMeResponse
+                                                .jsonBody,
+                                            r'''$.data.last_name''',
+                                          ).toString()}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -295,93 +711,116 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
-                                            child: Image.asset(
-                                              'assets/images/Identification.png',
-                                              width: 18.0,
-                                              height: 18.0,
-                                              fit: BoxFit.none,
+                                        if (functions
+                                                .jsonToInt(getJsonField(
+                                                  taskerProfileUserProfileMeResponse
+                                                      .jsonBody,
+                                                  r'''$.data.identified''',
+                                                ))
+                                                .toString() ==
+                                            '1')
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(0.0),
+                                              child: Image.asset(
+                                                'assets/images/Identification.png',
+                                                width: 18.0,
+                                                height: 18.0,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
-                                            child: Image.asset(
-                                              'assets/images/Identifiscation.png',
-                                              width: 18.0,
-                                              height: 18.0,
-                                              fit: BoxFit.none,
+                                        if (functions
+                                                .jsonToInt(getJsonField(
+                                                  taskerProfileUserProfileMeResponse
+                                                      .jsonBody,
+                                                  r'''$.data.identified''',
+                                                ))
+                                                .toString() ==
+                                            '0')
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(0.0),
+                                              child: Image.asset(
+                                                'assets/images/Identifiscation.png',
+                                                width: 18.0,
+                                                height: 18.0,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
-                                    InkWell(
-                                      splashColor: Colors.transparent,
-                                      focusColor: Colors.transparent,
-                                      hoverColor: Colors.transparent,
-                                      highlightColor: Colors.transparent,
-                                      onTap: () async {
-                                        context.pushNamed('ShowPlans');
-                                      },
-                                      child: Container(
-                                        width: 113.0,
-                                        height: 36.0,
-                                        decoration: BoxDecoration(
-                                          color: Color(0xFF5450E2),
-                                          borderRadius:
-                                              BorderRadius.circular(5.0),
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  15.0, 0.0, 15.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Icon(
-                                                Icons.add_rounded,
-                                                color: Color(0xFFF6F6F6),
-                                                size: 18.0,
-                                              ),
-                                              Text(
-                                                'Subscribe',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                              ),
-                                            ],
+                                    if (functions.booltoInt(getJsonField(
+                                          taskerProfileUserProfileMeResponse
+                                              .jsonBody,
+                                          r'''$.data.is_subscribed''',
+                                        )) ==
+                                        0)
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed('ShowPlans');
+                                        },
+                                        child: Container(
+                                          width: 113.0,
+                                          height: 36.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF5450E2),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    15.0, 0.0, 15.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
+                                              children: [
+                                                Icon(
+                                                  Icons.add_rounded,
+                                                  color: Color(0xFFF6F6F6),
+                                                  size: 18.0,
+                                                ),
+                                                Text(
+                                                  'Subscribe',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFFF6F6F6),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ),
                                   ],
                                 ),
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 8.0, 32.0, 0.0),
+                                    32.0, 10.0, 32.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -399,13 +838,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            TaskerpageBackendGroup
-                                                .userProfileMeCall
-                                                .userRole(
-                                                  taskerProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                )
-                                                .toString(),
+                                            'Tasker',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -418,11 +851,53 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         ],
                                       ),
                                     ),
+                                    if (functions.jsonToString(getJsonField(
+                                          taskerProfileUserProfileMeResponse
+                                              .jsonBody,
+                                          r'''$.data.is_subscribed''',
+                                        )) ==
+                                        '1')
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 0.0, 0.0, 0.0),
+                                        child: Container(
+                                          height: 26.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFF39F21),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    12.0, 0.0, 12.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Premium',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFFF6F6F6),
+                                                        fontSize: 11.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 0.0, 0.0),
                                       child: Container(
-                                        width: 104.0,
+                                        width: 90.0,
                                         height: 26.0,
                                         decoration: BoxDecoration(
                                           color: Color(0xFF01880E),
@@ -439,13 +914,11 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                TaskerpageBackendGroup
-                                                    .userProfileMeCall
-                                                    .reviewAverage(
-                                                      taskerProfileUserProfileMeResponse
-                                                          .jsonBody,
-                                                    )
-                                                    .toString(),
+                                                getJsonField(
+                                                  taskerProfileUserProfileMeResponse
+                                                      .jsonBody,
+                                                  r'''$.data.review_average''',
+                                                ).toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -465,11 +938,10 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                   color: Colors.white,
                                                 ),
                                                 direction: Axis.horizontal,
-                                                rating: TaskerpageBackendGroup
-                                                    .userProfileMeCall
-                                                    .reviewAverage(
+                                                rating: getJsonField(
                                                   taskerProfileUserProfileMeResponse
                                                       .jsonBody,
+                                                  r'''$.data.review_average''',
                                                 ),
                                                 unratedColor: Color(0xFFC3C3C3),
                                                 itemCount: 5,
@@ -531,13 +1003,15 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Lives in ${TaskerpageBackendGroup.userProfileMeCall.userCountry(
-                                            taskerProfileUserProfileMeResponse
-                                                .jsonBody,
-                                          ).toString()}, ${TaskerpageBackendGroup.userProfileMeCall.userCountry(
-                                            taskerProfileUserProfileMeResponse
-                                                .jsonBody,
-                                          ).toString()}',
+                                      'Lives in ${getJsonField(
+                                        taskerProfileUserProfileMeResponse
+                                            .jsonBody,
+                                        r'''$.data.city''',
+                                      ).toString()}, ${getJsonField(
+                                        taskerProfileUserProfileMeResponse
+                                            .jsonBody,
+                                        r'''$.data.country''',
+                                      ).toString()}',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -576,7 +1050,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: wrapWithModel(
                                             model: _model.editIconModel3,
@@ -647,9 +1122,16 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                   0.0, 16.0, 0.0, 0.0),
                                           child: FutureBuilder<ApiCallResponse>(
                                             future: TaskerpageBackendGroup
-                                                .myServicesCall
+                                                .serviceListCall
                                                 .call(
                                               apiGlobalKey: FFAppState().apiKey,
+                                              fields:
+                                                  '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\"]',
+                                              filters:
+                                                  '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString()}\"]]',
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
@@ -665,23 +1147,37 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                   ),
                                                 );
                                               }
-                                              final listViewMyServicesResponse =
+                                              final listViewServiceListResponse =
                                                   snapshot.data!;
                                               return Builder(
                                                 builder: (context) {
                                                   final myServices =
-                                                      (TaskerpageBackendGroup
-                                                                  .myServicesCall
-                                                                  .myServices(
-                                                                    listViewMyServicesResponse
-                                                                        .jsonBody,
-                                                                  )
-                                                                  ?.toList() ??
-                                                              [])
-                                                          .take(3)
-                                                          .toList();
+                                                      getJsonField(
+                                                    listViewServiceListResponse
+                                                        .jsonBody,
+                                                    r'''$.data''',
+                                                  ).toList().take(3).toList();
+                                                  if (myServices.isEmpty) {
+                                                    return EmtyContainerWidget(
+                                                      title:
+                                                          'Add a new skill !',
+                                                      goTo: () async {
+                                                        context.pushNamed(
+                                                          'Skills-3',
+                                                          queryParameters: {
+                                                            'addAnother':
+                                                                serializeParam(
+                                                              true,
+                                                              ParamType.bool,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
+                                                    );
+                                                  }
                                                   return ListView.separated(
                                                     padding: EdgeInsets.zero,
+                                                    primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,
@@ -694,73 +1190,57 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                       final myServicesItem =
                                                           myServices[
                                                               myServicesIndex];
-                                                      return Container(
-                                                        width:
-                                                            MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width *
-                                                                1.0,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      15.0,
-                                                                      15.0,
-                                                                      20.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    getJsonField(
-                                                                      myServicesItem,
-                                                                      r'''$.related_service_category.translation.en.title''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Row(
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          context.pushNamed(
+                                                              'Skills_List');
+                                                        },
+                                                        child: Container(
+                                                          width:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width *
+                                                                  1.0,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFFF6F6F6),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        15.0,
+                                                                        15.0,
+                                                                        20.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
                                                                   children: [
                                                                     Text(
-                                                                      'Skills:',
+                                                                      getJsonField(
+                                                                        myServicesItem,
+                                                                        r'''$.skill_category_name''',
+                                                                      ).toString(),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium
@@ -770,203 +1250,25 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                             fontSize:
                                                                                 14.0,
                                                                             fontWeight:
-                                                                                FontWeight.w500,
+                                                                                FontWeight.bold,
                                                                           ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          8.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Container(
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: Color(0xFF5450E2),
-                                                                              borderRadius: BorderRadius.circular(15.0),
-                                                                            ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(15.0, 5.0, 15.0, 5.0),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    getJsonField(
-                                                                                      myServicesItem,
-                                                                                      r'''$.related_service.translation.en.title''',
-                                                                                    ).toString(),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: Color(0xFFF6F6F6),
-                                                                                          fontSize: 12.0,
-                                                                                          fontWeight: FontWeight.normal,
-                                                                                        ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
                                                                     ),
                                                                   ],
                                                                 ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Skill Level:',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          8.0,
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Container(
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              color: Color(0xFF5450E2),
-                                                                              borderRadius: BorderRadius.circular(15.0),
-                                                                            ),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(15.0, 5.0, 15.0, 5.0),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    getJsonField(
-                                                                                      myServicesItem,
-                                                                                      r'''$.service_skill_level''',
-                                                                                    ).toString(),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: Color(0xFFF6F6F6),
-                                                                                          fontSize: 12.0,
-                                                                                          fontWeight: FontWeight.normal,
-                                                                                        ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Brings Own Tools:',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Container(
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              Color(0xFF00C661),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(15.0),
-                                                                        ),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              7.0,
-                                                                              5.0,
-                                                                              7.0,
-                                                                              5.0),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.done_rounded,
-                                                                                color: Color(0xFFF6F6F6),
-                                                                                size: 15.0,
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
                                                                           10.0,
                                                                           0.0,
-                                                                          0.0,
                                                                           0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        'Brings Materials:',
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Skills:',
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(
@@ -975,50 +1277,235 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                               fontWeight: FontWeight.w500,
                                                                             ),
                                                                       ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Container(
+                                                                              decoration: BoxDecoration(
+                                                                                color: Color(0xFF5450E2),
+                                                                                borderRadius: BorderRadius.circular(15.0),
+                                                                              ),
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(15.0, 5.0, 15.0, 5.0),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      getJsonField(
+                                                                                        myServicesItem,
+                                                                                        r'''$.skill_name''',
+                                                                                      ).toString(),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: Color(0xFFF6F6F6),
+                                                                                            fontSize: 12.0,
+                                                                                            fontWeight: FontWeight.normal,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           0.0,
+                                                                          8.0,
                                                                           0.0,
                                                                           0.0),
-                                                                      child:
-                                                                          Container(
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              Color(0xFFE8083F),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(15.0),
-                                                                        ),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Skill Level:',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            8.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                         child:
-                                                                            Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              7.0,
-                                                                              5.0,
-                                                                              7.0,
-                                                                              5.0),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Icon(
-                                                                                Icons.close_rounded,
-                                                                                color: Color(0xFFF6F6F6),
-                                                                                size: 15.0,
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            Container(
+                                                                              decoration: BoxDecoration(
+                                                                                color: Color(0xFF5450E2),
+                                                                                borderRadius: BorderRadius.circular(15.0),
                                                                               ),
-                                                                            ],
+                                                                              child: Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(15.0, 5.0, 15.0, 5.0),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      getJsonField(
+                                                                                        myServicesItem,
+                                                                                        r'''$.skill_level''',
+                                                                                      ).toString(),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: Color(0xFFF6F6F6),
+                                                                                            fontSize: 12.0,
+                                                                                            fontWeight: FontWeight.normal,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Text(
+                                                                        'Brings Own Tools:',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Container(
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                Color(0xFF00C661),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(15.0),
+                                                                          ),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                7.0,
+                                                                                5.0,
+                                                                                7.0,
+                                                                                5.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                Icon(
+                                                                                  Icons.done_rounded,
+                                                                                  color: Color(0xFFF6F6F6),
+                                                                                  size: 15.0,
+                                                                                ),
+                                                                              ],
+                                                                            ),
                                                                           ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                  ],
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            10.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Text(
+                                                                          'Brings Materials:',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                fontSize: 14.0,
+                                                                                fontWeight: FontWeight.w500,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Container(
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                Color(0xFFE8083F),
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(15.0),
+                                                                          ),
+                                                                          child:
+                                                                              Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                7.0,
+                                                                                5.0,
+                                                                                7.0,
+                                                                                5.0),
+                                                                            child:
+                                                                                Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              mainAxisAlignment: MainAxisAlignment.center,
+                                                                              children: [
+                                                                                Icon(
+                                                                                  Icons.close_rounded,
+                                                                                  color: Color(0xFFF6F6F6),
+                                                                                  size: 15.0,
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
                                                                 ),
-                                                              ),
-                                                            ],
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       );
@@ -1077,6 +1564,13 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       .myEducationsCall
                                       .call(
                                     apiGlobalKey: FFAppState().apiKey,
+                                    fields:
+                                        '[\"education_type\",\"school_title\",\"certificate\",\"title\"]',
+                                    filters:
+                                        '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.name''',
+                                    ).toString()}\"]]',
                                   ),
                                   builder: (context, snapshot) {
                                     // Customize what your widget looks like when it's loading.
@@ -1098,10 +1592,31 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       builder: (context) {
                                         final myEducation = getJsonField(
                                           listViewMyEducationsResponse.jsonBody,
-                                          r'''$''',
+                                          r'''$.data''',
                                         ).toList().take(3).toList();
+                                        if (myEducation.isEmpty) {
+                                          return EmtyContainerWidget(
+                                            title: 'Add a new education !',
+                                            goTo: () async {
+                                              context.pushNamed(
+                                                'Add_another_education',
+                                                queryParameters: {
+                                                  'isSignUp': serializeParam(
+                                                    false,
+                                                    ParamType.bool,
+                                                  ),
+                                                  'addAnother': serializeParam(
+                                                    true,
+                                                    ParamType.bool,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
+                                            },
+                                          );
+                                        }
                                         return ListView.separated(
                                           padding: EdgeInsets.zero,
+                                          primary: false,
                                           shrinkWrap: true,
                                           scrollDirection: Axis.vertical,
                                           itemCount: myEducation.length,
@@ -1111,88 +1626,38 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               (context, myEducationIndex) {
                                             final myEducationItem =
                                                 myEducation[myEducationIndex];
-                                            return Container(
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 15.0, 15.0, 15.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            'Name:',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF212121),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Text(
-                                                          getJsonField(
-                                                            myEducationItem,
-                                                            r'''$.title''',
-                                                          ).toString(),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                color: Color(
-                                                                    0xFF212121),
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Row(
+                                            return InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context
+                                                    .pushNamed('Education-2');
+                                              },
+                                              child: Container(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        1.0,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.white,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          10.0),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(15.0, 15.0,
+                                                          15.0, 15.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
                                                         children: [
                                                           Padding(
                                                             padding:
@@ -1203,7 +1668,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         8.0,
                                                                         0.0),
                                                             child: Text(
-                                                              'Name of Institute:',
+                                                              'Name:',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1223,7 +1688,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                           Text(
                                                             getJsonField(
                                                               myEducationItem,
-                                                              r'''$.school_title''',
+                                                              r'''$.title''',
                                                             ).toString(),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
@@ -1242,29 +1707,52 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        8.0,
-                                                                        0.0),
-                                                            child: Text(
-                                                              'Level:',
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .start,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                'Name of Institute:',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Lato',
+                                                                      color: Color(
+                                                                          0xFF212121),
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                            Text(
+                                                              getJsonField(
+                                                                myEducationItem,
+                                                                r'''$.school_title''',
+                                                              ).toString(),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1277,63 +1765,103 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         14.0,
                                                                     fontWeight:
                                                                         FontWeight
-                                                                            .bold,
+                                                                            .w500,
                                                                   ),
                                                             ),
-                                                          ),
-                                                          Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFF5450E2),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15.0),
-                                                            ),
-                                                            child: Padding(
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          15.0,
-                                                                          5.0,
-                                                                          15.0,
-                                                                          5.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    getJsonField(
-                                                                      myEducationItem,
-                                                                      r'''$.education_level''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color:
-                                                                              Color(0xFFF6F6F6),
-                                                                          fontSize:
-                                                                              12.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                        ),
-                                                                  ),
-                                                                ],
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0),
+                                                              child: Text(
+                                                                'Type:',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Lato',
+                                                                      color: Color(
+                                                                          0xFF212121),
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
+                                                            Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0xFF5450E2),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            15.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        5.0,
+                                                                        15.0,
+                                                                        5.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      getJsonField(
+                                                                        myEducationItem,
+                                                                        r'''$.education_type''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Color(0xFFF6F6F6),
+                                                                            fontSize:
+                                                                                12.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             );
@@ -1397,8 +1925,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
                                             },
                                             child: Container(
                                               width: 23.0,
@@ -1443,7 +1971,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                       MainAxisSize.max,
                                                   children: [
                                                     Text(
-                                                      'Posts',
+                                                      'Bid',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -1494,7 +2022,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Text(
-                                                    'Reviews',
+                                                    'Reviews by me',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1513,7 +2041,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                         ),
                                                   ),
                                                   SizedBox(
-                                                    width: 55.0,
+                                                    width: 95.0,
                                                     child: Divider(
                                                       thickness: 2.0,
                                                       color: FFAppState()
@@ -1535,153 +2063,18 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
                                                   0.0, 20.0, 0.0, 10.0),
-                                          child: ListView(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  color: Color(0xFFF6F6F6),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          15.0, 8.0, 15.0, 8.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    8.0),
-                                                        child: Text(
-                                                          'Post a job',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        '2021/Jun/26 07:47:03 ',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Lato',
-                                                              color: Color(
-                                                                  0xFF616161),
-                                                              fontSize: 12.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w300,
-                                                            ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ].divide(SizedBox(height: 8.0)),
-                                          ),
-                                        ),
-                                      if (FFAppState().PostsReviews == 'Post')
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              height: 26.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(15.0),
-                                                border: Border.all(
-                                                  color: Color(0xFF5450E2),
-                                                ),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        5.0, 0.0, 5.0, 0.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Text(
-                                                      'See more',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF5450E2),
-                                                            fontSize: 11.0,
-                                                          ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Icon(
-                                                        Icons.keyboard_control,
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        size: 13.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      if (FFAppState().PostsReviews ==
-                                          'Reviews')
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 10.0),
                                           child: FutureBuilder<ApiCallResponse>(
                                             future: TaskerpageBackendGroup
-                                                .myReviewsCall
+                                                .myBidCall
                                                 .call(
                                               apiGlobalKey: FFAppState().apiKey,
+                                              fields:
+                                                  '[\"name\",\"price\",\"price_type\",\"post\",\"creation\"]',
+                                              filters:
+                                                  '[[\"bider\",\"=\",\"${getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString()}\"]]',
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
@@ -1697,106 +2090,195 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                   ),
                                                 );
                                               }
-                                              final listViewMyReviewsResponse =
+                                              final listViewMyBidResponse =
                                                   snapshot.data!;
                                               return Builder(
                                                 builder: (context) {
-                                                  final myReviews =
-                                                      getJsonField(
-                                                    listViewMyReviewsResponse
+                                                  final myBids = getJsonField(
+                                                    listViewMyBidResponse
                                                         .jsonBody,
-                                                    r'''$''',
+                                                    r'''$.data''',
                                                   ).toList().take(3).toList();
+                                                  if (myBids.isEmpty) {
+                                                    return EmtyContainerWidget(
+                                                      title:
+                                                          'Register a new bid !',
+                                                      goTo: () async {
+                                                        context.pushNamed(
+                                                            'TaskList');
+                                                      },
+                                                    );
+                                                  }
                                                   return ListView.separated(
                                                     padding: EdgeInsets.zero,
+                                                    primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,
-                                                    itemCount: myReviews.length,
+                                                    itemCount: myBids.length,
                                                     separatorBuilder: (_, __) =>
                                                         SizedBox(height: 8.0),
-                                                    itemBuilder: (context,
-                                                        myReviewsIndex) {
-                                                      final myReviewsItem =
-                                                          myReviews[
-                                                              myReviewsIndex];
-                                                      return Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
+                                                    itemBuilder:
+                                                        (context, myBidsIndex) {
+                                                      final myBidsItem =
+                                                          myBids[myBidsIndex];
+                                                      return FutureBuilder<
+                                                          ApiCallResponse>(
+                                                        future:
+                                                            TaskerpageBackendGroup
+                                                                .postReadCall
+                                                                .call(
+                                                          id: getJsonField(
+                                                            myBidsItem,
+                                                            r'''$.post''',
+                                                          ).toString(),
+                                                          apiGlobalKey:
+                                                              FFAppState()
+                                                                  .apiKey,
                                                         ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      10.0,
-                                                                      8.0,
-                                                                      10.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Text(
-                                                                    'Post #${getJsonField(
-                                                                      myReviewsItem,
-                                                                      r'''$.related_post.id''',
-                                                                    ).toString()},',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
-                                                                        ),
-                                                                  ),
-                                                                  Text(
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    SpinKitThreeBounce(
+                                                                  color: Color(
+                                                                      0xFF5450E2),
+                                                                  size: 50.0,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          final containerPostReadResponse =
+                                                              snapshot.data!;
+                                                          return InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              context.pushNamed(
+                                                                'TaskView',
+                                                                queryParameters:
+                                                                    {
+                                                                  'id':
+                                                                      serializeParam(
                                                                     getJsonField(
-                                                                      myReviewsItem,
-                                                                      r'''$.reviewee.first_name''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
-                                                                        ),
+                                                                      myBidsItem,
+                                                                      r'''$.post''',
+                                                                    ),
+                                                                    ParamType
+                                                                        .int,
                                                                   ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
+                                                                }.withoutNulls,
+                                                              );
+                                                            },
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0xFFF6F6F6),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        8.0,
+                                                                        15.0,
+                                                                        8.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                                      child:
+                                                                          Text(
+                                                                        getJsonField(
+                                                                          containerPostReadResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data.skill_name''',
+                                                                        ).toString(),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                              decoration: TextDecoration.underline,
+                                                                            ),
+                                                                      ),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              8.0),
+                                                                          child:
+                                                                              Text(
+                                                                            'Your sugestion : ${getJsonField(
+                                                                              myBidsItem,
+                                                                              r'''$.price''',
+                                                                            ).toString()}',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  fontSize: 12.0,
+                                                                                  fontWeight: FontWeight.bold,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              5.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              5.0),
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.euro,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryText,
+                                                                            size:
+                                                                                15.0,
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Text(
                                                                       getJsonField(
-                                                                        myReviewsItem,
-                                                                        r'''$.created_at''',
+                                                                        myBidsItem,
+                                                                        r'''$.creation''',
                                                                       ).toString(),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -1812,125 +2294,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                                 FontWeight.w300,
                                                                           ),
                                                                     ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            15.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        RatingBarIndicator(
-                                                                      itemBuilder:
-                                                                          (context, index) =>
-                                                                              Icon(
-                                                                        Icons
-                                                                            .star_rounded,
-                                                                        color: Color(
-                                                                            0xFFFBD927),
-                                                                      ),
-                                                                      direction:
-                                                                          Axis.horizontal,
-                                                                      rating:
-                                                                          getJsonField(
-                                                                        listViewMyReviewsResponse
-                                                                            .jsonBody,
-                                                                        r'''$.rating''',
-                                                                      ),
-                                                                      unratedColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .accent3,
-                                                                      itemCount:
-                                                                          5,
-                                                                      itemSize:
-                                                                          12.0,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            8.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: Color(
-                                                                            0xFF5450E2),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(15.0),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            15.0,
-                                                                            5.0,
-                                                                            15.0,
-                                                                            5.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Gardening',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: Color(0xFFF6F6F6),
-                                                                                    fontSize: 12.0,
-                                                                                    fontWeight: FontWeight.normal,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
                                                                   ],
                                                                 ),
                                                               ),
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  Flexible(
-                                                                    child: Text(
-                                                                      getJsonField(
-                                                                        myReviewsItem,
-                                                                        r'''$.description''',
-                                                                      ).toString(),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            color:
-                                                                                Color(0xFF5E5D5D),
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
+                                                            ),
+                                                          );
+                                                        },
                                                       );
                                                     },
                                                   );
@@ -1938,6 +2307,344 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               );
                                             },
                                           ),
+                                        ),
+                                      if (FFAppState().PostsReviews == 'Post')
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context.pushNamed('MyInbox');
+                                              },
+                                              child: Container(
+                                                height: 26.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          15.0),
+                                                  border: Border.all(
+                                                    color: Color(0xFF5450E2),
+                                                  ),
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          5.0, 0.0, 5.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        'See more',
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: Color(
+                                                                  0xFF5450E2),
+                                                              fontSize: 11.0,
+                                                            ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    5.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Icon(
+                                                          Icons
+                                                              .keyboard_control,
+                                                          color:
+                                                              Color(0xFF5450E2),
+                                                          size: 13.0,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      if (FFAppState().PostsReviews ==
+                                          'Reviews')
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 20.0, 0.0, 10.0),
+                                              child: FutureBuilder<
+                                                  ApiCallResponse>(
+                                                future: TaskerpageBackendGroup
+                                                    .myReviewsCall
+                                                    .call(
+                                                  filters:
+                                                      '[[\"reviewed_by\",\"=\",\"${getJsonField(
+                                                    FFAppState().userProfile,
+                                                    r'''$.data.name''',
+                                                  ).toString()}\"]]',
+                                                  fields:
+                                                      '[\"reviewed_on\",\"creation\",\"appointment\",\"reviewed_by\",\"review_rate\",\"comment\"]',
+                                                  apiGlobalKey:
+                                                      FFAppState().apiKey,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            SpinKitThreeBounce(
+                                                          color:
+                                                              Color(0xFF5450E2),
+                                                          size: 50.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final listViewMyReviewsResponse =
+                                                      snapshot.data!;
+                                                  return Builder(
+                                                    builder: (context) {
+                                                      final myReviews =
+                                                          getJsonField(
+                                                        listViewMyReviewsResponse
+                                                            .jsonBody,
+                                                        r'''$.data''',
+                                                      )
+                                                              .toList()
+                                                              .take(3)
+                                                              .toList();
+                                                      if (myReviews.isEmpty) {
+                                                        return EmtyContainerWidget(
+                                                          goTo: () async {},
+                                                        );
+                                                      }
+                                                      return ListView.separated(
+                                                        padding:
+                                                            EdgeInsets.zero,
+                                                        primary: false,
+                                                        shrinkWrap: true,
+                                                        scrollDirection:
+                                                            Axis.vertical,
+                                                        itemCount:
+                                                            myReviews.length,
+                                                        separatorBuilder:
+                                                            (_, __) => SizedBox(
+                                                                height: 8.0),
+                                                        itemBuilder: (context,
+                                                            myReviewsIndex) {
+                                                          final myReviewsItem =
+                                                              myReviews[
+                                                                  myReviewsIndex];
+                                                          return FutureBuilder<
+                                                              ApiCallResponse>(
+                                                            future: TaskerpageBackendGroup
+                                                                .userProfileReadCall
+                                                                .call(
+                                                              id: getJsonField(
+                                                                myReviewsItem,
+                                                                r'''$.reviewed_on''',
+                                                              ).toString(),
+                                                              apiGlobalKey:
+                                                                  FFAppState()
+                                                                      .apiKey,
+                                                            ),
+                                                            builder: (context,
+                                                                snapshot) {
+                                                              // Customize what your widget looks like when it's loading.
+                                                              if (!snapshot
+                                                                  .hasData) {
+                                                                return Center(
+                                                                  child:
+                                                                      SizedBox(
+                                                                    width: 50.0,
+                                                                    height:
+                                                                        50.0,
+                                                                    child:
+                                                                        SpinKitThreeBounce(
+                                                                      color: Color(
+                                                                          0xFF5450E2),
+                                                                      size:
+                                                                          50.0,
+                                                                    ),
+                                                                  ),
+                                                                );
+                                                              }
+                                                              final containerUserProfileReadResponse =
+                                                                  snapshot
+                                                                      .data!;
+                                                              return Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: Color(
+                                                                      0xFFF6F6F6),
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              10.0),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          15.0,
+                                                                          8.0,
+                                                                          15.0,
+                                                                          8.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Container(
+                                                                        width:
+                                                                            50.0,
+                                                                        height:
+                                                                            50.0,
+                                                                        clipBehavior:
+                                                                            Clip.antiAlias,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child: Image
+                                                                            .network(
+                                                                          '${FFAppState().baseUrl}${getJsonField(
+                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                            r'''$.data.avatar''',
+                                                                          ).toString()}',
+                                                                          fit: BoxFit
+                                                                              .cover,
+                                                                        ),
+                                                                      ),
+                                                                      Expanded(
+                                                                        child:
+                                                                            Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              15.0,
+                                                                              10.0,
+                                                                              8.0,
+                                                                              10.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    '${getJsonField(
+                                                                                      containerUserProfileReadResponse.jsonBody,
+                                                                                      r'''$.data.first_name''',
+                                                                                    ).toString()} ${getJsonField(
+                                                                                      containerUserProfileReadResponse.jsonBody,
+                                                                                      r'''$.data.last_name''',
+                                                                                    ).toString()}',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          fontSize: 14.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                          decoration: TextDecoration.underline,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      dateTimeFormat(
+                                                                                          'yMMMd',
+                                                                                          functions.jsonToDateTime(getJsonField(
+                                                                                            myReviewsItem,
+                                                                                            r'''$.creation''',
+                                                                                          ))),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: Color(0xFF616161),
+                                                                                            fontSize: 12.0,
+                                                                                            fontWeight: FontWeight.w300,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 10.0),
+                                                                                child: RatingBarIndicator(
+                                                                                  itemBuilder: (context, index) => Icon(
+                                                                                    Icons.star_rounded,
+                                                                                    color: Color(0xFFFBD927),
+                                                                                  ),
+                                                                                  direction: Axis.horizontal,
+                                                                                  rating: getJsonField(
+                                                                                    myReviewsItem,
+                                                                                    r'''$.review_rate''',
+                                                                                  ),
+                                                                                  unratedColor: FlutterFlowTheme.of(context).accent3,
+                                                                                  itemCount: 5,
+                                                                                  itemSize: 12.0,
+                                                                                ),
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Flexible(
+                                                                                    child: Text(
+                                                                                      getJsonField(
+                                                                                        myReviewsItem,
+                                                                                        r'''$.comment''',
+                                                                                      ).toString(),
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: Color(0xFF5E5D5D),
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.w300,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          ],
                                         ),
                                       if (FFAppState().PostsReviews ==
                                           'Reviews')
@@ -2014,7 +2721,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Reviews',
+                                      'Reviews on me',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -2026,252 +2733,268 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 20.0, 32.0, 10.0),
-                                child: FutureBuilder<ApiCallResponse>(
-                                  future: TaskerpageBackendGroup
-                                      .reviewsAboutMeCall
-                                      .call(
-                                    apiGlobalKey: FFAppState().apiKey,
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: SpinKitThreeBounce(
-                                            color: Color(0xFF5450E2),
-                                            size: 50.0,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    final listViewReviewsAboutMeResponse =
-                                        snapshot.data!;
-                                    return Builder(
-                                      builder: (context) {
-                                        final reviewsAboutMe = getJsonField(
-                                          listViewReviewsAboutMeResponse
-                                              .jsonBody,
-                                          r'''$''',
-                                        ).toList().take(3).toList();
-                                        return ListView.separated(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: reviewsAboutMe.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 8.0),
-                                          itemBuilder:
-                                              (context, reviewsAboutMeIndex) {
-                                            final reviewsAboutMeItem =
-                                                reviewsAboutMe[
-                                                    reviewsAboutMeIndex];
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 20.0, 32.0, 10.0),
+                                    child: FutureBuilder<ApiCallResponse>(
+                                      future: TaskerpageBackendGroup
+                                          .myReviewsCall
+                                          .call(
+                                        filters:
+                                            '[[\"reviewed_on\",\"=\",\"${getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ).toString()}\"]]',
+                                        fields:
+                                            '[\"reviewed_on\",\"creation\",\"appointment\",\"reviewed_by\",\"review_rate\",\"comment\"]',
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: SpinKitThreeBounce(
+                                                color: Color(0xFF5450E2),
+                                                size: 50.0,
                                               ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 10.0, 8.0, 10.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          'Post #${getJsonField(
-                                                            reviewsAboutMeItem,
-                                                            r'''$.related_post.id''',
-                                                          ).toString()}',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            getJsonField(
-                                                              reviewsAboutMeItem,
-                                                              r'''$.created_at''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF616161),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
+                                            ),
+                                          );
+                                        }
+                                        final listViewMyReviewsResponse =
+                                            snapshot.data!;
+                                        return Builder(
+                                          builder: (context) {
+                                            final myReviews = getJsonField(
+                                              listViewMyReviewsResponse
+                                                  .jsonBody,
+                                              r'''$.data''',
+                                            ).toList().take(3).toList();
+                                            if (myReviews.isEmpty) {
+                                              return EmtyContainerWidget(
+                                                goTo: () async {},
+                                              );
+                                            }
+                                            return ListView.separated(
+                                              padding: EdgeInsets.zero,
+                                              primary: false,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: myReviews.length,
+                                              separatorBuilder: (_, __) =>
+                                                  SizedBox(height: 8.0),
+                                              itemBuilder:
+                                                  (context, myReviewsIndex) {
+                                                final myReviewsItem =
+                                                    myReviews[myReviewsIndex];
+                                                return FutureBuilder<
+                                                    ApiCallResponse>(
+                                                  future: TaskerpageBackendGroup
+                                                      .userProfileReadCall
+                                                      .call(
+                                                    id: getJsonField(
+                                                      myReviewsItem,
+                                                      r'''$.reviewed_by''',
+                                                    ).toString(),
+                                                    apiGlobalKey:
+                                                        FFAppState().apiKey,
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
                                                           child:
-                                                              RatingBarIndicator(
-                                                            itemBuilder:
-                                                                (context,
-                                                                        index) =>
-                                                                    Icon(
-                                                              Icons
-                                                                  .star_rounded,
-                                                              color: Color(
-                                                                  0xFFFBD927),
-                                                            ),
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            rating:
-                                                                getJsonField(
-                                                              reviewsAboutMeItem,
-                                                              r'''$.rating''',
-                                                            ),
-                                                            unratedColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            itemCount: 5,
-                                                            itemSize: 12.0,
+                                                              SpinKitThreeBounce(
+                                                            color: Color(
+                                                                0xFF5450E2),
+                                                            size: 50.0,
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  8.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFF5450E2),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15.0),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          15.0,
-                                                                          5.0,
-                                                                          15.0,
-                                                                          5.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    'Gardening',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color:
-                                                                              Color(0xFFF6F6F6),
-                                                                          fontSize:
-                                                                              12.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                        ),
-                                                                  ),
-                                                                ],
+                                                      );
+                                                    }
+                                                    final containerUserProfileReadResponse =
+                                                        snapshot.data!;
+                                                    return Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    15.0,
+                                                                    8.0,
+                                                                    15.0,
+                                                                    8.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Container(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              clipBehavior: Clip
+                                                                  .antiAlias,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child:
+                                                                  Image.network(
+                                                                '${FFAppState().baseUrl}${getJsonField(
+                                                                  containerUserProfileReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.avatar''',
+                                                                ).toString()}',
+                                                                fit: BoxFit
+                                                                    .cover,
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                            getJsonField(
-                                                              reviewsAboutMeItem,
-                                                              r'''$.description''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF5E5D5D),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
+                                                            Expanded(
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        10.0,
+                                                                        8.0,
+                                                                        10.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Text(
+                                                                          '${getJsonField(
+                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                            r'''$.data.first_name''',
+                                                                          ).toString()} ${getJsonField(
+                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                            r'''$.data.last_name''',
+                                                                          ).toString()}',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                fontSize: 14.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                decoration: TextDecoration.underline,
+                                                                              ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            dateTimeFormat(
+                                                                                'yMMMd',
+                                                                                functions.jsonToDateTime(getJsonField(
+                                                                                  myReviewsItem,
+                                                                                  r'''$.creation''',
+                                                                                ))),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Color(0xFF616161),
+                                                                                  fontSize: 12.0,
+                                                                                  fontWeight: FontWeight.w300,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0,
+                                                                          10.0),
+                                                                      child:
+                                                                          RatingBarIndicator(
+                                                                        itemBuilder:
+                                                                            (context, index) =>
+                                                                                Icon(
+                                                                          Icons
+                                                                              .star_rounded,
+                                                                          color:
+                                                                              Color(0xFFFBD927),
+                                                                        ),
+                                                                        direction:
+                                                                            Axis.horizontal,
+                                                                        rating:
+                                                                            getJsonField(
+                                                                          myReviewsItem,
+                                                                          r'''$.review_rate''',
+                                                                        ),
+                                                                        unratedColor:
+                                                                            FlutterFlowTheme.of(context).accent3,
+                                                                        itemCount:
+                                                                            5,
+                                                                        itemSize:
+                                                                            12.0,
+                                                                      ),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Flexible(
+                                                                          child:
+                                                                              Text(
+                                                                            getJsonField(
+                                                                              myReviewsItem,
+                                                                              r'''$.comment''',
+                                                                            ).toString(),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Color(0xFF5E5D5D),
+                                                                                  fontSize: 14.0,
+                                                                                  fontWeight: FontWeight.w300,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                          ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
                                             );
                                           },
                                         );
                                       },
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -2422,13 +3145,11 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                       ),
                                                     ),
                                                     Text(
-                                                      TaskerpageBackendGroup
-                                                          .userProfileMeCall
-                                                          .relatedUserEmailAddress(
-                                                            taskerProfileUserProfileMeResponse
-                                                                .jsonBody,
-                                                          )
-                                                          .toString(),
+                                                      getJsonField(
+                                                        taskerProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.user''',
+                                                      ).toString(),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -2671,13 +3392,11 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                       ),
                                                     ),
                                                     Text(
-                                                      TaskerpageBackendGroup
-                                                          .userProfileMeCall
-                                                          .phone(
-                                                            taskerProfileUserProfileMeResponse
-                                                                .jsonBody,
-                                                          )
-                                                          .toString(),
+                                                      getJsonField(
+                                                        taskerProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.phone_number''',
+                                                      ).toString(),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -2732,13 +3451,11 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                         ),
                                                       ),
                                                       Text(
-                                                        TaskerpageBackendGroup
-                                                            .userProfileMeCall
-                                                            .dateOfBirth(
-                                                              taskerProfileUserProfileMeResponse
-                                                                  .jsonBody,
-                                                            )
-                                                            .toString(),
+                                                        getJsonField(
+                                                          taskerProfileUserProfileMeResponse
+                                                              .jsonBody,
+                                                          r'''$.data.date_of_birth''',
+                                                        ).toString(),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -2805,11 +3522,25 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                   ),
                                                 ),
                                                 FutureBuilder<ApiCallResponse>(
-                                                  future: TaskerpageBackendGroup
-                                                      .myAddressesCall
-                                                      .call(
-                                                    apiGlobalKey:
-                                                        FFAppState().apiKey,
+                                                  future:
+                                                      FFAppState().myAddresses(
+                                                    uniqueQueryKey:
+                                                        'myAddresses',
+                                                    requestFn: () =>
+                                                        TaskerpageBackendGroup
+                                                            .myAddressesCall
+                                                            .call(
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                      fields:
+                                                          '[\"is_main_address\",\"name\",\"address\"]',
+                                                      filters:
+                                                          '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                        FFAppState()
+                                                            .userProfile,
+                                                        r'''$.data.name''',
+                                                      ).toString()}\"]]',
+                                                    ),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -2831,7 +3562,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                         snapshot.data!;
                                                     return Builder(
                                                       builder: (context) {
-                                                        final myAddresses =
+                                                        final myAddresse =
                                                             (TaskerpageBackendGroup
                                                                         .myAddressesCall
                                                                         .myAddressList(
@@ -2848,13 +3579,13 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                           shrinkWrap: true,
                                                           scrollDirection:
                                                               Axis.vertical,
-                                                          itemCount: myAddresses
-                                                              .length,
+                                                          itemCount:
+                                                              myAddresse.length,
                                                           itemBuilder: (context,
-                                                              myAddressesIndex) {
-                                                            final myAddressesItem =
-                                                                myAddresses[
-                                                                    myAddressesIndex];
+                                                              myAddresseIndex) {
+                                                            final myAddresseItem =
+                                                                myAddresse[
+                                                                    myAddresseIndex];
                                                             return Column(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -2884,7 +3615,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         child:
                                                                             Text(
                                                                           getJsonField(
-                                                                            myAddressesItem,
+                                                                            myAddresseItem,
                                                                             r'''$.address''',
                                                                           ).toString(),
                                                                           style: FlutterFlowTheme.of(context)
@@ -2898,11 +3629,13 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    if (getJsonField(
-                                                                          myAddressesItem,
-                                                                          r'''$.is_main_address''',
-                                                                        ) !=
-                                                                        null)
+                                                                    if (functions
+                                                                            .jsonToInt(getJsonField(
+                                                                              myAddresseItem,
+                                                                              r'''$.is_main_address''',
+                                                                            ))
+                                                                            .toString() ==
+                                                                        '1')
                                                                       Container(
                                                                         width:
                                                                             20.0,
@@ -2922,7 +3655,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                           color:
                                                                               Colors.white,
                                                                           size:
-                                                                              7.0,
+                                                                              8.0,
                                                                         ),
                                                                       ),
                                                                   ],
@@ -2968,43 +3701,207 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                     ],
                   ),
                   if (FFAppState().BannerCheck == true)
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x00FFFFFF),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 2.0,
-                            sigmaY: 2.0,
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              width: 269.0,
-                              height: 149.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6F6F6),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 15.0),
-                                    child: InkWell(
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        setState(() {
+                          FFAppState().BannerCheck = false;
+                        });
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        decoration: BoxDecoration(
+                          color: Color(0x00FFFFFF),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(0.0),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 2.0,
+                              sigmaY: 2.0,
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: Container(
+                                width: 269.0,
+                                height: 149.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6F6F6),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 15.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          var _shouldSetState = false;
+                                          // bannerGalery
+                                          final selectedMedia =
+                                              await selectMedia(
+                                            mediaSource:
+                                                MediaSource.photoGallery,
+                                            multiImage: false,
+                                          );
+                                          if (selectedMedia != null &&
+                                              selectedMedia.every((m) =>
+                                                  validateFileFormat(
+                                                      m.storagePath,
+                                                      context))) {
+                                            setState(() =>
+                                                _model.isDataUploading1 = true);
+                                            var selectedUploadedFiles =
+                                                <FFUploadedFile>[];
+
+                                            try {
+                                              selectedUploadedFiles =
+                                                  selectedMedia
+                                                      .map(
+                                                          (m) => FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                      .toList();
+                                            } finally {
+                                              _model.isDataUploading1 = false;
+                                            }
+                                            if (selectedUploadedFiles.length ==
+                                                selectedMedia.length) {
+                                              setState(() {
+                                                _model.uploadedLocalFile1 =
+                                                    selectedUploadedFiles.first;
+                                              });
+                                            } else {
+                                              setState(() {});
+                                              return;
+                                            }
+                                          }
+
+                                          _model.apiResultekx9Copy77 =
+                                              await TaskerpageBackendGroup
+                                                  .uploadCall
+                                                  .call(
+                                            file: _model.uploadedLocalFile1,
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model.apiResultekx9Copy77
+                                                  ?.succeeded ??
+                                              true)) {
+                                            _model.apiResult59uCopy29 =
+                                                await TaskerpageBackendGroup
+                                                    .updateBannerCall
+                                                    .call(
+                                              id: getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString(),
+                                              banner: getJsonField(
+                                                (_model.apiResultekx9Copy77
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$.message.file_url''',
+                                              ).toString(),
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            _shouldSetState = true;
+                                            if ((_model.apiResult59uCopy29
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().BannerCheck =
+                                                    false;
+                                              });
+                                            } else {
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
+                                            }
+
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('Not Done'),
+                                                  content: Text('Not Done'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                        },
+                                        child: Container(
+                                          width: 209.0,
+                                          height: 44.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF5450E2),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'From Gallery',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.white,
+                                                          fontSize: 14.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
-                                          mediaSource: MediaSource.photoGallery,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -3012,7 +3909,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 validateFileFormat(
                                                     m.storagePath, context))) {
                                           setState(() =>
-                                              _model.isDataUploading1 = true);
+                                              _model.isDataUploading2 = true);
                                           var selectedUploadedFiles =
                                               <FFUploadedFile>[];
 
@@ -3032,12 +3929,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                         ))
                                                     .toList();
                                           } finally {
-                                            _model.isDataUploading1 = false;
+                                            _model.isDataUploading2 = false;
                                           }
                                           if (selectedUploadedFiles.length ==
                                               selectedMedia.length) {
                                             setState(() {
-                                              _model.uploadedLocalFile1 =
+                                              _model.uploadedLocalFile2 =
                                                   selectedUploadedFiles.first;
                                             });
                                           } else {
@@ -3046,9 +3943,69 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           }
                                         }
 
-                                        setState(() {
-                                          FFAppState().BannerCheck = false;
-                                        });
+                                        _model.apiResultekx9Copy77Copy =
+                                            await TaskerpageBackendGroup
+                                                .uploadCall
+                                                .call(
+                                          file: _model.uploadedLocalFile2,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                        );
+                                        _shouldSetState = true;
+                                        if ((_model.apiResultekx9Copy77
+                                                ?.succeeded ??
+                                            true)) {
+                                          _model.apiResult59uCopy29Copy =
+                                              await TaskerpageBackendGroup
+                                                  .updateBannerCall
+                                                  .call(
+                                            id: getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                            banner: getJsonField(
+                                              (_model.apiResultekx9Copy77
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.message.file_url''',
+                                            ).toString(),
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model.apiResult59uCopy29
+                                                  ?.succeeded ??
+                                              true)) {
+                                            setState(() {
+                                              FFAppState().BannerCheck = false;
+                                            });
+                                          } else {
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Not Done'),
+                                                content: Text('Not Done'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        if (_shouldSetState) setState(() {});
                                       },
                                       child: Container(
                                         width: 209.0,
@@ -3064,7 +4021,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'From Gallery',
+                                              'Take Photo',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -3078,85 +4035,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      final selectedMedia = await selectMedia(
-                                        multiImage: false,
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() =>
-                                            _model.isDataUploading2 = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-
-                                        try {
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                    blurHash: m.blurHash,
-                                                  ))
-                                              .toList();
-                                        } finally {
-                                          _model.isDataUploading2 = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                            selectedMedia.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile2 =
-                                                selectedUploadedFiles.first;
-                                          });
-                                        } else {
-                                          setState(() {});
-                                          return;
-                                        }
-                                      }
-
-                                      setState(() {
-                                        FFAppState().BannerCheck = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 209.0,
-                                      height: 44.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Take Photo',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Colors.white,
-                                                  fontSize: 14.0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -3164,43 +4044,206 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                       ),
                     ),
                   if (FFAppState().ProfileCheck == true)
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x00FFFFFF),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 2.0,
-                            sigmaY: 2.0,
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              width: 269.0,
-                              height: 149.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6F6F6),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 15.0),
-                                    child: InkWell(
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        setState(() {
+                          FFAppState().ProfileCheck = false;
+                        });
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        decoration: BoxDecoration(
+                          color: Color(0x00FFFFFF),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(0.0),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 2.0,
+                              sigmaY: 2.0,
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: Container(
+                                width: 269.0,
+                                height: 149.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6F6F6),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 15.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          var _shouldSetState = false;
+                                          final selectedMedia =
+                                              await selectMedia(
+                                            mediaSource:
+                                                MediaSource.photoGallery,
+                                            multiImage: false,
+                                          );
+                                          if (selectedMedia != null &&
+                                              selectedMedia.every((m) =>
+                                                  validateFileFormat(
+                                                      m.storagePath,
+                                                      context))) {
+                                            setState(() =>
+                                                _model.isDataUploading3 = true);
+                                            var selectedUploadedFiles =
+                                                <FFUploadedFile>[];
+
+                                            try {
+                                              selectedUploadedFiles =
+                                                  selectedMedia
+                                                      .map(
+                                                          (m) => FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                      .toList();
+                                            } finally {
+                                              _model.isDataUploading3 = false;
+                                            }
+                                            if (selectedUploadedFiles.length ==
+                                                selectedMedia.length) {
+                                              setState(() {
+                                                _model.uploadedLocalFile3 =
+                                                    selectedUploadedFiles.first;
+                                              });
+                                            } else {
+                                              setState(() {});
+                                              return;
+                                            }
+                                          }
+
+                                          _model.apiResultekx9 =
+                                              await TaskerpageBackendGroup
+                                                  .uploadCall
+                                                  .call(
+                                            file: _model.uploadedLocalFile3,
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model
+                                                  .apiResultekx9?.succeeded ??
+                                              true)) {
+                                            _model.apiResult59u =
+                                                await TaskerpageBackendGroup
+                                                    .updateProfileCall
+                                                    .call(
+                                              id: getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString(),
+                                              avatar: getJsonField(
+                                                (_model.apiResultekx9
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$.message.file_url''',
+                                              ).toString(),
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            _shouldSetState = true;
+                                            if ((_model
+                                                    .apiResult59u?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().ProfileCheck =
+                                                    false;
+                                              });
+                                            } else {
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
+                                            }
+
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('Not Done'),
+                                                  content: Text('Not Done'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                        },
+                                        child: Container(
+                                          width: 209.0,
+                                          height: 44.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF5450E2),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'From Gallery',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.white,
+                                                          fontSize: 14.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
-                                          mediaSource: MediaSource.photoGallery,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -3208,7 +4251,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 validateFileFormat(
                                                     m.storagePath, context))) {
                                           setState(() =>
-                                              _model.isDataUploading3 = true);
+                                              _model.isDataUploading4 = true);
                                           var selectedUploadedFiles =
                                               <FFUploadedFile>[];
 
@@ -3228,12 +4271,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                         ))
                                                     .toList();
                                           } finally {
-                                            _model.isDataUploading3 = false;
+                                            _model.isDataUploading4 = false;
                                           }
                                           if (selectedUploadedFiles.length ==
                                               selectedMedia.length) {
                                             setState(() {
-                                              _model.uploadedLocalFile3 =
+                                              _model.uploadedLocalFile4 =
                                                   selectedUploadedFiles.first;
                                             });
                                           } else {
@@ -3242,9 +4285,66 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           }
                                         }
 
-                                        setState(() {
-                                          FFAppState().ProfileCheck = false;
-                                        });
+                                        _model.apiResultekx9Copy =
+                                            await TaskerpageBackendGroup
+                                                .uploadCall
+                                                .call(
+                                          file: _model.uploadedLocalFile4,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                        );
+                                        _shouldSetState = true;
+                                        if ((_model.apiResultekx9?.succeeded ??
+                                            true)) {
+                                          _model.apiResult59uCopy =
+                                              await TaskerpageBackendGroup
+                                                  .updateProfileCall
+                                                  .call(
+                                            id: getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                            avatar: getJsonField(
+                                              (_model.apiResultekx9?.jsonBody ??
+                                                  ''),
+                                              r'''$.message.file_url''',
+                                            ).toString(),
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model.apiResult59u?.succeeded ??
+                                              true)) {
+                                            setState(() {
+                                              FFAppState().ProfileCheck = false;
+                                            });
+                                          } else {
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Not Done'),
+                                                content: Text('Not Done'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        if (_shouldSetState) setState(() {});
                                       },
                                       child: Container(
                                         width: 209.0,
@@ -3260,7 +4360,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'From Gallery',
+                                              'Take Photo',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -3274,85 +4374,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      final selectedMedia = await selectMedia(
-                                        multiImage: false,
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() =>
-                                            _model.isDataUploading4 = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-
-                                        try {
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                    blurHash: m.blurHash,
-                                                  ))
-                                              .toList();
-                                        } finally {
-                                          _model.isDataUploading4 = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                            selectedMedia.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile4 =
-                                                selectedUploadedFiles.first;
-                                          });
-                                        } else {
-                                          setState(() {});
-                                          return;
-                                        }
-                                      }
-
-                                      setState(() {
-                                        FFAppState().ProfileCheck = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 209.0,
-                                      height: 44.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Take Photo',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Colors.white,
-                                                  fontSize: 14.0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),

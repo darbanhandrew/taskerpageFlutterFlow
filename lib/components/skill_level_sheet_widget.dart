@@ -1,4 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
+import '/components/skill_options_check_component_widget.dart';
+import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -49,53 +52,53 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Material(
-      color: Colors.transparent,
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+    return FutureBuilder<ApiCallResponse>(
+      future: TaskerpageBackendGroup.skillDetailsCall.call(
+        name: getJsonField(
+          widget.userService,
+          r'''$.skill_name''',
+        ).toString(),
+        apiGlobalKey: FFAppState().apiKey,
       ),
-      child: Container(
-        width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.5,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
-        ),
-        child: FutureBuilder<ApiCallResponse>(
-          future: TaskerpageBackendGroup.getUserServiceByIdCall.call(
-            id: getJsonField(
-              widget.userService,
-              r'''$.id''',
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50.0,
+              height: 50.0,
+              child: SpinKitThreeBounce(
+                color: Color(0xFF5450E2),
+                size: 50.0,
+              ),
             ),
-            apiGlobalKey: FFAppState().apiKey,
+          );
+        }
+        final optionsSkillDetailsResponse = snapshot.data!;
+        return Material(
+          color: Colors.transparent,
+          elevation: 5.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(0.0),
+              bottomRight: Radius.circular(0.0),
+              topLeft: Radius.circular(16.0),
+              topRight: Radius.circular(16.0),
+            ),
           ),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return Center(
-                child: SizedBox(
-                  width: 50.0,
-                  height: 50.0,
-                  child: SpinKitThreeBounce(
-                    color: Color(0xFF5450E2),
-                    size: 50.0,
-                  ),
-                ),
-              );
-            }
-            final columnGetUserServiceByIdResponse = snapshot.data!;
-            return Column(
+          child: Container(
+            width: double.infinity,
+            height: MediaQuery.sizeOf(context).height * 0.735,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(0.0),
+                bottomRight: Radius.circular(0.0),
+                topLeft: Radius.circular(16.0),
+                topRight: Radius.circular(16.0),
+              ),
+            ),
+            child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Padding(
@@ -135,13 +138,10 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              '${functions.getTranslatableItemString(getJsonField(
-                                    columnGetUserServiceByIdResponse.jsonBody,
-                                    r'''$.service_category.translations''',
-                                  ), 'en', 'title')}-${functions.getTranslatableItemString(getJsonField(
-                                    columnGetUserServiceByIdResponse.jsonBody,
-                                    r'''$.service.translations''',
-                                  ), 'en', 'title')} Skill level',
+                              '${getJsonField(
+                                widget.userService,
+                                r'''$.skill_name''',
+                              ).toString()} Skill level',
                               textAlign: TextAlign.justify,
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -272,9 +272,135 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                     ],
                   ),
                 ),
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Divider(
+                        height: 60.0,
+                        thickness: 1.0,
+                        indent: 32.0,
+                        endIndent: 32.0,
+                        color: Color(0x615E5D5D),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Skill Options',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF292929),
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 25.0, 32.0, 0.0),
+                        child: Builder(
+                          builder: (context) {
+                            final skillOptions = getJsonField(
+                              optionsSkillDetailsResponse.jsonBody,
+                              r'''$.data.skill_options''',
+                            ).toList();
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: List.generate(skillOptions.length,
+                                  (skillOptionsIndex) {
+                                final skillOptionsItem =
+                                    skillOptions[skillOptionsIndex];
+                                return Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    if (functions.jsonToString(getJsonField(
+                                          skillOptionsItem,
+                                          r'''$.type''',
+                                        )) ==
+                                        'Check')
+                                      Expanded(
+                                        child: wrapWithModel(
+                                          model: _model
+                                              .skillOptionsCheckComponentModels
+                                              .getModel(
+                                            getJsonField(
+                                              skillOptionsItem,
+                                              r'''$.option_name''',
+                                            ).toString(),
+                                            skillOptionsIndex,
+                                          ),
+                                          updateCallback: () => setState(() {}),
+                                          updateOnChange: true,
+                                          child:
+                                              SkillOptionsCheckComponentWidget(
+                                            key: Key(
+                                              'Keyfsm_${getJsonField(
+                                                skillOptionsItem,
+                                                r'''$.option_name''',
+                                              ).toString()}',
+                                            ),
+                                            skillOption: getJsonField(
+                                              skillOptionsItem,
+                                              r'''$''',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    if (functions.jsonToString(getJsonField(
+                                          skillOptionsItem,
+                                          r'''$.type''',
+                                        )) ==
+                                        'Select')
+                                      Expanded(
+                                        child: wrapWithModel(
+                                          model: _model
+                                              .skillOptionsChipsComponentModels
+                                              .getModel(
+                                            getJsonField(
+                                              skillOptionsItem,
+                                              r'''$.option_name''',
+                                            ).toString(),
+                                            skillOptionsIndex,
+                                          ),
+                                          updateCallback: () => setState(() {}),
+                                          child:
+                                              SkillOptionsChipsComponentWidget(
+                                            key: Key(
+                                              'Keyjww_${getJsonField(
+                                                skillOptionsItem,
+                                                r'''$.option_name''',
+                                              ).toString()}',
+                                            ),
+                                            skillOption: getJsonField(
+                                              skillOptionsItem,
+                                              r'''$''',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                  ],
+                                );
+                              }),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(32.0, 35.0, 32.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(32.0, 35.0, 32.0, 30.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -291,7 +417,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                               .call(
                             id: getJsonField(
                               widget.userService,
-                              r'''$.id''',
+                              r'''$.name''',
                             ),
                             apiGlobalKey: FFAppState().apiKey,
                           );
@@ -299,10 +425,10 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                           if ((_model.delete?.succeeded ?? true)) {
                             setState(() {
                               FFAppState()
-                                  .removeFromSelectedServices(getJsonField(
-                                columnGetUserServiceByIdResponse.jsonBody,
-                                r'''$.service.id''',
-                              ));
+                                  .removeFromSelectServices(getJsonField(
+                                widget.userService,
+                                r'''$.skill_name''',
+                              ).toString());
                             });
                             Navigator.pop(context);
                           } else {
@@ -349,50 +475,80 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                         highlightColor: Colors.transparent,
                         onTap: () async {
                           var _shouldSetState = false;
+                          setState(() {
+                            _model.skillOptionsList = functions
+                                .convertJsonListToDataTypeList(getJsonField(
+                                  optionsSkillDetailsResponse.jsonBody,
+                                  r'''$.data.skill_options''',
+                                ))!
+                                .toList()
+                                .cast<SkillOptionsStruct>();
+                          });
+                          while (_model.skillOptionsList.length > 0) {
+                            if (_model.skillOptionsList.first.type == 'Check') {
+                              FFAppState().addToSkillOptions(SkillOptionsStruct(
+                                name: _model.skillOptionsList.first.name,
+                                type: _model.skillOptionsList.first.type,
+                                values: _model.skillOptionsCheckComponentModels
+                                    .getValueForKey(
+                                      _model.skillOptionsList.first.name,
+                                      (m) => m.checkboxValue,
+                                    )
+                                    ?.toString(),
+                              ));
+                            } else {
+                              FFAppState().addToSkillOptions(SkillOptionsStruct(
+                                name: _model.skillOptionsList.first.name,
+                                type: _model.skillOptionsList.first.type,
+                                values: functions.convertListOfStringToString(
+                                    _model.skillOptionsChipsComponentModels
+                                        .getValueForKey(
+                                          _model.skillOptionsList.first.name,
+                                          (m) => m.choiceChipsValues,
+                                        )
+                                        ?.toList()),
+                              ));
+                            }
+
+                            setState(() {
+                              _model.removeAtIndexFromSkillOptionsList(0);
+                            });
+                          }
                           _model.editedUserService =
                               await TaskerpageBackendGroup.editUserServiceCall
                                   .call(
-                            serviceCategory: getJsonField(
-                              columnGetUserServiceByIdResponse.jsonBody,
-                              r'''$.service_category.id''',
-                            ),
-                            service: getJsonField(
-                              columnGetUserServiceByIdResponse.jsonBody,
-                              r'''$.service.id''',
-                            ),
-                            userProfile: TaskerpageBackendGroup
-                                .getUserServiceByIdCall
-                                .userProfile(
-                              columnGetUserServiceByIdResponse.jsonBody,
-                            ),
-                            id: getJsonField(
-                              widget.userService,
-                              r'''$.id''',
-                            ),
                             apiGlobalKey: FFAppState().apiKey,
                             serviceSkillLevel: _model.chosenSkillLevel,
+                            id: getJsonField(
+                              widget.userService,
+                              r'''$.name''',
+                            ),
+                            skillOptionsJson:
+                                functions.convertDataTypeListToJsonList(
+                                    FFAppState().skillOptions.toList()),
                           );
                           _shouldSetState = true;
                           if ((_model.editedUserService?.succeeded ?? true)) {
                             _model.updatePage(() {
                               FFAppState()
-                                  .removeFromSelectedServices(getJsonField(
+                                  .removeFromSelectServices(getJsonField(
                                 widget.userService,
-                                r'''$.service.id''',
-                              ));
+                                r'''$.skill_name''',
+                              ).toString());
                             });
                             _model.updatePage(() {
-                              FFAppState().addToSelectedServices(getJsonField(
-                                columnGetUserServiceByIdResponse.jsonBody,
-                                r'''$.service.id''',
-                              ));
+                              FFAppState().addToSelectServices(getJsonField(
+                                widget.userService,
+                                r'''$.skill_name''',
+                              ).toString());
+                              FFAppState().skillOptions = [];
                             });
-                            Navigator.pop(context);
                           } else {
                             if (_shouldSetState) setState(() {});
                             return;
                           }
 
+                          Navigator.pop(context);
                           if (_shouldSetState) setState(() {});
                         },
                         child: Container(
@@ -425,10 +581,10 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                   ),
                 ),
               ],
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 }

@@ -1,4 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/mini_tasker_card_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -6,6 +8,8 @@ import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_charts.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -23,6 +27,8 @@ class PostersDashboardModel extends FlutterFlowModel {
   late NavigateBackModel navigateBackModel;
   // Model for NavBar component.
   late NavBarModel navBarModel;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
@@ -30,6 +36,7 @@ class PostersDashboardModel extends FlutterFlowModel {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
     navBarModel = createModel(context, () => NavBarModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -37,6 +44,7 @@ class PostersDashboardModel extends FlutterFlowModel {
     headerModel.dispose();
     navigateBackModel.dispose();
     navBarModel.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

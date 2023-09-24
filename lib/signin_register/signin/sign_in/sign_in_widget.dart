@@ -1,8 +1,14 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,11 +26,40 @@ class _SignInWidgetState extends State<SignInWidget> {
   late SignInModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => SignInModel());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (FFAppState().apiKey != null && FFAppState().apiKey != '') {
+        if (functions.jsonToString(getJsonField(
+              FFAppState().userProfile,
+              r'''$.data.role''',
+            )) ==
+            'Poster') {
+          context.pushNamed('PostersDashboard');
+        } else {
+          context.pushNamed('TaskersDashboard');
+        }
+      }
+      setState(() {
+        FFAppState().loading = false;
+      });
+    });
+
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
 
     _model.textController1 ??= TextEditingController();
     _model.textController2 ??= TextEditingController();
@@ -35,6 +70,9 @@ class _SignInWidgetState extends State<SignInWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -47,8 +85,23 @@ class _SignInWidgetState extends State<SignInWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Drawer(
-          elevation: 16.0,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -171,6 +224,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.textController1,
+                              textInputAction: TextInputAction.next,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -266,6 +320,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.textController2,
+                              textInputAction: TextInputAction.done,
                               obscureText: !_model.passwordVisibility,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -344,28 +399,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 5.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          if (!true)
-                            Text(
-                              'Password is not correct !',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFFD20202),
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                            ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 10.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -382,7 +416,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Switch.adaptive(
                               value: _model.switchValue ??= true,
                               onChanged: (newValue) async {
@@ -411,75 +445,98 @@ class _SignInWidgetState extends State<SignInWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 var _shouldSetState = false;
-                                _model.loginReult =
+                                setState(() {
+                                  FFAppState().loading = true;
+                                });
+                                _model.login =
                                     await TaskerpageBackendGroup.loginCall.call(
                                   username: _model.textController1.text,
                                   password: _model.textController2.text,
                                 );
                                 _shouldSetState = true;
-                                if ((_model.loginReult?.succeeded ?? true)) {
-                                  FFAppState().apiKey =
-                                      TaskerpageBackendGroup.loginCall
-                                          .apiKey(
-                                            (_model.loginReult?.jsonBody ?? ''),
-                                          )
-                                          .toString();
-                                  setState(() {
-                                    _model.apiKey = TaskerpageBackendGroup
-                                        .loginCall
-                                        .apiKey(
-                                          (_model.loginReult?.jsonBody ?? ''),
-                                        )
-                                        .toString();
-                                  });
-                                } else {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Can\'t login'),
-                                        content: Text(
-                                            'Check your username and password and try again.'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                if ((_model.login?.succeeded ?? true)) {
+                                  _model.apiResultfu7 =
+                                      await TaskerpageBackendGroup
+                                          .generateKeysCall
+                                          .call(
+                                    user: _model.textController1.text,
                                   );
-                                  if (_shouldSetState) setState(() {});
-                                  return;
-                                }
-
-                                if (FFAppState().UserInformation.role ==
-                                    'Poster') {
-                                  context.pushNamed('PosterHomePage');
-                                } else {
-                                  context.pushNamed('TaskerHomePage');
-                                }
-
-                                _model.apiResult6nl =
-                                    await TaskerpageBackendGroup
-                                        .userProfileMeCall
-                                        .call(
-                                  apiGlobalKey: _model.apiKey,
-                                );
-                                _shouldSetState = true;
-                                if ((_model.apiResult6nl?.succeeded ?? true)) {
-                                  FFAppState().update(() {
-                                    FFAppState().userProfile = getJsonField(
-                                      (_model.apiResult6nl?.jsonBody ?? ''),
-                                      r'''$''',
+                                  _shouldSetState = true;
+                                  if ((_model.apiResultfu7?.succeeded ??
+                                      true)) {
+                                    setState(() {
+                                      FFAppState().apiKey =
+                                          'token ${TaskerpageBackendGroup.generateKeysCall.apiKey(
+                                                (_model.apiResultfu7
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              ).toString()}:${TaskerpageBackendGroup.generateKeysCall.apiSecret(
+                                                (_model.apiResultfu7
+                                                        ?.jsonBody ??
+                                                    ''),
+                                              ).toString()}';
+                                    });
+                                    _model.apiResultem2 =
+                                        await TaskerpageBackendGroup
+                                            .userProfileMeCall
+                                            .call(
+                                      apiGlobalKey: FFAppState().apiKey,
                                     );
-                                  });
-                                  if (_shouldSetState) setState(() {});
-                                  return;
+                                    _shouldSetState = true;
+                                    if ((_model.apiResultem2?.succeeded ??
+                                        true)) {
+                                      setState(() {
+                                        FFAppState().userProfile =
+                                            (_model.apiResultem2?.jsonBody ??
+                                                '');
+                                        FFAppState().loading = false;
+                                      });
+                                      if ('Tasker' ==
+                                          '${getJsonField(
+                                            (_model.apiResultem2?.jsonBody ??
+                                                ''),
+                                            r'''$.data.role''',
+                                          ).toString()}') {
+                                        context.pushNamed('TaskersDashboard');
+                                      } else if ('Poster' ==
+                                          '${getJsonField(
+                                            (_model.apiResultem2?.jsonBody ??
+                                                ''),
+                                            r'''$.data.role''',
+                                          ).toString()}') {
+                                        context.pushNamed('PostersDashboard');
+                                      }
+                                    } else {
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
+                                  } else {
+                                    if (_shouldSetState) setState(() {});
+                                    return;
+                                  }
                                 } else {
-                                  if (_shouldSetState) setState(() {});
-                                  return;
+                                  setState(() {
+                                    FFAppState().loading = false;
+                                  });
+                                  ScaffoldMessenger.of(context)
+                                      .clearSnackBars();
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        getJsonField(
+                                          (_model.login?.jsonBody ?? ''),
+                                          r'''$.message''',
+                                        ).toString(),
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14.0,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 5000),
+                                      backgroundColor: Color(0xFFD20202),
+                                    ),
+                                  );
                                 }
 
                                 if (_shouldSetState) setState(() {});
@@ -496,7 +553,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      FFAppState().isApiCall ? '...' : 'Login',
+                                      FFAppState().loading == false
+                                          ? 'Log-in'
+                                          : 'Just a  moment ...',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -669,44 +728,44 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ],
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5.0,
-                          color: Color(0x33000000),
-                          offset: Offset(5.0, 5.0),
-                          spreadRadius: 10.0,
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Don\'t have an account ?',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                3.0, 0.0, 0.0, 0.0),
-                            child: InkWell(
+              if (isWeb
+                  ? MediaQuery.viewInsetsOf(context).bottom > 0
+                  : _isKeyboardVisible)
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            color: Color(0x33000000),
+                            offset: Offset(5.0, 5.0),
+                            spreadRadius: 10.0,
+                          )
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Don\'t have an account ?',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                            InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
                               hoverColor: Colors.transparent,
@@ -714,26 +773,42 @@ class _SignInWidgetState extends State<SignInWidget> {
                               onTap: () async {
                                 context.pushNamed('Sign-up');
                               },
-                              child: Text(
-                                'Sign-up',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w500,
+                              child: Container(
+                                height: 40.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0x00FFFFFF),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          3.0, 0.0, 0.0, 0.0),
+                                      child: Text(
+                                        'Sign-up',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 15.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
                                     ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),

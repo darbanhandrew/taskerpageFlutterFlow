@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -72,13 +73,13 @@ class _NavBarWidgetState extends State<NavBarWidget> {
               color: Color(0x00FFFFFF),
             ),
             child: Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: AlignmentDirectional(0.00, 0.00),
               child: Stack(
                 alignment: AlignmentDirectional(0.0, 0.0),
                 children: [
                   Column(
                     mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Material(
@@ -103,48 +104,77 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      if (TaskerpageBackendGroup.userProfileMeCall
-                              .userRole(
-                                containerUserProfileMeResponse.jsonBody,
-                              )
-                              .toString() ==
-                          'POSTER')
+                      if (functions.jsonToString(getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.role''',
+                          )) ==
+                          'Poster')
                         FlutterFlowIconButton(
                           borderColor: Colors.transparent,
                           borderRadius: 30.0,
                           borderWidth: 1.0,
                           buttonSize: 50.0,
                           icon: Icon(
-                            Icons.person_search_sharp,
-                            color: Color(0xFF5E5D5D),
+                            Icons.search_off,
+                            color: FFAppState().checkNavbarState == 5
+                                ? Color(0xFF5450E2)
+                                : Color(0xFF5E5D5D),
                             size: 28.0,
                           ),
                           onPressed: () async {
+                            setState(() {
+                              FFAppState().checkNavbarState = 5;
+                            });
+
                             context.pushNamed('TaskerList');
                           },
                         ),
-                      if (TaskerpageBackendGroup.userProfileMeCall
-                              .userRole(
-                                containerUserProfileMeResponse.jsonBody,
-                              )
-                              .toString() ==
-                          'TASKER')
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 0.0, 0.0, 5.0),
-                          child: FlutterFlowIconButton(
-                            borderColor: Colors.transparent,
-                            borderRadius: 30.0,
-                            borderWidth: 1.0,
-                            buttonSize: 40.0,
-                            icon: Icon(
-                              Icons.home,
-                              color: Color(0xFF5E5D5D),
-                              size: 21.0,
+                      if (functions.jsonToString(getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.role''',
+                          )) ==
+                          'Tasker')
+                        InkWell(
+                          splashColor: Colors.transparent,
+                          focusColor: Colors.transparent,
+                          hoverColor: Colors.transparent,
+                          highlightColor: Colors.transparent,
+                          onTap: () async {
+                            setState(() {
+                              FFAppState().checkNavbarState = 1;
+                            });
+                            if (functions.jsonToString(getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.role''',
+                                )) ==
+                                'Poster') {
+                              context.pushNamed('Poster_Profile');
+                            } else {
+                              context.pushNamed('Tasker_Profile');
+                            }
+                          },
+                          child: Container(
+                            width: FFAppState().checkNavbarState == 1
+                                ? 40.0
+                                : 37.0,
+                            height: 37.0,
+                            clipBehavior: Clip.antiAlias,
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
                             ),
-                            onPressed: () async {
-                              context.pushNamed('MainHomePage');
-                            },
+                            child: Image.network(
+                              getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.avatar''',
+                                      ) !=
+                                      null
+                                  ? 'https://taskerpage.com${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.avatar''',
+                                    ).toString()}'
+                                  : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       FlutterFlowIconButton(
@@ -153,69 +183,91 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         borderWidth: 1.0,
                         buttonSize: 50.0,
                         icon: Icon(
-                          Icons.chat_bubble_rounded,
-                          color: Color(0xFF5E5D5D),
-                          size: 24.0,
+                          Icons.group_rounded,
+                          color: FFAppState().checkNavbarState == 2
+                              ? Color(0xFF5450E2)
+                              : Color(0xFF5E5D5D),
+                          size: 25.0,
                         ),
                         onPressed: () async {
-                          context.pushNamed('inbox');
+                          if (functions.jsonToString(getJsonField(
+                                containerUserProfileMeResponse.jsonBody,
+                                r'''$.data.role''',
+                              )) ==
+                              'Tasker') {
+                            setState(() {
+                              FFAppState().checkNavbarState = 2;
+                            });
+
+                            context.pushNamed('MyInbox');
+                          } else {
+                            setState(() {
+                              FFAppState().checkNavbarState = 2;
+                            });
+
+                            context.pushNamed('MyPosts');
+                          }
                         },
                       ),
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          if (TaskerpageBackendGroup.userProfileMeCall
-                                  .userRole(
-                                    containerUserProfileMeResponse.jsonBody,
-                                  )
-                                  .toString() ==
-                              'POSTER')
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 25.0,
-                              borderWidth: 1.0,
-                              buttonSize: 60.0,
-                              fillColor: Color(0xFFF06543),
-                              icon: Icon(
-                                Icons.add,
-                                color: Colors.white,
-                                size: 30.0,
+                      Flexible(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            if (functions.jsonToString(getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.role''',
+                                )) ==
+                                'Poster')
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 25.0,
+                                borderWidth: 1.0,
+                                buttonSize: 60.0,
+                                fillColor: Color(0xFFF06543),
+                                icon: Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),
+                                onPressed: () async {
+                                  setState(() {
+                                    FFAppState().checkNavbarState = 6;
+                                  });
+
+                                  context.pushNamed(
+                                    'Task-1',
+                                    queryParameters: {
+                                      'id': serializeParam(
+                                        null,
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                },
                               ),
-                              onPressed: () async {
-                                context.pushNamed(
-                                  'Task-1',
-                                  queryParameters: {
-                                    'id': serializeParam(
-                                      null,
-                                      ParamType.int,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              },
-                            ),
-                          if (TaskerpageBackendGroup.userProfileMeCall
-                                  .userRole(
-                                    containerUserProfileMeResponse.jsonBody,
-                                  )
-                                  .toString() ==
-                              'TASKER')
-                            FlutterFlowIconButton(
-                              borderColor: Colors.transparent,
-                              borderRadius: 25.0,
-                              borderWidth: 1.0,
-                              buttonSize: 60.0,
-                              fillColor: Color(0xFFF06543),
-                              icon: Icon(
-                                Icons.search_rounded,
-                                color: Colors.white,
-                                size: 30.0,
+                            if (functions.jsonToString(getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.role''',
+                                )) ==
+                                'Tasker')
+                              FlutterFlowIconButton(
+                                borderColor: Colors.transparent,
+                                borderRadius: 25.0,
+                                borderWidth: 1.0,
+                                buttonSize: 60.0,
+                                fillColor: Color(0xFFF06543),
+                                icon: Icon(
+                                  Icons.search_off,
+                                  color: Colors.white,
+                                  size: 30.0,
+                                ),
+                                onPressed: () async {
+                                  context.pushNamed('TaskList');
+                                },
                               ),
-                              onPressed: () async {
-                                context.pushNamed('TaskList');
-                              },
-                            ),
-                        ],
+                          ],
+                        ),
                       ),
                       FlutterFlowIconButton(
                         borderColor: Colors.transparent,
@@ -224,10 +276,16 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         buttonSize: 50.0,
                         icon: Icon(
                           Icons.chair_rounded,
-                          color: Color(0xFF5E5D5D),
+                          color: FFAppState().checkNavbarState == 3
+                              ? Color(0xFF5450E2)
+                              : Color(0xFF5E5D5D),
                           size: 25.0,
                         ),
                         onPressed: () async {
+                          setState(() {
+                            FFAppState().checkNavbarState = 3;
+                          });
+
                           context.pushNamed('AppointmentList');
                         },
                       ),
@@ -237,11 +295,17 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         borderWidth: 1.0,
                         buttonSize: 50.0,
                         icon: Icon(
-                          Icons.pie_chart,
-                          color: Color(0xFF5E5D5D),
+                          Icons.space_dashboard,
+                          color: FFAppState().checkNavbarState == 4
+                              ? Color(0xFF5450E2)
+                              : Color(0xFF5E5D5D),
                           size: 25.0,
                         ),
                         onPressed: () async {
+                          setState(() {
+                            FFAppState().checkNavbarState = 4;
+                          });
+
                           context.pushNamed('TaskersDashboard');
                         },
                       ),

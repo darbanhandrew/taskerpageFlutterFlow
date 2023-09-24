@@ -1,3 +1,4 @@
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -36,11 +37,14 @@ class AddAnotherModel extends FlutterFlowModel {
   // State field(s) for TextField widget.
   TextEditingController? textController6;
   String? Function(BuildContext, String?)? textController6Validator;
+  // Model for drawerContent component.
+  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -52,6 +56,7 @@ class AddAnotherModel extends FlutterFlowModel {
     textController4?.dispose();
     textController5?.dispose();
     textController6?.dispose();
+    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

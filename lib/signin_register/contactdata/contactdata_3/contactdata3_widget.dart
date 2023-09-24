@@ -6,7 +6,9 @@ import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -105,8 +107,8 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
         apiGlobalKey: FFAppState().apiKey,
         id: getJsonField(
           FFAppState().userProfile,
-          r'''$.id''',
-        ),
+          r'''$.data.name''',
+        ).toString(),
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -168,7 +170,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                 model: _model.headerModel,
                                 updateCallback: () => setState(() {}),
                                 child: HeaderWidget(
-                                  openDrawer: () async {},
+                                  openDrawer: () async {
+                                    scaffoldKey.currentState!.openDrawer();
+                                  },
                                 ),
                               ),
                             ],
@@ -332,7 +336,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                 getJsonField(
                                                   contactdata3UserProfileReadResponse
                                                       .jsonBody,
-                                                  r'''$.related_user.email''',
+                                                  r'''$.data.user''',
                                                 ).toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -531,7 +535,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                       );
                                                     },
                                                   ).then((value) =>
-                                                      setState(() {}));
+                                                      safeSetState(() {}));
                                                 },
                                                 child: ClipRRect(
                                                   borderRadius:
@@ -615,7 +619,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                   getJsonField(
                                                     contactdata3UserProfileReadResponse
                                                         .jsonBody,
-                                                    r'''$.phone_number''',
+                                                    r'''$.data.phone_number''',
                                                   ).toString(),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -690,15 +694,27 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.5, 16.0, 20.5, 25.0),
+                                          20.5, 20.0, 20.5, 20.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           FutureBuilder<ApiCallResponse>(
-                                            future: TaskerpageBackendGroup
-                                                .myAddressesCall
-                                                .call(
-                                              apiGlobalKey: FFAppState().apiKey,
+                                            future: FFAppState().myAddresses(
+                                              uniqueQueryKey: 'myAddresses',
+                                              requestFn: () =>
+                                                  TaskerpageBackendGroup
+                                                      .myAddressesCall
+                                                      .call(
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                                fields:
+                                                    '[\"is_main_address\",\"name\",\"address\"]',
+                                                filters:
+                                                    '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.data.name''',
+                                                ).toString()}\"]]',
+                                              ),
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
@@ -719,14 +735,11 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                               return Builder(
                                                 builder: (context) {
                                                   final myAddress =
-                                                      TaskerpageBackendGroup
-                                                              .myAddressesCall
-                                                              .myAddressList(
-                                                                listViewMyAddressesResponse
-                                                                    .jsonBody,
-                                                              )
-                                                              ?.toList() ??
-                                                          [];
+                                                      getJsonField(
+                                                    listViewMyAddressesResponse
+                                                        .jsonBody,
+                                                    r'''$.data''',
+                                                  ).toList();
                                                   return ListView.builder(
                                                     padding: EdgeInsets.zero,
                                                     shrinkWrap: true,
@@ -786,11 +799,14 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                                   ),
                                                                 ),
                                                               ),
-                                                              if (getJsonField(
-                                                                    myAddressItem,
-                                                                    r'''$.is_main_address''',
-                                                                  ) !=
-                                                                  null)
+                                                              if (functions
+                                                                      .jsonToInt(
+                                                                          getJsonField(
+                                                                        myAddressItem,
+                                                                        r'''$.is_main_address''',
+                                                                      ))
+                                                                      .toString() ==
+                                                                  '1')
                                                                 Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
@@ -847,8 +863,16 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                 highlightColor:
                                                     Colors.transparent,
                                                 onTap: () async {
-                                                  context
-                                                      .pushNamed('AddAddress');
+                                                  context.pushNamed(
+                                                    'Contactdata-1',
+                                                    queryParameters: {
+                                                      'addAnother':
+                                                          serializeParam(
+                                                        true,
+                                                        ParamType.bool,
+                                                      ),
+                                                    }.withoutNulls,
+                                                  );
                                                 },
                                                 child: Container(
                                                   width: 180.0,
@@ -1042,7 +1066,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 0.0, 32.0, 0.0),
+                                32.0, 0.0, 32.0, 30.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -6,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:share_plus/share_plus.dart';
 import 'task_card_model.dart';
 export 'task_card_model.dart';
 
@@ -105,7 +107,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                                   Text(
                                     getJsonField(
                                       widget.post,
-                                      r'''$.created_at''',
+                                      r'''$.start_date''',
                                     ).toString(),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
@@ -135,10 +137,13 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      getJsonField(
-                                        widget.post,
-                                        r'''$.post_open_close_status''',
-                                      ).toString(),
+                                      functions.jsonToInt(getJsonField(
+                                                widget.post,
+                                                r'''$.docstatus''',
+                                              )) ==
+                                              1
+                                          ? 'Open'
+                                          : 'Closed',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -153,32 +158,40 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                               ),
                             ),
                           ),
-                          Container(
-                            decoration: BoxDecoration(
-                              color: Color(0xFF5450E2),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 7.0, 8.0, 7.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    'Weekly',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFFF6F6F6),
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
+                          if (getJsonField(
+                                widget.post,
+                                r'''$.is_repeatable''',
+                              ) !=
+                              null)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Color(0xFF5450E2),
+                                borderRadius: BorderRadius.circular(15.0),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    8.0, 7.0, 8.0, 7.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      getJsonField(
+                                        widget.post,
+                                        r'''$.repeat_type''',
+                                      ).toString(),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Color(0xFFF6F6F6),
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
                         ],
                       ),
                       Padding(
@@ -202,16 +215,10 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
                                       Text(
-                                        valueOrDefault<String>(
-                                          functions.getTranslatableItemString(
-                                              getJsonField(
-                                                widget.post,
-                                                r'''$.related_service_category.translations''',
-                                              ),
-                                              'en',
-                                              'title'),
-                                          'category',
-                                        ),
+                                        getJsonField(
+                                          widget.post,
+                                          r'''$.skill_category_name''',
+                                        ).toString(),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -238,16 +245,10 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      valueOrDefault<String>(
-                                        functions.getTranslatableItemString(
-                                            getJsonField(
-                                              widget.post,
-                                              r'''$.related_service.translations''',
-                                            ),
-                                            'en',
-                                            'title'),
-                                        'Service Category',
-                                      ),
+                                      getJsonField(
+                                        widget.post,
+                                        r'''$.skill_name''',
+                                      ).toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -275,25 +276,46 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                         Stack(
                           alignment: AlignmentDirectional(0.0, 0.0),
                           children: [
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/ssq.png',
-                                width: 67.0,
-                                height: 67.0,
-                                fit: BoxFit.none,
+                            FutureBuilder<ApiCallResponse>(
+                              future: TaskerpageBackendGroup
+                                  .getSkillCategoryDetailsCall
+                                  .call(
+                                name: getJsonField(
+                                  widget.post,
+                                  r'''$.name''',
+                                ).toString(),
+                                apiGlobalKey: FFAppState().apiKey,
                               ),
-                            ),
-                            Text(
-                              '160 €',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFFF6F6F6),
-                                    fontSize: 15.5,
-                                    fontWeight: FontWeight.bold,
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: SpinKitThreeBounce(
+                                        color: Color(0xFF5450E2),
+                                        size: 50.0,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final imageGetSkillCategoryDetailsResponse =
+                                    snapshot.data!;
+                                return ClipRRect(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  child: Image.network(
+                                    '${FFAppState().baseUrl}${getJsonField(
+                                      imageGetSkillCategoryDetailsResponse
+                                          .jsonBody,
+                                      r'''$.icon''',
+                                    ).toString()}',
+                                    width: 67.0,
+                                    height: 67.0,
+                                    fit: BoxFit.none,
                                   ),
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -332,10 +354,10 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                   Text(
                     '${getJsonField(
                       widget.post,
-                      r'''$.address.city''',
+                      r'''$.city''',
                     ).toString()}| ${getJsonField(
                       widget.post,
-                      r'''$.tasker_languages[0]''',
+                      r'''$.language''',
                     ).toString()}',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Lato',
@@ -369,10 +391,27 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                           fontWeight: FontWeight.w500,
                         ),
                   ),
-                  Icon(
-                    Icons.share_outlined,
-                    color: Color(0xFF5450E2),
-                    size: 24.0,
+                  Builder(
+                    builder: (context) => InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        await Share.share(
+                          'https://app.taskerpage.com/unknownfornow/${getJsonField(
+                            widget.post,
+                            r'''$.name''',
+                          ).toString()}',
+                          sharePositionOrigin: getWidgetBoundingBox(context),
+                        );
+                      },
+                      child: Icon(
+                        Icons.share_outlined,
+                        color: Color(0xFF5450E2),
+                        size: 24.0,
+                      ),
+                    ),
                   ),
                 ],
               ),
@@ -410,7 +449,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                     'id': serializeParam(
                       getJsonField(
                         widget.post,
-                        r'''$.id''',
+                        r'''$.name''',
                       ),
                       ParamType.int,
                     ),

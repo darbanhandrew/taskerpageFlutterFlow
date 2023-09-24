@@ -1,9 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/edit_number_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -74,10 +77,25 @@ class _SignUpVerificationRequestWidgetState
         FFAppState().requstNewCode = false;
         FFAppState().IsntCorecctPassword = false;
       });
-      _model.apiResult5wf =
-          await TaskerpageBackendGroup.sendVerifacationCall.call(
-        to: FFAppState().UserInformation.mobilenumber,
+      _model.sendCode = await TaskerpageBackendGroup.userProfileReadCall.call(
+        id: getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.name''',
+        ).toString().toString(),
+        apiGlobalKey: FFAppState().apiKey,
       );
+      if ((_model.sendCode?.succeeded ?? true)) {
+        _model.apiResult5wf =
+            await TaskerpageBackendGroup.sendToVerificationCodeCall.call(
+          to: '+${functions.extractNumber(getJsonField(
+            (_model.sendCode?.jsonBody ?? ''),
+            r'''$.data.phone_number''',
+          ).toString().toString())}',
+          apiGlobalKey: FFAppState().apiKey,
+        );
+      } else {
+        return;
+      }
     });
 
     setupAnimations(
@@ -106,6 +124,24 @@ class _SignUpVerificationRequestWidgetState
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -124,32 +160,38 @@ class _SignUpVerificationRequestWidgetState
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 32.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            FFAppState().requstNewCode == false
-                                ? 'We just sent you a sms to below  number!'
-                                : 'We just sent you a sms to below  number again !',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                        ],
+                    Flexible(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 32.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Flexible(
+                              child: Text(
+                                FFAppState().requstNewCode == false
+                                    ? 'We just sent you a sms to below  number!'
+                                    : 'We just sent you a sms to below  number again !',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      fontSize: 20.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     Padding(
@@ -237,7 +279,7 @@ class _SignUpVerificationRequestWidgetState
                                     ),
                                   );
                                 },
-                              ).then((value) => setState(() {}));
+                              ).then((value) => safeSetState(() {}));
                             },
                             child: Text(
                               'Edit',
@@ -269,17 +311,38 @@ class _SignUpVerificationRequestWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              var _shouldSetState = false;
                               setState(() {
                                 FFAppState().requstNewCode = true;
                               });
-                              _model.sendVerification =
-                                  await TaskerpageBackendGroup
-                                      .sendVerifacationCall
-                                      .call(
-                                to: FFAppState().UserInformation.mobilenumber,
+                              _model.sendAgain = await TaskerpageBackendGroup
+                                  .userProfileReadCall
+                                  .call(
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.name''',
+                                ).toString(),
+                                apiGlobalKey: FFAppState().apiKey,
                               );
+                              _shouldSetState = true;
+                              if ((_model.sendAgain?.succeeded ?? true)) {
+                                _model.apiResult5wf3 =
+                                    await TaskerpageBackendGroup
+                                        .sendToVerificationCodeCall
+                                        .call(
+                                  to: '+${functions.extractNumber(getJsonField(
+                                    (_model.sendCode?.jsonBody ?? ''),
+                                    r'''$.data.phone_number''',
+                                  ).toString())}',
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
 
-                              setState(() {});
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Text(
                               'Request a new code! ',
@@ -358,10 +421,16 @@ class _SignUpVerificationRequestWidgetState
                           borderRadius: BorderRadius.circular(5.0),
                           shape: PinCodeFieldShape.box,
                           activeColor: Color(0xFF5450E2),
-                          inactiveColor: Color(0xFF3D3D3D),
+                          inactiveColor:
+                              (_model.apiResult3lo?.succeeded ?? true)
+                                  ? Color(0xFF3D3D3D)
+                                  : Color(0xFFF81113),
                           selectedColor: Color(0xFF3D3D3D),
                           activeFillColor: Color(0xFF5450E2),
-                          inactiveFillColor: Color(0xFF3D3D3D),
+                          inactiveFillColor:
+                              (_model.apiResult3lo?.succeeded ?? true)
+                                  ? Color(0xFF3D3D3D)
+                                  : Color(0xFFF81113),
                           selectedFillColor: Color(0xFF3D3D3D),
                         ),
                         controller: _model.pinCodeController,
@@ -450,48 +519,58 @@ class _SignUpVerificationRequestWidgetState
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              _model.apiResult3lo = await TaskerpageBackendGroup
-                                  .checkVerficationCall
-                                  .call(
-                                to: FFAppState().UserInformation.mobilenumber,
-                                code: _model.pinCodeController!.text,
-                                apiGlobalKey: FFAppState().apiKey,
-                              );
-                              if ((_model.apiResult3lo?.succeeded ?? true)) {
-                                context
-                                    .pushNamed('Sign-up-Verification-accepted');
+                              var _shouldSetState = false;
+                              if (_model.pinCodeController!.text == '111111') {
+                                context.pushNamed('Sign-up-Verification-Code');
                               } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('custom code'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
+                                _model.apiResult3lo =
+                                    await TaskerpageBackendGroup
+                                        .checkVerificationCodeCall
+                                        .call(
+                                  to: getJsonField(
+                                    (_model.sendAgain?.jsonBody ?? ''),
+                                    r'''$.data.phone_number''',
+                                  ).toString(),
+                                  code: _model.pinCodeController!.text,
+                                  apiGlobalKey: FFAppState().apiKey,
                                 );
-                                if (_model.pinCodeController!.text ==
-                                    '111111') {
-                                  setState(() {
-                                    FFAppState().IsntCorecctPassword = false;
-                                  });
+                                _shouldSetState = true;
+                                if ((_model.apiResult3lo?.succeeded ?? true) &&
+                                    (functions.jsonToString(getJsonField(
+                                          (_model.apiResult3lo?.jsonBody ?? ''),
+                                          r'''$.message.status''',
+                                        )) ==
+                                        'approved')) {
+                                  _model.apiResult77u =
+                                      await TaskerpageBackendGroup
+                                          .updatePhoneVerificationCall
+                                          .call(
+                                    id: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.name''',
+                                    ).toString(),
+                                    phoneVerified: 1,
+                                    apiGlobalKey: FFAppState().apiKey,
+                                  );
+                                  _shouldSetState = true;
+                                  if ((_model.apiResult77u?.succeeded ??
+                                      true)) {
+                                    context
+                                        .pushNamed('Sign-up-Verification-Code');
+                                  } else {
+                                    if (_shouldSetState) setState(() {});
+                                    return;
+                                  }
 
-                                  context.pushNamed(
-                                      'Sign-up-Verification-accepted');
+                                  if (_shouldSetState) setState(() {});
+                                  return;
                                 } else {
-                                  setState(() {
-                                    FFAppState().IsntCorecctPassword = true;
-                                  });
+                                  if (_shouldSetState) setState(() {});
+                                  return;
                                 }
                               }
 
-                              setState(() {});
+                              if (_shouldSetState) setState(() {});
                             },
                             child: Container(
                               width: 104.0,

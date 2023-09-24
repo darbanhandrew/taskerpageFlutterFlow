@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -13,9 +14,11 @@ class AddressCardWidget extends StatefulWidget {
   const AddressCardWidget({
     Key? key,
     required this.address,
+    required this.action,
   }) : super(key: key);
 
   final dynamic address;
+  final Future<dynamic> Function()? action;
 
   @override
   _AddressCardWidgetState createState() => _AddressCardWidgetState();
@@ -70,12 +73,15 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              if (getJsonField(
-                widget.address,
-                r'''$.is_main_address''',
-              ))
+              if (functions
+                      .jsonToInt(getJsonField(
+                        widget.address,
+                        r'''$.is_main_address''',
+                      ))
+                      .toString() ==
+                  '1')
                 Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 5.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,16 +133,19 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                   ),
                 ],
               ),
-              if (!getJsonField(
-                widget.address,
-                r'''$.is_main_address''',
-              ))
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    if (functions
+                            .jsonToInt(getJsonField(
+                              widget.address,
+                              r'''$.is_main_address''',
+                            ))
+                            .toString() ==
+                        '0')
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
@@ -148,17 +157,19 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           onTap: () async {
                             var _shouldSetState = false;
                             _model.apiResultzxfCopy =
-                                await TaskerpageBackendGroup.setAddressMainCall
+                                await TaskerpageBackendGroup
+                                    .changeMainAddressCall
                                     .call(
+                              isMainAddress: 1,
                               id: getJsonField(
                                 widget.address,
-                                r'''$.id''',
-                              ),
+                                r'''$.name''',
+                              ).toString(),
                               apiGlobalKey: FFAppState().apiKey,
                             );
                             _shouldSetState = true;
                             if ((_model.apiResultzxfCopy?.succeeded ?? true)) {
-                              FFAppState().clearMyAddressesCache();
+                              await widget.action?.call();
                               if (_shouldSetState) setState(() {});
                               return;
                             } else {
@@ -195,14 +206,14 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           ),
                         ),
                       ),
-                      Icon(
-                        Icons.delete_outlined,
-                        color: Color(0xFFF6F6F6),
-                        size: 26.0,
-                      ),
-                    ],
-                  ),
+                    Icon(
+                      Icons.delete_outlined,
+                      color: Color(0xFFF6F6F6),
+                      size: 26.0,
+                    ),
+                  ],
                 ),
+              ),
             ],
           ),
         ),

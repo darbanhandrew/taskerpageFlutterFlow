@@ -64,7 +64,7 @@ class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {
 
     return FutureBuilder<ApiCallResponse>(
       future: TaskerpageBackendGroup.userProfileReadCall.call(
-        id: widget.id,
+        id: widget.id?.toString(),
         apiGlobalKey: FFAppState().apiKey,
       ),
       builder: (context, snapshot) {
@@ -129,7 +129,7 @@ class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          '${widget.name} ${widget.family}s Posts',
+                          '${widget.name} ${widget.family}\'s posts',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Lato',
@@ -141,54 +141,93 @@ class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {
                       ],
                     ),
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
-                    child: Builder(
-                      builder: (context) {
-                        final userPosts =
-                            TaskerpageBackendGroup.userProfileReadCall
-                                    .posts(
-                                      optionsUserProfileReadResponse.jsonBody,
-                                    )
-                                    ?.toList() ??
-                                [];
-                        return ListView.separated(
-                          padding: EdgeInsets.zero,
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: userPosts.length,
-                          separatorBuilder: (_, __) => SizedBox(height: 20.0),
-                          itemBuilder: (context, userPostsIndex) {
-                            final userPostsItem = userPosts[userPostsIndex];
-                            return InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed(
-                                  'TaskView',
-                                  queryParameters: {
-                                    'id': serializeParam(
-                                      getJsonField(
-                                        userPostsItem,
-                                        r'''$.id''',
-                                      ),
-                                      ParamType.int,
+                  Divider(
+                    height: 40.0,
+                    thickness: 1.0,
+                    indent: 32.0,
+                    endIndent: 32.0,
+                    color: Color(0x615E5D5D),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 14.0, 32.0, 20.0),
+                          child: FutureBuilder<ApiCallResponse>(
+                            future: TaskerpageBackendGroup.myPostsCall.call(
+                              apiGlobalKey: FFAppState().apiKey,
+                              filters:
+                                  '[[\"poster\",\"=\",\"${widget.id?.toString()}\"]]',
+                              fields:
+                                  '[\"name\",\"creation\",\"skill_name\",\"skill_category_name\",\"skill_level\",\"description\",\"city\",\"country\",\"start_date\",\"repeat_type\",\"docstatus\",\"language\"]',
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    child: SpinKitThreeBounce(
+                                      color: Color(0xFF5450E2),
+                                      size: 50.0,
                                     ),
-                                  }.withoutNulls,
+                                  ),
                                 );
-                              },
-                              child: TaskCardWidget(
-                                key: Key(
-                                    'Keys73_${userPostsIndex}_of_${userPosts.length}'),
-                                post: userPostsItem,
-                              ),
-                            );
-                          },
-                        );
-                      },
+                              }
+                              final listViewMyPostsResponse = snapshot.data!;
+                              return Builder(
+                                builder: (context) {
+                                  final userPosts = getJsonField(
+                                    listViewMyPostsResponse.jsonBody,
+                                    r'''$.data''',
+                                  ).toList();
+                                  return ListView.separated(
+                                    padding: EdgeInsets.zero,
+                                    primary: false,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: userPosts.length,
+                                    separatorBuilder: (_, __) =>
+                                        SizedBox(height: 20.0),
+                                    itemBuilder: (context, userPostsIndex) {
+                                      final userPostsItem =
+                                          userPosts[userPostsIndex];
+                                      return InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'TaskView',
+                                            queryParameters: {
+                                              'id': serializeParam(
+                                                getJsonField(
+                                                  userPostsItem,
+                                                  r'''$.id''',
+                                                ),
+                                                ParamType.int,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: TaskCardWidget(
+                                          key: Key(
+                                              'Keys73_${userPostsIndex}_of_${userPosts.length}'),
+                                          post: userPostsItem,
+                                        ),
+                                      );
+                                    },
+                                  );
+                                },
+                              );
+                            },
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],

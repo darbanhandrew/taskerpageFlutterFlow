@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -91,10 +92,12 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          getJsonField(
-                            widget.post,
-                            r'''$.created_at''',
-                          ).toString(),
+                          dateTimeFormat(
+                              'yyyy-MM-dd',
+                              functions.jsonToDateTime(getJsonField(
+                                widget.post,
+                                r'''$.creation''',
+                              ))),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Lato',
@@ -137,16 +140,19 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      getJsonField(
-                                        widget.post,
-                                        r'''$.post_open_close_status''',
-                                      ).toString(),
+                                      functions.jsonToInt(getJsonField(
+                                                widget.post,
+                                                r'''$.docstatus''',
+                                              )) ==
+                                              1
+                                          ? 'Open'
+                                          : 'Closed',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
                                             color: Color(0xFFF6F6F6),
-                                            fontSize: 7.0,
+                                            fontSize: 10.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -175,7 +181,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                           .override(
                                             fontFamily: 'Lato',
                                             color: Color(0xFFF6F6F6),
-                                            fontSize: 7.0,
+                                            fontSize: 10.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -206,14 +212,14 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                     Text(
                                       getJsonField(
                                         widget.post,
-                                        r'''$.related_service.translations.en.title''',
+                                        r'''$.skill_category_name''',
                                       ).toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
                                             color: Color(0xFFF6F6F6),
-                                            fontSize: 8.0,
+                                            fontSize: 11.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -235,14 +241,14 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                     Text(
                                       getJsonField(
                                         widget.post,
-                                        r'''$.related_service.translations.en.title''',
+                                        r'''$.skill_name''',
                                       ).toString(),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
                                             color: Color(0xFFF6F6F6),
-                                            fontSize: 8.0,
+                                            fontSize: 11.0,
                                             fontWeight: FontWeight.w500,
                                           ),
                                     ),
@@ -265,23 +271,12 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                           children: [
                             ClipRRect(
                               borderRadius: BorderRadius.circular(0.0),
-                              child: Image.asset(
-                                'assets/images/ssq.png',
+                              child: Image.network(
+                                '',
                                 width: 45.0,
                                 height: 45.0,
                                 fit: BoxFit.fill,
                               ),
-                            ),
-                            Text(
-                              '160 €',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFFF6F6F6),
-                                    fontSize: 10.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
                             ),
                           ],
                         ),
@@ -320,10 +315,10 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                   Text(
                     '${getJsonField(
                       widget.post,
-                      r'''$.address.city''',
+                      r'''$.city''',
                     ).toString()}| ${getJsonField(
                       widget.post,
-                      r'''$.tasker_languages[0]''',
+                      r'''$.language''',
                     ).toString()}',
                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Lato',
@@ -368,7 +363,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                     'id': serializeParam(
                       getJsonField(
                         widget.post,
-                        r'''$.id''',
+                        r'''$.name''',
                       ),
                       ParamType.int,
                     ),

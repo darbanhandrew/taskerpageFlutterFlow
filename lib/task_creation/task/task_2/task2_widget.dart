@@ -1,13 +1,17 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/header_widget.dart';
+import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +19,12 @@ import 'task2_model.dart';
 export 'task2_model.dart';
 
 class Task2Widget extends StatefulWidget {
-  const Task2Widget({Key? key}) : super(key: key);
+  const Task2Widget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final String? id;
 
   @override
   _Task2WidgetState createState() => _Task2WidgetState();
@@ -31,7 +40,63 @@ class _Task2WidgetState extends State<Task2Widget> {
     super.initState();
     _model = createModel(context, () => Task2Model());
 
-    _model.textController ??= TextEditingController();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id == null || widget.id == '') {
+        context.pushNamed('Task-1');
+      } else {
+        _model.apiResultpuo = await TaskerpageBackendGroup.postReadCall.call(
+          id: widget.id,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResultpuo?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..updateTaskDeatels(
+                  (e) => e
+                    ..skillName = getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.skill_name''',
+                    ).toString().toString()
+                    ..skillLevel = getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.skill_level''',
+                    ).toString().toString()
+                    ..languages = (getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.languages''',
+                    ) as List)
+                        .map<String>((s) => s.toString())
+                        .toList()!
+                        .toList()
+                    ..description = getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.description''',
+                    ).toString().toString()
+                    ..file = getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.file''',
+                    ).toString().toString()
+                    ..isOnline = getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.is_online''',
+                    ),
+                )
+                ..skillCategory = getJsonField(
+                  (_model.apiResultpuo?.jsonBody ?? ''),
+                  r'''$.data.skill_category_name''',
+                ).toString().toString(),
+            );
+          });
+        } else {
+          return;
+        }
+      }
+    });
+
+    _model.textController ??= TextEditingController(
+        text: FFAppState().createTask.taskDeatels.description);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -51,6 +116,24 @@ class _Task2WidgetState extends State<Task2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -64,7 +147,9 @@ class _Task2WidgetState extends State<Task2Widget> {
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
-                      openDrawer: () async {},
+                      openDrawer: () async {
+                        scaffoldKey.currentState!.openDrawer();
+                      },
                     ),
                   ),
                 ],
@@ -75,6 +160,25 @@ class _Task2WidgetState extends State<Task2Widget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  16.0, 32.0, 16.0, 0.0),
+                              child: wrapWithModel(
+                                model: _model.navigationBarModel,
+                                updateCallback: () => setState(() {}),
+                                child: NavigationBarWidget(
+                                  currentPage: 'task2',
+                                  postId: widget.id,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
@@ -82,51 +186,16 @@ class _Task2WidgetState extends State<Task2Widget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            FutureBuilder<ApiCallResponse>(
-                              future: TaskerpageBackendGroup
-                                  .getServiceCategoryByIdCall
-                                  .call(
-                                id: FFAppState().relatedServiseCategory,
-                              ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: SpinKitThreeBounce(
-                                        color: Color(0xFF5450E2),
-                                        size: 50.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final textGetServiceCategoryByIdResponse =
-                                    snapshot.data!;
-                                return Text(
-                                  valueOrDefault<String>(
-                                    functions.getTranslatableItemString(
-                                        TaskerpageBackendGroup
-                                            .getServiceCategoryByIdCall
-                                            .translations(
-                                          textGetServiceCategoryByIdResponse
-                                              .jsonBody,
-                                        ),
-                                        'en',
-                                        'title'),
-                                    'Category',
+                            Text(
+                              FFAppState().createTask.skillCategory,
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
                                   ),
-                                  textAlign: TextAlign.center,
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                );
-                              },
                             ),
                           ],
                         ),
@@ -169,10 +238,10 @@ class _Task2WidgetState extends State<Task2Widget> {
                               child: FutureBuilder<ApiCallResponse>(
                                 future:
                                     TaskerpageBackendGroup.getServicesCall.call(
-                                  category: FFAppState()
-                                      .relatedServiseCategory
-                                      .toString(),
+                                  category:
+                                      '[[\"skill_category_name\",\"=\",\"${FFAppState().createTask.skillCategory}\"]]',
                                   apiGlobalKey: FFAppState().apiKey,
+                                  fields: '[\"skill_name\",\"name\"]',
                                 ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
@@ -221,43 +290,66 @@ class _Task2WidgetState extends State<Task2Widget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              setState(() {
-                                                FFAppState()
-                                                    .updateTaskCreationStruct(
-                                                  (e) => e
-                                                    ..relatedService =
-                                                        getJsonField(
-                                                      servicesItem,
-                                                      r'''$.id''',
-                                                    ),
-                                                );
-                                              });
+                                              if (FFAppState()
+                                                      .createTask
+                                                      .taskDeatels
+                                                      .skillName ==
+                                                  getJsonField(
+                                                    servicesItem,
+                                                    r'''$.name''',
+                                                  )) {
+                                                setState(() {
+                                                  FFAppState()
+                                                      .updateCreateTaskStruct(
+                                                    (e) => e
+                                                      ..updateTaskDeatels(
+                                                        (e) =>
+                                                            e..skillName = null,
+                                                      ),
+                                                  );
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  FFAppState()
+                                                      .updateCreateTaskStruct(
+                                                    (e) => e
+                                                      ..updateTaskDeatels(
+                                                        (e) => e
+                                                          ..skillName =
+                                                              getJsonField(
+                                                            servicesItem,
+                                                            r'''$.name''',
+                                                          ).toString(),
+                                                      ),
+                                                  );
+                                                });
+                                              }
                                             },
                                             child: Container(
                                               width: 100.0,
                                               height: 100.0,
                                               decoration: BoxDecoration(
-                                                color: functions.jsonToInt(
-                                                            getJsonField(
+                                                color: FFAppState()
+                                                            .createTask
+                                                            .taskDeatels
+                                                            .skillName ==
+                                                        getJsonField(
                                                           servicesItem,
-                                                          r'''$.id''',
-                                                        )) ==
-                                                        FFAppState()
-                                                            .TaskCreation
-                                                            .relatedService
+                                                          r'''$.name''',
+                                                        )
                                                     ? Color(0xFF5450E2)
                                                     : Color(0x00FFFFFF),
                                                 borderRadius:
                                                     BorderRadius.circular(5.0),
                                                 border: Border.all(
-                                                  color: functions.jsonToInt(
-                                                              getJsonField(
+                                                  color: FFAppState()
+                                                              .createTask
+                                                              .taskDeatels
+                                                              .skillName ==
+                                                          getJsonField(
                                                             servicesItem,
-                                                            r'''$.id''',
-                                                          )) ==
-                                                          FFAppState()
-                                                              .TaskCreation
-                                                              .relatedService
+                                                            r'''$.name''',
+                                                          )
                                                       ? Color(0xFF5450E2)
                                                       : Color(0xFF5E5D5D),
                                                   width: 1.0,
@@ -274,30 +366,28 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      valueOrDefault<String>(
-                                                        functions
-                                                            .getTranslatableItemString(
-                                                                getJsonField(
-                                                                  servicesItem,
-                                                                  r'''$.translations''',
-                                                                ),
-                                                                'en',
-                                                                'title'),
-                                                        'selectedService',
-                                                      ),
+                                                      getJsonField(
+                                                        servicesItem,
+                                                        r'''$.skill_name''',
+                                                      )
+                                                          .toString()
+                                                          .maybeHandleOverflow(
+                                                            maxChars: 17,
+                                                            replacement: '…',
+                                                          ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: functions.jsonToInt(
-                                                                        getJsonField(
+                                                            color: FFAppState()
+                                                                        .createTask
+                                                                        .taskDeatels
+                                                                        .skillName ==
+                                                                    getJsonField(
                                                                       servicesItem,
-                                                                      r'''$.id''',
-                                                                    )) ==
-                                                                    FFAppState()
-                                                                        .TaskCreation
-                                                                        .relatedService
+                                                                      r'''$.name''',
+                                                                    )
                                                                 ? Color(
                                                                     0xFFF6F6F6)
                                                                 : Color(
@@ -321,6 +411,82 @@ class _Task2WidgetState extends State<Task2Widget> {
                             ),
                           ],
                         ),
+                      ),
+                      Divider(
+                        height: 48.0,
+                        thickness: 1.0,
+                        indent: 32.0,
+                        endIndent: 32.0,
+                        color: Color(0xFFE3E3E3),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'is online',
+                                    textAlign: TextAlign.justify,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF292929),
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.00, 0.00),
+                                    child: Switch.adaptive(
+                                      value: _model.switchValue1 ??=
+                                          FFAppState()
+                                              .createTask
+                                              .taskDeatels
+                                              .isOnline,
+                                      onChanged: (newValue) async {
+                                        setState(() =>
+                                            _model.switchValue1 = newValue!);
+                                        if (newValue!) {
+                                          setState(() {
+                                            FFAppState().updateCreateTaskStruct(
+                                              (e) => e
+                                                ..updateTaskDeatels(
+                                                  (e) => e..isOnline = true,
+                                                ),
+                                            );
+                                          });
+                                        } else {
+                                          setState(() {
+                                            FFAppState().updateCreateTaskStruct(
+                                              (e) => e
+                                                ..updateTaskDeatels(
+                                                  (e) => e..isOnline = false,
+                                                ),
+                                            );
+                                          });
+                                        }
+                                      },
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      activeTrackColor: Color(0xFFFAD1C6),
+                                      inactiveTrackColor: Color(0xFFECECEC),
+                                      inactiveThumbColor: Color(0xFF3D3D3D),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Divider(
                         height: 48.0,
@@ -374,8 +540,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     setState(() {
-                                      FFAppState().updateTaskCreationStruct(
-                                        (e) => e..skillLevel = skillLevelItem,
+                                      FFAppState().updateCreateTaskStruct(
+                                        (e) => e
+                                          ..updateTaskDeatels(
+                                            (e) =>
+                                                e..skillLevel = skillLevelItem,
+                                          ),
                                       );
                                     });
                                   },
@@ -384,7 +554,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     height: 40.0,
                                     decoration: BoxDecoration(
                                       color: FFAppState()
-                                                  .TaskCreation
+                                                  .createTask
+                                                  .taskDeatels
                                                   .skillLevel ==
                                               skillLevelItem
                                           ? Color(0xFF5450E2)
@@ -392,7 +563,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                                       borderRadius: BorderRadius.circular(5.0),
                                       border: Border.all(
                                         color: FFAppState()
-                                                    .TaskCreation
+                                                    .createTask
+                                                    .taskDeatels
                                                     .skillLevel ==
                                                 skillLevelItem
                                             ? Color(0xFF5450E2)
@@ -412,7 +584,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                                               .override(
                                                 fontFamily: 'Lato',
                                                 color: FFAppState()
-                                                            .TaskCreation
+                                                            .createTask
+                                                            .taskDeatels
                                                             .skillLevel ==
                                                         skillLevelItem
                                                     ? Color(0xFFF6F6F6)
@@ -457,12 +630,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Switch.adaptive(
-                                  value: _model.switchValue1 ??= true,
+                                  value: _model.switchValue2 ??= true,
                                   onChanged: (newValue) async {
                                     setState(
-                                        () => _model.switchValue1 = newValue!);
+                                        () => _model.switchValue2 = newValue!);
                                     if (newValue!) {
                                       setState(() {
                                         FFAppState().updateTaskCreationStruct(
@@ -508,12 +681,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     ),
                               ),
                               Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
+                                alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Switch.adaptive(
-                                  value: _model.switchValue2 ??= true,
+                                  value: _model.switchValue3 ??= true,
                                   onChanged: (newValue) async {
                                     setState(
-                                        () => _model.switchValue2 = newValue!);
+                                        () => _model.switchValue3 = newValue!);
                                     if (newValue!) {
                                       setState(() {
                                         FFAppState()
@@ -691,7 +864,6 @@ class _Task2WidgetState extends State<Task2Widget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                var _shouldSetState = false;
                                 final selectedFiles = await selectFiles(
                                   multiFile: false,
                                 );
@@ -723,29 +895,48 @@ class _Task2WidgetState extends State<Task2Widget> {
                                   }
                                 }
 
-                                _model.apiResultqsy =
+                                _model.apiResultekx34 =
                                     await TaskerpageBackendGroup.uploadCall
                                         .call(
                                   file: _model.uploadedLocalFile,
                                   apiGlobalKey: FFAppState().apiKey,
                                 );
-                                _shouldSetState = true;
-                                if ((_model.apiResultqsy?.succeeded ?? true)) {
+                                if ((_model.apiResultekx34?.succeeded ??
+                                    true)) {
                                   setState(() {
-                                    FFAppState().updateTaskCreationStruct(
+                                    FFAppState().updateCreateTaskStruct(
                                       (e) => e
-                                        ..file = getJsonField(
-                                          (_model.apiResultqsy?.jsonBody ?? ''),
-                                          r'''$.url''',
-                                        ).toString(),
+                                        ..updateTaskDeatels(
+                                          (e) => e
+                                            ..file = getJsonField(
+                                              (_model.apiResultekx34
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.message.file_url''',
+                                            ).toString(),
+                                        ),
                                     );
                                   });
                                 } else {
-                                  if (_shouldSetState) setState(() {});
-                                  return;
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Not Done'),
+                                        content: Text('Not Done'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
                                 }
 
-                                if (_shouldSetState) setState(() {});
+                                setState(() {});
                               },
                               child: Container(
                                 width: 120.0,
@@ -782,33 +973,37 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 ),
                               ),
                             ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                await launchURL(FFAppState()
-                                        .TaskCreation
-                                        .hasFile()
-                                    ? 'https://taskerpage.darkube.app${FFAppState().TaskCreation.file}'
-                                    : ' ');
-                              },
-                              child: Text(
-                                FFAppState().TaskCreation.hasFile()
-                                    ? 'https://taskerpage.darkube.app${FFAppState().TaskCreation.file}'
-                                    : ' '.maybeHandleOverflow(
-                                        maxChars: 20,
-                                        replacement: '…',
+                            Flexible(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  await launchURL(FFAppState()
+                                          .createTask
+                                          .taskDeatels
+                                          .hasFile()
+                                      ? '${FFAppState().baseUrl}${FFAppState().createTask.taskDeatels.file}'
+                                      : ' ');
+                                },
+                                child: Text(
+                                  FFAppState().createTask.taskDeatels.hasFile()
+                                      ? '${FFAppState().baseUrl}${FFAppState().createTask.taskDeatels.file}'
+                                      : ' '.maybeHandleOverflow(
+                                          maxChars: 20,
+                                          replacement: '…',
+                                        ),
+                                  textAlign: TextAlign.end,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF494949),
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
                                       ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF494949),
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                                ),
                               ),
                             ),
                           ],
@@ -846,7 +1041,17 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      context.safePop();
+                                      // tas
+
+                                      context.pushNamed(
+                                        'Task-1',
+                                        queryParameters: {
+                                          'id': serializeParam(
+                                            widget.id,
+                                            ParamType.String,
+                                          ),
+                                        }.withoutNulls,
+                                      );
                                     },
                                     child: Container(
                                       width: 96.0,
@@ -895,15 +1100,73 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
+                                      var _shouldSetState = false;
                                       setState(() {
-                                        FFAppState().updateTaskCreationStruct(
+                                        FFAppState().updateCreateTaskStruct(
                                           (e) => e
-                                            ..description =
-                                                _model.textController.text,
+                                            ..updateTaskDeatels(
+                                              (e) => e
+                                                ..description =
+                                                    _model.textController.text
+                                                ..languages = FFAppState()
+                                                    .LanguagesListForDropDown
+                                                    .toList(),
+                                            ),
                                         );
                                       });
+                                      _model.updatedTask =
+                                          await TaskerpageBackendGroup
+                                              .updateTaskDetailsCall
+                                              .call(
+                                        id: widget.id,
+                                        skillName: FFAppState()
+                                            .createTask
+                                            .taskDeatels
+                                            .skillName,
+                                        skillLevel: FFAppState()
+                                            .createTask
+                                            .taskDeatels
+                                            .skillLevel,
+                                        languages: functions
+                                            .convertListOfStringToString(
+                                                FFAppState()
+                                                    .createTask
+                                                    .taskDeatels
+                                                    .languages
+                                                    .toList()),
+                                        description: FFAppState()
+                                            .createTask
+                                            .taskDeatels
+                                            .description,
+                                        file: FFAppState()
+                                            .createTask
+                                            .taskDeatels
+                                            .file,
+                                        apiGlobalKey: FFAppState().apiKey,
+                                        isOnline: functions.booltoInt(
+                                            FFAppState()
+                                                .createTask
+                                                .taskDeatels
+                                                .isOnline),
+                                      );
+                                      _shouldSetState = true;
+                                      if ((_model.updatedTask?.succeeded ??
+                                          true)) {
+                                        context.pushNamed(
+                                          'Select_Address',
+                                          queryParameters: {
+                                            'id': serializeParam(
+                                              widget.id,
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      } else {
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
 
-                                      context.pushNamed('Select_Address');
+                                      if (_shouldSetState) setState(() {});
                                     },
                                     child: wrapWithModel(
                                       model: _model.buttonNextModel,

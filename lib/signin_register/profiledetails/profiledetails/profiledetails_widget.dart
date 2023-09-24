@@ -1,11 +1,12 @@
-import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -75,6 +76,24 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -93,7 +112,9 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
-                            openDrawer: () async {},
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openDrawer();
+                            },
                           ),
                         ),
                       ],
@@ -252,7 +273,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Switch.adaptive(
                               value: _model.switchValue ??= true,
                               onChanged: (newValue) async {
@@ -509,35 +530,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var _shouldSetState = false;
-                              _model.updateUserProfile =
-                                  await TaskerpageBackendGroup
-                                      .changeProfileDeatelsCall
-                                      .call(
-                                id: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
-                                apiGlobalKey: FFAppState().apiKey,
-                                hasInsurance: _model.switchValue,
-                                yearsOfExperience: FFAppState()
-                                    .UserInformation
-                                    .yearsofexperience,
-                                driverLicense:
-                                    FFAppState().UserInformation.driverLicense,
-                                userLanguagesList:
-                                    FFAppState().LanguagesListForDropDown,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.updateUserProfile?.succeeded ??
-                                  true)) {
-                                context.pushNamed('Profiledetails2');
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
-
-                              if (_shouldSetState) setState(() {});
+                              context.pushNamed('Profiledetails2');
                             },
                             child: Container(
                               width: 104.0,

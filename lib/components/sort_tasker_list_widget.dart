@@ -31,9 +31,7 @@ class _SortTaskerListWidgetState extends State<SortTaskerListWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        FFAppState().Sort = 'Relevance';
-      });
+      setState(() {});
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -317,7 +315,7 @@ class _SortTaskerListWidgetState extends State<SortTaskerListWidget> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Rates',
+                      'Rating',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Lato',
                             color: Colors.black,

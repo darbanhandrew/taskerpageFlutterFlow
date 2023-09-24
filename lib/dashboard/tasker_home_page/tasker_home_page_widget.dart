@@ -1,11 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/bottom_sheetfor_pay_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/home_page_footer_widget.dart';
 import '/components/mini_task_card_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -50,6 +51,24 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -59,7 +78,9 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
-                  openDrawer: () async {},
+                  openDrawer: () async {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                 ),
               ),
               Expanded(
@@ -1316,7 +1337,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.0, 0.0),
+                                                              0.00, 0.00),
                                                       child: Stack(
                                                         children: [
                                                           Text(
@@ -1339,7 +1360,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.0, 0.0),
+                                                                    0.00, 0.00),
                                                             child: Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
@@ -1383,35 +1404,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                           Colors.transparent,
                                                       highlightColor:
                                                           Colors.transparent,
-                                                      onTap: () async {
-                                                        await showModalBottomSheet(
-                                                          isScrollControlled:
-                                                              true,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          enableDrag: false,
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return GestureDetector(
-                                                              onTap: () => FocusScope
-                                                                      .of(
-                                                                          context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode),
-                                                              child: Padding(
-                                                                padding: MediaQuery
-                                                                    .viewInsetsOf(
-                                                                        context),
-                                                                child:
-                                                                    BottomSheetforPayWidget(),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ).then((value) =>
-                                                            setState(() {}));
-                                                      },
+                                                      onTap: () async {},
                                                       child: Container(
                                                         width: 136.0,
                                                         height: 44.0,
@@ -1623,7 +1616,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                         ApiCallResponse>(
                                                       future:
                                                           TaskerpageBackendGroup
-                                                              .postsCall
+                                                              .customerTaskListCall
                                                               .call(
                                                         apiGlobalKey:
                                                             FFAppState().apiKey,
@@ -1645,13 +1638,13 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                             ),
                                                           );
                                                         }
-                                                        final listViewPostsResponse =
+                                                        final listViewCustomerTaskListResponse =
                                                             snapshot.data!;
                                                         return Builder(
                                                           builder: (context) {
                                                             final postsList =
                                                                 getJsonField(
-                                                              listViewPostsResponse
+                                                              listViewCustomerTaskListResponse
                                                                   .jsonBody,
                                                               r'''$''',
                                                             )

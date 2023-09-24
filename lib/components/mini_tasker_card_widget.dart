@@ -1,5 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -50,7 +51,7 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(-1.0, 0.0),
+      alignment: AlignmentDirectional(-1.00, 0.00),
       child: FlipCard(
         fill: Fill.fillBack,
         direction: FlipDirection.HORIZONTAL,
@@ -93,10 +94,12 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            getJsonField(
-                              widget.userProfile,
-                              r'''$.created_at''',
-                            ).toString(),
+                            dateTimeFormat(
+                                'yyyy-MM-dd',
+                                functions.jsonToDateTime(getJsonField(
+                                  widget.userProfile,
+                                  r'''$.creation''',
+                                ))),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -277,59 +280,6 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 15.0, 0.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Stack(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/ssq.png',
-                                  width: 43.5,
-                                  height: 43.5,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
-                                child: Text(
-                                  '61 €',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFFF6F6F6),
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 8.0, 0.0, 0.0),
-                                child: Text(
-                                  'per hour',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFFF6F6F6),
-                                        fontSize: 8.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
@@ -365,10 +315,10 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                           child: Text(
                             '${getJsonField(
                               widget.userProfile,
-                              r'''$.addresses[0].city''',
+                              r'''$.city''',
                             ).toString()}| ${getJsonField(
                               widget.userProfile,
-                              r'''$.user_languages[0]''',
+                              r'''$.language''',
                             ).toString()}',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
@@ -418,7 +368,7 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                       'id': serializeParam(
                         getJsonField(
                           widget.userProfile,
-                          r'''$.id''',
+                          r'''$.name''',
                         ),
                         ParamType.int,
                       ),

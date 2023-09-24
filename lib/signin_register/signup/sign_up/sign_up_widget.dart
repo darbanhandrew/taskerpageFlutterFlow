@@ -1,12 +1,17 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/privacy_policy_widget.dart';
 import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +29,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   late SignUpModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -37,6 +44,15 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       });
     });
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     _model.textController1 ??= TextEditingController();
     _model.textController2 ??= TextEditingController();
     _model.textController3 ??= TextEditingController();
@@ -47,6 +63,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -59,8 +78,23 @@ class _SignUpWidgetState extends State<SignUpWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Drawer(
-          elevation: 16.0,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -191,6 +225,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   );
                                 });
                               },
+                              textInputAction: TextInputAction.next,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -286,6 +321,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.textController2,
+                              textInputAction: TextInputAction.next,
                               obscureText: !_model.passwordVisibility1,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -401,18 +437,25 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.textController3,
-                              onFieldSubmitted: (_) async {
-                                if (_model.textController2.text ==
-                                    _model.textController3.text) {
-                                  setState(() {
-                                    FFAppState().BorderColorSuccses = true;
-                                  });
-                                } else {
-                                  setState(() {
-                                    FFAppState().BorderColorSuccses = false;
-                                  });
-                                }
-                              },
+                              onChanged: (_) => EasyDebounce.debounce(
+                                '_model.textController3',
+                                Duration(milliseconds: 2000),
+                                () async {
+                                  if (_model.textController2.text ==
+                                      _model.textController3.text) {
+                                    setState(() {
+                                      FFAppState().BorderColorSuccses = true;
+                                      FFAppState().isApiCall = false;
+                                    });
+                                  } else {
+                                    setState(() {
+                                      FFAppState().BorderColorSuccses = false;
+                                      FFAppState().isApiCall = true;
+                                    });
+                                  }
+                                },
+                              ),
+                              textInputAction: TextInputAction.done,
                               obscureText: !_model.passwordVisibility2,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -495,38 +538,15 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                         ],
                       ),
                     ),
-                    if (_model.textController2.text !=
-                        _model.textController3.text)
+                    if (FFAppState().isApiCall == true)
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             32.0, 5.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            if (false)
-                              Text(
-                                'Password is not mach !',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFFD20202),
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                          ],
-                        ),
-                      ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 5.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          if (false)
                             Text(
-                              'E-mail  address already exist !',
+                              'Password is not mach !',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -536,9 +556,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     fontWeight: FontWeight.bold,
                                   ),
                             ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
@@ -553,57 +573,92 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 var _shouldSetState = false;
+                                setState(() {
+                                  FFAppState().loading = true;
+                                });
                                 if (_model.textController2.text ==
                                     _model.textController3.text) {
-                                  setState(() {
-                                    FFAppState().updateUserInformationStruct(
-                                      (e) => e
-                                        ..password =
-                                            _model.textController3.text,
-                                    );
-                                  });
-                                  setState(() {
-                                    FFAppState().isApiCall = true;
-                                  });
-                                } else {
-                                  if (_shouldSetState) setState(() {});
-                                  return;
-                                }
-
-                                _model.apiResultpij =
-                                    await TaskerpageBackendGroup.registerCall
-                                        .call(
-                                  password:
-                                      FFAppState().UserInformation.password,
-                                  username: _model.textController1.text,
-                                );
-                                _shouldSetState = true;
-                                if ((_model.apiResultpij?.succeeded ?? true)) {
-                                  _model.login = await TaskerpageBackendGroup
-                                      .loginCall
+                                  _model.rigester = await TaskerpageBackendGroup
+                                      .registerCall
                                       .call(
+                                    email: _model.textController1.text,
                                     username: _model.textController1.text,
-                                    password: _model.textController2.text,
-                                    apiGlobalKey: ' ',
+                                    firstName: 'first name',
+                                    newPassword: _model.textController2.text,
+                                    roleProfileName: 'End User',
                                   );
                                   _shouldSetState = true;
-                                  if ((_model.login?.succeeded ?? true)) {
-                                    setState(() {
-                                      FFAppState().apiKey = getJsonField(
-                                        (_model.login?.jsonBody ?? ''),
-                                        r'''$.access''',
-                                      ).toString();
-                                      FFAppState().isApiCall = false;
-                                    });
+                                  if ((_model.rigester?.succeeded ?? true)) {
+                                    _model.apiResultfu7 =
+                                        await TaskerpageBackendGroup
+                                            .generateKeysCall
+                                            .call(
+                                      user: _model.textController1.text,
+                                    );
+                                    _shouldSetState = true;
+                                    if ((_model.apiResultfu7?.succeeded ??
+                                        true)) {
+                                      setState(() {
+                                        FFAppState().apiKey =
+                                            'token ${TaskerpageBackendGroup.generateKeysCall.apiKey(
+                                                  (_model.apiResultfu7
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ).toString()}:${TaskerpageBackendGroup.generateKeysCall.apiSecret(
+                                                  (_model.apiResultfu7
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ).toString()}';
+                                      });
+                                    } else {
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
 
-                                    context.pushNamed('Sign-up-information');
-                                  } else {
+                                    _model.apiResultd93 =
+                                        await TaskerpageBackendGroup
+                                            .userProfileMeCall
+                                            .call(
+                                      apiGlobalKey: FFAppState().apiKey,
+                                    );
+                                    _shouldSetState = true;
+                                    if ((_model.apiResultd93?.succeeded ??
+                                        true)) {
+                                      setState(() {
+                                        FFAppState().userProfile =
+                                            (_model.apiResultd93?.jsonBody ??
+                                                '');
+                                        FFAppState().loading = false;
+                                      });
+
+                                      context.pushNamed('Sign-up-information');
+                                    } else {
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
+
                                     if (_shouldSetState) setState(() {});
                                     return;
+                                  } else {
+                                    setState(() {
+                                      FFAppState().loading = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                        .clearSnackBars();
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text(
+                                          'E-mail  address already exist !',
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                          ),
+                                        ),
+                                        duration: Duration(milliseconds: 5000),
+                                        backgroundColor: Color(0xFFD20202),
+                                      ),
+                                    );
                                   }
-
-                                  if (_shouldSetState) setState(() {});
-                                  return;
                                 } else {
                                   if (_shouldSetState) setState(() {});
                                   return;
@@ -623,8 +678,8 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      FFAppState().isApiCall
-                                          ? '...'
+                                      FFAppState().loading
+                                          ? 'Just a moment ..'
                                           : 'Register',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -692,7 +747,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     ),
                                   );
                                 },
-                              ).then((value) => setState(() {}));
+                              ).then((value) => safeSetState(() {}));
                             },
                             child: Text(
                               'Terms of Service',
@@ -743,7 +798,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                     ),
                                   );
                                 },
-                              ).then((value) => setState(() {}));
+                              ).then((value) => safeSetState(() {}));
                             },
                             child: Text(
                               'Privacy Policy',
@@ -886,71 +941,94 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   ],
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5.0,
-                          color: Color(0x33000000),
-                          offset: Offset(5.0, 5.0),
-                          spreadRadius: 10.0,
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Have an account?',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                3.0, 0.0, 0.0, 0.0),
-                            child: InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('Sign-in');
-                              },
-                              child: Text(
-                                'Log-in',
+              if (isWeb
+                  ? MediaQuery.viewInsetsOf(context).bottom > 0
+                  : _isKeyboardVisible)
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            color: Color(0x33000000),
+                            offset: Offset(5.0, 5.0),
+                            spreadRadius: 10.0,
+                          )
+                        ],
+                      ),
+                      child: Container(
+                        height: 40.0,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Have an account?',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
-                            ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.pushNamed('Sign-in');
+                                },
+                                child: Container(
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: Color(0x00FFFFFF),
+                                  ),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            3.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Log-in',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
+                        ),
                       ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),

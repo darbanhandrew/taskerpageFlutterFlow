@@ -1,4 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -69,7 +68,7 @@ class _AlerModalMassageForEditWidgetState
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
@@ -161,32 +160,7 @@ class _AlerModalMassageForEditWidgetState
                         focusColor: Colors.transparent,
                         hoverColor: Colors.transparent,
                         highlightColor: Colors.transparent,
-                        onTap: () async {
-                          var _shouldSetState = false;
-                          _model.apiResultt8a = await TaskerpageBackendGroup
-                              .appointmentUpdateCall
-                              .call(
-                            id: widget.id,
-                            apiGlobalKey: FFAppState().apiKey,
-                            appointmentType:
-                                FFAppState().Appointment.appointmentType,
-                            appointmentLocationLat:
-                                FFAppState().Appointment.lat,
-                            appointmentLocationLng:
-                                FFAppState().Appointment.lng,
-                          );
-                          _shouldSetState = true;
-                          if ((_model.apiResultt8a?.succeeded ?? true)) {
-                            Navigator.pop(context);
-
-                            context.pushNamed('AppointmentList');
-                          } else {
-                            if (_shouldSetState) setState(() {});
-                            return;
-                          }
-
-                          if (_shouldSetState) setState(() {});
-                        },
+                        onTap: () async {},
                         child: Container(
                           width: 129.0,
                           height: 44.0,

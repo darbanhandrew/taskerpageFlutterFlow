@@ -1,14 +1,19 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/navigation_bar_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,21 +21,89 @@ import 'taskertype3_model.dart';
 export 'taskertype3_model.dart';
 
 class Taskertype3Widget extends StatefulWidget {
-  const Taskertype3Widget({Key? key}) : super(key: key);
+  const Taskertype3Widget({
+    Key? key,
+    required this.id,
+  }) : super(key: key);
+
+  final String? id;
 
   @override
   _Taskertype3WidgetState createState() => _Taskertype3WidgetState();
 }
 
-class _Taskertype3WidgetState extends State<Taskertype3Widget> {
+class _Taskertype3WidgetState extends State<Taskertype3Widget>
+    with TickerProviderStateMixin {
   late Taskertype3Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'rowOnPageLoadAnimation1': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation2': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnPageLoadAnimation3': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => Taskertype3Model());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id == null || widget.id == '') {
+        context.pushNamed('Task-1');
+      } else {
+        _model.apiResulthrh = await TaskerpageBackendGroup.registerCall.call();
+        if ((_model.apiResulthrh?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..updateTaskerType(
+                  (e) => e
+                    ..maxDistance = getJsonField(
+                      (_model.apiResulthrh?.jsonBody ?? ''),
+                      r'''$.data.max_distance''',
+                    ),
+                ),
+            );
+          });
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -51,6 +124,24 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -64,8 +155,29 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                       model: _model.headerModel,
                       updateCallback: () => setState(() {}),
                       child: HeaderWidget(
-                        openDrawer: () async {},
+                        openDrawer: () async {
+                          scaffoldKey.currentState!.openDrawer();
+                        },
                       ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 32.0, 16.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigationBarModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigationBarWidget(
+                                currentPage: 'tasker_type3',
+                                postId: widget.id,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding:
@@ -121,14 +233,14 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                             ),
                             child: FlutterFlowCountController(
                               decrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_up_rounded,
+                                Icons.keyboard_arrow_down_rounded,
                                 color: enabled
                                     ? Color(0xFFF06543)
                                     : FlutterFlowTheme.of(context).alternate,
                                 size: 15.0,
                               ),
                               incrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_down_rounded,
+                                Icons.keyboard_arrow_up_rounded,
                                 color: enabled
                                     ? Color(0xFFF06543)
                                     : FlutterFlowTheme.of(context).alternate,
@@ -143,15 +255,20 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                       fontSize: 13.0,
                                     ),
                               ),
-                              count: _model.countControllerValue1 ??= 10,
+                              count: _model.countControllerValue1 ??=
+                                  valueOrDefault<int>(
+                                FFAppState().createTask.taskerType.maxDistance,
+                                10,
+                              ),
                               updateCount: (count) async {
                                 setState(
                                     () => _model.countControllerValue1 = count);
                                 setState(() {
-                                  FFAppState().updateTaskCreationStruct(
+                                  FFAppState().updateTaskStruct(
                                     (e) => e
-                                      ..maxDistance =
-                                          _model.countControllerValue1,
+                                      ..maxDistance = _model
+                                          .countControllerValue1
+                                          ?.toString(),
                                   );
                                 });
                               },
@@ -200,7 +317,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Switch.adaptive(
                               value: _model.switchValue1 ??= false,
                               onChanged: (newValue) async {
@@ -265,7 +382,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                 ),
                                 child: FlutterFlowCountController(
                                   decrementIconBuilder: (enabled) => Icon(
-                                    Icons.keyboard_arrow_up_rounded,
+                                    Icons.keyboard_arrow_down_rounded,
                                     color: enabled
                                         ? Color(0xFFF06543)
                                         : FlutterFlowTheme.of(context)
@@ -273,7 +390,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                     size: 15.0,
                                   ),
                                   incrementIconBuilder: (enabled) => Icon(
-                                    Icons.keyboard_arrow_down_rounded,
+                                    Icons.keyboard_arrow_up_rounded,
                                     color: enabled
                                         ? Color(0xFFF06543)
                                         : FlutterFlowTheme.of(context)
@@ -365,7 +482,8 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                   ),
                             ),
                           ],
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['rowOnPageLoadAnimation1']!),
                       ),
                     Divider(
                       height: 32.0,
@@ -393,7 +511,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
+                            alignment: AlignmentDirectional(0.00, 0.00),
                             child: Switch.adaptive(
                               value: _model.switchValue2 ??= false,
                               onChanged: (newValue) async {
@@ -460,7 +578,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                 ),
                                 child: FlutterFlowCountController(
                                   decrementIconBuilder: (enabled) => Icon(
-                                    Icons.keyboard_arrow_up_rounded,
+                                    Icons.keyboard_arrow_down_rounded,
                                     color: enabled
                                         ? Color(0xFFF06543)
                                         : FlutterFlowTheme.of(context)
@@ -468,7 +586,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                     size: 15.0,
                                   ),
                                   incrementIconBuilder: (enabled) => Icon(
-                                    Icons.keyboard_arrow_down_rounded,
+                                    Icons.keyboard_arrow_up_rounded,
                                     color: enabled
                                         ? Color(0xFFF06543)
                                         : FlutterFlowTheme.of(context)
@@ -560,7 +678,8 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                   ),
                             ),
                           ],
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['rowOnPageLoadAnimation2']!),
                       ),
                     if (_model.switchValue2 ?? true)
                       Padding(
@@ -596,14 +715,14 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                               ),
                               child: FlutterFlowCountController(
                                 decrementIconBuilder: (enabled) => Icon(
-                                  Icons.keyboard_arrow_up_rounded,
+                                  Icons.keyboard_arrow_down_rounded,
                                   color: enabled
                                       ? Color(0xFFF06543)
                                       : FlutterFlowTheme.of(context).alternate,
                                   size: 15.0,
                                 ),
                                 incrementIconBuilder: (enabled) => Icon(
-                                  Icons.keyboard_arrow_down_rounded,
+                                  Icons.keyboard_arrow_up_rounded,
                                   color: enabled
                                       ? Color(0xFFF06543)
                                       : FlutterFlowTheme.of(context).alternate,
@@ -648,7 +767,8 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                                   ),
                             ),
                           ],
-                        ),
+                        ).animateOnPageLoad(
+                            animationsMap['rowOnPageLoadAnimation3']!),
                       ),
                   ],
                 ),
@@ -731,184 +851,27 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               var _shouldSetState = false;
-                              _model.apiResultgfm = await TaskerpageBackendGroup
-                                  .updatePostCall
-                                  .call(
-                                taskerLanguagesList:
-                                    FFAppState().TaskCreation.languages,
-                                description:
-                                    FFAppState().TaskCreation.description,
-                                radiusOfWork: valueOrDefault<int>(
-                                  FFAppState().TaskCreation.maxDistance,
+                              _model.taskCrreation =
+                                  await TaskerpageBackendGroup
+                                      .updateTaskerTypeThreeCall
+                                      .call(
+                                maxDistance: valueOrDefault<int>(
+                                  _model.countControllerValue1,
                                   10,
                                 ),
-                                skillLevelList: functions.stringToArrayOfString(
-                                    FFAppState().TaskCreation.skillLevel),
-                                startDate: FFAppState().TaskCreation.startDate,
-                                startTime: FFAppState()
-                                                .TaskCreation
-                                                .startTime !=
-                                            null &&
-                                        FFAppState().TaskCreation.startTime !=
-                                            ''
-                                    ? FFAppState().TaskCreation.startTime
-                                    : null,
-                                customStartTime:
-                                    FFAppState().TaskCreation.customStartTime,
-                                endDatetime: FFAppState()
-                                                .TaskCreation
-                                                .endDatetime ==
-                                            null ||
-                                        FFAppState().TaskCreation.endDatetime ==
-                                            ''
-                                    ? null
-                                    : FFAppState().TaskCreation.endDatetime,
-                                repeatType: FFAppState()
-                                                .TaskCreation
-                                                .repeatType !=
-                                            null &&
-                                        FFAppState().TaskCreation.repeatType !=
-                                            ''
-                                    ? FFAppState().TaskCreation.repeatType
-                                    : null,
-                                repeatEvery: FFAppState()
-                                                .TaskCreation
-                                                .repeatEvery !=
-                                            null &&
-                                        FFAppState().TaskCreation.repeatEvery !=
-                                            ''
-                                    ? FFAppState().TaskCreation.repeatEvery
-                                    : null,
-                                repeatDate:
-                                    FFAppState().TaskCreation.repeatDate,
-                                endDateType: FFAppState()
-                                                .TaskCreation
-                                                .endDateType !=
-                                            null &&
-                                        FFAppState().TaskCreation.endDateType !=
-                                            ''
-                                    ? FFAppState().TaskCreation.endDateType
-                                    : null,
-                                postStatus: 4,
-                                postOpenCloseStatus: 'OPEN',
-                                poster: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.id''',
-                                ),
-                                session: valueOrDefault<int>(
-                                  FFAppState().TaskCreation.session,
-                                  1,
-                                ),
-                                sessionDuration: FFAppState()
-                                                .TaskCreation
-                                                .sessionDuration !=
-                                            null &&
-                                        FFAppState()
-                                                .TaskCreation
-                                                .sessionDuration !=
-                                            ''
-                                    ? FFAppState().TaskCreation.sessionDuration
-                                    : null,
-                                address: FFAppState().TaskCreation.address,
-                                taskerAge: FFAppState().TaskerAge,
-                                relatedService:
-                                    FFAppState().TaskCreation.relatedService,
-                                relatedServiceCategory:
-                                    FFAppState().relatedServiseCategory,
+                                id: widget.id,
                                 apiGlobalKey: FFAppState().apiKey,
-                                id: FFAppState().TaskCreation.id,
-                                monthlyRepeatType: FFAppState()
-                                        .TaskCreation
-                                        .hasMonthlyRepeatType()
-                                    ? FFAppState()
-                                        .TaskCreation
-                                        .monthlyRepeatType
-                                    : null,
-                                preferredDays: functions
-                                    .convertShortWeekDayToLong(FFAppState()
-                                        .TaskCreation
-                                        .daysOfWeek
-                                        .toList()),
-                                taskerGender: FFAppState().TaskerType,
-                                isVerified: false,
-                                isPeriodic:
-                                    FFAppState().TaskCreation.repeatDate,
-                                numSessions:
-                                    FFAppState().TaskCreation.numSessions ==
-                                            null
-                                        ? null
-                                        : FFAppState().TaskCreation.numSessions,
-                                identified: FFAppState().Identified,
-                                yearsOfExperience: FFAppState()
-                                            .TaskCreation
-                                            .yearsofExperience ==
-                                        null
-                                    ? 1
-                                    : FFAppState()
-                                        .TaskCreation
-                                        .yearsofExperience,
-                                insurance: FFAppState().TaskCreation.insurance,
-                                driverLicense: FFAppState()
-                                                .TaskCreation
-                                                .driverslicense ==
-                                            null ||
-                                        FFAppState()
-                                                .TaskCreation
-                                                .driverslicense ==
-                                            ''
-                                    ? 'CAR'
-                                    : FFAppState().TaskCreation.driverslicense,
-                                travelCosts:
-                                    FFAppState().TaskCreation.paytravelcosts,
-                                payPerHour: FFAppState()
-                                                .TaskCreation
-                                                .paytravelcostsPerhour ==
-                                            null ||
-                                        FFAppState()
-                                                .TaskCreation
-                                                .paytravelcostsPerhour ==
-                                            ''
-                                    ? null
-                                    : FFAppState()
-                                        .TaskCreation
-                                        .paytravelcostsPerhour,
-                                cancellationPenalty: FFAppState()
-                                    .TaskCreation
-                                    .cancellationPenaltyApplies,
-                                payCancellationPerHour: FFAppState()
-                                                .TaskCreation
-                                                .cancellationPenaltyPerhour ==
-                                            null ||
-                                        FFAppState()
-                                                .TaskCreation
-                                                .cancellationPenaltyPerhour ==
-                                            ''
-                                    ? null
-                                    : FFAppState()
-                                        .TaskCreation
-                                        .cancellationPenaltyPerhour,
-                                cancellationBeforeAppointment: FFAppState()
-                                                .TaskCreation
-                                                .ifCancelledBefore ==
-                                            null ||
-                                        FFAppState()
-                                                .TaskCreation
-                                                .ifCancelledBefore ==
-                                            ''
-                                    ? null
-                                    : FFAppState()
-                                        .TaskCreation
-                                        .ifCancelledBefore,
-                                daysOfWeekList:
-                                    FFAppState().TaskCreation.daysOfWeek,
                               );
                               _shouldSetState = true;
-                              if ((_model.apiResultgfm?.succeeded ?? true)) {
+                              if ((_model.taskCrreation?.succeeded ?? true)) {
                                 context.pushNamed(
                                   'TaskView',
                                   queryParameters: {
                                     'id': serializeParam(
-                                      FFAppState().TaskCreation.id,
+                                      getJsonField(
+                                        (_model.taskCrreation?.jsonBody ?? ''),
+                                        r'''$.data.name''',
+                                      ),
                                       ParamType.int,
                                     ),
                                   }.withoutNulls,

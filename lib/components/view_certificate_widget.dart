@@ -69,7 +69,7 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(0.0, 0.0),
+      alignment: AlignmentDirectional(0.00, 0.00),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
         child: Container(
@@ -112,10 +112,29 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                         await widget.updateCertificateUrl?.call();
                         Navigator.pop(context);
                       },
-                      child: Icon(
-                        Icons.delete_outline,
-                        color: Color(0xFFF81113),
-                        size: 24.0,
+                      child: Container(
+                        width: 110.0,
+                        height: 41.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF5450E2),
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Clear certificate',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.white,
+                                    fontSize: 12.0,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     InkWell(
@@ -139,7 +158,7 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
                     child: Image.network(
-                      'https://taskerpage.darkube.app${widget.certificateUrl}',
+                      'https://taskerpage.com${widget.certificateUrl}',
                       width: MediaQuery.sizeOf(context).width * 0.7,
                       height: 350.0,
                       fit: BoxFit.cover,

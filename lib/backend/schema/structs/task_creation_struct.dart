@@ -46,6 +46,7 @@ class TaskCreationStruct extends BaseStruct {
     int? id,
     String? preferredDays,
     List<String>? daysOfWeek,
+    String? skill,
   })  : _taskerLanguages = taskerLanguages,
         _description = description,
         _radiusOfWork = radiusOfWork,
@@ -84,7 +85,8 @@ class TaskCreationStruct extends BaseStruct {
         _ifCancelledBefore = ifCancelledBefore,
         _id = id,
         _preferredDays = preferredDays,
-        _daysOfWeek = daysOfWeek;
+        _daysOfWeek = daysOfWeek,
+        _skill = skill;
 
   // "tasker_languages" field.
   List<String>? _taskerLanguages;
@@ -343,6 +345,12 @@ class TaskCreationStruct extends BaseStruct {
       updateFn(_daysOfWeek ??= []);
   bool hasDaysOfWeek() => _daysOfWeek != null;
 
+  // "skill" field.
+  String? _skill;
+  String get skill => _skill ?? '';
+  set skill(String? val) => _skill = val;
+  bool hasSkill() => _skill != null;
+
   static TaskCreationStruct fromMap(Map<String, dynamic> data) =>
       TaskCreationStruct(
         taskerLanguages: getDataList(data['tasker_languages']),
@@ -386,6 +394,7 @@ class TaskCreationStruct extends BaseStruct {
         id: castToType<int>(data['id']),
         preferredDays: data['preferred_days'] as String?,
         daysOfWeek: getDataList(data['days_of_week']),
+        skill: data['skill'] as String?,
       );
 
   static TaskCreationStruct? maybeFromMap(dynamic data) =>
@@ -431,6 +440,7 @@ class TaskCreationStruct extends BaseStruct {
         'id': _id,
         'preferred_days': _preferredDays,
         'days_of_week': _daysOfWeek,
+        'skill': _skill,
       }.withoutNulls;
 
   @override
@@ -593,6 +603,10 @@ class TaskCreationStruct extends BaseStruct {
           _daysOfWeek,
           ParamType.String,
           true,
+        ),
+        'skill': serializeParam(
+          _skill,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -793,6 +807,11 @@ class TaskCreationStruct extends BaseStruct {
           ParamType.String,
           true,
         ),
+        skill: deserializeParam(
+          data['skill'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -840,7 +859,8 @@ class TaskCreationStruct extends BaseStruct {
         ifCancelledBefore == other.ifCancelledBefore &&
         id == other.id &&
         preferredDays == other.preferredDays &&
-        listEquality.equals(daysOfWeek, other.daysOfWeek);
+        listEquality.equals(daysOfWeek, other.daysOfWeek) &&
+        skill == other.skill;
   }
 
   @override
@@ -883,7 +903,8 @@ class TaskCreationStruct extends BaseStruct {
         ifCancelledBefore,
         id,
         preferredDays,
-        daysOfWeek
+        daysOfWeek,
+        skill
       ]);
 }
 
@@ -924,6 +945,7 @@ TaskCreationStruct createTaskCreationStruct({
   String? ifCancelledBefore,
   int? id,
   String? preferredDays,
+  String? skill,
 }) =>
     TaskCreationStruct(
       description: description,
@@ -962,4 +984,5 @@ TaskCreationStruct createTaskCreationStruct({
       ifCancelledBefore: ifCancelledBefore,
       id: id,
       preferredDays: preferredDays,
+      skill: skill,
     );

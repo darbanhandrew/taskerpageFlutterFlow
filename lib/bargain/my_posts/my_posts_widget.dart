@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/my_post_card_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -6,6 +7,7 @@ import '/components/navigate_back_widget.dart';
 import '/components/sort_task_list_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -49,6 +51,24 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.85,
+          child: Drawer(
+            elevation: 16.0,
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: Color(0xFFE8EAFF),
+              ),
+              child: wrapWithModel(
+                model: _model.drawerContentModel,
+                updateCallback: () => setState(() {}),
+                child: DrawerContentWidget(),
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -58,7 +78,9 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
-                  openDrawer: () async {},
+                  openDrawer: () async {
+                    scaffoldKey.currentState!.openDrawer();
+                  },
                 ),
               ),
               Row(
@@ -114,7 +136,7 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                         ),
                                       );
                                     },
-                                  ).then((value) => setState(() {}));
+                                  ).then((value) => safeSetState(() {}));
                                 },
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(0.0),
@@ -149,7 +171,7 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                       ),
                                     );
                                   },
-                                ).then((value) => setState(() {}));
+                                ).then((value) => safeSetState(() {}));
                               },
                               child: Text(
                                 'Date',
@@ -167,10 +189,17 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 24.0, 0.0, 0.0),
+                              0.0, 24.0, 0.0, 20.0),
                           child: FutureBuilder<ApiCallResponse>(
                             future: TaskerpageBackendGroup.myPostsCall.call(
                               apiGlobalKey: FFAppState().apiKey,
+                              filters: '[[\"poster\",\"=\",\"${getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.name''',
+                              ).toString()}\"]]',
+                              fields:
+                                  '[\"creation\",\"name\",\"docstatus\",\"repeat_type\",\"is_repeatable\",\"skill_name\",\"skill_category_name\",\"city\",\"language\",\"description\"]',
+                              orderBy: 'creation desc',
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -191,10 +220,11 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                 builder: (context) {
                                   final myPosts = getJsonField(
                                     listViewMyPostsResponse.jsonBody,
-                                    r'''$''',
+                                    r'''$.data''',
                                   ).toList();
                                   return ListView.separated(
                                     padding: EdgeInsets.zero,
+                                    primary: false,
                                     shrinkWrap: true,
                                     scrollDirection: Axis.vertical,
                                     itemCount: myPosts.length,
@@ -205,10 +235,7 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                       return MyPostCardWidget(
                                         key: Key(
                                             'Keyuo2_${myPostsIndex}_of_${myPosts.length}'),
-                                        postId: getJsonField(
-                                          myPostsItem,
-                                          r'''$.id''',
-                                        ),
+                                        postData: myPostsItem,
                                       );
                                     },
                                   );

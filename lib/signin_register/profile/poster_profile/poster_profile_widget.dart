@@ -1,12 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/drawer_content_widget.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -115,6 +118,24 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF6F6F6),
+            drawer: Container(
+              width: MediaQuery.sizeOf(context).width * 0.85,
+              child: Drawer(
+                elevation: 16.0,
+                child: Container(
+                  width: 100.0,
+                  height: 100.0,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFE8EAFF),
+                  ),
+                  child: wrapWithModel(
+                    model: _model.drawerContentModel,
+                    updateCallback: () => setState(() {}),
+                    child: DrawerContentWidget(),
+                  ),
+                ),
+              ),
+            ),
             body: SafeArea(
               top: true,
               child: Stack(
@@ -126,7 +147,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                         model: _model.headerModel,
                         updateCallback: () => setState(() {}),
                         child: HeaderWidget(
-                          openDrawer: () async {},
+                          openDrawer: () async {
+                            scaffoldKey.currentState!.openDrawer();
+                          },
                         ),
                       ),
                       Expanded(
@@ -149,8 +172,19 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                               .secondaryBackground,
                                           image: DecorationImage(
                                             fit: BoxFit.cover,
-                                            image: Image.asset(
-                                              'assets/images/woman-gardner-greenhouse_1.png',
+                                            image: Image.network(
+                                              getJsonField(
+                                                        posterProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.banner''',
+                                                      ) !=
+                                                      null
+                                                  ? '${FFAppState().baseUrl}${getJsonField(
+                                                      posterProfileUserProfileMeResponse
+                                                          .jsonBody,
+                                                      r'''$.data.banner''',
+                                                    ).toString()}'
+                                                  : '${FFAppState().baseUrl}/files/Group 213.png',
                                             ).image,
                                           ),
                                         ),
@@ -198,7 +232,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       ),
                                       Align(
                                         alignment:
-                                            AlignmentDirectional(0.0, 0.0),
+                                            AlignmentDirectional(0.00, 0.00),
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
@@ -210,8 +244,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                               color: Color(0xFFF6F6F6),
                                               shape: BoxShape.circle,
                                             ),
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
+                                            alignment: AlignmentDirectional(
+                                                0.00, 0.00),
                                           ),
                                         ),
                                       ),
@@ -229,12 +263,18 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Image.network(
-                                                TaskerpageBackendGroup
-                                                    .userProfileMeCall
-                                                    .avatar(
-                                                  posterProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                ),
+                                                getJsonField(
+                                                          posterProfileUserProfileMeResponse
+                                                              .jsonBody,
+                                                          r'''$.data.avatar''',
+                                                        ) !=
+                                                        null
+                                                    ? 'https://taskerpage.com${getJsonField(
+                                                        posterProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.avatar''',
+                                                      ).toString()}'
+                                                    : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),
@@ -281,13 +321,15 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          '${TaskerpageBackendGroup.userProfileMeCall.name(
-                                                posterProfileUserProfileMeResponse
-                                                    .jsonBody,
-                                              ).toString()} ${TaskerpageBackendGroup.userProfileMeCall.family(
-                                                posterProfileUserProfileMeResponse
-                                                    .jsonBody,
-                                              ).toString()}',
+                                          '${getJsonField(
+                                            posterProfileUserProfileMeResponse
+                                                .jsonBody,
+                                            r'''$.data.first_name''',
+                                          ).toString()} ${getJsonField(
+                                            posterProfileUserProfileMeResponse
+                                                .jsonBody,
+                                            r'''$.data.last_name''',
+                                          ).toString()}',
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -296,36 +338,52 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 fontWeight: FontWeight.bold,
                                               ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
-                                            child: Image.asset(
-                                              'assets/images/Identification.png',
-                                              width: 18.0,
-                                              height: 18.0,
-                                              fit: BoxFit.none,
+                                        if (functions
+                                                .jsonToInt(getJsonField(
+                                                  posterProfileUserProfileMeResponse
+                                                      .jsonBody,
+                                                  r'''$.data.identified''',
+                                                ))
+                                                .toString() ==
+                                            '1')
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(0.0),
+                                              child: Image.asset(
+                                                'assets/images/Identification.png',
+                                                width: 18.0,
+                                                height: 18.0,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
-                                            child: Image.asset(
-                                              'assets/images/Identifiscation.png',
-                                              width: 18.0,
-                                              height: 18.0,
-                                              fit: BoxFit.none,
+                                        if (functions
+                                                .jsonToInt(getJsonField(
+                                                  posterProfileUserProfileMeResponse
+                                                      .jsonBody,
+                                                  r'''$.data.identified''',
+                                                ))
+                                                .toString() ==
+                                            '0')
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(0.0),
+                                              child: Image.asset(
+                                                'assets/images/Identifiscation.png',
+                                                width: 18.0,
+                                                height: 18.0,
+                                                fit: BoxFit.none,
+                                              ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   ],
@@ -351,13 +409,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            TaskerpageBackendGroup
-                                                .userProfileMeCall
-                                                .userRole(
-                                                  posterProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                )
-                                                .toString(),
+                                            'Poster',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -374,7 +426,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 0.0, 0.0),
                                       child: Container(
-                                        width: 104.0,
+                                        width: 90.0,
                                         height: 26.0,
                                         decoration: BoxDecoration(
                                           color: Color(0xFF01880E),
@@ -391,13 +443,11 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                TaskerpageBackendGroup
-                                                    .userProfileMeCall
-                                                    .reviewAverage(
-                                                      posterProfileUserProfileMeResponse
-                                                          .jsonBody,
-                                                    )
-                                                    .toString(),
+                                                getJsonField(
+                                                  posterProfileUserProfileMeResponse
+                                                      .jsonBody,
+                                                  r'''$.data.review_average''',
+                                                ).toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -417,11 +467,10 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                   color: Colors.white,
                                                 ),
                                                 direction: Axis.horizontal,
-                                                rating: TaskerpageBackendGroup
-                                                    .userProfileMeCall
-                                                    .reviewAverage(
+                                                rating: getJsonField(
                                                   posterProfileUserProfileMeResponse
                                                       .jsonBody,
+                                                  r'''$.data.review_average''',
                                                 ),
                                                 unratedColor: Color(0xFFC3C3C3),
                                                 itemCount: 5,
@@ -483,13 +532,15 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Lives in ${TaskerpageBackendGroup.userProfileMeCall.userCountry(
-                                            posterProfileUserProfileMeResponse
-                                                .jsonBody,
-                                          ).toString()}, ${TaskerpageBackendGroup.userProfileMeCall.userCountry(
-                                            posterProfileUserProfileMeResponse
-                                                .jsonBody,
-                                          ).toString()}',
+                                      'Lives in ${getJsonField(
+                                        posterProfileUserProfileMeResponse
+                                            .jsonBody,
+                                        r'''$.data.city''',
+                                      ).toString()}, ${getJsonField(
+                                        posterProfileUserProfileMeResponse
+                                            .jsonBody,
+                                        r'''$.data.country''',
+                                      ).toString()}',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -528,7 +579,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                   ),
                                                 );
                                               },
-                                            ).then((value) => setState(() {}));
+                                            ).then(
+                                                (value) => safeSetState(() {}));
                                           },
                                           child: wrapWithModel(
                                             model: _model.editIconModel3,
@@ -595,8 +647,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                     ),
                                                   );
                                                 },
-                                              ).then(
-                                                  (value) => setState(() {}));
+                                              ).then((value) =>
+                                                  safeSetState(() {}));
                                             },
                                             child: Container(
                                               width: 23.0,
@@ -692,7 +744,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
                                                   Text(
-                                                    'Reviews',
+                                                    'Reviews by me',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -711,7 +763,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         ),
                                                   ),
                                                   SizedBox(
-                                                    width: 55.0,
+                                                    width: 95.0,
                                                     child: Divider(
                                                       thickness: 2.0,
                                                       color: FFAppState()
@@ -732,12 +784,19 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 10.0),
+                                                  0.0, 10.0, 0.0, 10.0),
                                           child: FutureBuilder<ApiCallResponse>(
                                             future: TaskerpageBackendGroup
                                                 .myPostsCall
                                                 .call(
                                               apiGlobalKey: FFAppState().apiKey,
+                                              filters:
+                                                  '[[\"poster\",\"=\",\"${getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString()}\"]]',
+                                              fields:
+                                                  '[\"name\",\"creation\",\"skill_name\"]',
                                             ),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
@@ -760,10 +819,21 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                   final myPosts = getJsonField(
                                                     listViewMyPostsResponse
                                                         .jsonBody,
-                                                    r'''$''',
+                                                    r'''$.data''',
                                                   ).toList().take(3).toList();
+                                                  if (myPosts.isEmpty) {
+                                                    return EmtyContainerWidget(
+                                                      title:
+                                                          'Post a new task !',
+                                                      goTo: () async {
+                                                        context.pushNamed(
+                                                            'Task-1');
+                                                      },
+                                                    );
+                                                  }
                                                   return ListView.separated(
                                                     padding: EdgeInsets.zero,
+                                                    primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,
@@ -774,122 +844,144 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         myPostsIndex) {
                                                       final myPostsItem =
                                                           myPosts[myPostsIndex];
-                                                      return Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      8.0,
-                                                                      15.0,
-                                                                      8.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceBetween,
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            8.0),
-                                                                child: InkWell(
-                                                                  splashColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  focusColor: Colors
-                                                                      .transparent,
-                                                                  hoverColor: Colors
-                                                                      .transparent,
-                                                                  highlightColor:
-                                                                      Colors
-                                                                          .transparent,
-                                                                  onTap:
-                                                                      () async {
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'TaskView',
-                                                                      queryParameters:
-                                                                          {
-                                                                        'id':
-                                                                            serializeParam(
-                                                                          getJsonField(
-                                                                            myPostsItem,
-                                                                            r'''$.id''',
-                                                                          ),
-                                                                          ParamType
-                                                                              .int,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  },
-                                                                  child: Text(
-                                                                    valueOrDefault<
-                                                                        String>(
-                                                                      functions.getTranslatableItemString(
-                                                                          getJsonField(
-                                                                            myPostsItem,
-                                                                            r'''$.related_service_category.translations''',
-                                                                          ),
-                                                                          'en',
-                                                                          'title'),
-                                                                      'post',
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Text(
+                                                      return InkWell(
+                                                        splashColor:
+                                                            Colors.transparent,
+                                                        focusColor:
+                                                            Colors.transparent,
+                                                        hoverColor:
+                                                            Colors.transparent,
+                                                        highlightColor:
+                                                            Colors.transparent,
+                                                        onTap: () async {
+                                                          context.pushNamed(
+                                                            'TaskView',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
                                                                 getJsonField(
                                                                   myPostsItem,
-                                                                  r'''$.created_at''',
-                                                                ).toString(),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: Color(
-                                                                          0xFF616161),
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w300,
-                                                                    ),
+                                                                  r'''$.name''',
+                                                                ),
+                                                                ParamType.int,
                                                               ),
-                                                            ],
+                                                            }.withoutNulls,
+                                                          );
+                                                        },
+                                                        child: Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFFF6F6F6),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        10.0),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        8.0,
+                                                                        15.0,
+                                                                        8.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                                  child:
+                                                                      InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      context
+                                                                          .pushNamed(
+                                                                        'TaskView',
+                                                                        queryParameters:
+                                                                            {
+                                                                          'id':
+                                                                              serializeParam(
+                                                                            getJsonField(
+                                                                              myPostsItem,
+                                                                              r'''$.id''',
+                                                                            ),
+                                                                            ParamType.int,
+                                                                          ),
+                                                                        }.withoutNulls,
+                                                                      );
+                                                                    },
+                                                                    child: Text(
+                                                                      getJsonField(
+                                                                        myPostsItem,
+                                                                        r'''$.skill_name''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            decoration:
+                                                                                TextDecoration.underline,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                                Text(
+                                                                  dateTimeFormat(
+                                                                      'yMd',
+                                                                      functions
+                                                                          .jsonToDateTime(
+                                                                              getJsonField(
+                                                                        myPostsItem,
+                                                                        r'''$.creation''',
+                                                                      ))),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lato',
+                                                                        color: Color(
+                                                                            0xFF616161),
+                                                                        fontSize:
+                                                                            12.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w300,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ),
                                                       );
@@ -966,11 +1058,18 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 10.0),
+                                                  0.0, 10.0, 0.0, 10.0),
                                           child: FutureBuilder<ApiCallResponse>(
                                             future: TaskerpageBackendGroup
                                                 .myReviewsCall
                                                 .call(
+                                              filters:
+                                                  '[[\"reviewed_by\",\"=\",\"${getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString()}\"]]',
+                                              fields:
+                                                  '[\"reviewed_on\",\"creation\",\"appointment\",\"reviewed_by\",\"review_rate\",\"comment\"]',
                                               apiGlobalKey: FFAppState().apiKey,
                                             ),
                                             builder: (context, snapshot) {
@@ -995,10 +1094,16 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       getJsonField(
                                                     listViewMyReviewsResponse
                                                         .jsonBody,
-                                                    r'''$''',
+                                                    r'''$.data''',
                                                   ).toList().take(3).toList();
+                                                  if (myReviews.isEmpty) {
+                                                    return EmtyContainerWidget(
+                                                      goTo: () async {},
+                                                    );
+                                                  }
                                                   return ListView.separated(
                                                     padding: EdgeInsets.zero,
+                                                    primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,
@@ -1010,212 +1115,188 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       final myReviewsItem =
                                                           myReviews[
                                                               myReviewsIndex];
-                                                      return Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      10.0),
+                                                      return FutureBuilder<
+                                                          ApiCallResponse>(
+                                                        future: TaskerpageBackendGroup
+                                                            .userProfileReadCall
+                                                            .call(
+                                                          id: getJsonField(
+                                                            myReviewsItem,
+                                                            r'''$.reviewed_on''',
+                                                          ).toString(),
+                                                          apiGlobalKey:
+                                                              FFAppState()
+                                                                  .apiKey,
                                                         ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      10.0,
-                                                                      8.0,
-                                                                      10.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      context
-                                                                          .pushNamed(
-                                                                        'TaskView',
-                                                                        queryParameters:
-                                                                            {
-                                                                          'id':
-                                                                              serializeParam(
-                                                                            getJsonField(
-                                                                              myReviewsItem,
-                                                                              r'''$.related_post.id''',
-                                                                            ),
-                                                                            ParamType.int,
-                                                                          ),
-                                                                        }.withoutNulls,
-                                                                      );
-                                                                    },
-                                                                    child: Text(
-                                                                      'Post #${getJsonField(
-                                                                        myReviewsItem,
-                                                                        r'''$.related_post.id''',
-                                                                      ).toString()},',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.bold,
-                                                                            decoration:
-                                                                                TextDecoration.underline,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Text(
-                                                                    getJsonField(
-                                                                      myReviewsItem,
-                                                                      r'''$.reviewee.first_name''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.bold,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
-                                                                        ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      getJsonField(
-                                                                        myReviewsItem,
-                                                                        r'''$.created_at''',
-                                                                      ).toString(),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            color:
-                                                                                Color(0xFF616161),
-                                                                            fontSize:
-                                                                                12.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child:
-                                                                        RatingBarIndicator(
-                                                                      itemBuilder:
-                                                                          (context, index) =>
-                                                                              Icon(
-                                                                        Icons
-                                                                            .star_rounded,
-                                                                        color: Color(
-                                                                            0xFFFBD927),
-                                                                      ),
-                                                                      direction:
-                                                                          Axis.horizontal,
-                                                                      rating:
-                                                                          getJsonField(
-                                                                        myReviewsItem,
-                                                                        r'''$.rating''',
-                                                                      ),
-                                                                      unratedColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .accent3,
-                                                                      itemCount:
-                                                                          5,
-                                                                      itemSize:
-                                                                          12.0,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            8.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [],
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 50.0,
+                                                                height: 50.0,
+                                                                child:
+                                                                    SpinKitThreeBounce(
+                                                                  color: Color(
+                                                                      0xFF5450E2),
+                                                                  size: 50.0,
                                                                 ),
                                                               ),
-                                                              Row(
+                                                            );
+                                                          }
+                                                          final containerUserProfileReadResponse =
+                                                              snapshot.data!;
+                                                          return Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFF6F6F6),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10.0),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          15.0,
+                                                                          8.0,
+                                                                          15.0,
+                                                                          8.0),
+                                                              child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
                                                                 children: [
-                                                                  Flexible(
-                                                                    child: Text(
-                                                                      getJsonField(
-                                                                        myReviewsItem,
-                                                                        r'''$.description''',
-                                                                      ).toString(),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            color:
-                                                                                Color(0xFF5E5D5D),
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w300,
+                                                                  Container(
+                                                                    width: 50.0,
+                                                                    height:
+                                                                        50.0,
+                                                                    clipBehavior:
+                                                                        Clip.antiAlias,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child: Image
+                                                                        .network(
+                                                                      '${FFAppState().baseUrl}${getJsonField(
+                                                                        containerUserProfileReadResponse
+                                                                            .jsonBody,
+                                                                        r'''$.data.avatar''',
+                                                                      ).toString()}',
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
+                                                                  Expanded(
+                                                                    child:
+                                                                        Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          15.0,
+                                                                          10.0,
+                                                                          8.0,
+                                                                          10.0),
+                                                                      child:
+                                                                          Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Text(
+                                                                                '${getJsonField(
+                                                                                  containerUserProfileReadResponse.jsonBody,
+                                                                                  r'''$.data.first_name''',
+                                                                                ).toString()} ${getJsonField(
+                                                                                  containerUserProfileReadResponse.jsonBody,
+                                                                                  r'''$.data.last_name''',
+                                                                                ).toString()}',
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      fontFamily: 'Lato',
+                                                                                      fontSize: 14.0,
+                                                                                      fontWeight: FontWeight.bold,
+                                                                                      decoration: TextDecoration.underline,
+                                                                                    ),
+                                                                              ),
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                                                                                child: Text(
+                                                                                  dateTimeFormat(
+                                                                                      'yMMMd',
+                                                                                      functions.jsonToDateTime(getJsonField(
+                                                                                        myReviewsItem,
+                                                                                        r'''$.creation''',
+                                                                                      ))),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Lato',
+                                                                                        color: Color(0xFF616161),
+                                                                                        fontSize: 12.0,
+                                                                                        fontWeight: FontWeight.w300,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
                                                                           ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                5.0,
+                                                                                0.0,
+                                                                                10.0),
+                                                                            child:
+                                                                                RatingBarIndicator(
+                                                                              itemBuilder: (context, index) => Icon(
+                                                                                Icons.star_rounded,
+                                                                                color: Color(0xFFFBD927),
+                                                                              ),
+                                                                              direction: Axis.horizontal,
+                                                                              rating: getJsonField(
+                                                                                myReviewsItem,
+                                                                                r'''$.review_rate''',
+                                                                              ),
+                                                                              unratedColor: FlutterFlowTheme.of(context).accent3,
+                                                                              itemCount: 5,
+                                                                              itemSize: 12.0,
+                                                                            ),
+                                                                          ),
+                                                                          Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            children: [
+                                                                              Flexible(
+                                                                                child: Text(
+                                                                                  getJsonField(
+                                                                                    myReviewsItem,
+                                                                                    r'''$.comment''',
+                                                                                  ).toString(),
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Lato',
+                                                                                        color: Color(0xFF5E5D5D),
+                                                                                        fontSize: 14.0,
+                                                                                        fontWeight: FontWeight.w300,
+                                                                                      ),
+                                                                                ),
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
                                                               ),
-                                                            ],
-                                                          ),
-                                                        ),
+                                                            ),
+                                                          );
+                                                        },
                                                       );
                                                     },
                                                   );
@@ -1299,7 +1380,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Reviews',
+                                      'Reviews on me',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -1311,252 +1392,268 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 20.0, 32.0, 10.0),
-                                child: FutureBuilder<ApiCallResponse>(
-                                  future: TaskerpageBackendGroup
-                                      .reviewsAboutMeCall
-                                      .call(
-                                    apiGlobalKey: FFAppState().apiKey,
-                                  ),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: SpinKitThreeBounce(
-                                            color: Color(0xFF5450E2),
-                                            size: 50.0,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    final listViewReviewsAboutMeResponse =
-                                        snapshot.data!;
-                                    return Builder(
-                                      builder: (context) {
-                                        final reviewsAboutMe = getJsonField(
-                                          listViewReviewsAboutMeResponse
-                                              .jsonBody,
-                                          r'''$''',
-                                        ).toList().take(3).toList();
-                                        return ListView.separated(
-                                          padding: EdgeInsets.zero,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: reviewsAboutMe.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 8.0),
-                                          itemBuilder:
-                                              (context, reviewsAboutMeIndex) {
-                                            final reviewsAboutMeItem =
-                                                reviewsAboutMe[
-                                                    reviewsAboutMeIndex];
-                                            return Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.white,
-                                                borderRadius:
-                                                    BorderRadius.circular(10.0),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 20.0, 32.0, 10.0),
+                                    child: FutureBuilder<ApiCallResponse>(
+                                      future: TaskerpageBackendGroup
+                                          .myReviewsCall
+                                          .call(
+                                        filters:
+                                            '[[\"reviewed_on\",\"=\",\"${getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ).toString()}\"]]',
+                                        fields:
+                                            '[\"reviewed_on\",\"creation\",\"appointment\",\"reviewed_by\",\"review_rate\",\"comment\"]',
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50.0,
+                                              height: 50.0,
+                                              child: SpinKitThreeBounce(
+                                                color: Color(0xFF5450E2),
+                                                size: 50.0,
                                               ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 10.0, 8.0, 10.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Text(
-                                                          'Post #${getJsonField(
-                                                            reviewsAboutMeItem,
-                                                            r'''$.related_post.id''',
-                                                          ).toString()}',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
-                                                                decoration:
-                                                                    TextDecoration
-                                                                        .underline,
-                                                              ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            getJsonField(
-                                                              reviewsAboutMeItem,
-                                                              r'''$.created_at''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF616161),
-                                                                  fontSize:
-                                                                      12.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      15.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0),
+                                            ),
+                                          );
+                                        }
+                                        final listViewMyReviewsResponse =
+                                            snapshot.data!;
+                                        return Builder(
+                                          builder: (context) {
+                                            final myReviews = getJsonField(
+                                              listViewMyReviewsResponse
+                                                  .jsonBody,
+                                              r'''$.data''',
+                                            ).toList().take(3).toList();
+                                            if (myReviews.isEmpty) {
+                                              return EmtyContainerWidget(
+                                                goTo: () async {},
+                                              );
+                                            }
+                                            return ListView.separated(
+                                              padding: EdgeInsets.zero,
+                                              primary: false,
+                                              shrinkWrap: true,
+                                              scrollDirection: Axis.vertical,
+                                              itemCount: myReviews.length,
+                                              separatorBuilder: (_, __) =>
+                                                  SizedBox(height: 8.0),
+                                              itemBuilder:
+                                                  (context, myReviewsIndex) {
+                                                final myReviewsItem =
+                                                    myReviews[myReviewsIndex];
+                                                return FutureBuilder<
+                                                    ApiCallResponse>(
+                                                  future: TaskerpageBackendGroup
+                                                      .userProfileReadCall
+                                                      .call(
+                                                    id: getJsonField(
+                                                      myReviewsItem,
+                                                      r'''$.reviewed_by''',
+                                                    ).toString(),
+                                                    apiGlobalKey:
+                                                        FFAppState().apiKey,
+                                                  ),
+                                                  builder: (context, snapshot) {
+                                                    // Customize what your widget looks like when it's loading.
+                                                    if (!snapshot.hasData) {
+                                                      return Center(
+                                                        child: SizedBox(
+                                                          width: 50.0,
+                                                          height: 50.0,
                                                           child:
-                                                              RatingBarIndicator(
-                                                            itemBuilder:
-                                                                (context,
-                                                                        index) =>
-                                                                    Icon(
-                                                              Icons
-                                                                  .star_rounded,
-                                                              color: Color(
-                                                                  0xFFFBD927),
-                                                            ),
-                                                            direction:
-                                                                Axis.horizontal,
-                                                            rating:
-                                                                getJsonField(
-                                                              reviewsAboutMeItem,
-                                                              r'''$.rating''',
-                                                            ),
-                                                            unratedColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .accent3,
-                                                            itemCount: 5,
-                                                            itemSize: 12.0,
+                                                              SpinKitThreeBounce(
+                                                            color: Color(
+                                                                0xFF5450E2),
+                                                            size: 50.0,
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  8.0,
-                                                                  0.0,
-                                                                  8.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Container(
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: Color(
-                                                                  0xFF5450E2),
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          15.0),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          15.0,
-                                                                          5.0,
-                                                                          15.0,
-                                                                          5.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    'Gardening',
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color:
-                                                                              Color(0xFFF6F6F6),
-                                                                          fontSize:
-                                                                              12.0,
-                                                                          fontWeight:
-                                                                              FontWeight.normal,
-                                                                        ),
-                                                                  ),
-                                                                ],
+                                                      );
+                                                    }
+                                                    final containerUserProfileReadResponse =
+                                                        snapshot.data!;
+                                                    return Container(
+                                                      decoration: BoxDecoration(
+                                                        color: Colors.white,
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    15.0,
+                                                                    8.0,
+                                                                    15.0,
+                                                                    8.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Container(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              clipBehavior: Clip
+                                                                  .antiAlias,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                              ),
+                                                              child:
+                                                                  Image.network(
+                                                                '${FFAppState().baseUrl}${getJsonField(
+                                                                  containerUserProfileReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.avatar''',
+                                                                ).toString()}',
+                                                                fit: BoxFit
+                                                                    .cover,
                                                               ),
                                                             ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                            getJsonField(
-                                                              reviewsAboutMeItem,
-                                                              r'''$.description''',
-                                                            ).toString(),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF5E5D5D),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w300,
+                                                            Expanded(
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        15.0,
+                                                                        10.0,
+                                                                        8.0,
+                                                                        10.0),
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Text(
+                                                                          '${getJsonField(
+                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                            r'''$.data.first_name''',
+                                                                          ).toString()} ${getJsonField(
+                                                                            containerUserProfileReadResponse.jsonBody,
+                                                                            r'''$.data.last_name''',
+                                                                          ).toString()}',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                fontSize: 14.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                                decoration: TextDecoration.underline,
+                                                                              ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Text(
+                                                                            dateTimeFormat(
+                                                                                'yMMMd',
+                                                                                functions.jsonToDateTime(getJsonField(
+                                                                                  myReviewsItem,
+                                                                                  r'''$.creation''',
+                                                                                ))),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Color(0xFF616161),
+                                                                                  fontSize: 12.0,
+                                                                                  fontWeight: FontWeight.w300,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0,
+                                                                          10.0),
+                                                                      child:
+                                                                          RatingBarIndicator(
+                                                                        itemBuilder:
+                                                                            (context, index) =>
+                                                                                Icon(
+                                                                          Icons
+                                                                              .star_rounded,
+                                                                          color:
+                                                                              Color(0xFFFBD927),
+                                                                        ),
+                                                                        direction:
+                                                                            Axis.horizontal,
+                                                                        rating:
+                                                                            getJsonField(
+                                                                          myReviewsItem,
+                                                                          r'''$.review_rate''',
+                                                                        ),
+                                                                        unratedColor:
+                                                                            FlutterFlowTheme.of(context).accent3,
+                                                                        itemCount:
+                                                                            5,
+                                                                        itemSize:
+                                                                            12.0,
+                                                                      ),
+                                                                    ),
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Flexible(
+                                                                          child:
+                                                                              Text(
+                                                                            getJsonField(
+                                                                              myReviewsItem,
+                                                                              r'''$.comment''',
+                                                                            ).toString(),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Color(0xFF5E5D5D),
+                                                                                  fontSize: 14.0,
+                                                                                  fontWeight: FontWeight.w300,
+                                                                                ),
+                                                                          ),
+                                                                        ),
+                                                                      ],
+                                                                    ),
+                                                                  ],
                                                                 ),
-                                                          ),
+                                                              ),
+                                                            ),
+                                                          ],
                                                         ),
-                                                      ],
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
+                                                      ),
+                                                    );
+                                                  },
+                                                );
+                                              },
                                             );
                                           },
                                         );
                                       },
-                                    );
-                                  },
-                                ),
+                                    ),
+                                  ),
+                                ],
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -1707,13 +1804,11 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       ),
                                                     ),
                                                     Text(
-                                                      TaskerpageBackendGroup
-                                                          .userProfileMeCall
-                                                          .relatedUserEmailAddress(
-                                                            posterProfileUserProfileMeResponse
-                                                                .jsonBody,
-                                                          )
-                                                          .toString(),
+                                                      getJsonField(
+                                                        posterProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.user''',
+                                                      ).toString(),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -1956,13 +2051,11 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       ),
                                                     ),
                                                     Text(
-                                                      TaskerpageBackendGroup
-                                                          .userProfileMeCall
-                                                          .phone(
-                                                            posterProfileUserProfileMeResponse
-                                                                .jsonBody,
-                                                          )
-                                                          .toString(),
+                                                      getJsonField(
+                                                        posterProfileUserProfileMeResponse
+                                                            .jsonBody,
+                                                        r'''$.data.phone_number''',
+                                                      ).toString(),
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -2017,13 +2110,11 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         ),
                                                       ),
                                                       Text(
-                                                        TaskerpageBackendGroup
-                                                            .userProfileMeCall
-                                                            .dateOfBirth(
-                                                              posterProfileUserProfileMeResponse
-                                                                  .jsonBody,
-                                                            )
-                                                            .toString(),
+                                                        getJsonField(
+                                                          posterProfileUserProfileMeResponse
+                                                              .jsonBody,
+                                                          r'''$.data.date_of_birth''',
+                                                        ).toString(),
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -2090,11 +2181,25 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                   ),
                                                 ),
                                                 FutureBuilder<ApiCallResponse>(
-                                                  future: TaskerpageBackendGroup
-                                                      .myAddressesCall
-                                                      .call(
-                                                    apiGlobalKey:
-                                                        FFAppState().apiKey,
+                                                  future:
+                                                      FFAppState().myAddresses(
+                                                    uniqueQueryKey:
+                                                        'myAddresses',
+                                                    requestFn: () =>
+                                                        TaskerpageBackendGroup
+                                                            .myAddressesCall
+                                                            .call(
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                      fields:
+                                                          '[\"is_main_address\",\"name\",\"address\"]',
+                                                      filters:
+                                                          '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                        FFAppState()
+                                                            .userProfile,
+                                                        r'''$.data.name''',
+                                                      ).toString()}\"]]',
+                                                    ),
                                                   ),
                                                   builder: (context, snapshot) {
                                                     // Customize what your widget looks like when it's loading.
@@ -2183,11 +2288,13 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                         ),
                                                                       ),
                                                                     ),
-                                                                    if (getJsonField(
-                                                                          myAddresseItem,
-                                                                          r'''$.is_main_address''',
-                                                                        ) !=
-                                                                        null)
+                                                                    if (functions
+                                                                            .jsonToInt(getJsonField(
+                                                                              myAddresseItem,
+                                                                              r'''$.is_main_address''',
+                                                                            ))
+                                                                            .toString() ==
+                                                                        '1')
                                                                       Container(
                                                                         width:
                                                                             20.0,
@@ -2207,7 +2314,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                           color:
                                                                               Colors.white,
                                                                           size:
-                                                                              7.0,
+                                                                              8.0,
                                                                         ),
                                                                       ),
                                                                   ],
@@ -2253,43 +2360,206 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                     ],
                   ),
                   if (FFAppState().BannerCheck == true)
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x00FFFFFF),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 2.0,
-                            sigmaY: 2.0,
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              width: 269.0,
-                              height: 149.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6F6F6),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 15.0),
-                                    child: InkWell(
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        setState(() {
+                          FFAppState().BannerCheck = false;
+                        });
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        decoration: BoxDecoration(
+                          color: Color(0x00FFFFFF),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(0.0),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 2.0,
+                              sigmaY: 2.0,
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: Container(
+                                width: 269.0,
+                                height: 149.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6F6F6),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 15.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          var _shouldSetState = false;
+                                          final selectedMedia =
+                                              await selectMedia(
+                                            mediaSource:
+                                                MediaSource.photoGallery,
+                                            multiImage: false,
+                                          );
+                                          if (selectedMedia != null &&
+                                              selectedMedia.every((m) =>
+                                                  validateFileFormat(
+                                                      m.storagePath,
+                                                      context))) {
+                                            setState(() =>
+                                                _model.isDataUploading1 = true);
+                                            var selectedUploadedFiles =
+                                                <FFUploadedFile>[];
+
+                                            try {
+                                              selectedUploadedFiles =
+                                                  selectedMedia
+                                                      .map(
+                                                          (m) => FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                      .toList();
+                                            } finally {
+                                              _model.isDataUploading1 = false;
+                                            }
+                                            if (selectedUploadedFiles.length ==
+                                                selectedMedia.length) {
+                                              setState(() {
+                                                _model.uploadedLocalFile1 =
+                                                    selectedUploadedFiles.first;
+                                              });
+                                            } else {
+                                              setState(() {});
+                                              return;
+                                            }
+                                          }
+
+                                          _model.apiResultekx9Copy779 =
+                                              await TaskerpageBackendGroup
+                                                  .uploadCall
+                                                  .call(
+                                            file: _model.uploadedLocalFile1,
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model.apiResultekx9Copy779
+                                                  ?.succeeded ??
+                                              true)) {
+                                            _model.apiResult59uCopy290 =
+                                                await TaskerpageBackendGroup
+                                                    .updateBannerCall
+                                                    .call(
+                                              id: getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString(),
+                                              banner: getJsonField(
+                                                (_model.apiResultekx9Copy779
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$.message.file_url''',
+                                              ).toString(),
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            _shouldSetState = true;
+                                            if ((_model.apiResult59uCopy290
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().BannerCheck =
+                                                    false;
+                                              });
+                                            } else {
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
+                                            }
+
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('Not Done'),
+                                                  content: Text('Not Done'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                        },
+                                        child: Container(
+                                          width: 209.0,
+                                          height: 44.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF5450E2),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'From Gallery',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.white,
+                                                          fontSize: 14.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
-                                          mediaSource: MediaSource.photoGallery,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -2297,7 +2567,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 validateFileFormat(
                                                     m.storagePath, context))) {
                                           setState(() =>
-                                              _model.isDataUploading1 = true);
+                                              _model.isDataUploading2 = true);
                                           var selectedUploadedFiles =
                                               <FFUploadedFile>[];
 
@@ -2317,12 +2587,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         ))
                                                     .toList();
                                           } finally {
-                                            _model.isDataUploading1 = false;
+                                            _model.isDataUploading2 = false;
                                           }
                                           if (selectedUploadedFiles.length ==
                                               selectedMedia.length) {
                                             setState(() {
-                                              _model.uploadedLocalFile1 =
+                                              _model.uploadedLocalFile2 =
                                                   selectedUploadedFiles.first;
                                             });
                                           } else {
@@ -2331,9 +2601,69 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                           }
                                         }
 
-                                        setState(() {
-                                          FFAppState().BannerCheck = false;
-                                        });
+                                        _model.apiResultekx9Copy77Copy0 =
+                                            await TaskerpageBackendGroup
+                                                .uploadCall
+                                                .call(
+                                          file: _model.uploadedLocalFile2,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                        );
+                                        _shouldSetState = true;
+                                        if ((_model.apiResultekx9Copy77Copy0
+                                                ?.succeeded ??
+                                            true)) {
+                                          _model.apiResult59uCopy29Copy7 =
+                                              await TaskerpageBackendGroup
+                                                  .updateBannerCall
+                                                  .call(
+                                            id: getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                            banner: getJsonField(
+                                              (_model.apiResultekx9Copy77Copy0
+                                                      ?.jsonBody ??
+                                                  ''),
+                                              r'''$.message.file_url''',
+                                            ).toString(),
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model.apiResult59uCopy29Copy7
+                                                  ?.succeeded ??
+                                              true)) {
+                                            setState(() {
+                                              FFAppState().BannerCheck = false;
+                                            });
+                                          } else {
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Not Done'),
+                                                content: Text('Not Done'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        if (_shouldSetState) setState(() {});
                                       },
                                       child: Container(
                                         width: 209.0,
@@ -2349,7 +2679,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'From Gallery',
+                                              'Take Photo',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -2363,85 +2693,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      final selectedMedia = await selectMedia(
-                                        multiImage: false,
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() =>
-                                            _model.isDataUploading2 = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-
-                                        try {
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                    blurHash: m.blurHash,
-                                                  ))
-                                              .toList();
-                                        } finally {
-                                          _model.isDataUploading2 = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                            selectedMedia.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile2 =
-                                                selectedUploadedFiles.first;
-                                          });
-                                        } else {
-                                          setState(() {});
-                                          return;
-                                        }
-                                      }
-
-                                      setState(() {
-                                        FFAppState().BannerCheck = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 209.0,
-                                      height: 44.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Take Photo',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Colors.white,
-                                                  fontSize: 14.0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
@@ -2449,43 +2702,206 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                       ),
                     ),
                   if (FFAppState().ProfileCheck == true)
-                    Container(
-                      width: MediaQuery.sizeOf(context).width * 1.0,
-                      height: MediaQuery.sizeOf(context).height * 1.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x00FFFFFF),
-                      ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(
-                            sigmaX: 2.0,
-                            sigmaY: 2.0,
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              width: 269.0,
-                              height: 149.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFFF6F6F6),
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 15.0),
-                                    child: InkWell(
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        setState(() {
+                          FFAppState().ProfileCheck = false;
+                        });
+                      },
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: MediaQuery.sizeOf(context).height * 1.0,
+                        decoration: BoxDecoration(
+                          color: Color(0x00FFFFFF),
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(0.0),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(
+                              sigmaX: 2.0,
+                              sigmaY: 2.0,
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: Container(
+                                width: 269.0,
+                                height: 149.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6F6F6),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 0.0, 15.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          var _shouldSetState = false;
+                                          final selectedMedia =
+                                              await selectMedia(
+                                            mediaSource:
+                                                MediaSource.photoGallery,
+                                            multiImage: false,
+                                          );
+                                          if (selectedMedia != null &&
+                                              selectedMedia.every((m) =>
+                                                  validateFileFormat(
+                                                      m.storagePath,
+                                                      context))) {
+                                            setState(() =>
+                                                _model.isDataUploading3 = true);
+                                            var selectedUploadedFiles =
+                                                <FFUploadedFile>[];
+
+                                            try {
+                                              selectedUploadedFiles =
+                                                  selectedMedia
+                                                      .map(
+                                                          (m) => FFUploadedFile(
+                                                                name: m
+                                                                    .storagePath
+                                                                    .split('/')
+                                                                    .last,
+                                                                bytes: m.bytes,
+                                                                height: m
+                                                                    .dimensions
+                                                                    ?.height,
+                                                                width: m
+                                                                    .dimensions
+                                                                    ?.width,
+                                                                blurHash:
+                                                                    m.blurHash,
+                                                              ))
+                                                      .toList();
+                                            } finally {
+                                              _model.isDataUploading3 = false;
+                                            }
+                                            if (selectedUploadedFiles.length ==
+                                                selectedMedia.length) {
+                                              setState(() {
+                                                _model.uploadedLocalFile3 =
+                                                    selectedUploadedFiles.first;
+                                              });
+                                            } else {
+                                              setState(() {});
+                                              return;
+                                            }
+                                          }
+
+                                          _model.apiResultekx902 =
+                                              await TaskerpageBackendGroup
+                                                  .uploadCall
+                                                  .call(
+                                            file: _model.uploadedLocalFile3,
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model
+                                                  .apiResultekx902?.succeeded ??
+                                              true)) {
+                                            _model.apiResult59u95 =
+                                                await TaskerpageBackendGroup
+                                                    .updateProfileCall
+                                                    .call(
+                                              id: getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString(),
+                                              avatar: getJsonField(
+                                                (_model.apiResultekx902
+                                                        ?.jsonBody ??
+                                                    ''),
+                                                r'''$.message.file_url''',
+                                              ).toString(),
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            _shouldSetState = true;
+                                            if ((_model.apiResult59u95
+                                                    ?.succeeded ??
+                                                true)) {
+                                              setState(() {
+                                                FFAppState().ProfileCheck =
+                                                    false;
+                                              });
+                                            } else {
+                                              if (_shouldSetState)
+                                                setState(() {});
+                                              return;
+                                            }
+
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          } else {
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text('Not Done'),
+                                                  content: Text('Not Done'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                        },
+                                        child: Container(
+                                          width: 209.0,
+                                          height: 44.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF5450E2),
+                                            borderRadius:
+                                                BorderRadius.circular(5.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'From Gallery',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.white,
+                                                          fontSize: 14.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
-                                          mediaSource: MediaSource.photoGallery,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -2493,7 +2909,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 validateFileFormat(
                                                     m.storagePath, context))) {
                                           setState(() =>
-                                              _model.isDataUploading3 = true);
+                                              _model.isDataUploading4 = true);
                                           var selectedUploadedFiles =
                                               <FFUploadedFile>[];
 
@@ -2513,12 +2929,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         ))
                                                     .toList();
                                           } finally {
-                                            _model.isDataUploading3 = false;
+                                            _model.isDataUploading4 = false;
                                           }
                                           if (selectedUploadedFiles.length ==
                                               selectedMedia.length) {
                                             setState(() {
-                                              _model.uploadedLocalFile3 =
+                                              _model.uploadedLocalFile4 =
                                                   selectedUploadedFiles.first;
                                             });
                                           } else {
@@ -2527,9 +2943,65 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                           }
                                         }
 
-                                        setState(() {
-                                          FFAppState().ProfileCheck = false;
-                                        });
+                                        _model.test =
+                                            await TaskerpageBackendGroup
+                                                .uploadCall
+                                                .call(
+                                          file: _model.uploadedLocalFile4,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                        );
+                                        _shouldSetState = true;
+                                        if ((_model.test?.succeeded ?? true)) {
+                                          _model.apiResult59uCopy05 =
+                                              await TaskerpageBackendGroup
+                                                  .updateProfileCall
+                                                  .call(
+                                            id: getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                            avatar: getJsonField(
+                                              (_model.test?.jsonBody ?? ''),
+                                              r'''$.message.file_url''',
+                                            ).toString(),
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          );
+                                          _shouldSetState = true;
+                                          if ((_model.apiResult59uCopy05
+                                                  ?.succeeded ??
+                                              true)) {
+                                            setState(() {
+                                              FFAppState().ProfileCheck = false;
+                                            });
+                                          } else {
+                                            if (_shouldSetState)
+                                              setState(() {});
+                                            return;
+                                          }
+
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        } else {
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text('Not Done'),
+                                                content: Text('Not Done'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        }
+
+                                        if (_shouldSetState) setState(() {});
                                       },
                                       child: Container(
                                         width: 209.0,
@@ -2545,7 +3017,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              'From Gallery',
+                                              'Take Photo',
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -2559,85 +3031,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         ),
                                       ),
                                     ),
-                                  ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      final selectedMedia = await selectMedia(
-                                        multiImage: false,
-                                      );
-                                      if (selectedMedia != null &&
-                                          selectedMedia.every((m) =>
-                                              validateFileFormat(
-                                                  m.storagePath, context))) {
-                                        setState(() =>
-                                            _model.isDataUploading4 = true);
-                                        var selectedUploadedFiles =
-                                            <FFUploadedFile>[];
-
-                                        try {
-                                          selectedUploadedFiles = selectedMedia
-                                              .map((m) => FFUploadedFile(
-                                                    name: m.storagePath
-                                                        .split('/')
-                                                        .last,
-                                                    bytes: m.bytes,
-                                                    height:
-                                                        m.dimensions?.height,
-                                                    width: m.dimensions?.width,
-                                                    blurHash: m.blurHash,
-                                                  ))
-                                              .toList();
-                                        } finally {
-                                          _model.isDataUploading4 = false;
-                                        }
-                                        if (selectedUploadedFiles.length ==
-                                            selectedMedia.length) {
-                                          setState(() {
-                                            _model.uploadedLocalFile4 =
-                                                selectedUploadedFiles.first;
-                                          });
-                                        } else {
-                                          setState(() {});
-                                          return;
-                                        }
-                                      }
-
-                                      setState(() {
-                                        FFAppState().ProfileCheck = false;
-                                      });
-                                    },
-                                    child: Container(
-                                      width: 209.0,
-                                      height: 44.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Take Photo',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Colors.white,
-                                                  fontSize: 14.0,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                           ),
