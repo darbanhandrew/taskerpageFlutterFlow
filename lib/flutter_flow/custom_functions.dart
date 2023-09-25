@@ -164,9 +164,9 @@ String? getTranslatableItemString(
 }
 
 String? convertDataTypeToTaskerFilter(TaskerFilterStruct? filter) {
-  List<List<String>> filterList = [];
+  List<List<dynamic>> filterList = [];
   if (filter == null) {
-    return null;
+    return "[]";
   }
 
   if (!filter.anyLocation && filter.hasAnyLocation()) {
@@ -185,10 +185,6 @@ String? convertDataTypeToTaskerFilter(TaskerFilterStruct? filter) {
     }
   }
 
-  if (!filter.anySkill && filter.hasName()) {
-    filterList.add(["name", "in", filter.name]);
-  }
-
   if (filter.taskerTypeFilter.hasGender() &&
       !filter.anyTaskerGender &&
       filter.hasAnyTaskerGender()) {
@@ -197,61 +193,72 @@ String? convertDataTypeToTaskerFilter(TaskerFilterStruct? filter) {
   // } else {
   //   // filterList.add(["gender", "=", "Doesn't matter"]);
   // }
+  if (!filter.anytasker && filter.hasAnytasker()) {
+    if (filter.taskerTypeFilter.hasAgeRange()) {
+      DateTime currentDate = DateTime.now();
+      DateTime birthDate_min;
+      DateTime? birthDate_max;
 
-  if (filter.taskerTypeFilter.hasAgeRange()) {
-    DateTime currentDate = DateTime.now();
-    DateTime birthDate_min;
-    DateTime? birthDate_max;
+      if (filter.taskerTypeFilter.ageRange == "<20") {
+        birthDate_min = currentDate.subtract(Duration(days: 365 * 20));
+        filterList.add([
+          "date_of_birth",
+          ">",
+          DateFormat('yyyy-MM-dd').format(birthDate_min)
+        ]);
+      } else if (filter.taskerTypeFilter.ageRange == "20-40") {
+        birthDate_min = currentDate.subtract(Duration(days: 365 * 40));
+        birthDate_max = currentDate.subtract(Duration(days: 365 * 20));
+        filterList.add([
+          "date_of_birth",
+          ">",
+          DateFormat('yyyy-MM-dd').format(birthDate_max)
+        ]);
+        filterList.add([
+          "date_of_birth",
+          "<",
+          DateFormat('yyyy-MM-dd').format(birthDate_min)
+        ]);
+      } else if (filter.taskerTypeFilter.ageRange == "40>") {
+        birthDate_min = currentDate.subtract(Duration(days: 365 * 40));
+        filterList.add([
+          "date_of_birth",
+          "<",
+          DateFormat('yyyy-MM-dd').format(birthDate_min)
+        ]);
+      }
+    }
 
-    if (filter.taskerTypeFilter.ageRange == "<20") {
-      birthDate_min = currentDate.subtract(Duration(days: 365 * 20));
+    if (filter.taskerTypeFilter.hasHasIdentification()) {
       filterList.add([
-        "date_of_birth",
-        ">",
-        DateFormat('yyyy-MM-dd').format(birthDate_min)
+        "identified",
+        "=",
+        filter.taskerTypeFilter.hasIdentification ? "1" : "0"
       ]);
-    } else if (filter.taskerTypeFilter.ageRange == "20-40") {
-      birthDate_min = currentDate.subtract(Duration(days: 365 * 40));
-      birthDate_max = currentDate.subtract(Duration(days: 365 * 20));
-      filterList.add([
-        "date_of_birth",
-        ">",
-        DateFormat('yyyy-MM-dd').format(birthDate_max)
-      ]);
-      filterList.add([
-        "date_of_birth",
-        "<",
-        DateFormat('yyyy-MM-dd').format(birthDate_min)
-      ]);
-    } else if (filter.taskerTypeFilter.ageRange == "40>") {
-      birthDate_min = currentDate.subtract(Duration(days: 365 * 40));
-      filterList.add([
-        "date_of_birth",
-        "<",
-        DateFormat('yyyy-MM-dd').format(birthDate_min)
-      ]);
+    }
+
+    if (filter.taskerTypeFilter.hasHasInsurance()) {
+      filterList.add(
+          ["insurance", "=", filter.taskerTypeFilter.hasInsurance ? "1" : "0"]);
     }
   }
 
-  if (filter.taskerTypeFilter.hasHasIdentification()) {
-    filterList.add([
-      "identified",
-      "=",
-      filter.taskerTypeFilter.hasIdentification ? "1" : "0"
-    ]);
-  }
-
-  if (filter.taskerTypeFilter.hasHasInsurance()) {
-    filterList.add(
-        ["insurance", "=", filter.taskerTypeFilter.hasInsurance ? "1" : "0"]);
-  }
-
+  // if (filterList.isEmpty) {
+  //   return "[]";
+  // }
   if (filterList.isEmpty) {
-    return null;
+    List<dynamic> finalFilter = [];
+    if (!filter.anySkill && filter.hasNames()) {
+      finalFilter.add(['"name"', '"in"', filter.names]);
+    }
+    return finalFilter.toString();
   }
-  List<String> finalFilter = filterList.map((item) {
+  List<dynamic> finalFilter = filterList.map((item) {
     return '[${item.map((e) => '"$e"').join(',')}]';
   }).toList();
+  if (!filter.anySkill && filter.hasNames()) {
+    finalFilter.add(['"name"', '"in"', filter.names]);
+  }
   return finalFilter.toString();
 }
 
@@ -602,14 +609,38 @@ List<LatLng>? jsonListToLatLng(List<dynamic>? jsonList) {
   return latLngList;
 }
 
-int? findNameByChosenLatLngFromJsonList(
+String? findNameByChosenLatLngFromJsonList(
   LatLng? chosenLatLng,
   List<dynamic>? jsonList,
 ) {
-  return jsonList?.firstWhere(
-    (json) => LatLng(json["latitude"], json["longitude"]) == chosenLatLng,
+  if (chosenLatLng == null || jsonList == null) return null;
+  double? parseDouble(dynamic value) {
+    if (value is int) {
+      return value.toDouble();
+    } else if (value is double) {
+      return value;
+    } else if (value is String) {
+      try {
+        return double.parse(value);
+      } catch (e) {
+        return null;
+      }
+    }
+    return null;
+  }
+
+  return jsonList.firstWhere(
+    (json) {
+      double? jsonLatitude = parseDouble(json['latitude']);
+      double? jsonLongitude = parseDouble(json['longitude']);
+
+      return jsonLatitude != null &&
+          jsonLongitude != null &&
+          (chosenLatLng.latitude - jsonLatitude).abs() <= 0.001 &&
+          (chosenLatLng.longitude - jsonLongitude).abs() <= 0.001;
+    },
     orElse: () => null,
-  )?["name"];
+  )?["name"]?.toString();
 }
 
 List<String>? jsonListToStringList(List<dynamic>? jsonInput) {
@@ -625,7 +656,7 @@ List<String>? jsonListToStringList(List<dynamic>? jsonInput) {
     }
     return stringList;
   }
-  return null;
+  return [];
 }
 
 dynamic returnJsonByNameFromJsonList(
@@ -696,35 +727,49 @@ String? getLatLngAsString(
   }
 }
 
-DateTime? jsonToDateTime(dynamic dateStrAsJson) {
-  // convertJson To Date Time . it's only a string but it's known as jsonPath of a json.
+DateTime? jsonToDateTime(String? dateStrAsJson) {
   if (dateStrAsJson == null) {
     return null;
   }
-  final dateStr = dateStrAsJson.toString();
-  final dateMillis = int.tryParse(dateStr);
-  if (dateMillis != null) {
-    return DateTime.fromMillisecondsSinceEpoch(dateMillis);
+
+  // Check if the input matches HH:MM:ss format
+  if (RegExp(r'^\d{2}:\d{2}:\d{2}$').hasMatch(dateStrAsJson)) {
+    // Parse time in HH:MM:ss format
+    return DateTime.parse('1970-01-01 $dateStrAsJson');
   }
-  final date = DateTime.tryParse(dateStr);
-  if (date != null) {
-    return date;
+  if (RegExp(r'^\d{1}:\d{2}:\d{2}$').hasMatch(dateStrAsJson)) {
+    // Parse time in HH:MM:ss format
+    return DateTime.parse('1970-01-01 0$dateStrAsJson');
   }
+  // Check if the input matches yyyy-MM-dd format
+  if (RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(dateStrAsJson)) {
+    // Parse date in yyyy-MM-dd format
+    return DateTime.parse(dateStrAsJson);
+  }
+
+  // Check if the input matches yyyy-MM-dd HH:MM:ss format
+  if (RegExp(r'^\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}\.\d{6}$')
+      .hasMatch(dateStrAsJson)) {
+    // Parse date and time in yyyy-MM-dd HH:MM:ss.SSSSSS format
+    return DateTime.parse(dateStrAsJson);
+  }
+
+  // Return null for unrecognized format
   return null;
 }
 
-LatLng? fulllatLong(
+LatLng fulllatLong(
   String? lat,
   String? long,
 ) {
   // lat and long arguments and return latlang type
   if (lat == null || long == null) {
-    return null;
+    return LatLng(0.0, 0.0);
   }
   final latitude = double.tryParse(lat);
   final longitude = double.tryParse(long);
   if (latitude == null || longitude == null) {
-    return null;
+    return LatLng(0.0, 0.0);
   }
   return LatLng(latitude, longitude);
 }
@@ -821,14 +866,14 @@ String? convertListOfStringToString(List<String>? listString) {
   return listString.join(',');
 }
 
-bool? jsonIntToBoolean(dynamic jsonInt) {
+bool jsonIntToBoolean(dynamic jsonInt) {
   // convert jsonInt as 0 or 1 in json to Boolean
   if (jsonInt == 1) {
     return true;
   } else if (jsonInt == 0) {
     return false;
   } else {
-    return null;
+    return false;
   }
 }
 
@@ -920,4 +965,62 @@ dynamic returnJsonByFieldFromListOfJson(
   }
 
   return result.isNotEmpty ? result : null;
+}
+
+bool isLatLngNullIsland(LatLng latLng) {
+  // check if LatLng is 0.0,0.0 and return true, other wise return false
+  if (latLng.latitude == 0.0 && latLng.longitude == 0.0) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+int? doubleToint(double? slider) {
+  // convert double to int
+  if (slider == null) {
+    return null;
+  } else {
+    return slider.toInt();
+  }
+}
+
+String? removeChar(String? phone) {
+  // phone convert to trim and remove 4 char fraom first
+  if (phone == null || phone.length < 4) {
+    return null;
+  }
+  return phone.substring(5).trim();
+}
+
+List<SkillOptionsStruct>? convertListOfSkillOptionsJsonToListOfDataType(
+    List<dynamic>? skillOptions) {
+  // convert json list to skillOptions
+  if (skillOptions == null) {
+    return null;
+  }
+
+  final List<SkillOptionsStruct> options = [];
+
+  for (final option in skillOptions) {
+    final Map<String, dynamic> optionMap = option as Map<String, dynamic>;
+    final String name = optionMap['option_name'] as String;
+    final String type = optionMap['type'] as String;
+    final String values = optionMap['values'] as String;
+
+    options.add(SkillOptionsStruct(name: name, type: type, values: values));
+  }
+
+  return options;
+}
+
+bool stringToBoolean(String? inputString) {
+  // string is true or false or null, convert it to bool with default false
+  if (inputString == null) {
+    return false;
+  } else if (inputString.toLowerCase() == 'true') {
+    return true;
+  } else {
+    return false;
+  }
 }

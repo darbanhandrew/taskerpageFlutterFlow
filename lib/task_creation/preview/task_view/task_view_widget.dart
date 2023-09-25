@@ -1373,12 +1373,13 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                 ),
                                                               ),
                                                               Text(
-                                                                getJsonField(
-                                                                          taskViewPostReadResponse
-                                                                              .jsonBody,
-                                                                          r'''$.data.start_range_time''',
-                                                                        ) !=
-                                                                        null
+                                                                functions
+                                                                            .jsonToInt(getJsonField(
+                                                                              taskViewPostReadResponse.jsonBody,
+                                                                              r'''$.data.is_exact_start_time''',
+                                                                            ))
+                                                                            .toString() ==
+                                                                        '0'
                                                                     ? getJsonField(
                                                                         taskViewPostReadResponse
                                                                             .jsonBody,
@@ -1532,11 +1533,15 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                           .max,
                                                                   children: [
                                                                     Text(
-                                                                      getJsonField(
-                                                                        taskViewPostReadResponse
-                                                                            .jsonBody,
-                                                                        r'''$.data.preferred_days''',
-                                                                      ).toString(),
+                                                                      valueOrDefault<
+                                                                          String>(
+                                                                        getJsonField(
+                                                                          taskViewPostReadResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data.preferred_days''',
+                                                                        ).toString(),
+                                                                        'Dosen\'t matter',
+                                                                      ),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium

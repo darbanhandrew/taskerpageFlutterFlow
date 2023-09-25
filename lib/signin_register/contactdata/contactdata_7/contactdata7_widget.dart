@@ -99,10 +99,10 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
     });
 
     _model.textController ??= TextEditingController(
-        text: getJsonField(
+        text: functions.removeChar(getJsonField(
       FFAppState().userProfile,
       r'''$.data.phone_number''',
-    ).toString().toString());
+    ).toString().toString()));
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||

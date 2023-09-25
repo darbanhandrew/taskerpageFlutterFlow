@@ -1,3 +1,4 @@
+import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,12 @@ import 'privacy_policy_model.dart';
 export 'privacy_policy_model.dart';
 
 class PrivacyPolicyWidget extends StatefulWidget {
-  const PrivacyPolicyWidget({Key? key}) : super(key: key);
+  const PrivacyPolicyWidget({
+    Key? key,
+    required this.latLong,
+  }) : super(key: key);
+
+  final LatLng? latLong;
 
   @override
   _PrivacyPolicyWidgetState createState() => _PrivacyPolicyWidgetState();
@@ -46,131 +52,156 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(0.0),
       ),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
-        height: MediaQuery.sizeOf(context).height * 0.6,
+        height: MediaQuery.sizeOf(context).height * 1.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(0.0),
         ),
-        child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 20.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.close_rounded,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      'Privacy Policy',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.bold,
+        child: Stack(
+          children: [
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Container(
+                    height: 400.0,
+                    child: Stack(
+                      alignment: AlignmentDirectional(0.0, 0.0),
+                      children: [
+                        Container(
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
                           ),
-                    ),
-                  ],
-                ),
-              ),
-              Divider(
-                height: 30.0,
-                thickness: 1.0,
-                color: Color(0xCCDFDFDF),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Flexible(
-                    child: Text(
-                      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            fontSize: 13.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ),
-                ],
-              ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Theme(
-                      data: ThemeData(
-                        checkboxTheme: CheckboxThemeData(
-                          visualDensity: VisualDensity.compact,
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4.0),
+                          child: FlutterFlowGoogleMap(
+                            controller: _model.googleMapsController,
+                            onCameraIdle: (latLng) =>
+                                _model.googleMapsCenter = latLng,
+                            initialLocation: _model.googleMapsCenter ??=
+                                widget.latLong!,
+                            markerColor: GoogleMarkerColor.violet,
+                            mapType: MapType.normal,
+                            style: GoogleMapStyle.standard,
+                            initialZoom: 16.0,
+                            allowInteraction: true,
+                            allowZoom: true,
+                            showZoomControls: false,
+                            showLocation: true,
+                            showCompass: false,
+                            showMapToolbar: false,
+                            showTraffic: false,
+                            centerMapOnMarkerTap: false,
                           ),
                         ),
-                        unselectedWidgetColor: Color(0xFF5450E2),
-                      ),
-                      child: Checkbox(
-                        value: _model.checkboxValue ??= false,
-                        onChanged: (newValue) async {
-                          setState(() => _model.checkboxValue = newValue!);
+                        Align(
+                          alignment: AlignmentDirectional(0.00, 0.00),
+                          child: Icon(
+                            Icons.place,
+                            color: FlutterFlowTheme.of(context).primary,
+                            size: 50.0,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: AlignmentDirectional(0.00, 1.00),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 25.0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          Navigator.pop(context);
                         },
-                        activeColor: Color(0xFF5450E2),
-                        checkColor: FlutterFlowTheme.of(context).info,
-                      ),
-                    ),
-                    Flexible(
-                      child: Text(
-                        'Lorem ipsum dolo',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Lato',
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.bold,
+                        child: Container(
+                          width: 150.0,
+                          height: 41.0,
+                          decoration: BoxDecoration(
+                            color: Color(0xFF5450E2),
+                            borderRadius: BorderRadius.circular(8.0),
+                            border: Border.all(
+                              color: Color(0xFF5450E2),
+                              width: 2.0,
                             ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Close',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Colors.white,
+                                      fontSize: 15.0,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                     ),
-                  ],
+                    InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        setState(() {
+                          FFAppState().centerMap = _model.googleMapsCenter;
+                          FFAppState().showAddress = true;
+                        });
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: 150.0,
+                        height: 41.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFF5450E2),
+                          borderRadius: BorderRadius.circular(8.0),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'submit',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.white,
+                                    fontSize: 15.0,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ].divide(SizedBox(width: 10.0)),
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

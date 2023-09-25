@@ -69,6 +69,8 @@ class TaskerProfileModel extends FlutterFlowModel {
   ApiCallResponse? apiResultekx9;
   // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
   ApiCallResponse? apiResult59u;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? profile3;
   bool isDataUploading4 = false;
   FFUploadedFile uploadedLocalFile4 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -77,6 +79,8 @@ class TaskerProfileModel extends FlutterFlowModel {
   ApiCallResponse? apiResultekx9Copy;
   // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
   ApiCallResponse? apiResult59uCopy;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? profile4;
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 

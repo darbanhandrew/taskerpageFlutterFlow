@@ -109,7 +109,7 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                                         functions.jsonToDateTime(getJsonField(
                                           widget.userProfile,
                                           r'''$.creation''',
-                                        ))),
+                                        ).toString())),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -357,10 +357,13 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                getJsonField(
-                                  widget.userProfile,
-                                  r'''$.review_average''',
-                                ).toString(),
+                                valueOrDefault<String>(
+                                  getJsonField(
+                                    widget.userProfile,
+                                    r'''$.review_average''',
+                                  ).toString(),
+                                  '0',
+                                ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

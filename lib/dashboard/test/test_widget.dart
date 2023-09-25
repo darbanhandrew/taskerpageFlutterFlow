@@ -93,31 +93,6 @@ class _TestWidgetState extends State<TestWidget> {
                   ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 16.0),
-                child: FFButtonWidget(
-                  onPressed: () async {
-                    setState(() {
-                      _model.latlng = _model.googleMapsCenter;
-                    });
-                  },
-                  text: 'Confirm Location',
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 50.0,
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                    color: FlutterFlowTheme.of(context).primary,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: 'Lato',
-                          color: Colors.white,
-                        ),
-                    elevation: 3.0,
-                    borderRadius: BorderRadius.circular(12.0),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

@@ -1,7 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/address_card_widget.dart';
 import '/components/drawer_content_widget.dart';
-import '/components/footer3_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -23,8 +22,6 @@ class Contactdata2Model extends FlutterFlowModel {
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
   Completer<ApiCallResponse>? apiRequestCompleter;
-  // Model for footer3 component.
-  late Footer3Model footer3Model;
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 
@@ -33,7 +30,6 @@ class Contactdata2Model extends FlutterFlowModel {
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
-    footer3Model = createModel(context, () => Footer3Model());
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
@@ -41,7 +37,6 @@ class Contactdata2Model extends FlutterFlowModel {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
-    footer3Model.dispose();
     drawerContentModel.dispose();
   }
 

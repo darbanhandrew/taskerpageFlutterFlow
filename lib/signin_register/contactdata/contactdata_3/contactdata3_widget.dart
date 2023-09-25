@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -67,6 +68,11 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        FFAppState().clearMyAddressesCacheKey(_model.apiRequestLastUniqueKey);
+        _model.apiRequestCompleted = false;
+      });
+      await _model.waitForApiRequestCompleted();
       while (FFAppState().NotificationForAnewPassOrEmail == true) {
         _model.instantTimer = InstantTimer.periodic(
           duration: Duration(milliseconds: 3000),
@@ -566,108 +572,131 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 Expanded(
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          blurRadius: 4.0,
-                                          color: Color(0x33000000),
-                                          offset: Offset(0.0, 6.0),
-                                        )
-                                      ],
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          20.5, 16.0, 20.5, 25.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Expanded(
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFF5450E2),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0.0, 6.0),
+                                              )
+                                            ],
+                                            borderRadius:
+                                                BorderRadius.circular(10.0),
+                                          ),
+                                          child: Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 16.0),
-                                            child: Row(
+                                                    20.5, 16.0, 20.5, 25.0),
+                                            child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               children: [
-                                                Icon(
-                                                  Icons.phone_rounded,
-                                                  color: Color(0xFFF6F6F6),
-                                                  size: 17.0,
-                                                ),
                                                 Padding(
                                                   padding: EdgeInsetsDirectional
                                                       .fromSTEB(
-                                                          10.0, 0.0, 8.0, 0.0),
-                                                  child: Text(
-                                                    'Mobile number:',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                  ),
-                                                ),
-                                                Text(
-                                                  getJsonField(
-                                                    contactdata3UserProfileReadResponse
-                                                        .jsonBody,
-                                                    r'''$.data.phone_number''',
-                                                  ).toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
+                                                          0.0, 0.0, 0.0, 16.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Icon(
+                                                        Icons.phone_rounded,
                                                         color:
                                                             Color(0xFFF6F6F6),
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
+                                                        size: 17.0,
                                                       ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    10.0,
+                                                                    0.0,
+                                                                    8.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          'Mobile number:',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: Color(
+                                                                    0xFFF6F6F6),
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .bold,
+                                                              ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        getJsonField(
+                                                          contactdata3UserProfileReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.phone_number''',
+                                                        ).toString(),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: Color(
+                                                                  0xFFF6F6F6),
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        context.pushNamed(
+                                                            'Contactdata-7');
+                                                      },
+                                                      child: ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(0.0),
+                                                        child: Image.asset(
+                                                          'assets/images/Icon.png',
+                                                          width: 25.0,
+                                                          height: 25.0,
+                                                          fit: BoxFit.none,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
                                             ),
                                           ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.end,
-                                            children: [
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  context.pushNamed(
-                                                      'Contactdata-7');
-                                                },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          0.0),
-                                                  child: Image.asset(
-                                                    'assets/images/Icon.png',
-                                                    width: 25.0,
-                                                    height: 25.0,
-                                                    fit: BoxFit.none,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                    ],
                                   ),
                                 ),
                               ],
@@ -699,7 +728,8 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           FutureBuilder<ApiCallResponse>(
-                                            future: FFAppState().myAddresses(
+                                            future: FFAppState()
+                                                .myAddresses(
                                               uniqueQueryKey: 'myAddresses',
                                               requestFn: () =>
                                                   TaskerpageBackendGroup
@@ -715,7 +745,16 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                   r'''$.data.name''',
                                                 ).toString()}\"]]',
                                               ),
-                                            ),
+                                            )
+                                                .then((result) {
+                                              try {
+                                                _model.apiRequestCompleted =
+                                                    true;
+                                                _model.apiRequestLastUniqueKey =
+                                                    'myAddresses';
+                                              } finally {}
+                                              return result;
+                                            }),
                                             builder: (context, snapshot) {
                                               // Customize what your widget looks like when it's loading.
                                               if (!snapshot.hasData) {

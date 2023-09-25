@@ -399,7 +399,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 10.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -433,7 +433,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 30.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -605,7 +605,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 69.5, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 80.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -728,9 +728,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ],
                 ),
               ),
-              if (isWeb
+              if (!(isWeb
                   ? MediaQuery.viewInsetsOf(context).bottom > 0
-                  : _isKeyboardVisible)
+                  : _isKeyboardVisible))
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [

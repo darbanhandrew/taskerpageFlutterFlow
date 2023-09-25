@@ -143,6 +143,7 @@ class TaskerpageBackendGroup {
   static UpdateSkillCategoryInTaskCall updateSkillCategoryInTaskCall =
       UpdateSkillCategoryInTaskCall();
   static UpdateTaskDetailsCall updateTaskDetailsCall = UpdateTaskDetailsCall();
+  static UpdateTaskOptionsCall updateTaskOptionsCall = UpdateTaskOptionsCall();
   static UpdateTaskAddressCall updateTaskAddressCall = UpdateTaskAddressCall();
   static UpdateTaskScheduleCall updateTaskScheduleCall =
       UpdateTaskScheduleCall();
@@ -168,6 +169,8 @@ class TaskerpageBackendGroup {
   static IssueListCall issueListCall = IssueListCall();
   static NotificationLogCall notificationLogCall = NotificationLogCall();
   static NotificationReadCall notificationReadCall = NotificationReadCall();
+  static EducationDeletCall educationDeletCall = EducationDeletCall();
+  static SkillDeletCall skillDeletCall = SkillDeletCall();
 }
 
 class RegisterCall {
@@ -865,6 +868,7 @@ class MyEducationsCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
+    String? orderBy = 'creation desc',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -879,6 +883,7 @@ class MyEducationsCall {
       params: {
         'filters': filters,
         'fields': fields,
+        'order_by': orderBy,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -892,6 +897,7 @@ class MyAddressesCall {
   Future<ApiCallResponse> call({
     String? fields = '',
     String? filters = '',
+    String? orderBy = 'is_main_address desc',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -905,6 +911,7 @@ class MyAddressesCall {
       params: {
         'fields': fields,
         'filters': filters,
+        'order_by': orderBy,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1257,6 +1264,7 @@ class ServiceListCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
+    String? orderBy = 'creation desc',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -1271,6 +1279,7 @@ class ServiceListCall {
       params: {
         'filters': filters,
         'fields': fields,
+        'order_by': orderBy,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -3575,7 +3584,7 @@ class GetUserServicesCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': 'token 77158c293697c29:3f2c5ed5b1a6515',
+        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       returnBody: true,
@@ -3605,7 +3614,7 @@ class EducationPartialUpdateCall {
     return ApiManager.instance.makeApiCall(
       callName: 'educationPartialUpdate',
       apiUrl:
-          '${TaskerpageBackendGroup.baseUrl}api/resource/Customer Education/${id}',
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Education/${id}',
       callType: ApiCallType.PUT,
       headers: {
         ...TaskerpageBackendGroup.headers,
@@ -4660,6 +4669,7 @@ class MyBidCall {
   Future<ApiCallResponse> call({
     String? filters = '[]',
     String? fields = '[\"name\"]',
+    String? orderBy = 'creation desc',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -4673,6 +4683,7 @@ class MyBidCall {
       params: {
         'filters': filters,
         'fields': fields,
+        'order_by': orderBy,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -4957,6 +4968,7 @@ class MyReviewsCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
+    String? orderBy = 'creation desc',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -4970,6 +4982,7 @@ class MyReviewsCall {
       params: {
         'filters': filters,
         'fields': fields,
+        'order_by': orderBy,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -5337,8 +5350,19 @@ class UpdateTaskDetailsCall {
     String? description = '',
     String? file = '',
     int? isOnline,
+    dynamic? optionsJson,
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
+    final options = _serializeJson(optionsJson, true);
+    final ffApiRequestBody = '''
+{
+  "skill_name": "${skillName}",
+  "skill_level": "${skillLevel}",
+  "language": "${languages}",
+  "description": "${description}",
+  "file": "${file}",
+  "is_online": ${isOnline}
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'update task details',
       apiUrl:
@@ -5348,15 +5372,40 @@ class UpdateTaskDetailsCall {
         ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
-      params: {
-        'skill_name': skillName,
-        'skill_level': skillLevel,
-        'language': languages,
-        'description': description,
-        'file': file,
-        'is_online': isOnline,
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class UpdateTaskOptionsCall {
+  Future<ApiCallResponse> call({
+    dynamic? optionsJson,
+    String? id = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    final options = _serializeJson(optionsJson, true);
+    final ffApiRequestBody = '''
+{
+  "options": ${options}
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'update task options',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
       },
-      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -5822,6 +5871,7 @@ class IssueListCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
+    String? orderBy = 'creation desc',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -5835,6 +5885,7 @@ class IssueListCall {
       params: {
         'filters': filters,
         'fields': fields,
+        'order_by': orderBy,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -5891,6 +5942,52 @@ class NotificationReadCall {
         'read': read,
       },
       bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class EducationDeletCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'education delet',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Education/${id}',
+      callType: ApiCallType.DELETE,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class SkillDeletCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'skill delet',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${id}',
+      callType: ApiCallType.DELETE,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

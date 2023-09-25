@@ -4,7 +4,6 @@ import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
-import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -25,8 +24,8 @@ class Taskertype2Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
-  // State field(s) for CountController widget.
-  int? countControllerValue;
+  // State field(s) for Slider widget.
+  double? sliderValue;
   // State field(s) for Switch widget.
   bool? switchValue;
   // Model for button_Next component.

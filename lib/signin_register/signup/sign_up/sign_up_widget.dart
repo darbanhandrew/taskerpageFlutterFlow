@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
-import '/components/privacy_policy_widget.dart';
 import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -782,24 +781,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                context: context,
-                                builder: (context) {
-                                  return GestureDetector(
-                                    onTap: () => FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode),
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: PrivacyPolicyWidget(),
-                                    ),
-                                  );
-                                },
-                              ).then((value) => safeSetState(() {}));
-                            },
+                            onTap: () async {},
                             child: Text(
                               'Privacy Policy',
                               style: FlutterFlowTheme.of(context)
@@ -941,9 +923,9 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                   ],
                 ),
               ),
-              if (isWeb
+              if (!(isWeb
                   ? MediaQuery.viewInsetsOf(context).bottom > 0
-                  : _isKeyboardVisible)
+                  : _isKeyboardVisible))
                 Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [

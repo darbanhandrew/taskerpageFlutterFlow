@@ -442,11 +442,14 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            getJsonField(
-                                              posterProfileViewUserProfileReadResponse
-                                                  .jsonBody,
-                                              r'''$.data.review_average''',
-                                            ).toString(),
+                                            valueOrDefault<String>(
+                                              getJsonField(
+                                                posterProfileViewUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.review_average''',
+                                              ).toString(),
+                                              '0',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -830,7 +833,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                                                           getJsonField(
                                                                     userPostsItem,
                                                                     r'''$.creation''',
-                                                                  ))),
+                                                                  ).toString())),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1092,7 +1095,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                                                                       functions.jsonToDateTime(getJsonField(
                                                                                         myReviewsItem,
                                                                                         r'''$.creation''',
-                                                                                      ))),
+                                                                                      ).toString())),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Lato',
                                                                                         color: Color(0xFF616161),
@@ -1418,7 +1421,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                                                             functions.jsonToDateTime(getJsonField(
                                                                               myReviewsItem,
                                                                               r'''$.creation''',
-                                                                            ))),
+                                                                            ).toString())),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(

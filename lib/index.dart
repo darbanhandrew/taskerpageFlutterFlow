@@ -129,6 +129,6 @@ export '/dashboard/web_home/web_home_widget.dart' show WebHomeWidget;
 export '/subscription/paymentshistory/paymentshistory_widget.dart'
     show PaymentshistoryWidget;
 export '/dashboard/issue_list/issue_list_widget.dart' show IssueListWidget;
-export '/test/test_widget.dart' show TestWidget;
+export '/dashboard/test/test_widget.dart' show TestWidget;
 export '/dashboard/notification_log/notification_log_widget.dart'
     show NotificationLogWidget;

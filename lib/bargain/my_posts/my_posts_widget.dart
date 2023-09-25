@@ -174,7 +174,7 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                 ).then((value) => safeSetState(() {}));
                               },
                               child: Text(
-                                'Date',
+                                FFAppState().Sort,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -199,7 +199,15 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                               ).toString()}\"]]',
                               fields:
                                   '[\"creation\",\"name\",\"docstatus\",\"repeat_type\",\"is_repeatable\",\"skill_name\",\"skill_category_name\",\"city\",\"language\",\"description\"]',
-                              orderBy: 'creation desc',
+                              orderBy: () {
+                                if (FFAppState().Sort == 'Oldest') {
+                                  return 'creation asc';
+                                } else if (FFAppState().Sort == 'Newest') {
+                                  return 'creation desc';
+                                } else {
+                                  return 'creation desc';
+                                }
+                              }(),
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.

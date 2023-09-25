@@ -914,11 +914,14 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                getJsonField(
-                                                  taskerProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                  r'''$.data.review_average''',
-                                                ).toString(),
+                                                valueOrDefault<String>(
+                                                  getJsonField(
+                                                    taskerProfileUserProfileMeResponse
+                                                        .jsonBody,
+                                                    r'''$.data.review_average''',
+                                                  ).toString(),
+                                                  '0',
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -1303,7 +1306,10 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                                       getJsonField(
                                                                                         myServicesItem,
                                                                                         r'''$.skill_name''',
-                                                                                      ).toString(),
+                                                                                      ).toString().maybeHandleOverflow(
+                                                                                            maxChars: 40,
+                                                                                            replacement: '…',
+                                                                                          ),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Lato',
                                                                                             color: Color(0xFFF6F6F6),
@@ -2580,7 +2586,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                                           functions.jsonToDateTime(getJsonField(
                                                                                             myReviewsItem,
                                                                                             r'''$.creation''',
-                                                                                          ))),
+                                                                                          ).toString())),
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Lato',
                                                                                             color: Color(0xFF616161),
@@ -2913,7 +2919,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                                 functions.jsonToDateTime(getJsonField(
                                                                                   myReviewsItem,
                                                                                   r'''$.creation''',
-                                                                                ))),
+                                                                                ).toString())),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: Color(0xFF616161),
@@ -3144,23 +3150,27 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                             ),
                                                       ),
                                                     ),
-                                                    Text(
-                                                      getJsonField(
-                                                        taskerProfileUserProfileMeResponse
-                                                            .jsonBody,
-                                                        r'''$.data.user''',
-                                                      ).toString(),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF212121),
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
+                                                    Flexible(
+                                                      child: Text(
+                                                        getJsonField(
+                                                          taskerProfileUserProfileMeResponse
+                                                              .jsonBody,
+                                                          r'''$.data.user''',
+                                                        ).toString(),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: Color(
+                                                                  0xFF212121),
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -4172,6 +4182,20 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             if ((_model
                                                     .apiResult59u?.succeeded ??
                                                 true)) {
+                                              _model.profile3 =
+                                                  await TaskerpageBackendGroup
+                                                      .userProfileMeCall
+                                                      .call(
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                              );
+                                              _shouldSetState = true;
+                                              setState(() {
+                                                FFAppState().userProfile =
+                                                    (_model.profile3
+                                                            ?.jsonBody ??
+                                                        '');
+                                              });
                                               setState(() {
                                                 FFAppState().ProfileCheck =
                                                     false;
@@ -4313,6 +4337,18 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           _shouldSetState = true;
                                           if ((_model.apiResult59u?.succeeded ??
                                               true)) {
+                                            _model.profile4 =
+                                                await TaskerpageBackendGroup
+                                                    .userProfileMeCall
+                                                    .call(
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            _shouldSetState = true;
+                                            setState(() {
+                                              FFAppState().userProfile =
+                                                  (_model.profile4?.jsonBody ??
+                                                      '');
+                                            });
                                             setState(() {
                                               FFAppState().ProfileCheck = false;
                                             });

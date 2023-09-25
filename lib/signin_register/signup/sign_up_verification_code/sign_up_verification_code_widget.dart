@@ -5,11 +5,13 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -30,6 +32,8 @@ class _SignUpVerificationCodeWidgetState
   late SignUpVerificationCodeModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   final animationsMap = {
     'containerOnPageLoadAnimation': AnimationInfo(
@@ -72,6 +76,15 @@ class _SignUpVerificationCodeWidgetState
       });
     });
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -86,6 +99,9 @@ class _SignUpVerificationCodeWidgetState
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -263,22 +279,32 @@ class _SignUpVerificationCodeWidgetState
                                 ),
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 32.0, 0.0, 0.0),
-                              child: Text(
-                                'We sent a code to ${getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.user''',
-                                ).toString()}',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 32.0, 0.0, 0.0),
+                                    child: Text(
+                                      '${getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.user''',
+                                      ).toString()}',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Color(0xFF292929),
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.w600,
+                                          ),
                                     ),
-                              ),
+                                  ),
+                                ),
+                              ],
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -388,110 +414,128 @@ class _SignUpVerificationCodeWidgetState
                         ),
                       ),
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Container(
-                          width: MediaQuery.sizeOf(context).width * 1.0,
-                          height: 60.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            boxShadow: [
-                              BoxShadow(
-                                blurRadius: 5.0,
-                                color: Color(0x33000000),
-                                offset: Offset(5.0, 5.0),
-                                spreadRadius: 10.0,
-                              )
-                            ],
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 0.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    var _shouldSetState = false;
-                                    if (_model.pinCodeController!.text ==
-                                        '111111') {
-                                      context.pushNamed('Proflewelcome');
-                                    } else {
-                                      _model.apiResult3lo8 =
-                                          await TaskerpageBackendGroup
-                                              .checkEmailVerificationCall
-                                              .call(
-                                        name: getJsonField(
-                                          FFAppState().userProfile,
-                                          r'''$.data.name''',
-                                        ).toString(),
-                                        code: _model.pinCodeController!.text,
-                                        apiGlobalKey: FFAppState().apiKey,
-                                      );
-                                      _shouldSetState = true;
-                                      if ((_model.apiResult3lo8?.succeeded ??
-                                              true) &&
-                                          (functions.jsonToString(getJsonField(
-                                                (_model.apiResult3lo8
-                                                        ?.jsonBody ??
-                                                    ''),
-                                                r'''$.message.status''',
-                                              )) ==
-                                              'approved')) {
-                                        context.pushNamed('Proflewelcome');
-                                      } else {
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      }
-                                    }
-
-                                    if (_shouldSetState) setState(() {});
-                                  },
-                                  child: Container(
-                                    width: 104.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Verify',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Colors.white,
-                                                fontSize: 14.0,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                    if (!(isWeb
+                        ? MediaQuery.viewInsetsOf(context).bottom > 0
+                        : _isKeyboardVisible))
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            width: MediaQuery.sizeOf(context).width * 1.0,
+                            height: 60.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 5.0,
+                                  color: Color(0x33000000),
+                                  offset: Offset(5.0, 5.0),
+                                  spreadRadius: 10.0,
                                 )
-                                    .animateOnPageLoad(animationsMap[
-                                        'containerOnPageLoadAnimation']!)
-                                    .animateOnActionTrigger(
-                                      animationsMap[
-                                          'containerOnActionTriggerAnimation']!,
-                                    ),
                               ],
                             ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      if (_model.pinCodeController!.text ==
+                                          '111111') {
+                                        context.pushNamed('Proflewelcome');
+                                      } else {
+                                        _model.apiResult3lo8 =
+                                            await TaskerpageBackendGroup
+                                                .checkEmailVerificationCall
+                                                .call(
+                                          name: getJsonField(
+                                            FFAppState().userProfile,
+                                            r'''$.data.name''',
+                                          ).toString(),
+                                          code: _model.pinCodeController!.text,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                        );
+                                        if ((_model.apiResult3lo8?.succeeded ??
+                                                true) &&
+                                            (functions
+                                                    .jsonToString(getJsonField(
+                                                  (_model.apiResult3lo8
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                  r'''$.message.status''',
+                                                )) ==
+                                                'true')) {
+                                          context.pushNamed('Proflewelcome');
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Code is not correct !',
+                                                style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14.0,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  Color(0xFFDD2525),
+                                            ),
+                                          );
+                                        }
+                                      }
+
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 104.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF5450E2),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Verify',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Colors.white,
+                                                  fontSize: 14.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                      .animateOnPageLoad(animationsMap[
+                                          'containerOnPageLoadAnimation']!)
+                                      .animateOnActionTrigger(
+                                        animationsMap[
+                                            'containerOnActionTriggerAnimation']!,
+                                      ),
+                                ],
+                              ),
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
+                        ],
+                      ),
                   ],
                 ),
               ),

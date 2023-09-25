@@ -218,7 +218,7 @@ class FFAppState extends ChangeNotifier {
     _BottomSheetforPay = _value;
   }
 
-  String _Sort = 'Relevance';
+  String _Sort = 'Newest';
   String get Sort => _Sort;
   set Sort(String _value) {
     _Sort = _value;
@@ -731,7 +731,9 @@ class FFAppState extends ChangeNotifier {
     prefs.setBool('ff_mapView', _value);
   }
 
-  TaskerFilterStruct _taskerFilter = TaskerFilterStruct();
+  TaskerFilterStruct _taskerFilter = TaskerFilterStruct.fromSerializableMap(
+      jsonDecode(
+          '{\"anyLocation\":\"true\",\"anySkill\":\"true\",\"anyTaskerGender\":\"true\",\"names\":\"[]\",\"anytasker\":\"true\"}'));
   TaskerFilterStruct get taskerFilter => _taskerFilter;
   set taskerFilter(TaskerFilterStruct _value) {
     _taskerFilter = _value;
@@ -768,7 +770,7 @@ class FFAppState extends ChangeNotifier {
     _checkNavbarState = _value;
   }
 
-  String _appUrl = 'https://app.taskerpage.com';
+  String _appUrl = 'https://tasker-page-48vd3g.flutterflow.app';
   String get appUrl => _appUrl;
   set appUrl(String _value) {
     _appUrl = _value;
@@ -839,6 +841,18 @@ class FFAppState extends ChangeNotifier {
   bool get startdate => _startdate;
   set startdate(bool _value) {
     _startdate = _value;
+  }
+
+  bool _showAddress = false;
+  bool get showAddress => _showAddress;
+  set showAddress(bool _value) {
+    _showAddress = _value;
+  }
+
+  LatLng? _centerMap;
+  LatLng? get centerMap => _centerMap;
+  set centerMap(LatLng? _value) {
+    _centerMap = _value;
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

@@ -7,6 +7,7 @@ import '/components/skill_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -113,17 +114,21 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                               padding: EdgeInsetsDirectional.fromSTEB(
                                   32.0, 8.0, 32.0, 0.0),
                               child: FutureBuilder<ApiCallResponse>(
-                                future:
-                                    TaskerpageBackendGroup.serviceListCall.call(
-                                  apiGlobalKey: FFAppState().apiKey,
-                                  fields:
-                                      '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\"]',
-                                  filters:
-                                      '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                    FFAppState().userProfile,
-                                    r'''$.data.name''',
-                                  ).toString()}\"]]',
-                                ),
+                                future: (_model.apiRequestCompleter ??=
+                                        Completer<ApiCallResponse>()
+                                          ..complete(TaskerpageBackendGroup
+                                              .serviceListCall
+                                              .call(
+                                            apiGlobalKey: FFAppState().apiKey,
+                                            fields:
+                                                '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\"]',
+                                            filters:
+                                                '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString()}\"]]',
+                                          )))
+                                    .future,
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -174,6 +179,13 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                                   'Key5mz_${myServicesIndex.toString()}',
                                                 ),
                                                 userService: myServicesItem,
+                                                action: () async {
+                                                  setState(() => _model
+                                                          .apiRequestCompleter =
+                                                      null);
+                                                  await _model
+                                                      .waitForApiRequestCompleted();
+                                                },
                                               ),
                                             ),
                                           );

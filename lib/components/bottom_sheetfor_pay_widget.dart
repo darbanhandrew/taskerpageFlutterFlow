@@ -117,7 +117,12 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
         });
         _model.checkCoupon = false;
         _model.netTotlal = functions.calculateNetTotal(
-            _model.discount, _model.isPercentage, _model.grandTotal);
+            _model.discount == null ? 0.0 : _model.discount,
+            valueOrDefault<bool>(
+              _model.isPercentage,
+              false,
+            ),
+            _model.grandTotal);
       } else {
         return;
       }
@@ -373,6 +378,7 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                                 await TaskerpageBackendGroup.aplyCoponCall.call(
                               couponName: _model.textController.text,
                               subscriptionName: widget.subscriptionId,
+                              apiGlobalKey: FFAppState().appApiKey,
                             );
                             if ((_model.apiResult82r?.succeeded ?? true)) {
                               if (functions.jsonToString(getJsonField(

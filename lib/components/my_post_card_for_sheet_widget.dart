@@ -112,7 +112,7 @@ class _MyPostCardForSheetWidgetState extends State<MyPostCardForSheetWidget> {
                                         functions.jsonToDateTime(getJsonField(
                                           widget.postData,
                                           r'''$.creation''',
-                                        ))),
+                                        ).toString())),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -462,6 +462,9 @@ class _MyPostCardForSheetWidgetState extends State<MyPostCardForSheetWidget> {
                           r'''$.name''',
                         ).toString(),
                         customerProfile: widget.customerProfile!,
+                        action: () async {
+                          Navigator.pop(context);
+                        },
                       ),
                     );
                   },

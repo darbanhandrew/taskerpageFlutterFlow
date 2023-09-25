@@ -97,7 +97,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                               functions.jsonToDateTime(getJsonField(
                                 widget.post,
                                 r'''$.creation''',
-                              ))),
+                              ).toString())),
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Lato',
@@ -213,7 +213,10 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                       getJsonField(
                                         widget.post,
                                         r'''$.skill_category_name''',
-                                      ).toString(),
+                                      ).toString().maybeHandleOverflow(
+                                            maxChars: 17,
+                                            replacement: '…',
+                                          ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -242,7 +245,10 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                       getJsonField(
                                         widget.post,
                                         r'''$.skill_name''',
-                                      ).toString(),
+                                      ).toString().maybeHandleOverflow(
+                                            maxChars: 17,
+                                            replacement: '…',
+                                          ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

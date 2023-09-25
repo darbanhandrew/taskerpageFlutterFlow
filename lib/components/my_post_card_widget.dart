@@ -108,7 +108,7 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                         functions.jsonToDateTime(getJsonField(
                                           widget.postData,
                                           r'''$.creation''',
-                                        ))),
+                                        ).toString())),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(

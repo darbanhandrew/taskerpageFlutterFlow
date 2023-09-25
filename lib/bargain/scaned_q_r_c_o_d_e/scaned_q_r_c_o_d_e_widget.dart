@@ -831,7 +831,7 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                                                   scanedQRCODEAppointmentReadResponse
                                                                       .jsonBody,
                                                                   r'''$.data.appointment_location_lng''',
-                                                                ).toString())!,
+                                                                ).toString()),
                                                         markerColor:
                                                             GoogleMarkerColor
                                                                 .violet,

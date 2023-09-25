@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -28,24 +29,24 @@ class Taskertype3Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
-  // State field(s) for CountController widget.
-  int? countControllerValue1;
+  // State field(s) for Slider widget.
+  double? sliderValue;
   // State field(s) for Switch widget.
   bool? switchValue1;
   // State field(s) for CountController widget.
-  int? countControllerValue2;
+  int? countControllerValue1;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
   // State field(s) for Switch widget.
   bool? switchValue2;
   // State field(s) for CountController widget.
-  int? countControllerValue3;
+  int? countControllerValue2;
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
   // State field(s) for CountController widget.
-  int? countControllerValue4;
+  int? countControllerValue3;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (updateTaskerTypeThree)] action in button_Next widget.

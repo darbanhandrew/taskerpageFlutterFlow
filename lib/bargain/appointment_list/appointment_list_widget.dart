@@ -184,7 +184,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 r'''$.data.role_profile_name''',
                                               )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"1\"]]',
                                           fields:
-                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\"]',
+                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"creation\",\"appointment_start_time\",\"appointment_end_time\"]',
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {
@@ -763,7 +763,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                   r'''$.data.role_profile_name''',
                                                 )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"0\"]]',
                                             fields:
-                                                '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\"]',
+                                                '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"creation\",\"appointment_start_time\",\"appointment_end_time\"]',
                                             apiGlobalKey: FFAppState().apiKey,
                                           ),
                                           builder: (context, snapshot) {
@@ -1108,7 +1108,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 r'''$.data.role_profile_name''',
                                               )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"1\"]]',
                                           fields:
-                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\"]',
+                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"creation\",\"appointment_start_time\"]',
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {
@@ -1488,7 +1488,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 r'''$.data.role_profile_name''',
                                               )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"0\"]]',
                                           fields:
-                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\"]',
+                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"creation\",\"appointment_start_time\",\"appointment_end_time\"]',
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {
@@ -1868,7 +1868,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 r'''$.data.role_profile_name''',
                                               )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"1\"],[\"docstatus\",\"=\",\"1\"]]',
                                           fields:
-                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"docstatus\"]',
+                                              '[\"appointment_type\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"docstatus\",\"creation\",\"appointment_start_time\",\"appointment_end_time\"]',
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {

@@ -2,13 +2,13 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
-import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -39,6 +39,8 @@ class _Education2WidgetState extends State<Education2Widget> {
       setState(() {
         FFAppState().AddCertificateForEducation = false;
       });
+      setState(() => _model.apiRequestCompleter = null);
+      await _model.waitForApiRequestCompleted();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -134,18 +136,22 @@ class _Education2WidgetState extends State<Education2Widget> {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       32.0, 8.0, 32.0, 24.0),
                                   child: FutureBuilder<ApiCallResponse>(
-                                    future: TaskerpageBackendGroup
-                                        .myEducationsCall
-                                        .call(
-                                      apiGlobalKey: FFAppState().apiKey,
-                                      filters:
-                                          '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.name''',
-                                      ).toString()}\"]]',
-                                      fields:
-                                          '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
-                                    ),
+                                    future: (_model.apiRequestCompleter ??=
+                                            Completer<ApiCallResponse>()
+                                              ..complete(TaskerpageBackendGroup
+                                                  .myEducationsCall
+                                                  .call(
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                                filters:
+                                                    '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.data.name''',
+                                                ).toString()}\"]]',
+                                                fields:
+                                                    '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
+                                              )))
+                                        .future,
                                     builder: (context, snapshot) {
                                       // Customize what your widget looks like when it's loading.
                                       if (!snapshot.hasData) {
@@ -253,6 +259,85 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                       FontWeight
                                                                           .w500,
                                                                 ),
+                                                          ),
+                                                          Expanded(
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .end,
+                                                              children: [
+                                                                InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    _model.apiResultt1b =
+                                                                        await TaskerpageBackendGroup
+                                                                            .educationDeletCall
+                                                                            .call(
+                                                                      id: getJsonField(
+                                                                        myEducationListItem,
+                                                                        r'''$.name''',
+                                                                      ).toString(),
+                                                                      apiGlobalKey:
+                                                                          FFAppState()
+                                                                              .apiKey,
+                                                                    );
+                                                                    if ((_model
+                                                                            .apiResultt1b
+                                                                            ?.succeeded ??
+                                                                        true)) {
+                                                                      setState(() =>
+                                                                          _model.apiRequestCompleter =
+                                                                              null);
+                                                                      await _model
+                                                                          .waitForApiRequestCompleted();
+                                                                    } else {
+                                                                      await showDialog(
+                                                                        context:
+                                                                            context,
+                                                                        builder:
+                                                                            (alertDialogContext) {
+                                                                          return AlertDialog(
+                                                                            title:
+                                                                                Text('erorr'),
+                                                                            content:
+                                                                                Text('Try again !'),
+                                                                            actions: [
+                                                                              TextButton(
+                                                                                onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                child: Text('Ok'),
+                                                                              ),
+                                                                            ],
+                                                                          );
+                                                                        },
+                                                                      );
+                                                                    }
+
+                                                                    setState(
+                                                                        () {});
+                                                                  },
+                                                                  child: Icon(
+                                                                    Icons
+                                                                        .delete,
+                                                                    color: Colors
+                                                                        .white,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
                                                           ),
                                                         ],
                                                       ),
@@ -386,6 +471,9 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                           mainAxisAlignment:
                                                               MainAxisAlignment
                                                                   .spaceBetween,
+                                                          crossAxisAlignment:
+                                                              CrossAxisAlignment
+                                                                  .end,
                                                           children: [
                                                             InkWell(
                                                               splashColor: Colors
@@ -430,70 +518,26 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                     }.withoutNulls,
                                                                   );
                                                                 } else {
-                                                                  await showModalBottomSheet(
-                                                                    isScrollControlled:
-                                                                        true,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    enableDrag:
+                                                                  context
+                                                                      .pushNamed(
+                                                                    'Add_another_education',
+                                                                    queryParameters:
+                                                                        {
+                                                                      'isSignUp':
+                                                                          serializeParam(
                                                                         false,
-                                                                    context:
-                                                                        context,
-                                                                    builder:
-                                                                        (context) {
-                                                                      return GestureDetector(
-                                                                        onTap: () =>
-                                                                            FocusScope.of(context).requestFocus(_model.unfocusNode),
-                                                                        child:
-                                                                            Padding(
-                                                                          padding:
-                                                                              MediaQuery.viewInsetsOf(context),
-                                                                          child:
-                                                                              ViewCertificateWidget(
-                                                                            certificateUrl:
-                                                                                getJsonField(
-                                                                              myEducationListItem,
-                                                                              r'''$.certificate''',
-                                                                            ).toString(),
-                                                                            updateCertificateUrl:
-                                                                                () async {
-                                                                              var _shouldSetState = false;
-                                                                              _model.apiResultd72 = await TaskerpageBackendGroup.educationPartialUpdateCall.call(
-                                                                                id: getJsonField(
-                                                                                  myEducationListItem,
-                                                                                  r'''$.id''',
-                                                                                ),
-                                                                                schoolTitle: getJsonField(
-                                                                                  myEducationListItem,
-                                                                                  r'''$.school_title''',
-                                                                                ).toString(),
-                                                                                title: getJsonField(
-                                                                                  myEducationListItem,
-                                                                                  r'''$.title''',
-                                                                                ).toString(),
-                                                                                certificateUrl: getJsonField(
-                                                                                  myEducationListItem,
-                                                                                  r'''$.certificate''',
-                                                                                ).toString(),
-                                                                              );
-                                                                              _shouldSetState = true;
-                                                                              if ((_model.apiResultd72?.succeeded ?? true)) {
-                                                                                Navigator.pop(context);
-                                                                              } else {
-                                                                                return;
-                                                                              }
-                                                                            },
-                                                                          ),
-                                                                        ),
-                                                                      );
-                                                                    },
-                                                                  ).then((value) =>
-                                                                      safeSetState(
-                                                                          () {}));
+                                                                        ParamType
+                                                                            .bool,
+                                                                      ),
+                                                                      'education':
+                                                                          serializeParam(
+                                                                        myEducationListItem,
+                                                                        ParamType
+                                                                            .JSON,
+                                                                      ),
+                                                                    }.withoutNulls,
+                                                                  );
                                                                 }
-
-                                                                setState(() {});
                                                               },
                                                               child: Container(
                                                                 width: 150.0,
@@ -572,6 +616,12 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                       myEducationListItem,
                                                                       ParamType
                                                                           .JSON,
+                                                                    ),
+                                                                    'addAnother':
+                                                                        serializeParam(
+                                                                      false,
+                                                                      ParamType
+                                                                          .bool,
                                                                     ),
                                                                   }.withoutNulls,
                                                                 );

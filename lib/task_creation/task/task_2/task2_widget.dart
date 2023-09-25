@@ -3,8 +3,11 @@ import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/drope_down_languages_widget.dart';
+import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/skill_options_check_component_widget.dart';
+import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -86,7 +89,13 @@ class _Task2WidgetState extends State<Task2Widget> {
                 ..skillCategory = getJsonField(
                   (_model.apiResultpuo?.jsonBody ?? ''),
                   r'''$.data.skill_category_name''',
-                ).toString().toString(),
+                ).toString().toString()
+                ..taskOptions = functions
+                    .convertJsonListToDataTypeList(getJsonField(
+                      (_model.apiResultpuo?.jsonBody ?? ''),
+                      r'''$.data.options''',
+                    ))!
+                    .toList(),
             );
           });
         } else {
@@ -323,7 +332,38 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                       ),
                                                   );
                                                 });
+                                                _model.skillDetails =
+                                                    await TaskerpageBackendGroup
+                                                        .skillDetailsCall
+                                                        .call(
+                                                  name: getJsonField(
+                                                    servicesItem,
+                                                    r'''$.name''',
+                                                  ).toString(),
+                                                  apiGlobalKey:
+                                                      FFAppState().apiKey,
+                                                );
+                                                if ((_model.skillDetails
+                                                        ?.succeeded ??
+                                                    true)) {
+                                                  setState(() {
+                                                    _model.skillOptionList =
+                                                        functions
+                                                            .convertJsonListToDataTypeList(
+                                                                getJsonField(
+                                                              (_model.skillDetails
+                                                                      ?.jsonBody ??
+                                                                  ''),
+                                                              r'''$.data.skill_options''',
+                                                            ))!
+                                                            .toList()
+                                                            .cast<
+                                                                SkillOptionsStruct>();
+                                                  });
+                                                }
                                               }
+
+                                              setState(() {});
                                             },
                                             child: Container(
                                               width: 100.0,
@@ -411,82 +451,6 @@ class _Task2WidgetState extends State<Task2Widget> {
                             ),
                           ],
                         ),
-                      ),
-                      Divider(
-                        height: 48.0,
-                        thickness: 1.0,
-                        indent: 32.0,
-                        endIndent: 32.0,
-                        color: Color(0xFFE3E3E3),
-                      ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 0.0, 32.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    'is online',
-                                    textAlign: TextAlign.justify,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF292929),
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
-                                        ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0.00, 0.00),
-                                    child: Switch.adaptive(
-                                      value: _model.switchValue1 ??=
-                                          FFAppState()
-                                              .createTask
-                                              .taskDeatels
-                                              .isOnline,
-                                      onChanged: (newValue) async {
-                                        setState(() =>
-                                            _model.switchValue1 = newValue!);
-                                        if (newValue!) {
-                                          setState(() {
-                                            FFAppState().updateCreateTaskStruct(
-                                              (e) => e
-                                                ..updateTaskDeatels(
-                                                  (e) => e..isOnline = true,
-                                                ),
-                                            );
-                                          });
-                                        } else {
-                                          setState(() {
-                                            FFAppState().updateCreateTaskStruct(
-                                              (e) => e
-                                                ..updateTaskDeatels(
-                                                  (e) => e..isOnline = false,
-                                                ),
-                                            );
-                                          });
-                                        }
-                                      },
-                                      activeColor:
-                                          FlutterFlowTheme.of(context).primary,
-                                      activeTrackColor: Color(0xFFFAD1C6),
-                                      inactiveTrackColor: Color(0xFFECECEC),
-                                      inactiveThumbColor: Color(0xFF3D3D3D),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
                       ),
                       Divider(
                         height: 48.0,
@@ -602,6 +566,252 @@ class _Task2WidgetState extends State<Task2Widget> {
                             );
                           },
                         ),
+                      ),
+                      if (false)
+                        Divider(
+                          height: 48.0,
+                          thickness: 1.0,
+                          indent: 32.0,
+                          endIndent: 32.0,
+                          color: Color(0xFFE3E3E3),
+                        ),
+                      if (false)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Text(
+                                'Skills option',
+                                textAlign: TextAlign.justify,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF292929),
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      if (false)
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 10.0, 32.0, 0.0),
+                                    child: Builder(
+                                      builder: (context) {
+                                        final skillOptions = getJsonField(
+                                          (_model.skillDetails?.jsonBody ?? ''),
+                                          r'''$.data.skill_options''',
+                                        ).toList();
+                                        if (skillOptions.isEmpty) {
+                                          return EmtyContainerWidget(
+                                            goTo: () async {},
+                                          );
+                                        }
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children:
+                                              List.generate(skillOptions.length,
+                                                  (skillOptionsIndex) {
+                                            final skillOptionsItem =
+                                                skillOptions[skillOptionsIndex];
+                                            return Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                if (functions.jsonToString(
+                                                        getJsonField(
+                                                      skillOptionsItem,
+                                                      r'''$.type''',
+                                                    )) ==
+                                                    'Check')
+                                                  Expanded(
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .skillOptionsCheckComponentModels
+                                                          .getModel(
+                                                        getJsonField(
+                                                          skillOptionsItem,
+                                                          r'''$.option_name''',
+                                                        ).toString(),
+                                                        skillOptionsIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      updateOnChange: true,
+                                                      child:
+                                                          SkillOptionsCheckComponentWidget(
+                                                        key: Key(
+                                                          'Keycwk_${getJsonField(
+                                                            skillOptionsItem,
+                                                            r'''$.option_name''',
+                                                          ).toString()}',
+                                                        ),
+                                                        skillOption:
+                                                            getJsonField(
+                                                          skillOptionsItem,
+                                                          r'''$''',
+                                                        ),
+                                                        defaultValue: functions
+                                                            .stringToBoolean(
+                                                                valueOrDefault<
+                                                                    String>(
+                                                          FFAppState()
+                                                              .createTask
+                                                              .taskOptions
+                                                              .where((e) =>
+                                                                  e.name ==
+                                                                  getJsonField(
+                                                                    skillOptionsItem,
+                                                                    r'''$.option_name''',
+                                                                  ))
+                                                              .toList()
+                                                              .first
+                                                              .values,
+                                                          'false',
+                                                        )),
+                                                      ),
+                                                    ),
+                                                  ),
+                                                if (functions.jsonToString(
+                                                        getJsonField(
+                                                      skillOptionsItem,
+                                                      r'''$.type''',
+                                                    )) ==
+                                                    'Select')
+                                                  Expanded(
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .skillOptionsChipsComponentModels
+                                                          .getModel(
+                                                        getJsonField(
+                                                          skillOptionsItem,
+                                                          r'''$.option_name''',
+                                                        ).toString(),
+                                                        skillOptionsIndex,
+                                                      ),
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      child:
+                                                          SkillOptionsChipsComponentWidget(
+                                                        key: Key(
+                                                          'Keyl0u_${getJsonField(
+                                                            skillOptionsItem,
+                                                            r'''$.option_name''',
+                                                          ).toString()}',
+                                                        ),
+                                                        skillOption:
+                                                            getJsonField(
+                                                          skillOptionsItem,
+                                                          r'''$''',
+                                                        ),
+                                                        selectedChips:
+                                                            getJsonField(
+                                                          skillOptionsItem,
+                                                          r'''$.values''',
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ),
+                                              ],
+                                            );
+                                          }),
+                                        );
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      Divider(
+                        height: 48.0,
+                        thickness: 1.0,
+                        indent: 32.0,
+                        endIndent: 32.0,
+                        color: Color(0xFFE3E3E3),
+                      ),
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    'Online Task',
+                                    textAlign: TextAlign.justify,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF292929),
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(0.00, 0.00),
+                                    child: Switch.adaptive(
+                                      value: _model.switchValue1 ??=
+                                          FFAppState()
+                                              .createTask
+                                              .taskDeatels
+                                              .isOnline,
+                                      onChanged: (newValue) async {
+                                        setState(() =>
+                                            _model.switchValue1 = newValue!);
+                                        if (newValue!) {
+                                          setState(() {
+                                            FFAppState().updateCreateTaskStruct(
+                                              (e) => e
+                                                ..updateTaskDeatels(
+                                                  (e) => e..isOnline = true,
+                                                ),
+                                            );
+                                          });
+                                        } else {
+                                          setState(() {
+                                            FFAppState().updateCreateTaskStruct(
+                                              (e) => e
+                                                ..updateTaskDeatels(
+                                                  (e) => e..isOnline = false,
+                                                ),
+                                            );
+                                          });
+                                        }
+                                      },
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      activeTrackColor: Color(0xFFFAD1C6),
+                                      inactiveTrackColor: Color(0xFFECECEC),
+                                      inactiveThumbColor: Color(0xFF3D3D3D),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Divider(
                         height: 48.0,
@@ -795,6 +1005,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.textController,
+                                textInputAction: TextInputAction.done,
                                 obscureText: false,
                                 decoration: InputDecoration(
                                   labelStyle:
@@ -857,6 +1068,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             InkWell(
                               splashColor: Colors.transparent,
@@ -1101,6 +1313,66 @@ class _Task2WidgetState extends State<Task2Widget> {
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
                                       var _shouldSetState = false;
+                                      _model.skillOptionList = functions
+                                          .convertJsonListToDataTypeList(
+                                              getJsonField(
+                                            (_model.skillDetails?.jsonBody ??
+                                                ''),
+                                            r'''$.data.skill_options''',
+                                          ))!
+                                          .toList()
+                                          .cast<SkillOptionsStruct>();
+                                      _model.tempSkillOptionList = [];
+                                      while (
+                                          _model.skillOptionList.length > 0) {
+                                        if (_model.skillOptionList.first.type ==
+                                            'Check') {
+                                          _model.addToTempSkillOptionList(
+                                              SkillOptionsStruct(
+                                            name: _model
+                                                .skillOptionList.first.name,
+                                            type: _model
+                                                .skillOptionList.first.type,
+                                            values: _model
+                                                .skillOptionsCheckComponentModels
+                                                .getValueForKey(
+                                                  _model.skillOptionList.first
+                                                      .name,
+                                                  (m) => m.checkboxValue,
+                                                )
+                                                ?.toString(),
+                                          ));
+                                        } else {
+                                          setState(() {
+                                            _model.addToTempSkillOptionList(
+                                                SkillOptionsStruct(
+                                              name: _model
+                                                  .skillOptionList.first.name,
+                                              type: _model
+                                                  .skillOptionList.first.type,
+                                              values: functions
+                                                  .convertListOfStringToString(
+                                                      _model
+                                                          .skillOptionsChipsComponentModels
+                                                          .getValueForKey(
+                                                            _model
+                                                                .skillOptionList
+                                                                .first
+                                                                .name,
+                                                            (m) => m
+                                                                .choiceChipsValues,
+                                                          )
+                                                          ?.toList()),
+                                            ));
+                                          });
+                                        }
+
+                                        setState(() {
+                                          _model
+                                              .removeAtIndexFromSkillOptionList(
+                                                  0);
+                                        });
+                                      }
                                       setState(() {
                                         FFAppState().updateCreateTaskStruct(
                                           (e) => e
@@ -1111,7 +1383,10 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                 ..languages = FFAppState()
                                                     .LanguagesListForDropDown
                                                     .toList(),
-                                            ),
+                                            )
+                                            ..taskOptions = _model
+                                                .tempSkillOptionList
+                                                .toList(),
                                         );
                                       });
                                       _model.updatedTask =

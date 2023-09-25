@@ -4,7 +4,6 @@ import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
-import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -172,8 +171,8 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          32.0, 35.0, 32.0, 16.0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 35.0, 32.0, 8.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -192,72 +191,58 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                   ),
                             ),
                           ),
-                          Container(
-                            width: 80.0,
-                            height: 41.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(5.0),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Color(0xFF5E5D5D),
-                                width: 1.0,
-                              ),
-                            ),
-                            child: FlutterFlowCountController(
-                              decrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 20.0,
-                              ),
-                              incrementIconBuilder: (enabled) => Icon(
-                                Icons.keyboard_arrow_up_rounded,
-                                color: enabled
-                                    ? Color(0xFFF06543)
-                                    : FlutterFlowTheme.of(context).alternate,
-                                size: 20.0,
-                              ),
-                              countBuilder: (count) => Text(
-                                count.toString(),
-                                style: FlutterFlowTheme.of(context)
-                                    .titleLarge
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      fontSize: 13.0,
-                                    ),
-                              ),
-                              count: _model.countControllerValue ??=
-                                  valueOrDefault<int>(
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(11.5, 0.0, 11.5, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Slider(
+                              activeColor: Color(0xFF5450E2),
+                              inactiveColor: Color(0x3C3D3D3D),
+                              min: 0.0,
+                              max: 30.0,
+                              value: _model.sliderValue ??=
+                                  valueOrDefault<double>(
                                 FFAppState()
                                     .createTask
                                     .taskerType
-                                    .yearsOfExperience,
-                                1,
+                                    .yearsOfExperience
+                                    .toDouble(),
+                                1.0,
                               ),
-                              updateCount: (count) async {
-                                setState(
-                                    () => _model.countControllerValue = count);
+                              label: _model.sliderValue.toString(),
+                              divisions: 15,
+                              onChanged: (newValue) async {
+                                newValue =
+                                    double.parse(newValue.toStringAsFixed(0));
+                                setState(() => _model.sliderValue = newValue);
                                 setState(() {
                                   FFAppState().updateCreateTaskStruct(
                                     (e) => e
                                       ..updateTaskerType(
                                         (e) => e
-                                          ..yearsOfExperience =
-                                              _model.countControllerValue,
+                                          ..yearsOfExperience = functions
+                                              .doubleToint(_model.sliderValue),
                                       ),
                                   );
                                 });
                               },
-                              stepSize: 1,
-                              contentPadding: EdgeInsetsDirectional.fromSTEB(
-                                  5.0, 0.0, 5.0, 0.0),
                             ),
                           ),
                         ],
                       ),
+                    ),
+                    Divider(
+                      height: 32.0,
+                      thickness: 1.0,
+                      indent: 32.0,
+                      endIndent: 32.0,
+                      color: Color(0xFFDEDEDE),
                     ),
                     Padding(
                       padding:

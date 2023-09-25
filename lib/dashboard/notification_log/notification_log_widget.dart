@@ -96,6 +96,7 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                             fields:
                                 '[\"subject\",\"email_content\",\"read\",\"name\"]',
                             apiGlobalKey: FFAppState().apiKey,
+                            orderBy: 'creation desc',
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
@@ -262,7 +263,12 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                                                         getJsonField(
                                                                           notificationItem,
                                                                           r'''$.email_content''',
-                                                                        ).toString(),
+                                                                        )
+                                                                            .toString()
+                                                                            .maybeHandleOverflow(
+                                                                              maxChars: 36,
+                                                                              replacement: '…',
+                                                                            ),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(

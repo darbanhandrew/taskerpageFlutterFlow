@@ -61,7 +61,7 @@ class _SortTaskerListWidgetState extends State<SortTaskerListWidget> {
       ),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
-        height: 491.0,
+        height: 300.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -180,120 +180,126 @@ class _SortTaskerListWidgetState extends State<SortTaskerListWidget> {
                   ],
                 ),
               ),
-              Divider(
-                height: 48.0,
-                thickness: 0.5,
-                color: Color(0xFFACABAB),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  setState(() {
-                    FFAppState().Sort = 'Relevance';
-                  });
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Relevance',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: Colors.black,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    if (FFAppState().Sort == 'Relevance')
-                      Icon(
-                        Icons.done_rounded,
-                        color: Color(0xFF00C661),
-                        size: 20.0,
-                      ),
-                  ],
+              if (true)
+                Divider(
+                  height: 48.0,
+                  thickness: 0.5,
+                  color: Color(0xFFACABAB),
                 ),
-              ),
-              Divider(
-                height: 48.0,
-                thickness: 0.5,
-                color: Color(0xFFACABAB),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  setState(() {
-                    FFAppState().Sort = 'Expensive first';
-                  });
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Expensive first',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: Colors.black,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    if (FFAppState().Sort == 'Expensive first')
-                      Icon(
-                        Icons.done_rounded,
-                        color: Color(0xFF00C661),
-                        size: 20.0,
+              if (true)
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    setState(() {
+                      FFAppState().Sort = 'Relevance';
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Relevance',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                  ],
+                      if (FFAppState().Sort == 'Relevance')
+                        Icon(
+                          Icons.done_rounded,
+                          color: Color(0xFF00C661),
+                          size: 20.0,
+                        ),
+                    ],
+                  ),
                 ),
-              ),
-              Divider(
-                height: 48.0,
-                thickness: 0.5,
-                color: Color(0xFFACABAB),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  setState(() {
-                    FFAppState().Sort = 'Cheapest first';
-                  });
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Cheapest first',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: Colors.black,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    if (FFAppState().Sort == 'Cheapest first')
-                      Icon(
-                        Icons.done_rounded,
-                        color: Color(0xFF00C661),
-                        size: 20.0,
+              if (true)
+                Divider(
+                  height: 48.0,
+                  thickness: 0.5,
+                  color: Color(0xFFACABAB),
+                ),
+              if (true)
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    setState(() {
+                      FFAppState().Sort = 'Expensive first';
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Expensive first',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
-                  ],
+                      if (FFAppState().Sort == 'Expensive first')
+                        Icon(
+                          Icons.done_rounded,
+                          color: Color(0xFF00C661),
+                          size: 20.0,
+                        ),
+                    ],
+                  ),
                 ),
-              ),
+              if (true)
+                Divider(
+                  height: 48.0,
+                  thickness: 0.5,
+                  color: Color(0xFFACABAB),
+                ),
+              if (true)
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    setState(() {
+                      FFAppState().Sort = 'Cheapest first';
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Cheapest first',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      if (FFAppState().Sort == 'Cheapest first')
+                        Icon(
+                          Icons.done_rounded,
+                          color: Color(0xFF00C661),
+                          size: 20.0,
+                        ),
+                    ],
+                  ),
+                ),
               Divider(
                 height: 48.0,
                 thickness: 0.5,

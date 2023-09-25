@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -591,11 +590,6 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.textController1,
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  '_model.textController1',
-                                  Duration(milliseconds: 2000),
-                                  () => setState(() {}),
-                                ),
                                 onFieldSubmitted: (_) async {
                                   setState(() {
                                     FFAppState().updateUserInformationStruct(
@@ -647,19 +641,6 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                  suffixIcon:
-                                      _model.textController1!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                _model.textController1?.clear();
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                size: 15.0,
-                                              ),
-                                            )
-                                          : null,
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -716,11 +697,6 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.textController2,
-                                onChanged: (_) => EasyDebounce.debounce(
-                                  '_model.textController2',
-                                  Duration(milliseconds: 2000),
-                                  () => setState(() {}),
-                                ),
                                 onFieldSubmitted: (_) async {
                                   setState(() {
                                     FFAppState().updateUserInformationStruct(
@@ -772,19 +748,6 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                     ),
                                     borderRadius: BorderRadius.circular(5.0),
                                   ),
-                                  suffixIcon:
-                                      _model.textController2!.text.isNotEmpty
-                                          ? InkWell(
-                                              onTap: () async {
-                                                _model.textController2?.clear();
-                                                setState(() {});
-                                              },
-                                              child: Icon(
-                                                Icons.clear,
-                                                size: 15.0,
-                                              ),
-                                            )
-                                          : null,
                                 ),
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium

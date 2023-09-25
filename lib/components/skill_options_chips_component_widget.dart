@@ -14,9 +14,11 @@ class SkillOptionsChipsComponentWidget extends StatefulWidget {
   const SkillOptionsChipsComponentWidget({
     Key? key,
     required this.skillOption,
+    this.selectedChips,
   }) : super(key: key);
 
   final dynamic skillOption;
+  final dynamic selectedChips;
 
   @override
   _SkillOptionsChipsComponentWidgetState createState() =>
@@ -53,7 +55,7 @@ class _SkillOptionsChipsComponentWidgetState
     context.watch<FFAppState>();
 
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Row(
           mainAxisSize: MainAxisSize.max,
@@ -118,9 +120,8 @@ class _SkillOptionsChipsComponentWidgetState
                   alignment: WrapAlignment.center,
                   controller: _model.choiceChipsValueController ??=
                       FormFieldController<List<String>>(
-                    [],
+                    functions.convertStringToListOfString(widget.selectedChips),
                   ),
-                  wrapped: true,
                 ),
               ),
             ],

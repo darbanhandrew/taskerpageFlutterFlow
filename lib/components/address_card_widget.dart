@@ -271,26 +271,37 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      var _shouldSetState = false;
                       _model.apiResultqzc =
                           await TaskerpageBackendGroup.deleteAddressCall.call(
                         id: getJsonField(
                           widget.address,
-                          r'''$.id''',
+                          r'''$.name''',
                         ),
                         apiGlobalKey: FFAppState().apiKey,
                       );
-                      _shouldSetState = true;
                       if ((_model.apiResultqzc?.succeeded ?? true)) {
-                        FFAppState().clearMyAddressesCache();
-                        if (_shouldSetState) setState(() {});
-                        return;
+                        await widget.action?.call();
                       } else {
-                        if (_shouldSetState) setState(() {});
-                        return;
+                        await showDialog(
+                          context: context,
+                          builder: (alertDialogContext) {
+                            return AlertDialog(
+                              title: Text('LinkExistsError'),
+                              content: Text(
+                                  'you cant remove this address , This address has been used somewhere before !'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () =>
+                                      Navigator.pop(alertDialogContext),
+                                  child: Text('Ok'),
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       }
 
-                      if (_shouldSetState) setState(() {});
+                      setState(() {});
                     },
                     child: Container(
                       width: 104.0,

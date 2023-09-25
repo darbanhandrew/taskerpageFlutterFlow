@@ -12,11 +12,13 @@ class CreateTaskStruct extends BaseStruct {
     TaskAddressStruct? taskAddress,
     TaskScheduleStruct? taskSchedule,
     TaskerTypeStruct? taskerType,
+    List<SkillOptionsStruct>? taskOptions,
   })  : _skillCategory = skillCategory,
         _taskDeatels = taskDeatels,
         _taskAddress = taskAddress,
         _taskSchedule = taskSchedule,
-        _taskerType = taskerType;
+        _taskerType = taskerType,
+        _taskOptions = taskOptions;
 
   // "skill_category" field.
   String? _skillCategory;
@@ -56,6 +58,14 @@ class CreateTaskStruct extends BaseStruct {
       updateFn(_taskerType ??= TaskerTypeStruct());
   bool hasTaskerType() => _taskerType != null;
 
+  // "taskOptions" field.
+  List<SkillOptionsStruct>? _taskOptions;
+  List<SkillOptionsStruct> get taskOptions => _taskOptions ?? const [];
+  set taskOptions(List<SkillOptionsStruct>? val) => _taskOptions = val;
+  void updateTaskOptions(Function(List<SkillOptionsStruct>) updateFn) =>
+      updateFn(_taskOptions ??= []);
+  bool hasTaskOptions() => _taskOptions != null;
+
   static CreateTaskStruct fromMap(Map<String, dynamic> data) =>
       CreateTaskStruct(
         skillCategory: data['skill_category'] as String?,
@@ -63,6 +73,10 @@ class CreateTaskStruct extends BaseStruct {
         taskAddress: TaskAddressStruct.maybeFromMap(data['taskAddress']),
         taskSchedule: TaskScheduleStruct.maybeFromMap(data['taskSchedule']),
         taskerType: TaskerTypeStruct.maybeFromMap(data['taskerType']),
+        taskOptions: getStructList(
+          data['taskOptions'],
+          SkillOptionsStruct.fromMap,
+        ),
       );
 
   static CreateTaskStruct? maybeFromMap(dynamic data) =>
@@ -74,6 +88,7 @@ class CreateTaskStruct extends BaseStruct {
         'taskAddress': _taskAddress?.toMap(),
         'taskSchedule': _taskSchedule?.toMap(),
         'taskerType': _taskerType?.toMap(),
+        'taskOptions': _taskOptions?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -97,6 +112,11 @@ class CreateTaskStruct extends BaseStruct {
         'taskerType': serializeParam(
           _taskerType,
           ParamType.DataStruct,
+        ),
+        'taskOptions': serializeParam(
+          _taskOptions,
+          ParamType.DataStruct,
+          true,
         ),
       }.withoutNulls;
 
@@ -131,6 +151,12 @@ class CreateTaskStruct extends BaseStruct {
           false,
           structBuilder: TaskerTypeStruct.fromSerializableMap,
         ),
+        taskOptions: deserializeStructParam<SkillOptionsStruct>(
+          data['taskOptions'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: SkillOptionsStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -138,17 +164,25 @@ class CreateTaskStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is CreateTaskStruct &&
         skillCategory == other.skillCategory &&
         taskDeatels == other.taskDeatels &&
         taskAddress == other.taskAddress &&
         taskSchedule == other.taskSchedule &&
-        taskerType == other.taskerType;
+        taskerType == other.taskerType &&
+        listEquality.equals(taskOptions, other.taskOptions);
   }
 
   @override
-  int get hashCode => const ListEquality().hash(
-      [skillCategory, taskDeatels, taskAddress, taskSchedule, taskerType]);
+  int get hashCode => const ListEquality().hash([
+        skillCategory,
+        taskDeatels,
+        taskAddress,
+        taskSchedule,
+        taskerType,
+        taskOptions
+      ]);
 }
 
 CreateTaskStruct createCreateTaskStruct({

@@ -7,10 +7,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +31,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
   late Profiledetails2Model _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
   var hasRowTriggered = false;
   final animationsMap = {
     'rowOnPageLoadAnimation': AnimationInfo(
@@ -64,6 +68,15 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
     super.initState();
     _model = createModel(context, () => Profiledetails2Model());
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
+
     _model.textController ??= TextEditingController();
     setupAnimations(
       animationsMap.values.where((anim) =>
@@ -83,6 +96,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -510,6 +526,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                   );
                                 });
                               },
+                              textInputAction: TextInputAction.done,
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelStyle:
@@ -569,141 +586,146 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                   ],
                 ),
               ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5.0,
-                          color: Color(0x33000000),
-                          offset: Offset(5.0, 5.0),
-                          spreadRadius: 10.0,
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Tasker_Profile');
-                            },
-                            child: Text(
-                              'I\'ll do it later',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                  ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              var _shouldSetState = false;
-                              _model.update = await TaskerpageBackendGroup
-                                  .updateProfileDeatelsCall
-                                  .call(
-                                id: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.name''',
-                                ).toString(),
-                                apiGlobalKey: FFAppState().apiKey,
-                                yearsOfExperience: FFAppState()
-                                    .UserInformation
-                                    .yearsofexperience,
-                                insurance: FFAppState()
-                                    .UserInformation
-                                    .insuranceProfileDeatels,
-                                driversLicense:
-                                    FFAppState().UserInformation.driverLicense,
-                                describtion: _model.textController.text,
-                                language: functions.arrayToString(FFAppState()
-                                    .LanguagesListForDropDown
-                                    .toList()),
-                                avatar: FFAppState().UserInformation.avatar,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.update?.succeeded ?? true)) {
-                                if (functions.jsonToString(getJsonField(
-                                      FFAppState().userProfile,
-                                      r'''$.data.role''',
-                                    )) ==
-                                    'Tasker') {
-                                  context.pushNamed('TaskersDashboard');
-                                } else {
-                                  context.pushNamed('PostersDashboard');
-                                }
-
-                                _model.apiResulteh8 =
-                                    await TaskerpageBackendGroup
-                                        .userProfileMeCall
-                                        .call(
-                                  apiGlobalKey: FFAppState().apiKey,
-                                );
-                                _shouldSetState = true;
-                                if ((_model.apiResulteh8?.succeeded ?? true)) {
-                                  FFAppState().update(() {
-                                    FFAppState().userProfile =
-                                        (_model.apiResulteh8?.jsonBody ?? '');
-                                  });
-                                }
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
-
-                              if (_shouldSetState) setState(() {});
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Save',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+              if (!(isWeb
+                  ? MediaQuery.viewInsetsOf(context).bottom > 0
+                  : _isKeyboardVisible))
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            color: Color(0x33000000),
+                            offset: Offset(5.0, 5.0),
+                            spreadRadius: 10.0,
+                          )
                         ],
                       ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Tasker_Profile');
+                              },
+                              child: Text(
+                                'I\'ll do it later',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF8A8A8A),
+                                      fontSize: 14.0,
+                                    ),
+                              ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                var _shouldSetState = false;
+                                _model.update = await TaskerpageBackendGroup
+                                    .updateProfileDeatelsCall
+                                    .call(
+                                  id: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ).toString(),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                  yearsOfExperience: FFAppState()
+                                      .UserInformation
+                                      .yearsofexperience,
+                                  insurance: FFAppState()
+                                      .UserInformation
+                                      .insuranceProfileDeatels,
+                                  driversLicense: FFAppState()
+                                      .UserInformation
+                                      .driverLicense,
+                                  describtion: _model.textController.text,
+                                  language: functions.arrayToString(FFAppState()
+                                      .LanguagesListForDropDown
+                                      .toList()),
+                                  avatar: FFAppState().UserInformation.avatar,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.update?.succeeded ?? true)) {
+                                  if (functions.jsonToString(getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.role''',
+                                      )) ==
+                                      'Tasker') {
+                                    context.pushNamed('TaskersDashboard');
+                                  } else {
+                                    context.pushNamed('PostersDashboard');
+                                  }
+
+                                  _model.apiResulteh8 =
+                                      await TaskerpageBackendGroup
+                                          .userProfileMeCall
+                                          .call(
+                                    apiGlobalKey: FFAppState().apiKey,
+                                  );
+                                  _shouldSetState = true;
+                                  if ((_model.apiResulteh8?.succeeded ??
+                                      true)) {
+                                    FFAppState().update(() {
+                                      FFAppState().userProfile =
+                                          (_model.apiResulteh8?.jsonBody ?? '');
+                                    });
+                                  }
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+
+                                if (_shouldSetState) setState(() {});
+                              },
+                              child: Container(
+                                width: 104.0,
+                                height: 40.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFF5450E2),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Save',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
-                ],
-              ),
+                  ],
+                ),
             ],
           ),
         ),

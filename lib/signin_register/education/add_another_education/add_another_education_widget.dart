@@ -7,10 +7,12 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import 'dart:async';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +42,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
   late AddAnotherEducationModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  late StreamSubscription<bool> _keyboardVisibilitySubscription;
+  bool _isKeyboardVisible = false;
 
   @override
   void initState() {
@@ -61,10 +65,28 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
             r'''$.certificate''',
           ).toString().toString();
         });
+        setState(() {
+          FFAppState().updateUserInformationStruct(
+            (e) => e
+              ..educationType = getJsonField(
+                widget.education,
+                r'''$.education_type''',
+              ).toString().toString(),
+          );
+        });
       } else {
         return;
       }
     });
+
+    if (!isWeb) {
+      _keyboardVisibilitySubscription =
+          KeyboardVisibilityController().onChange.listen((bool visible) {
+        setState(() {
+          _isKeyboardVisible = visible;
+        });
+      });
+    }
 
     _model.textController1 ??= TextEditingController(
         text: widget.education != null
@@ -87,6 +109,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
   void dispose() {
     _model.dispose();
 
+    if (!isWeb) {
+      _keyboardVisibilitySubscription.cancel();
+    }
     super.dispose();
   }
 
@@ -151,18 +176,20 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text(
-                                widget.education != null
-                                    ? 'Edit your education'
-                                    : 'Add trainings and education you participated',
-                                textAlign: TextAlign.center,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                              Flexible(
+                                child: Text(
+                                  widget.education != null
+                                      ? 'Edit your education'
+                                      : 'Add trainings and education you participated',
+                                  textAlign: TextAlign.center,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                ),
                               ),
                             ],
                           ),
@@ -623,6 +650,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       );
                                     });
                                   },
+                                  textInputAction: TextInputAction.next,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -724,6 +752,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       );
                                     });
                                   },
+                                  textInputAction: TextInputAction.done,
                                   obscureText: false,
                                   decoration: InputDecoration(
                                     isDense: true,
@@ -868,179 +897,81 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                       ],
                     ),
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: 60.0,
-                        decoration: BoxDecoration(
-                          color:
-                              FlutterFlowTheme.of(context).secondaryBackground,
-                          boxShadow: [
-                            BoxShadow(
-                              blurRadius: 5.0,
-                              color: Color(0x33000000),
-                              offset: Offset(5.0, 5.0),
-                              spreadRadius: 10.0,
-                            )
-                          ],
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 0.0, 32.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  if (!widget.isSignUp) {
-                                    context.safePop();
-                                  } else {
-                                    context.pushNamed('Profiledetails');
-                                  }
-                                },
-                                child: Container(
-                                  width: 104.0,
-                                  height: 40.0,
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(5.0),
-                                    border: Border.all(
-                                      color: widget.isSignUp
-                                          ? Colors.transparent
-                                          : Color(0xFF5450E2),
-                                    ),
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        () {
-                                          if (widget.isSignUp) {
-                                            return 'i\'ll do it later';
-                                          } else if (widget.education != null) {
-                                            return 'Discard';
-                                          } else {
-                                            return 'Cancel';
-                                          }
-                                        }(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: widget.isSignUp
-                                                  ? Color(0xFF8A8A8A)
-                                                  : Color(0xFF5450E2),
-                                              fontSize: 14.0,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              if (widget.education != null)
+                  if (!(isWeb
+                      ? MediaQuery.viewInsetsOf(context).bottom > 0
+                      : _isKeyboardVisible))
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          width: MediaQuery.sizeOf(context).width * 1.0,
+                          height: 60.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            boxShadow: [
+                              BoxShadow(
+                                blurRadius: 5.0,
+                                color: Color(0x33000000),
+                                offset: Offset(5.0, 5.0),
+                                spreadRadius: 10.0,
+                              )
+                            ],
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 0.0, 32.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
                                 InkWell(
                                   splashColor: Colors.transparent,
                                   focusColor: Colors.transparent,
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    var _shouldSetState = false;
-                                    _model.educationRequest =
-                                        await TaskerpageBackendGroup
-                                            .userEducationAddCall
-                                            .call(
-                                      title: _model.textController1.text,
-                                      schoolTitle: _model.textController2.text,
-                                      educationType: FFAppState()
-                                          .UserInformation
-                                          .educationType,
-                                      certificate: _model.certificateUrl,
-                                      customerProfile: getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.name''',
-                                      ),
-                                      apiGlobalKey: FFAppState().apiKey,
-                                    );
-                                    _shouldSetState = true;
-                                    if ((_model.educationRequest?.succeeded ??
-                                            true) !=
-                                        true) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Not Done',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                            ),
-                                          ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor: Color(0xFFE8083F),
-                                          action: SnackBarAction(
-                                            label: 'close',
-                                            textColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            onPressed: () async {
-                                              ScaffoldMessenger.of(context)
-                                                  .hideCurrentSnackBar();
-                                            },
-                                          ),
-                                        ),
-                                      );
-                                      if (_shouldSetState) setState(() {});
-                                      return;
+                                    if (!widget.isSignUp) {
+                                      context.safePop();
+                                    } else {
+                                      context.pushNamed('Profiledetails');
                                     }
-
-                                    context.pushNamed('Education-2');
-
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e..educationType = '',
-                                      );
-                                    });
-                                    if (_shouldSetState) setState(() {});
                                   },
                                   child: Container(
                                     width: 104.0,
                                     height: 40.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
+                                      color: Colors.white,
                                       borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                        color: widget.isSignUp
+                                            ? Colors.transparent
+                                            : Color(0xFF5450E2),
+                                      ),
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 5.0, 0.0),
-                                          child: Icon(
-                                            Icons.add_rounded,
-                                            color: Colors.white,
-                                            size: 10.0,
-                                          ),
-                                        ),
                                         Text(
-                                          'Add',
+                                          () {
+                                            if (widget.isSignUp) {
+                                              return 'i\'ll do it later';
+                                            } else if (widget.education !=
+                                                null) {
+                                              return 'Discard';
+                                            } else {
+                                              return 'Cancel';
+                                            }
+                                          }(),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
-                                                color: Colors.white,
+                                                color: widget.isSignUp
+                                                    ? Color(0xFF8A8A8A)
+                                                    : Color(0xFF5450E2),
                                                 fontSize: 14.0,
                                               ),
                                         ),
@@ -1048,36 +979,66 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     ),
                                   ),
                                 ),
-                              if (!widget.isSignUp &&
-                                  (widget.education == null) &&
-                                  (widget.addAnother == false))
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    var _shouldSetState = false;
-                                    _model.educationRequest2 =
-                                        await TaskerpageBackendGroup
-                                            .userEducationAddCall
-                                            .call(
-                                      title: _model.textController1.text,
-                                      schoolTitle: _model.textController2.text,
-                                      educationType: FFAppState()
-                                          .UserInformation
-                                          .educationType,
-                                      certificate: _model.certificateUrl,
-                                      customerProfile: getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.name''',
-                                      ),
-                                      apiGlobalKey: FFAppState().apiKey,
-                                    );
-                                    _shouldSetState = true;
-                                    if ((_model.educationRequest2?.succeeded ??
-                                        true)) {
-                                      context.pushNamed('Profiledetails');
+                                if (false)
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      var _shouldSetState = false;
+                                      _model.educationRequest =
+                                          await TaskerpageBackendGroup
+                                              .userEducationAddCall
+                                              .call(
+                                        title: _model.textController1.text,
+                                        schoolTitle:
+                                            _model.textController2.text,
+                                        educationType: FFAppState()
+                                            .UserInformation
+                                            .educationType,
+                                        certificate: _model.certificateUrl,
+                                        customerProfile: getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ),
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      _shouldSetState = true;
+                                      if ((_model.educationRequest?.succeeded ??
+                                              true) !=
+                                          true) {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Not Done',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor: Color(0xFFE8083F),
+                                            action: SnackBarAction(
+                                              label: 'close',
+                                              textColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              onPressed: () async {
+                                                ScaffoldMessenger.of(context)
+                                                    .hideCurrentSnackBar();
+                                              },
+                                            ),
+                                          ),
+                                        );
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+
+                                      context.pushNamed('Education-2');
 
                                       setState(() {
                                         FFAppState()
@@ -1085,86 +1046,56 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                           (e) => e..educationType = '',
                                         );
                                       });
-                                    } else {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(
-                                        SnackBar(
-                                          content: Text(
-                                            'Not Done',
-                                            style: TextStyle(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                      if (_shouldSetState) setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 104.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF5450E2),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 5.0, 0.0),
+                                            child: Icon(
+                                              Icons.add_rounded,
+                                              color: Colors.white,
+                                              size: 10.0,
                                             ),
                                           ),
-                                          duration:
-                                              Duration(milliseconds: 4000),
-                                          backgroundColor: Color(0xFFE8083F),
-                                          action: SnackBarAction(
-                                            label: 'close',
-                                            textColor:
-                                                FlutterFlowTheme.of(context)
-                                                    .primaryText,
-                                            onPressed: () async {
-                                              ScaffoldMessenger.of(context)
-                                                  .hideCurrentSnackBar();
-                                            },
+                                          Text(
+                                            'Add',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Colors.white,
+                                                  fontSize: 14.0,
+                                                ),
                                           ),
-                                        ),
-                                      );
-                                      if (_shouldSetState) setState(() {});
-                                      return;
-                                    }
-
-                                    if (_shouldSetState) setState(() {});
-                                  },
-                                  child: Container(
-                                    width: 104.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Next',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Colors.white,
-                                                fontSize: 14.0,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: Colors.white,
-                                            size: 10.0,
-                                          ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                              if ((widget.education != null) ||
-                                  (widget.addAnother == true))
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    var _shouldSetState = false;
-                                    if (widget.addAnother == true) {
-                                      _model.educationRequest236 =
+                                if (widget.isSignUp &&
+                                    (widget.education == null) &&
+                                    (widget.addAnother == false))
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      var _shouldSetState = false;
+                                      _model.educationRequest2 =
                                           await TaskerpageBackendGroup
                                               .userEducationAddCall
                                               .call(
@@ -1183,9 +1114,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       );
                                       _shouldSetState = true;
                                       if ((_model
-                                              .educationRequest236?.succeeded ??
+                                              .educationRequest2?.succeeded ??
                                           true)) {
-                                        context.safePop();
+                                        context.pushNamed('Profiledetails');
+
                                         setState(() {
                                           FFAppState()
                                               .updateUserInformationStruct(
@@ -1222,110 +1154,221 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         if (_shouldSetState) setState(() {});
                                         return;
                                       }
-                                    } else {
-                                      _model.educationRequest23 =
-                                          await TaskerpageBackendGroup
-                                              .educationPartialUpdateCall
-                                              .call(
-                                        id: getJsonField(
-                                          widget.education,
-                                          r'''$.name''',
-                                        ),
-                                        schoolTitle:
-                                            _model.textController2.text,
-                                        title: _model.textController1.text,
-                                        certificateUrl: _model.certificateUrl,
-                                        apiGlobalKey: FFAppState().apiKey,
-                                        educationLevel: FFAppState()
-                                            .UserInformation
-                                            .educationType,
-                                      );
-                                      _shouldSetState = true;
-                                      if (!(_model
-                                              .educationRequest23?.succeeded ??
-                                          true)) {
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Not Done',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                              ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor: Color(0xFFE8083F),
-                                            action: SnackBarAction(
-                                              label: 'close',
-                                              textColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              onPressed: () async {
-                                                ScaffoldMessenger.of(context)
-                                                    .hideCurrentSnackBar();
-                                              },
-                                            ),
-                                          ),
-                                        );
-                                        if (_shouldSetState) setState(() {});
-                                        return;
-                                      }
-                                      context.safePop();
-                                      setState(() {
-                                        FFAppState()
-                                            .updateUserInformationStruct(
-                                          (e) => e..educationType = '',
-                                        );
-                                      });
-                                    }
 
-                                    if (_shouldSetState) setState(() {});
-                                  },
-                                  child: Container(
-                                    width: 104.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Save',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Colors.white,
-                                                fontSize: 14.0,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: Icon(
-                                            Icons.arrow_forward_ios_rounded,
-                                            color: Colors.white,
-                                            size: 10.0,
+                                      if (_shouldSetState) setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 104.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF5450E2),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Next',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Colors.white,
+                                                  fontSize: 14.0,
+                                                ),
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              color: Colors.white,
+                                              size: 10.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ),
-                                ),
-                            ],
+                                if ((widget.education != null) ||
+                                    (widget.addAnother == true))
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      var _shouldSetState = false;
+                                      if (widget.addAnother == true) {
+                                        _model.educationRequest236 =
+                                            await TaskerpageBackendGroup
+                                                .userEducationAddCall
+                                                .call(
+                                          title: _model.textController1.text,
+                                          schoolTitle:
+                                              _model.textController2.text,
+                                          educationType: FFAppState()
+                                              .UserInformation
+                                              .educationType,
+                                          certificate: _model.certificateUrl,
+                                          customerProfile: getJsonField(
+                                            FFAppState().userProfile,
+                                            r'''$.data.name''',
+                                          ),
+                                          apiGlobalKey: FFAppState().apiKey,
+                                        );
+                                        _shouldSetState = true;
+                                        if ((_model.educationRequest236
+                                                ?.succeeded ??
+                                            true)) {
+                                          context.safePop();
+                                          setState(() {
+                                            FFAppState()
+                                                .updateUserInformationStruct(
+                                              (e) => e..educationType = '',
+                                            );
+                                          });
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Not Done',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  Color(0xFFE8083F),
+                                              action: SnackBarAction(
+                                                label: 'close',
+                                                textColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                onPressed: () async {
+                                                  ScaffoldMessenger.of(context)
+                                                      .hideCurrentSnackBar();
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
+                                      } else {
+                                        _model.educationRequest23 =
+                                            await TaskerpageBackendGroup
+                                                .educationPartialUpdateCall
+                                                .call(
+                                          id: getJsonField(
+                                            widget.education,
+                                            r'''$.name''',
+                                          ),
+                                          schoolTitle:
+                                              _model.textController2.text,
+                                          title: _model.textController1.text,
+                                          certificateUrl: _model.certificateUrl,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                          educationLevel: FFAppState()
+                                              .UserInformation
+                                              .educationType,
+                                        );
+                                        _shouldSetState = true;
+                                        if (!(_model.educationRequest23
+                                                ?.succeeded ??
+                                            true)) {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Not Done',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  Color(0xFFE8083F),
+                                              action: SnackBarAction(
+                                                label: 'close',
+                                                textColor:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                                onPressed: () async {
+                                                  ScaffoldMessenger.of(context)
+                                                      .hideCurrentSnackBar();
+                                                },
+                                              ),
+                                            ),
+                                          );
+                                          if (_shouldSetState) setState(() {});
+                                          return;
+                                        }
+                                        context.safePop();
+                                        setState(() {
+                                          FFAppState()
+                                              .updateUserInformationStruct(
+                                            (e) => e..educationType = '',
+                                          );
+                                        });
+                                      }
+
+                                      if (_shouldSetState) setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 104.0,
+                                      height: 40.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFF5450E2),
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Save',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Colors.white,
+                                                  fontSize: 14.0,
+                                                ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: Icon(
+                                              Icons.arrow_forward_ios_rounded,
+                                              color: Colors.white,
+                                              size: 10.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
                 ],
               ),
               if (FFAppState().AddCertificateForEducation == true)
@@ -1498,6 +1541,8 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     final selectedMedia = await selectMedia(
+                                      imageQuality: 50,
+                                      includeDimensions: true,
                                       multiImage: false,
                                     );
                                     if (selectedMedia != null &&
@@ -1541,11 +1586,6 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                             .call(
                                       file: _model.uploadedLocalFile1,
                                       apiGlobalKey: FFAppState().apiKey,
-                                      doctype: 'Customer Education',
-                                      docname: getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.name''',
-                                      ).toString(),
                                     );
                                     if ((_model.apiResultekx2?.succeeded ??
                                         true)) {

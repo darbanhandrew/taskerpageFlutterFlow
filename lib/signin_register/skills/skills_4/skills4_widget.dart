@@ -402,6 +402,8 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                   FFAppState().userProfile,
                                                   r'''$.data.name''',
                                                 ).toString()}\"]]',
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
                                               );
                                               _shouldSetState = true;
                                               if ((_model.userServiceGet
@@ -561,26 +563,31 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          if (!widget.addAnother)
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed('Contactdata-1');
-                              },
-                              child: Text(
-                                'I\'ll do it later',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF8A8A8A),
-                                      fontSize: 14.0,
-                                    ),
-                              ),
-                            ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              if (!widget.addAnother)
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    context.pushNamed('Contactdata-1');
+                                  },
+                                  child: Text(
+                                    'I\'ll do it later',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF8A8A8A),
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ),
+                            ],
+                          ),
                           InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,

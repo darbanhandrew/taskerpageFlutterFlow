@@ -55,7 +55,7 @@ class _SortBargainWidgetState extends State<SortBargainWidget> {
       ),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
-        height: 306.0,
+        height: 250.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(
@@ -174,44 +174,46 @@ class _SortBargainWidgetState extends State<SortBargainWidget> {
                   ],
                 ),
               ),
-              Divider(
-                height: 48.0,
-                thickness: 0.5,
-                color: Color(0xFFACABAB),
-              ),
-              InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  setState(() {
-                    FFAppState().Sort = 'Rates';
-                  });
-                  Navigator.pop(context);
-                },
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Rates',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: Colors.black,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                          ),
-                    ),
-                    if (FFAppState().Sort == 'Rates')
-                      Icon(
-                        Icons.done_rounded,
-                        color: Color(0xFF00C661),
-                        size: 20.0,
-                      ),
-                  ],
+              if (true)
+                Divider(
+                  height: 48.0,
+                  thickness: 0.5,
+                  color: Color(0xFFACABAB),
                 ),
-              ),
+              if (true)
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    setState(() {
+                      FFAppState().Sort = 'Rates';
+                    });
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Rates',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: Colors.black,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold,
+                            ),
+                      ),
+                      if (FFAppState().Sort == 'Rates')
+                        Icon(
+                          Icons.done_rounded,
+                          color: Color(0xFF00C661),
+                          size: 20.0,
+                        ),
+                    ],
+                  ),
+                ),
             ],
           ),
         ),

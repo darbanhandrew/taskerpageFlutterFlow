@@ -55,7 +55,7 @@ class _SortTaskListWidgetState extends State<SortTaskListWidget> {
       ),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
-        height: 429.0,
+        height: 250.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(

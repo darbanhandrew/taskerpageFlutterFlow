@@ -153,11 +153,56 @@ class _InboxWidgetState extends State<InboxWidget>
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 8.0, 0.0),
-                                          child: InkWell(
+                                        if (!true)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 8.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => FocusScope
+                                                              .of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            BargainFilterWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(0.0),
+                                                child: Image.asset(
+                                                  'assets/images/icons8-filter-32.png',
+                                                  width: 25.0,
+                                                  height: 25.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if (!true)
+                                          InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
                                             hoverColor: Colors.transparent,
@@ -187,64 +232,23 @@ class _InboxWidgetState extends State<InboxWidget>
                                               ).then((value) =>
                                                   safeSetState(() {}));
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(0.0),
-                                              child: Image.asset(
-                                                'assets/images/icons8-filter-32.png',
-                                                width: 25.0,
-                                                height: 25.0,
-                                                fit: BoxFit.cover,
-                                              ),
+                                            child: Text(
+                                              'Filters',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: Color(0xFF5450E2),
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                             ),
                                           ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        BargainFilterWidget(),
-                                                  ),
-                                                );
-                                              },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
-                                          },
-                                          child: Text(
-                                            'Filters',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFF5450E2),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  15.0, 0.0, 8.0, 0.0),
+                                                  0.0, 0.0, 8.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -317,7 +321,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                 (value) => safeSetState(() {}));
                                           },
                                           child: Text(
-                                            'Relevance',
+                                            FFAppState().Sort,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -346,12 +350,16 @@ class _InboxWidgetState extends State<InboxWidget>
                                           ).toString()}\"],[\"docstatus\",\"<\",\"2\"],[\"post\",\"=\",\"${widget.postID?.toString()}\"]]',
                                           fields:
                                               '[\"name\",\"price\",\"price_type\",\"bider\",\"post\",\"poster\",\"docstatus\",\"modified_by\",\"creation\",\"modified_by\"]',
-                                          orderBy: valueOrDefault<String>(
-                                            FFAppState().BargainUserFilter
-                                                ? 'creation asc'
-                                                : 'creation desc',
-                                            'creation desc',
-                                          ),
+                                          orderBy: () {
+                                            if (FFAppState().Sort == 'Oldest') {
+                                              return 'creation asc';
+                                            } else if (FFAppState().Sort ==
+                                                'Newest') {
+                                              return 'creation desc';
+                                            } else {
+                                              return 'creation desc';
+                                            }
+                                          }(),
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {
@@ -632,10 +640,13 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                                       children: [
                                                                                         Text(
-                                                                                          getJsonField(
-                                                                                            containerUserProfileReadResponse.jsonBody,
-                                                                                            r'''$.data.review_average''',
-                                                                                          ).toString(),
+                                                                                          valueOrDefault<String>(
+                                                                                            getJsonField(
+                                                                                              containerUserProfileReadResponse.jsonBody,
+                                                                                              r'''$.data.review_average''',
+                                                                                            ).toString(),
+                                                                                            '0',
+                                                                                          ),
                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                 fontFamily: 'Lato',
                                                                                                 color: Color(0xFFF6F6F6),
@@ -732,7 +743,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                                   functions.jsonToDateTime(getJsonField(
                                                                                     myBargainsItem,
                                                                                     r'''$.creation''',
-                                                                                  ))),
+                                                                                  ).toString())),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Lato',
                                                                                     color: Colors.black,
@@ -794,11 +805,56 @@ class _InboxWidgetState extends State<InboxWidget>
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 8.0, 0.0),
-                                          child: InkWell(
+                                        if (!true)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 8.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                await showModalBottomSheet(
+                                                  isScrollControlled: true,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  enableDrag: false,
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return GestureDetector(
+                                                      onTap: () => FocusScope
+                                                              .of(context)
+                                                          .requestFocus(_model
+                                                              .unfocusNode),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            BargainFilterWidget(),
+                                                      ),
+                                                    );
+                                                  },
+                                                ).then((value) =>
+                                                    safeSetState(() {}));
+                                              },
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(0.0),
+                                                child: Image.asset(
+                                                  'assets/images/icons8-filter-32.png',
+                                                  width: 25.0,
+                                                  height: 25.0,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        if (!true)
+                                          InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
                                             hoverColor: Colors.transparent,
@@ -828,64 +884,23 @@ class _InboxWidgetState extends State<InboxWidget>
                                               ).then((value) =>
                                                   safeSetState(() {}));
                                             },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(0.0),
-                                              child: Image.asset(
-                                                'assets/images/icons8-filter-32.png',
-                                                width: 25.0,
-                                                height: 25.0,
-                                                fit: BoxFit.cover,
-                                              ),
+                                            child: Text(
+                                              'Filters',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: Color(0xFF5450E2),
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
                                             ),
                                           ),
-                                        ),
-                                        InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            await showModalBottomSheet(
-                                              isScrollControlled: true,
-                                              backgroundColor:
-                                                  Colors.transparent,
-                                              enableDrag: false,
-                                              context: context,
-                                              builder: (context) {
-                                                return GestureDetector(
-                                                  onTap: () => FocusScope.of(
-                                                          context)
-                                                      .requestFocus(
-                                                          _model.unfocusNode),
-                                                  child: Padding(
-                                                    padding:
-                                                        MediaQuery.viewInsetsOf(
-                                                            context),
-                                                    child:
-                                                        BargainFilterWidget(),
-                                                  ),
-                                                );
-                                              },
-                                            ).then(
-                                                (value) => safeSetState(() {}));
-                                          },
-                                          child: Text(
-                                            'Filters',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFF5450E2),
-                                                  fontSize: 12.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ),
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  15.0, 0.0, 8.0, 0.0),
+                                                  0.0, 0.0, 8.0, 0.0),
                                           child: InkWell(
                                             splashColor: Colors.transparent,
                                             focusColor: Colors.transparent,
@@ -958,7 +973,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                 (value) => safeSetState(() {}));
                                           },
                                           child: Text(
-                                            'Relevance',
+                                            FFAppState().Sort,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -986,6 +1001,16 @@ class _InboxWidgetState extends State<InboxWidget>
                                           FFAppState().userProfile,
                                           r'''$.data.name''',
                                         ).toString()}\"],[\"post\",\"=\",\"${widget.postID?.toString()}\"]]',
+                                        orderBy: () {
+                                          if (FFAppState().Sort == 'Oldest') {
+                                            return 'creation asc';
+                                          } else if (FFAppState().Sort ==
+                                              'Newest') {
+                                            return 'creation desc';
+                                          } else {
+                                            return 'creation desc';
+                                          }
+                                        }(),
                                       ),
                                       builder: (context, snapshot) {
                                         // Customize what your widget looks like when it's loading.
@@ -1235,10 +1260,13 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                       ],
                                                                     ),
                                                                     Text(
-                                                                      getJsonField(
-                                                                        myBidsItem,
-                                                                        r'''$.creation''',
-                                                                      ).toString(),
+                                                                      dateTimeFormat(
+                                                                          'yMMMd',
+                                                                          functions
+                                                                              .jsonToDateTime(getJsonField(
+                                                                            myBidsItem,
+                                                                            r'''$.creation''',
+                                                                          ).toString())),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
                                                                           .bodyMedium

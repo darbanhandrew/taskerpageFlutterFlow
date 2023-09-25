@@ -1,9 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,15 +33,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HeaderModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.connectToSocket(
-        'wss://taskerpage.com/socket.io',
-        '1',
-        () async {},
-      );
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -122,9 +111,6 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     context.pushNamed('notification_log');
-                  },
-                  onLongPress: () async {
-                    await actions.registerDeviceIdInFcmToken();
                   },
                   child: Container(
                     width: 32.0,

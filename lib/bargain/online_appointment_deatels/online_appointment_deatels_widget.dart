@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/instant_timer.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:styled_divider/styled_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -472,6 +473,186 @@ class _OnlineAppointmentDeatelsWidgetState
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
+                              child: Container(
+                                height: 90.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6F6F6),
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                    color: FFAppState().CopyText == true
+                                        ? Color(0xFF00C853)
+                                        : Color(0x00000000),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      17.0, 0.0, 17.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 80.0,
+                                            height: 30.0,
+                                            decoration: BoxDecoration(
+                                              color: Color(0x00FFFFFF),
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              border: Border.all(
+                                                color: Color(0xFF5450E2),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'start time',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF5450E2),
+                                                        fontSize: 12.0,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 5.0, 0.0, 0.0),
+                                            child: Text(
+                                              dateTimeFormat(
+                                                  'jm',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    onlineAppointmentDeatelsAppointmentReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.appointment_start_time''',
+                                                  ).toString())),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF5450E2),
+                                                        fontSize: 12.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5.0, 0.0, 5.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 120.0,
+                                              child: StyledDivider(
+                                                thickness: 1.0,
+                                                color: Color(0xFF5450E2),
+                                                lineStyle:
+                                                    DividerLineStyle.dashed,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            width: 80.0,
+                                            height: 30.0,
+                                            decoration: BoxDecoration(
+                                              color: Color(0x00FFFFFF),
+                                              borderRadius:
+                                                  BorderRadius.circular(15.0),
+                                              border: Border.all(
+                                                color: Color(0xFF5450E2),
+                                              ),
+                                            ),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  'end time',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF5450E2),
+                                                        fontSize: 12.0,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 5.0, 0.0, 0.0),
+                                            child: Text(
+                                              dateTimeFormat(
+                                                  'jm',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    onlineAppointmentDeatelsAppointmentReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.appointment_end_time''',
+                                                  ).toString())),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF5450E2),
+                                                        fontSize: 12.0,
+                                                      ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 24.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
                               child: Align(
                                 alignment: AlignmentDirectional(0.00, 0.00),
                                 child: Stack(
@@ -577,7 +758,7 @@ class _OnlineAppointmentDeatelsWidgetState
                                         ),
                                       ),
                                     ),
-                                    if ((functions.jsonToString(getJsonField(
+                                    if (!((functions.jsonToString(getJsonField(
                                               onlineAppointmentDeatelsAppointmentReadResponse
                                                   .jsonBody,
                                               r'''$.data.is_tasker_accepted''',
@@ -588,7 +769,7 @@ class _OnlineAppointmentDeatelsWidgetState
                                                   .jsonBody,
                                               r'''$.data.is_poster_accepted''',
                                             )) ==
-                                            '1'))
+                                            '1')))
                                       Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [

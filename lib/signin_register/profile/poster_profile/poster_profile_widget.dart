@@ -443,11 +443,14 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text(
-                                                getJsonField(
-                                                  posterProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                  r'''$.data.review_average''',
-                                                ).toString(),
+                                                valueOrDefault<String>(
+                                                  getJsonField(
+                                                    posterProfileUserProfileMeResponse
+                                                        .jsonBody,
+                                                    r'''$.data.review_average''',
+                                                  ).toString(),
+                                                  '0',
+                                                ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -965,7 +968,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                               getJsonField(
                                                                         myPostsItem,
                                                                         r'''$.creation''',
-                                                                      ))),
+                                                                      ).toString())),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1235,7 +1238,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                                       functions.jsonToDateTime(getJsonField(
                                                                                         myReviewsItem,
                                                                                         r'''$.creation''',
-                                                                                      ))),
+                                                                                      ).toString())),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Lato',
                                                                                         color: Color(0xFF616161),
@@ -1572,7 +1575,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                                 functions.jsonToDateTime(getJsonField(
                                                                                   myReviewsItem,
                                                                                   r'''$.creation''',
-                                                                                ))),
+                                                                                ).toString())),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: Color(0xFF616161),
@@ -1803,23 +1806,27 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                             ),
                                                       ),
                                                     ),
-                                                    Text(
-                                                      getJsonField(
-                                                        posterProfileUserProfileMeResponse
-                                                            .jsonBody,
-                                                        r'''$.data.user''',
-                                                      ).toString(),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF212121),
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
+                                                    Flexible(
+                                                      child: Text(
+                                                        getJsonField(
+                                                          posterProfileUserProfileMeResponse
+                                                              .jsonBody,
+                                                          r'''$.data.user''',
+                                                        ).toString(),
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: Color(
+                                                                  0xFF212121),
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -2560,6 +2567,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       onTap: () async {
                                         var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
+                                          imageQuality: 50,
+                                          includeDimensions: true,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -2830,6 +2839,19 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                             if ((_model.apiResult59u95
                                                     ?.succeeded ??
                                                 true)) {
+                                              _model.profile =
+                                                  await TaskerpageBackendGroup
+                                                      .userProfileMeCall
+                                                      .call(
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                              );
+                                              _shouldSetState = true;
+                                              setState(() {
+                                                FFAppState().userProfile =
+                                                    (_model.profile?.jsonBody ??
+                                                        '');
+                                              });
                                               setState(() {
                                                 FFAppState().ProfileCheck =
                                                     false;
@@ -2902,6 +2924,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       onTap: () async {
                                         var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
+                                          imageQuality: 50,
+                                          includeDimensions: true,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -2970,6 +2994,18 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                           if ((_model.apiResult59uCopy05
                                                   ?.succeeded ??
                                               true)) {
+                                            _model.profile2 =
+                                                await TaskerpageBackendGroup
+                                                    .userProfileMeCall
+                                                    .call(
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            _shouldSetState = true;
+                                            setState(() {
+                                              FFAppState().userProfile =
+                                                  (_model.profile2?.jsonBody ??
+                                                      '');
+                                            });
                                             setState(() {
                                               FFAppState().ProfileCheck = false;
                                             });

@@ -19,10 +19,12 @@ class BidOnTaskerWidget extends StatefulWidget {
     Key? key,
     required this.post,
     required this.customerProfile,
+    required this.action,
   }) : super(key: key);
 
   final String? post;
   final dynamic customerProfile;
+  final Future<dynamic> Function()? action;
 
   @override
   _BidOnTaskerWidgetState createState() => _BidOnTaskerWidgetState();
@@ -291,6 +293,7 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
                                 return;
                               }
 
+                              await widget.action?.call();
                               if (_shouldSetState) setState(() {});
                             },
                             child: Container(

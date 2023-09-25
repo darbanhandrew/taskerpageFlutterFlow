@@ -471,11 +471,14 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text(
-                                            getJsonField(
-                                              taskerProfileViewUserProfileReadResponse
-                                                  .jsonBody,
-                                              r'''$.data.review_average''',
-                                            ).toString(),
+                                            valueOrDefault<String>(
+                                              getJsonField(
+                                                taskerProfileViewUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.review_average''',
+                                              ).toString(),
+                                              '0',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -1956,7 +1959,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                                                       functions.jsonToDateTime(getJsonField(
                                                                                         myReviewsItem,
                                                                                         r'''$.creation''',
-                                                                                      ))),
+                                                                                      ).toString())),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Lato',
                                                                                         color: Color(0xFF616161),
@@ -2282,7 +2285,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                                             functions.jsonToDateTime(getJsonField(
                                                                               myReviewsItem,
                                                                               r'''$.creation''',
-                                                                            ))),
+                                                                            ).toString())),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(

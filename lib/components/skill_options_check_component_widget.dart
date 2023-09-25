@@ -11,9 +11,12 @@ class SkillOptionsCheckComponentWidget extends StatefulWidget {
   const SkillOptionsCheckComponentWidget({
     Key? key,
     required this.skillOption,
-  }) : super(key: key);
+    bool? defaultValue,
+  })  : this.defaultValue = defaultValue ?? false,
+        super(key: key);
 
   final dynamic skillOption;
+  final bool defaultValue;
 
   @override
   _SkillOptionsCheckComponentWidgetState createState() =>

@@ -61,6 +61,8 @@ class PosterProfileModel extends FlutterFlowModel {
   ApiCallResponse? apiResultekx902;
   // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
   ApiCallResponse? apiResult59u95;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? profile;
   bool isDataUploading4 = false;
   FFUploadedFile uploadedLocalFile4 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -69,6 +71,8 @@ class PosterProfileModel extends FlutterFlowModel {
   ApiCallResponse? test;
   // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
   ApiCallResponse? apiResult59uCopy05;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? profile2;
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 

@@ -59,8 +59,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                 ..taskSchedule = TaskScheduleStruct(
                   startDate: functions.jsonToDateTime(getJsonField(
                     (_model.apiResultbhr?.jsonBody ?? ''),
-                    r'''$.data.start_time''',
-                  )),
+                    r'''$.data.start_date''',
+                  ).toString().toString()),
                   isExactStartTime: functions.jsonIntToBoolean(getJsonField(
                     (_model.apiResultbhr?.jsonBody ?? ''),
                     r'''$.data.is_exact_start_time''',
@@ -76,7 +76,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   startTime: functions.jsonToDateTime(getJsonField(
                     (_model.apiResultbhr?.jsonBody ?? ''),
                     r'''$.data.start_time''',
-                  )),
+                  ).toString().toString()),
                   startRangeTime: getJsonField(
                     (_model.apiResultbhr?.jsonBody ?? ''),
                     r'''$.data.start_range_time''',
@@ -93,7 +93,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                     endOn: functions.jsonToDateTime(getJsonField(
                       (_model.apiResultbhr?.jsonBody ?? ''),
                       r'''$.data.end_on''',
-                    )),
+                    ).toString().toString()),
                     endAfterNumberOfSession: getJsonField(
                       (_model.apiResultbhr?.jsonBody ?? ''),
                       r'''$.data.end_after_number_of_sessions''',
@@ -106,7 +106,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       (_model.apiResultbhr?.jsonBody ?? ''),
                       r'''$.data.monthly_repeat_type''',
                     ).toString().toString(),
-                    preferredDays: functions.jsonListToStringList(getJsonField(
+                    preferredDays:
+                        functions.convertStringToListOfString(getJsonField(
                       (_model.apiResultbhr?.jsonBody ?? ''),
                       r'''$.data.preferred_days''',
                     )),
@@ -518,7 +519,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   ),
                                 ),
                                 Container(
-                                  width: 70.0,
+                                  width: 85.0,
                                   height: 41.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
@@ -537,7 +538,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? Color(0xFFF06543)
                                           : FlutterFlowTheme.of(context)
                                               .alternate,
-                                      size: 15.0,
+                                      size: 24.0,
                                     ),
                                     incrementIconBuilder: (enabled) => Icon(
                                       Icons.keyboard_arrow_up_rounded,
@@ -545,7 +546,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? Color(0xFFF06543)
                                           : FlutterFlowTheme.of(context)
                                               .alternate,
-                                      size: 15.0,
+                                      size: 24.0,
                                     ),
                                     countBuilder: (count) => Text(
                                       count.toString(),
@@ -1067,7 +1068,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                       .fromSTEB(
                                                           0.0, 0.0, 10.0, 0.0),
                                                   child: Container(
-                                                    width: 70.0,
+                                                    width: 90.0,
                                                     height: 41.0,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
@@ -1090,22 +1091,26 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                         Icons
                                                             .keyboard_arrow_down_rounded,
                                                         color: enabled
-                                                            ? Color(0xFF3D3D3D)
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary
                                                             : FlutterFlowTheme
                                                                     .of(context)
                                                                 .alternate,
-                                                        size: 20.0,
+                                                        size: 24.0,
                                                       ),
                                                       incrementIconBuilder:
                                                           (enabled) => Icon(
                                                         Icons
                                                             .keyboard_arrow_up_rounded,
                                                         color: enabled
-                                                            ? Color(0xFF3D3D3D)
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary
                                                             : FlutterFlowTheme
                                                                     .of(context)
                                                                 .alternate,
-                                                        size: 20.0,
+                                                        size: 24.0,
                                                       ),
                                                       countBuilder: (count) =>
                                                           Text(
@@ -1217,7 +1222,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ],
                             ),
                           ),
-                        if ((_model.datePicked1 != null) &&
+                        if (((_model.datePicked1 != null) ||
+                                (FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .startDate !=
+                                    null)) &&
                             (FFAppState().exactstartingtime == false))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -1295,7 +1305,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ],
                             ),
                           ),
-                        if ((_model.datePicked1 != null) &&
+                        if (((_model.datePicked1 != null) ||
+                                (FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .startDate !=
+                                    null)) &&
                             (FFAppState().exactstartingtime == false))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -1373,7 +1388,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ],
                             ),
                           ),
-                        if ((_model.datePicked1 != null) &&
+                        if (((_model.datePicked1 != null) ||
+                                (FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .startDate !=
+                                    null)) &&
                             (FFAppState().exactstartingtime == false))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -1451,7 +1471,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ],
                             ),
                           ),
-                        if (_model.datePicked1 != null)
+                        if ((_model.datePicked1 != null) ||
+                            (FFAppState().createTask.taskSchedule.startDate !=
+                                null))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 0.0, 32.0, 0.0),
@@ -1519,7 +1541,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ],
                             ),
                           ),
-                        if (_model.datePicked1 != null)
+                        if ((_model.datePicked1 != null) ||
+                            (FFAppState().createTask.taskSchedule.startDate !=
+                                null))
                           Divider(
                             height: 32.0,
                             thickness: 1.0,
@@ -1527,7 +1551,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             endIndent: 32.0,
                             color: Color(0xFFDEDEDE),
                           ),
-                        if ((_model.datePicked1 != null) &&
+                        if (((_model.datePicked1 != null) ||
+                                (FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .startDate !=
+                                    null)) &&
                             (_model.switchValue == true))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -1621,7 +1650,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ],
                             ),
                           ),
-                        if (_model.datePicked1 != null)
+                        if ((_model.datePicked1 != null) ||
+                            (FFAppState().createTask.taskSchedule.startDate !=
+                                null))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 0.0, 32.0, 58.0),
@@ -1641,7 +1672,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       ),
                                 ),
                                 Container(
-                                  width: 70.0,
+                                  width: 90.0,
                                   height: 41.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
@@ -1660,7 +1691,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? Color(0xFFF06543)
                                           : FlutterFlowTheme.of(context)
                                               .alternate,
-                                      size: 20.0,
+                                      size: 24.0,
                                     ),
                                     incrementIconBuilder: (enabled) => Icon(
                                       Icons.keyboard_arrow_up_rounded,
@@ -1668,7 +1699,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? Color(0xFFF06543)
                                           : FlutterFlowTheme.of(context)
                                               .alternate,
-                                      size: 20.0,
+                                      size: 24.0,
                                     ),
                                     countBuilder: (count) => Text(
                                       count.toString(),

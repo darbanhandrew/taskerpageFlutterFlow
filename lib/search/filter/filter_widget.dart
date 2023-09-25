@@ -2105,66 +2105,75 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                       MainAxisSize.max,
                                                   children: [
                                                     Expanded(
-                                                      child:
-                                                          FlutterFlowDropDown<
-                                                              String>(
-                                                        controller: _model
-                                                                .dropDownValueController2 ??=
-                                                            FormFieldController<
-                                                                String>(
-                                                          _model.dropDownValue2 ??=
-                                                              FFAppState()
-                                                                  .taskFilter
-                                                                  .taskerTypeFilter
-                                                                  .languages,
-                                                        ),
-                                                        options: ['En', 'De'],
-                                                        onChanged: (val) =>
-                                                            setState(() => _model
-                                                                    .dropDownValue2 =
-                                                                val),
-                                                        width: 300.0,
-                                                        height: 41.0,
-                                                        textStyle:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: Color(
-                                                                      0xFF5E5D5D),
-                                                                  fontSize:
-                                                                      13.0,
-                                                                ),
-                                                        hintText:
-                                                            'Please select...',
-                                                        icon: Icon(
-                                                          Icons
-                                                              .keyboard_arrow_down_rounded,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryText,
-                                                          size: 24.0,
-                                                        ),
-                                                        fillColor: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        elevation: 2.0,
-                                                        borderColor:
-                                                            Color(0xFF5E5D5D),
-                                                        borderWidth: 0.0,
-                                                        borderRadius: 8.0,
-                                                        margin:
+                                                      child: Padding(
+                                                        padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    16.0,
-                                                                    4.0,
-                                                                    16.0,
-                                                                    4.0),
-                                                        hidesUnderline: true,
-                                                        isSearchable: false,
-                                                        isMultiSelect: false,
+                                                                    1.0,
+                                                                    0.0,
+                                                                    1.0,
+                                                                    0.0),
+                                                        child:
+                                                            FlutterFlowDropDown<
+                                                                String>(
+                                                          controller: _model
+                                                                  .dropDownValueController2 ??=
+                                                              FormFieldController<
+                                                                  String>(
+                                                            _model.dropDownValue2 ??=
+                                                                FFAppState()
+                                                                    .taskFilter
+                                                                    .taskerTypeFilter
+                                                                    .languages,
+                                                          ),
+                                                          options: ['En', 'De'],
+                                                          onChanged: (val) =>
+                                                              setState(() =>
+                                                                  _model.dropDownValue2 =
+                                                                      val),
+                                                          width: 300.0,
+                                                          height: 41.0,
+                                                          textStyle:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Lato',
+                                                                    color: Color(
+                                                                        0xFF5E5D5D),
+                                                                    fontSize:
+                                                                        13.0,
+                                                                  ),
+                                                          hintText:
+                                                              'Please select...',
+                                                          icon: Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                          fillColor: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryBackground,
+                                                          elevation: 2.0,
+                                                          borderColor:
+                                                              Color(0xFF5E5D5D),
+                                                          borderWidth: 0.0,
+                                                          borderRadius: 8.0,
+                                                          margin:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      16.0,
+                                                                      4.0,
+                                                                      16.0,
+                                                                      4.0),
+                                                          hidesUnderline: true,
+                                                          isSearchable: false,
+                                                          isMultiSelect: false,
+                                                        ),
                                                       ),
                                                     ),
                                                   ],
@@ -2173,7 +2182,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 15.0, 0.0, 0.0),
+                                                        0.0, 20.0, 0.0, 0.0),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
@@ -2255,7 +2264,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 15.0, 0.0, 0.0),
+                                                        0.0, 8.0, 0.0, 0.0),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,

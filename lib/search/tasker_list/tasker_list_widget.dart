@@ -7,11 +7,11 @@ import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_tasker_list_widget.dart';
 import '/components/tasker_card_widget.dart';
-import '/components/tasker_filter_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/search/tasker_filter/tasker_filter_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -32,12 +32,15 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
   late TaskerListModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  LatLng? currentUserLocationValue;
 
   @override
   void initState() {
     super.initState();
     _model = createModel(context, () => TaskerListModel());
 
+    getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
+        .then((loc) => setState(() => currentUserLocationValue = loc));
     _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -52,6 +55,21 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
   @override
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
+    if (currentUserLocationValue == null) {
+      return Container(
+        color: FlutterFlowTheme.of(context).primaryBackground,
+        child: Center(
+          child: SizedBox(
+            width: 50.0,
+            height: 50.0,
+            child: SpinKitThreeBounce(
+              color: Color(0xFF5450E2),
+              size: 50.0,
+            ),
+          ),
+        ),
+      );
+    }
 
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
@@ -476,7 +494,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                       safeSetState(() {}));
                                                 },
                                                 child: Text(
-                                                  'Relevance',
+                                                  FFAppState().Sort,
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium
@@ -625,50 +643,51 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                     .googleMapsCenter = latLng,
                                                 initialLocation: _model
                                                         .googleMapsCenter ??=
-                                                    LatLng(
-                                                        13.106061, -59.613158),
-                                                markers: (functions
-                                                            .jsonListToLatLng(
+                                                    currentUserLocationValue!,
+                                                markers:
+                                                    (functions.jsonListToLatLng(
                                                                 getJsonField(
-                                                          columnCustomerProfileListResponse
-                                                              .jsonBody,
-                                                          r'''$.data''',
-                                                        )) ??
-                                                        [])
-                                                    .map(
-                                                      (marker) =>
-                                                          FlutterFlowMarker(
-                                                        marker.serialize(),
-                                                        marker,
-                                                        () async {
-                                                          context.pushNamed(
-                                                            'Tasker_Profile_view',
-                                                            queryParameters: {
-                                                              'id':
-                                                                  serializeParam(
-                                                                functions.findNameByChosenLatLngFromJsonList(
-                                                                    _model.googleMapsCenter,
-                                                                    getJsonField(
-                                                                      columnCustomerProfileListResponse
-                                                                          .jsonBody,
-                                                                      r'''$.data''',
-                                                                    )),
-                                                                ParamType.int,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        },
-                                                      ),
-                                                    )
-                                                    .toList(),
+                                                              columnCustomerProfileListResponse
+                                                                  .jsonBody,
+                                                              r'''$.data''',
+                                                            )) ??
+                                                            [])
+                                                        .map(
+                                                          (marker) =>
+                                                              FlutterFlowMarker(
+                                                            marker.serialize(),
+                                                            marker,
+                                                            () async {
+                                                              context.pushNamed(
+                                                                'Tasker_Profile_view',
+                                                                queryParameters:
+                                                                    {
+                                                                  'id':
+                                                                      serializeParam(
+                                                                    int.tryParse(functions.findNameByChosenLatLngFromJsonList(
+                                                                        _model.googleMapsCenter,
+                                                                        getJsonField(
+                                                                          columnCustomerProfileListResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data''',
+                                                                        ))!),
+                                                                    ParamType
+                                                                        .int,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
+                                                            },
+                                                          ),
+                                                        )
+                                                        .toList(),
                                                 markerColor:
                                                     GoogleMarkerColor.violet,
                                                 mapType: MapType.normal,
                                                 style: GoogleMapStyle.standard,
-                                                initialZoom: 14.0,
+                                                initialZoom: 15.0,
                                                 allowInteraction: true,
                                                 allowZoom: true,
-                                                showZoomControls: true,
+                                                showZoomControls: false,
                                                 showLocation: true,
                                                 showCompass: false,
                                                 showMapToolbar: false,
