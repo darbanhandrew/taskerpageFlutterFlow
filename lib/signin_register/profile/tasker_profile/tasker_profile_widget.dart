@@ -13,7 +13,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -77,28 +76,6 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
         FFAppState().ProfileCheck = false;
         FFAppState().BannerCheck = false;
       });
-      _model.ad = await TaskerpageBackendGroup.getCustomerAdCall.call(
-        customerProfile: getJsonField(
-          FFAppState().userProfile,
-          r'''$.data.name''',
-        ).toString().toString(),
-        apiGlobalKey: FFAppState().apiKey,
-        position: 'profile',
-      );
-      if ((getJsonField(
-                (_model.ad?.jsonBody ?? ''),
-                r'''$.message.title''',
-              ) !=
-              null) &&
-          (random_data.randomInteger(0, 1) == 0)) {
-        setState(() {
-          FFAppState().closeAd = true;
-        });
-      } else {
-        setState(() {
-          FFAppState().closeAd = false;
-        });
-      }
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -190,169 +167,90 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         children: [
                                           Stack(
                                             children: [
-                                              FutureBuilder<ApiCallResponse>(
-                                                future: TaskerpageBackendGroup
-                                                    .getCustomerAdCall
-                                                    .call(
-                                                  customerProfile: getJsonField(
-                                                    FFAppState().userProfile,
-                                                    r'''$.data.name''',
-                                                  ).toString(),
-                                                  apiGlobalKey:
-                                                      FFAppState().apiKey,
-                                                  position: 'profile',
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            SpinKitThreeBounce(
-                                                          color:
-                                                              Color(0xFF5450E2),
-                                                          size: 50.0,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  final containerGetCustomerAdResponse =
-                                                      snapshot.data!;
-                                                  return Container(
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
+                                              Container(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
                                                             .width *
                                                         1.0,
-                                                    height: 183.0,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      image: DecorationImage(
-                                                        fit: BoxFit.cover,
-                                                        image:
-                                                            CachedNetworkImageProvider(
-                                                          () {
-                                                            if ((getJsonField(
-                                                                      containerGetCustomerAdResponse
-                                                                          .jsonBody,
-                                                                      r'''$.message.title''',
-                                                                    ) !=
-                                                                    null) &&
-                                                                (random_data
-                                                                        .randomInteger(
-                                                                            0,
-                                                                            1) ==
-                                                                    0) &&
-                                                                FFAppState()
-                                                                    .closeAd) {
-                                                              return '${FFAppState().baseUrl}${getJsonField(
-                                                                containerGetCustomerAdResponse
+                                                height: 183.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  image: DecorationImage(
+                                                    fit: BoxFit.cover,
+                                                    image:
+                                                        CachedNetworkImageProvider(
+                                                      getJsonField(
+                                                                taskerProfileUserProfileMeResponse
                                                                     .jsonBody,
-                                                                r'''$.message.image''',
-                                                              ).toString()}';
-                                                            } else if ((getJsonField(
-                                                                      containerGetCustomerAdResponse
-                                                                          .jsonBody,
-                                                                      r'''$.message.title''',
-                                                                    ) !=
-                                                                    null) &&
-                                                                (random_data
-                                                                        .randomInteger(
-                                                                            0,
-                                                                            1) ==
-                                                                    1)) {
-                                                              return (getJsonField(
-                                                                        taskerProfileUserProfileMeResponse
-                                                                            .jsonBody,
-                                                                        r'''$.data.banner''',
-                                                                      ) !=
-                                                                      null
-                                                                  ? '${FFAppState().baseUrl}${getJsonField(
-                                                                      taskerProfileUserProfileMeResponse
-                                                                          .jsonBody,
-                                                                      r'''$.data.banner''',
-                                                                    ).toString()}'
-                                                                  : '${FFAppState().baseUrl}/files/Group 213.png');
-                                                            } else {
-                                                              return (getJsonField(
-                                                                        taskerProfileUserProfileMeResponse
-                                                                            .jsonBody,
-                                                                        r'''$.data.banner''',
-                                                                      ) !=
-                                                                      null
-                                                                  ? '${FFAppState().baseUrl}${getJsonField(
-                                                                      taskerProfileUserProfileMeResponse
-                                                                          .jsonBody,
-                                                                      r'''$.data.banner''',
-                                                                    ).toString()}'
-                                                                  : '${FFAppState().baseUrl}/files/Group 213.png');
-                                                            }
-                                                          }(),
-                                                        ),
+                                                                r'''$.data.banner''',
+                                                              ) !=
+                                                              null
+                                                          ? '${FFAppState().baseUrl}${getJsonField(
+                                                              taskerProfileUserProfileMeResponse
+                                                                  .jsonBody,
+                                                              r'''$.data.banner''',
+                                                            ).toString()}'
+                                                          : '${FFAppState().baseUrl}/files/Group 213.png',
+                                                    ),
+                                                  ),
+                                                ),
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  8.0,
+                                                                  8.0,
+                                                                  0.0),
+                                                      child: Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .end,
+                                                        children: [
+                                                          InkWell(
+                                                            splashColor: Colors
+                                                                .transparent,
+                                                            focusColor: Colors
+                                                                .transparent,
+                                                            hoverColor: Colors
+                                                                .transparent,
+                                                            highlightColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            onTap: () async {
+                                                              setState(() {
+                                                                FFAppState()
+                                                                        .BannerCheck =
+                                                                    true;
+                                                              });
+                                                            },
+                                                            child:
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .editIconModel1,
+                                                              updateCallback:
+                                                                  () => setState(
+                                                                      () {}),
+                                                              child:
+                                                                  EditIconWidget(),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      8.0,
-                                                                      8.0,
-                                                                      8.0,
-                                                                      0.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .end,
-                                                            children: [
-                                                              InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  setState(() {
-                                                                    FFAppState()
-                                                                            .BannerCheck =
-                                                                        true;
-                                                                  });
-                                                                },
-                                                                child:
-                                                                    wrapWithModel(
-                                                                  model: _model
-                                                                      .editIconModel1,
-                                                                  updateCallback:
-                                                                      () => setState(
-                                                                          () {}),
-                                                                  child:
-                                                                      EditIconWidget(),
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  );
-                                                },
+                                                  ],
+                                                ),
                                               ),
                                               Align(
                                                 alignment: AlignmentDirectional(
@@ -485,11 +383,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                               .start,
                                                                       children: [
                                                                         Text(
-                                                                          getJsonField(
-                                                                            (_model.ad?.jsonBody ??
-                                                                                ''),
-                                                                            r'''$.message.title''',
-                                                                          ).toString(),
+                                                                          'Choose the best person',
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -520,10 +414,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         Flexible(
                                                                           child:
                                                                               Text(
-                                                                            getJsonField(
-                                                                              (_model.ad?.jsonBody ?? ''),
-                                                                              r'''$.message.description''',
-                                                                            ).toString(),
+                                                                            'for you Take a look at profiles ',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: Colors.white,
@@ -568,14 +459,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                         Colors
                                                                             .transparent,
                                                                     onTap:
-                                                                        () async {
-                                                                      await launchURL(
-                                                                          getJsonField(
-                                                                        (_model.ad?.jsonBody ??
-                                                                            ''),
-                                                                        r'''$.message.action_url''',
-                                                                      ).toString());
-                                                                    },
+                                                                        () async {},
                                                                     child:
                                                                         Container(
                                                                       width:
@@ -3912,6 +3796,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       onTap: () async {
                                         var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
+                                          imageQuality: 30,
+                                          includeDimensions: true,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -3961,7 +3847,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           apiGlobalKey: FFAppState().apiKey,
                                         );
                                         _shouldSetState = true;
-                                        if ((_model.apiResultekx9Copy77
+                                        if ((_model.apiResultekx9Copy77Copy
                                                 ?.succeeded ??
                                             true)) {
                                           _model.apiResult59uCopy29Copy =
@@ -3981,7 +3867,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             apiGlobalKey: FFAppState().apiKey,
                                           );
                                           _shouldSetState = true;
-                                          if ((_model.apiResult59uCopy29
+                                          if ((_model.apiResult59uCopy29Copy
                                                   ?.succeeded ??
                                               true)) {
                                             setState(() {
@@ -4268,6 +4154,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       onTap: () async {
                                         var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
+                                          imageQuality: 30,
+                                          includeDimensions: true,
                                           multiImage: false,
                                         );
                                         if (selectedMedia != null &&
@@ -4317,7 +4205,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           apiGlobalKey: FFAppState().apiKey,
                                         );
                                         _shouldSetState = true;
-                                        if ((_model.apiResultekx9?.succeeded ??
+                                        if ((_model
+                                                .apiResultekx9Copy?.succeeded ??
                                             true)) {
                                           _model.apiResult59uCopy =
                                               await TaskerpageBackendGroup
@@ -4335,7 +4224,8 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             apiGlobalKey: FFAppState().apiKey,
                                           );
                                           _shouldSetState = true;
-                                          if ((_model.apiResult59u?.succeeded ??
+                                          if ((_model.apiResult59uCopy
+                                                  ?.succeeded ??
                                               true)) {
                                             _model.profile4 =
                                                 await TaskerpageBackendGroup

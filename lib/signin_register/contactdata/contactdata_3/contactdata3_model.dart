@@ -28,6 +28,8 @@ class Contactdata3Model extends FlutterFlowModel {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
+  // Stores action output result for [Backend Call - API (update identification)] action in Container widget.
+  ApiCallResponse? apiResult96l;
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 

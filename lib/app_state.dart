@@ -855,6 +855,12 @@ class FFAppState extends ChangeNotifier {
     _centerMap = _value;
   }
 
+  bool _showOptions = false;
+  bool get showOptions => _showOptions;
+  set showOptions(bool _value) {
+    _showOptions = _value;
+  }
+
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> myAddresses({
     String? uniqueQueryKey,

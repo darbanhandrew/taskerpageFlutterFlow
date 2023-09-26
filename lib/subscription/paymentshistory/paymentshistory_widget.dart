@@ -48,6 +48,9 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Drawer(
+          elevation: 16.0,
+        ),
         body: SafeArea(
           top: true,
           child: Column(

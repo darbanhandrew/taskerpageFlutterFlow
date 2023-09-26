@@ -78,7 +78,7 @@ class _SkillOptionsCheckComponentWidgetState
             unselectedWidgetColor: FlutterFlowTheme.of(context).secondaryText,
           ),
           child: Checkbox(
-            value: _model.checkboxValue ??= false,
+            value: _model.checkboxValue ??= widget.defaultValue,
             onChanged: (newValue) async {
               setState(() => _model.checkboxValue = newValue!);
             },

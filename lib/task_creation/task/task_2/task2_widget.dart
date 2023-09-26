@@ -45,6 +45,9 @@ class _Task2WidgetState extends State<Task2Widget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        FFAppState().showOptions = false;
+      });
       if (widget.id == null || widget.id == '') {
         context.pushNamed('Task-1');
       } else {
@@ -299,6 +302,9 @@ class _Task2WidgetState extends State<Task2Widget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
+                                              setState(() {
+                                                FFAppState().showOptions = true;
+                                              });
                                               if (FFAppState()
                                                       .createTask
                                                       .taskDeatels
@@ -567,7 +573,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                           },
                         ),
                       ),
-                      if (false)
+                      if (FFAppState().showOptions == true)
                         Divider(
                           height: 48.0,
                           thickness: 1.0,
@@ -575,7 +581,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                           endIndent: 32.0,
                           color: Color(0xFFE3E3E3),
                         ),
-                      if (false)
+                      if (FFAppState().showOptions == true)
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               32.0, 0.0, 32.0, 0.0),
@@ -597,7 +603,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                             ],
                           ),
                         ),
-                      if (false)
+                      if (FFAppState().showOptions == true)
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -664,24 +670,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                           skillOptionsItem,
                                                           r'''$''',
                                                         ),
-                                                        defaultValue: functions
-                                                            .stringToBoolean(
-                                                                valueOrDefault<
-                                                                    String>(
-                                                          FFAppState()
-                                                              .createTask
-                                                              .taskOptions
-                                                              .where((e) =>
-                                                                  e.name ==
-                                                                  getJsonField(
-                                                                    skillOptionsItem,
-                                                                    r'''$.option_name''',
-                                                                  ))
-                                                              .toList()
-                                                              .first
-                                                              .values,
-                                                          'false',
-                                                        )),
+                                                        defaultValue: false,
                                                       ),
                                                     ),
                                                   ),
@@ -717,11 +706,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                           skillOptionsItem,
                                                           r'''$''',
                                                         ),
-                                                        selectedChips:
-                                                            getJsonField(
-                                                          skillOptionsItem,
-                                                          r'''$.values''',
-                                                        ),
+                                                        selectedChips: '',
                                                       ),
                                                     ),
                                                   ),
@@ -1423,6 +1408,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                 .createTask
                                                 .taskDeatels
                                                 .isOnline),
+                                        optionsJson: functions
+                                            .convertDataTypeListToJsonList(
+                                                FFAppState()
+                                                    .createTask
+                                                    .taskOptions
+                                                    .toList()),
                                       );
                                       _shouldSetState = true;
                                       if ((_model.updatedTask?.succeeded ??

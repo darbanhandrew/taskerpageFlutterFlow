@@ -516,16 +516,6 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                 width: 300.0,
                                                                 height: double
                                                                     .infinity,
-                                                                searchHintTextStyle:
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          fontSize:
-                                                                              13.0,
-                                                                        ),
                                                                 textStyle: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -539,8 +529,6 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                     ),
                                                                 hintText:
                                                                     'Please select...',
-                                                                searchHintText:
-                                                                    'Search for an item...',
                                                                 icon: Icon(
                                                                   Icons
                                                                       .keyboard_arrow_down_rounded,
@@ -570,7 +558,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                 hidesUnderline:
                                                                     true,
                                                                 isSearchable:
-                                                                    true,
+                                                                    false,
                                                                 isMultiSelect:
                                                                     false,
                                                               );
@@ -608,7 +596,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                         FFButtonOptions(
                                                       width: 200.0,
                                                       height: 40.0,
-                                                      color: Color(0x00E23C12),
+                                                      color: Colors.white,
                                                       textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)

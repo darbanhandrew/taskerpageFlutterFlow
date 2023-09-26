@@ -171,6 +171,8 @@ class TaskerpageBackendGroup {
   static NotificationReadCall notificationReadCall = NotificationReadCall();
   static EducationDeletCall educationDeletCall = EducationDeletCall();
   static SkillDeletCall skillDeletCall = SkillDeletCall();
+  static UpdateIdentificationCall updateIdentificationCall =
+      UpdateIdentificationCall();
 }
 
 class RegisterCall {
@@ -5361,7 +5363,8 @@ class UpdateTaskDetailsCall {
   "language": "${languages}",
   "description": "${description}",
   "file": "${file}",
-  "is_online": ${isOnline}
+  "is_online": ${isOnline},
+  "options": ${options}
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'update task details',
@@ -5988,6 +5991,36 @@ class SkillDeletCall {
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class UpdateIdentificationCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    int? identified,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    final ffApiRequestBody = '''
+{
+"identified":"${identified}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'update identification',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        ...TaskerpageBackendGroup.headers,
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

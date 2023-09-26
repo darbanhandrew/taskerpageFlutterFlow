@@ -2567,7 +2567,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       onTap: () async {
                                         var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
-                                          imageQuality: 50,
+                                          imageQuality: 30,
                                           includeDimensions: true,
                                           multiImage: false,
                                         );
@@ -2924,7 +2924,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       onTap: () async {
                                         var _shouldSetState = false;
                                         final selectedMedia = await selectMedia(
-                                          imageQuality: 50,
+                                          imageQuality: 30,
                                           includeDimensions: true,
                                           multiImage: false,
                                         );

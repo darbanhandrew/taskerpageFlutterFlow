@@ -588,70 +588,81 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: TextFormField(
-                                controller: _model.textController1,
-                                onFieldSubmitted: (_) async {
-                                  setState(() {
-                                    FFAppState().updateUserInformationStruct(
-                                      (e) => e
-                                        ..firstname =
-                                            _model.textController1.text,
-                                    );
-                                  });
-                                },
-                                textInputAction: TextInputAction.next,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                  hintText: 'Kevin',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFFACABAB),
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFF5E5D5D),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFE8083F),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFE8083F),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
+                              child: Container(
+                                height: 41.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                    color: Color(0xFF5E5D5D),
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF212121),
-                                      fontSize: 14.0,
+                                child: TextFormField(
+                                  controller: _model.textController1,
+                                  onFieldSubmitted: (_) async {
+                                    setState(() {
+                                      FFAppState().updateUserInformationStruct(
+                                        (e) => e
+                                          ..firstname =
+                                              _model.textController1.text,
+                                      );
+                                    });
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    hintText: 'Kevin',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFFACABAB),
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x005E5D5D),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
-                                minLines: 1,
-                                validator: _model.textController1Validator
-                                    .asValidator(context),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE8083F),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE8083F),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF212121),
+                                        fontSize: 14.0,
+                                      ),
+                                  maxLines: null,
+                                  validator: _model.textController1Validator
+                                      .asValidator(context),
+                                ),
                               ),
                             ),
                           ],
@@ -695,70 +706,81 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: TextFormField(
-                                controller: _model.textController2,
-                                onFieldSubmitted: (_) async {
-                                  setState(() {
-                                    FFAppState().updateUserInformationStruct(
-                                      (e) => e
-                                        ..lastname =
-                                            _model.textController2.text,
-                                    );
-                                  });
-                                },
-                                textInputAction: TextInputAction.next,
-                                obscureText: false,
-                                decoration: InputDecoration(
-                                  isDense: true,
-                                  labelStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                  hintText: 'smith',
-                                  hintStyle: FlutterFlowTheme.of(context)
-                                      .labelMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFFACABAB),
-                                      ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFF5E5D5D),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFE8083F),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
-                                  ),
-                                  focusedErrorBorder: OutlineInputBorder(
-                                    borderSide: BorderSide(
-                                      color: Color(0xFFE8083F),
-                                      width: 1.0,
-                                    ),
-                                    borderRadius: BorderRadius.circular(5.0),
+                              child: Container(
+                                height: 41.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(5.0),
+                                  border: Border.all(
+                                    color: Color(0xFF5E5D5D),
                                   ),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF212121),
-                                      fontSize: 14.0,
+                                child: TextFormField(
+                                  controller: _model.textController2,
+                                  onFieldSubmitted: (_) async {
+                                    setState(() {
+                                      FFAppState().updateUserInformationStruct(
+                                        (e) => e
+                                          ..lastname =
+                                              _model.textController2.text,
+                                      );
+                                    });
+                                  },
+                                  textInputAction: TextInputAction.next,
+                                  obscureText: false,
+                                  decoration: InputDecoration(
+                                    isDense: true,
+                                    labelStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium,
+                                    hintText: 'smith',
+                                    hintStyle: FlutterFlowTheme.of(context)
+                                        .labelMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFFACABAB),
+                                        ),
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0x005E5D5D),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
                                     ),
-                                minLines: 1,
-                                validator: _model.textController2Validator
-                                    .asValidator(context),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    errorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE8083F),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                    focusedErrorBorder: OutlineInputBorder(
+                                      borderSide: BorderSide(
+                                        color: Color(0xFFE8083F),
+                                        width: 1.0,
+                                      ),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                    ),
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF212121),
+                                        fontSize: 14.0,
+                                      ),
+                                  minLines: 1,
+                                  validator: _model.textController2Validator
+                                      .asValidator(context),
+                                ),
                               ),
                             ),
                           ],
@@ -850,7 +872,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  3.0, 0.0, 0.0, 8.0),
+                                                  3.0, 0.0, 0.0, 7.0),
                                           child: Text(
                                             'Mobile Number',
                                             textAlign: TextAlign.justify,
@@ -864,103 +886,119 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                                 ),
                                           ),
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 0.0, 0.0, 0.0),
-                                          child: Text(
-                                            '*',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFFDD2525),
-                                                  fontSize: 20.0,
-                                                ),
+                                        Flexible(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 0.0, 0.0, 0.0),
+                                            child: Text(
+                                              '*',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFFDD2525),
+                                                        fontSize: 20.0,
+                                                      ),
+                                            ),
                                           ),
                                         ),
                                       ],
                                     ),
                                     Container(
-                                      width: 200.0,
-                                      child: TextFormField(
-                                        controller: _model.textController3,
-                                        onFieldSubmitted: (_) async {
-                                          setState(() {
-                                            FFAppState()
-                                                .updateUserInformationStruct(
-                                              (e) => e
-                                                ..mobilenumber =
-                                                    _model.textController3.text,
-                                            );
-                                          });
-                                        },
-                                        textInputAction: TextInputAction.next,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          isDense: true,
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium,
-                                          hintText: '30 327696376',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFFACABAB),
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFF3D3D3D),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE8083F),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE8083F),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(5.0),
+                                      decoration: BoxDecoration(),
+                                      child: Container(
+                                        height: 41.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          borderRadius:
+                                              BorderRadius.circular(5.0),
+                                          border: Border.all(
+                                            color: Color(0xFF3D3D3D),
                                           ),
                                         ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: Color(0xFF212121),
-                                              fontSize: 14.0,
+                                        child: TextFormField(
+                                          controller: _model.textController3,
+                                          onFieldSubmitted: (_) async {
+                                            setState(() {
+                                              FFAppState()
+                                                  .updateUserInformationStruct(
+                                                (e) => e
+                                                  ..mobilenumber = _model
+                                                      .textController3.text,
+                                              );
+                                            });
+                                          },
+                                          textInputAction: TextInputAction.next,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            isDense: true,
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium,
+                                            hintText: '30 327696376',
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Lato',
+                                                      color: Color(0xFFACABAB),
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x003D3D3D),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
                                             ),
-                                        minLines: 1,
-                                        keyboardType: TextInputType.phone,
-                                        validator: _model
-                                            .textController3Validator
-                                            .asValidator(context),
-                                        inputFormatters: [
-                                          _model.textFieldMask3
-                                        ],
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFFE8083F),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0xFFE8083F),
+                                                width: 1.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(5.0),
+                                            ),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF212121),
+                                                fontSize: 14.0,
+                                              ),
+                                          minLines: 1,
+                                          keyboardType: TextInputType.phone,
+                                          validator: _model
+                                              .textController3Validator
+                                              .asValidator(context),
+                                          inputFormatters: [
+                                            _model.textFieldMask3
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -1003,7 +1041,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 8.0, 32.0, 20.0),
+                            32.0, 8.0, 32.0, 40.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [

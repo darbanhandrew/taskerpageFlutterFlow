@@ -18,7 +18,7 @@ class SkillOptionsChipsComponentWidget extends StatefulWidget {
   }) : super(key: key);
 
   final dynamic skillOption;
-  final dynamic selectedChips;
+  final String? selectedChips;
 
   @override
   _SkillOptionsChipsComponentWidgetState createState() =>
@@ -120,7 +120,10 @@ class _SkillOptionsChipsComponentWidgetState
                   alignment: WrapAlignment.center,
                   controller: _model.choiceChipsValueController ??=
                       FormFieldController<List<String>>(
-                    functions.convertStringToListOfString(widget.selectedChips),
+                    widget.selectedChips == null || widget.selectedChips == ''
+                        ? []
+                        : functions
+                            .convertStringToListOfString2(widget.selectedChips),
                   ),
                 ),
               ),

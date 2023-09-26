@@ -1021,7 +1021,17 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                           ),
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFE8083F),
+                                              color: functions
+                                                          .jsonToInt(
+                                                              getJsonField(
+                                                            contactdata3UserProfileReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.identified''',
+                                                          ))
+                                                          .toString() ==
+                                                      '0'
+                                                  ? Color(0xFFE8073F)
+                                                  : Color(0xFF63D840),
                                               boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
@@ -1034,14 +1044,25 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
-                                                  .fromSTEB(7.0, 5.0, 7.0, 5.0),
+                                                  .fromSTEB(
+                                                      10.0, 8.0, 10.0, 8.0),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    'No',
+                                                    functions
+                                                                .jsonToInt(
+                                                                    getJsonField(
+                                                                  contactdata3UserProfileReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.identified''',
+                                                                ))
+                                                                .toString() ==
+                                                            '0'
+                                                        ? 'No'
+                                                        : 'Yes',
                                                     style: FlutterFlowTheme.of(
                                                             context)
                                                         .bodyMedium
@@ -1049,7 +1070,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                           fontFamily: 'Lato',
                                                           color:
                                                               Color(0xFFF6F6F6),
-                                                          fontSize: 10.0,
+                                                          fontSize: 11.0,
                                                           fontWeight:
                                                               FontWeight.w500,
                                                         ),
@@ -1058,34 +1079,76 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                               ),
                                             ),
                                           ),
-                                          Container(
-                                            width: 150.0,
-                                            height: 38.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFF49A1FF),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'Online Identification',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFFF6F6F6),
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              _model.apiResult96l =
+                                                  await TaskerpageBackendGroup
+                                                      .updateIdentificationCall
+                                                      .call(
+                                                id: getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.data.name''',
+                                                ).toString(),
+                                                identified: 1,
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                              );
+                                              if (!(_model.apiResult96l
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                ScaffoldMessenger.of(context)
+                                                    .showSnackBar(
+                                                  SnackBar(
+                                                    content: Text(
+                                                      'you are not identified !',
+                                                      style: TextStyle(
+                                                        color: Colors.white,
                                                         fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
                                                       ),
-                                                ),
-                                              ],
+                                                    ),
+                                                    duration: Duration(
+                                                        milliseconds: 4000),
+                                                    backgroundColor:
+                                                        Color(0xFFDD2525),
+                                                  ),
+                                                );
+                                              }
+
+                                              setState(() {});
+                                            },
+                                            child: Container(
+                                              width: 140.0,
+                                              height: 38.0,
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFF49A1FF),
+                                                borderRadius:
+                                                    BorderRadius.circular(5.0),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    'Online Identification',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFFF6F6F6),
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
                                         ],

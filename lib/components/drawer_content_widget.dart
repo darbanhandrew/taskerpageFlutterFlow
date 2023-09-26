@@ -512,11 +512,12 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
+                    context.goNamed('Sign-in');
+
                     setState(() {
                       FFAppState().apiKey = '';
+                      FFAppState().userProfile = null;
                     });
-
-                    context.goNamed('Sign-in');
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,

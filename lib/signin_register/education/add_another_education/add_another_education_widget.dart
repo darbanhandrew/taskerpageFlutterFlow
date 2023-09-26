@@ -1541,7 +1541,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     final selectedMedia = await selectMedia(
-                                      imageQuality: 50,
+                                      imageQuality: 30,
                                       includeDimensions: true,
                                       multiImage: false,
                                     );
@@ -1584,7 +1584,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     _model.apiResultekx2 =
                                         await TaskerpageBackendGroup.uploadCall
                                             .call(
-                                      file: _model.uploadedLocalFile1,
+                                      file: _model.uploadedLocalFile2,
                                       apiGlobalKey: FFAppState().apiKey,
                                     );
                                     if ((_model.apiResultekx2?.succeeded ??

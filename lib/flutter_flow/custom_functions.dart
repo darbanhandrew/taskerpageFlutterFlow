@@ -418,6 +418,17 @@ List<int> jsonListToIntList(dynamic jsonInput) {
   return [];
 }
 
+List<String>? convertStringToListOfString2(String? input) {
+  // input is a json path and the value is "Option1, Option2", parse and trim
+  if (input == null) {
+    return [];
+  }
+  final jsonString = input.toString();
+  final options = jsonString.split(',');
+  final trimmedOptions = options.map((option) => option.trim()).toList();
+  return trimmedOptions;
+}
+
 String? convertShortWeekDayToLong(List<String>? weekday) {
   // convert List of short weekdays to a list of long weekdays concatenated
   if (weekday == null) {
@@ -809,7 +820,7 @@ String? fullName(
 List<String>? convertStringToListOfString(dynamic input) {
   // input is a json path and the value is "Option1, Option2", parse and trim
   if (input == null) {
-    return null;
+    return [];
   }
   final jsonString = input.toString();
   final options = jsonString.split(',');
@@ -1022,5 +1033,14 @@ bool stringToBoolean(String? inputString) {
     return true;
   } else {
     return false;
+  }
+}
+
+int? getLengthMyList(List<dynamic>? input) {
+  // get my arguments list length
+  if (input == null) {
+    return null;
+  } else {
+    return input.length;
   }
 }
