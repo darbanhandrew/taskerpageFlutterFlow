@@ -22,7 +22,7 @@ class TaskViewWidget extends StatefulWidget {
     required this.id,
   }) : super(key: key);
 
-  final int? id;
+  final String? id;
 
   @override
   _TaskViewWidgetState createState() => _TaskViewWidgetState();
@@ -54,7 +54,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
 
     return FutureBuilder<ApiCallResponse>(
       future: TaskerpageBackendGroup.postReadCall.call(
-        id: widget.id?.toString(),
+        id: widget.id,
         apiGlobalKey: FFAppState().apiKey,
       ),
       builder: (context, snapshot) {
@@ -149,7 +149,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                       updateCallback: () => setState(() {}),
                                       child: NavigationBarWidget(
                                         currentPage: 'task_periviewe',
-                                        postId: widget.id?.toString(),
+                                        postId: widget.id,
                                       ),
                                     ),
                                   ),
@@ -264,7 +264,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                       await TaskerpageBackendGroup
                                                           .updateStatusPostCall
                                                           .call(
-                                                    id: widget.id?.toString(),
+                                                    id: widget.id,
                                                     apiGlobalKey:
                                                         FFAppState().apiKey,
                                                     draft: 2,
@@ -309,7 +309,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                         await TaskerpageBackendGroup
                                                             .updateStatusPostCall
                                                             .call(
-                                                      id: widget.id?.toString(),
+                                                      id: widget.id,
                                                       apiGlobalKey:
                                                           FFAppState().apiKey,
                                                       draft: 2,
@@ -2668,7 +2668,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                               await TaskerpageBackendGroup
                                                   .updateStatusPostCall
                                                   .call(
-                                            id: widget.id?.toString(),
+                                            id: widget.id,
                                             apiGlobalKey: FFAppState().apiKey,
                                             draft: 1,
                                           );

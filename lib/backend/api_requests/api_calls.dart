@@ -3124,7 +3124,7 @@ ${body}''';
 
 class UpdateAppointmentCall {
   Future<ApiCallResponse> call({
-    String? name = '',
+    int? name,
     int? isPosterAccepted,
     int? isTaskerAccepted,
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',

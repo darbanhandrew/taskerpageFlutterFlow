@@ -701,8 +701,8 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                                       getJsonField(
                                                                                         myBargainsPostItem,
                                                                                         r'''$.post''',
-                                                                                      ),
-                                                                                      ParamType.int,
+                                                                                      ).toString(),
+                                                                                      ParamType.String,
                                                                                     ),
                                                                                   }.withoutNulls,
                                                                                 );
@@ -1043,8 +1043,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                 getJsonField(
                                                                   myBidsItem,
                                                                   r'''$.post''',
-                                                                ),
-                                                                ParamType.int,
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                             }.withoutNulls,
                                                           );

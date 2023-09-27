@@ -605,53 +605,52 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                 initialLocation: _model
                                                         .googleMapsCenter ??=
                                                     currentUserLocationValue!,
-                                                markers:
-                                                    (functions.jsonListToLatLng(
+                                                markers: (functions
+                                                            .jsonListToLatLng(
                                                                 getJsonField(
-                                                              columnCustomerTaskListResponse
-                                                                  .jsonBody,
-                                                              r'''$.data''',
-                                                            )) ??
-                                                            [])
-                                                        .map(
-                                                          (marker) =>
-                                                              FlutterFlowMarker(
-                                                            marker.serialize(),
-                                                            marker,
-                                                            () async {
-                                                              context.pushNamed(
-                                                                'TaskView',
-                                                                queryParameters:
-                                                                    {
-                                                                  'id':
-                                                                      serializeParam(
-                                                                    int.tryParse(functions.findNameByChosenLatLngFromJsonList(
-                                                                        _model.googleMapsCenter,
-                                                                        getJsonField(
-                                                                          columnCustomerTaskListResponse
-                                                                              .jsonBody,
-                                                                          r'''$.data''',
-                                                                        ))!),
-                                                                    ParamType
-                                                                        .int,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                                extra: <String,
-                                                                    dynamic>{
-                                                                  kTransitionInfoKey:
-                                                                      TransitionInfo(
-                                                                    hasTransition:
-                                                                        true,
-                                                                    transitionType:
-                                                                        PageTransitionType
-                                                                            .bottomToTop,
-                                                                  ),
-                                                                },
-                                                              );
+                                                          columnCustomerTaskListResponse
+                                                              .jsonBody,
+                                                          r'''$.data''',
+                                                        )) ??
+                                                        [])
+                                                    .map(
+                                                      (marker) =>
+                                                          FlutterFlowMarker(
+                                                        marker.serialize(),
+                                                        marker,
+                                                        () async {
+                                                          context.pushNamed(
+                                                            'TaskView',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
+                                                                functions.findNameByChosenLatLngFromJsonList(
+                                                                    _model.googleMapsCenter,
+                                                                    getJsonField(
+                                                                      columnCustomerTaskListResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data''',
+                                                                    )),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                            extra: <String,
+                                                                dynamic>{
+                                                              kTransitionInfoKey:
+                                                                  TransitionInfo(
+                                                                hasTransition:
+                                                                    true,
+                                                                transitionType:
+                                                                    PageTransitionType
+                                                                        .bottomToTop,
+                                                              ),
                                                             },
-                                                          ),
-                                                        )
-                                                        .toList(),
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                    .toList(),
                                                 markerColor:
                                                     GoogleMarkerColor.violet,
                                                 mapType: MapType.normal,

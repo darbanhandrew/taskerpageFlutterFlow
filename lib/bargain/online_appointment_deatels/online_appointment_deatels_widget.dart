@@ -202,8 +202,8 @@ class _OnlineAppointmentDeatelsWidgetState
                                             columnCustomerProfileDetailsResponse
                                                 .jsonBody,
                                             r'''$.data.name''',
-                                          ),
-                                          ParamType.int,
+                                          ).toString(),
+                                          ParamType.String,
                                         ),
                                       }.withoutNulls,
                                     );
@@ -263,8 +263,8 @@ class _OnlineAppointmentDeatelsWidgetState
                                                           columnCustomerProfileDetailsResponse
                                                               .jsonBody,
                                                           r'''$.data.name''',
-                                                        ),
-                                                        ParamType.int,
+                                                        ).toString(),
+                                                        ParamType.String,
                                                       ),
                                                     }.withoutNulls,
                                                   );
@@ -342,8 +342,9 @@ class _OnlineAppointmentDeatelsWidgetState
                                                                     columnCustomerProfileDetailsResponse
                                                                         .jsonBody,
                                                                     r'''$.data.name''',
-                                                                  ),
-                                                                  ParamType.int,
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
                                                                 ),
                                                               }.withoutNulls,
                                                             );

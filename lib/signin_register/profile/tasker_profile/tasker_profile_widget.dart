@@ -2068,9 +2068,9 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                     getJsonField(
                                                                       myBidsItem,
                                                                       r'''$.post''',
-                                                                    ),
+                                                                    ).toString(),
                                                                     ParamType
-                                                                        .int,
+                                                                        .String,
                                                                   ),
                                                                 }.withoutNulls,
                                                               );

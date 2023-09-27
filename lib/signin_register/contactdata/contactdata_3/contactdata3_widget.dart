@@ -781,6 +781,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                   ).toList();
                                                   return ListView.builder(
                                                     padding: EdgeInsets.zero,
+                                                    primary: false,
                                                     shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,

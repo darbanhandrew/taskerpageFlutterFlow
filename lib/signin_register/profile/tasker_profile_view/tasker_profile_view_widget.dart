@@ -24,7 +24,7 @@ class TaskerProfileViewWidget extends StatefulWidget {
     required this.id,
   }) : super(key: key);
 
-  final int? id;
+  final String? id;
 
   @override
   _TaskerProfileViewWidgetState createState() =>
@@ -92,7 +92,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
 
     return FutureBuilder<ApiCallResponse>(
       future: TaskerpageBackendGroup.userProfileReadCall.call(
-        id: widget.id?.toString(),
+        id: widget.id,
         apiGlobalKey: FFAppState().apiKey,
       ),
       builder: (context, snapshot) {
@@ -1567,8 +1567,9 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                                 getJsonField(
                                                                   userBidsItem,
                                                                   r'''$.post''',
-                                                                ),
-                                                                ParamType.int,
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                             }.withoutNulls,
                                                           );

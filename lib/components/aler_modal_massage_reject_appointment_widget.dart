@@ -167,7 +167,7 @@ class _AlerModalMassageRejectAppointmentWidgetState
                           _model.apiResultsxx = await TaskerpageBackendGroup
                               .updateAppointmentCall
                               .call(
-                            name: widget.id?.toString(),
+                            name: widget.id,
                             isPosterAccepted: 0,
                             isTaskerAccepted: 0,
                             apiGlobalKey: FFAppState().apiKey,

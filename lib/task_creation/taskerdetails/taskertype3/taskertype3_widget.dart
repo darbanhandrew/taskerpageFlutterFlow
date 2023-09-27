@@ -867,8 +867,8 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                       getJsonField(
                                         (_model.taskCrreation?.jsonBody ?? ''),
                                         r'''$.data.name''',
-                                      ),
-                                      ParamType.int,
+                                      ).toString(),
+                                      ParamType.String,
                                     ),
                                   }.withoutNulls,
                                 );

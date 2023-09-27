@@ -208,8 +208,8 @@ class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {
                                                 getJsonField(
                                                   userPostsItem,
                                                   r'''$.id''',
-                                                ),
-                                                ParamType.int,
+                                                ).toString(),
+                                                ParamType.String,
                                               ),
                                             }.withoutNulls,
                                           );

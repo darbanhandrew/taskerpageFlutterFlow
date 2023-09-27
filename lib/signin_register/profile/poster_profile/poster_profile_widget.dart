@@ -865,8 +865,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                 getJsonField(
                                                                   myPostsItem,
                                                                   r'''$.name''',
-                                                                ),
-                                                                ParamType.int,
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                             }.withoutNulls,
                                                           );
@@ -933,8 +934,8 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                             getJsonField(
                                                                               myPostsItem,
                                                                               r'''$.id''',
-                                                                            ),
-                                                                            ParamType.int,
+                                                                            ).toString(),
+                                                                            ParamType.String,
                                                                           ),
                                                                         }.withoutNulls,
                                                                       );

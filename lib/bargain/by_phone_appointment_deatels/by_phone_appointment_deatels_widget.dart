@@ -200,8 +200,8 @@ class _ByPhoneAppointmentDeatelsWidgetState
                                             columnUserProfileReadResponse
                                                 .jsonBody,
                                             r'''$.data.name''',
-                                          ),
-                                          ParamType.int,
+                                          ).toString(),
+                                          ParamType.String,
                                         ),
                                       }.withoutNulls,
                                     );
@@ -261,8 +261,8 @@ class _ByPhoneAppointmentDeatelsWidgetState
                                                           columnUserProfileReadResponse
                                                               .jsonBody,
                                                           r'''$.data.name''',
-                                                        ),
-                                                        ParamType.int,
+                                                        ).toString(),
+                                                        ParamType.String,
                                                       ),
                                                     }.withoutNulls,
                                                   );
@@ -340,8 +340,9 @@ class _ByPhoneAppointmentDeatelsWidgetState
                                                                     columnUserProfileReadResponse
                                                                         .jsonBody,
                                                                     r'''$.data.name''',
-                                                                  ),
-                                                                  ParamType.int,
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
                                                                 ),
                                                               }.withoutNulls,
                                                             );

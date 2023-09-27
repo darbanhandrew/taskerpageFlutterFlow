@@ -439,8 +439,8 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                       getJsonField(
                         widget.userProfile,
                         r'''$.name''',
-                      ),
-                      ParamType.int,
+                      ).toString(),
+                      ParamType.String,
                     ),
                   }.withoutNulls,
                 );

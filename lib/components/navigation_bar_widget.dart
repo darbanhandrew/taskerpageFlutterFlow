@@ -253,8 +253,8 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                   'TaskView',
                   queryParameters: {
                     'id': serializeParam(
-                      int.tryParse(widget.postId!),
-                      ParamType.int,
+                      (int.tryParse(widget.postId!))?.toString(),
+                      ParamType.String,
                     ),
                   }.withoutNulls,
                 );

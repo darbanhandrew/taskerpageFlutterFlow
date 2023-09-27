@@ -644,42 +644,41 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                 initialLocation: _model
                                                         .googleMapsCenter ??=
                                                     currentUserLocationValue!,
-                                                markers:
-                                                    (functions.jsonListToLatLng(
+                                                markers: (functions
+                                                            .jsonListToLatLng(
                                                                 getJsonField(
-                                                              columnCustomerProfileListResponse
-                                                                  .jsonBody,
-                                                              r'''$.data''',
-                                                            )) ??
-                                                            [])
-                                                        .map(
-                                                          (marker) =>
-                                                              FlutterFlowMarker(
-                                                            marker.serialize(),
-                                                            marker,
-                                                            () async {
-                                                              context.pushNamed(
-                                                                'Tasker_Profile_view',
-                                                                queryParameters:
-                                                                    {
-                                                                  'id':
-                                                                      serializeParam(
-                                                                    int.tryParse(functions.findNameByChosenLatLngFromJsonList(
-                                                                        _model.googleMapsCenter,
-                                                                        getJsonField(
-                                                                          columnCustomerProfileListResponse
-                                                                              .jsonBody,
-                                                                          r'''$.data''',
-                                                                        ))!),
-                                                                    ParamType
-                                                                        .int,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
-                                                            },
-                                                          ),
-                                                        )
-                                                        .toList(),
+                                                          columnCustomerProfileListResponse
+                                                              .jsonBody,
+                                                          r'''$.data''',
+                                                        )) ??
+                                                        [])
+                                                    .map(
+                                                      (marker) =>
+                                                          FlutterFlowMarker(
+                                                        marker.serialize(),
+                                                        marker,
+                                                        () async {
+                                                          context.pushNamed(
+                                                            'Tasker_Profile_view',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
+                                                                functions.findNameByChosenLatLngFromJsonList(
+                                                                    _model.googleMapsCenter,
+                                                                    getJsonField(
+                                                                      columnCustomerProfileListResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data''',
+                                                                    )),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        },
+                                                      ),
+                                                    )
+                                                    .toList(),
                                                 markerColor:
                                                     GoogleMarkerColor.violet,
                                                 mapType: MapType.normal,

@@ -258,8 +258,8 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                                   columnCustomerProfileDetailsResponse
                                                       .jsonBody,
                                                   r'''$.data.name''',
-                                                ),
-                                                ParamType.int,
+                                                ).toString(),
+                                                ParamType.String,
                                               ),
                                             }.withoutNulls,
                                           );
@@ -326,8 +326,8 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                                                 columnCustomerProfileDetailsResponse
                                                                     .jsonBody,
                                                                 r'''$.data.name''',
-                                                              ),
-                                                              ParamType.int,
+                                                              ).toString(),
+                                                              ParamType.String,
                                                             ),
                                                           }.withoutNulls,
                                                         );
@@ -415,9 +415,9 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                                                           columnCustomerProfileDetailsResponse
                                                                               .jsonBody,
                                                                           r'''$.data.name''',
-                                                                        ),
+                                                                        ).toString(),
                                                                         ParamType
-                                                                            .int,
+                                                                            .String,
                                                                       ),
                                                                     }.withoutNulls,
                                                                   );

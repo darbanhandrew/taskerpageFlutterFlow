@@ -537,8 +537,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                               getJsonField(
                                                                                 containerUserProfileReadResponse.jsonBody,
                                                                                 r'''$.data.name''',
-                                                                              ),
-                                                                              ParamType.int,
+                                                                              ).toString(),
+                                                                              ParamType.String,
                                                                             ),
                                                                           }.withoutNulls,
                                                                         );
@@ -601,8 +601,8 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                                           getJsonField(
                                                                                             containerUserProfileReadResponse.jsonBody,
                                                                                             r'''$.data.name''',
-                                                                                          ),
-                                                                                          ParamType.int,
+                                                                                          ).toString(),
+                                                                                          ParamType.String,
                                                                                         ),
                                                                                       }.withoutNulls,
                                                                                     );
@@ -1103,8 +1103,9 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                   containerUserProfileReadResponse
                                                                       .jsonBody,
                                                                   r'''$.data.name''',
-                                                                ),
-                                                                ParamType.int,
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
                                                               ),
                                                             }.withoutNulls,
                                                           );

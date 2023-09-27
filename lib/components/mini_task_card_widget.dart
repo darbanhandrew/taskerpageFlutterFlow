@@ -214,7 +214,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                         widget.post,
                                         r'''$.skill_category_name''',
                                       ).toString().maybeHandleOverflow(
-                                            maxChars: 17,
+                                            maxChars: 10,
                                             replacement: '…',
                                           ),
                                       style: FlutterFlowTheme.of(context)
@@ -246,7 +246,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                         widget.post,
                                         r'''$.skill_name''',
                                       ).toString().maybeHandleOverflow(
-                                            maxChars: 17,
+                                            maxChars: 12,
                                             replacement: '…',
                                           ),
                                       style: FlutterFlowTheme.of(context)
@@ -370,8 +370,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                       getJsonField(
                         widget.post,
                         r'''$.name''',
-                      ),
-                      ParamType.int,
+                      ).toString(),
+                      ParamType.String,
                     ),
                   }.withoutNulls,
                 );

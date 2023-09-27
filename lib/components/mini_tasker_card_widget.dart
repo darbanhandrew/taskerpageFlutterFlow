@@ -369,8 +369,8 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                         getJsonField(
                           widget.userProfile,
                           r'''$.name''',
-                        ),
-                        ParamType.int,
+                        ).toString(),
+                        ParamType.String,
                       ),
                     }.withoutNulls,
                   );

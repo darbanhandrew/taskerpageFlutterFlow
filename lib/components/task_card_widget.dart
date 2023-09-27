@@ -248,7 +248,10 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                                       getJsonField(
                                         widget.post,
                                         r'''$.skill_name''',
-                                      ).toString(),
+                                      ).toString().maybeHandleOverflow(
+                                            maxChars: 20,
+                                            replacement: '…',
+                                          ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -450,8 +453,8 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                       getJsonField(
                         widget.post,
                         r'''$.name''',
-                      ),
-                      ParamType.int,
+                      ).toString(),
+                      ParamType.String,
                     ),
                   }.withoutNulls,
                 );

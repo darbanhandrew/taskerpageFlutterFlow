@@ -763,8 +763,8 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                                                             getJsonField(
                                                               userPostsItem,
                                                               r'''$.name''',
-                                                            ),
-                                                            ParamType.int,
+                                                            ).toString(),
+                                                            ParamType.String,
                                                           ),
                                                         }.withoutNulls,
                                                       );

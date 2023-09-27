@@ -350,7 +350,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Tasker_Profile_view',
           path: '/taskerProfileView',
           builder: (context, params) => TaskerProfileViewWidget(
-            id: params.getParam('id', ParamType.int),
+            id: params.getParam('id', ParamType.String),
           ),
         ),
         FFRoute(
@@ -381,7 +381,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'TaskView',
           path: '/taskView',
           builder: (context, params) => TaskViewWidget(
-            id: params.getParam('id', ParamType.int),
+            id: params.getParam('id', ParamType.String),
           ),
         ),
         FFRoute(
