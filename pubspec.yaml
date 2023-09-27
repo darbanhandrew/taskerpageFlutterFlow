@@ -44,6 +44,9 @@ dependencies:
   fl_chart: 0.55.0
   flip_card: 0.6.0
   flutter_animate: 4.1.1+1
+  flutter_barcode_scanner: 
+    git:
+      url: https://github.com/FlutterFlow/flutter_barcode_scanner
   flutter_cache_manager: 3.3.0
   flutter_google_places: 
     git:
@@ -118,8 +121,6 @@ dependencies:
   cupertino_icons: ^1.0.0
 
 dev_dependencies:
-  integration_test: 
-    sdk: flutter
 
   flutter_test:
     sdk: flutter

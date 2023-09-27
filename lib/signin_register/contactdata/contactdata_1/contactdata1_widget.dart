@@ -1434,12 +1434,11 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                         FFAppState().centerMap, false),
                                     longitude: functions.getLatLngAsString(
                                         FFAppState().centerMap, true),
-                                    isMainAddress:
-                                        FFAppState().Address.isMainAddress,
+                                    isMainAddress: 0,
                                     customerProfile: getJsonField(
                                       FFAppState().userProfile,
                                       r'''$.data.name''',
-                                    ),
+                                    ).toString(),
                                     apiGlobalKey: FFAppState().apiKey,
                                   );
                                   _shouldSetState = true;
@@ -1593,12 +1592,11 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                         FFAppState().centerMap, false),
                                     longitude: functions.getLatLngAsString(
                                         FFAppState().centerMap, true),
-                                    isMainAddress:
-                                        FFAppState().Address.isMainAddress,
+                                    isMainAddress: 0,
                                     customerProfile: getJsonField(
                                       FFAppState().userProfile,
                                       r'''$.data.name''',
-                                    ),
+                                    ).toString(),
                                     apiGlobalKey: FFAppState().apiKey,
                                   );
                                   _shouldSetState = true;

@@ -1,5 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -40,15 +39,12 @@ class SignInModel extends FlutterFlowModel {
   ApiCallResponse? apiResultfu7;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? apiResultem2;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     passwordVisibility = false;
-    drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
   void dispose() {
@@ -56,7 +52,6 @@ class SignInModel extends FlutterFlowModel {
     headerModel.dispose();
     textController1?.dispose();
     textController2?.dispose();
-    drawerContentModel.dispose();
   }
 
   /// Action blocks are added here.

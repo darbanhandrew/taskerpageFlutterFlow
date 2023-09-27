@@ -467,7 +467,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                       containerUserProfileReadResponse
                                                                           .jsonBody,
                                                                       r'''$.data.name''',
-                                                                    ),
+                                                                    ).toString(),
                                                                     postID: widget
                                                                         .postID!
                                                                         .toString(),

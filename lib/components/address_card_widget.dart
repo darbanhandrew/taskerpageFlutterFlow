@@ -276,7 +276,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         id: getJsonField(
                           widget.address,
                           r'''$.name''',
-                        ),
+                        ).toString(),
                         apiGlobalKey: FFAppState().apiKey,
                       );
                       if ((_model.apiResultqzc?.succeeded ?? true)) {

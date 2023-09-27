@@ -670,8 +670,8 @@ class AddressCreateCall {
     String? aptNo = '',
     String? latitude = '',
     String? longitude = '',
-    bool? isMainAddress,
-    int? customerProfile,
+    int? isMainAddress = 0,
+    String? customerProfile = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     final ffApiRequestBody = '''
@@ -802,7 +802,7 @@ class UserEducationAddCall {
     String? educationType = '',
     String? schoolTitle = '',
     String? certificate = '',
-    int? customerProfile,
+    String? customerProfile = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     final ffApiRequestBody = '''
@@ -811,7 +811,7 @@ class UserEducationAddCall {
   "education_type": "${educationType}",
   "school_title": "${schoolTitle}",
   "certificate": "${certificate}",
-  "customer_profile": ${customerProfile}
+  "customer_profile": "${customerProfile}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'userEducationAdd',
@@ -1026,7 +1026,7 @@ class CreateUserServiceCall {
 class EditUserServiceCall {
   Future<ApiCallResponse> call({
     String? serviceSkillLevel = '',
-    int? id,
+    String? id = '',
     dynamic? skillOptionsJson,
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
@@ -1097,7 +1097,7 @@ class GetUserServiceByIdCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': 'token 77158c293697c29:3f2c5ed5b1a6515',
+        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       returnBody: true,
@@ -1144,7 +1144,7 @@ class GetUserServiceByIdCall {
 
 class DeleteUserServiceByIdCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -1201,7 +1201,7 @@ class DeleteUserServiceByIdCall {
 
 class SetAddressMainCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     bool? isMainAddress,
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
@@ -1241,7 +1241,7 @@ class SetAddressMainCall {
 
 class DeleteAddressCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -1429,7 +1429,7 @@ class ChangeMyRoleCall {
 
 class ChangeProfileDeatelsCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     bool? hasInsurance,
     int? yearsOfExperience,
     String? driverLicense = '',
@@ -1546,7 +1546,7 @@ class ChangeProfileDeatelsCall {
 
 class ChangeDescriptionAndProfileImageCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     String? description = '',
     String? avatar = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
@@ -1941,7 +1941,7 @@ class UpdatePostCall {
     int? postStatus,
     int? relatedService,
     int? relatedServiceCategory,
-    int? id,
+    String? id = '',
     String? taskerAge = '',
     bool? identified,
     String? taskerGender = '',
@@ -2307,7 +2307,7 @@ class InitiatePostCall {
 
 class SinglePostReadCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -2317,7 +2317,7 @@ class SinglePostReadCall {
       callType: ApiCallType.GET,
       headers: {
         ...TaskerpageBackendGroup.headers,
-        'Authorization': 'token 58d674f26c65799:577ceab4127df24',
+        'Authorization': '${apiGlobalKey}',
       },
       params: {},
       returnBody: true,
@@ -3599,7 +3599,7 @@ class GetUserServicesCall {
 
 class EducationPartialUpdateCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     String? schoolTitle = '',
     String? title = '',
     String? certificateUrl = '',
@@ -3698,7 +3698,7 @@ class CreateBargainCall {
 
 class GetServiceCategoryByIdCall {
   Future<ApiCallResponse> call({
-    int? id,
+    String? id = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
@@ -3749,7 +3749,7 @@ class GetServiceCategoryByIdCall {
 class UpdatePostCalendarDataCall {
   Future<ApiCallResponse> call({
     dynamic? dataJson,
-    int? id,
+    String? id = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     final data = _serializeJson(dataJson);
@@ -4169,7 +4169,7 @@ class TaskCreationCall {
     bool? insurance,
     String? driverLicense = '',
     String? maxDistance = '',
-    int? poster,
+    String? poster = '',
     String? skillLevel = '',
     String? file = '',
     String? fullAddress = '',

@@ -643,12 +643,14 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                           ),
                                       ],
                                     ),
-                                    if (functions.booltoInt(getJsonField(
-                                          taskerProfileUserProfileMeResponse
-                                              .jsonBody,
-                                          r'''$.data.is_subscribed''',
-                                        )) ==
-                                        0)
+                                    if (functions
+                                            .jsonToInt(getJsonField(
+                                              taskerProfileUserProfileMeResponse
+                                                  .jsonBody,
+                                              r'''$.data.is_subscribed''',
+                                            ))
+                                            .toString() ==
+                                        '0')
                                       InkWell(
                                         splashColor: Colors.transparent,
                                         focusColor: Colors.transparent,

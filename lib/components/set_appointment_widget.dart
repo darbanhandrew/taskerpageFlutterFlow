@@ -24,7 +24,7 @@ class SetAppointmentWidget extends StatefulWidget {
   }) : super(key: key);
 
   final bool? setOredit;
-  final int? id;
+  final String? id;
   final String? postID;
 
   @override
@@ -1290,13 +1290,13 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         FFAppState().userProfile,
                                         r'''$.data.name''',
                                       ).toString()
-                                    : widget.id?.toString(),
+                                    : widget.id,
                                 poster: functions.jsonToString(getJsonField(
                                           FFAppState().userProfile,
                                           r'''$.data.role_profile_name''',
                                         )) ==
                                         'Tasker'
-                                    ? widget.id?.toString()
+                                    ? widget.id
                                     : getJsonField(
                                         FFAppState().userProfile,
                                         r'''$.data.name''',
@@ -1358,13 +1358,13 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         FFAppState().userProfile,
                                         r'''$.data.name''',
                                       ).toString()
-                                    : widget.id?.toString(),
+                                    : widget.id,
                                 poster: functions.jsonToString(getJsonField(
                                           FFAppState().userProfile,
                                           r'''$.data.role_profile_name''',
                                         )) ==
                                         'Tasker'
-                                    ? widget.id?.toString()
+                                    ? widget.id
                                     : getJsonField(
                                         FFAppState().userProfile,
                                         r'''$.data.name''',

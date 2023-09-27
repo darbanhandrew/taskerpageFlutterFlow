@@ -203,7 +203,6 @@ class _SelectContryLanguageWidgetState
                                               });
                                             },
                                             child: Container(
-                                              key: ValueKey('Container_k8o0'),
                                               width: 100.0,
                                               height: 100.0,
                                               decoration: BoxDecoration(

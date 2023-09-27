@@ -454,7 +454,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                             id: getJsonField(
                               widget.userService,
                               r'''$.name''',
-                            ),
+                            ).toString(),
                             apiGlobalKey: FFAppState().apiKey,
                           );
                           _shouldSetState = true;
@@ -563,7 +563,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                               id: getJsonField(
                                 widget.userService,
                                 r'''$.name''',
-                              ),
+                              ).toString(),
                               skillOptionsJson:
                                   functions.convertDataTypeListToJsonList(
                                       FFAppState().skillOptions.toList()),

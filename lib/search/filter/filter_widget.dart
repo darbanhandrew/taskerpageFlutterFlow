@@ -958,6 +958,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                               childAspectRatio:
                                                                   4.7,
                                                             ),
+                                                            primary: false,
                                                             shrinkWrap: true,
                                                             scrollDirection:
                                                                 Axis.vertical,
@@ -1184,6 +1185,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                               childAspectRatio:
                                                                   4.7,
                                                             ),
+                                                            primary: false,
                                                             shrinkWrap: true,
                                                             scrollDirection:
                                                                 Axis.vertical,
@@ -1356,6 +1358,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                             .separated(
                                                           padding:
                                                               EdgeInsets.zero,
+                                                          primary: false,
                                                           shrinkWrap: true,
                                                           scrollDirection:
                                                               Axis.vertical,

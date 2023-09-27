@@ -1001,7 +1001,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         customerProfile: getJsonField(
                                           FFAppState().userProfile,
                                           r'''$.data.name''',
-                                        ),
+                                        ).toString(),
                                         apiGlobalKey: FFAppState().apiKey,
                                       );
                                       _shouldSetState = true;
@@ -1109,7 +1109,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         customerProfile: getJsonField(
                                           FFAppState().userProfile,
                                           r'''$.data.name''',
-                                        ),
+                                        ).toString(),
                                         apiGlobalKey: FFAppState().apiKey,
                                       );
                                       _shouldSetState = true;
@@ -1218,7 +1218,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                           customerProfile: getJsonField(
                                             FFAppState().userProfile,
                                             r'''$.data.name''',
-                                          ),
+                                          ).toString(),
                                           apiGlobalKey: FFAppState().apiKey,
                                         );
                                         _shouldSetState = true;
@@ -1271,7 +1271,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                           id: getJsonField(
                                             widget.education,
                                             r'''$.name''',
-                                          ),
+                                          ).toString(),
                                           schoolTitle:
                                               _model.textController2.text,
                                           title: _model.textController1.text,

@@ -11,6 +11,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:styled_divider/styled_divider.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -235,6 +236,50 @@ class _OnSiteAppointmentDeatelsWidgetState
                                     ],
                                   ),
                                 ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.appointmentUrl =
+                                          await FlutterBarcodeScanner
+                                              .scanBarcode(
+                                        '#C62828', // scanning line color
+                                        'Cancel', // cancel button text
+                                        true, // whether to show the flash icon
+                                        ScanMode.QR,
+                                      );
+
+                                      context.pushNamed(
+                                        'scaned_QRCODE',
+                                        queryParameters: {
+                                          'appointmentID': serializeParam(
+                                            0,
+                                            ParamType.int,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 120.0,
+                                      height: 41.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(5.0),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     32.0, 28.0, 32.0, 0.0),
