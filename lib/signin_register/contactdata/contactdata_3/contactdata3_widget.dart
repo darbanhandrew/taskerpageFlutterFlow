@@ -135,7 +135,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
         }
         final contactdata3UserProfileReadResponse = snapshot.data!;
         return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+          onTap: () => _model.unfocusNode.canRequestFocus
+              ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+              : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Colors.white,
@@ -527,10 +529,16 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     context: context,
                                                     builder: (context) {
                                                       return GestureDetector(
-                                                        onTap: () => FocusScope
-                                                                .of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode),
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(

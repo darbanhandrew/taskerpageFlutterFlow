@@ -10,19 +10,22 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'appointment_list_widget.dart' show AppointmentListWidget;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AppointmentListModel extends FlutterFlowModel {
+class AppointmentListModel extends FlutterFlowModel<AppointmentListWidget> {
   ///  Local state fields for this page.
 
   List<String> checkReview = [];
   void addToCheckReview(String item) => checkReview.add(item);
   void removeFromCheckReview(String item) => checkReview.remove(item);
   void removeAtIndexFromCheckReview(int index) => checkReview.removeAt(index);
+  void insertAtIndexInCheckReview(int index, String item) =>
+      checkReview.insert(index, item);
   void updateCheckReviewAtIndex(int index, Function(String) updateFn) =>
       checkReview[index] = updateFn(checkReview[index]);
 

@@ -9,13 +9,14 @@ import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
+import 'education2_widget.dart' show Education2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Education2Model extends FlutterFlowModel {
+class Education2Model extends FlutterFlowModel<Education2Widget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

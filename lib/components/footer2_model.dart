@@ -1,12 +1,13 @@
 import '/components/button_next_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'footer2_widget.dart' show Footer2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Footer2Model extends FlutterFlowModel {
+class Footer2Model extends FlutterFlowModel<Footer2Widget> {
   ///  State fields for stateful widgets in this component.
 
   // Model for button_Next component.

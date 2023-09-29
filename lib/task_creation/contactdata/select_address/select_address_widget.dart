@@ -122,7 +122,9 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -297,14 +299,18 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                 myaddressesItem,
                                                 r'''$.address''',
                                               ).toString(),
-                                              latitude: getJsonField(
+                                              latitude: functions
+                                                  .convertJsonDoubleToDouble(
+                                                      getJsonField(
                                                 myaddressesItem,
                                                 r'''$.latitude''',
-                                              ),
-                                              longitude: getJsonField(
+                                              )),
+                                              longitude: functions
+                                                  .convertJsonDoubleToDouble(
+                                                      getJsonField(
                                                 myaddressesItem,
                                                 r'''$.longitude''',
-                                              ),
+                                              )),
                                               country: getJsonField(
                                                 myaddressesItem,
                                                 r'''$.country''',
@@ -593,7 +599,6 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              var _shouldSetState = false;
                               _model.updatedAddress =
                                   await TaskerpageBackendGroup
                                       .updateTaskAddressCall
@@ -620,7 +625,6 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                     FFAppState().createTask.taskAddress.country,
                                 apiGlobalKey: FFAppState().apiKey,
                               );
-                              _shouldSetState = true;
                               if ((_model.updatedAddress?.succeeded ?? true)) {
                                 context.pushNamed(
                                   'Calendar',
@@ -635,11 +639,28 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                   }.withoutNulls,
                                 );
                               } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
+                                await showDialog(
+                                  context: context,
+                                  builder: (alertDialogContext) {
+                                    return AlertDialog(
+                                      title: Text('Error'),
+                                      content: Text(
+                                          (_model.updatedAddress?.jsonBody ??
+                                                  '')
+                                              .toString()),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(alertDialogContext),
+                                          child: Text('Ok'),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
                               }
 
-                              if (_shouldSetState) setState(() {});
+                              setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,

@@ -11,6 +11,7 @@ import 'dart:async';
 import 'dart:ui';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'add_another_education_widget.dart' show AddAnotherEducationWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -18,7 +19,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AddAnotherEducationModel extends FlutterFlowModel {
+class AddAnotherEducationModel
+    extends FlutterFlowModel<AddAnotherEducationWidget> {
   ///  Local state fields for this page.
 
   String? certificateUrl = '';

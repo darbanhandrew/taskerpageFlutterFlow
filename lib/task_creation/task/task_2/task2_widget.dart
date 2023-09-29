@@ -72,6 +72,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                     ..languages = (getJsonField(
                       (_model.apiResultpuo?.jsonBody ?? ''),
                       r'''$.data.languages''',
+                      true,
                     ) as List)
                         .map<String>((s) => s.toString())
                         .toList()!
@@ -97,6 +98,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                     .convertJsonListToDataTypeList(getJsonField(
                       (_model.apiResultpuo?.jsonBody ?? ''),
                       r'''$.data.options''',
+                      true,
                     ))!
                     .toList(),
             );
@@ -124,7 +126,9 @@ class _Task2WidgetState extends State<Task2Widget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -361,6 +365,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                                       ?.jsonBody ??
                                                                   ''),
                                                               r'''$.data.skill_options''',
+                                                              true,
                                                             ))!
                                                             .toList()
                                                             .cast<
@@ -1304,6 +1309,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                             (_model.skillDetails?.jsonBody ??
                                                 ''),
                                             r'''$.data.skill_options''',
+                                            true,
                                           ))!
                                           .toList()
                                           .cast<SkillOptionsStruct>();

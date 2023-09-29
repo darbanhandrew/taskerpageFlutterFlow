@@ -8,6 +8,8 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
+import 'sign_up_verification_code_widget.dart'
+    show SignUpVerificationCodeWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -17,7 +19,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class SignUpVerificationCodeModel extends FlutterFlowModel {
+class SignUpVerificationCodeModel
+    extends FlutterFlowModel<SignUpVerificationCodeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

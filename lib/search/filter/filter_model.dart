@@ -11,6 +11,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/place.dart';
 import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'filter_widget.dart' show FilterWidget;
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
@@ -19,7 +20,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class FilterModel extends FlutterFlowModel {
+class FilterModel extends FlutterFlowModel<FilterWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for Switch widget.

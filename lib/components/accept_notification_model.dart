@@ -1,11 +1,13 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import 'accept_notification_widget.dart' show AcceptNotificationWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class AcceptNotificationModel extends FlutterFlowModel {
+class AcceptNotificationModel
+    extends FlutterFlowModel<AcceptNotificationWidget> {
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}

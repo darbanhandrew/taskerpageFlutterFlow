@@ -80,7 +80,7 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
       ),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.55,
+        height: MediaQuery.sizeOf(context).height * 0.8,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
           borderRadius: BorderRadius.only(

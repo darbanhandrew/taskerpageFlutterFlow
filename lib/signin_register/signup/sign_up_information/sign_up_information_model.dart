@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'sign_up_information_widget.dart' show SignUpInformationWidget;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -20,7 +21,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:provider/provider.dart';
 
-class SignUpInformationModel extends FlutterFlowModel {
+class SignUpInformationModel extends FlutterFlowModel<SignUpInformationWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

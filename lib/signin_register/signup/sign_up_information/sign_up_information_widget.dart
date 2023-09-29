@@ -75,7 +75,9 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
     context.watch<FFAppState>();
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
@@ -631,8 +633,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
+                                        color: Color(0x0017147B),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(5.0),
@@ -659,7 +660,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                         color: Color(0xFF212121),
                                         fontSize: 14.0,
                                       ),
-                                  maxLines: null,
+                                  minLines: 1,
                                   validator: _model.textController1Validator
                                       .asValidator(context),
                                 ),
@@ -749,8 +750,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
+                                        color: Color(0x0017147B),
                                         width: 1.0,
                                       ),
                                       borderRadius: BorderRadius.circular(5.0),
@@ -957,9 +957,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                             ),
                                             focusedBorder: OutlineInputBorder(
                                               borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
+                                                color: Color(0x0017147B),
                                                 width: 1.0,
                                               ),
                                               borderRadius:

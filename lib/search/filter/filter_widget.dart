@@ -440,6 +440,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                   dropDownMyAddressesResponse
                                                                       .jsonBody,
                                                                   r'''$.data[:].name''',
+                                                                  true,
                                                                 ))!,
                                                                 optionLabels: functions
                                                                     .jsonListToStringList(
@@ -447,6 +448,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                   dropDownMyAddressesResponse
                                                                       .jsonBody,
                                                                   r'''$.data[:].address''',
+                                                                  true,
                                                                 ))!,
                                                                 onChanged:
                                                                     (val) async {

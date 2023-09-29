@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'poster_profile_view_widget.dart' show PosterProfileViewWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -16,7 +17,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class PosterProfileViewModel extends FlutterFlowModel {
+class PosterProfileViewModel extends FlutterFlowModel<PosterProfileViewWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

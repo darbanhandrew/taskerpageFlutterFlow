@@ -9,6 +9,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'profiledetails2_widget.dart' show Profiledetails2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
@@ -17,7 +18,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Profiledetails2Model extends FlutterFlowModel {
+class Profiledetails2Model extends FlutterFlowModel<Profiledetails2Widget> {
   ///  Local state fields for this page.
 
   String? avatarURL;

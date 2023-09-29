@@ -6,13 +6,14 @@ import '/components/skill_level_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import 'skills4_widget.dart' show Skills4Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Skills4Model extends FlutterFlowModel {
+class Skills4Model extends FlutterFlowModel<Skills4Widget> {
   ///  Local state fields for this page.
 
   dynamic serviceCategoriesJson;
@@ -29,6 +30,8 @@ class Skills4Model extends FlutterFlowModel {
   void addToUserServices(dynamic item) => userServices.add(item);
   void removeFromUserServices(dynamic item) => userServices.remove(item);
   void removeAtIndexFromUserServices(int index) => userServices.removeAt(index);
+  void insertAtIndexInUserServices(int index, dynamic item) =>
+      userServices.insert(index, item);
   void updateUserServicesAtIndex(int index, Function(dynamic) updateFn) =>
       userServices[index] = updateFn(userServices[index]);
 

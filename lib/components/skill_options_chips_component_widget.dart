@@ -125,6 +125,7 @@ class _SkillOptionsChipsComponentWidgetState
                         : functions
                             .convertStringToListOfString2(widget.selectedChips),
                   ),
+                  wrapped: false,
                 ),
               ),
             ],

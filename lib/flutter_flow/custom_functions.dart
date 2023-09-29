@@ -1044,3 +1044,12 @@ int? getLengthMyList(List<dynamic>? input) {
     return input.length;
   }
 }
+
+double? jsonTodouble(dynamic input) {
+  // covert json to double
+  try {
+    return double.parse(input.toString());
+  } catch (e) {
+    return null;
+  }
+}

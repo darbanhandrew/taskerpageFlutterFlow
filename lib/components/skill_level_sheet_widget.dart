@@ -517,6 +517,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                   .convertJsonListToDataTypeList(getJsonField(
                                     optionsSkillDetailsResponse.jsonBody,
                                     r'''$.data.skill_options''',
+                                    true,
                                   ))!
                                   .toList()
                                   .cast<SkillOptionsStruct>();

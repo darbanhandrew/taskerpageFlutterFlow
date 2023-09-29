@@ -497,27 +497,31 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                             onTap: () async {
                                               setState(() {
                                                 _model.selectedAddress =
-                                                    getJsonField(
+                                                    functions
+                                                        .jsonToInt(getJsonField(
                                                   myAddressItem,
                                                   r'''$.name''',
-                                                ).toString();
-                                                _model.selectedLatitude =
-                                                    getJsonField(
+                                                ));
+                                                _model.selectedLatitude = functions
+                                                    .convertJsonDoubleToDouble(
+                                                        getJsonField(
                                                   myAddressItem,
                                                   r'''$.latitude''',
-                                                );
+                                                ))!;
                                                 _model.selectedLongitude =
-                                                    getJsonField(
+                                                    functions
+                                                        .convertJsonDoubleToDouble(
+                                                            getJsonField(
                                                   myAddressItem,
                                                   r'''$.longitude''',
-                                                );
+                                                ))!;
                                               });
                                             },
                                             child: Container(
                                               width: 230.0,
                                               height: 100.0,
                                               decoration: BoxDecoration(
-                                                color: functions.jsonToString(
+                                                color: functions.jsonToInt(
                                                             getJsonField(
                                                           myAddressItem,
                                                           r'''$.name''',
@@ -528,7 +532,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                                 borderRadius:
                                                     BorderRadius.circular(8.0),
                                                 border: Border.all(
-                                                  color: functions.jsonToString(
+                                                  color: functions.jsonToInt(
                                                               getJsonField(
                                                             myAddressItem,
                                                             r'''$.name''',
@@ -565,7 +569,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                                                   .override(
                                                                     fontFamily:
                                                                         'Lato',
-                                                                    color: functions.jsonToString(
+                                                                    color: functions.jsonToInt(
                                                                                 getJsonField(
                                                                               myAddressItem,
                                                                               r'''$.name''',

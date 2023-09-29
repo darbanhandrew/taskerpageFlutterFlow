@@ -13,13 +13,14 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'task2_widget.dart' show Task2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class Task2Model extends FlutterFlowModel {
+class Task2Model extends FlutterFlowModel<Task2Widget> {
   ///  Local state fields for this page.
 
   List<SkillOptionsStruct> skillOptionList = [];
@@ -29,6 +30,8 @@ class Task2Model extends FlutterFlowModel {
       skillOptionList.remove(item);
   void removeAtIndexFromSkillOptionList(int index) =>
       skillOptionList.removeAt(index);
+  void insertAtIndexInSkillOptionList(int index, SkillOptionsStruct item) =>
+      skillOptionList.insert(index, item);
   void updateSkillOptionListAtIndex(
           int index, Function(SkillOptionsStruct) updateFn) =>
       skillOptionList[index] = updateFn(skillOptionList[index]);
@@ -40,6 +43,8 @@ class Task2Model extends FlutterFlowModel {
       tempSkillOptionList.remove(item);
   void removeAtIndexFromTempSkillOptionList(int index) =>
       tempSkillOptionList.removeAt(index);
+  void insertAtIndexInTempSkillOptionList(int index, SkillOptionsStruct item) =>
+      tempSkillOptionList.insert(index, item);
   void updateTempSkillOptionListAtIndex(
           int index, Function(SkillOptionsStruct) updateFn) =>
       tempSkillOptionList[index] = updateFn(tempSkillOptionList[index]);

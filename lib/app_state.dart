@@ -179,6 +179,9 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      _sid = prefs.getString('ff_sid') ?? _sid;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -770,7 +773,7 @@ class FFAppState extends ChangeNotifier {
     _checkNavbarState = _value;
   }
 
-  String _appUrl = 'https://tasker-page-48vd3g.flutterflow.app';
+  String _appUrl = 'https://taskerpage.flutterflow.app';
   String get appUrl => _appUrl;
   set appUrl(String _value) {
     _appUrl = _value;
@@ -859,6 +862,13 @@ class FFAppState extends ChangeNotifier {
   bool get showOptions => _showOptions;
   set showOptions(bool _value) {
     _showOptions = _value;
+  }
+
+  String _sid = '';
+  String get sid => _sid;
+  set sid(String _value) {
+    _sid = _value;
+    prefs.setString('ff_sid', _value);
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

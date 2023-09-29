@@ -6,12 +6,13 @@ import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'skill_level_sheet_widget.dart' show SkillLevelSheetWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
-class SkillLevelSheetModel extends FlutterFlowModel {
+class SkillLevelSheetModel extends FlutterFlowModel<SkillLevelSheetWidget> {
   ///  Local state fields for this component.
 
   String? chosenSkillLevel;
@@ -23,6 +24,8 @@ class SkillLevelSheetModel extends FlutterFlowModel {
       skillOptionsList.remove(item);
   void removeAtIndexFromSkillOptionsList(int index) =>
       skillOptionsList.removeAt(index);
+  void insertAtIndexInSkillOptionsList(int index, SkillOptionsStruct item) =>
+      skillOptionsList.insert(index, item);
   void updateSkillOptionsListAtIndex(
           int index, Function(SkillOptionsStruct) updateFn) =>
       skillOptionsList[index] = updateFn(skillOptionsList[index]);

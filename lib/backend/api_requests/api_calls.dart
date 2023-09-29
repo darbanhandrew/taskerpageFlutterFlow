@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import '../../flutter_flow/flutter_flow_util.dart';
-
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -197,7 +196,6 @@ class RegisterCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -267,9 +265,7 @@ class LoginCall {
       callName: 'login',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/login',
       callType: ApiCallType.POST,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -306,7 +302,6 @@ class TestAPICall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -339,7 +334,6 @@ class GetUserCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User/${username}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -370,7 +364,6 @@ class UserProfileMeCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/customer_profile_me',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -591,7 +584,6 @@ class UserProfileBasicInfoCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -614,7 +606,6 @@ class ServiceCategoryListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill Category',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -645,9 +636,7 @@ ${userServicesList}''';
       apiUrl:
           '${TaskerpageBackendGroup.baseUrl}/user-service-bulk-sync/sync_services/',
       callType: ApiCallType.POST,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -693,7 +682,6 @@ class AddressCreateCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -777,7 +765,6 @@ class UploadCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/upload_file',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -819,7 +806,6 @@ class UserEducationAddCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Education',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -879,7 +865,6 @@ class MyEducationsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Education',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -907,7 +892,6 @@ class MyAddressesCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -941,7 +925,6 @@ class GetServicesCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill?filters=${category}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -980,7 +963,6 @@ class CreateUserServiceCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1042,7 +1024,6 @@ class EditUserServiceCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1096,7 +1077,6 @@ class GetUserServiceByIdCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1153,7 +1133,6 @@ class DeleteUserServiceByIdCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${id}',
       callType: ApiCallType.DELETE,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1215,7 +1194,6 @@ class SetAddressMainCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1250,7 +1228,6 @@ class DeleteAddressCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address/${id}',
       callType: ApiCallType.DELETE,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1275,7 +1252,6 @@ class ServiceListCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -1335,7 +1311,6 @@ class ChangeMyRoleCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1452,7 +1427,6 @@ class ChangeProfileDeatelsCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/user-profile/${id}/',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1561,7 +1535,6 @@ class ChangeDescriptionAndProfileImageCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/user-profile/${id}/',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -1665,7 +1638,6 @@ class MyPostsCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -1769,7 +1741,6 @@ class CreatePostCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -2004,7 +1975,6 @@ class UpdatePostCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -2160,7 +2130,6 @@ class InitiatePostCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -2316,7 +2285,6 @@ class SinglePostReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -2470,7 +2438,6 @@ class UserProfileListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -2496,7 +2463,6 @@ class UserProfileReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -2654,7 +2620,6 @@ class CustomerTaskListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -2681,7 +2646,6 @@ class PostReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -2875,7 +2839,6 @@ class AppointmentListCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -2954,7 +2917,6 @@ class AppointmentListCopyCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authroization': '${apiGlobalKey}',
       },
       params: {},
@@ -3030,7 +2992,6 @@ class AppointmentReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3079,7 +3040,6 @@ class CreateAppointmentCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3108,7 +3068,6 @@ ${body}''';
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment/${name}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3140,7 +3099,6 @@ class UpdateAppointmentCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment/${name}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3166,7 +3124,6 @@ class MyAppointmentCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -3301,7 +3258,6 @@ class MyBargainsCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/bargain/my_bargains/',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3322,7 +3278,6 @@ class ServiceCategoryCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/service-category/',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3353,7 +3308,6 @@ class MyBargainsPostCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/bargain/my_bargains/',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -3409,7 +3363,6 @@ class ReviewCreateCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Review',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3433,7 +3386,6 @@ class ReviewsAboutMeCall {
           '${TaskerpageBackendGroup.baseUrl}/user-profile/reviews_about_me/',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3459,7 +3411,6 @@ class SendVerifacationCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/verfiy/send/',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3489,7 +3440,6 @@ class CheckVerficationCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/verify/check/',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3525,9 +3475,7 @@ class UpdateUserProfileCall {
       callName: 'update user profile',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/customer profie',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3560,7 +3508,6 @@ class StripeCall {
           '${TaskerpageBackendGroup.baseUrl}/stripe/create_checkout_session/',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3585,7 +3532,6 @@ class GetUserServicesCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills?filters=${filter}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3619,7 +3565,6 @@ class EducationPartialUpdateCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Education/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3649,7 +3594,6 @@ class UpdateStatusPostCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -3682,9 +3626,7 @@ class CreateBargainCall {
       callName: 'CreateBargain',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/bargain/',
       callType: ApiCallType.POST,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3705,9 +3647,7 @@ class GetServiceCategoryByIdCall {
       callName: 'getServiceCategoryById',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/service-category/${id}/',
       callType: ApiCallType.GET,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -3759,9 +3699,7 @@ ${data}''';
       callName: 'updatePostCalendarData',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3787,9 +3725,7 @@ class UpdatePostServiceCategoryCall {
       callName: 'updatePostServiceCategory',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3825,9 +3761,7 @@ class PostTaskUpdateCall {
       callName: 'postTaskUpdate',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3863,9 +3797,7 @@ class TaskerAgeUpdateCall {
       callName: 'taskerAgeUpdate',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3901,9 +3833,7 @@ class MaxDistanceUpdatePostCall {
       callName: 'maxDistanceUpdatePost',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3929,9 +3859,7 @@ class UpdateAddressinPostCall {
       callName: 'UpdateAddressinPost',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/post/${id}/',
       callType: ApiCallType.PATCH,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
@@ -3951,9 +3879,7 @@ class RandomAdsCall {
       callName: 'RandomAds',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/ad/my_ads/',
       callType: ApiCallType.GET,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -3997,9 +3923,7 @@ class AllFielsTestCall {
       apiUrl:
           '${TaskerpageBackendGroup.baseUrl}/api/resource/All Fields Test/b25f38e083/',
       callType: ApiCallType.GET,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {},
       returnBody: true,
       encodeBodyUtf8: false,
@@ -4024,7 +3948,6 @@ class UpdateAllFiekdsTestCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/All Fields Test/b25f38e083/',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': 'token e43f8c08d8cd6b2:fb1e85c72d341b4',
       },
       params: {},
@@ -4051,7 +3974,6 @@ class CreateAllFiledsTestCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/All Fields Test/',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': 'token e43f8c08d8cd6b2:fb1e85c72d341b4',
       },
       params: {},
@@ -4076,7 +3998,6 @@ class GenerateKeysCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/frappe.core.doctype.user.user.generate_keys',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -4126,7 +4047,6 @@ class UpdateProfileDeatelsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4214,7 +4134,6 @@ class TaskCreationCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4245,7 +4164,6 @@ class TaskCreationSkillCategoryCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4269,9 +4187,7 @@ class SearchFilterPostsCall {
       callName: 'searchFilterPosts',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
       callType: ApiCallType.GET,
-      headers: {
-        ...TaskerpageBackendGroup.headers,
-      },
+      headers: {},
       params: {
         'filters': filters,
         'fields': fields,
@@ -4295,7 +4211,6 @@ class GetAddressDetailsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address/${name}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4391,7 +4306,6 @@ class GetSkillCategoryDetailsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill Category/${name}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4456,7 +4370,6 @@ class CustomerProfileListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -4494,7 +4407,6 @@ class CreateBidCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Bid',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4520,7 +4432,6 @@ class BidListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Bid',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -4578,7 +4489,6 @@ class CustomerProfileDetailsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${name}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4679,7 +4589,6 @@ class MyBidCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Bid',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -4706,7 +4615,6 @@ class ServiceDetailCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill Category/${name}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4775,7 +4683,6 @@ class UpdateAppintmentStatusCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Appointment/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4800,7 +4707,6 @@ class ReviewReadByIdCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Review',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -4832,7 +4738,6 @@ class CheckVerificationCodeCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/twilio_integration.api.verify_verification_code',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4861,7 +4766,6 @@ class SendToVerificationCodeCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/twilio_integration.api.send_verification_code',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4891,7 +4795,6 @@ class UpdatePhoneVerificationCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4921,7 +4824,6 @@ class UpdateEmailVerivicationCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4952,7 +4854,6 @@ class CheckEmailVerificationCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/check_email_code',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -4978,7 +4879,6 @@ class MyReviewsCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Review',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5005,7 +4905,6 @@ class PlanListCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Subscription Plan',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5030,7 +4929,6 @@ class PlanReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Subscription Plan/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5061,7 +4959,6 @@ class PayCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/stripe_payment.api.creat_checkout_session',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5097,7 +4994,6 @@ class GetCustomerAdCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/app_campaigns.api.get_profile_ad',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5127,7 +5023,6 @@ class ChangeMainAddressCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5159,7 +5054,6 @@ class UpdateNameAndLastNameCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5188,7 +5082,6 @@ class UpdateEmailAddressCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5217,7 +5110,6 @@ class UpdatePasswordCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5247,7 +5139,6 @@ class UpdateProfileCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5277,7 +5168,6 @@ class UpdateBannerCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5301,7 +5191,6 @@ class SkillDetailsCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill/${name}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5329,7 +5218,6 @@ class UpdateSkillCategoryInTaskCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5372,7 +5260,6 @@ class UpdateTaskDetailsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5403,7 +5290,6 @@ class UpdateTaskOptionsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5434,7 +5320,6 @@ class UpdateTaskAddressCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5477,7 +5362,6 @@ class UpdateTaskScheduleCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5517,7 +5401,6 @@ class UpdateTaskerTypeCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5548,7 +5431,6 @@ class UpdateTaskerTypeTwoCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5577,7 +5459,6 @@ class UpdateTaskerTypeThreeCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5608,7 +5489,6 @@ class InitSubCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/init_subscription',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5642,7 +5522,6 @@ class GetSubscriptionUpdateCall {
           '${TaskerpageBackendGroup.baseUrl}/api/method/erpnext.accounts.doctype.subscription.subscription.get_subscription_updates',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5667,7 +5546,6 @@ class AplyCoponCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/apply_coupon',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5698,7 +5576,6 @@ class GetPaymentUrlCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/get_payment_url',
       callType: ApiCallType.POST,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5728,7 +5605,6 @@ class UpdateSubscriptionCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5752,7 +5628,6 @@ class PaymentsHistoryCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Sales Invoice',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5777,7 +5652,6 @@ class DeatelsPaymentsHistoryReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Sales Invoice/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5804,7 +5678,6 @@ class LanguagesListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Language',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5828,7 +5701,6 @@ class CountryListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Country',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5853,7 +5725,6 @@ class GetSubscriptionDetalsCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Subscription/${id}',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5882,7 +5753,6 @@ class IssueListCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Issue',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5910,7 +5780,6 @@ class NotificationLogCall {
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Notification Log',
       callType: ApiCallType.GET,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5938,7 +5807,6 @@ class NotificationReadCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Notification Log/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {
@@ -5964,7 +5832,6 @@ class EducationDeletCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Education/${id}',
       callType: ApiCallType.DELETE,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -5987,7 +5854,6 @@ class SkillDeletCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${id}',
       callType: ApiCallType.DELETE,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},
@@ -6015,7 +5881,6 @@ class UpdateIdentificationCall {
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
       callType: ApiCallType.PUT,
       headers: {
-        ...TaskerpageBackendGroup.headers,
         'Authorization': '${apiGlobalKey}',
       },
       params: {},

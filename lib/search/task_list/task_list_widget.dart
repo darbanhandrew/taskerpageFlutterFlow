@@ -71,7 +71,9 @@ class _TaskListWidgetState extends State<TaskListWidget> {
     }
 
     return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_model.unfocusNode),
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
@@ -279,10 +281,17 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                       context: context,
                                                       builder: (context) {
                                                         return GestureDetector(
-                                                          onTap: () => FocusScope
-                                                                  .of(context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode),
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
                                                           child: Padding(
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
@@ -328,10 +337,16 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                     context: context,
                                                     builder: (context) {
                                                       return GestureDetector(
-                                                        onTap: () => FocusScope
-                                                                .of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode),
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
@@ -392,10 +407,17 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                       context: context,
                                                       builder: (context) {
                                                         return GestureDetector(
-                                                          onTap: () => FocusScope
-                                                                  .of(context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode),
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
                                                           child: Padding(
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
@@ -436,10 +458,16 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                     context: context,
                                                     builder: (context) {
                                                       return GestureDetector(
-                                                        onTap: () => FocusScope
-                                                                .of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode),
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
@@ -611,6 +639,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                           columnCustomerTaskListResponse
                                                               .jsonBody,
                                                           r'''$.data''',
+                                                          true,
                                                         )) ??
                                                         [])
                                                     .map(
@@ -619,6 +648,11 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                         marker.serialize(),
                                                         marker,
                                                         () async {
+                                                          await Future.delayed(
+                                                              const Duration(
+                                                                  milliseconds:
+                                                                      1000));
+
                                                           context.pushNamed(
                                                             'TaskView',
                                                             queryParameters: {
@@ -630,6 +664,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                                       columnCustomerTaskListResponse
                                                                           .jsonBody,
                                                                       r'''$.data''',
+                                                                      true,
                                                                     )),
                                                                 ParamType
                                                                     .String,

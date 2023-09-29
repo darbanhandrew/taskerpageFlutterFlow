@@ -435,6 +435,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                                   dropDownMyAddressesResponse
                                                                       .jsonBody,
                                                                   r'''$.data[:].name''',
+                                                                  true,
                                                                 ))!,
                                                                 optionLabels: functions
                                                                     .jsonListToStringList(
@@ -442,6 +443,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                                   dropDownMyAddressesResponse
                                                                       .jsonBody,
                                                                   r'''$.data[:].address''',
+                                                                  true,
                                                                 ))!,
                                                                 onChanged:
                                                                     (val) async {
