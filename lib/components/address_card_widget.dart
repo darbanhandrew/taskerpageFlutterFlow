@@ -58,20 +58,21 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
       speed: 400,
       front: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF5450E2),
+          color: Colors.white,
           boxShadow: [
             BoxShadow(
               blurRadius: 4.0,
               color: Color(0x33000000),
-              offset: Offset(0.0, 6.0),
+              offset: Offset(1.0, 2.0),
+              spreadRadius: 1.0,
             )
           ],
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(1.5),
         ),
         child: Padding(
-          padding: EdgeInsetsDirectional.fromSTEB(20.5, 16.0, 20.5, 25.0),
+          padding: EdgeInsetsDirectional.fromSTEB(20.5, 14.0, 20.5, 14.0),
           child: Column(
-            mainAxisSize: MainAxisSize.max,
+            mainAxisSize: MainAxisSize.min,
             children: [
               if (functions
                       .jsonToInt(getJsonField(
@@ -87,11 +88,11 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: 122.0,
-                        height: 40.0,
+                        width: 95.0,
+                        height: 22.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFFEF0EB0),
-                          borderRadius: BorderRadius.circular(15.0),
+                          color: Color(0xFFD4D4D4),
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -103,8 +104,9 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Lato',
-                                    color: Color(0xFFF6F6F6),
-                                    fontSize: 14.0,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    fontSize: 13.0,
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
@@ -125,7 +127,18 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                       ).toString(),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Lato',
-                            color: Color(0xFFF6F6F6),
+                            color: valueOrDefault<Color>(
+                              functions
+                                          .jsonToInt(getJsonField(
+                                            widget.address,
+                                            r'''$.is_main_address''',
+                                          ))
+                                          .toString() ==
+                                      '0'
+                                  ? Color(0xFF8A8A8A)
+                                  : FlutterFlowTheme.of(context).alternate,
+                              FlutterFlowTheme.of(context).alternate,
+                            ),
                             fontSize: 14.0,
                             fontWeight: FontWeight.w500,
                           ),
@@ -139,79 +152,70 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    if (functions
-                            .jsonToInt(getJsonField(
-                              widget.address,
-                              r'''$.is_main_address''',
-                            ))
-                            .toString() ==
-                        '0')
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-                        child: InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            var _shouldSetState = false;
-                            _model.apiResultzxfCopy =
-                                await TaskerpageBackendGroup
-                                    .changeMainAddressCall
-                                    .call(
-                              isMainAddress: 1,
-                              id: getJsonField(
-                                widget.address,
-                                r'''$.name''',
-                              ).toString(),
-                              apiGlobalKey: FFAppState().apiKey,
-                            );
-                            _shouldSetState = true;
-                            if ((_model.apiResultzxfCopy?.succeeded ?? true)) {
-                              await widget.action?.call();
-                              if (_shouldSetState) setState(() {});
-                              return;
-                            } else {
-                              if (_shouldSetState) setState(() {});
-                              return;
-                            }
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (functions
+                                .jsonToInt(getJsonField(
+                                  widget.address,
+                                  r'''$.is_main_address''',
+                                ))
+                                .toString() ==
+                            '0')
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              var _shouldSetState = false;
+                              _model.apiResultzxfCopyCopy2 =
+                                  await TaskerpageBackendGroup
+                                      .changeMainAddressCall
+                                      .call(
+                                isMainAddress: 1,
+                                id: getJsonField(
+                                  widget.address,
+                                  r'''$.name''',
+                                ).toString(),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              _shouldSetState = true;
+                              if ((_model.apiResultzxfCopyCopy2?.succeeded ??
+                                  true)) {
+                                await widget.action?.call();
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              } else {
+                                if (_shouldSetState) setState(() {});
+                                return;
+                              }
 
-                            if (_shouldSetState) setState(() {});
-                          },
-                          child: Container(
-                            width: 122.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF49A1FF),
-                              borderRadius: BorderRadius.circular(15.0),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Set to main',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFFF6F6F6),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ],
+                              if (_shouldSetState) setState(() {});
+                            },
+                            child: Text(
+                              'Set to main',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.underline,
+                                  ),
                             ),
                           ),
-                        ),
-                      ),
+                      ],
+                    ),
                     Icon(
-                      Icons.delete_outlined,
-                      color: Color(0xFFF6F6F6),
+                      Icons.delete_rounded,
+                      color: FlutterFlowTheme.of(context).secondary,
                       size: 26.0,
                     ),
-                  ],
+                  ].divide(SizedBox(width: 20.0)),
                 ),
               ),
             ],
@@ -220,8 +224,8 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
       ),
       back: Container(
         decoration: BoxDecoration(
-          color: Color(0xFF3D3D3D),
-          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -238,12 +242,12 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                     child: Container(
                       width: 104.0,
-                      height: 44.0,
+                      height: 40.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFF3D3D3D),
-                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(1.5),
                         border: Border.all(
-                          color: Color(0xFF5450E2),
+                          color: FlutterFlowTheme.of(context).primary,
                         ),
                       ),
                       child: Row(
@@ -256,7 +260,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  color: Color(0xFFF6F6F6),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -305,10 +309,10 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     },
                     child: Container(
                       width: 104.0,
-                      height: 44.0,
+                      height: 40.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
-                        borderRadius: BorderRadius.circular(5.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(1.5),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,

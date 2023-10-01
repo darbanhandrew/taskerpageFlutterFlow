@@ -172,6 +172,7 @@ class TaskerpageBackendGroup {
   static SkillDeletCall skillDeletCall = SkillDeletCall();
   static UpdateIdentificationCall updateIdentificationCall =
       UpdateIdentificationCall();
+  static ChatListCall chatListCall = ChatListCall();
 }
 
 class RegisterCall {
@@ -5892,6 +5893,64 @@ class UpdateIdentificationCall {
       cache: false,
     );
   }
+}
+
+class ChatListCall {
+  Future<ApiCallResponse> call({
+    String? user = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'chat list',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.room.get?email=${user}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].name''',
+        true,
+      );
+  dynamic modified(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].modified''',
+        true,
+      );
+  dynamic lastmessage(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].last_message''',
+        true,
+      );
+  dynamic read(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].is_read''',
+        true,
+      );
+  dynamic roomName(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].room_name''',
+        true,
+      );
+  dynamic members(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].members''',
+        true,
+      );
+  dynamic type(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].type''',
+        true,
+      );
 }
 
 /// End Taskerpage Backend Group Code

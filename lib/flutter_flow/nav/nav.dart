@@ -361,11 +361,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'AddAddress',
-          path: '/addAddress',
-          builder: (context, params) => AddAddressWidget(),
-        ),
-        FFRoute(
           name: 'add_another_skill',
           path: '/addAnotherSkill',
           builder: (context, params) => AddAnotherSkillWidget(),
@@ -464,6 +459,11 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'notification_log',
           path: '/notificationLog',
           builder: (context, params) => NotificationLogWidget(),
+        ),
+        FFRoute(
+          name: 'chat_list',
+          path: '/chatList',
+          builder: (context, params) => ChatListWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

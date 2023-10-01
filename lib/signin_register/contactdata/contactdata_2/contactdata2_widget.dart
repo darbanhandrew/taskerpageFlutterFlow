@@ -129,9 +129,9 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 8.0, 32.0, 24.0),
+                                  32.0, 16.0, 32.0, 22.0),
                               child: FutureBuilder<ApiCallResponse>(
-                                future: (_model.apiRequestCompleter ??=
+                                future: (_model.apiRequestCompleter2 ??=
                                         Completer<ApiCallResponse>()
                                           ..complete(TaskerpageBackendGroup
                                               .myAddressesCall
@@ -143,7 +143,100 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                                 '[[\"customer_profile\",\"=\",\"${getJsonField(
                                               FFAppState().userProfile,
                                               r'''$.data.name''',
-                                            ).toString()}\"]]',
+                                            ).toString()}\"],[\"is_main_address\",\"=\",\"1\"]]',
+                                          )))
+                                    .future,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitThreeBounce(
+                                          color: Color(0xFF5450E2),
+                                          size: 50.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final listViewMyAddressesResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final myMainAddresses = getJsonField(
+                                        listViewMyAddressesResponse.jsonBody,
+                                        r'''$.data''',
+                                      ).toList().take(1).toList();
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        primary: false,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: myMainAddresses.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 8.0),
+                                        itemBuilder:
+                                            (context, myMainAddressesIndex) {
+                                          final myMainAddressesItem =
+                                              myMainAddresses[
+                                                  myMainAddressesIndex];
+                                          return AddressCardWidget(
+                                            key: Key(
+                                                'Key481_${myMainAddressesIndex}_of_${myMainAddresses.length}'),
+                                            address: myMainAddressesItem,
+                                            action: () async {
+                                              setState(() => _model
+                                                  .apiRequestCompleter2 = null);
+                                              await _model
+                                                  .waitForApiRequestCompleted2();
+                                            },
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 0.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Other addresses',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 8.0, 32.0, 0.0),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: (_model.apiRequestCompleter1 ??=
+                                        Completer<ApiCallResponse>()
+                                          ..complete(TaskerpageBackendGroup
+                                              .myAddressesCall
+                                              .call(
+                                            apiGlobalKey: FFAppState().apiKey,
+                                            fields:
+                                                '[\"is_main_address\",\"name\",\"address\"]',
+                                            filters:
+                                                '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString()}\"],[\"is_main_address\",\"=\",\"0\"]]',
                                           )))
                                     .future,
                                 builder: (context, snapshot) {
@@ -175,7 +268,7 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                         scrollDirection: Axis.vertical,
                                         itemCount: myMainAddresses.length,
                                         separatorBuilder: (_, __) =>
-                                            SizedBox(height: 24.0),
+                                            SizedBox(height: 8.0),
                                         itemBuilder:
                                             (context, myMainAddressesIndex) {
                                           final myMainAddressesItem =
@@ -183,13 +276,13 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                                   myMainAddressesIndex];
                                           return AddressCardWidget(
                                             key: Key(
-                                                'Key481_${myMainAddressesIndex}_of_${myMainAddresses.length}'),
+                                                'Key2lu_${myMainAddressesIndex}_of_${myMainAddresses.length}'),
                                             address: myMainAddressesItem,
                                             action: () async {
                                               setState(() => _model
-                                                  .apiRequestCompleter = null);
+                                                  .apiRequestCompleter1 = null);
                                               await _model
-                                                  .waitForApiRequestCompleted();
+                                                  .waitForApiRequestCompleted1();
                                             },
                                           );
                                         },
@@ -201,7 +294,7 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 0.0, 32.0, 32.0),
+                                  32.0, 20.0, 32.0, 32.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -223,12 +316,16 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                       );
                                     },
                                     child: Container(
-                                      width: 180.0,
-                                      height: 44.0,
+                                      width: 186.0,
+                                      height: 40.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
+                                        color: Colors.white,
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                            BorderRadius.circular(2.0),
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                        ),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -241,7 +338,9 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
-                                                  color: Color(0xFFF6F6F6),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   fontSize: 14.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),

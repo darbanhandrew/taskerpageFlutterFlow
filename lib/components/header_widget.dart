@@ -52,7 +52,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       width: MediaQuery.sizeOf(context).width * 1.0,
       height: 64.0,
       decoration: BoxDecoration(
-        color: Color(0xFFF7F8FF),
+        color: Colors.white,
         boxShadow: [
           BoxShadow(
             blurRadius: 4.0,
@@ -85,17 +85,20 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
                     child: Icon(
                       Icons.menu_rounded,
-                      color: Color(0xFF5450E2),
-                      size: 25.0,
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 27.0,
                     ),
                   ),
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(0.0),
-                    child: Image.asset(
-                      'assets/images/Artboard_2.png',
-                      width: 91.0,
-                      height: 17.0,
-                      fit: BoxFit.fill,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 2.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0.0),
+                      child: Image.asset(
+                        'assets/images/Group_2213.png',
+                        width: 91.0,
+                        height: 20.0,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ],
@@ -119,13 +122,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                       color: Color(0x00FFFFFF),
                       borderRadius: BorderRadius.circular(8.0),
                       border: Border.all(
-                        color: Color(0xFF5450E2),
+                        color: FlutterFlowTheme.of(context).primary,
                         width: 2.0,
                       ),
                     ),
                     child: Icon(
                       Icons.notifications_none,
-                      color: Color(0xFF5450E2),
+                      color: FlutterFlowTheme.of(context).primary,
                       size: 23.0,
                     ),
                   ),

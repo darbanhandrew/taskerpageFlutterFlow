@@ -22,6 +22,8 @@ class ProfileInterstedModel extends FlutterFlowModel<ProfileInterstedWidget> {
   ApiCallResponse? apiResult786;
   // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
   ApiCallResponse? apiResult785;
+  // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
+  ApiCallResponse? apiResult7859;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in button_Next widget.

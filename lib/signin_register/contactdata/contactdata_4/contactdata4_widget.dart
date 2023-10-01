@@ -203,7 +203,19 @@ class _Contactdata4WidgetState extends State<Contactdata4Widget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('AddAddress');
+                                context.pushNamed(
+                                  'Contactdata-1',
+                                  queryParameters: {
+                                    'taskCreation': serializeParam(
+                                      false,
+                                      ParamType.bool,
+                                    ),
+                                    'addAnother': serializeParam(
+                                      true,
+                                      ParamType.bool,
+                                    ),
+                                  }.withoutNulls,
+                                );
                               },
                               child: Container(
                                 width: 180.0,

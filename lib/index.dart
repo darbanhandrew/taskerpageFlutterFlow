@@ -99,8 +99,6 @@ export '/signin_register/profile/poster_profile_view/poster_profile_view_widget.
     show PosterProfileViewWidget;
 export '/signin_register/profile/tasker_profile_view/tasker_profile_view_widget.dart'
     show TaskerProfileViewWidget;
-export '/signin_register/contactdata/add_address/add_address_widget.dart'
-    show AddAddressWidget;
 export '/signin_register/skills/add_another_skill/add_another_skill_widget.dart'
     show AddAnotherSkillWidget;
 export '/signin_register/skills/add_another_skill_2/add_another_skill2_widget.dart'
@@ -132,3 +130,4 @@ export '/dashboard/issue_list/issue_list_widget.dart' show IssueListWidget;
 export '/dashboard/test/test_widget.dart' show TestWidget;
 export '/dashboard/notification_log/notification_log_widget.dart'
     show NotificationLogWidget;
+export '/chat_list/chat_list_widget.dart' show ChatListWidget;

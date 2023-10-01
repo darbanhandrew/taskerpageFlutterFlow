@@ -16,8 +16,8 @@ class AddressCardModel extends FlutterFlowModel<AddressCardWidget> {
 
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - API (change main address)] action in Container widget.
-  ApiCallResponse? apiResultzxfCopy;
+  // Stores action output result for [Backend Call - API (change main address)] action in Text widget.
+  ApiCallResponse? apiResultzxfCopyCopy2;
   // Stores action output result for [Backend Call - API (deleteAddress)] action in Container widget.
   ApiCallResponse? apiResultqzc;
 

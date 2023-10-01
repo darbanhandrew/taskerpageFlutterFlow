@@ -52,7 +52,7 @@ class _RequardStarWidgetState extends State<RequardStarWidget> {
             '*',
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Lato',
-                  color: Color(0xFFDD2525),
+                  color: FlutterFlowTheme.of(context).primary,
                   fontSize: 16.5,
                 ),
           ),

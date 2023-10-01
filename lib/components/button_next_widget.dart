@@ -51,8 +51,12 @@ class _ButtonNextWidgetState extends State<ButtonNextWidget> {
       width: 104.0,
       height: 40.0,
       decoration: BoxDecoration(
-        color: Color(0xFF5450E2),
-        borderRadius: BorderRadius.circular(5.0),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(1.5),
+        border: Border.all(
+          color: FlutterFlowTheme.of(context).primary,
+          width: 2.0,
+        ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -62,7 +66,7 @@ class _ButtonNextWidgetState extends State<ButtonNextWidget> {
             widget.text!,
             style: FlutterFlowTheme.of(context).bodyMedium.override(
                   fontFamily: 'Lato',
-                  color: Colors.white,
+                  color: FlutterFlowTheme.of(context).primary,
                   fontSize: 14.0,
                 ),
           ),
@@ -70,7 +74,7 @@ class _ButtonNextWidgetState extends State<ButtonNextWidget> {
             padding: EdgeInsetsDirectional.fromSTEB(5.0, 0.0, 0.0, 0.0),
             child: Icon(
               Icons.arrow_forward_ios_rounded,
-              color: Colors.white,
+              color: FlutterFlowTheme.of(context).primary,
               size: 10.0,
             ),
           ),

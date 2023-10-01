@@ -140,8 +140,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Lato',
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ],
@@ -200,22 +202,19 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               },
                               child: Container(
                                 width: 155.0,
-                                height: 40.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
-                                  color: FFAppState()
-                                              .UserInformation
-                                              .accounttype ==
-                                          'private'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0x00000000),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
                                   border: Border.all(
                                     color: FFAppState()
                                                 .UserInformation
                                                 .accounttype ==
                                             'private'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0xFF5E5D5D),
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
                                     width: 1.0,
                                   ),
                                 ),
@@ -236,9 +235,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                                           .UserInformation
                                                           .accounttype ==
                                                       'private'
-                                                  ? Color(0xFFF6F6F6)
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
                                                   : FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .secondary,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -262,22 +262,19 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                               },
                               child: Container(
                                 width: 155.0,
-                                height: 40.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
-                                  color: FFAppState()
-                                              .UserInformation
-                                              .accounttype ==
-                                          'company'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0x00000000),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
                                   border: Border.all(
                                     color: FFAppState()
                                                 .UserInformation
                                                 .accounttype ==
                                             'company'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0xFF5E5D5D),
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
                                     width: 1.0,
                                   ),
                                 ),
@@ -298,9 +295,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                                           .UserInformation
                                                           .accounttype ==
                                                       'company'
-                                                  ? Color(0xFFF6F6F6)
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
                                                   : FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .secondary,
                                               fontSize: 12.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -358,123 +356,136 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  FFAppState().updateUserInformationStruct(
-                                    (e) => e..title = 'MRS',
-                                  );
-                                });
-                              },
-                              child: Container(
-                                width: 155.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color: FFAppState().UserInformation.title ==
-                                          'MRS'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0x00000000),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    color: FFAppState().UserInformation.title ==
-                                            'MRS'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0xFF5E5D5D),
-                                    width: 1.0,
+                            Expanded(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e..title = 'MRS',
+                                    );
+                                  });
+                                },
+                                child: Container(
+                                  height: 36.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                    border: Border.all(
+                                      color: FFAppState()
+                                                  .UserInformation
+                                                  .title ==
+                                              'MRS'
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      width: 1.0,
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 0.0, 15.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Mrs',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .UserInformation
-                                                          .title ==
-                                                      'MRS'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  FFAppState().updateUserInformationStruct(
-                                    (e) => e..title = 'MR',
-                                  );
-                                });
-                              },
-                              child: Container(
-                                width: 155.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color:
-                                      FFAppState().UserInformation.title == 'MR'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    color: FFAppState().UserInformation.title ==
-                                            'MR'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0xFF5E5D5D),
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 0.0, 15.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Mr.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .UserInformation
-                                                          .title ==
-                                                      'MR'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ],
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Mrs',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: FFAppState()
+                                                            .UserInformation
+                                                            .title ==
+                                                        'MRS'
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
+                            Expanded(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e..title = 'MR',
+                                    );
+                                  });
+                                },
+                                child: Container(
+                                  width: 155.0,
+                                  height: 36.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                    border: Border.all(
+                                      color: FFAppState()
+                                                  .UserInformation
+                                                  .title ==
+                                              'MR'
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      width: 1.0,
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Mr.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: FFAppState()
+                                                            .UserInformation
+                                                            .title ==
+                                                        'MR'
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ].divide(SizedBox(width: 12.0)),
                         ),
                       ),
                       Padding(
@@ -484,77 +495,92 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  FFAppState().updateUserInformationStruct(
-                                    (e) => e..title = 'MX',
-                                  );
-                                });
-                              },
-                              child: Container(
-                                width: 155.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color:
-                                      FFAppState().UserInformation.title == 'MX'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    color: FFAppState().UserInformation.title ==
-                                            'MX'
-                                        ? Color(0xFF5450E2)
-                                        : Color(0xFF5E5D5D),
-                                    width: 1.0,
+                            Expanded(
+                              child: InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e..title = 'MX',
+                                    );
+                                  });
+                                },
+                                child: Container(
+                                  width: 155.0,
+                                  height: 36.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                    border: Border.all(
+                                      color: FFAppState()
+                                                  .UserInformation
+                                                  .title ==
+                                              'MX'
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      width: 1.0,
+                                    ),
                                   ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      15.0, 0.0, 15.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        'Mx.',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: FFAppState()
-                                                          .UserInformation
-                                                          .title ==
-                                                      'MX'
-                                                  ? Color(0xFFF6F6F6)
-                                                  : FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 12.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ],
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        15.0, 0.0, 15.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Mx.',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: FFAppState()
+                                                            .UserInformation
+                                                            .title ==
+                                                        'MX'
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                fontSize: 12.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
                             ),
-                          ],
+                            Expanded(
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(1.5),
+                                  border: Border.all(
+                                    color: Color(0x00FFFFFF),
+                                    width: 1.0,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ].divide(SizedBox(width: 12.0)),
                         ),
-                      ),
-                      Divider(
-                        height: 35.0,
-                        thickness: 1.0,
-                        indent: 32.0,
-                        endIndent: 32.0,
-                        color: Color(0xFFE3E3E3),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 0.0),
+                            32.0, 18.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -571,7 +597,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                       fontFamily: 'Lato',
                                       color: Color(0xFF292929),
                                       fontSize: 15.0,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                     ),
                               ),
                             ),
@@ -595,9 +621,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                   border: Border.all(
-                                    color: Color(0xFF5E5D5D),
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
                                   ),
                                 ),
                                 child: TextFormField(
@@ -688,7 +715,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                       fontFamily: 'Lato',
                                       color: Color(0xFF292929),
                                       fontSize: 15.0,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                     ),
                               ),
                             ),
@@ -712,9 +739,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                   border: Border.all(
-                                    color: Color(0xFF5E5D5D),
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
                                   ),
                                 ),
                                 child: TextFormField(
@@ -786,9 +814,16 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                           ],
                         ),
                       ),
+                      Divider(
+                        height: 35.0,
+                        thickness: 1.0,
+                        indent: 32.0,
+                        endIndent: 32.0,
+                        color: Color(0xFFE3E3E3),
+                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 16.0, 32.0, 0.0),
+                            32.0, 0.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -808,7 +843,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                           fontFamily: 'Lato',
                                           color: Color(0xFF292929),
                                           fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                   ),
                                 ),
@@ -832,7 +867,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                       .override(
                                         fontFamily: 'Lato',
                                         color: Color(0xFF212121),
-                                        fontSize: 14.0,
+                                        fontSize: 13.0,
                                       ),
                                   hintText: 'Choose Code',
                                   icon: Icon(
@@ -843,9 +878,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor: Color(0xFF5E5D5D),
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).secondary,
                                   borderWidth: 1.0,
-                                  borderRadius: 5.0,
+                                  borderRadius: 2.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 4.0, 5.0, 4.0),
                                   hidesUnderline: true,
@@ -882,7 +918,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                                   fontFamily: 'Lato',
                                                   color: Color(0xFF292929),
                                                   fontSize: 15.0,
-                                                  fontWeight: FontWeight.w600,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                         ),
@@ -915,9 +951,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                           border: Border.all(
-                                            color: Color(0xFF3D3D3D),
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
                                           ),
                                         ),
                                         child: TextFormField(
@@ -1025,7 +1062,7 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                       fontFamily: 'Lato',
                                       color: Color(0xFF292929),
                                       fontSize: 15.0,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                     ),
                               ),
                             ),
@@ -1073,9 +1110,10 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                     border: Border.all(
-                                      color: Color(0xFF5E5D5D),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
                                     ),
                                   ),
                                   child: Padding(
@@ -1086,7 +1124,8 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                       children: [
                                         Icon(
                                           Icons.cake,
-                                          color: Color(0xFF5E5D5D),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
                                           size: 18.0,
                                         ),
                                         Padding(
@@ -1103,7 +1142,9 @@ class _SignUpInformationWidgetState extends State<SignUpInformationWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
-                                                  color: Color(0xFF212121),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
                                                   fontSize: 14.0,
                                                 ),
                                           ),

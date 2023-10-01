@@ -1,6 +1,5 @@
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
-import '/components/leave_chat_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -86,6 +85,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
     super.initState();
     _model = createModel(context, () => ChatModel());
 
+    _model.textController ??= TextEditingController();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -124,17 +124,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                 children: [
                   Expanded(
                     child: Container(
-                      height: 64.0,
+                      height: 70.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFF49A1FF),
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 4.0,
-                            color: Color(0x33000000),
-                            offset: Offset(0.0, 4.0),
-                          )
-                        ],
-                        borderRadius: BorderRadius.circular(5.0),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(0.0),
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -159,7 +152,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                     },
                                     child: Icon(
                                       Icons.chevron_left,
-                                      color: Color(0xFFF6F6F6),
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
                                       size: 25.0,
                                     ),
                                   ),
@@ -168,8 +162,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0, 0.0, 10.0, 0.0),
                                   child: Container(
-                                    width: 42.0,
-                                    height: 42.0,
+                                    width: 45.0,
+                                    height: 45.0,
                                     clipBehavior: Clip.antiAlias,
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
@@ -180,77 +174,46 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                     ),
                                   ),
                                 ),
-                                Text(
-                                  'Sarah Smith',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFFF6F6F6),
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold,
-                                      ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Sarah Smith',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Text(
+                                      'XXXXXXXXXXXX',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ].divide(SizedBox(height: 4.0)),
                                 ),
                               ],
                             ),
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    await showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      backgroundColor: Colors.transparent,
-                                      enableDrag: false,
-                                      context: context,
-                                      builder: (context) {
-                                        return GestureDetector(
-                                          onTap: () => _model
-                                                  .unfocusNode.canRequestFocus
-                                              ? FocusScope.of(context)
-                                                  .requestFocus(
-                                                      _model.unfocusNode)
-                                              : FocusScope.of(context)
-                                                  .unfocus(),
-                                          child: Padding(
-                                            padding: MediaQuery.viewInsetsOf(
-                                                context),
-                                            child: LeaveChatWidget(),
-                                          ),
-                                        );
-                                      },
-                                    ).then((value) => safeSetState(() {}));
-                                  },
-                                  child: Container(
-                                    width: 96.0,
-                                    height: 40.0,
-                                    decoration: BoxDecoration(
-                                      color: Color(0xFFE8083F),
-                                      borderRadius: BorderRadius.circular(5.0),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Leave Chat',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Colors.white,
-                                                fontSize: 14.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                Icon(
+                                  Icons.keyboard_control,
+                                  color: Color(0xFF8A8A8A),
+                                  size: 25.0,
                                 ),
                               ],
                             ),
@@ -264,7 +227,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
               Expanded(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 15.0),
+                      EdgeInsetsDirectional.fromSTEB(32.0, 8.0, 32.0, 15.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -273,11 +236,19 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
+                            Expanded(
+                              child: Container(
+                                width: 100.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).tertiary,
+                                ),
+                              ),
+                            ),
                             Container(
-                              width: 51.0,
+                              width: 110.0,
                               height: 26.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF49A1FF),
+                                color: Colors.white,
                                 borderRadius: BorderRadius.circular(15.0),
                               ),
                               child: Row(
@@ -290,44 +261,32 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Lato',
-                                          color: Color(0xFFF6F6F6),
-                                          fontSize: 10.0,
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
+                                          fontSize: 12.0,
                                           fontWeight: FontWeight.w300,
                                         ),
                                   ),
                                 ],
                               ),
                             ),
+                            Expanded(
+                              child: Container(
+                                width: 100.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).tertiary,
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 10.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Post 1',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF111936),
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                      decoration: TextDecoration.underline,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 20.0, 0.0, 0.0),
+                              0.0, 35.0, 0.0, 0.0),
                           child: ListView(
                             padding: EdgeInsets.zero,
                             reverse: true,
+                            primary: false,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             children: [
@@ -342,12 +301,24 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       Container(
                                         width: 225.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFE0E3FE),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4.0,
+                                              color: Color(0x33000000),
+                                              offset: Offset(0.0, 2.0),
+                                            )
+                                          ],
                                           borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(12.0),
                                             bottomRight: Radius.circular(0.0),
                                             topLeft: Radius.circular(12.0),
                                             topRight: Radius.circular(12.0),
+                                          ),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.5,
                                           ),
                                         ),
                                         child: Padding(
@@ -370,8 +341,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF212121),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
                                                             fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -397,8 +369,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF616161),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .tertiary,
                                                             fontSize: 10.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -432,12 +405,24 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       Container(
                                         width: 225.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFFFE8E2),
+                                          color: Colors.white,
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4.0,
+                                              color: Color(0x33000000),
+                                              offset: Offset(0.0, 2.0),
+                                            )
+                                          ],
                                           borderRadius: BorderRadius.only(
                                             bottomLeft: Radius.circular(0.0),
                                             bottomRight: Radius.circular(12.0),
                                             topLeft: Radius.circular(12.0),
                                             topRight: Radius.circular(12.0),
+                                          ),
+                                          border: Border.all(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondary,
+                                            width: 1.5,
                                           ),
                                         ),
                                         child: Padding(
@@ -460,8 +445,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF212121),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .alternate,
                                                             fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -487,8 +473,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF616161),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .tertiary,
                                                             fontSize: 10.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -526,7 +513,9 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                       BorderRadius.circular(
                                                           15.0),
                                                   border: Border.all(
-                                                    color: Color(0xFFEF0EB0),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                   ),
                                                 ),
                                                 child: Padding(
@@ -539,19 +528,22 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                     children: [
                                                       Text(
                                                         'Edit Appointment',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Lato',
-                                                              color: Color(
-                                                                  0xFFEF0EB0),
-                                                              fontSize: 10.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -600,12 +592,16 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                               child: Container(
                                                 height: 26.0,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFF00C661),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           15.0),
                                                   border: Border.all(
-                                                    color: Color(0xFF00C661),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                   ),
                                                 ),
                                                 child: Padding(
@@ -679,12 +675,16 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                               child: Container(
                                                 height: 26.0,
                                                 decoration: BoxDecoration(
-                                                  color: Color(0xFFE8083F),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiary,
                                                   borderRadius:
                                                       BorderRadius.circular(
                                                           15.0),
                                                   border: Border.all(
-                                                    color: Color(0xFFE8083F),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .tertiary,
                                                   ),
                                                 ),
                                                 child: Padding(
@@ -697,19 +697,22 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                     children: [
                                                       Text(
                                                         'Reject',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Lato',
-                                                              color:
-                                                                  Colors.white,
-                                                              fontSize: 10.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                                  fontSize:
+                                                                      10.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -742,40 +745,6 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: 90.0,
-                          height: 30.0,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF49A1FF),
-                            borderRadius: BorderRadius.circular(15.0),
-                            border: Border.all(
-                              color: Color(0xFF49A1FF),
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Tasker left chat',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Colors.white,
-                                      fontSize: 11.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
                     Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
@@ -796,7 +765,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(15.0),
                                 border: Border.all(
-                                  color: Color(0xFFEF0EB0),
+                                  color: FlutterFlowTheme.of(context).primary,
                                 ),
                               ),
                               child: Padding(
@@ -811,7 +780,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFFEF0EB0),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             fontSize: 10.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -826,7 +796,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
@@ -838,7 +808,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                   .secondaryBackground,
                               borderRadius: BorderRadius.circular(15.0),
                               border: Border.all(
-                                color: Color(0xFF5450E2),
+                                color: FlutterFlowTheme.of(context).secondary,
                               ),
                             ),
                             child: Padding(
@@ -853,7 +823,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Lato',
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
                                           fontSize: 10.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -863,6 +834,144 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                             ),
                           ),
                         ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  1.0, 0.0, 0.0, 0.0),
+                              child: Container(
+                                width: 100.0,
+                                height: 43.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  border: Border.all(
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      4.0, 0.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.safePop();
+                                        },
+                                        child: Icon(
+                                          Icons.more_vert,
+                                          color: Color(0xFF8A8A8A),
+                                          size: 25.0,
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 100.0,
+                                        child: VerticalDivider(
+                                          thickness: 1.0,
+                                          indent: 6.0,
+                                          endIndent: 6.0,
+                                          color: Color(0xFFC9C9C9),
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: TextFormField(
+                                          controller: _model.textController,
+                                          autofocus: true,
+                                          obscureText: false,
+                                          decoration: InputDecoration(
+                                            labelText: 'Write a message...',
+                                            labelStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Lato',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      fontSize: 13.0,
+                                                    ),
+                                            hintStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .labelMedium
+                                                    .override(
+                                                      fontFamily: 'Lato',
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
+                                                      fontSize: 14.0,
+                                                    ),
+                                            enabledBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00292929),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color: Color(0x00F36121),
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            errorBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                            focusedErrorBorder:
+                                                OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .error,
+                                                width: 2.0,
+                                              ),
+                                              borderRadius:
+                                                  BorderRadius.circular(8.0),
+                                            ),
+                                          ),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                          validator: _model
+                                              .textControllerValidator
+                                              .asValidator(context),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Icon(
+                            Icons.send_rounded,
+                            color: FlutterFlowTheme.of(context).primary,
+                            size: 24.0,
+                          ),
+                        ].divide(SizedBox(width: 8.0)),
                       ),
                     ),
                   ],

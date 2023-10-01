@@ -108,8 +108,8 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -152,16 +152,14 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               width: 230.0,
                               height: 40.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().UserInformation.role ==
-                                        'Tasker'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.role ==
                                           'Tasker'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -179,8 +177,10 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                       .UserInformation
                                                       .role ==
                                                   'Tasker'
-                                              ? Color(0xFFF6F6F6)
-                                              : Color(0xFF5E5D5D),
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .secondary,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w500,
                                         ),
@@ -229,16 +229,14 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                               width: 230.0,
                               height: 40.0,
                               decoration: BoxDecoration(
-                                color: FFAppState().UserInformation.role ==
-                                        'Poster'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState().UserInformation.role ==
                                           'Poster'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -256,8 +254,79 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                       .UserInformation
                                                       .role ==
                                                   'Poster'
-                                              ? Color(0xFFF6F6F6)
-                                              : Color(0xFF5E5D5D),
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
+                                              : FlutterFlowTheme.of(context)
+                                                  .secondary,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 8.0, 32.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              setState(() {
+                                FFAppState().updateUserInformationStruct(
+                                  (e) => e..role = '',
+                                );
+                              });
+                              _model.apiResult7859 =
+                                  await TaskerpageBackendGroup.changeMyRoleCall
+                                      .call(
+                                userRole: FFAppState().UserInformation.role,
+                                id: getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.name''',
+                                ).toString(),
+                                roleProfileName:
+                                    FFAppState().UserInformation.role,
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+
+                              setState(() {});
+                            },
+                            child: Container(
+                              width: 230.0,
+                              height: 40.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
+                                border: Border.all(
+                                  color: FFAppState().UserInformation.role == ''
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
+                                  width: 1.0,
+                                ),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Maybe both',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF5E5D5D),
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w500,
                                         ),

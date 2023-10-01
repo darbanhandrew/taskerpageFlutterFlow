@@ -14,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'contactdata3_model.dart';
@@ -297,15 +298,15 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                 Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
+                                      color: Colors.white,
                                       boxShadow: [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0x33000000),
-                                          offset: Offset(0.0, 6.0),
+                                          offset: Offset(0.0, 2.0),
                                         )
                                       ],
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(0.0),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -318,7 +319,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                             children: [
                                               Icon(
                                                 Icons.email_outlined,
-                                                color: Color(0xFFF6F6F6),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
                                                 size: 17.0,
                                               ),
                                               Padding(
@@ -333,10 +336,12 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                       .override(
                                                         fontFamily: 'Lato',
                                                         color:
-                                                            Color(0xFFF6F6F6),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
                                                         fontSize: 14.0,
                                                         fontWeight:
-                                                            FontWeight.bold,
+                                                            FontWeight.w500,
                                                       ),
                                                 ),
                                               ),
@@ -351,11 +356,12 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
                                                           fontSize: 14.0,
                                                           fontWeight:
-                                                              FontWeight.w500,
+                                                              FontWeight.bold,
                                                         ),
                                               ),
                                             ],
@@ -369,7 +375,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                               children: [
                                                 Icon(
                                                   Icons.lock_outlined,
-                                                  color: Color(0xFFF6F6F6),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
                                                   size: 17.0,
                                                 ),
                                                 Padding(
@@ -383,11 +391,12 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
                                                           fontSize: 14.0,
                                                           fontWeight:
-                                                              FontWeight.bold,
+                                                              FontWeight.w500,
                                                         ),
                                                   ),
                                                 ),
@@ -397,7 +406,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryBackground,
+                                                        .alternate,
                                                     shape: BoxShape.circle,
                                                   ),
                                                 ),
@@ -409,9 +418,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -424,9 +434,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -439,9 +450,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -454,9 +466,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -469,9 +482,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -484,9 +498,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -499,9 +514,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 8.0,
                                                     height: 8.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .alternate,
                                                       shape: BoxShape.circle,
                                                     ),
                                                   ),
@@ -551,16 +567,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                   ).then((value) =>
                                                       safeSetState(() {}));
                                                 },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          0.0),
-                                                  child: Image.asset(
-                                                    'assets/images/Icon.png',
-                                                    width: 25.0,
-                                                    height: 25.0,
-                                                    fit: BoxFit.none,
-                                                  ),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.solidEdit,
+                                                  color: Color(0xFF8A8A8A),
+                                                  size: 19.0,
                                                 ),
                                               ),
                                             ],
@@ -586,16 +596,16 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                       Expanded(
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF5450E2),
+                                            color: Colors.white,
                                             boxShadow: [
                                               BoxShadow(
                                                 blurRadius: 4.0,
                                                 color: Color(0x33000000),
-                                                offset: Offset(0.0, 6.0),
+                                                offset: Offset(0.0, 2.0),
                                               )
                                             ],
                                             borderRadius:
-                                                BorderRadius.circular(10.0),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           child: Padding(
                                             padding:
@@ -615,7 +625,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                       Icon(
                                                         Icons.phone_rounded,
                                                         color:
-                                                            Color(0xFFF6F6F6),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
                                                         size: 17.0,
                                                       ),
                                                       Padding(
@@ -634,12 +646,13 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                               .override(
                                                                 fontFamily:
                                                                     'Lato',
-                                                                color: Color(
-                                                                    0xFFF6F6F6),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                                 fontSize: 14.0,
                                                                 fontWeight:
                                                                     FontWeight
-                                                                        .bold,
+                                                                        .w500,
                                                               ),
                                                         ),
                                                       ),
@@ -649,19 +662,22 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                               .jsonBody,
                                                           r'''$.data.phone_number''',
                                                         ).toString(),
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Lato',
-                                                              color: Color(
-                                                                  0xFFF6F6F6),
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold,
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -685,16 +701,12 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                         context.pushNamed(
                                                             'Contactdata-7');
                                                       },
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(0.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Icon.png',
-                                                          width: 25.0,
-                                                          height: 25.0,
-                                                          fit: BoxFit.none,
-                                                        ),
+                                                      child: FaIcon(
+                                                        FontAwesomeIcons
+                                                            .solidEdit,
+                                                        color:
+                                                            Color(0xFF8A8A8A),
+                                                        size: 19.0,
                                                       ),
                                                     ),
                                                   ],
@@ -719,15 +731,15 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                 Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
+                                      color: Colors.white,
                                       boxShadow: [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0x33000000),
-                                          offset: Offset(0.0, 6.0),
+                                          offset: Offset(0.0, 2.0),
                                         )
                                       ],
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(0.0),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -814,8 +826,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                               Icon(
                                                                 Icons
                                                                     .location_on,
-                                                                color: Color(
-                                                                    0xFFF6F6F6),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                                 size: 17.0,
                                                               ),
                                                               Flexible(
@@ -838,7 +851,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                                           fontFamily:
                                                                               'Lato',
                                                                           color:
-                                                                              Color(0xFFF6F6F6),
+                                                                              FlutterFlowTheme.of(context).alternate,
                                                                           fontSize:
                                                                               14.0,
                                                                           fontWeight:
@@ -847,42 +860,49 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                                   ),
                                                                 ),
                                                               ),
-                                                              if (functions
-                                                                      .jsonToInt(
-                                                                          getJsonField(
-                                                                        myAddressItem,
-                                                                        r'''$.is_main_address''',
-                                                                      ))
-                                                                      .toString() ==
-                                                                  '1')
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          3.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    width: 20.0,
-                                                                    height:
-                                                                        20.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Colors
-                                                                          .white,
-                                                                      shape: BoxShape
-                                                                          .circle,
+                                                              Expanded(
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .end,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          95.0,
+                                                                      height:
+                                                                          22.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Color(
+                                                                            0xFFD4D4D4),
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(2.0),
+                                                                      ),
+                                                                      child:
+                                                                          Row(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.center,
+                                                                        children: [
+                                                                          Text(
+                                                                            'Main Address',
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                                                  fontSize: 13.0,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                     ),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .home,
-                                                                      color: Color(
-                                                                          0xFF5450E2),
-                                                                      size: 8.0,
-                                                                    ),
-                                                                  ),
+                                                                  ],
                                                                 ),
+                                                              ),
                                                             ],
                                                           ),
                                                           Divider(
@@ -924,12 +944,18 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                 },
                                                 child: Container(
                                                   width: 180.0,
-                                                  height: 44.0,
+                                                  height: 40.0,
                                                   decoration: BoxDecoration(
-                                                    color: Color(0xFF49A1FF),
+                                                    color: Colors.white,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
+                                                    border: Border.all(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                    ),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -940,19 +966,22 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     children: [
                                                       Text(
                                                         '+ Add another addresses',
-                                                        style: FlutterFlowTheme
-                                                                .of(context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Lato',
-                                                              color: Color(
-                                                                  0xFFF6F6F6),
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      14.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                       ),
                                                     ],
                                                   ),
@@ -999,15 +1028,15 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                 Expanded(
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
+                                      color: Colors.white,
                                       boxShadow: [
                                         BoxShadow(
                                           blurRadius: 4.0,
                                           color: Color(0x33000000),
-                                          offset: Offset(0.0, 6.0),
+                                          offset: Offset(0.0, 2.0),
                                         )
                                       ],
-                                      borderRadius: BorderRadius.circular(10.0),
+                                      borderRadius: BorderRadius.circular(0.0),
                                     ),
                                     child: Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -1023,33 +1052,31 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
-                                                  color: Color(0xFFF6F6F6),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
                                                   fontSize: 14.0,
-                                                  fontWeight: FontWeight.bold,
+                                                  fontWeight: FontWeight.w500,
                                                 ),
                                           ),
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: functions
-                                                          .jsonToInt(
-                                                              getJsonField(
-                                                            contactdata3UserProfileReadResponse
-                                                                .jsonBody,
-                                                            r'''$.data.identified''',
-                                                          ))
-                                                          .toString() ==
-                                                      '0'
-                                                  ? Color(0xFFE8073F)
-                                                  : Color(0xFF63D840),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  blurRadius: 4.0,
-                                                  color: Color(0x33000000),
-                                                  offset: Offset(0.0, 5.0),
-                                                )
-                                              ],
+                                              color: valueOrDefault<Color>(
+                                                functions
+                                                            .jsonToInt(
+                                                                getJsonField(
+                                                              contactdata3UserProfileReadResponse
+                                                                  .jsonBody,
+                                                              r'''$.data.identified''',
+                                                            ))
+                                                            .toString() ==
+                                                        '0'
+                                                    ? Color(0xFFD4D4D4)
+                                                    : Color(0xFF63D840),
+                                                Color(0xFFD4D4D4),
+                                              ),
                                               borderRadius:
-                                                  BorderRadius.circular(15.0),
+                                                  BorderRadius.circular(2.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -1077,8 +1104,9 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
                                                           fontSize: 11.0,
                                                           fontWeight:
                                                               FontWeight.w500,
@@ -1133,9 +1161,18 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                               width: 140.0,
                                               height: 38.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF49A1FF),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(0.0, 2.0),
+                                                  )
+                                                ],
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(1.0),
                                               ),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,

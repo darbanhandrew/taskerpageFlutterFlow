@@ -111,318 +111,270 @@ class _OnlineAppointmentDeatelsWidgetState
                 ),
               ),
             ),
-            body: SafeArea(
-              top: true,
-              child: FutureBuilder<ApiCallResponse>(
-                future: TaskerpageBackendGroup.customerProfileDetailsCall.call(
-                  name: functions.jsonToString(getJsonField(
-                            FFAppState().userProfile,
-                            r'''$.data.role_profile_name''',
-                          )) ==
-                          'Tasker'
-                      ? functions.jsonToString(getJsonField(
-                          onlineAppointmentDeatelsAppointmentReadResponse
-                              .jsonBody,
-                          r'''$.data.poster''',
-                        ))
-                      : functions.jsonToString(getJsonField(
-                          onlineAppointmentDeatelsAppointmentReadResponse
-                              .jsonBody,
-                          r'''$.data.tasker''',
-                        )),
-                  apiGlobalKey: FFAppState().apiKey,
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50.0,
-                        height: 50.0,
-                        child: SpinKitThreeBounce(
-                          color: Color(0xFF5450E2),
-                          size: 50.0,
-                        ),
+            body: FutureBuilder<ApiCallResponse>(
+              future: TaskerpageBackendGroup.customerProfileDetailsCall.call(
+                name: functions.jsonToString(getJsonField(
+                          FFAppState().userProfile,
+                          r'''$.data.role_profile_name''',
+                        )) ==
+                        'Tasker'
+                    ? functions.jsonToString(getJsonField(
+                        onlineAppointmentDeatelsAppointmentReadResponse
+                            .jsonBody,
+                        r'''$.data.poster''',
+                      ))
+                    : functions.jsonToString(getJsonField(
+                        onlineAppointmentDeatelsAppointmentReadResponse
+                            .jsonBody,
+                        r'''$.data.tasker''',
+                      )),
+                apiGlobalKey: FFAppState().apiKey,
+              ),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: SpinKitThreeBounce(
+                        color: Color(0xFF5450E2),
+                        size: 50.0,
                       ),
-                    );
-                  }
-                  final columnCustomerProfileDetailsResponse = snapshot.data!;
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      wrapWithModel(
-                        model: _model.headerModel,
-                        updateCallback: () => setState(() {}),
-                        child: HeaderWidget(
-                          openDrawer: () async {
-                            scaffoldKey.currentState!.openDrawer();
-                          },
-                        ),
+                    ),
+                  );
+                }
+                final columnCustomerProfileDetailsResponse = snapshot.data!;
+                return Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    wrapWithModel(
+                      model: _model.headerModel,
+                      updateCallback: () => setState(() {}),
+                      child: HeaderWidget(
+                        openDrawer: () async {
+                          scaffoldKey.currentState!.openDrawer();
+                        },
                       ),
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.navigateBackModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavigateBackWidget(
-                                  text: 'Appointment Details',
-                                ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 8.0, 0.0, 0.0),
+                            child: wrapWithModel(
+                              model: _model.navigateBackModel,
+                              updateCallback: () => setState(() {}),
+                              child: NavigateBackWidget(
+                                text: 'Appointment Details',
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 28.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  if (functions.jsonToString(getJsonField(
-                                        columnCustomerProfileDetailsResponse
-                                            .jsonBody,
-                                        r'''$.data.role''',
-                                      )) ==
-                                      'Tasker') {
-                                    context.pushNamed(
-                                      'Tasker_Profile_view',
-                                      queryParameters: {
-                                        'id': serializeParam(
-                                          getJsonField(
-                                            columnCustomerProfileDetailsResponse
-                                                .jsonBody,
-                                            r'''$.data.name''',
-                                          ).toString(),
-                                          ParamType.String,
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 28.0, 32.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                if (functions.jsonToString(getJsonField(
+                                      columnCustomerProfileDetailsResponse
+                                          .jsonBody,
+                                      r'''$.data.role''',
+                                    )) ==
+                                    'Tasker') {
+                                  context.pushNamed(
+                                    'Tasker_Profile_view',
+                                    queryParameters: {
+                                      'id': serializeParam(
+                                        getJsonField(
+                                          columnCustomerProfileDetailsResponse
+                                              .jsonBody,
+                                          r'''$.data.name''',
+                                        ).toString(),
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  context.pushNamed(
+                                    'Poster_Profile_view',
+                                    queryParameters: {
+                                      'id': serializeParam(
+                                        getJsonField(
+                                          columnCustomerProfileDetailsResponse
+                                              .jsonBody,
+                                          r'''$.data.name''',
                                         ),
-                                      }.withoutNulls,
-                                    );
-                                  } else {
-                                    context.pushNamed(
-                                      'Poster_Profile_view',
-                                      queryParameters: {
-                                        'id': serializeParam(
-                                          getJsonField(
-                                            columnCustomerProfileDetailsResponse
-                                                .jsonBody,
-                                            r'''$.data.name''',
-                                          ),
-                                          ParamType.int,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  }
-                                },
-                                child: Container(
-                                  width: 100.0,
-                                  height: 105.0,
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFF6F6F6),
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 13.0, 20.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                if (functions.jsonToString(
-                                                        getJsonField(
-                                                      columnCustomerProfileDetailsResponse
-                                                          .jsonBody,
-                                                      r'''$.data.role''',
-                                                    )) ==
-                                                    'Tasker') {
-                                                  context.pushNamed(
-                                                    'Tasker_Profile_view',
-                                                    queryParameters: {
-                                                      'id': serializeParam(
-                                                        getJsonField(
-                                                          columnCustomerProfileDetailsResponse
-                                                              .jsonBody,
-                                                          r'''$.data.name''',
-                                                        ).toString(),
-                                                        ParamType.String,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
-                                                } else {
-                                                  context.pushNamed(
-                                                    'Poster_Profile_view',
-                                                    queryParameters: {
-                                                      'id': serializeParam(
-                                                        getJsonField(
-                                                          columnCustomerProfileDetailsResponse
-                                                              .jsonBody,
-                                                          r'''$.data.name''',
-                                                        ),
-                                                        ParamType.int,
-                                                      ),
-                                                    }.withoutNulls,
-                                                  );
-                                                }
-                                              },
-                                              child: Container(
-                                                width: 60.0,
-                                                height: 60.0,
-                                                clipBehavior: Clip.antiAlias,
-                                                decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: Image.network(
-                                                  '${FFAppState().baseUrl}${getJsonField(
+                                        ParamType.int,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 100.0,
+                                height: 105.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF6F6F6),
+                                  borderRadius: BorderRadius.circular(10.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      16.0, 16.0, 13.0, 20.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              if (functions.jsonToString(
+                                                      getJsonField(
                                                     columnCustomerProfileDetailsResponse
                                                         .jsonBody,
-                                                    r'''$.data.avatar''',
-                                                  ).toString()}',
-                                                  fit: BoxFit.cover,
-                                                ),
+                                                    r'''$.data.role''',
+                                                  )) ==
+                                                  'Tasker') {
+                                                context.pushNamed(
+                                                  'Tasker_Profile_view',
+                                                  queryParameters: {
+                                                    'id': serializeParam(
+                                                      getJsonField(
+                                                        columnCustomerProfileDetailsResponse
+                                                            .jsonBody,
+                                                        r'''$.data.name''',
+                                                      ).toString(),
+                                                      ParamType.String,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              } else {
+                                                context.pushNamed(
+                                                  'Poster_Profile_view',
+                                                  queryParameters: {
+                                                    'id': serializeParam(
+                                                      getJsonField(
+                                                        columnCustomerProfileDetailsResponse
+                                                            .jsonBody,
+                                                        r'''$.data.name''',
+                                                      ),
+                                                      ParamType.int,
+                                                    ),
+                                                  }.withoutNulls,
+                                                );
+                                              }
+                                            },
+                                            child: Container(
+                                              width: 60.0,
+                                              height: 60.0,
+                                              clipBehavior: Clip.antiAlias,
+                                              decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: Image.network(
+                                                '${FFAppState().baseUrl}${getJsonField(
+                                                  columnCustomerProfileDetailsResponse
+                                                      .jsonBody,
+                                                  r'''$.data.avatar''',
+                                                ).toString()}',
+                                                fit: BoxFit.cover,
                                               ),
                                             ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          if (functions
-                                                                  .jsonToString(
-                                                                      getJsonField(
-                                                                columnCustomerProfileDetailsResponse
-                                                                    .jsonBody,
-                                                                r'''$.data.role''',
-                                                              )) ==
-                                                              'Tasker') {
-                                                            context.pushNamed(
-                                                              'Tasker_Profile_view',
-                                                              queryParameters: {
-                                                                'id':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    columnCustomerProfileDetailsResponse
-                                                                        .jsonBody,
-                                                                    r'''$.data.name''',
-                                                                  ).toString(),
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          } else {
-                                                            context.pushNamed(
-                                                              'Poster_Profile_view',
-                                                              queryParameters: {
-                                                                'id':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    columnCustomerProfileDetailsResponse
-                                                                        .jsonBody,
-                                                                    r'''$.data.name''',
-                                                                  ),
-                                                                  ParamType.int,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          }
-                                                        },
-                                                        child: Text(
-                                                          '${getJsonField(
-                                                            columnCustomerProfileDetailsResponse
-                                                                .jsonBody,
-                                                            r'''$.data.first_name''',
-                                                          ).toString()} ${getJsonField(
-                                                            columnCustomerProfileDetailsResponse
-                                                                .jsonBody,
-                                                            r'''$.data.last_name''',
-                                                          ).toString()}',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                color: Colors
-                                                                    .black,
-                                                                fontSize: 14.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .bold,
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    8.0, 0.0, 0.0, 0.0),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    InkWell(
+                                                      splashColor:
+                                                          Colors.transparent,
+                                                      focusColor:
+                                                          Colors.transparent,
+                                                      hoverColor:
+                                                          Colors.transparent,
+                                                      highlightColor:
+                                                          Colors.transparent,
+                                                      onTap: () async {
+                                                        if (functions
+                                                                .jsonToString(
+                                                                    getJsonField(
+                                                              columnCustomerProfileDetailsResponse
+                                                                  .jsonBody,
+                                                              r'''$.data.role''',
+                                                            )) ==
+                                                            'Tasker') {
+                                                          context.pushNamed(
+                                                            'Tasker_Profile_view',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  columnCustomerProfileDetailsResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.name''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
                                                               ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 6.0,
-                                                                0.0, 6.0),
-                                                    child: Text(
-                                                      'Online',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Colors.black,
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        getJsonField(
-                                                          onlineAppointmentDeatelsAppointmentReadResponse
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          context.pushNamed(
+                                                            'Poster_Profile_view',
+                                                            queryParameters: {
+                                                              'id':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  columnCustomerProfileDetailsResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.name''',
+                                                                ),
+                                                                ParamType.int,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        }
+                                                      },
+                                                      child: Text(
+                                                        '${getJsonField(
+                                                          columnCustomerProfileDetailsResponse
                                                               .jsonBody,
-                                                          r'''$.data.appointment_time''',
-                                                        ).toString(),
+                                                          r'''$.data.first_name''',
+                                                        ).toString()} ${getJsonField(
+                                                          columnCustomerProfileDetailsResponse
+                                                              .jsonBody,
+                                                          r'''$.data.last_name''',
+                                                        ).toString()}',
                                                         style: FlutterFlowTheme
                                                                 .of(context)
                                                             .bodyMedium
@@ -431,212 +383,73 @@ class _OnlineAppointmentDeatelsWidgetState
                                                                   'Lato',
                                                               color:
                                                                   Colors.black,
-                                                              fontSize: 12.0,
+                                                              fontSize: 14.0,
                                                               fontWeight:
                                                                   FontWeight
-                                                                      .w500,
+                                                                      .bold,
                                                             ),
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .info_outline_rounded,
-                                                          color:
-                                                              Color(0xFF212121),
-                                                          size: 18.0,
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 6.0, 0.0, 6.0),
+                                                  child: Text(
+                                                    'Online',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.black,
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
                                                         ),
-                                                      ),
-                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 24.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Container(
-                                height: 90.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFF6F6F6),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    color: FFAppState().CopyText == true
-                                        ? Color(0xFF00C853)
-                                        : Color(0x00000000),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      17.0, 0.0, 17.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 80.0,
-                                            height: 30.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(0x00FFFFFF),
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                              border: Border.all(
-                                                color: Color(0xFF5450E2),
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'start time',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
+                                                ),
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      getJsonField(
+                                                        onlineAppointmentDeatelsAppointmentReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.appointment_time''',
+                                                      ).toString(),
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Colors.black,
+                                                            fontSize: 12.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  15.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Icon(
+                                                        Icons
+                                                            .info_outline_rounded,
                                                         color:
-                                                            Color(0xFF5450E2),
-                                                        fontSize: 12.0,
+                                                            Color(0xFF212121),
+                                                        size: 18.0,
                                                       ),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
-                                            child: Text(
-                                              dateTimeFormat(
-                                                  'jm',
-                                                  functions.jsonToDateTime(
-                                                      getJsonField(
-                                                    onlineAppointmentDeatelsAppointmentReadResponse
-                                                        .jsonBody,
-                                                    r'''$.data.appointment_start_time''',
-                                                  ).toString())),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        fontSize: 12.0,
-                                                      ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 0.0, 5.0, 0.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            SizedBox(
-                                              width: 120.0,
-                                              child: StyledDivider(
-                                                thickness: 1.0,
-                                                color: Color(0xFF5450E2),
-                                                lineStyle:
-                                                    DividerLineStyle.dashed,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Container(
-                                            width: 80.0,
-                                            height: 30.0,
-                                            decoration: BoxDecoration(
-                                              color: Color(0x00FFFFFF),
-                                              borderRadius:
-                                                  BorderRadius.circular(15.0),
-                                              border: Border.all(
-                                                color: Color(0xFF5450E2),
-                                              ),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  'end time',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        fontSize: 12.0,
-                                                      ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 5.0, 0.0, 0.0),
-                                            child: Text(
-                                              dateTimeFormat(
-                                                  'jm',
-                                                  functions.jsonToDateTime(
-                                                      getJsonField(
-                                                    onlineAppointmentDeatelsAppointmentReadResponse
-                                                        .jsonBody,
-                                                    r'''$.data.appointment_end_time''',
-                                                  ).toString())),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        fontSize: 12.0,
-                                                      ),
                                             ),
                                           ),
                                         ],
@@ -646,168 +459,340 @@ class _OnlineAppointmentDeatelsWidgetState
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 24.0, 32.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Expanded(
-                              child: Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
-                                child: Stack(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 90.0,
+                              decoration: BoxDecoration(
+                                color: Color(0xFFF6F6F6),
+                                borderRadius: BorderRadius.circular(5.0),
+                                border: Border.all(
+                                  color: FFAppState().CopyText == true
+                                      ? Color(0xFF00C853)
+                                      : Color(0x00000000),
+                                ),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    17.0, 0.0, 17.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Container(
-                                      height: 52.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFF6F6F6),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                          color: FFAppState().CopyText == true
-                                              ? Color(0xFF00C853)
-                                              : Color(0x00000000),
-                                        ),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            17.0, 0.0, 17.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Flexible(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Icon(
-                                                      Icons
-                                                          .video_camera_back_rounded,
-                                                      color: Color(0xFF3D3D3D),
-                                                      size: 20.0,
-                                                    ),
-                                                  ),
-                                                  Flexible(
-                                                    child: Text(
-                                                      getJsonField(
-                                                        onlineAppointmentDeatelsAppointmentReadResponse
-                                                            .jsonBody,
-                                                        r'''$.data.meeting_link''',
-                                                      ).toString(),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF212121),
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.w500,
-                                                          ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 80.0,
+                                          height: 30.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0x00FFFFFF),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            border: Border.all(
+                                              color: Color(0xFF5450E2),
                                             ),
-                                            InkWell(
-                                              splashColor: Colors.transparent,
-                                              focusColor: Colors.transparent,
-                                              hoverColor: Colors.transparent,
-                                              highlightColor:
-                                                  Colors.transparent,
-                                              onTap: () async {
-                                                await Clipboard.setData(
-                                                    ClipboardData(
-                                                        text: getJsonField(
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'start time',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF5450E2),
+                                                          fontSize: 12.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 5.0, 0.0, 0.0),
+                                          child: Text(
+                                            dateTimeFormat(
+                                                'jm',
+                                                functions.jsonToDateTime(
+                                                    getJsonField(
                                                   onlineAppointmentDeatelsAppointmentReadResponse
                                                       .jsonBody,
-                                                  r'''$.data.meeting_link''',
-                                                ).toString()));
-                                                setState(() {
-                                                  FFAppState().CopyText = true;
-                                                });
-                                                _model.instantTimer =
-                                                    InstantTimer.periodic(
-                                                  duration: Duration(
-                                                      milliseconds: 2000),
-                                                  callback: (timer) async {
-                                                    setState(() {
-                                                      FFAppState().CopyText =
-                                                          false;
-                                                    });
-                                                    null?.cancel();
-                                                  },
-                                                  startImmediately: false,
-                                                );
-                                              },
-                                              child: Icon(
-                                                Icons.content_copy_rounded,
-                                                color: Color(0xFF3D3D3D),
-                                                size: 20.0,
-                                              ),
-                                            ),
-                                          ],
+                                                  r'''$.data.appointment_start_time''',
+                                                ).toString())),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Color(0xFF5450E2),
+                                                  fontSize: 12.0,
+                                                ),
+                                          ),
                                         ),
-                                      ),
+                                      ],
                                     ),
-                                    if (!((functions.jsonToString(getJsonField(
-                                              onlineAppointmentDeatelsAppointmentReadResponse
-                                                  .jsonBody,
-                                              r'''$.data.is_tasker_accepted''',
-                                            )) ==
-                                            '1') &&
-                                        (functions.jsonToString(getJsonField(
-                                              onlineAppointmentDeatelsAppointmentReadResponse
-                                                  .jsonBody,
-                                              r'''$.data.is_poster_accepted''',
-                                            )) ==
-                                            '1')))
-                                      Row(
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 5.0, 0.0),
+                                      child: Column(
                                         mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
                                         children: [
-                                          Expanded(
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadius.circular(0.0),
-                                              child: BackdropFilter(
-                                                filter: ImageFilter.blur(
-                                                  sigmaX: 3.0,
-                                                  sigmaY: 3.0,
-                                                ),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [],
-                                                ),
-                                              ),
+                                          SizedBox(
+                                            width: 120.0,
+                                            child: StyledDivider(
+                                              thickness: 1.0,
+                                              color: Color(0xFF5450E2),
+                                              lineStyle:
+                                                  DividerLineStyle.dashed,
                                             ),
                                           ),
                                         ],
                                       ),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Container(
+                                          width: 80.0,
+                                          height: 30.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0x00FFFFFF),
+                                            borderRadius:
+                                                BorderRadius.circular(15.0),
+                                            border: Border.all(
+                                              color: Color(0xFF5450E2),
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'end time',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF5450E2),
+                                                          fontSize: 12.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 5.0, 0.0, 0.0),
+                                          child: Text(
+                                            dateTimeFormat(
+                                                'jm',
+                                                functions.jsonToDateTime(
+                                                    getJsonField(
+                                                  onlineAppointmentDeatelsAppointmentReadResponse
+                                                      .jsonBody,
+                                                  r'''$.data.appointment_end_time''',
+                                                ).toString())),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Color(0xFF5450E2),
+                                                  fontSize: 12.0,
+                                                ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
                                   ],
                                 ),
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  );
-                },
-              ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(0.00, 0.00),
+                              child: Stack(
+                                alignment: AlignmentDirectional(0.0, 0.0),
+                                children: [
+                                  Container(
+                                    height: 52.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      borderRadius: BorderRadius.circular(5.0),
+                                      border: Border.all(
+                                        color: FFAppState().CopyText == true
+                                            ? Color(0xFF00C853)
+                                            : Color(0x00000000),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          17.0, 0.0, 17.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Flexible(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 8.0, 0.0),
+                                                  child: Icon(
+                                                    Icons
+                                                        .video_camera_back_rounded,
+                                                    color: Color(0xFF3D3D3D),
+                                                    size: 20.0,
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: Text(
+                                                    getJsonField(
+                                                      onlineAppointmentDeatelsAppointmentReadResponse
+                                                          .jsonBody,
+                                                      r'''$.data.meeting_link''',
+                                                    ).toString(),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF212121),
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              await Clipboard.setData(
+                                                  ClipboardData(
+                                                      text: getJsonField(
+                                                onlineAppointmentDeatelsAppointmentReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.meeting_link''',
+                                              ).toString()));
+                                              setState(() {
+                                                FFAppState().CopyText = true;
+                                              });
+                                              _model.instantTimer =
+                                                  InstantTimer.periodic(
+                                                duration: Duration(
+                                                    milliseconds: 2000),
+                                                callback: (timer) async {
+                                                  setState(() {
+                                                    FFAppState().CopyText =
+                                                        false;
+                                                  });
+                                                  null?.cancel();
+                                                },
+                                                startImmediately: false,
+                                              );
+                                            },
+                                            child: Icon(
+                                              Icons.content_copy_rounded,
+                                              color: Color(0xFF3D3D3D),
+                                              size: 20.0,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  if (!((functions.jsonToString(getJsonField(
+                                            onlineAppointmentDeatelsAppointmentReadResponse
+                                                .jsonBody,
+                                            r'''$.data.is_tasker_accepted''',
+                                          )) ==
+                                          '1') &&
+                                      (functions.jsonToString(getJsonField(
+                                            onlineAppointmentDeatelsAppointmentReadResponse
+                                                .jsonBody,
+                                            r'''$.data.is_poster_accepted''',
+                                          )) ==
+                                          '1')))
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(0.0),
+                                            child: BackdropFilter(
+                                              filter: ImageFilter.blur(
+                                                sigmaX: 3.0,
+                                                sigmaY: 3.0,
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [],
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
             ),
           ),
         );

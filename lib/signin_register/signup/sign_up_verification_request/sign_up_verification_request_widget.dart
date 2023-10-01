@@ -203,8 +203,10 @@ class _SignUpVerificationRequestWidgetState
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      fontSize: 20.0,
-                                      fontWeight: FontWeight.bold,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.w500,
                                     ),
                               ),
                             ),
@@ -246,8 +248,8 @@ class _SignUpVerificationRequestWidgetState
                                 .override(
                                   fontFamily: 'Lato',
                                   color: Color(0xFF292929),
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.w600,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                           Padding(
@@ -261,8 +263,8 @@ class _SignUpVerificationRequestWidgetState
                                   .override(
                                     fontFamily: 'Lato',
                                     color: Color(0xFF292929),
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -310,8 +312,8 @@ class _SignUpVerificationRequestWidgetState
                                   .override(
                                     fontFamily: 'Lato',
                                     color: Color(0xFF8A8A8A),
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.w600,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
                                     decoration: TextDecoration.underline,
                                   ),
                             ),
@@ -406,7 +408,7 @@ class _SignUpVerificationRequestWidgetState
                                     fontFamily: 'Lato',
                                     color: Color(0xFF292929),
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -439,20 +441,16 @@ class _SignUpVerificationRequestWidgetState
                           fieldHeight: 40.0,
                           fieldWidth: 50.0,
                           borderWidth: 1.0,
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                           shape: PinCodeFieldShape.box,
-                          activeColor: Color(0xFF5450E2),
-                          inactiveColor:
-                              (_model.apiResult3lo?.succeeded ?? true)
-                                  ? Color(0xFF3D3D3D)
-                                  : Color(0xFFF81113),
-                          selectedColor: Color(0xFF3D3D3D),
-                          activeFillColor: Color(0xFF5450E2),
+                          activeColor: FlutterFlowTheme.of(context).primary,
+                          inactiveColor: FlutterFlowTheme.of(context).tertiary,
+                          selectedColor: FlutterFlowTheme.of(context).secondary,
+                          activeFillColor: FlutterFlowTheme.of(context).primary,
                           inactiveFillColor:
-                              (_model.apiResult3lo?.succeeded ?? true)
-                                  ? Color(0xFF3D3D3D)
-                                  : Color(0xFFF81113),
-                          selectedFillColor: Color(0xFF3D3D3D),
+                              FlutterFlowTheme.of(context).tertiary,
+                          selectedFillColor:
+                              FlutterFlowTheme.of(context).secondary,
                         ),
                         controller: _model.pinCodeController,
                         onChanged: (_) {},
@@ -506,7 +504,7 @@ class _SignUpVerificationRequestWidgetState
                                   color: Color(0x005450E2),
                                   borderRadius: BorderRadius.circular(5.0),
                                   border: Border.all(
-                                    color: Color(0xFF5450E2),
+                                    color: Colors.white,
                                     width: 1.0,
                                   ),
                                 ),
@@ -519,7 +517,8 @@ class _SignUpVerificationRequestWidgetState
                                           0.0, 0.0, 5.0, 0.0),
                                       child: Icon(
                                         Icons.arrow_back_ios_rounded,
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         size: 10.0,
                                       ),
                                     ),
@@ -529,7 +528,8 @@ class _SignUpVerificationRequestWidgetState
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             fontSize: 14.0,
                                           ),
                                     ),
@@ -604,8 +604,15 @@ class _SignUpVerificationRequestWidgetState
                                 width: 104.0,
                                 height: 40.0,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF5450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0.0, 2.0),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(1.5),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
