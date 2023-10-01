@@ -288,7 +288,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'chat',
           path: '/chat',
-          builder: (context, params) => ChatWidget(),
+          builder: (context, params) => ChatWidget(
+            room: params.getParam('room', ParamType.String),
+            curentUser: params.getParam('curentUser', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'AppointmentList',

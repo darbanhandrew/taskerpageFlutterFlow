@@ -173,6 +173,7 @@ class TaskerpageBackendGroup {
   static UpdateIdentificationCall updateIdentificationCall =
       UpdateIdentificationCall();
   static ChatListCall chatListCall = ChatListCall();
+  static ChatsRoomCall chatsRoomCall = ChatsRoomCall();
 }
 
 class RegisterCall {
@@ -5949,6 +5950,54 @@ class ChatListCall {
   dynamic type(dynamic response) => getJsonField(
         response,
         r'''$.message[:].type''',
+        true,
+      );
+}
+
+class ChatsRoomCall {
+  Future<ApiCallResponse> call({
+    String? room = '',
+    String? email = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'chats room',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.message.get_all',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'room': room,
+        'email': email,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic content(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].content''',
+        true,
+      );
+  dynamic sender(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].sender''',
+        true,
+      );
+  dynamic creation(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].creation''',
+        true,
+      );
+  dynamic senderemail(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].sender_email''',
         true,
       );
 }

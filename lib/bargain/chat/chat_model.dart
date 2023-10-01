@@ -1,5 +1,4 @@
-import '/components/aler_modal_massage_accept_appointment_widget.dart';
-import '/components/aler_modal_massage_reject_appointment_widget.dart';
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
