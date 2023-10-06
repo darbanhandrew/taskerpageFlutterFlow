@@ -127,7 +127,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                 width: 50.0,
                 height: 50.0,
                 child: SpinKitThreeBounce(
-                  color: Color(0xFF5450E2),
+                  color: FlutterFlowTheme.of(context).primary,
                   size: 50.0,
                 ),
               ),
@@ -783,7 +783,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                     width: 50.0,
                                                     height: 50.0,
                                                     child: SpinKitThreeBounce(
-                                                      color: Color(0xFF5450E2),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
                                                       size: 50.0,
                                                     ),
                                                   ),
@@ -1159,7 +1162,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                             },
                                             child: Container(
                                               width: 140.0,
-                                              height: 38.0,
+                                              height: 36.0,
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)

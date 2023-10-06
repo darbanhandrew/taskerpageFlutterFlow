@@ -291,6 +291,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ChatWidget(
             room: params.getParam('room', ParamType.String),
             curentUser: params.getParam('curentUser', ParamType.String),
+            startChat: params.getParam('startChat', ParamType.String),
           ),
         ),
         FFRoute(

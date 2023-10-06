@@ -438,7 +438,7 @@ class _SignUpVerificationRequestWidgetState
                         obscureText: false,
                         keyboardType: TextInputType.number,
                         pinTheme: PinTheme(
-                          fieldHeight: 40.0,
+                          fieldHeight: 36.0,
                           fieldWidth: 50.0,
                           borderWidth: 1.0,
                           borderRadius: BorderRadius.circular(2.0),
@@ -602,7 +602,7 @@ class _SignUpVerificationRequestWidgetState
                               },
                               child: Container(
                                 width: 104.0,
-                                height: 40.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).primary,
                                   boxShadow: [

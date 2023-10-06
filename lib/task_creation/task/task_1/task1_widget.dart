@@ -4,6 +4,7 @@ import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/selectable_container_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -189,7 +190,8 @@ class _Task1WidgetState extends State<Task1Widget> {
                                       width: 50.0,
                                       height: 50.0,
                                       child: SpinKitThreeBounce(
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         size: 50.0,
                                       ),
                                     ),
@@ -225,125 +227,68 @@ class _Task1WidgetState extends State<Task1Widget> {
                                         final serviceCategoriesItem =
                                             serviceCategories[
                                                 serviceCategoriesIndex];
-                                        return InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            if (FFAppState()
-                                                    .task
+                                        return wrapWithModel(
+                                          model: _model
+                                              .selectableContainerModels
+                                              .getModel(
+                                            getJsonField(
+                                              serviceCategoriesItem,
+                                              r'''$.name''',
+                                            ).toString(),
+                                            serviceCategoriesIndex,
+                                          ),
+                                          updateCallback: () => setState(() {}),
+                                          child: SelectableContainerWidget(
+                                            key: Key(
+                                              'Key9de_${getJsonField(
+                                                serviceCategoriesItem,
+                                                r'''$.name''',
+                                              ).toString()}',
+                                            ),
+                                            parameter1: getJsonField(
+                                              serviceCategoriesItem,
+                                              r'''$.name''',
+                                            ),
+                                            selected: FFAppState()
+                                                    .createTask
                                                     .skillCategory ==
                                                 getJsonField(
                                                   serviceCategoriesItem,
                                                   r'''$.name''',
-                                                )) {
-                                              setState(() {
-                                                FFAppState()
-                                                    .updateCreateTaskStruct(
-                                                  (e) =>
-                                                      e..skillCategory = null,
-                                                );
-                                              });
-                                            } else {
-                                              setState(() {
-                                                FFAppState()
-                                                    .updateCreateTaskStruct(
-                                                  (e) => e
-                                                    ..skillCategory =
-                                                        getJsonField(
-                                                      serviceCategoriesItem,
-                                                      r'''$.name''',
-                                                    ).toString(),
-                                                );
-                                              });
-                                            }
-                                          },
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color: valueOrDefault<Color>(
-                                                FFAppState()
-                                                            .createTask
-                                                            .skillCategory ==
-                                                        getJsonField(
-                                                          serviceCategoriesItem,
-                                                          r'''$.name''',
-                                                        )
-                                                    ? Color(0xFF5450E2)
-                                                    : Color(0x00FFFFFF),
-                                                FlutterFlowTheme.of(context)
-                                                    .secondaryText,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(5.0),
-                                              border: Border.all(
-                                                color: valueOrDefault<Color>(
-                                                  FFAppState()
-                                                              .createTask
-                                                              .skillCategory ==
-                                                          getJsonField(
-                                                            serviceCategoriesItem,
-                                                            r'''$.name''',
-                                                          )
-                                                      ? Color(0xFF5450E2)
-                                                      : Color(0xFF5E5D5D),
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
                                                 ),
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      15.0, 0.0, 15.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    getJsonField(
-                                                      serviceCategoriesItem,
-                                                      r'''$.name''',
-                                                    )
-                                                        .toString()
-                                                        .maybeHandleOverflow(
-                                                          maxChars: 17,
-                                                          replacement: '…',
-                                                        ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: valueOrDefault<
-                                                              Color>(
-                                                            FFAppState()
-                                                                        .createTask
-                                                                        .skillCategory ==
-                                                                    getJsonField(
-                                                                      serviceCategoriesItem,
-                                                                      r'''$.name''',
-                                                                    )
-                                                                ? Color(
-                                                                    0xFFF6F6F6)
-                                                                : Color(
-                                                                    0xFF5E5D5D),
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                          ),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
+                                            text: getJsonField(
+                                              serviceCategoriesItem,
+                                              r'''$.name''',
+                                            ).toString(),
+                                            action: () async {
+                                              if (FFAppState()
+                                                      .createTask
+                                                      .skillCategory ==
+                                                  getJsonField(
+                                                    serviceCategoriesItem,
+                                                    r'''$.name''',
+                                                  )) {
+                                                setState(() {
+                                                  FFAppState()
+                                                      .updateCreateTaskStruct(
+                                                    (e) =>
+                                                        e..skillCategory = null,
+                                                  );
+                                                });
+                                              } else {
+                                                setState(() {
+                                                  FFAppState()
+                                                      .updateCreateTaskStruct(
+                                                    (e) => e
+                                                      ..skillCategory =
+                                                          getJsonField(
+                                                        serviceCategoriesItem,
+                                                        r'''$.name''',
+                                                      ).toString(),
+                                                  );
+                                                });
+                                              }
+                                            },
                                           ),
                                         );
                                       },

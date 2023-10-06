@@ -130,4 +130,4 @@ export '/dashboard/issue_list/issue_list_widget.dart' show IssueListWidget;
 export '/dashboard/test/test_widget.dart' show TestWidget;
 export '/dashboard/notification_log/notification_log_widget.dart'
     show NotificationLogWidget;
-export '/chat_list/chat_list_widget.dart' show ChatListWidget;
+export '/bargain/chat_list/chat_list_widget.dart' show ChatListWidget;

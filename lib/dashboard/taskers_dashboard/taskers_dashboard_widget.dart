@@ -64,7 +64,7 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                 width: 50.0,
                 height: 50.0,
                 child: SpinKitThreeBounce(
-                  color: Color(0xFF5450E2),
+                  color: FlutterFlowTheme.of(context).primary,
                   size: 50.0,
                 ),
               ),
@@ -715,8 +715,9 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                                                               height: 50.0,
                                                               child:
                                                                   SpinKitThreeBounce(
-                                                                color: Color(
-                                                                    0xFF5450E2),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 size: 50.0,
                                                               ),
                                                             ),
@@ -1079,8 +1080,9 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                                                               height: 50.0,
                                                               child:
                                                                   SpinKitThreeBounce(
-                                                                color: Color(
-                                                                    0xFF5450E2),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 size: 50.0,
                                                               ),
                                                             ),
@@ -1179,7 +1181,7 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                                                                                 50.0,
                                                                             child:
                                                                                 SpinKitThreeBounce(
-                                                                              color: Color(0xFF5450E2),
+                                                                              color: FlutterFlowTheme.of(context).primary,
                                                                               size: 50.0,
                                                                             ),
                                                                           ),
@@ -1732,7 +1734,9 @@ class _TaskersDashboardWidgetState extends State<TaskersDashboardWidget> {
                                                       height: 50.0,
                                                       child: SpinKitThreeBounce(
                                                         color:
-                                                            Color(0xFF5450E2),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         size: 50.0,
                                                       ),
                                                     ),

@@ -386,23 +386,23 @@ class _SignUpVerificationCodeWidgetState
                                 obscureText: false,
                                 keyboardType: TextInputType.visiblePassword,
                                 pinTheme: PinTheme(
-                                  fieldHeight: 40.0,
+                                  fieldHeight: 36.0,
                                   fieldWidth: 50.0,
                                   borderWidth: 1.0,
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                   shape: PinCodeFieldShape.box,
-                                  activeColor: Color(0xFF5450E2),
+                                  activeColor:
+                                      FlutterFlowTheme.of(context).primary,
                                   inactiveColor:
-                                      (_model.apiResult3lo8?.succeeded ?? true)
-                                          ? Color(0xFF3D3D3D)
-                                          : Color(0xFFF81113),
-                                  selectedColor: Color(0xFF3D3D3D),
-                                  activeFillColor: Color(0xFF5450E2),
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  selectedColor:
+                                      FlutterFlowTheme.of(context).secondary,
+                                  activeFillColor:
+                                      FlutterFlowTheme.of(context).primary,
                                   inactiveFillColor:
-                                      (_model.apiResult3lo8?.succeeded ?? true)
-                                          ? Color(0xFF3D3D3D)
-                                          : Color(0xFFF81113),
-                                  selectedFillColor: Color(0xFF3D3D3D),
+                                      FlutterFlowTheme.of(context).tertiary,
+                                  selectedFillColor:
+                                      FlutterFlowTheme.of(context).secondary,
                                 ),
                                 controller: _model.pinCodeController,
                                 onChanged: (_) {},

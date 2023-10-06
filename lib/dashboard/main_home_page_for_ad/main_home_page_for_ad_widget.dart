@@ -291,7 +291,8 @@ class _MainHomePageForAdWidgetState extends State<MainHomePageForAdWidget> {
                                         width: 50.0,
                                         height: 50.0,
                                         child: SpinKitThreeBounce(
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           size: 50.0,
                                         ),
                                       ),
@@ -1263,7 +1264,9 @@ class _MainHomePageForAdWidgetState extends State<MainHomePageForAdWidget> {
                                                   width: 50.0,
                                                   height: 50.0,
                                                   child: SpinKitThreeBounce(
-                                                    color: Color(0xFF5450E2),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                     size: 50.0,
                                                   ),
                                                 ),
@@ -1392,8 +1395,9 @@ class _MainHomePageForAdWidgetState extends State<MainHomePageForAdWidget> {
                                                               height: 50.0,
                                                               child:
                                                                   SpinKitThreeBounce(
-                                                                color: Color(
-                                                                    0xFF5450E2),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 size: 50.0,
                                                               ),
                                                             ),

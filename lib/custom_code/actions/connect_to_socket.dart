@@ -18,19 +18,20 @@ Future connectToSocket(
   Future<dynamic> Function()? callbackAction,
 ) async {
   // Add your function code here!
-  IO.Socket socket = IO.io('http://209.38.224.249:9001', <String, dynamic>{
+  IO.Socket socket =
+      IO.io('https://taskerpage.com/tsocket.io', <String, dynamic>{
     'transports': ['websocket'],
+    'path': '/tsocket.io',
   });
-
-  FFAppState().globalSocket = socket;
-
   socket.on('connection', (_) => print('Connected'));
   socket.on('disconnect', (_) => print('Disconnected'));
   // get the message from command line and send it to the server
   socket.on('connect', (_) {
     socket.emit('join', userId);
   });
+  FFAppState().globalSocket = socket as dynamic;
   // Listen for the chat message event
   // socket.on('latest_chat_updates', (data) => print(data));
+  socket = FFAppState().globalSocket as IO.Socket;
   socket.on('latest_chat_updates', (data) => callbackAction!());
 }

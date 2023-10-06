@@ -125,13 +125,13 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                       },
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
-                        height: 40.0,
+                        height: 36.0,
                         decoration: BoxDecoration(
                           color:
                               FlutterFlowTheme.of(context).secondaryBackground,
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                           border: Border.all(
-                            color: Color(0xFF5E5D5D),
+                            color: FlutterFlowTheme.of(context).tertiary,
                             width: 1.0,
                           ),
                         ),
@@ -238,10 +238,10 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                   (languagesIndex) {
                                 final languagesItem = languages[languagesIndex];
                                 return Container(
-                                  height: 26.0,
+                                  height: 22.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    borderRadius: BorderRadius.circular(15.0),
+                                    color: Color(0xFFD4D4D4),
+                                    borderRadius: BorderRadius.circular(2.0),
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
@@ -257,7 +257,9 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
-                                                color: Color(0xFFF6F6F6),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
                                                 fontSize: 12.0,
                                               ),
                                         ),
@@ -287,7 +289,9 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                             },
                                             child: Icon(
                                               Icons.close_rounded,
-                                              color: Color(0xFFF6F6F6),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
                                               size: 15.0,
                                             ),
                                           ),
@@ -326,9 +330,9 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                       height: 100.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(2.0),
                         border: Border.all(
-                          color: Color(0xFF5E5D5D),
+                          color: FlutterFlowTheme.of(context).tertiary,
                           width: 1.0,
                         ),
                       ),
@@ -402,7 +406,8 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         });
                                       }
                                     },
-                                    activeColor: Color(0xFF5450E2),
+                                    activeColor:
+                                        FlutterFlowTheme.of(context).primary,
                                     checkColor:
                                         FlutterFlowTheme.of(context).info,
                                   ),
@@ -456,7 +461,8 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                                         });
                                       }
                                     },
-                                    activeColor: Color(0xFF5450E2),
+                                    activeColor:
+                                        FlutterFlowTheme.of(context).primary,
                                     checkColor:
                                         FlutterFlowTheme.of(context).info,
                                   ),

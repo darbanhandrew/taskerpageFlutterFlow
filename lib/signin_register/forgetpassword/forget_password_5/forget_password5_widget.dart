@@ -107,8 +107,8 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -147,8 +147,8 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                 .override(
                                   fontFamily: 'Lato',
                                   color: Color(0xFF3D3D3D),
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -171,7 +171,7 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                     fontFamily: 'Lato',
                                     color: Color(0xFF3D3D3D),
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -201,36 +201,36 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF5E5D5D),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0xFFE8083F),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0xFFE8083F),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 prefixIcon: Icon(
                                   Icons.lock_outline,
-                                  color: Color(0xFF212121),
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   size: 18.0,
                                 ),
                                 suffixIcon: InkWell(
@@ -274,7 +274,7 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                     fontFamily: 'Lato',
                                     color: Color(0xFF3D3D3D),
                                     fontSize: 15.0,
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w500,
                                   ),
                             ),
                           ),
@@ -304,36 +304,36 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF5E5D5D),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0xFFE8083F),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0xFFE8083F),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 prefixIcon: Icon(
                                   Icons.lock_outline,
-                                  color: Color(0xFF212121),
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   size: 18.0,
                                 ),
                                 suffixIcon: InkWell(
@@ -374,7 +374,7 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Lato',
-                                    color: Color(0xFFD20202),
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 13.0,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -409,51 +409,31 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.safePop();
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: Color(0x005450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xFF5450E2),
-                                  width: 1.0,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  size: 10.0,
                                 ),
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: Icon(
-                                      Icons.arrow_back_ios_rounded,
-                                      color: Color(0xFF5450E2),
-                                      size: 10.0,
+                              Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      fontSize: 14.0,
                                     ),
-                                  ),
-                                  Text(
-                                    'Back',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF5450E2),
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                ],
                               ),
-                            ),
+                            ],
                           ),
                           InkWell(
                             splashColor: Colors.transparent,
@@ -470,10 +450,10 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                             },
                             child: Container(
                               width: 104.0,
-                              height: 40.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(0.0),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,

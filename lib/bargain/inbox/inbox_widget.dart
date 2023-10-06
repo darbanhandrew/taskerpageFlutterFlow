@@ -390,7 +390,9 @@ class _InboxWidgetState extends State<InboxWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -441,8 +443,9 @@ class _InboxWidgetState extends State<InboxWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),
@@ -1063,7 +1066,9 @@ class _InboxWidgetState extends State<InboxWidget>
                                               width: 50.0,
                                               height: 50.0,
                                               child: SpinKitThreeBounce(
-                                                color: Color(0xFF5450E2),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                 size: 50.0,
                                               ),
                                             ),
@@ -1110,8 +1115,9 @@ class _InboxWidgetState extends State<InboxWidget>
                                                           height: 50.0,
                                                           child:
                                                               SpinKitThreeBounce(
-                                                            color: Color(
-                                                                0xFF5450E2),
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
                                                             size: 50.0,
                                                           ),
                                                         ),

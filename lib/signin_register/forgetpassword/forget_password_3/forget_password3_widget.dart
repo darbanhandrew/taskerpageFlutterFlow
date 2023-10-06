@@ -105,8 +105,8 @@ class _ForgetPassword3WidgetState extends State<ForgetPassword3Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -145,8 +145,8 @@ class _ForgetPassword3WidgetState extends State<ForgetPassword3Widget> {
                                 .override(
                                   fontFamily: 'Lato',
                                   color: Color(0xFF3D3D3D),
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -179,51 +179,31 @@ class _ForgetPassword3WidgetState extends State<ForgetPassword3Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.safePop();
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: Color(0x005450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xFF5450E2),
-                                  width: 1.0,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  size: 10.0,
                                 ),
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: Icon(
-                                      Icons.arrow_back_ios_rounded,
-                                      color: Color(0xFF5450E2),
-                                      size: 10.0,
+                              Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      fontSize: 14.0,
                                     ),
-                                  ),
-                                  Text(
-                                    'Back',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF5450E2),
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                ],
                               ),
-                            ),
+                            ],
                           ),
                           InkWell(
                             splashColor: Colors.transparent,
@@ -234,11 +214,14 @@ class _ForgetPassword3WidgetState extends State<ForgetPassword3Widget> {
                               context.pushNamed('Forget-Password-4');
                             },
                             child: Container(
-                              width: 140.0,
-                              height: 40.0,
+                              width: 160.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: Color(0x00FFFFFF),
+                                borderRadius: BorderRadius.circular(1.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -250,7 +233,8 @@ class _ForgetPassword3WidgetState extends State<ForgetPassword3Widget> {
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Lato',
-                                          color: Colors.white,
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           fontSize: 14.0,
                                         ),
                                   ),

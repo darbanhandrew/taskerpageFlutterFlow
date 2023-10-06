@@ -4,6 +4,7 @@ import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/selectable_container_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -24,6 +25,9 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
   late HeaderModel headerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
+  // Models for selectable_container dynamic component.
+  late FlutterFlowDynamicModels<SelectableContainerModel>
+      selectableContainerModels;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (Task Creation skill category)] action in button_Next widget.
@@ -38,6 +42,8 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
+    selectableContainerModels =
+        FlutterFlowDynamicModels(() => SelectableContainerModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
@@ -46,6 +52,7 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
     unfocusNode.dispose();
     headerModel.dispose();
     navigationBarModel.dispose();
+    selectableContainerModels.dispose();
     buttonNextModel.dispose();
     drawerContentModel.dispose();
   }

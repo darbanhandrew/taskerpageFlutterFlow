@@ -174,6 +174,9 @@ class TaskerpageBackendGroup {
       UpdateIdentificationCall();
   static ChatListCall chatListCall = ChatListCall();
   static ChatsRoomCall chatsRoomCall = ChatsRoomCall();
+  static SendMessageCall sendMessageCall = SendMessageCall();
+  static CreateChatCall createChatCall = CreateChatCall();
+  static CreateChatTestCall createChatTestCall = CreateChatTestCall();
 }
 
 class RegisterCall {
@@ -4420,6 +4423,27 @@ class CreateBidCall {
       cache: false,
     );
   }
+
+  dynamic poster(dynamic response) => getJsonField(
+        response,
+        r'''$.data.poster''',
+      );
+  dynamic post(dynamic response) => getJsonField(
+        response,
+        r'''$.data.post''',
+      );
+  dynamic bider(dynamic response) => getJsonField(
+        response,
+        r'''$.data.bider''',
+      );
+  dynamic price(dynamic response) => getJsonField(
+        response,
+        r'''$.data.price''',
+      );
+  dynamic priceType(dynamic response) => getJsonField(
+        response,
+        r'''$.data.price_type''',
+      );
 }
 
 class BidListCall {
@@ -6000,6 +6024,108 @@ class ChatsRoomCall {
         r'''$.message[:].sender_email''',
         true,
       );
+}
+
+class SendMessageCall {
+  Future<ApiCallResponse> call({
+    String? email = '',
+    String? room = '',
+    String? user = '',
+    String? content = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'send message',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.message.send',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'content': content,
+        'user': user,
+        'room': room,
+        'email': email,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class CreateChatCall {
+  Future<ApiCallResponse> call({
+    String? roomName = '',
+    List<String>? usersList,
+    String? type = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    final users = _serializeList(usersList);
+
+    final ffApiRequestBody = '''
+{
+  "room_name": "${roomName}",
+  "users": [
+    "${users}"
+  ],
+  "type": "${type}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'create chat',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.room.create_private',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class CreateChatTestCall {
+  Future<ApiCallResponse> call({
+    String? roomName = '',
+    List<String>? membersList,
+    String? type = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    final members = _serializeList(membersList);
+
+    final ffApiRequestBody = '''
+{
+  "room_name": "${roomName}",
+  "members": [
+    "<users>"
+  ],
+  "type": "${type}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'create chat test',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Chat Room',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
 }
 
 /// End Taskerpage Backend Group Code

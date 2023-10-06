@@ -105,8 +105,8 @@ class _ForgetPassword4WidgetState extends State<ForgetPassword4Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  fontSize: 20.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -145,8 +145,8 @@ class _ForgetPassword4WidgetState extends State<ForgetPassword4Widget> {
                                 .override(
                                   fontFamily: 'Lato',
                                   color: Color(0xFF3D3D3D),
-                                  fontSize: 17.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -179,49 +179,41 @@ class _ForgetPassword4WidgetState extends State<ForgetPassword4Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(
-                            width: 104.0,
-                            height: 40.0,
-                            decoration: BoxDecoration(
-                              color: Color(0x005450E2),
-                              borderRadius: BorderRadius.circular(5.0),
-                              border: Border.all(
-                                color: Color(0xFF5450E2),
-                                width: 1.0,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: FlutterFlowTheme.of(context).secondary,
+                                  size: 10.0,
+                                ),
                               ),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 5.0, 0.0),
-                                  child: Icon(
-                                    Icons.arrow_back_ios_rounded,
-                                    color: Color(0xFF5450E2),
-                                    size: 10.0,
-                                  ),
-                                ),
-                                Text(
-                                  'Back',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFF5450E2),
-                                        fontSize: 14.0,
-                                      ),
-                                ),
-                              ],
-                            ),
+                              Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
+                                      fontSize: 14.0,
+                                    ),
+                              ),
+                            ],
                           ),
                           Container(
-                            width: 140.0,
-                            height: 40.0,
+                            width: 160.0,
+                            height: 36.0,
                             decoration: BoxDecoration(
-                              color: Color(0xFF5450E2),
-                              borderRadius: BorderRadius.circular(5.0),
+                              color: Color(0x005450E2),
+                              borderRadius: BorderRadius.circular(1.0),
+                              border: Border.all(
+                                color: FlutterFlowTheme.of(context).primary,
+                              ),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -233,7 +225,8 @@ class _ForgetPassword4WidgetState extends State<ForgetPassword4Widget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Lato',
-                                        color: Colors.white,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         fontSize: 14.0,
                                       ),
                                 ),

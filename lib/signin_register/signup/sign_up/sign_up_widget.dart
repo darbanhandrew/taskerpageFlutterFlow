@@ -243,7 +243,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(2.0),
@@ -339,7 +339,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(2.0),
@@ -467,7 +467,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(2.0),
@@ -658,7 +658,7 @@ class _SignUpWidgetState extends State<SignUpWidget> {
                               },
                               child: Container(
                                 width: 100.0,
-                                height: 40.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).primary,
                                   boxShadow: [

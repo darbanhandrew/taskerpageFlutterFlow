@@ -223,7 +223,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(2.0),
@@ -319,7 +319,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
                                   borderRadius: BorderRadius.circular(2.0),
@@ -347,7 +347,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                 ),
                                 prefixIcon: Icon(
                                   Icons.lock_outline,
-                                  color: Color(0xFF212121),
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   size: 18.0,
                                 ),
                                 suffixIcon: InkWell(
@@ -531,7 +531,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                               },
                               child: Container(
                                 width: 100.0,
-                                height: 40.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context).primary,
                                   boxShadow: [

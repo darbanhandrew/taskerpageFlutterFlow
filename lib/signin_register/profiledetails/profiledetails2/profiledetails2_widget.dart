@@ -171,7 +171,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                 .override(
                                   fontFamily: 'Lato',
                                   fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -270,12 +270,12 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                             },
                             child: Container(
                               width: 154.0,
-                              height: 40.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(0.0),
                                 border: Border.all(
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   width: 1.5,
                                 ),
                               ),
@@ -387,12 +387,12 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                             },
                             child: Container(
                               width: 154.0,
-                              height: 40.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(0.0),
                                 border: Border.all(
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   width: 1.5,
                                 ),
                               ),
@@ -468,7 +468,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                       width: 20.0,
                                       height: 20.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         shape: BoxShape.circle,
                                       ),
                                       child: Icon(
@@ -504,7 +505,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                 .override(
                                   fontFamily: 'Lato',
                                   fontSize: 16.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -538,36 +539,37 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                     .labelMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFFACABAB),
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF3D3D3D),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0xFFE8083F),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: Color(0xFFE8083F),
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(9.0),
+                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -577,7 +579,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                     color: Color(0xFF212121),
                                     fontSize: 14.0,
                                   ),
-                              maxLines: 17,
+                              maxLines: 20,
                               validator: _model.textControllerValidator
                                   .asValidator(context),
                             ),
@@ -699,10 +701,10 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                               },
                               child: Container(
                                 width: 104.0,
-                                height: 40.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF5450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,

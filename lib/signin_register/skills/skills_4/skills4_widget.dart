@@ -152,8 +152,9 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
+                                  color: FlutterFlowTheme.of(context).alternate,
                                   fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -161,7 +162,7 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(90.0, 25.0, 90.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(90.0, 30.0, 90.0, 0.0),
                       child: Builder(
                         builder: (context) {
                           final serviceCategoryIds =
@@ -187,19 +188,26 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                   });
                                 },
                                 child: Container(
-                                  width: 230.0,
-                                  height: 40.0,
+                                  width: 160.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
                                     color: serviceCategoryIdsItem ==
                                             _model.selectedServiceCategory
-                                        ? Color(0xFF5450E2)
-                                        : Color(0x00FFFFFF),
-                                    borderRadius: BorderRadius.circular(5.0),
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 4.0,
+                                        color: Color(0x33000000),
+                                        offset: Offset(0.0, 2.0),
+                                      )
+                                    ],
+                                    borderRadius: BorderRadius.circular(2.0),
                                     border: Border.all(
                                       color: serviceCategoryIdsItem ==
                                               _model.selectedServiceCategory
-                                          ? Color(0xFF5450E2)
-                                          : Color(0xFF5E5D5D),
+                                          ? FlutterFlowTheme.of(context).primary
+                                          : Colors.white,
                                       width: 1.0,
                                     ),
                                   ),
@@ -216,8 +224,9 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                               color: serviceCategoryIdsItem ==
                                                       _model
                                                           .selectedServiceCategory
-                                                  ? Color(0xFFF6F6F6)
-                                                  : Color(0xFF5E5D5D),
+                                                  ? Colors.white
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -251,9 +260,9 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  color: Color(0xFF292929),
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w600,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -282,7 +291,8 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                       width: 50.0,
                                       height: 50.0,
                                       child: SpinKitThreeBounce(
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         size: 50.0,
                                       ),
                                     ),
@@ -311,9 +321,9 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        crossAxisSpacing: 16.0,
-                                        mainAxisSpacing: 8.0,
-                                        childAspectRatio: 4.0,
+                                        crossAxisSpacing: 12.0,
+                                        mainAxisSpacing: 6.0,
+                                        childAspectRatio: 4.2,
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
@@ -468,18 +478,11 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                             width: 100.0,
                                             height: 100.0,
                                             decoration: BoxDecoration(
-                                              color: FFAppState()
-                                                          .SelectServices
-                                                          .contains(
-                                                              getJsonField(
-                                                            servicesItem,
-                                                            r'''$.name''',
-                                                          ).toString()) ==
-                                                      true
-                                                  ? Color(0xFF5450E2)
-                                                  : Color(0x00FFFFFF),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(2.0),
                                               border: Border.all(
                                                 color: FFAppState()
                                                             .SelectServices
@@ -489,8 +492,12 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                               r'''$.name''',
                                                             ).toString()) ==
                                                         true
-                                                    ? Color(0xFF5450E2)
-                                                    : Color(0xFF5E5D5D),
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
                                                 width: 1.0,
                                               ),
                                             ),
@@ -525,10 +532,15 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                                             getJsonField(
                                                                           servicesItem,
                                                                           r'''$.name''',
-                                                                        ).toString()) ==
+                                                                        )
+                                                                                .toString()) ==
                                                                     true
-                                                                ? Color(0xFFF6F6F6)
-                                                                : Color(0xFF5E5D5D),
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                             fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -632,10 +644,10 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                             },
                             child: Container(
                               width: 104.0,
-                              height: 40.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(1.0),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,

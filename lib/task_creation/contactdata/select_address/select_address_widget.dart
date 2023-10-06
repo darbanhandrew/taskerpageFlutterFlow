@@ -254,7 +254,7 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                 width: 50.0,
                                 height: 50.0,
                                 child: SpinKitThreeBounce(
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   size: 50.0,
                                 ),
                               ),

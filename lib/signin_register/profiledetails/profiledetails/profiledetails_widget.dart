@@ -135,7 +135,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                   fontFamily: 'Lato',
                                   color: Color(0xFF3D3D3D),
                                   fontSize: 15.0,
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w500,
                                 ),
                           ),
                         ],
@@ -148,15 +148,15 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           Container(
-                            width: 135.0,
+                            width: 180.0,
                             height: 36.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
-                              borderRadius: BorderRadius.circular(5.0),
+                              borderRadius: BorderRadius.circular(2.0),
                               shape: BoxShape.rectangle,
                               border: Border.all(
-                                color: Color(0xFF5E5D5D),
+                                color: FlutterFlowTheme.of(context).tertiary,
                                 width: 1.0,
                               ),
                             ),
@@ -343,9 +343,9 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 16.0,
-                                mainAxisSpacing: 8.0,
-                                childAspectRatio: 4.0,
+                                crossAxisSpacing: 12.0,
+                                mainAxisSpacing: 6.0,
+                                childAspectRatio: 4.2,
                               ),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
@@ -366,20 +366,18 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                     width: 100.0,
                                     height: 100.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .UserInformation
-                                                  .driverLicense ==
-                                              'CAR'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .UserInformation
                                                     .driverLicense ==
                                                 'CAR'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -401,8 +399,12 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                                               .UserInformation
                                                               .driverLicense ==
                                                           'CAR'
-                                                      ? Color(0xFFF6F6F6)
-                                                      : Color(0xFF5E5D5D),
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -428,20 +430,18 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                     width: 100.0,
                                     height: 100.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .UserInformation
-                                                  .driverLicense ==
-                                              'TRUCK'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .UserInformation
                                                     .driverLicense ==
                                                 'TRUCK'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -463,8 +463,12 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                                                               .UserInformation
                                                               .driverLicense ==
                                                           'TRUCK'
-                                                      ? Color(0xFFF6F6F6)
-                                                      : Color(0xFF5E5D5D),
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -536,10 +540,10 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                             },
                             child: Container(
                               width: 104.0,
-                              height: 40.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(1.0),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,

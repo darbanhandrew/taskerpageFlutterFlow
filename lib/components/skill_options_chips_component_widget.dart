@@ -90,7 +90,7 @@ class _SkillOptionsChipsComponentWidgetState
                   onChanged: (val) =>
                       setState(() => _model.choiceChipsValues = val),
                   selectedChipStyle: ChipStyle(
-                    backgroundColor: Color(0xFF5450E2),
+                    backgroundColor: FlutterFlowTheme.of(context).primary,
                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Lato',
                           color: Colors.white,
@@ -99,19 +99,19 @@ class _SkillOptionsChipsComponentWidgetState
                     iconColor: Colors.white,
                     iconSize: 18.0,
                     elevation: 4.0,
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(2.0),
                   ),
                   unselectedChipStyle: ChipStyle(
-                    backgroundColor: Color(0xFFF6F6F6),
+                    backgroundColor: Color(0xFFD4D4D4),
                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Lato',
                           color: Color(0xFF5450E2),
                           fontSize: 12.0,
                         ),
-                    iconColor: Color(0xFF5450E2),
+                    iconColor: FlutterFlowTheme.of(context).alternate,
                     iconSize: 18.0,
                     elevation: 0.0,
-                    borderRadius: BorderRadius.circular(15.0),
+                    borderRadius: BorderRadius.circular(2.0),
                   ),
                   chipSpacing: 12.0,
                   rowSpacing: 12.0,

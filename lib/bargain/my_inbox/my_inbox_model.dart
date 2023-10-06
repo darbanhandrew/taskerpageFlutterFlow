@@ -4,7 +4,6 @@ import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
-import '/components/set_appointment_widget.dart';
 import '/components/sort_bargain_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';

@@ -1053,3 +1053,8 @@ double? jsonTodouble(dynamic input) {
     return null;
   }
 }
+
+int? plus1(int? num1) {
+  // return num1 plus 1
+  return num1 != null ? num1 + 1 : null;
+}

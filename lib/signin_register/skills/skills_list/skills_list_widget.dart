@@ -52,7 +52,7 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
@@ -114,7 +114,7 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 8.0, 32.0, 0.0),
+                                  32.0, 8.0, 32.0, 16.0),
                               child: FutureBuilder<ApiCallResponse>(
                                 future: (_model.apiRequestCompleter ??=
                                         Completer<ApiCallResponse>()
@@ -139,7 +139,8 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                         width: 50.0,
                                         height: 50.0,
                                         child: SpinKitThreeBounce(
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           size: 50.0,
                                         ),
                                       ),
@@ -160,7 +161,7 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                         scrollDirection: Axis.vertical,
                                         itemCount: myServices.length,
                                         separatorBuilder: (_, __) =>
-                                            SizedBox(height: 24.0),
+                                            SizedBox(height: 16.0),
                                         itemBuilder:
                                             (context, myServicesIndex) {
                                           final myServicesItem =
@@ -181,6 +182,7 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                                   'Key5mz_${myServicesIndex.toString()}',
                                                 ),
                                                 userService: myServicesItem,
+                                                index: myServicesIndex,
                                                 action: () async {
                                                   setState(() => _model
                                                           .apiRequestCompleter =
@@ -200,56 +202,82 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 24.0, 32.0, 20.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      context.pushNamed(
-                                        'Skills-3',
-                                        queryParameters: {
-                                          'addAnother': serializeParam(
-                                            true,
-                                            ParamType.bool,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: Container(
-                                      width: 180.0,
-                                      height: 44.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            '+ Add another Skills',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFFF6F6F6),
-                                                  fontSize: 14.0,
-                                                  fontWeight: FontWeight.w500,
-                                                ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                  32.0, 0.0, 32.0, 30.0),
+                              child: Container(
+                                width: double.infinity,
+                                height: 180.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0x00FFFFFF),
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: Image.asset(
+                                      'assets/images/Rectangle_1937.png',
+                                    ).image,
                                   ),
-                                ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      32.0, 24.0, 32.0, 20.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'Skills-3',
+                                            queryParameters: {
+                                              'addAnother': serializeParam(
+                                                true,
+                                                ParamType.bool,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: Container(
+                                          width: 184.0,
+                                          height: 36.0,
+                                          decoration: BoxDecoration(
+                                            color: Color(0x00FFFFFF),
+                                            borderRadius:
+                                                BorderRadius.circular(1.0),
+                                            border: Border.all(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                '+ Add another Skills',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
                           ],

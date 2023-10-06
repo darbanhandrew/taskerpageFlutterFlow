@@ -197,7 +197,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -264,8 +266,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),
@@ -778,7 +781,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                   width: 50.0,
                                                   height: 50.0,
                                                   child: SpinKitThreeBounce(
-                                                    color: Color(0xFF5450E2),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                     size: 50.0,
                                                   ),
                                                 ),
@@ -846,8 +851,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                               height: 50.0,
                                                               child:
                                                                   SpinKitThreeBounce(
-                                                                color: Color(
-                                                                    0xFF5450E2),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                                 size: 50.0,
                                                               ),
                                                             ),
@@ -1123,7 +1129,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -1190,8 +1198,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),
@@ -1503,7 +1512,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -1570,8 +1581,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),
@@ -1883,7 +1895,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -1950,8 +1964,9 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),
@@ -2253,7 +2268,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                                           child:
                                                                               SpinKitThreeBounce(
                                                                             color:
-                                                                                Color(0xFF5450E2),
+                                                                                FlutterFlowTheme.of(context).primary,
                                                                             size:
                                                                                 50.0,
                                                                           ),

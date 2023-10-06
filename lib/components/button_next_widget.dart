@@ -49,7 +49,7 @@ class _ButtonNextWidgetState extends State<ButtonNextWidget> {
 
     return Container(
       width: 104.0,
-      height: 40.0,
+      height: 36.0,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(1.5),

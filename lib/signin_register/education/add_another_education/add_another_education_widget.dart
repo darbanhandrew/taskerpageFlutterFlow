@@ -188,8 +188,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
                                         fontSize: 18.0,
-                                        fontWeight: FontWeight.bold,
+                                        fontWeight: FontWeight.w500,
                                       ),
                                 ),
                               ),
@@ -198,7 +200,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 25.0, 32.0, 0.0),
+                              32.0, 29.0, 32.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -208,9 +210,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   gridDelegate:
                                       SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    crossAxisSpacing: 16.0,
-                                    mainAxisSpacing: 8.0,
-                                    childAspectRatio: 4.0,
+                                    crossAxisSpacing: 12.0,
+                                    mainAxisSpacing: 6.0,
+                                    childAspectRatio: 4.2,
                                   ),
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
@@ -232,28 +234,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: (FFAppState()
-                                                          .UserInformation
-                                                          .educationType ==
-                                                      'Degree') ||
-                                                  ((FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              null ||
-                                                          FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              '') &&
-                                                      (functions.jsonToString(
-                                                              getJsonField(
-                                                            widget.education,
-                                                            r'''$.education_level''',
-                                                          )) ==
-                                                          'Degree'))
-                                              ? Color(0xFF5450E2)
-                                              : Color(0x00000000),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                           border: Border.all(
                                             color: (FFAppState()
                                                             .UserInformation
@@ -273,8 +257,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                               r'''$.education_level''',
                                                             )) ==
                                                             'Degree'))
-                                                ? Color(0xFF5450E2)
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             width: 1.0,
                                           ),
                                         ),
@@ -298,8 +284,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                                   .UserInformation
                                                                   .educationType ==
                                                               'Degree'
-                                                          ? Colors.white
-                                                          : Color(0xFF5E5D5D),
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
                                                       fontSize: 12.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -328,28 +318,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: (FFAppState()
-                                                          .UserInformation
-                                                          .educationType ==
-                                                      'Training') ||
-                                                  ((FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              null ||
-                                                          FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              '') &&
-                                                      (functions.jsonToString(
-                                                              getJsonField(
-                                                            widget.education,
-                                                            r'''$.education_level''',
-                                                          )) ==
-                                                          'Training'))
-                                              ? Color(0xFF5450E2)
-                                              : Color(0x00000000),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                           border: Border.all(
                                             color: (FFAppState()
                                                             .UserInformation
@@ -369,8 +341,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                               r'''$.education_level''',
                                                             )) ==
                                                             'Training'))
-                                                ? Color(0xFF5450E2)
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             width: 1.0,
                                           ),
                                         ),
@@ -394,8 +368,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                                   .UserInformation
                                                                   .educationType ==
                                                               'Training'
-                                                          ? Colors.white
-                                                          : Color(0xFF5E5D5D),
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
                                                       fontSize: 12.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -423,28 +401,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: (FFAppState()
-                                                          .UserInformation
-                                                          .educationType ==
-                                                      'Student') ||
-                                                  ((FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              null ||
-                                                          FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              '') &&
-                                                      (functions.jsonToString(
-                                                              getJsonField(
-                                                            widget.education,
-                                                            r'''$.education_level''',
-                                                          )) ==
-                                                          'Student'))
-                                              ? Color(0xFF5450E2)
-                                              : Color(0x00000000),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                           border: Border.all(
                                             color: (FFAppState()
                                                             .UserInformation
@@ -464,8 +424,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                               r'''$.education_level''',
                                                             )) ==
                                                             'Student'))
-                                                ? Color(0xFF5450E2)
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             width: 1.0,
                                           ),
                                         ),
@@ -489,8 +451,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                                   .UserInformation
                                                                   .educationType ==
                                                               'Student'
-                                                          ? Colors.white
-                                                          : Color(0xFF5E5D5D),
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
                                                       fontSize: 12.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -519,28 +485,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         width: 100.0,
                                         height: 100.0,
                                         decoration: BoxDecoration(
-                                          color: (FFAppState()
-                                                          .UserInformation
-                                                          .educationType ==
-                                                      'Participation') ||
-                                                  ((FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              null ||
-                                                          FFAppState()
-                                                                  .UserInformation
-                                                                  .educationType ==
-                                                              '') &&
-                                                      (functions.jsonToString(
-                                                              getJsonField(
-                                                            widget.education,
-                                                            r'''$.education_level''',
-                                                          )) ==
-                                                          'Participation'))
-                                              ? Color(0xFF5450E2)
-                                              : Color(0x00000000),
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                           border: Border.all(
                                             color: (FFAppState()
                                                             .UserInformation
@@ -560,8 +508,10 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                               r'''$.education_level''',
                                                             )) ==
                                                             'Participation'))
-                                                ? Color(0xFF5450E2)
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             width: 1.0,
                                           ),
                                         ),
@@ -585,8 +535,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                                   .UserInformation
                                                                   .educationType ==
                                                               'Participation'
-                                                          ? Colors.white
-                                                          : Color(0xFF5E5D5D),
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
                                                       fontSize: 12.0,
                                                       fontWeight:
                                                           FontWeight.w500,
@@ -667,32 +621,33 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0xFF5E5D5D),
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondary,
+                                            .primary,
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFE8083F),
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFE8083F),
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
@@ -769,32 +724,33 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                         ),
                                     enabledBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
-                                        color: Color(0xFF5E5D5D),
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     focusedBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondary,
+                                            .primary,
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     errorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFE8083F),
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     focusedErrorBorder: OutlineInputBorder(
                                       borderSide: BorderSide(
                                         color: Color(0xFFE8083F),
                                         width: 1.0,
                                       ),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     contentPadding:
                                         EdgeInsetsDirectional.fromSTEB(
@@ -870,8 +826,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   width: 147.0,
                                   height: 44.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(2.0),
+                                    border: Border.all(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -889,7 +849,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Lato',
-                                              color: Color(0xFFF6F6F6),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -946,14 +908,15 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   },
                                   child: Container(
                                     width: 104.0,
-                                    height: 40.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
                                       color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(1.0),
                                       border: Border.all(
                                         color: widget.isSignUp
                                             ? Colors.transparent
-                                            : Color(0xFF5450E2),
+                                            : FlutterFlowTheme.of(context)
+                                                .primary,
                                       ),
                                     ),
                                     child: Row(
@@ -977,8 +940,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                               .override(
                                                 fontFamily: 'Lato',
                                                 color: widget.isSignUp
-                                                    ? Color(0xFF8A8A8A)
-                                                    : Color(0xFF5450E2),
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                 fontSize: 14.0,
                                               ),
                                         ),
@@ -1166,11 +1133,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     },
                                     child: Container(
                                       width: 104.0,
-                                      height: 40.0,
+                                      height: 36.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                            BorderRadius.circular(1.0),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -1335,11 +1303,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     },
                                     child: Container(
                                       width: 104.0,
-                                      height: 40.0,
+                                      height: 36.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                            BorderRadius.circular(1.0),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,

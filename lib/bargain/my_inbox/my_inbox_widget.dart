@@ -4,7 +4,6 @@ import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
-import '/components/set_appointment_widget.dart';
 import '/components/sort_bargain_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -397,7 +396,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -449,8 +450,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),
@@ -468,51 +470,29 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                         highlightColor:
                                                             Colors.transparent,
                                                         onTap: () async {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SetAppointmentWidget(
-                                                                    setOredit:
-                                                                        false,
-                                                                    id: getJsonField(
-                                                                      containerUserProfileReadResponse
-                                                                          .jsonBody,
-                                                                      r'''$.data.name''',
-                                                                    ).toString(),
-                                                                    postID:
-                                                                        getJsonField(
-                                                                      myBargainsPostItem,
-                                                                      r'''$.post''',
-                                                                    ).toString(),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
+                                                          context.pushNamed(
+                                                            'chat',
+                                                            queryParameters: {
+                                                              'room':
+                                                                  serializeParam(
+                                                                '',
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'curentUser':
+                                                                  serializeParam(
+                                                                '',
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                              'startChat':
+                                                                  serializeParam(
+                                                                '',
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
                                                         },
                                                         child: Container(
                                                           width: 100.0,
@@ -1006,7 +986,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                 width: 50.0,
                                                 height: 50.0,
                                                 child: SpinKitThreeBounce(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   size: 50.0,
                                                 ),
                                               ),
@@ -1055,8 +1037,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                             height: 50.0,
                                                             child:
                                                                 SpinKitThreeBounce(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               size: 50.0,
                                                             ),
                                                           ),

@@ -3,9 +3,8 @@ import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,20 +27,6 @@ class _ChatListWidgetState extends State<ChatListWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => ChatListModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await actions.connectToSocket(
-        'https://taskerpage.com',
-        'Administrator',
-        () async {
-          setState(() {
-            _model.textController?.text =
-                getCurrentTimestamp.secondsSinceEpoch.toString();
-          });
-        },
-      );
-    });
 
     _model.textController ??= TextEditingController();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -173,7 +158,8 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                     width: 50.0,
                                     height: 50.0,
                                     child: SpinKitThreeBounce(
-                                      color: Color(0xFF5450E2),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       size: 50.0,
                                     ),
                                   ),
@@ -218,6 +204,17 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                       FFAppState().userProfile,
                                                       r'''$.data.user''',
                                                     ).toString(),
+                                                    ParamType.String,
+                                                  ),
+                                                  'startChat': serializeParam(
+                                                    dateTimeFormat(
+                                                        'MMMEd',
+                                                        functions
+                                                            .jsonToDateTime(
+                                                                getJsonField(
+                                                          myChatsItem,
+                                                          r'''$.modified''',
+                                                        ).toString())),
                                                     ParamType.String,
                                                   ),
                                                 }.withoutNulls,
@@ -316,7 +313,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                                                 ),
                                                                           ),
                                                                           Text(
-                                                                            'Apr 15',
+                                                                            dateTimeFormat(
+                                                                                'MMMEd',
+                                                                                functions.jsonToDateTime(getJsonField(
+                                                                                  myChatsItem,
+                                                                                  r'''$.modified''',
+                                                                                ).toString())),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: Color(0x74292929),
@@ -348,7 +350,10 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                                               getJsonField(
                                                                                 myChatsItem,
                                                                                 r'''$.last_message''',
-                                                                              ).toString(),
+                                                                              ).toString().maybeHandleOverflow(
+                                                                                    maxChars: 15,
+                                                                                    replacement: '…',
+                                                                                  ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Lato',
                                                                                     color: FlutterFlowTheme.of(context).secondary,
@@ -358,13 +363,34 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                                             ),
                                                                           ],
                                                                         ),
-                                                                        Icon(
-                                                                          Icons
-                                                                              .keyboard_arrow_right,
-                                                                          color:
-                                                                              Color(0xFF8A8A8A),
-                                                                          size:
-                                                                              21.0,
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          children: [
+                                                                            if (functions
+                                                                                    .jsonToInt(getJsonField(
+                                                                                      myChatsItem,
+                                                                                      r'''$.is_read''',
+                                                                                    ))
+                                                                                    .toString() ==
+                                                                                '0')
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
+                                                                                child: Container(
+                                                                                  width: 10.0,
+                                                                                  height: 10.0,
+                                                                                  decoration: BoxDecoration(
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    shape: BoxShape.circle,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            Icon(
+                                                                              Icons.keyboard_arrow_right,
+                                                                              color: Color(0xFF8A8A8A),
+                                                                              size: 21.0,
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ],
                                                                     ),

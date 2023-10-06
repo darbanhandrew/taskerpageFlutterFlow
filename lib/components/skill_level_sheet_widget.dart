@@ -69,7 +69,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
               width: 50.0,
               height: 50.0,
               child: SpinKitThreeBounce(
-                color: Color(0xFF5450E2),
+                color: FlutterFlowTheme.of(context).primary,
                 size: 50.0,
               ),
             ),
@@ -80,24 +80,14 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
           color: Colors.transparent,
           elevation: 5.0,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(0.0),
-              bottomRight: Radius.circular(0.0),
-              topLeft: Radius.circular(25.0),
-              topRight: Radius.circular(25.0),
-            ),
+            borderRadius: BorderRadius.circular(2.0),
           ),
           child: Container(
             width: double.infinity,
             height: MediaQuery.sizeOf(context).height * 0.85,
             decoration: BoxDecoration(
               color: FlutterFlowTheme.of(context).secondaryBackground,
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0),
-                topLeft: Radius.circular(25.0),
-                topRight: Radius.circular(25.0),
-              ),
+              borderRadius: BorderRadius.circular(2.0),
             ),
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -125,8 +115,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                 },
                                 child: Icon(
                                   Icons.close_rounded,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   size: 20.0,
                                 ),
                               ),
@@ -159,7 +148,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                               fontFamily: 'Lato',
                                               color: Color(0xFF292929),
                                               fontSize: 15.0,
-                                              fontWeight: FontWeight.w600,
+                                              fontWeight: FontWeight.w500,
                                             ),
                                       ),
                                     ),
@@ -197,29 +186,13 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                           },
                                           child: Container(
                                             width: 230.0,
-                                            height: 40.0,
+                                            height: 36.0,
                                             decoration: BoxDecoration(
-                                              color: () {
-                                                if ((_model.chosenSkillLevel ==
-                                                            null ||
-                                                        _model.chosenSkillLevel ==
-                                                            '') &&
-                                                    (skillLevlsItem ==
-                                                        getJsonField(
-                                                          widget.userService,
-                                                          r'''$.service_skill_level''',
-                                                        ))) {
-                                                  return Color(0xFF5450E2);
-                                                } else if (_model
-                                                        .chosenSkillLevel ==
-                                                    skillLevlsItem) {
-                                                  return Color(0xFF5450E2);
-                                                } else {
-                                                  return Color(0x00FFFFFF);
-                                                }
-                                              }(),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
                                               borderRadius:
-                                                  BorderRadius.circular(5.0),
+                                                  BorderRadius.circular(2.0),
                                               border: Border.all(
                                                 color: () {
                                                   if ((_model.chosenSkillLevel ==
@@ -231,13 +204,19 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                                             widget.userService,
                                                             r'''$.service_skill_level''',
                                                           ))) {
-                                                    return Color(0xFF5450E2);
+                                                    return FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary;
                                                   } else if (_model
                                                           .chosenSkillLevel ==
                                                       skillLevlsItem) {
-                                                    return Color(0xFF5450E2);
+                                                    return FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary;
                                                   } else {
-                                                    return Color(0xFF5E5D5D);
+                                                    return FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary;
                                                   }
                                                 }(),
                                                 width: 1.0,
@@ -250,38 +229,42 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                               children: [
                                                 Text(
                                                   skillLevlsItem,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color: () {
-                                                          if ((_model.chosenSkillLevel ==
-                                                                      null ||
-                                                                  _model.chosenSkillLevel ==
-                                                                      '') &&
-                                                              (skillLevlsItem ==
-                                                                  getJsonField(
-                                                                    widget
-                                                                        .userService,
-                                                                    r'''$.service_skill_level''',
-                                                                  ))) {
-                                                            return Color(
-                                                                0xFFF6F6F6);
-                                                          } else if (_model
-                                                                  .chosenSkillLevel ==
-                                                              skillLevlsItem) {
-                                                            return Color(
-                                                                0xFFF6F6F6);
-                                                          } else {
-                                                            return Color(
-                                                                0xFF5E5D5D);
-                                                          }
-                                                        }(),
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
+                                                  style:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: () {
+                                                              if ((_model.chosenSkillLevel ==
+                                                                          null ||
+                                                                      _model.chosenSkillLevel ==
+                                                                          '') &&
+                                                                  (skillLevlsItem ==
+                                                                      getJsonField(
+                                                                        widget
+                                                                            .userService,
+                                                                        r'''$.service_skill_level''',
+                                                                      ))) {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary;
+                                                              } else if (_model
+                                                                      .chosenSkillLevel ==
+                                                                  skillLevlsItem) {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary;
+                                                              } else {
+                                                                return FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary;
+                                                              }
+                                                            }(),
+                                                            fontSize: 14.0,
+                                                            fontWeight:
+                                                                FontWeight.w500,
+                                                          ),
                                                 ),
                                               ],
                                             ),
@@ -320,7 +303,7 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                           fontFamily: 'Lato',
                                           color: Color(0xFF292929),
                                           fontSize: 15.0,
-                                          fontWeight: FontWeight.w600,
+                                          fontWeight: FontWeight.w500,
                                         ),
                                   ),
                                 ],
@@ -476,13 +459,13 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                         },
                         child: Container(
                           width: 116.0,
-                          height: 40.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(1.0),
                             border: Border.all(
-                              color: Color(0xFFE8083F),
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
                           ),
                           child: Row(
@@ -495,7 +478,8 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFFE8083F),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 12.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -595,10 +579,10 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                           },
                           child: Container(
                             width: 116.0,
-                            height: 40.0,
+                            height: 36.0,
                             decoration: BoxDecoration(
-                              color: Color(0xFF5450E2),
-                              borderRadius: BorderRadius.circular(5.0),
+                              color: FlutterFlowTheme.of(context).primary,
+                              borderRadius: BorderRadius.circular(1.0),
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,

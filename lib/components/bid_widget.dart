@@ -285,6 +285,16 @@ class _BidWidgetState extends State<BidWidget> {
                               );
                               _shouldSetState = true;
                               if ((_model.bidCreated?.succeeded ?? true)) {
+                                await TaskerpageBackendGroup.createChatCall
+                                    .call(
+                                  roomName: 'TASK-${TaskerpageBackendGroup.createBidCall.post(
+                                        (_model.bidCreated?.jsonBody ?? ''),
+                                      ).toString()}-${TaskerpageBackendGroup.createBidCall.poster(
+                                        (_model.bidCreated?.jsonBody ?? ''),
+                                      ).toString()}-${TaskerpageBackendGroup.createBidCall.bider(
+                                        (_model.bidCreated?.jsonBody ?? ''),
+                                      ).toString()}',
+                                );
                                 Navigator.pop(context);
                               } else {
                                 if (_shouldSetState) setState(() {});

@@ -871,6 +871,12 @@ class FFAppState extends ChangeNotifier {
     prefs.setString('ff_sid', _value);
   }
 
+  bool _clearText = false;
+  bool get clearText => _clearText;
+  set clearText(bool _value) {
+    _clearText = _value;
+  }
+
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> myAddresses({
     String? uniqueQueryKey,
