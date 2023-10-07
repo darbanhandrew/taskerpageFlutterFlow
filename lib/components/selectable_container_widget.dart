@@ -66,14 +66,13 @@ class _SelectableContainerWidgetState extends State<SelectableContainerWidget> {
         width: 100.0,
         height: 100.0,
         decoration: BoxDecoration(
-          color: valueOrDefault<Color>(
-            widget.selected! ? Color(0xFF5450E2) : Color(0x00FFFFFF),
-            FlutterFlowTheme.of(context).secondaryText,
-          ),
-          borderRadius: BorderRadius.circular(5.0),
+          color: FlutterFlowTheme.of(context).secondaryBackground,
+          borderRadius: BorderRadius.circular(2.0),
           border: Border.all(
             color: valueOrDefault<Color>(
-              widget.selected! ? Color(0xFF5450E2) : Color(0xFF5E5D5D),
+              widget.selected!
+                  ? FlutterFlowTheme.of(context).primary
+                  : FlutterFlowTheme.of(context).secondary,
               FlutterFlowTheme.of(context).secondaryText,
             ),
             width: 1.0,
@@ -94,8 +93,8 @@ class _SelectableContainerWidgetState extends State<SelectableContainerWidget> {
                       fontFamily: 'Lato',
                       color: valueOrDefault<Color>(
                         widget.selected!
-                            ? Color(0xFFF6F6F6)
-                            : Color(0xFF5E5D5D),
+                            ? FlutterFlowTheme.of(context).primary
+                            : FlutterFlowTheme.of(context).secondary,
                         FlutterFlowTheme.of(context).secondaryText,
                       ),
                       fontSize: 12.0,

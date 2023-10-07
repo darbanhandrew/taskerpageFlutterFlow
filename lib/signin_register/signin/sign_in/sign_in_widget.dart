@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'dart:async';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -36,6 +37,12 @@ class _SignInWidgetState extends State<SignInWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (FFAppState().apiKey != null && FFAppState().apiKey != '') {
+        await actions.joinSocketChannel(
+          functions.jsonToString(getJsonField(
+            FFAppState().userProfile,
+            r'''$.data.user''',
+          )),
+        );
         if (functions.jsonToString(getJsonField(
               FFAppState().userProfile,
               r'''$.data.role''',
@@ -479,6 +486,9 @@ class _SignInWidgetState extends State<SignInWidget> {
                                                 '');
                                         FFAppState().loading = false;
                                       });
+                                      await actions.joinSocketChannel(
+                                        _model.textController1.text,
+                                      );
                                       if ('Tasker' ==
                                           '${getJsonField(
                                             (_model.apiResultem2?.jsonBody ??

@@ -204,7 +204,7 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                         children: [
                           Expanded(
                             child: Slider(
-                              activeColor: Color(0xFF5450E2),
+                              activeColor: FlutterFlowTheme.of(context).primary,
                               inactiveColor: Color(0x3C3D3D3D),
                               min: 0.0,
                               max: 30.0,
@@ -340,9 +340,9 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                               gridDelegate:
                                   SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
-                                crossAxisSpacing: 16.0,
-                                mainAxisSpacing: 8.0,
-                                childAspectRatio: 4.0,
+                                crossAxisSpacing: 12.0,
+                                mainAxisSpacing: 6.0,
+                                childAspectRatio: 4.2,
                               ),
                               shrinkWrap: true,
                               scrollDirection: Axis.vertical,
@@ -366,22 +366,19 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     width: 100.0,
                                     height: 100.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .createTask
-                                                  .taskerType
-                                                  .driverLicense ==
-                                              'Car'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .createTask
                                                     .taskerType
                                                     .driverLicense ==
                                                 'Car'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -404,8 +401,12 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                               .taskerType
                                                               .driverLicense ==
                                                           'Car'
-                                                      ? Color(0xFFF6F6F6)
-                                                      : Color(0xFF5E5D5D),
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -434,22 +435,19 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                     width: 100.0,
                                     height: 100.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .createTask
-                                                  .taskerType
-                                                  .driverLicense ==
-                                              'Truck'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .createTask
                                                     .taskerType
                                                     .driverLicense ==
                                                 'Truck'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -472,8 +470,12 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                               .taskerType
                                                               .driverLicense ==
                                                           'Truck'
-                                                      ? Color(0xFFF6F6F6)
-                                                      : Color(0xFF5E5D5D),
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
                                                   fontSize: 12.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -517,51 +519,31 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.safePop();
-                            },
-                            child: Container(
-                              width: 96.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: Color(0x005450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                                border: Border.all(
-                                  color: Color(0xFF5450E2),
-                                  width: 1.0,
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 5.0, 0.0),
+                                child: Icon(
+                                  Icons.arrow_back_ios_rounded,
+                                  color: FlutterFlowTheme.of(context).alternate,
+                                  size: 10.0,
                                 ),
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: Icon(
-                                      Icons.arrow_back_ios_rounded,
-                                      color: Color(0xFF5450E2),
-                                      size: 10.0,
+                              Text(
+                                'Back',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      fontSize: 14.0,
                                     ),
-                                  ),
-                                  Text(
-                                    'Back',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF5450E2),
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                ],
                               ),
-                            ),
+                            ],
                           ),
                           InkWell(
                             splashColor: Colors.transparent,

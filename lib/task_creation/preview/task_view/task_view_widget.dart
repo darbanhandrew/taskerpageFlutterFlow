@@ -354,6 +354,8 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                   Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Column(
                                         mainAxisSize: MainAxisSize.max,

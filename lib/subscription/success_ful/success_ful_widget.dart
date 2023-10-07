@@ -231,8 +231,8 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
                         width: 113.0,
                         height: 36.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF5450E2),
-                          borderRadius: BorderRadius.circular(5.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(

@@ -77,7 +77,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
@@ -155,11 +155,12 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           ),
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
-                                          color: Color(0x3C5E5D5D),
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(15.0),
+                                            BorderRadius.circular(2.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -168,7 +169,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(15.0),
+                                            BorderRadius.circular(2.0),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -177,7 +178,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(15.0),
+                                            BorderRadius.circular(2.0),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -186,7 +187,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(15.0),
+                                            BorderRadius.circular(2.0),
                                       ),
                                       prefixIcon: Icon(
                                         Icons.search_sharp,
@@ -592,7 +593,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                                       itemCount: posts.length,
                                                       separatorBuilder:
                                                           (_, __) => SizedBox(
-                                                              height: 20.0),
+                                                              height: 16.0),
                                                       itemBuilder: (context,
                                                           postsIndex) {
                                                         final postsItem =

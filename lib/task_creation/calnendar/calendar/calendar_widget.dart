@@ -238,7 +238,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       fontFamily: 'Lato',
                                       color: Color(0xFF292929),
                                       fontSize: 15.0,
-                                      fontWeight: FontWeight.w600,
+                                      fontWeight: FontWeight.w500,
                                     ),
                               ),
                               if (FFAppState()
@@ -306,13 +306,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   },
                                   child: Container(
                                     width: 100.0,
-                                    height: 41.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
-                                        color: Color(0xFF5E5D5D),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
                                       ),
                                     ),
                                     child: Padding(
@@ -467,7 +468,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         );
                                       });
                                     },
-                                    height: 41.0,
+                                    height: 36.0,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -484,9 +485,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     fillColor: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     elevation: 2.0,
-                                    borderColor: Color(0xFF5E5D5D),
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).secondary,
                                     borderWidth: 1.0,
-                                    borderRadius: 5.0,
+                                    borderRadius: 2.0,
                                     margin: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 4.0, 10.0, 4.0),
                                     hidesUnderline: true,
@@ -522,14 +524,15 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                 ),
                                 Container(
                                   width: 85.0,
-                                  height: 41.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
-                                      color: Color(0xFF5E5D5D),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
                                       width: 1.0,
                                     ),
                                   ),
@@ -583,7 +586,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       onChanged: (val) => setState(
                                           () => _model.dropDownValue2 = val),
                                       width: 100.0,
-                                      height: 41.0,
+                                      height: 36.0,
                                       textStyle: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -599,9 +602,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       fillColor: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
                                       elevation: 2.0,
-                                      borderColor: Color(0xFF5E5D5D),
+                                      borderColor: FlutterFlowTheme.of(context)
+                                          .secondary,
                                       borderWidth: 1.0,
-                                      borderRadius: 5.0,
+                                      borderRadius: 2.0,
                                       margin: EdgeInsetsDirectional.fromSTEB(
                                           10.0, 4.0, 10.0, 4.0),
                                       hidesUnderline: true,
@@ -718,8 +722,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         }
                                       },
                                       child: Container(
-                                        width: 30.0,
-                                        height: 30.0,
                                         decoration: BoxDecoration(
                                           color: FFAppState()
                                                   .createTask
@@ -730,43 +732,49 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                     daysOfWeekItem,
                                                     r'''$.shortName''',
                                                   ).toString())
-                                              ? Color(0xFF5450E2)
+                                              ? FlutterFlowTheme.of(context)
+                                                  .primary
                                               : Color(0xFFD9D9D9),
-                                          shape: BoxShape.circle,
+                                          shape: BoxShape.rectangle,
                                         ),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              getJsonField(
-                                                daysOfWeekItem,
-                                                r'''$.name''',
-                                              ).toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color: FFAppState()
-                                                                .createTask
-                                                                .taskSchedule
-                                                                .repeatableTaskDetails
-                                                                .preferredDays
-                                                                .contains(
-                                                                    getJsonField(
-                                                                  daysOfWeekItem,
-                                                                  r'''$.shortName''',
-                                                                ).toString())
-                                                            ? Color(0xFFF6F6F6)
-                                                            : Colors.black,
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                            ),
-                                          ],
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  10.0, 4.0, 10.0, 4.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                getJsonField(
+                                                  daysOfWeekItem,
+                                                  r'''$.name''',
+                                                ).toString(),
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Lato',
+                                                      color: FFAppState()
+                                                              .createTask
+                                                              .taskSchedule
+                                                              .repeatableTaskDetails
+                                                              .preferredDays
+                                                              .contains(
+                                                                  getJsonField(
+                                                                daysOfWeekItem,
+                                                                r'''$.shortName''',
+                                                              ).toString())
+                                                          ? Color(0xFFF6F6F6)
+                                                          : Colors.black,
+                                                      fontSize: 14.0,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     );
@@ -808,7 +816,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         );
                                       });
                                     },
-                                    height: 41.0,
+                                    height: 36.0,
                                     textStyle: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -825,9 +833,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     fillColor: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
                                     elevation: 2.0,
-                                    borderColor: Color(0xFF5E5D5D),
+                                    borderColor:
+                                        FlutterFlowTheme.of(context).secondary,
                                     borderWidth: 1.0,
-                                    borderRadius: 5.0,
+                                    borderRadius: 2.0,
                                     margin: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 4.0, 10.0, 4.0),
                                     hidesUnderline: true,
@@ -984,17 +993,18 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                     },
                                                     child: Container(
                                                       width: 100.0,
-                                                      height: 40.0,
+                                                      height: 36.0,
                                                       decoration: BoxDecoration(
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(5.0),
+                                                                .circular(2.0),
                                                         border: Border.all(
-                                                          color:
-                                                              Color(0xFF5E5D5D),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondary,
                                                         ),
                                                       ),
                                                       child: Padding(
@@ -1071,14 +1081,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                           0.0, 0.0, 10.0, 0.0),
                                                   child: Container(
                                                     width: 90.0,
-                                                    height: 41.0,
+                                                    height: 36.0,
                                                     decoration: BoxDecoration(
                                                       color: FlutterFlowTheme
                                                               .of(context)
                                                           .secondaryBackground,
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                       shape: BoxShape.rectangle,
                                                       border: Border.all(
                                                         color:
@@ -1257,24 +1267,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   },
                                   child: Container(
                                     width: 217.0,
-                                    height: 41.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .createTask
-                                                  .taskSchedule
-                                                  .startRangeTime ==
-                                              'Morning (7:00-12:00)'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .createTask
                                                     .taskSchedule
                                                     .startRangeTime ==
                                                 'Morning (7:00-12:00)'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -1294,8 +1301,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                             .taskSchedule
                                                             .startRangeTime ==
                                                         'Morning (7:00-12:00)'
-                                                    ? Colors.white
-                                                    : Color(0xFF5E5D5D),
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
                                                 fontSize: 13.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -1340,24 +1351,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   },
                                   child: Container(
                                     width: 217.0,
-                                    height: 41.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .createTask
-                                                  .taskSchedule
-                                                  .startRangeTime ==
-                                              'Afternoon (12:00-18:00)'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .createTask
                                                     .taskSchedule
                                                     .startRangeTime ==
                                                 'Afternoon (12:00-18:00)'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -1377,8 +1385,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                             .taskSchedule
                                                             .startRangeTime ==
                                                         'Afternoon (12:00-18:00)'
-                                                    ? Colors.white
-                                                    : Color(0xFF5E5D5D),
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
                                                 fontSize: 13.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -1423,24 +1435,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   },
                                   child: Container(
                                     width: 217.0,
-                                    height: 41.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .createTask
-                                                  .taskSchedule
-                                                  .startRangeTime ==
-                                              'Evening (18:00-24:00)'
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00000000),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .createTask
                                                     .taskSchedule
                                                     .startRangeTime ==
                                                 'Evening (18:00-24:00)'
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -1460,8 +1469,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                             .taskSchedule
                                                             .startRangeTime ==
                                                         'Evening (18:00-24:00)'
-                                                    ? Colors.white
-                                                    : Color(0xFF5E5D5D),
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
                                                 fontSize: 13.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -1598,14 +1611,15 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     },
                                     child: Container(
                                       width: 98.0,
-                                      height: 41.0,
+                                      height: 36.0,
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryBackground,
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                            BorderRadius.circular(2.0),
                                         border: Border.all(
-                                          color: Color(0xFF211DAF),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                         ),
                                       ),
                                       child: Row(
@@ -1619,7 +1633,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
-                                                  color: Color(0xFF211DAF),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   fontSize: 14.0,
                                                   fontWeight: FontWeight.w500,
                                                 ),
@@ -1675,14 +1691,15 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                 ),
                                 Container(
                                   width: 90.0,
-                                  height: 41.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
-                                      color: Color(0xFF5E5D5D),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondary,
                                       width: 1.0,
                                     ),
                                   ),
@@ -1773,59 +1790,32 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                context.pushNamed(
-                                  'Select_Address',
-                                  queryParameters: {
-                                    'id': serializeParam(
-                                      widget.id,
-                                      ParamType.String,
-                                    ),
-                                  }.withoutNulls,
-                                );
-                              },
-                              child: Container(
-                                width: 96.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0x005450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
-                                  border: Border.all(
-                                    color: Color(0xFF5450E2),
-                                    width: 1.0,
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 5.0, 0.0),
+                                  child: Icon(
+                                    Icons.arrow_back_ios_rounded,
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    size: 10.0,
                                   ),
                                 ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 5.0, 0.0),
-                                      child: Icon(
-                                        Icons.arrow_back_ios_rounded,
-                                        color: Color(0xFF5450E2),
-                                        size: 10.0,
+                                Text(
+                                  'Back',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        fontSize: 14.0,
                                       ),
-                                    ),
-                                    Text(
-                                      'Back',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFF5450E2),
-                                            fontSize: 14.0,
-                                          ),
-                                    ),
-                                  ],
                                 ),
-                              ),
+                              ],
                             ),
                             InkWell(
                               splashColor: Colors.transparent,

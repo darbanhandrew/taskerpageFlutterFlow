@@ -53,9 +53,9 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
       height: 39.0,
       decoration: BoxDecoration(
         color: Color(0x00F6F6F6),
-        borderRadius: BorderRadius.circular(18.0),
+        borderRadius: BorderRadius.circular(2.0),
         border: Border.all(
-          color: Color(0xFF5450E2),
+          color: FlutterFlowTheme.of(context).primary,
         ),
       ),
       child: Padding(
@@ -83,7 +83,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.category_rounded,
                 color: widget.currentPage == 'task1'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -109,7 +109,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.file_copy_rounded,
                 color: widget.currentPage == 'task2'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -135,7 +135,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.add_location_alt,
                 color: widget.currentPage == 'select_address'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -159,7 +159,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.calendar_month,
                 color: widget.currentPage == 'calender'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -183,7 +183,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.people_alt_sharp,
                 color: widget.currentPage == 'tasker_type1'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -207,7 +207,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.handyman,
                 color: widget.currentPage == 'tasker_type2'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -231,7 +231,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.radar,
                 color: widget.currentPage == 'tasker_type3'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),
@@ -240,7 +240,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               height: 20.0,
               child: VerticalDivider(
                 thickness: 1.0,
-                color: Color(0xFF5450E2),
+                color: FlutterFlowTheme.of(context).primary,
               ),
             ),
             InkWell(
@@ -262,7 +262,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
               child: Icon(
                 Icons.remove_red_eye_outlined,
                 color: widget.currentPage == 'task_periviewe'
-                    ? Color(0xFF5450E2)
+                    ? FlutterFlowTheme.of(context).primary
                     : Color(0x3E57636C),
                 size: 20.0,
               ),

@@ -291,9 +291,9 @@ class _Task2WidgetState extends State<Task2Widget> {
                                         gridDelegate:
                                             SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
-                                          crossAxisSpacing: 16.0,
-                                          mainAxisSpacing: 8.0,
-                                          childAspectRatio: 4.0,
+                                          crossAxisSpacing: 12.0,
+                                          mainAxisSpacing: 6.0,
+                                          childAspectRatio: 4.2,
                                         ),
                                         shrinkWrap: true,
                                         scrollDirection: Axis.vertical,
@@ -381,18 +381,11 @@ class _Task2WidgetState extends State<Task2Widget> {
                                               width: 100.0,
                                               height: 100.0,
                                               decoration: BoxDecoration(
-                                                color: FFAppState()
-                                                            .createTask
-                                                            .taskDeatels
-                                                            .skillName ==
-                                                        getJsonField(
-                                                          servicesItem,
-                                                          r'''$.name''',
-                                                        )
-                                                    ? Color(0xFF5450E2)
-                                                    : Color(0x00FFFFFF),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondaryBackground,
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                                 border: Border.all(
                                                   color: FFAppState()
                                                               .createTask
@@ -402,8 +395,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                             servicesItem,
                                                             r'''$.name''',
                                                           )
-                                                      ? Color(0xFF5450E2)
-                                                      : Color(0xFF5E5D5D),
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : FlutterFlowTheme.of(
+                                                              context)
+                                                          .secondary,
                                                   width: 1.0,
                                                 ),
                                               ),
@@ -440,10 +437,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                                       servicesItem,
                                                                       r'''$.name''',
                                                                     )
-                                                                ? Color(
-                                                                    0xFFF6F6F6)
-                                                                : Color(
-                                                                    0xFF5E5D5D),
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                             fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -527,24 +526,21 @@ class _Task2WidgetState extends State<Task2Widget> {
                                   },
                                   child: Container(
                                     width: 230.0,
-                                    height: 40.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
-                                      color: FFAppState()
-                                                  .createTask
-                                                  .taskDeatels
-                                                  .skillLevel ==
-                                              skillLevelItem
-                                          ? Color(0xFF5450E2)
-                                          : Color(0x00FFFFFF),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
                                         color: FFAppState()
                                                     .createTask
                                                     .taskDeatels
                                                     .skillLevel ==
                                                 skillLevelItem
-                                            ? Color(0xFF5450E2)
-                                            : Color(0xFF5E5D5D),
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
                                         width: 1.0,
                                       ),
                                     ),
@@ -564,8 +560,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                             .taskDeatels
                                                             .skillLevel ==
                                                         skillLevelItem
-                                                    ? Color(0xFFF6F6F6)
-                                                    : Color(0xFF5E5D5D),
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
                                                 fontSize: 14.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
@@ -1010,32 +1010,33 @@ class _Task2WidgetState extends State<Task2Widget> {
                                       ),
                                   enabledBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: Color(0xFF3D3D3D),
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(9.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                   ),
                                   focusedBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(9.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                   ),
                                   errorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFE8083F),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(9.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                   ),
                                   focusedErrorBorder: OutlineInputBorder(
                                     borderSide: BorderSide(
                                       color: Color(0xFFE8083F),
                                       width: 1.0,
                                     ),
-                                    borderRadius: BorderRadius.circular(9.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                   ),
                                 ),
                                 style: FlutterFlowTheme.of(context)
@@ -1045,7 +1046,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                       color: Color(0xFF212121),
                                       fontSize: 14.0,
                                     ),
-                                maxLines: 17,
+                                maxLines: 10,
                                 validator: _model.textControllerValidator
                                     .asValidator(context),
                               ),
@@ -1143,10 +1144,13 @@ class _Task2WidgetState extends State<Task2Widget> {
                               },
                               child: Container(
                                 width: 120.0,
-                                height: 44.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
-                                  color: Color(0xFF5450E2),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
                                 ),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -1154,7 +1158,8 @@ class _Task2WidgetState extends State<Task2Widget> {
                                   children: [
                                     Icon(
                                       Icons.cloud_upload_outlined,
-                                      color: Color(0xFFF6F6F6),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       size: 18.0,
                                     ),
                                     Padding(
@@ -1166,7 +1171,9 @@ class _Task2WidgetState extends State<Task2Widget> {
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Lato',
-                                              color: Color(0xFFF6F6F6),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               fontSize: 14.0,
                                               fontWeight: FontWeight.w500,
                                             ),
@@ -1238,64 +1245,33 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      // tas
-
-                                      context.pushNamed(
-                                        'Task-1',
-                                        queryParameters: {
-                                          'id': serializeParam(
-                                            widget.id,
-                                            ParamType.String,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    },
-                                    child: Container(
-                                      width: 96.0,
-                                      height: 40.0,
-                                      decoration: BoxDecoration(
-                                        color: Color(0x005450E2),
-                                        borderRadius:
-                                            BorderRadius.circular(5.0),
-                                        border: Border.all(
-                                          color: Color(0xFF5450E2),
-                                          width: 1.0,
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 5.0, 0.0),
+                                        child: Icon(
+                                          Icons.arrow_back_ios_rounded,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          size: 10.0,
                                         ),
                                       ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 5.0, 0.0),
-                                            child: Icon(
-                                              Icons.arrow_back_ios_rounded,
-                                              color: Color(0xFF5450E2),
-                                              size: 10.0,
+                                      Text(
+                                        'Back',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14.0,
                                             ),
-                                          ),
-                                          Text(
-                                            'Back',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Color(0xFF5450E2),
-                                                  fontSize: 14.0,
-                                                ),
-                                          ),
-                                        ],
                                       ),
-                                    ),
+                                    ],
                                   ),
                                   InkWell(
                                     splashColor: Colors.transparent,

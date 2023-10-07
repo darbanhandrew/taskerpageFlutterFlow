@@ -7,6 +7,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import '/flutter_flow/request_manager.dart';
+
 import 'chat_widget.dart' show ChatWidget;
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -29,7 +31,25 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Backend Call - API (send message)] action in Icon widget.
   ApiCallResponse? apiResult55u;
-  Completer<ApiCallResponse>? apiRequestCompleter;
+  bool apiRequestCompleted = false;
+  String? apiRequestLastUniqueKey;
+
+  /// Query cache managers for this widget.
+
+  final _chatMessagesManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> chatMessages({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _chatMessagesManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearChatMessagesCache() => _chatMessagesManager.clear();
+  void clearChatMessagesCacheKey(String? uniqueKey) =>
+      _chatMessagesManager.clearRequest(uniqueKey);
 
   /// Initialization and disposal methods.
 
@@ -43,6 +63,10 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
     columnController?.dispose();
     listViewController?.dispose();
     textController?.dispose();
+
+    /// Dispose query cache managers for this widget.
+
+    clearChatMessagesCache();
   }
 
   /// Action blocks are added here.
@@ -57,7 +81,7 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = apiRequestCompleter?.isCompleted ?? false;
+      final requestComplete = apiRequestCompleted;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }

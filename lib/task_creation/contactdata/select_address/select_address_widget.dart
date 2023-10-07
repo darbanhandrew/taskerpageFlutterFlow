@@ -325,7 +325,18 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                     },
                                     child: Container(
                                       decoration: BoxDecoration(
-                                        color:
+                                        color: Colors.white,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 4.0,
+                                            color: Color(0x33000000),
+                                            spreadRadius: 1.0,
+                                          )
+                                        ],
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        border: Border.all(
+                                          color: valueOrDefault<Color>(
                                             functions.jsonToString(getJsonField(
                                                       myaddressesItem,
                                                       r'''$.name''',
@@ -334,22 +345,11 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                         .createTask
                                                         .taskAddress
                                                         .address
-                                                ? Color(0xFF5450E2)
-                                                : Color(0xFFF6F6F6),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                        border: Border.all(
-                                          color: functions.jsonToString(
-                                                      getJsonField(
-                                                    myaddressesItem,
-                                                    r'''$.name''',
-                                                  )) ==
-                                                  FFAppState()
-                                                      .createTask
-                                                      .taskAddress
-                                                      .address
-                                              ? Color(0xFF5450E2)
-                                              : Color(0xFFACABAB),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : Colors.white,
+                                            Colors.white,
+                                          ),
                                         ),
                                       ),
                                       child: Padding(
@@ -538,23 +538,27 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                               );
                             },
                             child: Container(
-                              width: 180.0,
-                              height: 44.0,
+                              width: 216.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(2.0),
+                                border: Border.all(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                ),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    '+ Add another addresses',
+                                    'Or enter different address',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Lato',
-                                          color: Color(0xFFF6F6F6),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           fontSize: 14.0,
                                           fontWeight: FontWeight.w500,
                                         ),

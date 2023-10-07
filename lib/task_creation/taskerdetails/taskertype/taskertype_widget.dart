@@ -215,24 +215,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerGender ==
-                                        'Male'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerGender ==
                                           'Male'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -254,8 +249,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerGender ==
                                                     'Male'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -282,24 +279,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerGender ==
-                                        'Female'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerGender ==
                                           'Female'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -321,8 +313,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerGender ==
                                                     'Female'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -359,24 +353,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerGender ==
-                                        'Doesn\'t matter'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerGender ==
                                           'Doesn\'t matter'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -398,8 +387,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerGender ==
                                                     'Doesn\'t matter'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -455,24 +446,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerAgeRange ==
-                                        '<20'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerAgeRange ==
                                           '<20'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -494,8 +480,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerAgeRange ==
                                                     '<20'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -522,24 +510,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerAgeRange ==
-                                        '20-40'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerAgeRange ==
                                           '20-40'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -561,8 +544,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerAgeRange ==
                                                     '20-40'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -599,24 +584,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerAgeRange ==
-                                        '40>'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerAgeRange ==
                                           '40>'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -638,8 +618,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerAgeRange ==
                                                     '40>'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -667,24 +649,19 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 155.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: FFAppState()
-                                            .createTask
-                                            .taskerType
-                                            .taskerAgeRange ==
-                                        'Doesn\'t matter'
-                                    ? Color(0xFF5450E2)
-                                    : Color(0x00000000),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
                                   color: FFAppState()
                                               .createTask
                                               .taskerType
                                               .taskerAgeRange ==
                                           'Doesn\'t matter'
-                                      ? Color(0xFF5450E2)
-                                      : Color(0xFF5E5D5D),
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
                               ),
@@ -706,8 +683,10 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                                         .taskerType
                                                         .taskerAgeRange ==
                                                     'Doesn\'t matter'
-                                                ? Colors.white
-                                                : Color(0xFF5E5D5D),
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -857,10 +836,17 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             },
                             child: Container(
                               width: 104.0,
-                              height: 40.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
+                                color: FlutterFlowTheme.of(context).primary,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4.0,
+                                    color: Color(0x33000000),
+                                    offset: Offset(0.0, 2.0),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(1.5),
                               ),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,

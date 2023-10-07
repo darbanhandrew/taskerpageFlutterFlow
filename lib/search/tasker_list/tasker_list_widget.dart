@@ -78,7 +78,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
       child: Scaffold(
         key: scaffoldKey,
         resizeToAvoidBottomInset: false,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
           child: Drawer(
@@ -222,12 +222,14 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            Color(0x3C5E5D5D),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15.0),
+                                                              2.0),
                                                     ),
                                                     focusedBorder:
                                                         OutlineInputBorder(
@@ -240,7 +242,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15.0),
+                                                              2.0),
                                                     ),
                                                     errorBorder:
                                                         OutlineInputBorder(
@@ -253,7 +255,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15.0),
+                                                              2.0),
                                                     ),
                                                     focusedErrorBorder:
                                                         OutlineInputBorder(
@@ -266,7 +268,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              15.0),
+                                                              2.0),
                                                     ),
                                                     prefixIcon: Icon(
                                                       Icons.search_sharp,
@@ -628,7 +630,7 @@ class _TaskerListWidgetState extends State<TaskerListWidget> {
                                                           taskerList.length,
                                                       separatorBuilder:
                                                           (_, __) => SizedBox(
-                                                              height: 20.0),
+                                                              height: 16.0),
                                                       itemBuilder: (context,
                                                           taskerListIndex) {
                                                         final taskerListItem =

@@ -215,9 +215,9 @@ class _Task1WidgetState extends State<Task1Widget> {
                                       gridDelegate:
                                           SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount: 2,
-                                        crossAxisSpacing: 16.0,
-                                        mainAxisSpacing: 8.0,
-                                        childAspectRatio: 4.0,
+                                        crossAxisSpacing: 12.0,
+                                        mainAxisSpacing: 6.0,
+                                        childAspectRatio: 4.2,
                                       ),
                                       shrinkWrap: true,
                                       scrollDirection: Axis.vertical,
