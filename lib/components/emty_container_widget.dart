@@ -69,7 +69,7 @@ class _EmtyContainerWidgetState extends State<EmtyContainerWidget> {
               'assets/images/fill-complete-the-blank-information-button-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-vector.jpg',
             ).image,
           ),
-          borderRadius: BorderRadius.circular(15.0),
+          borderRadius: BorderRadius.circular(2.0),
           border: Border.all(
             color: Color(0x00ACABAB),
           ),

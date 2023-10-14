@@ -365,10 +365,14 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                             20.0, 0.0, 0.0, 0.0),
                                         child: Builder(
                                           builder: (context) {
-                                            final values = getJsonField(
-                                              optionItem,
-                                              r'''$.values''',
-                                            ).toList();
+                                            final values = functions
+                                                    .convertStringtoListOfString(
+                                                        getJsonField(
+                                                      optionItem,
+                                                      r'''$.values''',
+                                                    ).toString())
+                                                    ?.toList() ??
+                                                [];
                                             return Row(
                                               mainAxisSize: MainAxisSize.max,
                                               children: List.generate(
@@ -380,15 +384,11 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                       MainAxisSize.max,
                                                   children: [
                                                     if (!(valueOrDefault<bool>(
-                                                          functions.jsonToString(
-                                                                  valuesItem) ==
-                                                              'true',
+                                                          valuesItem == 'true',
                                                           false,
                                                         ) ||
                                                         valueOrDefault<bool>(
-                                                          functions.jsonToString(
-                                                                  valuesItem) ==
-                                                              'false',
+                                                          valuesItem == 'false',
                                                           false,
                                                         )))
                                                       Container(
@@ -444,15 +444,11 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                         ),
                                                       ),
                                                     if (valueOrDefault<bool>(
-                                                          functions.jsonToString(
-                                                                  valuesItem) ==
-                                                              'true',
+                                                          valuesItem == 'true',
                                                           false,
                                                         ) ||
                                                         valueOrDefault<bool>(
-                                                          functions.jsonToString(
-                                                                  valuesItem) ==
-                                                              'false',
+                                                          valuesItem == 'false',
                                                           false,
                                                         ))
                                                       wrapWithModel(
@@ -462,7 +458,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                           '${getJsonField(
                                                             optionItem,
                                                             r'''$.name''',
-                                                          ).toString()}-${valuesItem.toString()}',
+                                                          ).toString()}-${valuesItem}',
                                                           valuesIndex,
                                                         ),
                                                         updateCallback: () =>
@@ -472,12 +468,11 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                             'Keyv4e_${'${getJsonField(
                                                               optionItem,
                                                               r'''$.name''',
-                                                            ).toString()}-${valuesItem.toString()}'}',
+                                                            ).toString()}-${valuesItem}'}',
                                                           ),
-                                                          selected: functions
-                                                                  .jsonToString(
-                                                                      valuesItem) ==
-                                                              'true',
+                                                          selected:
+                                                              valuesItem ==
+                                                                  'true',
                                                           trueIcon: Icon(
                                                             Icons.done_rounded,
                                                             color: FlutterFlowTheme
@@ -519,8 +514,15 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 210.0,
         decoration: BoxDecoration(
-          color: Color(0xFF5450E2),
-          borderRadius: BorderRadius.circular(10.0),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 4.0,
+              color: Color(0x33000000),
+              offset: Offset(0.0, 2.0),
+            )
+          ],
+          borderRadius: BorderRadius.circular(0.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -560,13 +562,12 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                       },
                       child: Container(
                         width: 104.0,
-                        height: 44.0,
+                        height: 36.0,
                         decoration: BoxDecoration(
                           color: Color(0x00FFFFFF),
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                           border: Border.all(
-                            color: Colors.white,
-                            width: 2.0,
+                            color: FlutterFlowTheme.of(context).primary,
                           ),
                         ),
                         child: Row(
@@ -579,7 +580,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                   .bodyMedium
                                   .override(
                                     fontFamily: 'Lato',
-                                    color: Colors.white,
+                                    color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 13.0,
                                     fontWeight: FontWeight.w500,
                                   ),

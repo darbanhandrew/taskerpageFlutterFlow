@@ -69,24 +69,14 @@ class _BidWidgetState extends State<BidWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.8,
+        height: MediaQuery.sizeOf(context).height * 0.6,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -152,7 +142,6 @@ class _BidWidgetState extends State<BidWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.bidAmountController,
-                              autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -167,35 +156,36 @@ class _BidWidgetState extends State<BidWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF3D3D3D),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF2E29EC),
+                                    color: FlutterFlowTheme.of(context).primary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 prefixIcon: Icon(
                                   Icons.euro,
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -239,9 +229,10 @@ class _BidWidgetState extends State<BidWidget> {
                               fillColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
                               elevation: 2.0,
-                              borderColor: Color(0xFF5E5D5D),
+                              borderColor:
+                                  FlutterFlowTheme.of(context).secondary,
                               borderWidth: 1.0,
-                              borderRadius: 5.0,
+                              borderRadius: 2.0,
                               margin: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
@@ -252,84 +243,152 @@ class _BidWidgetState extends State<BidWidget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              var _shouldSetState = false;
-                              _model.bidCreated = await TaskerpageBackendGroup
-                                  .createBidCall
-                                  .call(
-                                price: functions.extractNumber(
-                                    _model.bidAmountController.text),
-                                priceType: _model.dropDownValue,
-                                bider: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.name''',
-                                ).toString(),
-                                post: getJsonField(
-                                  widget.post,
-                                  r'''$.name''',
-                                ).toString(),
-                                poster: widget.poster,
-                                apiGlobalKey: FFAppState().apiKey,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.bidCreated?.succeeded ?? true)) {
-                                await TaskerpageBackendGroup.createChatCall
-                                    .call(
-                                  roomName: 'TASK-${TaskerpageBackendGroup.createBidCall.post(
-                                        (_model.bidCreated?.jsonBody ?? ''),
-                                      ).toString()}-${TaskerpageBackendGroup.createBidCall.poster(
-                                        (_model.bidCreated?.jsonBody ?? ''),
-                                      ).toString()}-${TaskerpageBackendGroup.createBidCall.bider(
-                                        (_model.bidCreated?.jsonBody ?? ''),
-                                      ).toString()}',
-                                );
-                                Navigator.pop(context);
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 10.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Expanded(
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      _model.read = await TaskerpageBackendGroup
+                                          .userProfileReadCall
+                                          .call(
+                                        id: widget.poster,
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      _model.createdChatRoom =
+                                          await TaskerpageBackendGroup
+                                              .createChatCall
+                                              .call(
+                                        roomName: 'TASK ${widget.poster}',
+                                        users: '[\'${getJsonField(
+                                          (_model.read?.jsonBody ?? ''),
+                                          r'''$.data.user''',
+                                        ).toString()}\']',
+                                        type: 'Group',
+                                        task: getJsonField(
+                                          widget.post,
+                                          r'''$.name''',
+                                        ).toString(),
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      if ((_model.createdChatRoom?.succeeded ??
+                                          true)) {
+                                        _model.bidCreated =
+                                            await TaskerpageBackendGroup
+                                                .createBidCall
+                                                .call(
+                                          price: functions.extractNumber(
+                                              _model.bidAmountController.text),
+                                          priceType: _model.dropDownValue,
+                                          bider: getJsonField(
+                                            FFAppState().userProfile,
+                                            r'''$.data.name''',
+                                          ).toString(),
+                                          post: getJsonField(
+                                            widget.post,
+                                            r'''$.name''',
+                                          ).toString(),
+                                          poster: widget.poster,
+                                          apiGlobalKey: FFAppState().apiKey,
+                                          room: getJsonField(
+                                            (_model.createdChatRoom?.jsonBody ??
+                                                ''),
+                                            r'''$.message.room''',
+                                          ).toString(),
+                                        );
+                                        if ((_model.bidCreated?.succeeded ??
+                                            true)) {
+                                          Navigator.pop(context);
+                                        } else {
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Bid Not Created',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                            ),
+                                          );
+                                        }
+                                      } else {
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Chat Not Created',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor:
+                                                FlutterFlowTheme.of(context)
+                                                    .error,
+                                          ),
+                                        );
+                                      }
 
-                              if (_shouldSetState) setState(() {});
-                            },
-                            child: Container(
-                              width: 160.0,
-                              height: 44.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Place Bid',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                      setState(() {});
+                                    },
+                                    child: Container(
+                                      width: 160.0,
+                                      height: 36.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'Place Bid',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Colors.white,
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],

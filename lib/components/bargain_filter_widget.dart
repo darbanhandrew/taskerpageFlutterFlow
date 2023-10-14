@@ -171,24 +171,14 @@ class _BargainFilterWidgetState extends State<BargainFilterWidget>
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: double.infinity,
         height: MediaQuery.sizeOf(context).height * 0.7,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,

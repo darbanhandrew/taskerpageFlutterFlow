@@ -5,6 +5,7 @@ import '/components/edit_name_family_widget.dart';
 import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
+import '/components/skill_card_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -13,6 +14,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'dart:async';
 import 'tasker_profile_widget.dart' show TaskerProfileWidget;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +39,9 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
   late EditIconModel editIconModel3;
   // Model for editIcon component.
   late EditIconModel editIconModel4;
+  // Models for skillCard dynamic component.
+  late FlutterFlowDynamicModels<SkillCardModel> skillCardModels;
+  Completer<ApiCallResponse>? apiRequestCompleter;
   // Model for editIcon component.
   late EditIconModel editIconModel5;
   // Model for editIcon component.
@@ -90,6 +95,7 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
     editIconModel2 = createModel(context, () => EditIconModel());
     editIconModel3 = createModel(context, () => EditIconModel());
     editIconModel4 = createModel(context, () => EditIconModel());
+    skillCardModels = FlutterFlowDynamicModels(() => SkillCardModel());
     editIconModel5 = createModel(context, () => EditIconModel());
     editIconModel6 = createModel(context, () => EditIconModel());
     navBarModel = createModel(context, () => NavBarModel());
@@ -103,6 +109,7 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
     editIconModel2.dispose();
     editIconModel3.dispose();
     editIconModel4.dispose();
+    skillCardModels.dispose();
     editIconModel5.dispose();
     editIconModel6.dispose();
     navBarModel.dispose();
@@ -112,4 +119,19 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  Future waitForApiRequestCompleted({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
 }

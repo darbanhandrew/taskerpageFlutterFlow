@@ -115,8 +115,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                           alignment: Alignment(0.0, 0),
                           child: TabBar(
                             isScrollable: true,
-                            labelColor: Color(0xFF211DAF),
-                            unselectedLabelColor: Color(0xFF0C0A3E),
+                            labelColor: FlutterFlowTheme.of(context).primary,
+                            unselectedLabelColor:
+                                FlutterFlowTheme.of(context).secondary,
                             labelPadding: EdgeInsetsDirectional.fromSTEB(
                                 8.0, 0.0, 8.0, 0.0),
                             labelStyle: FlutterFlowTheme.of(context)
@@ -127,7 +128,8 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                   fontWeight: FontWeight.bold,
                                 ),
                             unselectedLabelStyle: TextStyle(),
-                            indicatorColor: Color(0xFF211DAF),
+                            indicatorColor:
+                                FlutterFlowTheme.of(context).primary,
                             tabs: [
                               Tab(
                                 text: 'Inbox',
@@ -421,90 +423,71 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                 itemCount:
                                                     myBargainsPost.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 20.0),
+                                                    SizedBox(height: 16.0),
                                                 itemBuilder: (context,
                                                     myBargainsPostIndex) {
                                                   final myBargainsPostItem =
                                                       myBargainsPost[
                                                           myBargainsPostIndex];
-                                                  return FutureBuilder<
-                                                      ApiCallResponse>(
-                                                    future:
-                                                        TaskerpageBackendGroup
-                                                            .userProfileReadCall
-                                                            .call(
-                                                      apiGlobalKey:
-                                                          FFAppState().apiKey,
-                                                      id: getJsonField(
-                                                        myBargainsPostItem,
-                                                        r'''$.bider''',
-                                                      ).toString(),
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                SpinKitThreeBounce(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              size: 50.0,
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(5.0, 0.0,
+                                                                5.0, 0.0),
+                                                    child: FutureBuilder<
+                                                        ApiCallResponse>(
+                                                      future:
+                                                          TaskerpageBackendGroup
+                                                              .userProfileReadCall
+                                                              .call(
+                                                        apiGlobalKey:
+                                                            FFAppState().apiKey,
+                                                        id: getJsonField(
+                                                          myBargainsPostItem,
+                                                          r'''$.bider''',
+                                                        ).toString(),
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  SpinKitThreeBounce(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                size: 50.0,
+                                                              ),
                                                             ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      final containerUserProfileReadResponse =
-                                                          snapshot.data!;
-                                                      return InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          context.pushNamed(
-                                                            'chat',
-                                                            queryParameters: {
-                                                              'room':
-                                                                  serializeParam(
-                                                                '',
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'curentUser':
-                                                                  serializeParam(
-                                                                '',
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                              'startChat':
-                                                                  serializeParam(
-                                                                '',
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
                                                           );
-                                                        },
-                                                        child: Container(
+                                                        }
+                                                        final containerUserProfileReadResponse =
+                                                            snapshot.data!;
+                                                        return Container(
                                                           width: 100.0,
                                                           height: 120.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: Color(
-                                                                0xFFF6F6F6),
+                                                            color: Colors.white,
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                blurRadius: 4.0,
+                                                                color: Color(
+                                                                    0x33000000),
+                                                                offset: Offset(
+                                                                    0.0, 0.0),
+                                                                spreadRadius:
+                                                                    2.0,
+                                                              )
+                                                            ],
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        10.0),
+                                                                        0.0),
                                                           ),
                                                           child: Padding(
                                                             padding:
@@ -645,8 +628,8 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                                   width: 90.0,
                                                                                   height: 17.0,
                                                                                   decoration: BoxDecoration(
-                                                                                    color: Color(0xFF03CA17),
-                                                                                    borderRadius: BorderRadius.circular(15.0),
+                                                                                    color: FlutterFlowTheme.of(context).secondary,
+                                                                                    borderRadius: BorderRadius.circular(2.0),
                                                                                   ),
                                                                                   child: Padding(
                                                                                     padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 5.0, 0.0),
@@ -816,7 +799,7 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
-                                                                              Color(0xFF5450E2),
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           shape:
                                                                               BoxShape.circle,
                                                                         ),
@@ -826,9 +809,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                               ],
                                                             ),
                                                           ),
-                                                        ),
-                                                      );
-                                                    },
+                                                        );
+                                                      },
+                                                    ),
                                                   );
                                                 },
                                               );
@@ -1014,194 +997,213 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                     (context, myBidsIndex) {
                                                   final myBidsItem =
                                                       myBids[myBidsIndex];
-                                                  return FutureBuilder<
-                                                      ApiCallResponse>(
-                                                    future:
-                                                        TaskerpageBackendGroup
-                                                            .postReadCall
-                                                            .call(
-                                                      id: getJsonField(
-                                                        myBidsItem,
-                                                        r'''$.post''',
-                                                      ).toString(),
-                                                      apiGlobalKey:
-                                                          FFAppState().apiKey,
-                                                    ),
-                                                    builder:
-                                                        (context, snapshot) {
-                                                      // Customize what your widget looks like when it's loading.
-                                                      if (!snapshot.hasData) {
-                                                        return Center(
-                                                          child: SizedBox(
-                                                            width: 50.0,
-                                                            height: 50.0,
-                                                            child:
-                                                                SpinKitThreeBounce(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              size: 50.0,
-                                                            ),
-                                                          ),
-                                                        );
-                                                      }
-                                                      final containerPostReadResponse =
-                                                          snapshot.data!;
-                                                      return InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          context.pushNamed(
-                                                            'TaskView',
-                                                            queryParameters: {
-                                                              'id':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  myBidsItem,
-                                                                  r'''$.post''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
+                                                  return Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(5.0, 0.0,
+                                                                5.0, 0.0),
+                                                    child: FutureBuilder<
+                                                        ApiCallResponse>(
+                                                      future:
+                                                          TaskerpageBackendGroup
+                                                              .postReadCall
+                                                              .call(
+                                                        id: getJsonField(
+                                                          myBidsItem,
+                                                          r'''$.post''',
+                                                        ).toString(),
+                                                        apiGlobalKey:
+                                                            FFAppState().apiKey,
+                                                      ),
+                                                      builder:
+                                                          (context, snapshot) {
+                                                        // Customize what your widget looks like when it's loading.
+                                                        if (!snapshot.hasData) {
+                                                          return Center(
+                                                            child: SizedBox(
+                                                              width: 50.0,
+                                                              height: 50.0,
+                                                              child:
+                                                                  SpinKitThreeBounce(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                size: 50.0,
                                                               ),
-                                                            }.withoutNulls,
+                                                            ),
                                                           );
-                                                        },
-                                                        child: Container(
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xFFF6F6F6),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10.0),
-                                                          ),
-                                                          child: Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        15.0,
-                                                                        8.0,
-                                                                        15.0,
-                                                                        8.0),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .spaceBetween,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
+                                                        }
+                                                        final containerPostReadResponse =
+                                                            snapshot.data!;
+                                                        return InkWell(
+                                                          splashColor: Colors
+                                                              .transparent,
+                                                          focusColor: Colors
+                                                              .transparent,
+                                                          hoverColor: Colors
+                                                              .transparent,
+                                                          highlightColor: Colors
+                                                              .transparent,
+                                                          onTap: () async {
+                                                            context.pushNamed(
+                                                              'TaskView',
+                                                              queryParameters: {
+                                                                'id':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    myBidsItem,
+                                                                    r'''$.post''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          },
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color:
+                                                                  Colors.white,
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  blurRadius:
+                                                                      4.0,
+                                                                  color: Color(
+                                                                      0x33000000),
+                                                                  offset:
+                                                                      Offset(
+                                                                          0.0,
+                                                                          0.0),
+                                                                  spreadRadius:
+                                                                      2.0,
+                                                                )
+                                                              ],
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          0.0),
+                                                            ),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
+                                                                          15.0,
+                                                                          8.0,
+                                                                          15.0,
                                                                           8.0),
-                                                                  child: Text(
-                                                                    getJsonField(
-                                                                      containerPostReadResponse
-                                                                          .jsonBody,
-                                                                      r'''$.data.skill_name''',
-                                                                    ).toString(),
+                                                              child: Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0),
+                                                                    child: Text(
+                                                                      getJsonField(
+                                                                        containerPostReadResponse
+                                                                            .jsonBody,
+                                                                        r'''$.data.skill_name''',
+                                                                      ).toString(),
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                            decoration:
+                                                                                TextDecoration.underline,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0),
+                                                                        child:
+                                                                            Text(
+                                                                          'Your sugestion : ${getJsonField(
+                                                                            myBidsItem,
+                                                                            r'''$.price''',
+                                                                          ).toString()}',
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                fontFamily: 'Lato',
+                                                                                fontSize: 12.0,
+                                                                                fontWeight: FontWeight.bold,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0),
+                                                                        child:
+                                                                            Icon(
+                                                                          Icons
+                                                                              .euro,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          size:
+                                                                              15.0,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  Text(
+                                                                    dateTimeFormat(
+                                                                        'yMMMd',
+                                                                        functions
+                                                                            .jsonToDateTime(getJsonField(
+                                                                          myBidsItem,
+                                                                          r'''$.creation''',
+                                                                        ).toString())),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
                                                                         .override(
                                                                           fontFamily:
                                                                               'Lato',
+                                                                          color:
+                                                                              Color(0xFF616161),
                                                                           fontSize:
-                                                                              14.0,
+                                                                              12.0,
                                                                           fontWeight:
-                                                                              FontWeight.bold,
-                                                                          decoration:
-                                                                              TextDecoration.underline,
+                                                                              FontWeight.w300,
                                                                         ),
                                                                   ),
-                                                                ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  children: [
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          8.0),
-                                                                      child:
-                                                                          Text(
-                                                                        'Your sugestion : ${getJsonField(
-                                                                          myBidsItem,
-                                                                          r'''$.price''',
-                                                                        ).toString()}',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              fontSize: 12.0,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          8.0),
-                                                                      child:
-                                                                          Icon(
-                                                                        Icons
-                                                                            .euro,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        size:
-                                                                            15.0,
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                                Text(
-                                                                  dateTimeFormat(
-                                                                      'yMMMd',
-                                                                      functions
-                                                                          .jsonToDateTime(
-                                                                              getJsonField(
-                                                                        myBidsItem,
-                                                                        r'''$.creation''',
-                                                                      ).toString())),
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Lato',
-                                                                        color: Color(
-                                                                            0xFF616161),
-                                                                        fontSize:
-                                                                            12.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w300,
-                                                                      ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
                                                           ),
-                                                        ),
-                                                      );
-                                                    },
+                                                        );
+                                                      },
+                                                    ),
                                                   );
                                                 },
                                               );

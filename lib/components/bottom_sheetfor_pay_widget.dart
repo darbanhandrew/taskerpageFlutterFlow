@@ -178,12 +178,7 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                   offset: Offset(0.0, 2.0),
                 )
               ],
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(0.0),
-                bottomRight: Radius.circular(0.0),
-                topLeft: Radius.circular(12.0),
-                topRight: Radius.circular(12.0),
-              ),
+              borderRadius: BorderRadius.circular(2.0),
             ),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(32.0, 23.0, 32.0, 16.0),
@@ -222,7 +217,7 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                             height: 59.0,
                             decoration: BoxDecoration(
                               color: Color(0xFFF6F6F6),
-                              borderRadius: BorderRadius.circular(10.0),
+                              borderRadius: BorderRadius.circular(2.0),
                             ),
                             child: Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
@@ -317,31 +312,31 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                                   ),
                               enabledBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: Color(0xFF5E5D5D),
+                                  color: FlutterFlowTheme.of(context).tertiary,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               focusedBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
-                                  color: FlutterFlowTheme.of(context).secondary,
+                                  color: FlutterFlowTheme.of(context).primary,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               errorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0xFFE8083F),
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               focusedErrorBorder: OutlineInputBorder(
                                 borderSide: BorderSide(
                                   color: Color(0xFFE8083F),
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               prefixIcon: Icon(
                                 Icons.sell_outlined,
@@ -415,12 +410,12 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                           },
                           child: Container(
                             width: 104.0,
-                            height: 38.0,
+                            height: 36.0,
                             decoration: BoxDecoration(
                               color: Color(0x005450E2),
-                              borderRadius: BorderRadius.circular(5.0),
+                              borderRadius: BorderRadius.circular(2.0),
                               border: Border.all(
-                                color: Color(0xFF5450E2),
+                                color: FlutterFlowTheme.of(context).primary,
                               ),
                             ),
                             child: Row(
@@ -433,7 +428,8 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Lato',
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         fontSize: 12.0,
                                         fontWeight: FontWeight.w500,
                                       ),
@@ -762,78 +758,84 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                       ),
                     ],
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
-                    child: Row(
+                  Expanded(
+                    child: Column(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            var _shouldSetState = false;
-                            _model.apiResultwp1 = await TaskerpageBackendGroup
-                                .getSubscriptionUpdateCall
-                                .call(
-                              name: widget.subscriptionId,
-                            );
-                            _shouldSetState = true;
-                            if ((_model.apiResultwp1?.succeeded ?? true)) {
-                              _model.paymentUrl = await TaskerpageBackendGroup
-                                  .getPaymentUrlCall
-                                  .call(
-                                customerProfileName: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.name''',
-                                ).toString(),
-                                subscriptionName: widget.subscriptionId,
-                              );
-                              _shouldSetState = true;
-                              if ((_model.paymentUrl?.succeeded ?? true)) {
-                                await launchURL(getJsonField(
-                                  (_model.paymentUrl?.jsonBody ?? ''),
-                                  r'''$.message''',
-                                ).toString());
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
-                            } else {
-                              if (_shouldSetState) setState(() {});
-                              return;
-                            }
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                var _shouldSetState = false;
+                                _model.apiResultwp1 =
+                                    await TaskerpageBackendGroup
+                                        .getSubscriptionUpdateCall
+                                        .call(
+                                  name: widget.subscriptionId,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResultwp1?.succeeded ?? true)) {
+                                  _model.paymentUrl =
+                                      await TaskerpageBackendGroup
+                                          .getPaymentUrlCall
+                                          .call(
+                                    customerProfileName: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.name''',
+                                    ).toString(),
+                                    subscriptionName: widget.subscriptionId,
+                                  );
+                                  _shouldSetState = true;
+                                  if ((_model.paymentUrl?.succeeded ?? true)) {
+                                    await launchURL(getJsonField(
+                                      (_model.paymentUrl?.jsonBody ?? ''),
+                                      r'''$.message''',
+                                    ).toString());
+                                  } else {
+                                    if (_shouldSetState) setState(() {});
+                                    return;
+                                  }
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
 
-                            if (_shouldSetState) setState(() {});
-                          },
-                          child: Container(
-                            width: 104.0,
-                            height: 44.0,
-                            decoration: BoxDecoration(
-                              color: Color(0xFF5450E2),
-                              borderRadius: BorderRadius.circular(5.0),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Pay',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
+                                if (_shouldSetState) setState(() {});
+                              },
+                              child: Container(
+                                width: 120.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
-                              ],
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Pay',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     ),

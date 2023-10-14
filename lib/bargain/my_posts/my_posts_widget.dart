@@ -105,18 +105,61 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
               ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(32.0, 8.0, 32.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(27.0, 8.0, 27.0, 0.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 8.0, 0.0),
-                              child: InkWell(
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              5.0, 0.0, 5.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 0.0, 8.0, 0.0),
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    await showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      backgroundColor: Colors.transparent,
+                                      enableDrag: false,
+                                      context: context,
+                                      builder: (context) {
+                                        return GestureDetector(
+                                          onTap: () => _model
+                                                  .unfocusNode.canRequestFocus
+                                              ? FocusScope.of(context)
+                                                  .requestFocus(
+                                                      _model.unfocusNode)
+                                              : FocusScope.of(context)
+                                                  .unfocus(),
+                                          child: Padding(
+                                            padding: MediaQuery.viewInsetsOf(
+                                                context),
+                                            child: SortTaskListWidget(),
+                                          ),
+                                        );
+                                      },
+                                    ).then((value) => safeSetState(() {}));
+                                  },
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                    child: Image.asset(
+                                      'assets/images/icons8-sort-30.png',
+                                      width: 25.0,
+                                      height: 25.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
@@ -144,79 +187,33 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 },
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  child: Image.asset(
-                                    'assets/images/icons8-sort-30.png',
-                                    width: 25.0,
-                                    height: 25.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                                child: Text(
+                                  FFAppState().Sort,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF5450E2),
+                                        fontSize: 12.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                 ),
                               ),
-                            ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () => _model
-                                              .unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: SortTaskListWidget(),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              },
-                              child: Text(
-                                FFAppState().Sort,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF5450E2),
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 24.0, 0.0, 20.0),
                           child: FutureBuilder<ApiCallResponse>(
-                            future: TaskerpageBackendGroup.myPostsCall.call(
-                              apiGlobalKey: FFAppState().apiKey,
-                              filters: '[[\"poster\",\"=\",\"${getJsonField(
+                            future: TaskerpageBackendGroup.getMyTasksCall.call(
+                              filters: '[[\"user\",\"=\",\"${getJsonField(
                                 FFAppState().userProfile,
-                                r'''$.data.name''',
+                                r'''$.data.user''',
                               ).toString()}\"]]',
                               fields:
-                                  '[\"creation\",\"name\",\"docstatus\",\"repeat_type\",\"is_repeatable\",\"skill_name\",\"skill_category_name\",\"city\",\"language\",\"description\"]',
-                              orderBy: () {
-                                if (FFAppState().Sort == 'Oldest') {
-                                  return 'creation asc';
-                                } else if (FFAppState().Sort == 'Newest') {
-                                  return 'creation desc';
-                                } else {
-                                  return 'creation desc';
-                                }
-                              }(),
+                                  '[\"name\",\"customer_task\",\"is_owner\"]',
+                              apiGlobalKey: FFAppState().apiKey,
                             ),
                             builder: (context, snapshot) {
                               // Customize what your widget looks like when it's loading.
@@ -233,11 +230,11 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                   ),
                                 );
                               }
-                              final listViewMyPostsResponse = snapshot.data!;
+                              final listViewGetMyTasksResponse = snapshot.data!;
                               return Builder(
                                 builder: (context) {
                                   final myPosts = getJsonField(
-                                    listViewMyPostsResponse.jsonBody,
+                                    listViewGetMyTasksResponse.jsonBody,
                                     r'''$.data''',
                                   ).toList();
                                   return ListView.separated(
@@ -247,13 +244,17 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: myPosts.length,
                                     separatorBuilder: (_, __) =>
-                                        SizedBox(height: 20.0),
+                                        SizedBox(height: 16.0),
                                     itemBuilder: (context, myPostsIndex) {
                                       final myPostsItem = myPosts[myPostsIndex];
-                                      return MyPostCardWidget(
-                                        key: Key(
-                                            'Keyuo2_${myPostsIndex}_of_${myPosts.length}'),
-                                        postData: myPostsItem,
+                                      return Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            5.0, 0.0, 5.0, 0.0),
+                                        child: MyPostCardWidget(
+                                          key: Key(
+                                              'Keyuo2_${myPostsIndex}_of_${myPosts.length}'),
+                                          postData: myPostsItem,
+                                        ),
                                       );
                                     },
                                   );

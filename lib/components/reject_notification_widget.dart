@@ -48,7 +48,7 @@ class _RejectNotificationWidgetState extends State<RejectNotificationWidget> {
       height: 37.0,
       decoration: BoxDecoration(
         color: Color(0xFFF6F6F6),
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Padding(
         padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
@@ -59,7 +59,7 @@ class _RejectNotificationWidgetState extends State<RejectNotificationWidget> {
               width: 21.0,
               height: 21.0,
               decoration: BoxDecoration(
-                color: Color(0xFFE8083F),
+                color: FlutterFlowTheme.of(context).secondary,
                 shape: BoxShape.circle,
               ),
               child: Icon(

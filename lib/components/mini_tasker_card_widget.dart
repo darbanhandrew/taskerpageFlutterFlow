@@ -68,7 +68,7 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                 offset: Offset(0.0, 2.0),
               )
             ],
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(2.0),
           ),
           child: Column(
             mainAxisSize: MainAxisSize.max,
@@ -81,12 +81,12 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                       width: 100.0,
                       height: 32.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
+                        color: FlutterFlowTheme.of(context).primary,
                         borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(0.0),
                           bottomRight: Radius.circular(0.0),
-                          topLeft: Radius.circular(10.0),
-                          topRight: Radius.circular(10.0),
+                          topLeft: Radius.circular(2.0),
+                          topRight: Radius.circular(2.0),
                         ),
                       ),
                       child: Column(
@@ -195,8 +195,9 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                                   width: 54.0,
                                   height: 14.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF03CA17),
-                                    borderRadius: BorderRadius.circular(15.0),
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    borderRadius: BorderRadius.circular(2.0),
                                   ),
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(

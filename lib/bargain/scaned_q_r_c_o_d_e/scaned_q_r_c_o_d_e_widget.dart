@@ -286,8 +286,15 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                         height: 105.0,
                                         decoration: BoxDecoration(
                                           color: Color(0xFFF6F6F6),
+                                          boxShadow: [
+                                            BoxShadow(
+                                              blurRadius: 4.0,
+                                              color: Color(0x33000000),
+                                              offset: Offset(0.0, 2.0),
+                                            )
+                                          ],
                                           borderRadius:
-                                              BorderRadius.circular(10.0),
+                                              BorderRadius.circular(1.0),
                                         ),
                                         child: Padding(
                                           padding:
@@ -551,7 +558,9 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                               ),
                                               Icon(
                                                 Icons.done_all_rounded,
-                                                color: Color(0xFF00C661),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                 size: 24.0,
                                               ),
                                             ],
@@ -586,8 +595,15 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                               height: 52.0,
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFF6F6F6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(0.0, 2.0),
+                                                  )
+                                                ],
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(1.0),
                                                 border: Border.all(
                                                   color:
                                                       FFAppState().CopyText ==
@@ -656,7 +672,10 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                                     ),
                                                     Icon(
                                                       Icons.done_all_rounded,
-                                                      color: Color(0xFF00C661),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
                                                       size: 24.0,
                                                     ),
                                                   ],
@@ -693,8 +712,15 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                               height: 52.0,
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFF6F6F6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(0.0, 2.0),
+                                                  )
+                                                ],
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(1.0),
                                                 border: Border.all(
                                                   color:
                                                       FFAppState().CopyText ==
@@ -763,7 +789,10 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                                     ),
                                                     Icon(
                                                       Icons.done_all_rounded,
-                                                      color: Color(0xFF00C661),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
                                                       size: 24.0,
                                                     ),
                                                   ],
@@ -800,8 +829,15 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                               height: 250.0,
                                               decoration: BoxDecoration(
                                                 color: Color(0xFFF6F6F6),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(0.0, 2.0),
+                                                  )
+                                                ],
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(1.0),
                                               ),
                                               child: Padding(
                                                 padding: EdgeInsetsDirectional
@@ -858,7 +894,9 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                             ),
                                             Icon(
                                               Icons.done_all_rounded,
-                                              color: Color(0xFF00C661),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               size: 24.0,
                                             ),
                                           ],

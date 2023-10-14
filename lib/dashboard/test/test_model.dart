@@ -1,9 +1,11 @@
-import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'test_widget.dart' show TestWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,14 +13,13 @@ import 'package:provider/provider.dart';
 class TestModel extends FlutterFlowModel<TestWidget> {
   ///  Local state fields for this page.
 
-  LatLng? latlng;
+  bool? googleCalendar;
 
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // State field(s) for GoogleMap widget.
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
+  // Stores action output result for [Custom Action - addEventToGoogleCalendar] action in test widget.
+  String? link;
 
   /// Initialization and disposal methods.
 

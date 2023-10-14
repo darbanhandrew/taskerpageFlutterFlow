@@ -8,6 +8,7 @@ export 'task_address_struct.dart';
 export 'task_creation_struct.dart';
 export 'task_deatels_struct.dart';
 export 'appointment_struct.dart';
+export 'chat_message_struct.dart';
 export 'crate_task_struct.dart';
 export 'create_task_struct.dart';
 export 'filter_struct.dart';

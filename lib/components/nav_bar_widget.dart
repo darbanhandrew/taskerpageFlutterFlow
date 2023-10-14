@@ -117,7 +117,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                           icon: Icon(
                             Icons.search_off,
                             color: FFAppState().checkNavbarState == 5
-                                ? Color(0xFF5450E2)
+                                ? FlutterFlowTheme.of(context).primary
                                 : Color(0xFF5E5D5D),
                             size: 28.0,
                           ),
@@ -185,7 +185,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         icon: Icon(
                           Icons.group_rounded,
                           color: FFAppState().checkNavbarState == 2
-                              ? Color(0xFF5450E2)
+                              ? FlutterFlowTheme.of(context).primary
                               : Color(0xFF5E5D5D),
                           size: 25.0,
                         ),
@@ -224,7 +224,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 borderRadius: 25.0,
                                 borderWidth: 1.0,
                                 buttonSize: 60.0,
-                                fillColor: Color(0xFFF06543),
+                                fillColor: FlutterFlowTheme.of(context).primary,
                                 icon: Icon(
                                   Icons.add,
                                   color: Colors.white,
@@ -256,7 +256,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                                 borderRadius: 25.0,
                                 borderWidth: 1.0,
                                 buttonSize: 60.0,
-                                fillColor: Color(0xFFF06543),
+                                fillColor: FlutterFlowTheme.of(context).primary,
                                 icon: Icon(
                                   Icons.search_off,
                                   color: Colors.white,
@@ -277,7 +277,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         icon: Icon(
                           Icons.chair_rounded,
                           color: FFAppState().checkNavbarState == 3
-                              ? Color(0xFF5450E2)
+                              ? FlutterFlowTheme.of(context).primary
                               : Color(0xFF5E5D5D),
                           size: 25.0,
                         ),
@@ -297,7 +297,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                         icon: Icon(
                           Icons.space_dashboard,
                           color: FFAppState().checkNavbarState == 4
-                              ? Color(0xFF5450E2)
+                              ? FlutterFlowTheme.of(context).primary
                               : Color(0xFF5E5D5D),
                           size: 25.0,
                         ),

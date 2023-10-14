@@ -132,13 +132,13 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                         },
                         child: Container(
                           width: 150.0,
-                          height: 41.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
-                            color: Color(0xFF5450E2),
-                            borderRadius: BorderRadius.circular(8.0),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(2.0),
                             border: Border.all(
-                              color: Color(0xFF5450E2),
-                              width: 2.0,
+                              color: FlutterFlowTheme.of(context).primary,
+                              width: 1.0,
                             ),
                           ),
                           child: Row(
@@ -151,7 +151,8 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Colors.white,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 15.0,
                                     ),
                               ),
@@ -174,10 +175,10 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                       },
                       child: Container(
                         width: 150.0,
-                        height: 41.0,
+                        height: 36.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF5450E2),
-                          borderRadius: BorderRadius.circular(8.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,

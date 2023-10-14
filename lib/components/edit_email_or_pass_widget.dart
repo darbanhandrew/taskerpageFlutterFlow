@@ -54,24 +54,14 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: double.infinity,
         height: 600.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -167,9 +157,10 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                           .displaySmall
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                     ),
                                     collapsed: Container(
@@ -236,12 +227,15 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -249,12 +243,12 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondary,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -264,7 +258,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -274,7 +268,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   prefixIcon: Icon(
                                                     Icons.email_outlined,
@@ -350,12 +344,15 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -363,12 +360,12 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondary,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -378,7 +375,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -388,7 +385,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   prefixIcon: Icon(
                                                     Icons.email_outlined,
@@ -491,12 +488,15 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -504,12 +504,12 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondary,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -519,7 +519,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -529,7 +529,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   prefixIcon: Icon(
                                                     Icons.lock_outlined,
@@ -664,12 +664,14 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                 },
                                                 child: Container(
                                                   width: 100.0,
-                                                  height: 40.0,
+                                                  height: 36.0,
                                                   decoration: BoxDecoration(
-                                                    color: Color(0xFF5450E2),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -743,9 +745,10 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                           .displaySmall
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             fontSize: 15.0,
-                                            fontWeight: FontWeight.bold,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                     ),
                                     collapsed: Container(
@@ -814,12 +817,15 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -827,12 +833,12 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondary,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -842,7 +848,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -852,7 +858,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   prefixIcon: Icon(
                                                     Icons.lock_outlined,
@@ -948,12 +954,15 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -961,12 +970,12 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondary,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -976,7 +985,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -986,7 +995,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   prefixIcon: Icon(
                                                     Icons.lock_outlined,
@@ -1083,12 +1092,15 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .tertiary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedBorder:
                                                       OutlineInputBorder(
@@ -1096,12 +1108,12 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
-                                                              .secondary,
+                                                              .primary,
                                                       width: 1.0,
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -1111,7 +1123,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -1121,7 +1133,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   prefixIcon: Icon(
                                                     Icons.lock_outlined,
@@ -1264,12 +1276,14 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                 },
                                                 child: Container(
                                                   width: 100.0,
-                                                  height: 41.0,
+                                                  height: 36.0,
                                                   decoration: BoxDecoration(
-                                                    color: Color(0xFF5450E2),
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:

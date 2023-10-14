@@ -43,6 +43,10 @@ class SocketApi {
     _socket?.on(event, callback);
   }
 
+  void off(String event) {
+    _socket?.off(event);
+  }
+
   // Emit an event
   void emit(String event, dynamic data) {
     _socket?.emit(event, data);
@@ -52,5 +56,13 @@ class SocketApi {
 
 Future connectToSocket() async {
   // Connect to the WebSocket server using the SocketApi singleton
-  SocketApi().connect();
+  SocketApi socketApi = SocketApi();
+  socketApi.connect();
+  String? user = getJsonField(
+    FFAppState().userProfile ?? '',
+    r'''$.data.user''',
+  ).toString();
+  if (user.isNotEmpty) {
+    socketApi.emit('join', user);
+  }
 }

@@ -44,10 +44,17 @@ class _ButtonPostTaskWidgetState extends State<ButtonPostTaskWidget> {
 
     return Container(
       width: 103.0,
-      height: 40.0,
+      height: 36.0,
       decoration: BoxDecoration(
-        color: Color(0xFF5450E2),
-        borderRadius: BorderRadius.circular(5.0),
+        color: FlutterFlowTheme.of(context).primary,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4.0,
+            color: Color(0x33000000),
+            offset: Offset(0.0, 2.0),
+          )
+        ],
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,

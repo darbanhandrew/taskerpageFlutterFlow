@@ -792,7 +792,10 @@ String? jsonListOfStringToString(List<dynamic>? json) {
 
 List<String>? convertStringtoListOfString(String? input) {
   // convert string like "En,DE" to ["En","De"]
-  String input = "En,DE";
+  // String input = "En,DE";
+  if (input == null) {
+    return [];
+  }
   List<String> output = input.split(",");
   return output;
 }
@@ -1057,4 +1060,33 @@ double? jsonTodouble(dynamic input) {
 int? plus1(int? num1) {
   // return num1 plus 1
   return num1 != null ? num1 + 1 : null;
+}
+
+String getOpEmail(
+  String? membersListString,
+  String? removeEmail,
+) {
+  if (membersListString == null || removeEmail == null) {
+    return ''; // Handle null inputs as needed.
+  }
+
+  // Split the membersListString into a list of email addresses.
+  List<String> membersList = membersListString.split(', ');
+
+  // Remove the specified email from the list.
+  membersList.remove(removeEmail);
+
+  // Join the updated list back into a string with commas and spaces.
+  String updatedMembersListString = membersList[0];
+
+  return updatedMembersListString;
+}
+
+int? numberofListitems(List<String>? list) {
+  // get me Number of list items
+  if (list == null) {
+    return null;
+  } else {
+    return list.length;
+  }
 }

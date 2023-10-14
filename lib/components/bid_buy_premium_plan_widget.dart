@@ -62,24 +62,14 @@ class _BidBuyPremiumPlanWidgetState extends State<BidBuyPremiumPlanWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.45,
+        height: MediaQuery.sizeOf(context).height * 0.5,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -97,9 +87,10 @@ class _BidBuyPremiumPlanWidgetState extends State<BidBuyPremiumPlanWidget> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 11.0),
+                padding: EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 25.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(
                       mainAxisSize: MainAxisSize.max,
@@ -122,46 +113,55 @@ class _BidBuyPremiumPlanWidgetState extends State<BidBuyPremiumPlanWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('ShowPlans');
-                            },
-                            child: Container(
-                              width: 160.0,
-                              height: 44.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 5.0, 0.0),
-                                    child: Icon(
-                                      Icons.lock_rounded,
-                                      color: Colors.white,
-                                      size: 15.0,
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('ShowPlans');
+                              },
+                              child: Container(
+                                width: 160.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0.0, 2.0),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(2.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 5.0, 0.0),
+                                      child: Icon(
+                                        Icons.lock_rounded,
+                                        color: Colors.white,
+                                        size: 15.0,
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    'Buy Premium Plan',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
+                                    Text(
+                                      'Buy Premium Plan',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

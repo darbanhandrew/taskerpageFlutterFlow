@@ -87,7 +87,7 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                 offset: Offset(0.0, 2.0),
               )
             ],
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(2.0),
             border: Border.all(
               color: Color(0xFFE0E3E7),
             ),
@@ -114,10 +114,10 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                       },
                       child: Container(
                         width: 110.0,
-                        height: 41.0,
+                        height: 36.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFF5450E2),
-                          borderRadius: BorderRadius.circular(5.0),
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -156,7 +156,7 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
+                    borderRadius: BorderRadius.circular(0.0),
                     child: Image.network(
                       'https://taskerpage.com${widget.certificateUrl}',
                       width: MediaQuery.sizeOf(context).width * 0.7,

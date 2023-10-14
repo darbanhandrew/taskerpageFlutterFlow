@@ -160,6 +160,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
               ),
             ),
             Divider(
+              thickness: 0.7,
               indent: 32.0,
               endIndent: 32.0,
               color: Color(0xC9ACABAB),
@@ -200,31 +201,31 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                                 ),
                         enabledBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: Color(0xFF3D3D3D),
+                            color: FlutterFlowTheme.of(context).tertiary,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
-                            color: FlutterFlowTheme.of(context).secondary,
+                            color: FlutterFlowTheme.of(context).primary,
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         errorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xFFE8083F),
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                         focusedErrorBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0xFFE8083F),
                             width: 1.0,
                           ),
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.circular(2.0),
                         ),
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -256,12 +257,12 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                     },
                     child: Container(
                       width: 116.0,
-                      height: 40.0,
+                      height: 36.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(1.5),
                         border: Border.all(
-                          color: Color(0xFF5450E2),
+                          color: FlutterFlowTheme.of(context).primary,
                         ),
                       ),
                       child: Row(
@@ -274,7 +275,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -359,10 +360,10 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                     },
                     child: Container(
                       width: 116.0,
-                      height: 40.0,
+                      height: 36.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
-                        borderRadius: BorderRadius.circular(5.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(1.5),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,

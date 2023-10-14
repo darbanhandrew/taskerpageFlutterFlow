@@ -242,24 +242,14 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(25.0),
-          topRight: Radius.circular(25.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: double.infinity,
         height: MediaQuery.sizeOf(context).height * 0.95,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(25.0),
-            topRight: Radius.circular(25.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: FutureBuilder<ApiCallResponse>(
           future: TaskerpageBackendGroup.postReadCall.call(
@@ -391,7 +381,8 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                     ),
                                 buttonPosition: RadioButtonPosition.left,
                                 direction: Axis.vertical,
-                                radioButtonColor: Color(0xFF211DAF),
+                                radioButtonColor:
+                                    FlutterFlowTheme.of(context).primary,
                                 inactiveRadioButtonColor: Color(0xFF3D3D3D),
                                 toggleable: false,
                                 horizontalAlignment: WrapAlignment.start,
@@ -522,16 +513,16 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                               width: 230.0,
                                               height: 100.0,
                                               decoration: BoxDecoration(
-                                                color: functions.jsonToInt(
-                                                            getJsonField(
-                                                          myAddressItem,
-                                                          r'''$.name''',
-                                                        )) ==
-                                                        _model.selectedAddress
-                                                    ? Color(0xFF5450E2)
-                                                    : Color(0xFFF6F6F6),
+                                                color: Colors.white,
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    blurRadius: 4.0,
+                                                    color: Color(0x33000000),
+                                                    offset: Offset(0.0, 2.0),
+                                                  )
+                                                ],
                                                 borderRadius:
-                                                    BorderRadius.circular(8.0),
+                                                    BorderRadius.circular(2.0),
                                                 border: Border.all(
                                                   color: functions.jsonToInt(
                                                               getJsonField(
@@ -539,8 +530,10 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                                             r'''$.name''',
                                                           )) ==
                                                           _model.selectedAddress
-                                                      ? Color(0xFF5450E2)
-                                                      : Color(0xFFACABAB),
+                                                      ? FlutterFlowTheme.of(
+                                                              context)
+                                                          .primary
+                                                      : Colors.white,
                                                 ),
                                               ),
                                               child: Padding(
@@ -577,10 +570,10 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                                                             )) ==
                                                                             _model
                                                                                 .selectedAddress
-                                                                        ? Color(
-                                                                            0xFFF6F6F6)
-                                                                        : Color(
-                                                                            0xFFACABAB),
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .primary
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .secondary,
                                                                     fontSize:
                                                                         13.0,
                                                                     fontWeight:
@@ -765,7 +758,8 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                     },
                                     child: Icon(
                                       Icons.add_rounded,
-                                      color: Color(0xFF5450E2),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       size: 20.0,
                                     ),
                                   ),
@@ -791,7 +785,8 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             fontSize: 14.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -943,13 +938,14 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   },
                                   child: Container(
                                     width: 100.0,
-                                    height: 40.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
-                                        color: Color(0xFF3D3D3D),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
                                       ),
                                     ),
                                     child: Padding(
@@ -965,7 +961,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                             child: Icon(
                                               Icons.date_range_rounded,
                                               color: Color(0xFF3D3D3D),
-                                              size: 20.0,
+                                              size: 18.0,
                                             ),
                                           ),
                                           Text(
@@ -1058,13 +1054,14 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   },
                                   child: Container(
                                     width: 100.0,
-                                    height: 40.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
-                                        color: Color(0xFF3D3D3D),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
                                       ),
                                     ),
                                     child: Padding(
@@ -1131,13 +1128,14 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   },
                                   child: Container(
                                     width: 100.0,
-                                    height: 40.0,
+                                    height: 36.0,
                                     decoration: BoxDecoration(
                                       color: FlutterFlowTheme.of(context)
                                           .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
-                                        color: Color(0xFF3D3D3D),
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondary,
                                       ),
                                     ),
                                     child: Padding(
@@ -1201,13 +1199,13 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                         },
                         child: Container(
                           width: 104.0,
-                          height: 44.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                             border: Border.all(
-                              color: Color(0xFF5450E2),
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
                           ),
                           child: Row(
@@ -1220,7 +1218,8 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFF5450E2),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -1396,10 +1395,10 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                         },
                         child: Container(
                           width: 129.0,
-                          height: 44.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
-                            color: Color(0xFF5450E2),
-                            borderRadius: BorderRadius.circular(5.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,

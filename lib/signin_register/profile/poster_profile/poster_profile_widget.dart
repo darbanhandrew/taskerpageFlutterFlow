@@ -401,9 +401,10 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       width: 54.0,
                                       height: 26.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFFB505D2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         borderRadius:
-                                            BorderRadius.circular(15.0),
+                                            BorderRadius.circular(2.0),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -431,9 +432,10 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         width: 90.0,
                                         height: 26.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF01880E),
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
                                           borderRadius:
-                                              BorderRadius.circular(15.0),
+                                              BorderRadius.circular(2.0),
                                         ),
                                         child: Padding(
                                           padding:
@@ -458,8 +460,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFFF6F6F6),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
                                                           fontSize: 11.0,
                                                           fontWeight:
                                                               FontWeight.normal,
@@ -469,7 +472,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 itemBuilder: (context, index) =>
                                                     Icon(
                                                   Icons.star_rounded,
-                                                  color: Colors.white,
+                                                  color: Color(0xFFEEC249),
                                                 ),
                                                 direction: Axis.horizontal,
                                                 rating: getJsonField(
@@ -477,7 +480,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       .jsonBody,
                                                   r'''$.data.review_average''',
                                                 ),
-                                                unratedColor: Color(0xFFC3C3C3),
+                                                unratedColor: Colors.white,
                                                 itemCount: 5,
                                                 itemSize: 12.0,
                                               ),
@@ -667,7 +670,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                               width: 23.0,
                                               height: 23.0,
                                               decoration: BoxDecoration(
-                                                color: Color(0xFF5450E2),
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Icon(
@@ -715,10 +720,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                             color: FFAppState()
                                                                         .PostsReviews ==
                                                                     'Post'
-                                                                ? Color(
-                                                                    0xFF211DAF)
-                                                                : Color(
-                                                                    0xFF0C0A3E),
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
                                                             fontSize: 15.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -731,7 +738,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                         color: FFAppState()
                                                                     .PostsReviews ==
                                                                 'Post'
-                                                            ? Color(0xFF211DAF)
+                                                            ? FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary
                                                             : Colors.white,
                                                       ),
                                                     ).animateOnPageLoad(
@@ -758,22 +767,27 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                 children: [
                                                   Text(
                                                     'Reviews by me',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FFAppState()
-                                                                      .PostsReviews ==
-                                                                  'Reviews'
-                                                              ? Color(
-                                                                  0xFF211DAF)
-                                                              : Color(
-                                                                  0xFF0C0A3E),
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                    style:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: FFAppState()
+                                                                          .PostsReviews ==
+                                                                      'Reviews'
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                              fontSize: 15.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
                                                   ),
                                                   SizedBox(
                                                     width: 95.0,
@@ -782,7 +796,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       color: FFAppState()
                                                                   .PostsReviews ==
                                                               'Reviews'
-                                                          ? Color(0xFF211DAF)
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
                                                           : Colors.white,
                                                     ),
                                                   ).animateOnPageLoad(animationsMap[
@@ -890,10 +906,19 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                               BoxDecoration(
                                                             color: Color(
                                                                 0xFFF6F6F6),
+                                                            boxShadow: [
+                                                              BoxShadow(
+                                                                blurRadius: 4.0,
+                                                                color: Color(
+                                                                    0x33000000),
+                                                                offset: Offset(
+                                                                    0.0, 2.0),
+                                                              )
+                                                            ],
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        10.0),
+                                                                        0.0),
                                                           ),
                                                           child: Padding(
                                                             padding:
@@ -1022,9 +1047,11 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 borderRadius:
-                                                    BorderRadius.circular(15.0),
+                                                    BorderRadius.circular(2.0),
                                                 border: Border.all(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                 ),
                                               ),
                                               child: Padding(
@@ -1039,15 +1066,18 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                   children: [
                                                     Text(
                                                       'See more',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF5450E2),
-                                                            fontSize: 11.0,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 11.0,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -1060,7 +1090,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       child: Icon(
                                                         Icons.keyboard_control,
                                                         color:
-                                                            Color(0xFF5450E2),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         size: 13.0,
                                                       ),
                                                     ),
@@ -1174,10 +1206,22 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                 BoxDecoration(
                                                               color: Color(
                                                                   0xFFF6F6F6),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  blurRadius:
+                                                                      4.0,
+                                                                  color: Color(
+                                                                      0x33000000),
+                                                                  offset:
+                                                                      Offset(
+                                                                          0.0,
+                                                                          2.0),
+                                                                )
+                                                              ],
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          10.0),
+                                                                          0.0),
                                                             ),
                                                             child: Padding(
                                                               padding:
@@ -1340,9 +1384,11 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                     FlutterFlowTheme.of(context)
                                                         .secondaryBackground,
                                                 borderRadius:
-                                                    BorderRadius.circular(15.0),
+                                                    BorderRadius.circular(2.0),
                                                 border: Border.all(
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                 ),
                                               ),
                                               child: Padding(
@@ -1357,15 +1403,18 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                   children: [
                                                     Text(
                                                       'See more',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFF5450E2),
-                                                            fontSize: 11.0,
-                                                          ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 11.0,
+                                                              ),
                                                     ),
                                                     Padding(
                                                       padding:
@@ -1378,7 +1427,9 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                       child: Icon(
                                                         Icons.keyboard_control,
                                                         color:
-                                                            Color(0xFF5450E2),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
                                                         size: 13.0,
                                                       ),
                                                     ),
@@ -1508,9 +1559,18 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                     return Container(
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 4.0,
+                                                            color: Color(
+                                                                0x33000000),
+                                                            offset: Offset(
+                                                                0.0, 2.0),
+                                                          )
+                                                        ],
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(10.0),
+                                                                .circular(0.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
@@ -1783,8 +1843,15 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Color(0xFFF6F6F6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0.0, 2.0),
+                                              )
+                                            ],
                                             borderRadius:
-                                                BorderRadius.circular(10.0),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           child: Padding(
                                             padding:
@@ -2171,8 +2238,15 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         child: Container(
                                           decoration: BoxDecoration(
                                             color: Color(0xFFF6F6F6),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                blurRadius: 4.0,
+                                                color: Color(0x33000000),
+                                                offset: Offset(0.0, 2.0),
+                                              )
+                                            ],
                                             borderRadius:
-                                                BorderRadius.circular(10.0),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           child: Padding(
                                             padding:
@@ -2332,7 +2406,7 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
-                                                                              Color(0xFF5450E2),
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           shape:
                                                                               BoxShape.circle,
                                                                         ),

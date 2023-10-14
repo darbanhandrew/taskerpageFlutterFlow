@@ -384,10 +384,12 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                                                         .createTask
                                                                         .taskAddress
                                                                         .address
-                                                                ? Color(
-                                                                    0xFFF6F6F6)
-                                                                : Color(
-                                                                    0xFFACABAB),
+                                                                ? FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary
+                                                                : FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondary,
                                                             fontSize: 14.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
@@ -631,7 +633,7 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                               );
                               if ((_model.updatedAddress?.succeeded ?? true)) {
                                 context.pushNamed(
-                                  'Calendar',
+                                  'taskstime',
                                   queryParameters: {
                                     'id': serializeParam(
                                       getJsonField(

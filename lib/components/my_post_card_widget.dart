@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -49,73 +50,369 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return FlipCard(
-      fill: Fill.fillBack,
-      direction: FlipDirection.HORIZONTAL,
-      speed: 400,
-      front: Container(
-        width: 326.0,
-        height: 203.0,
-        decoration: BoxDecoration(
-          color: Color(0xFFF6F6F6),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x33000000),
-              offset: Offset(0.0, 2.0),
-            )
-          ],
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return FutureBuilder<ApiCallResponse>(
+      future: TaskerpageBackendGroup.postReadCall.call(
+        id: getJsonField(
+          widget.postData,
+          r'''$.customer_task''',
+        ).toString(),
+        apiGlobalKey: FFAppState().apiKey,
+      ),
+      builder: (context, snapshot) {
+        // Customize what your widget looks like when it's loading.
+        if (!snapshot.hasData) {
+          return Center(
+            child: SizedBox(
+              width: 50.0,
+              height: 50.0,
+              child: SpinKitThreeBounce(
+                color: FlutterFlowTheme.of(context).primary,
+                size: 50.0,
+              ),
+            ),
+          );
+        }
+        final flippableCardPostReadResponse = snapshot.data!;
+        return FlipCard(
+          fill: Fill.fillBack,
+          direction: FlipDirection.HORIZONTAL,
+          speed: 400,
+          front: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
+                  Container(
+                    width: 161.0,
+                    height: 25.0,
+                    decoration: BoxDecoration(
+                      color: Color(0xFF494949),
+                      boxShadow: [
+                        BoxShadow(
+                          blurRadius: 4.0,
+                          color: Color(0x33000000),
+                          offset: Offset(0.0, 0.0),
+                          spreadRadius: 2.0,
+                        )
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          getJsonField(
+                                    flippableCardPostReadResponse.jsonBody,
+                                    r'''$.data.poster''',
+                                  ) ==
+                                  getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  )
+                              ? 'You posted this task'
+                              : 'You joined this task',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.white,
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              Container(
+                width: double.infinity,
+                height: 170.0,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4.0,
+                      color: Color(0x33000000),
+                      offset: Offset(0.0, 0.0),
+                      spreadRadius: 2.0,
+                    )
+                  ],
+                  borderRadius: BorderRadius.circular(0.0),
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                      child: Row(
                         mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 18.0, 0.0),
-                            child: Container(
-                              width: 112.0,
-                              height: 28.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(0.0),
-                                  bottomRight: Radius.circular(10.0),
-                                  topLeft: Radius.circular(0.0),
-                                  topRight: Radius.circular(10.0),
+                          Expanded(
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 18.0, 0.0),
+                                      child: Container(
+                                        width: 113.0,
+                                        height: 22.0,
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFF8B8B8B),
+                                          borderRadius:
+                                              BorderRadius.circular(0.0),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              dateTimeFormat(
+                                                  'MMMEd',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    flippableCardPostReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.creation''',
+                                                  ).toString())),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: Color(0xFFF6F6F6),
+                                                    fontSize: 12.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    Container(
+                                      height: 22.0,
+                                      decoration: BoxDecoration(
+                                        color: Color(0xFFDEDEDE),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            8.0, 0.0, 8.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              dateTimeFormat(
+                                                  'M/d h:mm a',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    flippableCardPostReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.start_date''',
+                                                  ).toString())),
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 12.0,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                              ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 10.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      Container(
+                                        width: 40.0,
+                                        height: 40.0,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.network(
+                                          '${FFAppState().baseUrl}${getJsonField(
+                                            widget.postData,
+                                            r'''$.icon''',
+                                          ).toString()}',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            12.0, 0.0, 0.0, 0.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                              '${getJsonField(
+                                                flippableCardPostReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.skill_category_name''',
+                                              ).toString()} - ${getJsonField(
+                                                flippableCardPostReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.skill_name''',
+                                              ).toString()}'
+                                                  .maybeHandleOverflow(
+                                                maxChars: 36,
+                                                replacement: '…',
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                            Text(
+                                              getJsonField(
+                                                flippableCardPostReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.description''',
+                                              ).toString().maybeHandleOverflow(
+                                                    maxChars: 29,
+                                                    replacement: '…',
+                                                  ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    fontSize: 13.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.end,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 20.0, 0.0, 0.0),
+                                                child: Icon(
+                                                  Icons.keyboard_control,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  size: 20.0,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Divider(
+                      height: 22.0,
+                      thickness: 0.7,
+                      color: Color(0xFFDEDEDE),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 8.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            height: 22.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFDEDEDE),
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 8.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Text(
-                                    dateTimeFormat(
-                                        'MMMEd',
-                                        functions.jsonToDateTime(getJsonField(
-                                          widget.postData,
-                                          r'''$.creation''',
-                                        ).toString())),
+                                    () {
+                                      if (functions
+                                              .jsonToInt(getJsonField(
+                                                flippableCardPostReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.docstatus''',
+                                              ))
+                                              .toString() ==
+                                          '1') {
+                                        return 'Published';
+                                      } else if (functions
+                                              .jsonToInt(getJsonField(
+                                                flippableCardPostReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.docstatus''',
+                                              ))
+                                              .toString() ==
+                                          '2') {
+                                        return 'Canceled';
+                                      } else {
+                                        return 'Draft';
+                                      }
+                                    }(),
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Lato',
-                                          color: Color(0xFFF6F6F6),
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          fontSize: 12.0,
                                         ),
                                   ),
                                 ],
@@ -126,28 +423,31 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 8.0, 0.0),
                             child: Container(
+                              height: 22.0,
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(15.0),
+                                color: Color(0xFFDEDEDE),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 7.0, 8.0, 7.0),
+                                    8.0, 0.0, 8.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
                                       () {
                                         if (functions.jsonToInt(getJsonField(
-                                              widget.postData,
-                                              r'''$.docstatus''',
+                                              flippableCardPostReadResponse
+                                                  .jsonBody,
+                                              r'''$.data.docstatus''',
                                             )) ==
                                             1) {
                                           return 'Open';
                                         } else if (functions
                                                 .jsonToInt(getJsonField(
-                                              widget.postData,
-                                              r'''$.docstatus''',
+                                              flippableCardPostReadResponse
+                                                  .jsonBody,
+                                              r'''$.data.docstatus''',
                                             )) ==
                                             2) {
                                           return 'Closed';
@@ -159,7 +459,8 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFFF6F6F6),
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             fontSize: 12.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -169,457 +470,257 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                               ),
                             ),
                           ),
-                          if (functions.jsonToInt(getJsonField(
-                                widget.postData,
-                                r'''$.is_repeatable''',
-                              )) ==
-                              1)
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 7.0, 8.0, 7.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      getJsonField(
-                                        widget.postData,
-                                        r'''$.repeat_type''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFFF6F6F6),
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
+                        ].divide(SizedBox(width: 18.0)),
+                      ),
+                    ),
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            height: 22.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFDEDEDE),
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 8.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    getJsonField(
+                                      flippableCardPostReadResponse.jsonBody,
+                                      r'''$.data.repeat_type''',
+                                    ).toString(),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          fontSize: 12.0,
+                                        ),
+                                  ),
+                                ],
                               ),
                             ),
+                          ),
+                          Icon(
+                            Icons.keyboard_arrow_down_rounded,
+                            color: FlutterFlowTheme.of(context).secondary,
+                            size: 20.0,
+                          ),
                         ],
                       ),
-                      Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            15.0, 10.0, 0.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            if (!true)
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 8.0, 0.0),
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFF00C661),
-                                    borderRadius: BorderRadius.circular(15.0),
-                                  ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 7.0, 10.0, 7.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          getJsonField(
-                                            widget.postData,
-                                            r'''$.skill_category_name''',
-                                          ).toString(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Color(0xFFF6F6F6),
-                                                fontSize: 11.0,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          back: Container(
+            width: 326.0,
+            height: 170.0,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 4.0,
+                  color: Color(0x33000000),
+                  offset: Offset(0.0, 0.0),
+                  spreadRadius: 2.0,
+                )
+              ],
+              borderRadius: BorderRadius.circular(0.0),
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                if (functions
+                        .jsonToInt(getJsonField(
+                          flippableCardPostReadResponse.jsonBody,
+                          r'''$.data.docstatus''',
+                        ))
+                        .toString() ==
+                    '1')
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(
+                            'chat_list',
+                            queryParameters: {
+                              'task': serializeParam(
+                                getJsonField(
+                                  flippableCardPostReadResponse.jsonBody,
+                                  r'''$.data.name''',
+                                ),
+                                ParamType.int,
+                              ),
+                              'myPost': serializeParam(
+                                widget.postData,
+                                ParamType.JSON,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        child: Container(
+                          width: 168.0,
+                          height: 36.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary,
+                            borderRadius: BorderRadius.circular(2.0),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'View Related Bargains',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Colors.white,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.w500,
                                     ),
-                                  ),
-                                ),
                               ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color(0xFF00C661),
-                                borderRadius: BorderRadius.circular(15.0),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    10.0, 7.0, 10.0, 7.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      getJsonField(
-                                        widget.postData,
-                                        r'''$.skill_name''',
-                                      ).toString(),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFFF6F6F6),
-                                            fontSize: 11.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  11.0, 0.0, 0.0, 0.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFEA8433),
-                                  borderRadius: BorderRadius.circular(15.0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 7.0, 10.0, 7.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Text(
-                                        () {
-                                          if (functions
-                                                  .jsonToInt(getJsonField(
-                                                    widget.postData,
-                                                    r'''$.docstatus''',
-                                                  ))
-                                                  .toString() ==
-                                              '1') {
-                                            return 'Published';
-                                          } else if (functions
-                                                  .jsonToInt(getJsonField(
-                                                    widget.postData,
-                                                    r'''$.docstatus''',
-                                                  ))
-                                                  .toString() ==
-                                              '2') {
-                                            return 'Canceled';
-                                          } else {
-                                            return 'Draft';
-                                          }
-                                        }(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: Color(0xFFF6F6F6),
-                                              fontSize: 11.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
                     ],
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 10.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Stack(
-                          alignment: AlignmentDirectional(0.0, 0.0),
-                          children: [
-                            Container(
-                              width: 80.0,
-                              height: 80.0,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: Image.network(
-                                '${FFAppState().baseUrl}${getJsonField(
+                if (functions
+                        .jsonToInt(getJsonField(
+                          flippableCardPostReadResponse.jsonBody,
+                          r'''$.data.docstatus''',
+                        ))
+                        .toString() ==
+                    '0')
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(
+                            'Task-1',
+                            queryParameters: {
+                              'id': serializeParam(
+                                getJsonField(
                                   widget.postData,
-                                  r'''$.icon''',
-                                ).toString()}',
-                                fit: BoxFit.cover,
+                                  r'''$.name''',
+                                ).toString(),
+                                ParamType.String,
                               ),
+                            }.withoutNulls,
+                          );
+                        },
+                        child: Container(
+                          width: 110.0,
+                          height: 36.0,
+                          decoration: BoxDecoration(
+                            color: Color(0x005450E2),
+                            borderRadius: BorderRadius.circular(2.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Divider(
-              height: 32.0,
-              thickness: 1.0,
-              indent: 15.0,
-              endIndent: 15.0,
-              color: Color(0xFFDEDEDE),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 25.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(0.0),
-                      child: Image.asset(
-                        'assets/images/fas.png',
-                        width: 20.0,
-                        height: 20.0,
-                        fit: BoxFit.none,
-                      ),
-                    ),
-                  ),
-                  Text(
-                    '${getJsonField(
-                      widget.postData,
-                      r'''$.city''',
-                    ).toString()}| ${getJsonField(
-                      widget.postData,
-                      r'''$.language''',
-                    ).toString()}',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Lato',
-                          color: Color(0xFF222222),
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    getJsonField(
-                      widget.postData,
-                      r'''$.description''',
-                    ).toString().maybeHandleOverflow(maxChars: 25),
-                    maxLines: 1,
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Lato',
-                          color: Color(0xFF292929),
-                          fontSize: 13.0,
-                          fontWeight: FontWeight.w500,
-                        ),
-                  ),
-                  Icon(
-                    Icons.share_outlined,
-                    color: Color(0xFF5450E2),
-                    size: 24.0,
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-      back: Container(
-        width: 326.0,
-        height: 203.0,
-        decoration: BoxDecoration(
-          color: Color(0xFFF6F6F6),
-          boxShadow: [
-            BoxShadow(
-              blurRadius: 4.0,
-              color: Color(0x33000000),
-              offset: Offset(0.0, 2.0),
-            )
-          ],
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            if (functions
-                    .jsonToInt(getJsonField(
-                      widget.postData,
-                      r'''$.docstatus''',
-                    ))
-                    .toString() ==
-                '1')
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        'inbox',
-                        queryParameters: {
-                          'postID': serializeParam(
-                            getJsonField(
-                              widget.postData,
-                              r'''$.name''',
-                            ),
-                            ParamType.int,
                           ),
-                        }.withoutNulls,
-                      );
-                    },
-                    child: Container(
-                      width: 168.0,
-                      height: 44.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
-                        borderRadius: BorderRadius.circular(5.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Edit post',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'View Related Bargains',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.white,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.w500,
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          context.pushNamed(
+                            'chat_list',
+                            queryParameters: {
+                              'task': serializeParam(
+                                getJsonField(
+                                  flippableCardPostReadResponse.jsonBody,
+                                  r'''$.data.name''',
                                 ),
+                                ParamType.int,
+                              ),
+                              'myPost': serializeParam(
+                                widget.postData,
+                                ParamType.JSON,
+                              ),
+                            }.withoutNulls,
+                          );
+                        },
+                        child: Container(
+                          width: 145.0,
+                          height: 36.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary,
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            if (functions
-                    .jsonToInt(getJsonField(
-                      widget.postData,
-                      r'''$.docstatus''',
-                    ))
-                    .toString() ==
-                '0')
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        'Task-1',
-                        queryParameters: {
-                          'id': serializeParam(
-                            getJsonField(
-                              widget.postData,
-                              r'''$.name''',
-                            ).toString(),
-                            ParamType.String,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'View Related Bargains',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Colors.white,
+                                      fontSize: 12.0,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                              ),
+                            ],
                           ),
-                        }.withoutNulls,
-                      );
-                    },
-                    child: Container(
-                      width: 110.0,
-                      height: 44.0,
-                      decoration: BoxDecoration(
-                        color: Color(0x005450E2),
-                        borderRadius: BorderRadius.circular(5.0),
-                        border: Border.all(
-                          color: Color(0xFF5450E2),
                         ),
                       ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Edit post',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF5450E2),
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
+                    ].divide(SizedBox(width: 8.0)),
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      context.pushNamed(
-                        'inbox',
-                        queryParameters: {
-                          'postID': serializeParam(
-                            getJsonField(
-                              widget.postData,
-                              r'''$.name''',
-                            ),
-                            ParamType.int,
-                          ),
-                        }.withoutNulls,
-                      );
-                    },
-                    child: Container(
-                      width: 145.0,
-                      height: 44.0,
-                      decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'View Related Bargains',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Colors.white,
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ].divide(SizedBox(width: 8.0)),
-              ),
-          ],
-        ),
-      ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

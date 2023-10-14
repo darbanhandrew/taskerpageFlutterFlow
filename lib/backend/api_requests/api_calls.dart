@@ -174,9 +174,15 @@ class TaskerpageBackendGroup {
       UpdateIdentificationCall();
   static ChatListCall chatListCall = ChatListCall();
   static ChatsRoomCall chatsRoomCall = ChatsRoomCall();
+  static ChatsRoomCopyCall chatsRoomCopyCall = ChatsRoomCopyCall();
+  static MarkAsReadCall markAsReadCall = MarkAsReadCall();
   static SendMessageCall sendMessageCall = SendMessageCall();
   static CreateChatCall createChatCall = CreateChatCall();
   static CreateChatTestCall createChatTestCall = CreateChatTestCall();
+  static GetMyTasksCall getMyTasksCall = GetMyTasksCall();
+  static GetMyTasksGroupByCall getMyTasksGroupByCall = GetMyTasksGroupByCall();
+  static ReadByEmailCall readByEmailCall = ReadByEmailCall();
+  static UpdateTasksTimeCall updateTasksTimeCall = UpdateTasksTimeCall();
 }
 
 class RegisterCall {
@@ -4397,6 +4403,7 @@ class CreateBidCall {
     String? bider = '',
     String? post = '',
     String? poster = '',
+    String? room = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     final ffApiRequestBody = '''
@@ -4405,7 +4412,8 @@ class CreateBidCall {
   "price_type": "${priceType}",
   "bider": "${bider}",
   "post": "${post}",
-  "poster": "${poster}"
+  "poster": "${poster}",
+  "room": "${room}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Create Bid',
@@ -5373,7 +5381,6 @@ class UpdateTaskScheduleCall {
     String? startRangeTime = '',
     int? numberOfHoursPerSession,
     int? isRepeatable,
-    String? repeatType = '',
     String? endDateType = '',
     String? endOn = '',
     int? endAfterNumberOfSessions,
@@ -5397,7 +5404,6 @@ class UpdateTaskScheduleCall {
         'start_range_time': startRangeTime,
         'number_of_hours_per_session': numberOfHoursPerSession,
         'is_repeatable': isRepeatable,
-        'repeat_type': repeatType,
         'end_date_type': endDateType,
         'end_on': endOn,
         'end_after_number_of_sessions': endAfterNumberOfSessions,
@@ -5819,6 +5825,12 @@ class NotificationLogCall {
       cache: false,
     );
   }
+
+  dynamic notificationList(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      );
 }
 
 class NotificationReadCall {
@@ -5923,17 +5935,20 @@ class UpdateIdentificationCall {
 class ChatListCall {
   Future<ApiCallResponse> call({
     String? user = '',
+    int? task,
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'chat list',
-      apiUrl:
-          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.room.get?email=${user}',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.room.get',
       callType: ApiCallType.GET,
       headers: {
         'Authorization': '${apiGlobalKey}',
       },
-      params: {},
+      params: {
+        'email': user,
+        'task': task,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -5982,10 +5997,64 @@ class ChatsRoomCall {
   Future<ApiCallResponse> call({
     String? room = '',
     String? email = '',
+    String? orderBy = 'creation desc',
+    int? start = 0,
+    int? pageLength = 10,
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
     return ApiManager.instance.makeApiCall(
       callName: 'chats room',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.message.get_all',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'room': room,
+        'email': email,
+        'order_by': orderBy,
+        'start': start,
+        'page_length': pageLength,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic content(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].content''',
+        true,
+      );
+  dynamic sender(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].sender''',
+        true,
+      );
+  dynamic creation(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].creation''',
+        true,
+      );
+  dynamic senderemail(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].sender_email''',
+        true,
+      );
+}
+
+class ChatsRoomCopyCall {
+  Future<ApiCallResponse> call({
+    String? room = '',
+    String? email = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'chats room Copy',
       apiUrl:
           '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.message.get_all',
       callType: ApiCallType.POST,
@@ -6026,6 +6095,31 @@ class ChatsRoomCall {
       );
 }
 
+class MarkAsReadCall {
+  Future<ApiCallResponse> call({
+    String? room = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Mark As Read',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.message.mark_as_read',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'room': room,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
 class SendMessageCall {
   Future<ApiCallResponse> call({
     String? email = '',
@@ -6060,19 +6154,17 @@ class SendMessageCall {
 class CreateChatCall {
   Future<ApiCallResponse> call({
     String? roomName = '',
-    List<String>? usersList,
+    String? users = '',
     String? type = '',
+    String? task = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
   }) {
-    final users = _serializeList(usersList);
-
     final ffApiRequestBody = '''
 {
   "room_name": "${roomName}",
-  "users": [
-    "${users}"
-  ],
-  "type": "${type}"
+  "users": "${users}",
+  "type": "${type}",
+  "task": "${task}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'create chat',
@@ -6120,6 +6212,144 @@ class CreateChatTestCall {
       params: {},
       body: ffApiRequestBody,
       bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetMyTasksCall {
+  Future<ApiCallResponse> call({
+    String? filters = '',
+    String? fields = '',
+    String? orderBy = 'creation desc',
+    int? limitStart,
+    int? limit,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'get my tasks',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task Taskers',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': filters,
+        'fields': fields,
+        'order_by': orderBy,
+        'limit_start': limitStart,
+        'limit': limit,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetMyTasksGroupByCall {
+  Future<ApiCallResponse> call({
+    String? filters = '',
+    String? fields = '',
+    String? orderBy = 'creation desc',
+    int? limitStart = 0,
+    int? limit = 100,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'get my tasks group by',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task Taskers',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': filters,
+        'fields': fields,
+        'order_by': orderBy,
+        'limit_start': limitStart,
+        'limit': limit,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic users(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].user''',
+        true,
+      );
+}
+
+class ReadByEmailCall {
+  Future<ApiCallResponse> call({
+    String? user = '',
+    String? fields = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'read by email',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': user,
+        'fields': fields,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].first_name''',
+      );
+  dynamic family(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].last_name''',
+      );
+  dynamic avatar(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].avatar''',
+      );
+  dynamic id(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].name''',
+      );
+}
+
+class UpdateTasksTimeCall {
+  Future<ApiCallResponse> call({
+    String? repeatType = '',
+    String? id = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
+  }) {
+    return ApiManager.instance.makeApiCall(
+      callName: 'update tasks time',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'repeat_type': repeatType,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,

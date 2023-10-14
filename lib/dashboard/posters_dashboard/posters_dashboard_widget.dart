@@ -153,16 +153,17 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                           child: Container(
                                             height: 184.0,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFF6F6F6),
+                                              color: Colors.white,
                                               boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
                                                   color: Color(0x33000000),
                                                   offset: Offset(0.0, 2.0),
+                                                  spreadRadius: 1.0,
                                                 )
                                               ],
                                               borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                  BorderRadius.circular(0.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -576,8 +577,8 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                         70.0,
                                                                     decoration:
                                                                         BoxDecoration(
-                                                                      color: Color(
-                                                                          0xFFF6F6F6),
+                                                                      color: Colors
+                                                                          .white,
                                                                       shape: BoxShape
                                                                           .circle,
                                                                     ),
@@ -609,16 +610,17 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                             width: 100.0,
                                             height: 78.0,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFF6F6F6),
+                                              color: Colors.white,
                                               boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
                                                   color: Color(0x33000000),
                                                   offset: Offset(0.0, 2.0),
+                                                  spreadRadius: 1.0,
                                                 )
                                               ],
                                               borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                  BorderRadius.circular(0.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -726,18 +728,19 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                         Expanded(
                                           child: Container(
                                             width: 100.0,
-                                            height: 400.0,
+                                            height: 410.0,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFF6F6F6),
+                                              color: Colors.white,
                                               boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
                                                   color: Color(0x33000000),
                                                   offset: Offset(0.0, 2.0),
+                                                  spreadRadius: 1.0,
                                                 )
                                               ],
                                               borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                  BorderRadius.circular(0.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -745,6 +748,9 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                       15.0, 20.0, 15.0, 20.0),
                                               child: Column(
                                                 mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
                                                 children: [
                                                   Padding(
                                                     padding:
@@ -860,7 +866,7 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                       __) =>
                                                                   SizedBox(
                                                                       height:
-                                                                          10.0),
+                                                                          6.0),
                                                               itemBuilder: (context,
                                                                   appointmentsIndex) {
                                                                 final appointmentsItem =
@@ -870,7 +876,7 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           5.0,
-                                                                          0.0,
+                                                                          5.0,
                                                                           5.0,
                                                                           0.0),
                                                                   child: FutureBuilder<
@@ -934,10 +940,11 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                               blurRadius: 4.0,
                                                                               color: Color(0x33000000),
                                                                               offset: Offset(0.0, 2.0),
+                                                                              spreadRadius: 2.0,
                                                                             )
                                                                           ],
                                                                           borderRadius:
-                                                                              BorderRadius.circular(10.0),
+                                                                              BorderRadius.circular(2.0),
                                                                         ),
                                                                         child:
                                                                             Padding(
@@ -1091,11 +1098,12 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          15.0),
+                                                                          2.0),
                                                               border:
                                                                   Border.all(
-                                                                color: Color(
-                                                                    0xFF5450E2),
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
                                                               ),
                                                             ),
                                                             child: Padding(
@@ -1123,7 +1131,7 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                           fontFamily:
                                                                               'Lato',
                                                                           color:
-                                                                              Color(0xFF5450E2),
+                                                                              FlutterFlowTheme.of(context).primary,
                                                                           fontSize:
                                                                               11.0,
                                                                         ),
@@ -1138,8 +1146,9 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                     child: Icon(
                                                                       Icons
                                                                           .keyboard_control,
-                                                                      color: Color(
-                                                                          0xFF5450E2),
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primary,
                                                                       size:
                                                                           13.0,
                                                                     ),
@@ -1171,16 +1180,17 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                             width: 100.0,
                                             height: 141.0,
                                             decoration: BoxDecoration(
-                                              color: Color(0xFFF6F6F6),
+                                              color: Colors.white,
                                               boxShadow: [
                                                 BoxShadow(
                                                   blurRadius: 4.0,
                                                   color: Color(0x33000000),
                                                   offset: Offset(0.0, 2.0),
+                                                  spreadRadius: 1.0,
                                                 )
                                               ],
                                               borderRadius:
-                                                  BorderRadius.circular(10.0),
+                                                  BorderRadius.circular(0.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -1253,12 +1263,13 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                         height: 22.0,
                                                         decoration:
                                                             BoxDecoration(
-                                                          color:
-                                                              Color(0xFF03CA17),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .tertiary,
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      15.0),
+                                                                      2.0),
                                                         ),
                                                         child: Padding(
                                                           padding:
@@ -1288,8 +1299,9 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                     .override(
                                                                       fontFamily:
                                                                           'Lato',
-                                                                      color: Color(
-                                                                          0xFFF6F6F6),
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .alternate,
                                                                       fontSize:
                                                                           10.0,
                                                                       fontWeight:
@@ -1358,8 +1370,9 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                             10)),
                                                             settings:
                                                                 LineChartBarData(
-                                                              color: Color(
-                                                                  0xFF5450E2),
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
                                                               barWidth: 1.5,
                                                               isCurved: true,
                                                               preventCurveOverShooting:
@@ -1370,7 +1383,7 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
                                                                   BarAreaData(
                                                                 show: true,
                                                                 color: Color(
-                                                                    0xFFE3F2FD),
+                                                                    0x1BF36121),
                                                               ),
                                                             ),
                                                           )

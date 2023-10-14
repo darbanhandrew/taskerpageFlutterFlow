@@ -182,6 +182,9 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _sid = prefs.getString('ff_sid') ?? _sid;
     });
+    _safeInit(() {
+      _tasksTime = prefs.getStringList('ff_tasksTime') ?? _tasksTime;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -875,6 +878,41 @@ class FFAppState extends ChangeNotifier {
   bool get clearText => _clearText;
   set clearText(bool _value) {
     _clearText = _value;
+  }
+
+  List<String> _tasksTime = ['Exact Dates', 'Weekly', 'Mountly'];
+  List<String> get tasksTime => _tasksTime;
+  set tasksTime(List<String> _value) {
+    _tasksTime = _value;
+    prefs.setStringList('ff_tasksTime', _value);
+  }
+
+  void addToTasksTime(String _value) {
+    _tasksTime.add(_value);
+    prefs.setStringList('ff_tasksTime', _tasksTime);
+  }
+
+  void removeFromTasksTime(String _value) {
+    _tasksTime.remove(_value);
+    prefs.setStringList('ff_tasksTime', _tasksTime);
+  }
+
+  void removeAtIndexFromTasksTime(int _index) {
+    _tasksTime.removeAt(_index);
+    prefs.setStringList('ff_tasksTime', _tasksTime);
+  }
+
+  void updateTasksTimeAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _tasksTime[_index] = updateFn(_tasksTime[_index]);
+    prefs.setStringList('ff_tasksTime', _tasksTime);
+  }
+
+  void insertAtIndexInTasksTime(int _index, String _value) {
+    _tasksTime.insert(_index, _value);
+    prefs.setStringList('ff_tasksTime', _tasksTime);
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

@@ -87,8 +87,8 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                       }
                     },
                     child: Container(
-                      width: 47.0,
-                      height: 47.0,
+                      width: 55.0,
+                      height: 55.0,
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
@@ -105,7 +105,7 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                 ],
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -153,8 +153,8 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                     Container(
                       height: 26.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFFEF0EB0),
-                        borderRadius: BorderRadius.circular(15.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(2.0),
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -187,8 +187,11 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                       Container(
                         height: 26.0,
                         decoration: BoxDecoration(
-                          color: Color(0xFFF39F21),
-                          borderRadius: BorderRadius.circular(15.0),
+                          color: Color(0x00FFFFFF),
+                          borderRadius: BorderRadius.circular(2.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
                         ),
                         child: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -202,7 +205,8 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFFF6F6F6),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
@@ -215,8 +219,8 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
               ),
               Divider(
                 height: 32.0,
-                thickness: 1.0,
-                color: Color(0xFF49A1FF),
+                thickness: 0.7,
+                color: FlutterFlowTheme.of(context).tertiary,
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),

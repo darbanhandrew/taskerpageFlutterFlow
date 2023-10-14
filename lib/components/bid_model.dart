@@ -25,6 +25,10 @@ class BidModel extends FlutterFlowModel<BidWidget> {
   // State field(s) for DropDown widget.
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
+  // Stores action output result for [Backend Call - API (userProfileRead)] action in Container widget.
+  ApiCallResponse? read;
+  // Stores action output result for [Backend Call - API (create chat)] action in Container widget.
+  ApiCallResponse? createdChatRoom;
   // Stores action output result for [Backend Call - API (Create Bid)] action in Container widget.
   ApiCallResponse? bidCreated;
 

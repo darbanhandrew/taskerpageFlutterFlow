@@ -71,24 +71,14 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.8,
+        height: MediaQuery.sizeOf(context).height * 0.6,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -106,7 +96,7 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 11.0),
+                padding: EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 25.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -154,7 +144,6 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.bidAmountController,
-                              autofocus: true,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -169,35 +158,36 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
                                     ),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF3D3D3D),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
-                                    color: Color(0xFF2E29EC),
+                                    color: FlutterFlowTheme.of(context).primary,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 errorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 focusedErrorBorder: OutlineInputBorder(
                                   borderSide: BorderSide(
                                     color: FlutterFlowTheme.of(context).error,
                                     width: 1.0,
                                   ),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 prefixIcon: Icon(
                                   Icons.euro,
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                 ),
                               ),
                               style: FlutterFlowTheme.of(context)
@@ -241,9 +231,10 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
                               fillColor: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
                               elevation: 2.0,
-                              borderColor: Color(0xFF5E5D5D),
+                              borderColor:
+                                  FlutterFlowTheme.of(context).secondary,
                               borderWidth: 1.0,
-                              borderRadius: 5.0,
+                              borderRadius: 2.0,
                               margin: EdgeInsetsDirectional.fromSTEB(
                                   10.0, 4.0, 5.0, 4.0),
                               hidesUnderline: true,
@@ -254,73 +245,90 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
-                      child: Row(
+                    Expanded(
+                      child: Column(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              var _shouldSetState = false;
-                              _model.bidCreated = await TaskerpageBackendGroup
-                                  .createBidCall
-                                  .call(
-                                price: functions.extractNumber(
-                                    _model.bidAmountController.text),
-                                priceType: _model.dropDownValue,
-                                bider: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.name''',
-                                ).toString(),
-                                post: widget.post,
-                                apiGlobalKey: FFAppState().apiKey,
-                                poster: getJsonField(
-                                  widget.customerProfile,
-                                  r'''$.name''',
-                                ).toString(),
-                              );
-                              _shouldSetState = true;
-                              if ((_model.bidCreated?.succeeded ?? true)) {
-                                Navigator.pop(context);
-                              } else {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    var _shouldSetState = false;
+                                    _model.bidCreated =
+                                        await TaskerpageBackendGroup
+                                            .createBidCall
+                                            .call(
+                                      price: functions.extractNumber(
+                                          _model.bidAmountController.text),
+                                      priceType: _model.dropDownValue,
+                                      bider: getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString(),
+                                      post: widget.post,
+                                      apiGlobalKey: FFAppState().apiKey,
+                                      poster: getJsonField(
+                                        widget.customerProfile,
+                                        r'''$.name''',
+                                      ).toString(),
+                                    );
+                                    _shouldSetState = true;
+                                    if ((_model.bidCreated?.succeeded ??
+                                        true)) {
+                                      Navigator.pop(context);
+                                    } else {
+                                      if (_shouldSetState) setState(() {});
+                                      return;
+                                    }
 
-                              await widget.action?.call();
-                              if (_shouldSetState) setState(() {});
-                            },
-                            child: Container(
-                              width: 160.0,
-                              height: 44.0,
-                              decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Place Bid',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
+                                    await widget.action?.call();
+                                    if (_shouldSetState) setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 160.0,
+                                    height: 36.0,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(2.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Place Bid',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                         ),
+                                      ],
+                                    ),
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           ),
                         ],
                       ),

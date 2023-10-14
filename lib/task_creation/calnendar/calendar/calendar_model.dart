@@ -38,29 +38,26 @@ class CalendarModel extends FlutterFlowModel<CalendarWidget> {
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
   DateTime? datePicked1;
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue;
+  DateTime? datePicked2;
   // State field(s) for DropDown widget.
   String? dropDownValue1;
   FormFieldController<String>? dropDownValueController1;
   // State field(s) for CountController widget.
   int? countControllerValue1;
+  // State field(s) for CountController widget.
+  int? countControllerValue2;
   // State field(s) for DropDown widget.
   String? dropDownValue2;
   FormFieldController<String>? dropDownValueController2;
-  // State field(s) for DropDown widget.
-  String? dropDownValue3;
-  FormFieldController<String>? dropDownValueController3;
   // State field(s) for RadioButton widget.
   FormFieldController<String>? radioButtonValueController;
-  DateTime? datePicked2;
   // State field(s) for CountController widget.
-  int? countControllerValue2;
+  int? countControllerValue3;
   // State field(s) for Switch widget.
   bool? switchValue;
   DateTime? datePicked3;
   // State field(s) for CountController widget.
-  int? countControllerValue3;
+  int? countControllerValue4;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (Update Task Schedule)] action in button_Next widget.

@@ -287,11 +287,15 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'chat',
-          path: '/chat',
+          path: '/chat/:room',
           builder: (context, params) => ChatWidget(
             room: params.getParam('room', ParamType.String),
             curentUser: params.getParam('curentUser', ParamType.String),
             startChat: params.getParam('startChat', ParamType.String),
+            nameFamily: params.getParam('nameFamily', ParamType.String),
+            avatar: params.getParam('avatar', ParamType.String),
+            postID: params.getParam('postID', ParamType.int),
+            taskerID: params.getParam('taskerID', ParamType.int),
           ),
         ),
         FFRoute(
@@ -467,7 +471,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'chat_list',
           path: '/chatList',
-          builder: (context, params) => ChatListWidget(),
+          builder: (context, params) => ChatListWidget(
+            task: params.getParam('task', ParamType.int),
+            myPost: params.getParam('myPost', ParamType.JSON),
+          ),
+        ),
+        FFRoute(
+          name: 'taskstime',
+          path: '/taskstime',
+          builder: (context, params) => TaskstimeWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -65,7 +65,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
               offset: Offset(0.0, 2.0),
             )
           ],
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -79,12 +79,12 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                     width: 100.0,
                     height: 28.0,
                     decoration: BoxDecoration(
-                      color: Color(0xFF5450E2),
+                      color: FlutterFlowTheme.of(context).primary,
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
                         bottomRight: Radius.circular(0.0),
-                        topLeft: Radius.circular(10.0),
-                        topRight: Radius.circular(10.0),
+                        topLeft: Radius.circular(2.0),
+                        topRight: Radius.circular(2.0),
                       ),
                     ),
                     child: Row(
@@ -130,8 +130,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(15.0),
+                                color: FlutterFlowTheme.of(context).secondary,
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -162,8 +162,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF5450E2),
-                                borderRadius: BorderRadius.circular(15.0),
+                                color: FlutterFlowTheme.of(context).secondary,
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -200,8 +200,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF00C661),
-                                borderRadius: BorderRadius.circular(15.0),
+                                color: FlutterFlowTheme.of(context).tertiary,
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -221,7 +221,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFFF6F6F6),
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             fontSize: 11.0,
                                             fontWeight: FontWeight.w500,
                                           ),
@@ -232,8 +233,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                             ),
                             Container(
                               decoration: BoxDecoration(
-                                color: Color(0xFF00C661),
-                                borderRadius: BorderRadius.circular(15.0),
+                                color: FlutterFlowTheme.of(context).tertiary,
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
@@ -253,7 +254,8 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: Color(0xFFF6F6F6),
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
                                             fontSize: 11.0,
                                             fontWeight: FontWeight.w500,
                                           ),

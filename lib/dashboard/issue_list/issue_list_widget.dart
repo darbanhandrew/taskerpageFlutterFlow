@@ -137,7 +137,7 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                                         width: 100.0,
                                         height: 80.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFFF6F6F6),
+                                          color: Colors.white,
                                           boxShadow: [
                                             BoxShadow(
                                               blurRadius: 4.0,
@@ -146,7 +146,7 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                                             )
                                           ],
                                           borderRadius:
-                                              BorderRadius.circular(8.0),
+                                              BorderRadius.circular(1.0),
                                         ),
                                         child: Padding(
                                           padding:

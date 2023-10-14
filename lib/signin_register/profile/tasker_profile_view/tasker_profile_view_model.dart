@@ -1,8 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/checkbox_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/my_posts_sheet_widget.dart';
 import '/components/nav_bar_widget.dart';
+import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -23,6 +25,8 @@ class TaskerProfileViewModel extends FlutterFlowModel<TaskerProfileViewWidget> {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
+  // Models for checkbox dynamic component.
+  late FlutterFlowDynamicModels<CheckboxModel> checkboxModels;
   // Model for NavBar component.
   late NavBarModel navBarModel;
   // Model for drawerContent component.
@@ -32,6 +36,7 @@ class TaskerProfileViewModel extends FlutterFlowModel<TaskerProfileViewWidget> {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    checkboxModels = FlutterFlowDynamicModels(() => CheckboxModel());
     navBarModel = createModel(context, () => NavBarModel());
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
@@ -39,6 +44,7 @@ class TaskerProfileViewModel extends FlutterFlowModel<TaskerProfileViewWidget> {
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
+    checkboxModels.dispose();
     navBarModel.dispose();
     drawerContentModel.dispose();
   }

@@ -46,7 +46,7 @@ class _EditIconWidgetState extends State<EditIconWidget> {
       width: 23.0,
       height: 23.0,
       decoration: BoxDecoration(
-        color: Color(0xFF5450E2),
+        color: FlutterFlowTheme.of(context).primary,
         shape: BoxShape.circle,
       ),
       child: Icon(

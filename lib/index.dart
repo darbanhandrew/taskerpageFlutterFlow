@@ -131,3 +131,5 @@ export '/dashboard/test/test_widget.dart' show TestWidget;
 export '/dashboard/notification_log/notification_log_widget.dart'
     show NotificationLogWidget;
 export '/bargain/chat_list/chat_list_widget.dart' show ChatListWidget;
+export '/task_creation/calnendar/taskstime/taskstime_widget.dart'
+    show TaskstimeWidget;

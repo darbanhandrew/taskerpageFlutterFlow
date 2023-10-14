@@ -1,8 +1,10 @@
-import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +28,16 @@ class _TestWidgetState extends State<TestWidget> {
     super.initState();
     _model = createModel(context, () => TestModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.link = await actions.addEventToGoogleCalendar(
+        'hi',
+        'halo',
+        getCurrentTimestamp,
+        random_data.randomDate(),
+      );
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -46,7 +58,6 @@ class _TestWidgetState extends State<TestWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        resizeToAvoidBottomInset: false,
         backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
         body: SafeArea(
           top: true,
@@ -54,45 +65,20 @@ class _TestWidgetState extends State<TestWidget> {
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 400.0,
-                child: Stack(
-                  children: [
-                    Container(
-                      width: double.infinity,
-                      height: 500.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                      ),
-                      child: FlutterFlowGoogleMap(
-                        controller: _model.googleMapsController,
-                        onCameraIdle: (latLng) =>
-                            _model.googleMapsCenter = latLng,
-                        initialLocation: _model.googleMapsCenter ??=
-                            LatLng(13.106061, -59.613158),
-                        markerColor: GoogleMarkerColor.violet,
-                        mapType: MapType.normal,
-                        style: GoogleMapStyle.standard,
-                        initialZoom: 14.0,
-                        allowInteraction: true,
-                        allowZoom: true,
-                        showZoomControls: true,
-                        showLocation: true,
-                        showCompass: false,
-                        showMapToolbar: false,
-                        showTraffic: false,
-                        centerMapOnMarkerTap: false,
-                      ),
-                    ),
-                    Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
-                      child: Icon(
-                        Icons.place,
-                        color: FlutterFlowTheme.of(context).primary,
-                        size: 50.0,
-                      ),
-                    ),
-                  ],
+              InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  await launchURL(_model.link!);
+                },
+                child: Text(
+                  valueOrDefault<String>(
+                    _model.link,
+                    'not set',
+                  ),
+                  style: FlutterFlowTheme.of(context).bodyMedium,
                 ),
               ),
             ],

@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -108,17 +109,22 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                         padding: EdgeInsetsDirectional.fromSTEB(
                             27.0, 15.0, 27.0, 32.0),
                         child: FutureBuilder<ApiCallResponse>(
-                          future:
-                              TaskerpageBackendGroup.notificationLogCall.call(
-                            filters: '[[\"for_user\",\"=\",\"${getJsonField(
-                              FFAppState().userProfile,
-                              r'''$.data.user''',
-                            ).toString()}\"]]',
-                            fields:
-                                '[\"subject\",\"email_content\",\"read\",\"name\"]',
-                            apiGlobalKey: FFAppState().apiKey,
-                            orderBy: 'creation desc',
-                          ),
+                          future: (_model.apiRequestCompleter ??=
+                                  Completer<ApiCallResponse>()
+                                    ..complete(TaskerpageBackendGroup
+                                        .notificationLogCall
+                                        .call(
+                                      filters:
+                                          '[[\"for_user\",\"=\",\"${getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.user''',
+                                      ).toString()}\"]]',
+                                      fields:
+                                          '[\"subject\",\"email_content\",\"read\",\"name\"]',
+                                      apiGlobalKey: FFAppState().apiKey,
+                                      orderBy: 'creation desc',
+                                    )))
+                              .future,
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
                             if (!snapshot.hasData) {
@@ -133,19 +139,25 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                 ),
                               );
                             }
-                            final columnNotificationLogResponse =
+                            final listViewNotificationLogResponse =
                                 snapshot.data!;
                             return Builder(
                               builder: (context) {
                                 final notification = getJsonField(
-                                  columnNotificationLogResponse.jsonBody,
+                                  listViewNotificationLogResponse.jsonBody,
                                   r'''$.data''',
                                 ).toList();
-                                return SingleChildScrollView(
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: List.generate(notification.length,
-                                        (notificationIndex) {
+                                return RefreshIndicator(
+                                  onRefresh: () async {
+                                    setState(() =>
+                                        _model.apiRequestCompleter = null);
+                                    await _model.waitForApiRequestCompleted();
+                                  },
+                                  child: ListView.builder(
+                                    padding: EdgeInsets.zero,
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: notification.length,
+                                    itemBuilder: (context, notificationIndex) {
                                       final notificationItem =
                                           notification[notificationIndex];
                                       return Padding(
@@ -193,7 +205,7 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                                     ],
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            8.0),
+                                                            1.0),
                                                   ),
                                                   child: Padding(
                                                     padding:
@@ -235,7 +247,7 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                                                                 .toString() ==
                                                                             '0'
                                                                         ? FlutterFlowTheme.of(context).primary
-                                                                        : FlutterFlowTheme.of(context).secondaryText,
+                                                                        : FlutterFlowTheme.of(context).secondary,
                                                                     size: 24.0,
                                                                   ),
                                                                 ],
@@ -316,7 +328,7 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                           ],
                                         ),
                                       );
-                                    }).divide(SizedBox(height: 15.0)),
+                                    },
                                   ),
                                 );
                               },

@@ -50,24 +50,14 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(0.0),
-          bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
-        ),
+        borderRadius: BorderRadius.circular(2.0),
       ),
       child: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
         height: 400.0,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(0.0),
-            bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
-          ),
+          borderRadius: BorderRadius.circular(2.0),
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 20.0),
@@ -126,31 +116,31 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF5E5D5D),
+                              color: FlutterFlowTheme.of(context).tertiary,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: FlutterFlowTheme.of(context).primary,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFE8083F),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFE8083F),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           prefixIcon: Icon(
                             Icons.lock_outline,
@@ -225,31 +215,31 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF5E5D5D),
+                              color: FlutterFlowTheme.of(context).tertiary,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: FlutterFlowTheme.of(context).primary,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFE8083F),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFE8083F),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           prefixIcon: Icon(
                             Icons.lock_outline,
@@ -324,31 +314,31 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                                   ),
                           enabledBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: Color(0xFF5E5D5D),
+                              color: FlutterFlowTheme.of(context).tertiary,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).secondary,
+                              color: FlutterFlowTheme.of(context).primary,
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           errorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFE8083F),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
                             borderSide: BorderSide(
                               color: Color(0xFFE8083F),
                               width: 1.0,
                             ),
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           prefixIcon: Icon(
                             Icons.lock_outline,
@@ -390,12 +380,12 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                   children: [
                     Container(
                       width: 120.0,
-                      height: 40.0,
+                      height: 36.0,
                       decoration: BoxDecoration(
                         color: Color(0x005450E2),
-                        borderRadius: BorderRadius.circular(5.0),
+                        borderRadius: BorderRadius.circular(2.0),
                         border: Border.all(
-                          color: Color(0xFF5450E2),
+                          color: FlutterFlowTheme.of(context).primary,
                         ),
                       ),
                       child: Row(
@@ -408,7 +398,7 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                                 .bodyMedium
                                 .override(
                                   fontFamily: 'Lato',
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                   fontSize: 12.0,
                                   fontWeight: FontWeight.w500,
                                 ),
@@ -418,10 +408,10 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                     ),
                     Container(
                       width: 120.0,
-                      height: 40.0,
+                      height: 36.0,
                       decoration: BoxDecoration(
-                        color: Color(0xFF5450E2),
-                        borderRadius: BorderRadius.circular(5.0),
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(2.0),
                       ),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,

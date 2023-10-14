@@ -1,7 +1,11 @@
+import '/backend/api_requests/api_calls.dart';
+import '/components/notification_icon_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +37,49 @@ class _HeaderWidgetState extends State<HeaderWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HeaderModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.notificationRead =
+          await TaskerpageBackendGroup.notificationLogCall.call(
+        fields: '[\"read\"]',
+        filters: '[[\"for_user\",\"=\",\"${getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.user''',
+        ).toString().toString()}\"],[\"read\",\"=\",\"0\"]]',
+        apiGlobalKey: FFAppState().apiKey,
+      );
+      if ((_model.notificationRead?.succeeded ?? true)) {
+        if (TaskerpageBackendGroup.notificationLogCall
+                .notificationList(
+                  (_model.notificationRead?.jsonBody ?? ''),
+                )
+                .length >
+            0) {
+          setState(() {
+            _model.hasNotification = true;
+          });
+        } else {
+          setState(() {
+            _model.hasNotification = false;
+          });
+        }
+      }
+      await actions.joinSocketChannel(
+        getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.user''',
+        ).toString().toString(),
+      );
+      await actions.listenSocketEvent(
+        'notification',
+        () async {
+          setState(() {
+            _model.hasNotification = true;
+          });
+        },
+      );
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -114,22 +161,16 @@ class _HeaderWidgetState extends State<HeaderWidget> {
                   highlightColor: Colors.transparent,
                   onTap: () async {
                     context.pushNamed('notification_log');
+
+                    setState(() {
+                      _model.hasNotification = false;
+                    });
                   },
-                  child: Container(
-                    width: 32.0,
-                    height: 32.0,
-                    decoration: BoxDecoration(
-                      color: Color(0x00FFFFFF),
-                      borderRadius: BorderRadius.circular(8.0),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).primary,
-                        width: 2.0,
-                      ),
-                    ),
-                    child: Icon(
-                      Icons.notifications_none,
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 23.0,
+                  child: wrapWithModel(
+                    model: _model.notificationIconModel,
+                    updateCallback: () => setState(() {}),
+                    child: NotificationIconWidget(
+                      hasNotification: _model.hasNotification,
                     ),
                   ),
                 ),

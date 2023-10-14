@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -23,11 +24,19 @@ class ChatWidget extends StatefulWidget {
     required this.room,
     required this.curentUser,
     required this.startChat,
+    required this.nameFamily,
+    required this.avatar,
+    required this.postID,
+    required this.taskerID,
   }) : super(key: key);
 
   final String? room;
   final String? curentUser;
   final String? startChat;
+  final String? nameFamily;
+  final String? avatar;
+  final int? postID;
+  final int? taskerID;
 
   @override
   _ChatWidgetState createState() => _ChatWidgetState();
@@ -86,7 +95,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
           curve: Curves.easeInOut,
           delay: 0.ms,
           duration: 600.ms,
-          begin: Offset(8.0, 0.0),
+          begin: Offset(0.0, 5.0),
           end: Offset(0.0, 0.0),
         ),
       ],
@@ -100,10 +109,19 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await _model.columnController?.animateTo(
-        _model.columnController!.position.maxScrollExtent,
-        duration: Duration(milliseconds: 100),
-        curve: Curves.ease,
+      _model.apiResult39c = await TaskerpageBackendGroup.markAsReadCall.call(
+        room: widget.room,
+        apiGlobalKey: FFAppState().apiKey,
+      );
+      await actions.listenSocketEvent(
+        widget.room!,
+        () async {
+          setState(() {
+            _model.clearChatMessagesCacheKey(_model.apiRequestLastUniqueKey);
+            _model.apiRequestCompleted = false;
+          });
+          await _model.waitForApiRequestCompleted();
+        },
       );
     });
 
@@ -189,7 +207,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                     shape: BoxShape.circle,
                                   ),
                                   child: Image.network(
-                                    'https://picsum.photos/seed/744/600',
+                                    '${FFAppState().baseUrl}${widget.avatar}',
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -200,7 +218,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    'Sarah Smith',
+                                    widget.nameFamily!,
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -250,7 +268,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                 children: [
                   Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 8.0),
+                        EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -306,120 +324,141 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                     child: Padding(
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                      child: SingleChildScrollView(
-                        controller: _model.columnController,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Flexible(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 35.0, 32.0, 20.0),
-                                child: FutureBuilder<ApiCallResponse>(
-                                  future: _model
-                                      .chatMessages(
-                                    uniqueQueryKey: widget.room,
-                                    requestFn: () => TaskerpageBackendGroup
-                                        .chatsRoomCall
-                                        .call(
-                                      room: widget.room,
-                                      email: widget.curentUser,
-                                      apiGlobalKey:
-                                          'token 93c031f5d19f49e:9b69a0c2d98e87e',
-                                    ),
-                                  )
-                                      .then((result) {
-                                    try {
-                                      _model.apiRequestCompleted = true;
-                                      _model.apiRequestLastUniqueKey =
-                                          widget.room;
-                                    } finally {}
-                                    return result;
-                                  }),
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
-                                          child: SpinKitThreeBounce(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 50.0,
-                                          ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 0.0, 20.0, 10.0),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: _model
+                                    .chatMessages(
+                                  uniqueQueryKey: widget.room,
+                                  requestFn: () =>
+                                      TaskerpageBackendGroup.chatsRoomCall.call(
+                                    room: widget.room,
+                                    email: widget.curentUser,
+                                    apiGlobalKey:
+                                        'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                                    orderBy: 'creation desc',
+                                    start: 0,
+                                    pageLength: 100,
+                                  ),
+                                )
+                                    .then((result) {
+                                  try {
+                                    _model.apiRequestCompleted = true;
+                                    _model.apiRequestLastUniqueKey =
+                                        widget.room;
+                                  } finally {}
+                                  return result;
+                                }),
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitThreeBounce(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 50.0,
                                         ),
-                                      );
-                                    }
-                                    final listViewChatsRoomResponse =
-                                        snapshot.data!;
-                                    return Builder(
-                                      builder: (context) {
-                                        final chats = getJsonField(
-                                          listViewChatsRoomResponse.jsonBody,
-                                          r'''$.message''',
-                                        ).toList();
-                                        return ListView.separated(
-                                          padding: EdgeInsets.zero,
-                                          primary: false,
-                                          shrinkWrap: true,
-                                          scrollDirection: Axis.vertical,
-                                          itemCount: chats.length,
-                                          separatorBuilder: (_, __) =>
-                                              SizedBox(height: 10.0),
-                                          itemBuilder: (context, chatsIndex) {
-                                            final chatsItem = chats[chatsIndex];
-                                            return Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                if (functions.jsonToString(
-                                                        getJsonField(
-                                                      chatsItem,
-                                                      r'''$.sender''',
-                                                    )) !=
-                                                    widget.curentUser)
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Column(
+                                      ),
+                                    );
+                                  }
+                                  final listViewChatsRoomResponse =
+                                      snapshot.data!;
+                                  return Builder(
+                                    builder: (context) {
+                                      final chats = getJsonField(
+                                        listViewChatsRoomResponse.jsonBody,
+                                        r'''$.message''',
+                                      ).toList();
+                                      return ListView.separated(
+                                        padding: EdgeInsets.zero,
+                                        reverse: true,
+                                        shrinkWrap: true,
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: chats.length,
+                                        separatorBuilder: (_, __) =>
+                                            SizedBox(height: 20.0),
+                                        itemBuilder: (context, chatsIndex) {
+                                          final chatsItem = chats[chatsIndex];
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              if (functions.jsonToString(
+                                                      getJsonField(
+                                                    chatsItem,
+                                                    r'''$.sender''',
+                                                  )) !=
+                                                  widget.curentUser)
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  12.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: Image.network(
+                                                          '${FFAppState().baseUrl}${widget.avatar}',
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .start,
                                                         children: [
-                                                          Container(
-                                                            width: MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width *
-                                                                0.65,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .tertiary,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          2.0),
-                                                              border:
-                                                                  Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .tertiary,
-                                                                width: 1.0,
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        12.0,
+                                                                        0.0,
+                                                                        14.0,
+                                                                        0.0),
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0x00FFFFFF),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: Color(
+                                                                      0x00FFFFFF),
+                                                                  width: 1.0,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          8.0,
-                                                                          16.0,
-                                                                          8.0),
                                                               child: Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -432,23 +471,37 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
                                                                     children: [
-                                                                      Flexible(
-                                                                        child:
-                                                                            Text(
-                                                                          getJsonField(
-                                                                            chatsItem,
-                                                                            r'''$.content''',
-                                                                          ).toString(),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                fontSize: 12.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
-                                                                        ),
+                                                                      Text(
+                                                                        widget
+                                                                            .nameFamily!,
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        dateTimeFormat(
+                                                                            'jm',
+                                                                            functions.jsonToDateTime(getJsonField(
+                                                                              chatsItem,
+                                                                              r'''$.creation''',
+                                                                            ).toString())),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: Color(0xFF989898),
+                                                                              fontSize: 12.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -465,23 +518,22 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                               .max,
                                                                       mainAxisAlignment:
                                                                           MainAxisAlignment
-                                                                              .end,
+                                                                              .spaceBetween,
                                                                       children: [
-                                                                        Text(
-                                                                          dateTimeFormat(
-                                                                              'jm',
-                                                                              functions.jsonToDateTime(getJsonField(
-                                                                                chatsItem,
-                                                                                r'''$.creation''',
-                                                                              ).toString())),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                fontSize: 10.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
+                                                                        Flexible(
+                                                                          child:
+                                                                              Text(
+                                                                            getJsonField(
+                                                                              chatsItem,
+                                                                              r'''$.content''',
+                                                                            ).toString(),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: Color(0xFF292929),
+                                                                                  fontSize: 14.0,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -741,64 +793,60 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                             ),
                                                         ],
                                                       ),
-                                                    ],
-                                                  )
-                                                      .animateOnPageLoad(
-                                                          animationsMap[
-                                                              'rowOnPageLoadAnimation1']!)
-                                                      .animateOnActionTrigger(
+                                                    ),
+                                                  ],
+                                                )
+                                                    .animateOnPageLoad(
                                                         animationsMap[
-                                                            'rowOnActionTriggerAnimation1']!,
-                                                      ),
-                                                if (functions.jsonToString(
-                                                        getJsonField(
-                                                      chatsItem,
-                                                      r'''$.sender''',
-                                                    )) ==
-                                                    widget.curentUser)
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.end,
-                                                    children: [
-                                                      Column(
+                                                            'rowOnPageLoadAnimation1']!)
+                                                    .animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'rowOnActionTriggerAnimation1']!,
+                                                    ),
+                                              if (functions.jsonToString(
+                                                      getJsonField(
+                                                    chatsItem,
+                                                    r'''$.sender''',
+                                                  )) ==
+                                                  widget.curentUser)
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         crossAxisAlignment:
                                                             CrossAxisAlignment
                                                                 .end,
                                                         children: [
-                                                          Container(
-                                                            width: MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width *
-                                                                0.65,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          2.0),
-                                                              border:
-                                                                  Border.all(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                width: 1.0,
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        14.0,
+                                                                        0.0,
+                                                                        12.0,
+                                                                        0.0),
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0x00FFFFFF),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            10.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: Color(
+                                                                      0x00FFFFFF),
+                                                                  width: 1.0,
+                                                                ),
                                                               ),
-                                                            ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          8.0,
-                                                                          16.0,
-                                                                          8.0),
                                                               child: Column(
                                                                 mainAxisSize:
                                                                     MainAxisSize
@@ -811,23 +859,44 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
                                                                     children: [
-                                                                      Flexible(
-                                                                        child:
-                                                                            Text(
-                                                                          getJsonField(
-                                                                            chatsItem,
-                                                                            r'''$.content''',
-                                                                          ).toString(),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                fontSize: 12.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
-                                                                        ),
+                                                                      Text(
+                                                                        dateTimeFormat(
+                                                                            'jm',
+                                                                            functions.jsonToDateTime(getJsonField(
+                                                                              chatsItem,
+                                                                              r'''$.creation''',
+                                                                            ).toString())),
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: Color(0xFF989898),
+                                                                              fontSize: 12.0,
+                                                                              fontWeight: FontWeight.w500,
+                                                                            ),
+                                                                      ),
+                                                                      Text(
+                                                                        '${getJsonField(
+                                                                          FFAppState()
+                                                                              .userProfile,
+                                                                          r'''$.data.first_name''',
+                                                                        ).toString()} ${getJsonField(
+                                                                          FFAppState()
+                                                                              .userProfile,
+                                                                          r'''$.data.last_name''',
+                                                                        ).toString()}',
+                                                                        style: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium
+                                                                            .override(
+                                                                              fontFamily: 'Lato',
+                                                                              color: FlutterFlowTheme.of(context).alternate,
+                                                                              fontSize: 14.0,
+                                                                              fontWeight: FontWeight.bold,
+                                                                            ),
                                                                       ),
                                                                     ],
                                                                   ),
@@ -846,21 +915,20 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                           MainAxisAlignment
                                                                               .end,
                                                                       children: [
-                                                                        Text(
-                                                                          dateTimeFormat(
-                                                                              'jm',
-                                                                              functions.jsonToDateTime(getJsonField(
-                                                                                chatsItem,
-                                                                                r'''$.creation''',
-                                                                              ).toString())),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: FlutterFlowTheme.of(context).tertiary,
-                                                                                fontSize: 10.0,
-                                                                                fontWeight: FontWeight.w500,
-                                                                              ),
+                                                                        Flexible(
+                                                                          child:
+                                                                              Text(
+                                                                            getJsonField(
+                                                                              chatsItem,
+                                                                              r'''$.content''',
+                                                                            ).toString(),
+                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                  fontFamily: 'Lato',
+                                                                                  color: FlutterFlowTheme.of(context).alternate,
+                                                                                  fontSize: 14.0,
+                                                                                  fontWeight: FontWeight.w500,
+                                                                                ),
+                                                                          ),
                                                                         ),
                                                                       ],
                                                                     ),
@@ -871,28 +939,55 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                           ),
                                                         ],
                                                       ),
-                                                    ],
-                                                  )
-                                                      .animateOnPageLoad(
-                                                          animationsMap[
-                                                              'rowOnPageLoadAnimation2']!)
-                                                      .animateOnActionTrigger(
-                                                        animationsMap[
-                                                            'rowOnActionTriggerAnimation2']!,
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  12.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 40.0,
+                                                        height: 40.0,
+                                                        clipBehavior:
+                                                            Clip.antiAlias,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          shape:
+                                                              BoxShape.circle,
+                                                        ),
+                                                        child: Image.network(
+                                                          '${FFAppState().baseUrl}${getJsonField(
+                                                            FFAppState()
+                                                                .userProfile,
+                                                            r'''$.data.avatar''',
+                                                          ).toString()}',
+                                                          fit: BoxFit.cover,
+                                                        ),
                                                       ),
-                                              ],
-                                            );
-                                          },
-                                          controller: _model.listViewController,
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
+                                                    ),
+                                                  ],
+                                                )
+                                                    .animateOnPageLoad(
+                                                        animationsMap[
+                                                            'rowOnPageLoadAnimation2']!)
+                                                    .animateOnActionTrigger(
+                                                      animationsMap[
+                                                          'rowOnActionTriggerAnimation2']!,
+                                                    ),
+                                            ],
+                                          );
+                                        },
+                                      );
+                                    },
+                                  );
+                                },
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
@@ -928,8 +1023,8 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 child: Padding(
                                   padding: MediaQuery.viewInsetsOf(context),
                                   child: SetAppointmentWidget(
-                                    id: '',
-                                    postID: '',
+                                    id: widget.taskerID!.toString(),
+                                    postID: widget.postID!.toString(),
                                     setOredit: false,
                                   ),
                                 ),
@@ -942,7 +1037,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            borderRadius: BorderRadius.circular(2.0),
+                            borderRadius: BorderRadius.circular(10.0),
                             border: Border.all(
                               color: FlutterFlowTheme.of(context).primary,
                             ),
@@ -970,13 +1065,74 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                           ),
                         ),
                       ),
-                    ],
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          await showModalBottomSheet(
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            enableDrag: false,
+                            context: context,
+                            builder: (context) {
+                              return GestureDetector(
+                                onTap: () => _model.unfocusNode.canRequestFocus
+                                    ? FocusScope.of(context)
+                                        .requestFocus(_model.unfocusNode)
+                                    : FocusScope.of(context).unfocus(),
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: SetAppointmentWidget(
+                                    id: '',
+                                    postID: '',
+                                    setOredit: false,
+                                  ),
+                                ),
+                              );
+                            },
+                          ).then((value) => safeSetState(() {}));
+                        },
+                        child: Container(
+                          height: 26.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context).primary,
+                            borderRadius: BorderRadius.circular(10.0),
+                            border: Border.all(
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                8.0, 0.0, 8.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Place Bid',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Colors.white,
+                                        fontSize: 10.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ].divide(SizedBox(width: 8.0)),
                   ),
                   Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Expanded(
@@ -1016,6 +1172,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                     Expanded(
                                       child: TextFormField(
                                         controller: _model.textController,
+                                        textInputAction: TextInputAction.send,
                                         obscureText: false,
                                         decoration: InputDecoration(
                                           labelStyle: FlutterFlowTheme.of(
@@ -1088,20 +1245,6 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                               setState(() {
                                 _model.textController?.text = '';
                               });
-                              setState(() {
-                                _model.clearChatMessagesCacheKey(
-                                    _model.apiRequestLastUniqueKey);
-                                _model.apiRequestCompleted = false;
-                              });
-                              await _model.waitForApiRequestCompleted();
-                              await Future.delayed(
-                                  const Duration(milliseconds: 1000));
-                              await _model.columnController?.animateTo(
-                                _model
-                                    .columnController!.position.maxScrollExtent,
-                                duration: Duration(milliseconds: 100),
-                                curve: Curves.ease,
-                              );
                             } else {
                               await showDialog(
                                 context: context,

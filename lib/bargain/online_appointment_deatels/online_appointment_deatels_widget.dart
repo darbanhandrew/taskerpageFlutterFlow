@@ -228,7 +228,14 @@ class _OnlineAppointmentDeatelsWidgetState
                                 height: 105.0,
                                 decoration: BoxDecoration(
                                   color: Color(0xFFF6F6F6),
-                                  borderRadius: BorderRadius.circular(10.0),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 4.0,
+                                      color: Color(0x33000000),
+                                      offset: Offset(0.0, 2.0),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -474,7 +481,14 @@ class _OnlineAppointmentDeatelsWidgetState
                               height: 90.0,
                               decoration: BoxDecoration(
                                 color: Color(0xFFF6F6F6),
-                                borderRadius: BorderRadius.circular(5.0),
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4.0,
+                                    color: Color(0x33000000),
+                                    offset: Offset(0.0, 2.0),
+                                  )
+                                ],
+                                borderRadius: BorderRadius.circular(1.0),
                                 border: Border.all(
                                   color: FFAppState().CopyText == true
                                       ? Color(0xFF00C853)
@@ -500,9 +514,11 @@ class _OnlineAppointmentDeatelsWidgetState
                                           decoration: BoxDecoration(
                                             color: Color(0x00FFFFFF),
                                             borderRadius:
-                                                BorderRadius.circular(15.0),
+                                                BorderRadius.circular(2.0),
                                             border: Border.all(
-                                              color: Color(0xFF5450E2),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                             ),
                                           ),
                                           child: Row(
@@ -517,8 +533,9 @@ class _OnlineAppointmentDeatelsWidgetState
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF5450E2),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
                                                           fontSize: 12.0,
                                                         ),
                                               ),
@@ -542,7 +559,9 @@ class _OnlineAppointmentDeatelsWidgetState
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   fontSize: 12.0,
                                                 ),
                                           ),
@@ -551,7 +570,7 @@ class _OnlineAppointmentDeatelsWidgetState
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          5.0, 0.0, 5.0, 0.0),
+                                          5.0, 0.0, 5.0, 15.0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -563,7 +582,9 @@ class _OnlineAppointmentDeatelsWidgetState
                                             width: 120.0,
                                             child: StyledDivider(
                                               thickness: 1.0,
-                                              color: Color(0xFF5450E2),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                               lineStyle:
                                                   DividerLineStyle.dashed,
                                             ),
@@ -582,9 +603,11 @@ class _OnlineAppointmentDeatelsWidgetState
                                           decoration: BoxDecoration(
                                             color: Color(0x00FFFFFF),
                                             borderRadius:
-                                                BorderRadius.circular(15.0),
+                                                BorderRadius.circular(2.0),
                                             border: Border.all(
-                                              color: Color(0xFF5450E2),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
                                             ),
                                           ),
                                           child: Row(
@@ -599,8 +622,9 @@ class _OnlineAppointmentDeatelsWidgetState
                                                         .bodyMedium
                                                         .override(
                                                           fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF5450E2),
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
                                                           fontSize: 12.0,
                                                         ),
                                               ),
@@ -624,7 +648,9 @@ class _OnlineAppointmentDeatelsWidgetState
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
-                                                  color: Color(0xFF5450E2),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
                                                   fontSize: 12.0,
                                                 ),
                                           ),
@@ -655,7 +681,14 @@ class _OnlineAppointmentDeatelsWidgetState
                                     height: 52.0,
                                     decoration: BoxDecoration(
                                       color: Color(0xFFF6F6F6),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(1.0),
                                       border: Border.all(
                                         color: FFAppState().CopyText == true
                                             ? Color(0xFF00C853)

@@ -416,9 +416,16 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
               },
               child: Container(
                 width: 104.0,
-                height: 44.0,
+                height: 36.0,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).primary,
+                  boxShadow: [
+                    BoxShadow(
+                      blurRadius: 4.0,
+                      color: Color(0x33000000),
+                      offset: Offset(0.0, 2.0),
+                    )
+                  ],
                   borderRadius: BorderRadius.circular(0.0),
                 ),
                 child: Row(
