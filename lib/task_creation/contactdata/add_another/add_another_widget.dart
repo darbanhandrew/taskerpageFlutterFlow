@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/place.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -32,15 +33,21 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
 
     _model.textController1 ??=
         TextEditingController(text: _model.placePickerValue.address);
+    _model.textFieldFocusNode1 ??= FocusNode();
     _model.textController2 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
     _model.textController3 ??=
         TextEditingController(text: _model.placePickerValue.zipCode);
+    _model.textFieldFocusNode3 ??= FocusNode();
     _model.textController4 ??=
         TextEditingController(text: _model.placePickerValue.city);
+    _model.textFieldFocusNode4 ??= FocusNode();
     _model.textController5 ??=
         TextEditingController(text: _model.placePickerValue.state);
+    _model.textFieldFocusNode5 ??= FocusNode();
     _model.textController6 ??=
         TextEditingController(text: _model.placePickerValue.country);
+    _model.textFieldFocusNode6 ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -53,6 +60,15 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -251,6 +267,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.textController1,
+                                      focusNode: _model.textFieldFocusNode1,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         isDense: true,
@@ -346,6 +363,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                                   width: 96.0,
                                   child: TextFormField(
                                     controller: _model.textController2,
+                                    focusNode: _model.textFieldFocusNode2,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       isDense: true,
@@ -451,6 +469,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                                   width: 96.0,
                                   child: TextFormField(
                                     controller: _model.textController3,
+                                    focusNode: _model.textFieldFocusNode3,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       isDense: true,
@@ -546,6 +565,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                                     width: double.infinity,
                                     child: TextFormField(
                                       controller: _model.textController4,
+                                      focusNode: _model.textFieldFocusNode4,
                                       readOnly: true,
                                       obscureText: false,
                                       decoration: InputDecoration(
@@ -644,6 +664,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                               width: 184.0,
                               child: TextFormField(
                                 controller: _model.textController5,
+                                focusNode: _model.textFieldFocusNode5,
                                 readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(
@@ -735,6 +756,7 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
                               width: 184.0,
                               child: TextFormField(
                                 controller: _model.textController6,
+                                focusNode: _model.textFieldFocusNode6,
                                 readOnly: true,
                                 obscureText: false,
                                 decoration: InputDecoration(

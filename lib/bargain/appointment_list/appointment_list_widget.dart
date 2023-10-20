@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -53,6 +54,15 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -225,7 +235,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 itemCount:
                                                     invationAppointment.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 16.0),
+                                                    SizedBox(height: 8.0),
                                                 itemBuilder: (context,
                                                     invationAppointmentIndex) {
                                                   final invationAppointmentItem =
@@ -814,7 +824,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                   itemCount:
                                                       pendingAppointment.length,
                                                   separatorBuilder: (_, __) =>
-                                                      SizedBox(height: 16.0),
+                                                      SizedBox(height: 8.0),
                                                   itemBuilder: (context,
                                                       pendingAppointmentIndex) {
                                                     final pendingAppointmentItem =
@@ -1187,7 +1197,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 itemCount:
                                                     acceptedAppointment.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 16.0),
+                                                    SizedBox(height: 8.0),
                                                 itemBuilder: (context,
                                                     acceptedAppointmentIndex) {
                                                   final acceptedAppointmentItem =
@@ -1585,7 +1595,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 itemCount:
                                                     rejectedAppointment.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 16.0),
+                                                    SizedBox(height: 8.0),
                                                 itemBuilder: (context,
                                                     rejectedAppointmentIndex) {
                                                   final rejectedAppointmentItem =
@@ -1983,7 +1993,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 itemCount:
                                                     acceptedAppointment.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 16.0),
+                                                    SizedBox(height: 8.0),
                                                 itemBuilder: (context,
                                                     acceptedAppointmentIndex) {
                                                   final acceptedAppointmentItem =

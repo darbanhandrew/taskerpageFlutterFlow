@@ -8,6 +8,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -68,6 +69,15 @@ class _ChatListWidgetState extends State<ChatListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -319,7 +329,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                               future: TaskerpageBackendGroup
                                                   .readByEmailCall
                                                   .call(
-                                                user:
+                                                filters:
                                                     '[[\"user\",\"=\",\"${getJsonField(
                                                   usersThisPostItem,
                                                   r'''$.user''',
@@ -543,7 +553,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                             future: TaskerpageBackendGroup
                                                 .readByEmailCall
                                                 .call(
-                                              user:
+                                              filters:
                                                   '[[\"user\",\"=\",\"${getJsonField(
                                                 myChatsItem,
                                                 r'''$.opposite_person_email''',
@@ -638,11 +648,10 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                       ),
                                                       'taskerID':
                                                           serializeParam(
-                                                        TaskerpageBackendGroup
-                                                            .readByEmailCall
-                                                            .id(
+                                                        getJsonField(
                                                           rowReadByEmailResponse
                                                               .jsonBody,
+                                                          r'''$.data[:].name''',
                                                         ),
                                                         ParamType.int,
                                                       ),

@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,11 +35,13 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
       FFAppState().userProfile,
       r'''$.data.first_name''',
     ).toString().toString());
+    _model.textFieldFocusNode1 ??= FocusNode();
     _model.textController2 ??= TextEditingController(
         text: getJsonField(
       FFAppState().userProfile,
       r'''$.data.last_name''',
     ).toString().toString());
+    _model.textFieldFocusNode2 ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -128,6 +131,7 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                         Expanded(
                           child: TextFormField(
                             controller: _model.textController1,
+                            focusNode: _model.textFieldFocusNode1,
                             obscureText: false,
                             decoration: InputDecoration(
                               isDense: true,
@@ -222,6 +226,7 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                         Expanded(
                           child: TextFormField(
                             controller: _model.textController2,
+                            focusNode: _model.textFieldFocusNode2,
                             obscureText: false,
                             decoration: InputDecoration(
                               isDense: true,

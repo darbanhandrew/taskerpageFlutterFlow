@@ -11,6 +11,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'poster_profile_view_widget.dart' show PosterProfileViewWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -23,6 +24,8 @@ class PosterProfileViewModel extends FlutterFlowModel<PosterProfileViewWidget> {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
+  // Stores action output result for [Backend Call - API (Follow req)] action in Container widget.
+  ApiCallResponse? followREQ;
   // Model for NavBar component.
   late NavBarModel navBarModel;
   // Model for drawerContent component.

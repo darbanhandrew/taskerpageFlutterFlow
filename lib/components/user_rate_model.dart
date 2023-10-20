@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'user_rate_widget.dart' show UserRateWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,6 +15,7 @@ class UserRateModel extends FlutterFlowModel<UserRateWidget> {
   // State field(s) for RatingBar widget.
   double? ratingBarValue;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Backend Call - API (appointmentRead)] action in Container widget.
@@ -26,6 +28,7 @@ class UserRateModel extends FlutterFlowModel<UserRateWidget> {
   void initState(BuildContext context) {}
 
   void dispose() {
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

@@ -8,15 +8,19 @@ import '/flutter_flow/flutter_flow_util.dart';
 class UserServiceStruct extends BaseStruct {
   UserServiceStruct({
     String? serviceSkillLevel,
-    int? serviceCategory,
-    int? service,
-    int? userProfile,
-    int? id,
+    String? serviceCategory,
+    List<String>? service,
+    SkillOptionsStruct? serviceOptions,
+    String? id,
+    String? skill,
+    List<SkillStruct>? skills,
   })  : _serviceSkillLevel = serviceSkillLevel,
         _serviceCategory = serviceCategory,
         _service = service,
-        _userProfile = userProfile,
-        _id = id;
+        _serviceOptions = serviceOptions,
+        _id = id,
+        _skill = skill,
+        _skills = skills;
 
   // "service_skill_level" field.
   String? _serviceSkillLevel;
@@ -24,42 +28,61 @@ class UserServiceStruct extends BaseStruct {
   set serviceSkillLevel(String? val) => _serviceSkillLevel = val;
   bool hasServiceSkillLevel() => _serviceSkillLevel != null;
 
-  // "service_category" field.
-  int? _serviceCategory;
-  int get serviceCategory => _serviceCategory ?? 0;
-  set serviceCategory(int? val) => _serviceCategory = val;
-  void incrementServiceCategory(int amount) =>
-      _serviceCategory = serviceCategory + amount;
+  // "serviceCategory" field.
+  String? _serviceCategory;
+  String get serviceCategory => _serviceCategory ?? '';
+  set serviceCategory(String? val) => _serviceCategory = val;
   bool hasServiceCategory() => _serviceCategory != null;
 
   // "service" field.
-  int? _service;
-  int get service => _service ?? 0;
-  set service(int? val) => _service = val;
-  void incrementService(int amount) => _service = service + amount;
+  List<String>? _service;
+  List<String> get service => _service ?? const [];
+  set service(List<String>? val) => _service = val;
+  void updateService(Function(List<String>) updateFn) =>
+      updateFn(_service ??= []);
   bool hasService() => _service != null;
 
-  // "user_profile" field.
-  int? _userProfile;
-  int get userProfile => _userProfile ?? 0;
-  set userProfile(int? val) => _userProfile = val;
-  void incrementUserProfile(int amount) => _userProfile = userProfile + amount;
-  bool hasUserProfile() => _userProfile != null;
+  // "serviceOptions" field.
+  SkillOptionsStruct? _serviceOptions;
+  SkillOptionsStruct get serviceOptions =>
+      _serviceOptions ?? SkillOptionsStruct();
+  set serviceOptions(SkillOptionsStruct? val) => _serviceOptions = val;
+  void updateServiceOptions(Function(SkillOptionsStruct) updateFn) =>
+      updateFn(_serviceOptions ??= SkillOptionsStruct());
+  bool hasServiceOptions() => _serviceOptions != null;
 
   // "id" field.
-  int? _id;
-  int get id => _id ?? 0;
-  set id(int? val) => _id = val;
-  void incrementId(int amount) => _id = id + amount;
+  String? _id;
+  String get id => _id ?? '';
+  set id(String? val) => _id = val;
   bool hasId() => _id != null;
+
+  // "skill" field.
+  String? _skill;
+  String get skill => _skill ?? '';
+  set skill(String? val) => _skill = val;
+  bool hasSkill() => _skill != null;
+
+  // "Skills" field.
+  List<SkillStruct>? _skills;
+  List<SkillStruct> get skills => _skills ?? const [];
+  set skills(List<SkillStruct>? val) => _skills = val;
+  void updateSkills(Function(List<SkillStruct>) updateFn) =>
+      updateFn(_skills ??= []);
+  bool hasSkills() => _skills != null;
 
   static UserServiceStruct fromMap(Map<String, dynamic> data) =>
       UserServiceStruct(
         serviceSkillLevel: data['service_skill_level'] as String?,
-        serviceCategory: castToType<int>(data['service_category']),
-        service: castToType<int>(data['service']),
-        userProfile: castToType<int>(data['user_profile']),
-        id: castToType<int>(data['id']),
+        serviceCategory: data['serviceCategory'] as String?,
+        service: getDataList(data['service']),
+        serviceOptions: SkillOptionsStruct.maybeFromMap(data['serviceOptions']),
+        id: data['id'] as String?,
+        skill: data['skill'] as String?,
+        skills: getStructList(
+          data['Skills'],
+          SkillStruct.fromMap,
+        ),
       );
 
   static UserServiceStruct? maybeFromMap(dynamic data) =>
@@ -67,10 +90,12 @@ class UserServiceStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'service_skill_level': _serviceSkillLevel,
-        'service_category': _serviceCategory,
+        'serviceCategory': _serviceCategory,
         'service': _service,
-        'user_profile': _userProfile,
+        'serviceOptions': _serviceOptions?.toMap(),
         'id': _id,
+        'skill': _skill,
+        'Skills': _skills?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -79,21 +104,31 @@ class UserServiceStruct extends BaseStruct {
           _serviceSkillLevel,
           ParamType.String,
         ),
-        'service_category': serializeParam(
+        'serviceCategory': serializeParam(
           _serviceCategory,
-          ParamType.int,
+          ParamType.String,
         ),
         'service': serializeParam(
           _service,
-          ParamType.int,
+          ParamType.String,
+          true,
         ),
-        'user_profile': serializeParam(
-          _userProfile,
-          ParamType.int,
+        'serviceOptions': serializeParam(
+          _serviceOptions,
+          ParamType.DataStruct,
         ),
         'id': serializeParam(
           _id,
-          ParamType.int,
+          ParamType.String,
+        ),
+        'skill': serializeParam(
+          _skill,
+          ParamType.String,
+        ),
+        'Skills': serializeParam(
+          _skills,
+          ParamType.DataStruct,
+          true,
         ),
       }.withoutNulls;
 
@@ -105,24 +140,36 @@ class UserServiceStruct extends BaseStruct {
           false,
         ),
         serviceCategory: deserializeParam(
-          data['service_category'],
-          ParamType.int,
+          data['serviceCategory'],
+          ParamType.String,
           false,
         ),
-        service: deserializeParam(
+        service: deserializeParam<String>(
           data['service'],
-          ParamType.int,
-          false,
+          ParamType.String,
+          true,
         ),
-        userProfile: deserializeParam(
-          data['user_profile'],
-          ParamType.int,
+        serviceOptions: deserializeStructParam(
+          data['serviceOptions'],
+          ParamType.DataStruct,
           false,
+          structBuilder: SkillOptionsStruct.fromSerializableMap,
         ),
         id: deserializeParam(
           data['id'],
-          ParamType.int,
+          ParamType.String,
           false,
+        ),
+        skill: deserializeParam(
+          data['skill'],
+          ParamType.String,
+          false,
+        ),
+        skills: deserializeStructParam<SkillStruct>(
+          data['Skills'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: SkillStruct.fromSerializableMap,
         ),
       );
 
@@ -131,30 +178,40 @@ class UserServiceStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is UserServiceStruct &&
         serviceSkillLevel == other.serviceSkillLevel &&
         serviceCategory == other.serviceCategory &&
-        service == other.service &&
-        userProfile == other.userProfile &&
-        id == other.id;
+        listEquality.equals(service, other.service) &&
+        serviceOptions == other.serviceOptions &&
+        id == other.id &&
+        skill == other.skill &&
+        listEquality.equals(skills, other.skills);
   }
 
   @override
-  int get hashCode => const ListEquality()
-      .hash([serviceSkillLevel, serviceCategory, service, userProfile, id]);
+  int get hashCode => const ListEquality().hash([
+        serviceSkillLevel,
+        serviceCategory,
+        service,
+        serviceOptions,
+        id,
+        skill,
+        skills
+      ]);
 }
 
 UserServiceStruct createUserServiceStruct({
   String? serviceSkillLevel,
-  int? serviceCategory,
-  int? service,
-  int? userProfile,
-  int? id,
+  String? serviceCategory,
+  SkillOptionsStruct? serviceOptions,
+  String? id,
+  String? skill,
 }) =>
     UserServiceStruct(
       serviceSkillLevel: serviceSkillLevel,
       serviceCategory: serviceCategory,
-      service: service,
-      userProfile: userProfile,
+      serviceOptions: serviceOptions ?? SkillOptionsStruct(),
       id: id,
+      skill: skill,
     );

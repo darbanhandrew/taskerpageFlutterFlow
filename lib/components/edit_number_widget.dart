@@ -2,6 +2,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,6 +32,7 @@ class _EditNumberWidgetState extends State<EditNumberWidget> {
 
     _model.textController ??=
         TextEditingController(text: FFAppState().UserInformation.mobilenumber);
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -115,6 +117,7 @@ class _EditNumberWidgetState extends State<EditNumberWidget> {
                         Expanded(
                           child: TextFormField(
                             controller: _model.textController,
+                            focusNode: _model.textFieldFocusNode,
                             obscureText: false,
                             decoration: InputDecoration(
                               isDense: true,

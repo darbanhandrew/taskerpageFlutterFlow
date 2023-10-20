@@ -13,6 +13,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'tasker_profile_view_widget.dart' show TaskerProfileViewWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,6 +26,8 @@ class TaskerProfileViewModel extends FlutterFlowModel<TaskerProfileViewWidget> {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
+  // Stores action output result for [Backend Call - API (Follow req)] action in Container widget.
+  ApiCallResponse? followREQ;
   // Models for checkbox dynamic component.
   late FlutterFlowDynamicModels<CheckboxModel> checkboxModels;
   // Model for NavBar component.

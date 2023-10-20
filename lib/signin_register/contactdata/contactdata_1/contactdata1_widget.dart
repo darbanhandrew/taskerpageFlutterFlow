@@ -14,6 +14,7 @@ import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -220,11 +221,17 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
     }
 
     _model.streetController ??= TextEditingController();
+    _model.streetFocusNode ??= FocusNode();
     _model.noController ??= TextEditingController();
+    _model.noFocusNode ??= FocusNode();
     _model.postalCodeController ??= TextEditingController();
+    _model.postalCodeFocusNode ??= FocusNode();
     _model.cityController ??= TextEditingController();
+    _model.cityFocusNode ??= FocusNode();
     _model.stateController ??= TextEditingController();
+    _model.stateFocusNode ??= FocusNode();
     _model.countryController ??= TextEditingController();
+    _model.countryFocusNode ??= FocusNode();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -247,6 +254,15 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -573,6 +589,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                 child: TextFormField(
                                                   controller:
                                                       _model.streetController,
+                                                  focusNode:
+                                                      _model.streetFocusNode,
                                                   textInputAction:
                                                       TextInputAction.next,
                                                   obscureText: false,
@@ -697,6 +715,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                               width: 96.0,
                                               child: TextFormField(
                                                 controller: _model.noController,
+                                                focusNode: _model.noFocusNode,
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 obscureText: false,
@@ -835,6 +854,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                               child: TextFormField(
                                                 controller:
                                                     _model.postalCodeController,
+                                                focusNode:
+                                                    _model.postalCodeFocusNode,
                                                 textInputAction:
                                                     TextInputAction.next,
                                                 obscureText: false,
@@ -956,6 +977,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                 child: TextFormField(
                                                   controller:
                                                       _model.cityController,
+                                                  focusNode:
+                                                      _model.cityFocusNode,
                                                   textInputAction:
                                                       TextInputAction.next,
                                                   obscureText: false,
@@ -1091,6 +1114,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                           width: 184.0,
                                           child: TextFormField(
                                             controller: _model.stateController,
+                                            focusNode: _model.stateFocusNode,
                                             textInputAction:
                                                 TextInputAction.next,
                                             obscureText: false,
@@ -1207,6 +1231,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                           child: TextFormField(
                                             controller:
                                                 _model.countryController,
+                                            focusNode: _model.countryFocusNode,
                                             textInputAction:
                                                 TextInputAction.next,
                                             readOnly: true,

@@ -1,13 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,6 +15,7 @@ import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -111,6 +112,7 @@ class _Task2WidgetState extends State<Task2Widget> {
 
     _model.textController ??= TextEditingController(
         text: FFAppState().createTask.taskDeatels.description);
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -123,6 +125,15 @@ class _Task2WidgetState extends State<Task2Widget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -133,19 +144,21 @@ class _Task2WidgetState extends State<Task2Widget> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+          width: MediaQuery.sizeOf(context).width * 0.6,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'task',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
           ),
@@ -176,42 +189,45 @@ class _Task2WidgetState extends State<Task2Widget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 32.0, 16.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.navigationBarModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavigationBarWidget(
-                                  currentPage: 'task2',
-                                  postId: widget.id,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 20.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              FFAppState().createTask.skillCategory,
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            wrapWithModel(
+                              model: _model.taskcreationMenueModel,
+                              updateCallback: () => setState(() {}),
+                              child: TaskcreationMenueWidget(
+                                openDrawer: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 20.0, 0.0, 0.0),
+                              child: Text(
+                                FFAppState().createTask.skillCategory,
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                            Container(
+                              width: 50.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: BoxShape.circle,
+                              ),
                             ),
                           ],
                         ),
@@ -401,7 +417,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                       : FlutterFlowTheme.of(
                                                               context)
                                                           .secondary,
-                                                  width: 1.0,
+                                                  width: 1.3,
                                                 ),
                                               ),
                                               child: Padding(
@@ -443,7 +459,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                                 : FlutterFlowTheme.of(
                                                                         context)
                                                                     .secondary,
-                                                            fontSize: 12.0,
+                                                            fontSize: 13.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
@@ -541,7 +557,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                 .primary
                                             : FlutterFlowTheme.of(context)
                                                 .secondary,
-                                        width: 1.0,
+                                        width: 1.3,
                                       ),
                                     ),
                                     child: Row(
@@ -566,7 +582,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                     : FlutterFlowTheme.of(
                                                             context)
                                                         .secondary,
-                                                fontSize: 14.0,
+                                                fontSize: 13.0,
                                                 fontWeight: FontWeight.w500,
                                               ),
                                         ),
@@ -996,6 +1012,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                             Expanded(
                               child: TextFormField(
                                 controller: _model.textController,
+                                focusNode: _model.textFieldFocusNode,
                                 textInputAction: TextInputAction.done,
                                 obscureText: false,
                                 decoration: InputDecoration(

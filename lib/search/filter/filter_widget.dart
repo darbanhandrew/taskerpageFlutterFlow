@@ -15,6 +15,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,10 @@ class _FilterWidgetState extends State<FilterWidget> {
     super.initState();
     _model = createModel(context, () => FilterModel());
 
+    _model.expandableController1 = ExpandableController(initialExpanded: false);
+    _model.expandableController2 = ExpandableController(initialExpanded: false);
+    _model.expandableController3 = ExpandableController(initialExpanded: false);
+    _model.expandableController4 = ExpandableController(initialExpanded: false);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -224,7 +229,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController1,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Location',
@@ -795,7 +800,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController2,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Category',
@@ -1500,7 +1505,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController3,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Date',
@@ -1768,7 +1773,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController4,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Tasker type',

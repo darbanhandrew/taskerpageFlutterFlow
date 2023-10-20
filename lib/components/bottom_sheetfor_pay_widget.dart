@@ -7,6 +7,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -129,6 +130,7 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
     });
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -298,6 +300,7 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                         Expanded(
                           child: TextFormField(
                             controller: _model.textController,
+                            focusNode: _model.textFieldFocusNode,
                             obscureText: false,
                             decoration: InputDecoration(
                               isDense: true,

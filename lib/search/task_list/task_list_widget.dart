@@ -14,6 +14,7 @@ import '/search/filter/filter_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
     getCurrentUserLocation(defaultLocation: LatLng(0.0, 0.0), cached: true)
         .then((loc) => setState(() => currentUserLocationValue = loc));
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -53,6 +55,15 @@ class _TaskListWidgetState extends State<TaskListWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
     if (currentUserLocationValue == null) {
       return Container(
@@ -140,6 +151,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                       MediaQuery.sizeOf(context).width * 0.43,
                                   child: TextFormField(
                                     controller: _model.textController,
+                                    focusNode: _model.textFieldFocusNode,
                                     obscureText: false,
                                     decoration: InputDecoration(
                                       isDense: true,

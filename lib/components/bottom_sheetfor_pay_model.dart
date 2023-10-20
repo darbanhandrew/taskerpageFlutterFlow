@@ -8,6 +8,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'bottom_sheetfor_pay_widget.dart' show BottomSheetforPayWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -31,6 +32,7 @@ class BottomSheetforPayModel extends FlutterFlowModel<BottomSheetforPayWidget> {
   // Stores action output result for [Backend Call - API (plan read)] action in BottomSheetforPay widget.
   ApiCallResponse? apiResultgdv;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Backend Call - API (aply copon)] action in Container widget.
@@ -47,6 +49,7 @@ class BottomSheetforPayModel extends FlutterFlowModel<BottomSheetforPayWidget> {
   void initState(BuildContext context) {}
 
   void dispose() {
+    textFieldFocusNode?.dispose();
     textController?.dispose();
   }
 

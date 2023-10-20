@@ -13,6 +13,7 @@ import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +46,9 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
     super.initState();
     _model = createModel(context, () => TaskerFilterModel());
 
+    _model.expandableController1 = ExpandableController(initialExpanded: false);
+    _model.expandableController2 = ExpandableController(initialExpanded: false);
+    _model.expandableController3 = ExpandableController(initialExpanded: false);
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -155,7 +159,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                     }
                                     _model.customerProfileName =
                                         await TaskerpageBackendGroup
-                                            .serviceListCall
+                                            .customerProfileSkillsListCall
                                             .call(
                                       filters: functions
                                           .convertDataTypeToTaskerSkillFilter(
@@ -174,7 +178,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                             ..names = functions
                                                 .jsonListToStringList(
                                                     TaskerpageBackendGroup
-                                                        .serviceListCall
+                                                        .customerProfileSkillsListCall
                                                         .customerProfileList(
                                                           (_model.customerProfileName
                                                                   ?.jsonBody ??
@@ -251,7 +255,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController1,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Location',
@@ -765,7 +769,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController2,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Category',
@@ -1480,7 +1484,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController3,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Tasker type',

@@ -18,6 +18,7 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -92,6 +93,15 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -711,7 +721,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 10.0, 32.0, 0.0),
+                                    32.0, 8.0, 32.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -796,13 +806,15 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           8.0, 0.0, 0.0, 0.0),
                                       child: Container(
-                                        width: 90.0,
                                         height: 26.0,
                                         decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                          color: Color(0x00FFFFFF),
                                           borderRadius:
                                               BorderRadius.circular(2.0),
+                                          border: Border.all(
+                                            color: Color(0x00D4D4D4),
+                                            width: 1.0,
+                                          ),
                                         ),
                                         child: Padding(
                                           padding:
@@ -813,43 +825,55 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Text(
-                                                valueOrDefault<String>(
-                                                  getJsonField(
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 1.0),
+                                                child: Text(
+                                                  valueOrDefault<String>(
+                                                    getJsonField(
+                                                      taskerProfileUserProfileMeResponse
+                                                          .jsonBody,
+                                                      r'''$.data.review_average''',
+                                                    ).toString(),
+                                                    '0',
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 11.0,
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                      ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        6.0, 0.0, 0.0, 0.0),
+                                                child: RatingBarIndicator(
+                                                  itemBuilder:
+                                                      (context, index) => Icon(
+                                                    Icons.star_rounded,
+                                                    color: Color(0xFFEEC249),
+                                                  ),
+                                                  direction: Axis.horizontal,
+                                                  rating: getJsonField(
                                                     taskerProfileUserProfileMeResponse
                                                         .jsonBody,
                                                     r'''$.data.review_average''',
-                                                  ).toString(),
-                                                  '0',
+                                                  ),
+                                                  unratedColor:
+                                                      Color(0x8CEEC249),
+                                                  itemCount: 5,
+                                                  itemSize: 12.0,
                                                 ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 11.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                              ),
-                                              RatingBarIndicator(
-                                                itemBuilder: (context, index) =>
-                                                    Icon(
-                                                  Icons.star_rounded,
-                                                  color: Color(0xFFEEC249),
-                                                ),
-                                                direction: Axis.horizontal,
-                                                rating: getJsonField(
-                                                  taskerProfileUserProfileMeResponse
-                                                      .jsonBody,
-                                                  r'''$.data.review_average''',
-                                                ),
-                                                unratedColor: Colors.white,
-                                                itemCount: 5,
-                                                itemSize: 12.0,
                                               ),
                                             ],
                                           ),
@@ -973,6 +997,173 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                   ],
                                 ),
                               ),
+                              Divider(
+                                height: 24.0,
+                                thickness: 1.0,
+                                indent: 32.0,
+                                endIndent: 32.0,
+                                color: FlutterFlowTheme.of(context).tertiary,
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  FutureBuilder<ApiCallResponse>(
+                                    future:
+                                        TaskerpageBackendGroup.getUserCall.call(
+                                      username: getJsonField(
+                                        taskerProfileUserProfileMeResponse
+                                            .jsonBody,
+                                        r'''$.data.user''',
+                                      ).toString(),
+                                      apiGlobalKey: FFAppState().apiKey,
+                                    ),
+                                    builder: (context, snapshot) {
+                                      // Customize what your widget looks like when it's loading.
+                                      if (!snapshot.hasData) {
+                                        return Center(
+                                          child: SizedBox(
+                                            width: 50.0,
+                                            height: 50.0,
+                                            child: SpinKitThreeBounce(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              size: 50.0,
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                      final rowGetUserResponse = snapshot.data!;
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 25.0, 0.0),
+                                            child: InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                context
+                                                    .pushNamed('AllFollowers');
+                                              },
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Text(
+                                                    'Followers',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          fontSize: 15.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                  Text(
+                                                    functions
+                                                        .numberofListitems(
+                                                            (getJsonField(
+                                                          rowGetUserResponse
+                                                              .jsonBody,
+                                                          r'''$.data.followers''',
+                                                          true,
+                                                        ) as List)
+                                                                .map<String>((s) =>
+                                                                    s.toString())
+                                                                .toList())
+                                                        .toString(),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                                  ),
+                                                ].divide(SizedBox(height: 4.0)),
+                                              ),
+                                            ),
+                                          ),
+                                          InkWell(
+                                            splashColor: Colors.transparent,
+                                            focusColor: Colors.transparent,
+                                            hoverColor: Colors.transparent,
+                                            highlightColor: Colors.transparent,
+                                            onTap: () async {
+                                              context
+                                                  .pushNamed('AllConnection');
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Connection',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 15.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                                Text(
+                                                  functions
+                                                      .numberofListitems(
+                                                          (getJsonField(
+                                                        rowGetUserResponse
+                                                            .jsonBody,
+                                                        r'''$.data.following''',
+                                                        true,
+                                                      ) as List)
+                                                              .map<String>((s) =>
+                                                                  s.toString())
+                                                              .toList())
+                                                      .toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
+                                                ),
+                                              ].divide(SizedBox(height: 4.0)),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 12.0, 0.0, 0.0),
@@ -1030,7 +1221,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      0.0, 16.0, 0.0, 20.0),
+                                                      0.0, 16.0, 0.0, 15.0),
                                               child: FutureBuilder<
                                                   ApiCallResponse>(
                                                 future: (_model
@@ -1039,7 +1230,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                             ApiCallResponse>()
                                                           ..complete(
                                                               TaskerpageBackendGroup
-                                                                  .serviceListCall
+                                                                  .customerProfileSkillsListCall
                                                                   .call(
                                                             apiGlobalKey:
                                                                 FFAppState()
@@ -1071,13 +1262,13 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                       ),
                                                     );
                                                   }
-                                                  final listViewServiceListResponse =
+                                                  final listViewCustomerProfileSkillsListResponse =
                                                       snapshot.data!;
                                                   return Builder(
                                                     builder: (context) {
                                                       final myServices =
                                                           getJsonField(
-                                                        listViewServiceListResponse
+                                                        listViewCustomerProfileSkillsListResponse
                                                             .jsonBody,
                                                         r'''$.data''',
                                                       )
@@ -1291,7 +1482,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 16.0, 32.0, 20.0),
+                                    32.0, 16.0, 32.0, 15.0),
                                 child: FutureBuilder<ApiCallResponse>(
                                   future: TaskerpageBackendGroup
                                       .myEducationsCall
@@ -2063,7 +2254,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 20.0, 0.0, 10.0),
+                                                  0.0, 20.0, 0.0, 15.0),
                                           child: FutureBuilder<ApiCallResponse>(
                                             future: TaskerpageBackendGroup
                                                 .myBidCall
@@ -2193,22 +2384,10 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                   BoxDecoration(
                                                                 color: Color(
                                                                     0xFFF6F6F6),
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                    blurRadius:
-                                                                        4.0,
-                                                                    color: Color(
-                                                                        0x33000000),
-                                                                    offset:
-                                                                        Offset(
-                                                                            0.0,
-                                                                            2.0),
-                                                                  )
-                                                                ],
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            0.0),
+                                                                            2.0),
                                                               ),
                                                               child: Padding(
                                                                 padding: EdgeInsetsDirectional
@@ -2414,7 +2593,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      0.0, 20.0, 0.0, 10.0),
+                                                      0.0, 20.0, 0.0, 15.0),
                                               child: FutureBuilder<
                                                   ApiCallResponse>(
                                                 future: TaskerpageBackendGroup
@@ -2525,21 +2704,10 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                                     BoxDecoration(
                                                                   color: Color(
                                                                       0xFFF6F6F6),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      blurRadius:
-                                                                          4.0,
-                                                                      color: Color(
-                                                                          0x33000000),
-                                                                      offset: Offset(
-                                                                          0.0,
-                                                                          2.0),
-                                                                    )
-                                                                  ],
                                                                   borderRadius:
                                                                       BorderRadius
                                                                           .circular(
-                                                                              0.0),
+                                                                              2.0),
                                                                 ),
                                                                 child: Padding(
                                                                   padding: EdgeInsetsDirectional
@@ -2781,7 +2949,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 20.0, 32.0, 10.0),
+                                        32.0, 20.0, 32.0, 15.0),
                                     child: FutureBuilder<ApiCallResponse>(
                                       future: TaskerpageBackendGroup
                                           .myReviewsCall
@@ -2871,18 +3039,9 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                                     return Container(
                                                       decoration: BoxDecoration(
                                                         color: Colors.white,
-                                                        boxShadow: [
-                                                          BoxShadow(
-                                                            blurRadius: 4.0,
-                                                            color: Color(
-                                                                0x33000000),
-                                                            offset: Offset(
-                                                                0.0, 2.0),
-                                                          )
-                                                        ],
                                                         borderRadius:
                                                             BorderRadius
-                                                                .circular(0.0),
+                                                                .circular(2.0),
                                                       ),
                                                       child: Padding(
                                                         padding:
@@ -3168,7 +3327,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               )
                                             ],
                                             borderRadius:
-                                                BorderRadius.circular(0.0),
+                                                BorderRadius.circular(2.0),
                                           ),
                                           child: Padding(
                                             padding:
@@ -3563,7 +3722,7 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               )
                                             ],
                                             borderRadius:
-                                                BorderRadius.circular(0.0),
+                                                BorderRadius.circular(2.0),
                                           ),
                                           child: Padding(
                                             padding:

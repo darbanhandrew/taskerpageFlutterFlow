@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -75,7 +76,7 @@ class _SelectableContainerWidgetState extends State<SelectableContainerWidget> {
                   : FlutterFlowTheme.of(context).secondary,
               FlutterFlowTheme.of(context).secondaryText,
             ),
-            width: 1.0,
+            width: 1.3,
           ),
         ),
         child: Padding(
@@ -97,7 +98,7 @@ class _SelectableContainerWidgetState extends State<SelectableContainerWidget> {
                             : FlutterFlowTheme.of(context).secondary,
                         FlutterFlowTheme.of(context).secondaryText,
                       ),
-                      fontSize: 12.0,
+                      fontSize: 13.0,
                       fontWeight: FontWeight.w500,
                     ),
               ),

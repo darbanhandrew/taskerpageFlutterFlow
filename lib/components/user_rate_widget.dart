@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -38,6 +39,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
     _model = createModel(context, () => UserRateModel());
 
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -190,6 +192,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                   Expanded(
                     child: TextFormField(
                       controller: _model.textController,
+                      focusNode: _model.textFieldFocusNode,
                       obscureText: false,
                       decoration: InputDecoration(
                         labelStyle: FlutterFlowTheme.of(context).labelMedium,

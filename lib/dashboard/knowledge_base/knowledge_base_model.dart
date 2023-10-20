@@ -9,6 +9,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'knowledge_base_widget.dart' show KnowledgeBaseWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,9 @@ class KnowledgeBaseModel extends FlutterFlowModel<KnowledgeBaseWidget> {
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController;
+
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 
@@ -36,6 +40,7 @@ class KnowledgeBaseModel extends FlutterFlowModel<KnowledgeBaseWidget> {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
+    expandableController.dispose();
     drawerContentModel.dispose();
   }
 

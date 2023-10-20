@@ -4,6 +4,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'mini_tasker_card_widget.dart' show MiniTaskerCardWidget;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';

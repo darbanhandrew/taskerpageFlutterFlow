@@ -15,6 +15,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'contactdata1_widget.dart' show Contactdata1Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -32,21 +33,27 @@ class Contactdata1Model extends FlutterFlowModel<Contactdata1Widget> {
   // State field(s) for PlacePicker widget.
   var placePickerValue = FFPlace();
   // State field(s) for Street widget.
+  FocusNode? streetFocusNode;
   TextEditingController? streetController;
   String? Function(BuildContext, String?)? streetControllerValidator;
   // State field(s) for No widget.
+  FocusNode? noFocusNode;
   TextEditingController? noController;
   String? Function(BuildContext, String?)? noControllerValidator;
   // State field(s) for PostalCode widget.
+  FocusNode? postalCodeFocusNode;
   TextEditingController? postalCodeController;
   String? Function(BuildContext, String?)? postalCodeControllerValidator;
   // State field(s) for City widget.
+  FocusNode? cityFocusNode;
   TextEditingController? cityController;
   String? Function(BuildContext, String?)? cityControllerValidator;
   // State field(s) for State widget.
+  FocusNode? stateFocusNode;
   TextEditingController? stateController;
   String? Function(BuildContext, String?)? stateControllerValidator;
   // State field(s) for Country widget.
+  FocusNode? countryFocusNode;
   TextEditingController? countryController;
   String? Function(BuildContext, String?)? countryControllerValidator;
   // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
@@ -67,11 +74,22 @@ class Contactdata1Model extends FlutterFlowModel<Contactdata1Widget> {
     unfocusNode.dispose();
     drawerContentModel.dispose();
     headerModel.dispose();
+    streetFocusNode?.dispose();
     streetController?.dispose();
+
+    noFocusNode?.dispose();
     noController?.dispose();
+
+    postalCodeFocusNode?.dispose();
     postalCodeController?.dispose();
+
+    cityFocusNode?.dispose();
     cityController?.dispose();
+
+    stateFocusNode?.dispose();
     stateController?.dispose();
+
+    countryFocusNode?.dispose();
     countryController?.dispose();
   }
 

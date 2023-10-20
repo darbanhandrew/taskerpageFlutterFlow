@@ -14,6 +14,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'tasker_filter_widget.dart' show TaskerFilterWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,8 +22,11 @@ import 'package:provider/provider.dart';
 class TaskerFilterModel extends FlutterFlowModel<TaskerFilterWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - API (Service List)] action in Text widget.
+  // Stores action output result for [Backend Call - API (Customer Profile Skills List)] action in Text widget.
   ApiCallResponse? customerProfileName;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController1;
+
   // State field(s) for Switch widget.
   bool? switchValue1;
   // State field(s) for DropDown widget.
@@ -34,8 +38,14 @@ class TaskerFilterModel extends FlutterFlowModel<TaskerFilterWidget> {
   var placePickerValue = FFPlace();
   // State field(s) for Slider widget.
   double? sliderValue;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController2;
+
   // State field(s) for Switch widget.
   bool? switchValue2;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController3;
+
   // State field(s) for Switch widget.
   bool? switchValue3;
   // State field(s) for RadioButton widget.
@@ -56,7 +66,11 @@ class TaskerFilterModel extends FlutterFlowModel<TaskerFilterWidget> {
 
   void initState(BuildContext context) {}
 
-  void dispose() {}
+  void dispose() {
+    expandableController1.dispose();
+    expandableController2.dispose();
+    expandableController3.dispose();
+  }
 
   /// Action blocks are added here.
 

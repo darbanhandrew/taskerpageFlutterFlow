@@ -3,10 +3,13 @@ import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +38,45 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
     super.initState();
     _model = createModel(context, () => TaskstimeModel());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.id != null && widget.id != '') {
+        _model.apiResult27899 = await TaskerpageBackendGroup.postReadCall.call(
+          id: widget.id,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResult27899?.succeeded ?? true)) {
+          setState(() {
+            FFAppState().updateCreateTaskStruct(
+              (e) => e
+                ..updateTaskSchedule(
+                  (e) => e
+                    ..updateRepeatableTaskDetails(
+                      (e) => e
+                        ..repeatType = getJsonField(
+                          (_model.apiResult27899?.jsonBody ?? ''),
+                          r'''$.data.repeat_type''',
+                        ).toString().toString(),
+                    ),
+                ),
+            );
+          });
+        } else {
+          return;
+        }
+      } else {
+        context.pushNamed(
+          'Task-1',
+          queryParameters: {
+            'id': serializeParam(
+              widget.id,
+              ParamType.String,
+            ),
+          }.withoutNulls,
+        );
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -47,6 +89,15 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -56,6 +107,26 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        drawer: Container(
+          width: MediaQuery.sizeOf(context).width * 0.6,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'task_time',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
+              ),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -72,42 +143,45 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 32.0, 16.0, 0.0),
-                            child: wrapWithModel(
-                              model: _model.navigationBarModel,
-                              updateCallback: () => setState(() {}),
-                              child: NavigationBarWidget(
-                                currentPage: 'calender',
-                                postId: widget.id,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 32.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Select task\'s time',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          wrapWithModel(
+                            model: _model.taskcreationMenueModel,
+                            updateCallback: () => setState(() {}),
+                            child: TaskcreationMenueWidget(
+                              openDrawer: () async {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: Text(
+                              'Select task\'s time',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ],
                       ),
@@ -144,7 +218,7 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
                                 },
                                 child: Container(
                                   width: 217.0,
-                                  height: 36.0,
+                                  height: 40.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
@@ -159,6 +233,7 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondary,
+                                      width: 1.3,
                                     ),
                                   ),
                                   child: Row(
@@ -189,7 +264,7 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
                                   ),
                                 ),
                               );
-                            }).divide(SizedBox(height: 8.0)),
+                            }).divide(SizedBox(height: 6.0)),
                           );
                         },
                       ),

@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -11,6 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -119,6 +120,15 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -129,19 +139,21 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+          width: MediaQuery.sizeOf(context).width * 0.6,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'task1',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
           ),
@@ -171,50 +183,44 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                         ),
                       ],
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 32.0, 16.0, 0.0),
-                            child: wrapWithModel(
-                              model: _model.navigationBarModel,
-                              updateCallback: () => setState(() {}),
-                              child: NavigationBarWidget(
-                                currentPage: 'select_address',
-                                postId: widget.id,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
-                          32.0, 32.0, 32.0, 30.0),
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            'Please add your addresses',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF292929),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          wrapWithModel(
+                            model: _model.taskcreationMenueModel,
+                            updateCallback: () => setState(() {}),
+                            child: TaskcreationMenueWidget(
+                              openDrawer: () async {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                20.0, 20.0, 0.0, 0.0),
+                            child: Text(
+                              'Please add your addresses',
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF292929),
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
                           ),
                         ],
                       ),
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 38.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [

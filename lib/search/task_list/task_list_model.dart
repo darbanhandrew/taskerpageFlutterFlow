@@ -15,6 +15,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'task_list_widget.dart' show TaskListWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,7 @@ class TaskListModel extends FlutterFlowModel<TaskListWidget> {
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   Completer<ApiCallResponse>? apiRequestCompleter;
@@ -57,7 +59,9 @@ class TaskListModel extends FlutterFlowModel<TaskListWidget> {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
+
     adCardModel.dispose();
     navBarModel.dispose();
     drawerContentModel.dispose();

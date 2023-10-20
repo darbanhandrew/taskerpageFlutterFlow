@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -30,8 +31,11 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
     _model = createModel(context, () => EditEmailPasswordModel());
 
     _model.textController1 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
     _model.textController2 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
     _model.textController3 ??= TextEditingController();
+    _model.textFieldFocusNode3 ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -104,6 +108,7 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                     Expanded(
                       child: TextFormField(
                         controller: _model.textController1,
+                        focusNode: _model.textFieldFocusNode1,
                         obscureText: !_model.passwordVisibility1,
                         decoration: InputDecoration(
                           isDense: true,
@@ -203,6 +208,7 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                     Expanded(
                       child: TextFormField(
                         controller: _model.textController2,
+                        focusNode: _model.textFieldFocusNode2,
                         obscureText: !_model.passwordVisibility2,
                         decoration: InputDecoration(
                           isDense: true,
@@ -302,6 +308,7 @@ class _EditEmailPasswordWidgetState extends State<EditEmailPasswordWidget> {
                     Expanded(
                       child: TextFormField(
                         controller: _model.textController3,
+                        focusNode: _model.textFieldFocusNode3,
                         obscureText: !_model.passwordVisibility3,
                         decoration: InputDecoration(
                           isDense: true,

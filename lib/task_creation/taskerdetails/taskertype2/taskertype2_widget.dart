@@ -1,15 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -87,6 +88,15 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -97,19 +107,21 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+          width: MediaQuery.sizeOf(context).width * 0.6,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'tasker',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
           ),
@@ -132,49 +144,52 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                         },
                       ),
                     ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                16.0, 32.0, 16.0, 0.0),
-                            child: wrapWithModel(
-                              model: _model.navigationBarModel,
-                              updateCallback: () => setState(() {}),
-                              child: NavigationBarWidget(
-                                currentPage: 'tasker_type2',
-                                postId: widget.id,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 32.0, 32.0, 0.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'Tasker type',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF292929),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                          wrapWithModel(
+                            model: _model.taskcreationMenueModel,
+                            updateCallback: () => setState(() {}),
+                            child: TaskcreationMenueWidget(
+                              openDrawer: () async {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 20.0, 0.0, 0.0),
+                            child: Text(
+                              'Tasker type',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF292929),
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                          ),
+                          Container(
+                            width: 50.0,
+                            height: 50.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              shape: BoxShape.circle,
+                            ),
                           ),
                         ],
                       ),
                     ),
                     Padding(
                       padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 35.0, 32.0, 8.0),
+                          EdgeInsetsDirectional.fromSTEB(32.0, 38.0, 32.0, 8.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
@@ -205,7 +220,8 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                           Expanded(
                             child: Slider(
                               activeColor: FlutterFlowTheme.of(context).primary,
-                              inactiveColor: Color(0x3C3D3D3D),
+                              inactiveColor:
+                                  FlutterFlowTheme.of(context).tertiary,
                               min: 0.0,
                               max: 30.0,
                               value: _model.sliderValue ??=
@@ -379,7 +395,7 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                 .primary
                                             : FlutterFlowTheme.of(context)
                                                 .secondary,
-                                        width: 1.0,
+                                        width: 1.3,
                                       ),
                                     ),
                                     child: Padding(
@@ -448,7 +464,7 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                                 .primary
                                             : FlutterFlowTheme.of(context)
                                                 .secondary,
-                                        width: 1.0,
+                                        width: 1.3,
                                       ),
                                     ),
                                     child: Padding(

@@ -185,6 +185,16 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _tasksTime = prefs.getStringList('ff_tasksTime') ?? _tasksTime;
     });
+    _safeInit(() {
+      if (prefs.containsKey('ff_user')) {
+        try {
+          final serializedData = prefs.getString('ff_user') ?? '{}';
+          _user = UserStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
   }
 
   void update(VoidCallback callback) {
@@ -915,6 +925,24 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_tasksTime', _tasksTime);
   }
 
+  bool _showTaskCreationSteps = false;
+  bool get showTaskCreationSteps => _showTaskCreationSteps;
+  set showTaskCreationSteps(bool _value) {
+    _showTaskCreationSteps = _value;
+  }
+
+  UserStruct _user = UserStruct();
+  UserStruct get user => _user;
+  set user(UserStruct _value) {
+    _user = _value;
+    prefs.setString('ff_user', _value.serialize());
+  }
+
+  void updateUserStruct(Function(UserStruct) updateFn) {
+    updateFn(_user);
+    prefs.setString('ff_user', _user.serialize());
+  }
+
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();
   Future<ApiCallResponse> myAddresses({
     String? uniqueQueryKey,
@@ -929,6 +957,36 @@ class FFAppState extends ChangeNotifier {
   void clearMyAddressesCache() => _myAddressesManager.clear();
   void clearMyAddressesCacheKey(String? uniqueKey) =>
       _myAddressesManager.clearRequest(uniqueKey);
+
+  final _appRolesManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> appRoles({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _appRolesManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearAppRolesCache() => _appRolesManager.clear();
+  void clearAppRolesCacheKey(String? uniqueKey) =>
+      _appRolesManager.clearRequest(uniqueKey);
+
+  final _appRoleDetailsManager = FutureRequestManager<ApiCallResponse>();
+  Future<ApiCallResponse> appRoleDetails({
+    String? uniqueQueryKey,
+    bool? overrideCache,
+    required Future<ApiCallResponse> Function() requestFn,
+  }) =>
+      _appRoleDetailsManager.performRequest(
+        uniqueQueryKey: uniqueQueryKey,
+        overrideCache: overrideCache,
+        requestFn: requestFn,
+      );
+  void clearAppRoleDetailsCache() => _appRoleDetailsManager.clear();
+  void clearAppRoleDetailsCacheKey(String? uniqueKey) =>
+      _appRoleDetailsManager.clearRequest(uniqueKey);
 }
 
 LatLng? _latLngFromString(String? val) {

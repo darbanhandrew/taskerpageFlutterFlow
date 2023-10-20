@@ -4,6 +4,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,9 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
     _model = createModel(context, () => ForgetPassword5Model());
 
     _model.textController1 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
     _model.textController2 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -41,6 +44,15 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -187,6 +199,7 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.textController1,
+                              focusNode: _model.textFieldFocusNode1,
                               obscureText: !_model.passwordVisibility1,
                               decoration: InputDecoration(
                                 isDense: true,
@@ -290,6 +303,7 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.textController2,
+                              focusNode: _model.textFieldFocusNode2,
                               obscureText: !_model.passwordVisibility2,
                               decoration: InputDecoration(
                                 isDense: true,

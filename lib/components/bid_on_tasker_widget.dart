@@ -7,6 +7,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -53,6 +54,7 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
     });
 
     _model.bidAmountController ??= TextEditingController();
+    _model.bidAmountFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -144,6 +146,7 @@ class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _model.bidAmountController,
+                              focusNode: _model.bidAmountFocusNode,
                               obscureText: false,
                               decoration: InputDecoration(
                                 isDense: true,

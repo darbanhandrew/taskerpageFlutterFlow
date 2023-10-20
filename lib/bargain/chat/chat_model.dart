@@ -14,6 +14,7 @@ import 'chat_widget.dart' show ChatWidget;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,6 +29,7 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Backend Call - API (send message)] action in Icon widget.
@@ -56,6 +58,7 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
 
   void dispose() {
     unfocusNode.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
 
     /// Dispose query cache managers for this widget.

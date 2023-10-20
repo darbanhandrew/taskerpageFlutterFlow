@@ -12,6 +12,7 @@ import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -95,6 +96,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                 r'''$.title''',
               ).toString().toString()
             : '');
+    _model.textFieldFocusNode1 ??= FocusNode();
     _model.textController2 ??= TextEditingController(
         text: widget.education != null
             ? getJsonField(
@@ -102,6 +104,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                 r'''$.school_title''',
               ).toString().toString()
             : '');
+    _model.textFieldFocusNode2 ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -117,6 +120,15 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -173,7 +185,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 32.0, 0.0, 0.0),
+                              32.0, 32.0, 32.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -597,6 +609,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                               Expanded(
                                 child: TextFormField(
                                   controller: _model.textController1,
+                                  focusNode: _model.textFieldFocusNode1,
                                   onFieldSubmitted: (_) async {
                                     setState(() {
                                       FFAppState().updateUserInformationStruct(
@@ -700,6 +713,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                               Expanded(
                                 child: TextFormField(
                                   controller: _model.textController2,
+                                  focusNode: _model.textFieldFocusNode2,
                                   onFieldSubmitted: (_) async {
                                     setState(() {
                                       FFAppState().updateUserInformationStruct(
@@ -824,7 +838,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                 },
                                 child: Container(
                                   width: 147.0,
-                                  height: 44.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.circular(2.0),

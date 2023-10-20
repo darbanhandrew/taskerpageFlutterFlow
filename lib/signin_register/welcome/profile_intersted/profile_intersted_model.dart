@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'profile_intersted_widget.dart' show ProfileInterstedWidget;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +19,8 @@ class ProfileInterstedModel extends FlutterFlowModel<ProfileInterstedWidget> {
   final unfocusNode = FocusNode();
   // Model for Header component.
   late HeaderModel headerModel;
-  // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
+  // Stores action output result for [Backend Call - API (updateUserRole)] action in Container widget.
   ApiCallResponse? apiResult786;
-  // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
-  ApiCallResponse? apiResult785;
-  // Stores action output result for [Backend Call - API (changeMyRole)] action in Container widget.
-  ApiCallResponse? apiResult7859;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in button_Next widget.

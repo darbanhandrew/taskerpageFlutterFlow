@@ -13,12 +13,14 @@ class CreateTaskStruct extends BaseStruct {
     TaskScheduleStruct? taskSchedule,
     TaskerTypeStruct? taskerType,
     List<SkillOptionsStruct>? taskOptions,
+    TaskRatesStruct? taskRates,
   })  : _skillCategory = skillCategory,
         _taskDeatels = taskDeatels,
         _taskAddress = taskAddress,
         _taskSchedule = taskSchedule,
         _taskerType = taskerType,
-        _taskOptions = taskOptions;
+        _taskOptions = taskOptions,
+        _taskRates = taskRates;
 
   // "skill_category" field.
   String? _skillCategory;
@@ -66,6 +68,14 @@ class CreateTaskStruct extends BaseStruct {
       updateFn(_taskOptions ??= []);
   bool hasTaskOptions() => _taskOptions != null;
 
+  // "TaskRates" field.
+  TaskRatesStruct? _taskRates;
+  TaskRatesStruct get taskRates => _taskRates ?? TaskRatesStruct();
+  set taskRates(TaskRatesStruct? val) => _taskRates = val;
+  void updateTaskRates(Function(TaskRatesStruct) updateFn) =>
+      updateFn(_taskRates ??= TaskRatesStruct());
+  bool hasTaskRates() => _taskRates != null;
+
   static CreateTaskStruct fromMap(Map<String, dynamic> data) =>
       CreateTaskStruct(
         skillCategory: data['skill_category'] as String?,
@@ -77,6 +87,7 @@ class CreateTaskStruct extends BaseStruct {
           data['taskOptions'],
           SkillOptionsStruct.fromMap,
         ),
+        taskRates: TaskRatesStruct.maybeFromMap(data['TaskRates']),
       );
 
   static CreateTaskStruct? maybeFromMap(dynamic data) =>
@@ -89,6 +100,7 @@ class CreateTaskStruct extends BaseStruct {
         'taskSchedule': _taskSchedule?.toMap(),
         'taskerType': _taskerType?.toMap(),
         'taskOptions': _taskOptions?.map((e) => e.toMap()).toList(),
+        'TaskRates': _taskRates?.toMap(),
       }.withoutNulls;
 
   @override
@@ -117,6 +129,10 @@ class CreateTaskStruct extends BaseStruct {
           _taskOptions,
           ParamType.DataStruct,
           true,
+        ),
+        'TaskRates': serializeParam(
+          _taskRates,
+          ParamType.DataStruct,
         ),
       }.withoutNulls;
 
@@ -157,6 +173,12 @@ class CreateTaskStruct extends BaseStruct {
           true,
           structBuilder: SkillOptionsStruct.fromSerializableMap,
         ),
+        taskRates: deserializeStructParam(
+          data['TaskRates'],
+          ParamType.DataStruct,
+          false,
+          structBuilder: TaskRatesStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -171,7 +193,8 @@ class CreateTaskStruct extends BaseStruct {
         taskAddress == other.taskAddress &&
         taskSchedule == other.taskSchedule &&
         taskerType == other.taskerType &&
-        listEquality.equals(taskOptions, other.taskOptions);
+        listEquality.equals(taskOptions, other.taskOptions) &&
+        taskRates == other.taskRates;
   }
 
   @override
@@ -181,7 +204,8 @@ class CreateTaskStruct extends BaseStruct {
         taskAddress,
         taskSchedule,
         taskerType,
-        taskOptions
+        taskOptions,
+        taskRates
       ]);
 }
 
@@ -191,6 +215,7 @@ CreateTaskStruct createCreateTaskStruct({
   TaskAddressStruct? taskAddress,
   TaskScheduleStruct? taskSchedule,
   TaskerTypeStruct? taskerType,
+  TaskRatesStruct? taskRates,
 }) =>
     CreateTaskStruct(
       skillCategory: skillCategory,
@@ -198,4 +223,5 @@ CreateTaskStruct createCreateTaskStruct({
       taskAddress: taskAddress ?? TaskAddressStruct(),
       taskSchedule: taskSchedule ?? TaskScheduleStruct(),
       taskerType: taskerType ?? TaskerTypeStruct(),
+      taskRates: taskRates ?? TaskRatesStruct(),
     );

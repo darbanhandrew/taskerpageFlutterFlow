@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -30,12 +31,20 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
     super.initState();
     _model = createModel(context, () => EditEmailOrPassModel());
 
+    _model.expandableController1 = ExpandableController(initialExpanded: false);
     _model.textController1 ??= TextEditingController();
+    _model.textFieldFocusNode1 ??= FocusNode();
     _model.textController2 ??= TextEditingController();
+    _model.textFieldFocusNode2 ??= FocusNode();
     _model.textController3 ??= TextEditingController();
+    _model.textFieldFocusNode3 ??= FocusNode();
+    _model.expandableController2 = ExpandableController(initialExpanded: false);
     _model.textController4 ??= TextEditingController();
+    _model.textFieldFocusNode4 ??= FocusNode();
     _model.textController5 ??= TextEditingController();
+    _model.textFieldFocusNode5 ??= FocusNode();
     _model.textController6 ??= TextEditingController();
+    _model.textFieldFocusNode6 ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -149,7 +158,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController1,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'E-mail address',
@@ -207,6 +216,8 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                               child: TextFormField(
                                                 controller:
                                                     _model.textController1,
+                                                focusNode:
+                                                    _model.textFieldFocusNode1,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   isDense: true,
@@ -323,6 +334,8 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                               child: TextFormField(
                                                 controller:
                                                     _model.textController2,
+                                                focusNode:
+                                                    _model.textFieldFocusNode2,
                                                 obscureText: false,
                                                 decoration: InputDecoration(
                                                   isDense: true,
@@ -466,6 +479,8 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                               child: TextFormField(
                                                 controller:
                                                     _model.textController3,
+                                                focusNode:
+                                                    _model.textFieldFocusNode3,
                                                 obscureText:
                                                     !_model.passwordVisibility1,
                                                 decoration: InputDecoration(
@@ -642,7 +657,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                               ?.succeeded ??
                                                           true)) {
                                                         context.pushNamed(
-                                                            'email_verification');
+                                                            'EmailVerificationPage');
                                                       } else {
                                                         if (_shouldSetState)
                                                           setState(() {});
@@ -737,7 +752,7 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController2,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Password',
@@ -795,6 +810,8 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                               child: TextFormField(
                                                 controller:
                                                     _model.textController4,
+                                                focusNode:
+                                                    _model.textFieldFocusNode4,
                                                 obscureText:
                                                     !_model.passwordVisibility2,
                                                 decoration: InputDecoration(
@@ -933,6 +950,8 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                               child: TextFormField(
                                                 controller:
                                                     _model.textController5,
+                                                focusNode:
+                                                    _model.textFieldFocusNode5,
                                                 obscureText:
                                                     !_model.passwordVisibility3,
                                                 decoration: InputDecoration(
@@ -1070,6 +1089,8 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                               child: TextFormField(
                                                 controller:
                                                     _model.textController6,
+                                                focusNode:
+                                                    _model.textFieldFocusNode6,
                                                 obscureText:
                                                     !_model.passwordVisibility4,
                                                 decoration: InputDecoration(

@@ -1,17 +1,17 @@
 // Export pages
-export '/signin_register/signup/select_contry_language/select_contry_language_widget.dart'
-    show SelectContryLanguageWidget;
-export '/signin_register/signup/sign_up/sign_up_widget.dart' show SignUpWidget;
-export '/signin_register/signup/sign_up_information/sign_up_information_widget.dart'
-    show SignUpInformationWidget;
-export '/signin_register/signup/sign_up_verification_request/sign_up_verification_request_widget.dart'
-    show SignUpVerificationRequestWidget;
+export '/signin_register/signup/select_country_language/select_country_language_widget.dart'
+    show SelectCountryLanguageWidget;
+export '/signin_register/signup/signup/signup_widget.dart' show SignupWidget;
+export '/signin_register/signup/personal_details/personal_details_widget.dart'
+    show PersonalDetailsWidget;
+export '/signin_register/signup/phone_verification_page/phone_verification_page_widget.dart'
+    show PhoneVerificationPageWidget;
 export '/signin_register/signup/sign_up_verification_accepted/sign_up_verification_accepted_widget.dart'
     show SignUpVerificationAcceptedWidget;
 export '/signin_register/signin/sign_in_information/sign_in_information_widget.dart'
     show SignInInformationWidget;
-export '/signin_register/signin/email_verification/email_verification_widget.dart'
-    show EmailVerificationWidget;
+export '/signin_register/signin/email_verification_page/email_verification_page_widget.dart'
+    show EmailVerificationPageWidget;
 export '/signin_register/signin/sign_in_verification_accepted/sign_in_verification_accepted_widget.dart'
     show SignInVerificationAcceptedWidget;
 export '/signin_register/signin/sign_in/sign_in_widget.dart' show SignInWidget;
@@ -25,8 +25,8 @@ export '/signin_register/forgetpassword/forget_password_5/forget_password5_widge
     show ForgetPassword5Widget;
 export '/signin_register/forgetpassword/accepted_new_password/accepted_new_password_widget.dart'
     show AcceptedNewPasswordWidget;
-export '/signin_register/welcome/proflewelcome/proflewelcome_widget.dart'
-    show ProflewelcomeWidget;
+export '/signin_register/welcome/welcome/welcome_widget.dart'
+    show WelcomeWidget;
 export '/signin_register/welcome/profile_intersted/profile_intersted_widget.dart'
     show ProfileInterstedWidget;
 export '/signin_register/skills/skills_1/skills1_widget.dart'
@@ -121,8 +121,8 @@ export '/dashboard/main_home_page_for_ad/main_home_page_for_ad_widget.dart'
     show MainHomePageForAdWidget;
 export '/bargain/scaned_q_r_c_o_d_e/scaned_q_r_c_o_d_e_widget.dart'
     show ScanedQRCODEWidget;
-export '/signin_register/signup/sign_up_verification_code/sign_up_verification_code_widget.dart'
-    show SignUpVerificationCodeWidget;
+export '/signin_register/signup/email_verification_page_deprecated/email_verification_page_deprecated_widget.dart'
+    show EmailVerificationPageDeprecatedWidget;
 export '/dashboard/web_home/web_home_widget.dart' show WebHomeWidget;
 export '/subscription/paymentshistory/paymentshistory_widget.dart'
     show PaymentshistoryWidget;
@@ -133,3 +133,12 @@ export '/dashboard/notification_log/notification_log_widget.dart'
 export '/bargain/chat_list/chat_list_widget.dart' show ChatListWidget;
 export '/task_creation/calnendar/taskstime/taskstime_widget.dart'
     show TaskstimeWidget;
+export '/task_creation/rates/rates/rates_widget.dart' show RatesWidget;
+export '/bargain/connection/connection_widget.dart' show ConnectionWidget;
+export '/bargain/allinvation/allinvation_widget.dart' show AllinvationWidget;
+export '/bargain/all_connection/all_connection_widget.dart'
+    show AllConnectionWidget;
+export '/bargain/all_followers/all_followers_widget.dart'
+    show AllFollowersWidget;
+export '/task_creation/preview/publish_task/publish_task_widget.dart'
+    show PublishTaskWidget;

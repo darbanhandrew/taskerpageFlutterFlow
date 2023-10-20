@@ -1,6 +1,7 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -57,8 +58,8 @@ class _NotificationIconWidgetState extends State<NotificationIconWidget> {
         context.pushNamed('notification_log');
       },
       child: Container(
-        width: 32.0,
-        height: 32.0,
+        width: 35.0,
+        height: 35.0,
         decoration: BoxDecoration(
           color: valueOrDefault<Color>(
             widget.hasNotification
@@ -66,10 +67,10 @@ class _NotificationIconWidgetState extends State<NotificationIconWidget> {
                 : Color(0x00FFFFFF),
             Color(0x00FFFFFF),
           ),
-          borderRadius: BorderRadius.circular(4.0),
+          shape: BoxShape.circle,
           border: Border.all(
             color: widget.hasNotification
-                ? Colors.white
+                ? Color(0x00FFFFFF)
                 : FlutterFlowTheme.of(context).primary,
             width: 2.0,
           ),

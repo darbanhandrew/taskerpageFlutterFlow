@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -12,6 +12,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'select_address_widget.dart' show SelectAddressWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,30 +26,31 @@ class SelectAddressModel extends FlutterFlowModel<SelectAddressWidget> {
   ApiCallResponse? apiResultu37;
   // Model for Header component.
   late HeaderModel headerModel;
-  // Model for navigationBar component.
-  late NavigationBarModel navigationBarModel;
+  // Model for taskcreationMenue component.
+  late TaskcreationMenueModel taskcreationMenueModel;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (update task address)] action in button_Next widget.
   ApiCallResponse? updatedAddress;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    navigationBarModel = createModel(context, () => NavigationBarModel());
+    taskcreationMenueModel =
+        createModel(context, () => TaskcreationMenueModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    navigationBarModel.dispose();
+    taskcreationMenueModel.dispose();
     buttonNextModel.dispose();
-    drawerContentModel.dispose();
+    navigationBarModel.dispose();
   }
 
   /// Action blocks are added here.

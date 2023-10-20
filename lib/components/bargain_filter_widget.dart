@@ -6,6 +6,7 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -146,6 +147,9 @@ class _BargainFilterWidgetState extends State<BargainFilterWidget>
       });
     });
 
+    _model.expandableController1 = ExpandableController(initialExpanded: false);
+    _model.expandableController2 = ExpandableController(initialExpanded: false);
+    _model.expandableController3 = ExpandableController(initialExpanded: false);
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -265,7 +269,7 @@ class _BargainFilterWidgetState extends State<BargainFilterWidget>
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController1,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'User',
@@ -764,7 +768,7 @@ class _BargainFilterWidgetState extends State<BargainFilterWidget>
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController2,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Post',
@@ -1243,7 +1247,7 @@ class _BargainFilterWidgetState extends State<BargainFilterWidget>
                                 width: double.infinity,
                                 color: Colors.white,
                                 child: ExpandableNotifier(
-                                  initialExpanded: false,
+                                  controller: _model.expandableController3,
                                   child: ExpandablePanel(
                                     header: Text(
                                       'Status',

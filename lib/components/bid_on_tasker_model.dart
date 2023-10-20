@@ -8,6 +8,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'bid_on_tasker_widget.dart' show BidOnTaskerWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -19,6 +20,7 @@ class BidOnTaskerModel extends FlutterFlowModel<BidOnTaskerWidget> {
   // Model for TaskerCard component.
   late TaskerCardModel taskerCardModel;
   // State field(s) for BidAmount widget.
+  FocusNode? bidAmountFocusNode;
   TextEditingController? bidAmountController;
   final bidAmountMask = MaskTextInputFormatter(mask: '###.###.###');
   String? Function(BuildContext, String?)? bidAmountControllerValidator;
@@ -36,6 +38,7 @@ class BidOnTaskerModel extends FlutterFlowModel<BidOnTaskerWidget> {
 
   void dispose() {
     taskerCardModel.dispose();
+    bidAmountFocusNode?.dispose();
     bidAmountController?.dispose();
   }
 

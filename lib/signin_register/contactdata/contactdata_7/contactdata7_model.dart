@@ -12,6 +12,7 @@ import 'contactdata7_widget.dart' show Contactdata7Widget;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,6 +28,7 @@ class Contactdata7Model extends FlutterFlowModel<Contactdata7Widget> {
   String? dropDownValue;
   FormFieldController<String>? dropDownValueController;
   // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
   TextEditingController? textController;
   String? Function(BuildContext, String?)? textControllerValidator;
   // Stores action output result for [Backend Call - API (userProfileRead)] action in Text widget.
@@ -54,7 +56,9 @@ class Contactdata7Model extends FlutterFlowModel<Contactdata7Widget> {
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
+    textFieldFocusNode?.dispose();
     textController?.dispose();
+
     pinCodeController?.dispose();
     drawerContentModel.dispose();
   }

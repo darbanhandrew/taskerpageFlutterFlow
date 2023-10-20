@@ -12,7 +12,7 @@ import '/backend/schema/structs/index.dart';
 
 bool checkIfServiceCategoryExists(
   List<UserServiceStruct>? userServices,
-  int serviceCategoryId,
+  String serviceCategoryId,
 ) {
   // check if any item in list of userServices.serviceCategory has serviceCategoryId
   if (userServices == null) {
@@ -39,7 +39,7 @@ dynamic latLngToJson(LatLng? latlng) {
 
 List<UserServiceStruct> updateUserServices(
   List<UserServiceStruct>? userServices,
-  int serviceCategoryId,
+  String serviceCategoryId,
   bool add,
 ) {
   // add or remove serviceCategoryId from userServices
@@ -59,8 +59,8 @@ List<UserServiceStruct> updateUserServices(
 
 List<UserServiceStruct> addUserService(
   List<UserServiceStruct>? userServices,
-  int serviceId,
-  int serviceCategoryId,
+  List<String> serviceId,
+  String serviceCategoryId,
   bool add,
 ) {
   if (userServices == null) {
@@ -91,8 +91,8 @@ List<UserServiceStruct> addUserService(
 
 List<UserServiceStruct> updateServiceSkillLevel(
   List<UserServiceStruct>? userServices,
-  int serviceId,
-  int serviceCategoryId,
+  List<String> serviceId,
+  String serviceCategoryId,
   String skillLevel,
 ) {
   if (userServices == null) {
@@ -364,7 +364,15 @@ int? jsonToInt(dynamic json) {
 
 List<dynamic> generateDaysOfWeekRange() {
   // generate an array of objects for each day of week, short and long name
-  final List<String> daysOfWeek = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  final List<String> daysOfWeek = [
+    'Sundays',
+    'Mondays',
+    'Tuesdays',
+    'Wednesdays',
+    'Thursdays',
+    'Fridays',
+    'Saturdays'
+  ];
   final List<String> daysOfWeekShort = [
     'Sun',
     'Mon',
@@ -1089,4 +1097,12 @@ int? numberofListitems(List<String>? list) {
   } else {
     return list.length;
   }
+}
+
+int? stringToInt(String? string) {
+  // convert string to int format
+  if (string == null) {
+    return null;
+  }
+  return int.tryParse(string);
 }

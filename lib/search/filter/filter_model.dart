@@ -16,12 +16,16 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class FilterModel extends FlutterFlowModel<FilterWidget> {
   ///  State fields for stateful widgets in this component.
+
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController1;
 
   // State field(s) for Switch widget.
   bool? switchValue1;
@@ -34,11 +38,20 @@ class FilterModel extends FlutterFlowModel<FilterWidget> {
   var placePickerValue = FFPlace();
   // State field(s) for Slider widget.
   double? sliderValue;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController2;
+
   // State field(s) for Switch widget.
   bool? switchValue2;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController3;
+
   // State field(s) for Switch widget.
   bool? switchValue3;
   DateTime? datePicked;
+  // State field(s) for Expandable widget.
+  late ExpandableController expandableController4;
+
   // State field(s) for Switch widget.
   bool? switchValue4;
   // State field(s) for RadioButton widget.
@@ -61,7 +74,12 @@ class FilterModel extends FlutterFlowModel<FilterWidget> {
 
   void initState(BuildContext context) {}
 
-  void dispose() {}
+  void dispose() {
+    expandableController1.dispose();
+    expandableController2.dispose();
+    expandableController3.dispose();
+    expandableController4.dispose();
+  }
 
   /// Action blocks are added here.
 

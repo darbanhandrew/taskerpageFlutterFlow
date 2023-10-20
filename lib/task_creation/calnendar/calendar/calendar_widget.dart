@@ -1,20 +1,18 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
-import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -133,6 +131,15 @@ class _CalendarWidgetState extends State<CalendarWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -143,19 +150,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+          width: MediaQuery.sizeOf(context).width * 0.6,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'task1',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
           ),
@@ -181,43 +190,37 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 32.0, 16.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.navigationBarModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavigationBarWidget(
-                                  currentPage: 'calender',
-                                  postId: widget.id,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 32.0, 32.0, 26.0),
+                            32.0, 20.0, 32.0, 38.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              'Select Start or Exact Date',
-                              textAlign: TextAlign.center,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF292929),
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            wrapWithModel(
+                              model: _model.taskcreationMenueModel,
+                              updateCallback: () => setState(() {}),
+                              child: TaskcreationMenueWidget(
+                                openDrawer: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  20.0, 20.0, 0.0, 0.0),
+                              child: Text(
+                                'Select Start or Exact Date',
+                                textAlign: TextAlign.center,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF292929),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
                             ),
                           ],
                         ),
@@ -254,7 +257,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                 'Weekly')
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    130.0, 0.0, 0.0, 0.0),
+                                    135.0, 0.0, 0.0, 0.0),
                                 child: Text(
                                   'To',
                                   style: FlutterFlowTheme.of(context)
@@ -277,7 +280,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Flexible(
+                            Expanded(
                               child: InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
@@ -340,14 +343,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           valueOrDefault<String>(
                                             dateTimeFormat(
                                                 'yMMMd', _model.datePicked1),
-                                            'Select Start or Exact Date',
+                                            'Start Date',
                                           ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
                                                 color: Color(0xFF212121),
-                                                fontSize: 14.0,
+                                                fontSize: 13.0,
                                               ),
                                         ),
                                         Icon(
@@ -449,14 +452,14 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                       .taskSchedule
                                                       .repeatableTaskDetails
                                                       .endOn),
-                                              'Select End Date',
+                                              'End Date',
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
                                                   fontFamily: 'Lato',
                                                   color: Color(0xFF212121),
-                                                  fontSize: 14.0,
+                                                  fontSize: 13.0,
                                                 ),
                                           ),
                                           Icon(
@@ -479,92 +482,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   ),
                                 ),
                               ),
-                          ],
+                          ].divide(SizedBox(width: 12.0)),
                         ),
                       ),
-                      if ((FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Exact Dates') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Weekly'))
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 0.0, 32.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: FlutterFlowDropDown<String>(
-                                  controller:
-                                      _model.dropDownValueController1 ??=
-                                          FormFieldController<String>(
-                                    _model.dropDownValue1 ??= FFAppState()
-                                        .createTask
-                                        .taskSchedule
-                                        .repeatableTaskDetails
-                                        .repeatType,
-                                  ),
-                                  options: [
-                                    'Daily',
-                                    'Every Weekday (Mon-Fri)',
-                                    'Weekly',
-                                    'Monthly',
-                                    'Custom'
-                                  ],
-                                  onChanged: (val) async {
-                                    setState(() => _model.dropDownValue1 = val);
-                                    setState(() {
-                                      FFAppState().updateCreateTaskStruct(
-                                        (e) => e
-                                          ..updateTaskSchedule(
-                                            (e) => e
-                                              ..updateRepeatableTaskDetails(
-                                                (e) => e
-                                                  ..repeatType =
-                                                      _model.dropDownValue1,
-                                              ),
-                                          ),
-                                      );
-                                    });
-                                  },
-                                  height: 36.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFF3D3D3D),
-                                        fontSize: 14.0,
-                                      ),
-                                  hintText: 'Select Repeat Type',
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: Color(0xFF3D3D3D),
-                                    size: 24.0,
-                                  ),
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                  borderWidth: 1.0,
-                                  borderRadius: 2.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 4.0, 10.0, 4.0),
-                                  hidesUnderline: true,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       if (FFAppState()
                               .createTask
                               .taskSchedule
@@ -586,7 +506,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                           'Exact Dates')
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 16.0, 32.0, 0.0),
+                              32.0, 0.0, 32.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -738,336 +658,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                             ],
                           ),
                         ),
-                      if ((FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Exact Dates') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Weekly') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Mountly'))
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 16.0, 32.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: FlutterFlowDropDown<String>(
-                                  controller:
-                                      _model.dropDownValueController2 ??=
-                                          FormFieldController<String>(null),
-                                  options: [
-                                    'Monthly on the same day',
-                                    'Monthly on Third Friday'
-                                  ],
-                                  onChanged: (val) async {
-                                    setState(() => _model.dropDownValue2 = val);
-                                    setState(() {
-                                      FFAppState().updateTaskStruct(
-                                        (e) => e
-                                          ..monthlyRepeatType =
-                                              _model.dropDownValue2,
-                                      );
-                                    });
-                                  },
-                                  height: 36.0,
-                                  textStyle: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Color(0xFF3D3D3D),
-                                        fontSize: 14.0,
-                                      ),
-                                  hintText: 'Select Monthly Repeat Type',
-                                  icon: Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: Color(0xFF3D3D3D),
-                                    size: 24.0,
-                                  ),
-                                  fillColor: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  elevation: 2.0,
-                                  borderColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                  borderWidth: 1.0,
-                                  borderRadius: 2.0,
-                                  margin: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 4.0, 10.0, 4.0),
-                                  hidesUnderline: true,
-                                  isSearchable: false,
-                                  isMultiSelect: false,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      if ((FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Exact Dates') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Weekly') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Mountly'))
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              33.0, 20.0, 32.0, 15.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Text(
-                                'End Date',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF292929),
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      if ((FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Exact Dates') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Weekly') &&
-                          (FFAppState()
-                                  .createTask
-                                  .taskSchedule
-                                  .repeatableTaskDetails
-                                  .repeatType !=
-                              'Mountly'))
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              25.5, 0.0, 32.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    2.0, 0.0, 0.0, 0.0),
-                                child: FlutterFlowRadioButton(
-                                  options: ['Never', 'On', 'After'].toList(),
-                                  onChanged: (val) async {
-                                    setState(() {});
-                                    setState(() {
-                                      FFAppState().updateCreateTaskStruct(
-                                        (e) => e
-                                          ..updateTaskSchedule(
-                                            (e) => e
-                                              ..updateRepeatableTaskDetails(
-                                                (e) => e
-                                                  ..endDateType =
-                                                      _model.radioButtonValue,
-                                              ),
-                                          ),
-                                      );
-                                    });
-                                  },
-                                  controller:
-                                      _model.radioButtonValueController ??=
-                                          FormFieldController<String>(
-                                              valueOrDefault<String>(
-                                    FFAppState()
-                                        .createTask
-                                        .taskSchedule
-                                        .repeatableTaskDetails
-                                        .endDateType,
-                                    'Never',
-                                  )),
-                                  optionHeight: 55.0,
-                                  textStyle:
-                                      FlutterFlowTheme.of(context).labelMedium,
-                                  buttonPosition: RadioButtonPosition.left,
-                                  direction: Axis.vertical,
-                                  radioButtonColor: Color(0xFF211DAF),
-                                  inactiveRadioButtonColor: Color(0xFF211DAF),
-                                  toggleable: false,
-                                  horizontalAlignment: WrapAlignment.start,
-                                  verticalAlignment: WrapCrossAlignment.start,
-                                ),
-                              ),
-                              Expanded(
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      50.0, 0.0, 0.0, 0.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      if (_model.radioButtonValue == 'On')
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 62.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [],
-                                          ),
-                                        ),
-                                      if (_model.radioButtonValue == 'After')
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 7.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 10.0, 0.0),
-                                                child: Container(
-                                                  width: 90.0,
-                                                  height: 36.0,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2.0),
-                                                    shape: BoxShape.rectangle,
-                                                    border: Border.all(
-                                                      color: Color(0xFF5E5D5D),
-                                                      width: 1.0,
-                                                    ),
-                                                  ),
-                                                  child:
-                                                      FlutterFlowCountController(
-                                                    decrementIconBuilder:
-                                                        (enabled) => Icon(
-                                                      Icons
-                                                          .keyboard_arrow_down_rounded,
-                                                      color: enabled
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      size: 24.0,
-                                                    ),
-                                                    incrementIconBuilder:
-                                                        (enabled) => Icon(
-                                                      Icons
-                                                          .keyboard_arrow_up_rounded,
-                                                      color: enabled
-                                                          ? FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary
-                                                          : FlutterFlowTheme.of(
-                                                                  context)
-                                                              .alternate,
-                                                      size: 24.0,
-                                                    ),
-                                                    countBuilder: (count) =>
-                                                        Text(
-                                                      count.toString(),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .titleLarge
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            fontSize: 13.0,
-                                                          ),
-                                                    ),
-                                                    count: _model
-                                                            .countControllerValue3 ??=
-                                                        FFAppState()
-                                                            .createTask
-                                                            .taskSchedule
-                                                            .repeatableTaskDetails
-                                                            .endAfterNumberOfSession,
-                                                    updateCount: (count) async {
-                                                      setState(() => _model
-                                                              .countControllerValue3 =
-                                                          count);
-                                                      setState(() {
-                                                        FFAppState()
-                                                            .updateCreateTaskStruct(
-                                                          (e) => e
-                                                            ..updateTaskSchedule(
-                                                              (e) => e
-                                                                ..updateRepeatableTaskDetails(
-                                                                  (e) => e
-                                                                    ..endAfterNumberOfSession =
-                                                                        _model
-                                                                            .countControllerValue3,
-                                                                ),
-                                                            ),
-                                                        );
-                                                      });
-                                                    },
-                                                    stepSize: 1,
-                                                    minimum: 2,
-                                                    contentPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(5.0, 0.0,
-                                                                5.0, 0.0),
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                'Sessions',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF292929),
-                                                          fontSize: 15.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       Divider(
                         height: 32.0,
                         thickness: 1.0,
@@ -1143,7 +733,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondary,
-                                      width: 1.0,
+                                      width: 1.3,
                                     ),
                                   ),
                                   child: Row(
@@ -1220,7 +810,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondary,
-                                      width: 1.0,
+                                      width: 1.3,
                                     ),
                                   ),
                                   child: Row(
@@ -1297,7 +887,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           ? FlutterFlowTheme.of(context).primary
                                           : FlutterFlowTheme.of(context)
                                               .secondary,
-                                      width: 1.0,
+                                      width: 1.3,
                                     ),
                                   ),
                                   child: Row(
@@ -1510,20 +1100,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                   size: 20.0,
                                 ),
                               ),
-                              Text(
-                                valueOrDefault<String>(
-                                  'From: ${dateTimeFormat('Hm', _model.datePicked3)}',
-                                  'Select start time',
+                              if (_model.datePicked3 != null)
+                                Text(
+                                  valueOrDefault<String>(
+                                    'From: ${dateTimeFormat('Hm', _model.datePicked3)}',
+                                    'Select start time',
+                                  ),
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF212121),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF212121),
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
                             ],
                           ),
                         ),
@@ -1594,21 +1185,21 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           fontSize: 13.0,
                                         ),
                                   ),
-                                  count: _model.countControllerValue4 ??=
+                                  count: _model.countControllerValue3 ??=
                                       FFAppState()
                                           .createTask
                                           .taskSchedule
                                           .numberOfHoursPerSession,
                                   updateCount: (count) async {
                                     setState(() =>
-                                        _model.countControllerValue4 = count);
+                                        _model.countControllerValue3 = count);
                                     setState(() {
                                       FFAppState().updateCreateTaskStruct(
                                         (e) => e
                                           ..updateTaskSchedule(
                                             (e) => e
                                               ..numberOfHoursPerSession =
-                                                  _model.countControllerValue4,
+                                                  _model.countControllerValue3,
                                           ),
                                       );
                                     });
@@ -1622,6 +1213,17 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               ),
                             ],
                           ),
+                        ),
+                      if (((_model.datePicked1 != null) ||
+                              (FFAppState().createTask.taskSchedule.startDate !=
+                                  null)) &&
+                          (FFAppState().exactstartingtime == false))
+                        Divider(
+                          height: 32.0,
+                          thickness: 1.0,
+                          indent: 32.0,
+                          endIndent: 32.0,
+                          color: Color(0xFFDEDEDE),
                         ),
                       if (FFAppState()
                               .createTask
@@ -1761,6 +1363,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                     : FlutterFlowTheme.of(
                                                             context)
                                                         .secondary,
+                                                width: 1.3,
                                               ),
                                             ),
                                             child: Padding(
@@ -1799,9 +1402,9 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                                               : FlutterFlowTheme
                                                                       .of(context)
                                                                   .secondary,
-                                                          fontSize: 14.0,
+                                                          fontSize: 13.0,
                                                           fontWeight:
-                                                              FontWeight.bold,
+                                                              FontWeight.w500,
                                                         ),
                                                   ),
                                                 ],
@@ -1990,7 +1593,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               if ((_model.updatedSchedule2?.succeeded ??
                                   true)) {
                                 context.pushNamed(
-                                  'Taskertype',
+                                  'Rates',
                                   queryParameters: {
                                     'id': serializeParam(
                                       widget.id,

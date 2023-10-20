@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
@@ -14,6 +14,7 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -118,6 +119,15 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -128,19 +138,21 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
         key: scaffoldKey,
         backgroundColor: Colors.white,
         drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+          width: MediaQuery.sizeOf(context).width * 0.6,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'task1',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
               ),
             ),
           ),
@@ -164,49 +176,52 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     children: [
-                      Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 32.0, 16.0, 0.0),
-                              child: wrapWithModel(
-                                model: _model.navigationBarModel,
-                                updateCallback: () => setState(() {}),
-                                child: NavigationBarWidget(
-                                  currentPage: 'tasker_type3',
-                                  postId: widget.id,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 32.0, 32.0, 0.0),
+                            32.0, 20.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'Tasker type',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF292929),
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                            wrapWithModel(
+                              model: _model.taskcreationMenueModel,
+                              updateCallback: () => setState(() {}),
+                              child: TaskcreationMenueWidget(
+                                openDrawer: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 20.0, 0.0, 0.0),
+                              child: Text(
+                                'Tasker type',
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF292929),
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ),
+                            Container(
+                              width: 50.0,
+                              height: 50.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                shape: BoxShape.circle,
+                              ),
                             ),
                           ],
                         ),
                       ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 35.0, 32.0, 0.0),
+                            32.0, 38.0, 32.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.start,
@@ -250,7 +265,8 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                               child: Slider(
                                 activeColor:
                                     FlutterFlowTheme.of(context).primary,
-                                inactiveColor: Color(0x3C3D3D3D),
+                                inactiveColor:
+                                    FlutterFlowTheme.of(context).tertiary,
                                 min: 0.0,
                                 max: 100.0,
                                 value: _model.sliderValue ??=
@@ -362,14 +378,15 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Container(
                                   width: 60.0,
-                                  height: 41.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
-                                      color: Color(0xFF5E5D5D),
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
                                       width: 1.0,
                                     ),
                                   ),
@@ -439,7 +456,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                     });
                                   },
                                   width: 42.0,
-                                  height: 41.0,
+                                  height: 36.0,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -454,9 +471,10 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor: Color(0xFF5E5D5D),
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).tertiary,
                                   borderWidth: 1.0,
-                                  borderRadius: 5.0,
+                                  borderRadius: 2.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 4.0, 5.0, 4.0),
                                   hidesUnderline: true,
@@ -561,14 +579,15 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                     10.0, 0.0, 0.0, 0.0),
                                 child: Container(
                                   width: 60.0,
-                                  height: 41.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
                                     color: FlutterFlowTheme.of(context)
                                         .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    borderRadius: BorderRadius.circular(2.0),
                                     shape: BoxShape.rectangle,
                                     border: Border.all(
-                                      color: Color(0xFF5E5D5D),
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
                                       width: 1.0,
                                     ),
                                   ),
@@ -638,7 +657,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                     });
                                   },
                                   width: 42.0,
-                                  height: 41.0,
+                                  height: 36.0,
                                   textStyle: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -653,9 +672,10 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                   fillColor: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
                                   elevation: 2.0,
-                                  borderColor: Color(0xFF5E5D5D),
+                                  borderColor:
+                                      FlutterFlowTheme.of(context).tertiary,
                                   borderWidth: 1.0,
-                                  borderRadius: 5.0,
+                                  borderRadius: 2.0,
                                   margin: EdgeInsetsDirectional.fromSTEB(
                                       10.0, 4.0, 5.0, 4.0),
                                   hidesUnderline: true,
@@ -699,14 +719,15 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                               ),
                               Container(
                                 width: 60.0,
-                                height: 41.0,
+                                height: 36.0,
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                   shape: BoxShape.rectangle,
                                   border: Border.all(
-                                    color: Color(0xFF5E5D5D),
+                                    color:
+                                        FlutterFlowTheme.of(context).tertiary,
                                     width: 1.0,
                                   ),
                                 ),

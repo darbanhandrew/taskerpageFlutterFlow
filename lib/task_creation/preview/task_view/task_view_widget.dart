@@ -1,15 +1,17 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/bid_buy_premium_plan_widget.dart';
-import '/components/bid_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/start_chat_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +52,15 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -83,19 +94,21 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
             key: scaffoldKey,
             backgroundColor: Color(0xFFF6F6F6),
             drawer: Container(
-              width: MediaQuery.sizeOf(context).width * 0.85,
+              width: MediaQuery.sizeOf(context).width * 0.6,
               child: Drawer(
                 elevation: 16.0,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8EAFF),
-                  ),
-                  child: wrapWithModel(
-                    model: _model.drawerContentModel,
-                    updateCallback: () => setState(() {}),
-                    child: DrawerContentWidget(),
+                child: wrapWithModel(
+                  model: _model.navigationBarModel,
+                  updateCallback: () => setState(() {}),
+                  child: NavigationBarWidget(
+                    currentPage: 'publish',
+                    postId: widget.id,
+                    closeDrawer: () async {
+                      if (scaffoldKey.currentState!.isDrawerOpen ||
+                          scaffoldKey.currentState!.isEndDrawerOpen) {
+                        Navigator.pop(context);
+                      }
+                    },
                   ),
                 ),
               ),
@@ -124,40 +137,6 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          if ((getJsonField(
-                                    taskViewPostReadResponse.jsonBody,
-                                    r'''$.data.poster''',
-                                  ) ==
-                                  getJsonField(
-                                    FFAppState().userProfile,
-                                    r'''$.data.name''',
-                                  )) &&
-                              (functions
-                                      .jsonToInt(getJsonField(
-                                        taskViewPostReadResponse.jsonBody,
-                                        r'''$.data.docstatus''',
-                                      ))
-                                      .toString() ==
-                                  '0'))
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 32.0, 16.0, 0.0),
-                                    child: wrapWithModel(
-                                      model: _model.navigationBarModel,
-                                      updateCallback: () => setState(() {}),
-                                      child: NavigationBarWidget(
-                                        currentPage: 'task_periviewe',
-                                        postId: widget.id,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
                           if (getJsonField(
                                 taskViewPostReadResponse.jsonBody,
                                 r'''$.data.poster''',
@@ -168,23 +147,45 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                               ))
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 20.0, 32.0, 28.0),
+                                  32.0, 20.0, 32.0, 38.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
+                                  wrapWithModel(
+                                    model: _model.taskcreationMenueModel,
+                                    updateCallback: () => setState(() {}),
+                                    child: TaskcreationMenueWidget(
+                                      openDrawer: () async {
+                                        await action_blocks.openDrawer(context);
+                                      },
+                                    ),
+                                  ),
                                   Flexible(
-                                    child: Text(
-                                      'This how your task will be shown to public ',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFF3A3A3A),
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w900,
-                                          ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 20.0, 0.0, 0.0),
+                                      child: Text(
+                                        'will be shown to public\nThis how your task ',
+                                        textAlign: TextAlign.center,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFF3A3A3A),
+                                              fontSize: 18.0,
+                                              fontWeight: FontWeight.w900,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  Container(
+                                    width: 50.0,
+                                    height: 50.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFF6F6F6),
+                                      shape: BoxShape.circle,
                                     ),
                                   ),
                                 ],
@@ -204,7 +205,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                 Expanded(
                                   child: Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 8.0),
+                                        0.0, 0.0, 0.0, 8.0),
                                     child: wrapWithModel(
                                       model: _model.navigateBackModel,
                                       updateCallback: () => setState(() {}),
@@ -702,7 +703,7 @@ class _TaskViewWidgetState extends State<TaskViewWidget> {
                                                                         padding:
                                                                             MediaQuery.viewInsetsOf(context),
                                                                         child:
-                                                                            BidWidget(
+                                                                            StartChatWidget(
                                                                           post:
                                                                               getJsonField(
                                                                             taskViewPostReadResponse.jsonBody,

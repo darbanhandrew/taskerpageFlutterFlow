@@ -53,24 +53,24 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => SignInWidget(),
         ),
         FFRoute(
-          name: 'Select_Contry_Language',
-          path: '/selectContryLanguage',
-          builder: (context, params) => SelectContryLanguageWidget(),
+          name: 'SelectCountryLanguage',
+          path: '/select-country-language',
+          builder: (context, params) => SelectCountryLanguageWidget(),
         ),
         FFRoute(
-          name: 'Sign-up',
-          path: '/signUp',
-          builder: (context, params) => SignUpWidget(),
+          name: 'Signup',
+          path: '/signup',
+          builder: (context, params) => SignupWidget(),
         ),
         FFRoute(
-          name: 'Sign-up-information',
-          path: '/signUpInformation',
-          builder: (context, params) => SignUpInformationWidget(),
+          name: 'PersonalDetails',
+          path: '/profile-setup/personal-details',
+          builder: (context, params) => PersonalDetailsWidget(),
         ),
         FFRoute(
-          name: 'Sign-up-Verification-Request',
-          path: '/signUpVerificationRequest',
-          builder: (context, params) => SignUpVerificationRequestWidget(
+          name: 'PhoneVerificationPage',
+          path: '/phone-verification',
+          builder: (context, params) => PhoneVerificationPageWidget(
             phoneNumber: params.getParam('phoneNumber', ParamType.String),
           ),
         ),
@@ -85,9 +85,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => SignInInformationWidget(),
         ),
         FFRoute(
-          name: 'email_verification',
-          path: '/emailVerification',
-          builder: (context, params) => EmailVerificationWidget(),
+          name: 'EmailVerificationPage',
+          path: '/email-verification',
+          builder: (context, params) => EmailVerificationPageWidget(),
         ),
         FFRoute(
           name: 'Sign-in-Verification-accepted',
@@ -125,9 +125,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => AcceptedNewPasswordWidget(),
         ),
         FFRoute(
-          name: 'Proflewelcome',
-          path: '/proflewelcome',
-          builder: (context, params) => ProflewelcomeWidget(),
+          name: 'welcome',
+          path: '/welcome',
+          builder: (context, params) => WelcomeWidget(),
         ),
         FFRoute(
           name: 'Profile-intersted',
@@ -439,9 +439,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           ),
         ),
         FFRoute(
-          name: 'Sign-up-Verification-Code',
-          path: '/signUpVerificationCode',
-          builder: (context, params) => SignUpVerificationCodeWidget(),
+          name: 'EmailVerificationPageDeprecated',
+          path: '/signup/email-verification',
+          builder: (context, params) => EmailVerificationPageDeprecatedWidget(),
         ),
         FFRoute(
           name: 'webHome',
@@ -480,6 +480,40 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'taskstime',
           path: '/taskstime',
           builder: (context, params) => TaskstimeWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'Rates',
+          path: '/rates',
+          builder: (context, params) => RatesWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'connection',
+          path: '/connection',
+          builder: (context, params) => ConnectionWidget(),
+        ),
+        FFRoute(
+          name: 'Allinvation',
+          path: '/allinvation',
+          builder: (context, params) => AllinvationWidget(),
+        ),
+        FFRoute(
+          name: 'AllConnection',
+          path: '/allConnection',
+          builder: (context, params) => AllConnectionWidget(),
+        ),
+        FFRoute(
+          name: 'AllFollowers',
+          path: '/allFollowers',
+          builder: (context, params) => AllFollowersWidget(),
+        ),
+        FFRoute(
+          name: 'PublishTask',
+          path: '/publishTask',
+          builder: (context, params) => PublishTaskWidget(
             id: params.getParam('id', ParamType.String),
           ),
         )

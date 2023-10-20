@@ -11,6 +11,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -103,6 +104,7 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
       FFAppState().userProfile,
       r'''$.data.phone_number''',
     ).toString().toString()));
+    _model.textFieldFocusNode ??= FocusNode();
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -122,6 +124,15 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -309,6 +320,7 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
                                     decoration: BoxDecoration(),
                                     child: TextFormField(
                                       controller: _model.textController,
+                                      focusNode: _model.textFieldFocusNode,
                                       obscureText: false,
                                       decoration: InputDecoration(
                                         isDense: true,

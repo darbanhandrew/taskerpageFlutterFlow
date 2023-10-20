@@ -1,21 +1,19 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
-import '/flutter_flow/flutter_flow_drop_down.dart';
-import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'calendar_widget.dart' show CalendarWidget;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,56 +33,45 @@ class CalendarModel extends FlutterFlowModel<CalendarWidget> {
   ApiCallResponse? apiResultbhr;
   // Model for Header component.
   late HeaderModel headerModel;
-  // Model for navigationBar component.
-  late NavigationBarModel navigationBarModel;
+  // Model for taskcreationMenue component.
+  late TaskcreationMenueModel taskcreationMenueModel;
   DateTime? datePicked1;
   DateTime? datePicked2;
-  // State field(s) for DropDown widget.
-  String? dropDownValue1;
-  FormFieldController<String>? dropDownValueController1;
   // State field(s) for CountController widget.
   int? countControllerValue1;
   // State field(s) for CountController widget.
   int? countControllerValue2;
-  // State field(s) for DropDown widget.
-  String? dropDownValue2;
-  FormFieldController<String>? dropDownValueController2;
-  // State field(s) for RadioButton widget.
-  FormFieldController<String>? radioButtonValueController;
-  // State field(s) for CountController widget.
-  int? countControllerValue3;
   // State field(s) for Switch widget.
   bool? switchValue;
   DateTime? datePicked3;
   // State field(s) for CountController widget.
-  int? countControllerValue4;
+  int? countControllerValue3;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (Update Task Schedule)] action in button_Next widget.
   ApiCallResponse? updatedSchedule2;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
-    navigationBarModel = createModel(context, () => NavigationBarModel());
+    taskcreationMenueModel =
+        createModel(context, () => TaskcreationMenueModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
-    navigationBarModel.dispose();
+    taskcreationMenueModel.dispose();
     buttonNextModel.dispose();
-    drawerContentModel.dispose();
+    navigationBarModel.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
-
-  String? get radioButtonValue => radioButtonValueController?.value;
 }

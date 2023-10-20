@@ -1,10 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +37,37 @@ class _Skills3WidgetState extends State<Skills3Widget> {
     super.initState();
     _model = createModel(context, () => Skills3Model());
 
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      _model.userProfile =
+          await TaskerpageBackendGroup.userProfileReadCall.call(
+        id: getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.name''',
+        ).toString().toString(),
+        apiGlobalKey: FFAppState().apiKey,
+      );
+      if ((_model.userProfile?.succeeded ?? true)) {
+        setState(() {
+          _model.chosenSkillCategory =
+              (TaskerpageBackendGroup.userProfileReadCall.customerSkills(
+            (_model.userProfile?.jsonBody ?? ''),
+          ) as List)
+                  .map<String>((s) => s.toString())
+                  .toList()!
+                  .map((e) => getJsonField(
+                        e,
+                        r'''$.skill_category_name''',
+                      ))
+                  .toList()
+                  .map((e) => e.toString())
+                  .toList()
+                  .toList()
+                  .cast<String>();
+        });
+      }
+    });
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -46,6 +80,15 @@ class _Skills3WidgetState extends State<Skills3Widget> {
 
   @override
   Widget build(BuildContext context) {
+    if (isiOS) {
+      SystemChrome.setSystemUIOverlayStyle(
+        SystemUiOverlayStyle(
+          statusBarBrightness: Theme.of(context).brightness,
+          systemStatusBarContrastEnforced: true,
+        ),
+      );
+    }
+
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -90,219 +133,282 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                         wrapWithModel(
                           model: _model.headerModel,
                           updateCallback: () => setState(() {}),
-                          child: HeaderWidget(
-                            openDrawer: () async {
-                              scaffoldKey.currentState!.openDrawer();
-                            },
+                          child: Hero(
+                            tag: 'header',
+                            transitionOnUserGestures: true,
+                            child: Material(
+                              color: Colors.transparent,
+                              child: HeaderWidget(
+                                openDrawer: () async {
+                                  scaffoldKey.currentState!.openDrawer();
+                                },
+                              ),
+                            ),
                           ),
                         ),
                       ],
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(15.0, 32.0, 15.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Select 3 things you can do professionally\nor as hobby! (You add more later)',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
+                    FutureBuilder<ApiCallResponse>(
+                      future: FFAppState().appRoleDetails(
+                        uniqueQueryKey:
+                            '${FFAppState().apiKey}_${valueOrDefault<String>(
+                          getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.role_profile_name''',
+                          ).toString(),
+                          'End User',
+                        )}',
+                        requestFn: () =>
+                            TaskerpageBackendGroup.readAppRoleCall.call(
+                          name: valueOrDefault<String>(
+                            getJsonField(
+                              FFAppState().userProfile,
+                              r'''$.data.role_profile_name''',
+                            ).toString(),
+                            'End User',
                           ),
-                        ],
+                          apiGlobalKey: FFAppState().apiKey,
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 25.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: FutureBuilder<ApiCallResponse>(
-                              future: TaskerpageBackendGroup
-                                  .serviceCategoryListCall
-                                  .call(
-                                apiGlobalKey: FFAppState().apiKey,
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50.0,
+                              height: 50.0,
+                              child: SpinKitThreeBounce(
+                                color: FlutterFlowTheme.of(context).primary,
+                                size: 50.0,
                               ),
-                              builder: (context, snapshot) {
-                                // Customize what your widget looks like when it's loading.
-                                if (!snapshot.hasData) {
-                                  return Center(
-                                    child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
-                                      child: SpinKitThreeBounce(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        size: 50.0,
-                                      ),
-                                    ),
-                                  );
-                                }
-                                final gridViewServiceCategoryListResponse =
-                                    snapshot.data!;
-                                return Builder(
-                                  builder: (context) {
-                                    final serviceCategories =
-                                        TaskerpageBackendGroup
-                                                .serviceCategoryListCall
-                                                .serviceCategoryList(
-                                                  gridViewServiceCategoryListResponse
-                                                      .jsonBody,
-                                                )
-                                                ?.toList() ??
-                                            [];
-                                    return GridView.builder(
-                                      padding: EdgeInsets.zero,
-                                      gridDelegate:
-                                          SliverGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: 2,
-                                        crossAxisSpacing: 12.0,
-                                        mainAxisSpacing: 6.0,
-                                        childAspectRatio: 4.2,
-                                      ),
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: serviceCategories.length,
-                                      itemBuilder:
-                                          (context, serviceCategoriesIndex) {
-                                        final serviceCategoriesItem =
-                                            serviceCategories[
-                                                serviceCategoriesIndex];
-                                        return InkWell(
-                                          splashColor: Colors.transparent,
-                                          focusColor: Colors.transparent,
-                                          hoverColor: Colors.transparent,
-                                          highlightColor: Colors.transparent,
-                                          onTap: () async {
-                                            if (FFAppState()
-                                                .ChhosenSkillCategory
-                                                .contains(getJsonField(
+                            ),
+                          );
+                        }
+                        final columnReadAppRoleResponse = snapshot.data!;
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  15.0, 32.0, 15.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    TaskerpageBackendGroup.readAppRoleCall
+                                        .addSkillsText(
+                                          columnReadAppRoleResponse.jsonBody,
+                                        )
+                                        .toString(),
+                                    textAlign: TextAlign.center,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 25.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    child: Builder(
+                                      builder: (context) {
+                                        final serviceCategories = getJsonField(
+                                          gridViewResponse.jsonBody,
+                                          r'''''',
+                                        ).toList();
+                                        return GridView.builder(
+                                          padding: EdgeInsets.zero,
+                                          gridDelegate:
+                                              SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
+                                            crossAxisSpacing: 12.0,
+                                            mainAxisSpacing: 6.0,
+                                            childAspectRatio: 4.2,
+                                          ),
+                                          shrinkWrap: true,
+                                          scrollDirection: Axis.vertical,
+                                          itemCount: serviceCategories.length,
+                                          itemBuilder: (context,
+                                              serviceCategoriesIndex) {
+                                            final serviceCategoriesItem =
+                                                serviceCategories[
+                                                    serviceCategoriesIndex];
+                                            return InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                if (_model.chosenSkillCategory
+                                                    .contains(getJsonField(
                                                   serviceCategoriesItem,
                                                   r'''$.name''',
                                                 ).toString())) {
-                                              setState(() {
-                                                FFAppState()
-                                                    .removeFromChhosenSkillCategory(
-                                                        getJsonField(
-                                                  serviceCategoriesItem,
-                                                  r'''$.name''',
-                                                ).toString());
-                                              });
-                                            } else {
-                                              setState(() {
-                                                FFAppState()
-                                                    .addToChhosenSkillCategory(
-                                                        getJsonField(
-                                                  serviceCategoriesItem,
-                                                  r'''$.name''',
-                                                ).toString());
-                                              });
-                                            }
-                                          },
-                                          child: Container(
-                                            width: 100.0,
-                                            height: 100.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
+                                                  setState(() {
+                                                    _model
+                                                        .removeFromChosenSkillCategory(
+                                                            getJsonField(
+                                                      serviceCategoriesItem,
+                                                      r'''$.name''',
+                                                    ).toString());
+                                                  });
+                                                } else {
+                                                  if (_model.chosenSkillCategory
+                                                          .length <
+                                                      TaskerpageBackendGroup
+                                                          .readAppRoleCall
+                                                          .skillsLimit(
+                                                        columnReadAppRoleResponse
+                                                            .jsonBody,
+                                                      )) {
+                                                    setState(() {
+                                                      _model
+                                                          .addToChosenSkillCategory(
+                                                              getJsonField(
+                                                        serviceCategoriesItem,
+                                                        r'''$.name''',
+                                                      ).toString());
+                                                    });
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'You can\'t choose more than ${TaskerpageBackendGroup.readAppRoleCall.skillsLimit(
+                                                                columnReadAppRoleResponse
+                                                                    .jsonBody,
+                                                              ).toString()} Categories.',
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .error,
+                                                      ),
+                                                    );
+                                                  }
+                                                }
+                                              },
+                                              child: Container(
+                                                width: 100.0,
+                                                height: 100.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
                                                       .secondaryBackground,
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                              border: Border.all(
-                                                color: valueOrDefault<Color>(
-                                                  FFAppState()
-                                                              .ChhosenSkillCategory
-                                                              .contains(
-                                                                  getJsonField(
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          2.0),
+                                                  border: Border.all(
+                                                    color:
+                                                        valueOrDefault<Color>(
+                                                      _model.chosenSkillCategory
+                                                                  .contains(
+                                                                      getJsonField(
                                                                 serviceCategoriesItem,
                                                                 r'''$.name''',
                                                               ).toString()) ==
-                                                          true
-                                                      ? FlutterFlowTheme.of(
+                                                              true
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      FlutterFlowTheme.of(
                                                               context)
-                                                          .primary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
+                                                          .secondaryText,
+                                                    ),
+                                                    width: 1.0,
+                                                  ),
                                                 ),
-                                                width: 1.0,
-                                              ),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      15.0, 0.0, 15.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    getJsonField(
-                                                      serviceCategoriesItem,
-                                                      r'''$.name''',
-                                                    )
-                                                        .toString()
-                                                        .maybeHandleOverflow(
-                                                          maxChars: 17,
-                                                          replacement: '…',
-                                                        ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: valueOrDefault<
-                                                              Color>(
-                                                            FFAppState()
-                                                                        .ChhosenSkillCategory
-                                                                        .contains(
-                                                                            getJsonField(
-                                                                          serviceCategoriesItem,
-                                                                          r'''$.name''',
-                                                                        )
-                                                                                .toString()) ==
-                                                                    true
-                                                                ? FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary
-                                                                : FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondary,
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          15.0, 0.0, 15.0, 0.0),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        getJsonField(
+                                                          serviceCategoriesItem,
+                                                          r'''$.name''',
+                                                        )
+                                                            .toString()
+                                                            .maybeHandleOverflow(
+                                                              maxChars: 17,
+                                                              replacement: '…',
+                                                            ),
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondaryText,
-                                                          ),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color:
+                                                                      valueOrDefault<
+                                                                          Color>(
+                                                                    _model.chosenSkillCategory.contains(
+                                                                                getJsonField(
+                                                                              serviceCategoriesItem,
+                                                                              r'''$.name''',
+                                                                            )
+                                                                                    .toString()) ==
+                                                                            true
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .primary
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                    FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                  ),
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
+                                                ),
                                               ),
-                                            ),
-                                          ),
+                                            );
+                                          },
                                         );
                                       },
-                                    );
-                                  },
-                                );
-                              },
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        );
+                      },
                     ),
                   ],
                 ),
@@ -371,6 +477,63 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                   ),
                                 }.withoutNulls,
                               );
+
+                              if (_model.chosenSkillCategory.length > 0) {
+                                setState(() {
+                                  FFAppState().updateUserStruct(
+                                    (e) => e
+                                      ..customerProfileSkills = FFAppState()
+                                          .user
+                                          .customerProfileSkills
+                                          .where((e) => _model
+                                              .chosenSkillCategory
+                                              .contains(e.serviceCategory))
+                                          .toList(),
+                                  );
+                                });
+                                while (_model.chosenSkillCategory.length > 0) {
+                                  if (FFAppState()
+                                          .user
+                                          .customerProfileSkills
+                                          .where((e) =>
+                                              e.serviceCategory ==
+                                              _model.chosenSkillCategory.first)
+                                          .toList()
+                                          .length <=
+                                      0) {
+                                    setState(() {
+                                      FFAppState().updateUserStruct(
+                                        (e) => e
+                                          ..updateCustomerProfileSkills(
+                                            (e) => e.add(UserServiceStruct(
+                                              serviceCategory: _model
+                                                  .chosenSkillCategory.first,
+                                            )),
+                                          ),
+                                      );
+                                    });
+                                  }
+                                  setState(() {
+                                    _model.removeAtIndexFromChosenSkillCategory(
+                                        0);
+                                  });
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'You must choose at least one',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
+                              }
                             },
                             child: Container(
                               width: 104.0,

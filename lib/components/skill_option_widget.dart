@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,9 @@ class _SkillOptionWidgetState extends State<SkillOptionWidget> {
     super.initState();
     _model = createModel(context, () => SkillOptionModel());
 
+    _model.expandableController = ExpandableController(initialExpanded: true);
     _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -93,7 +96,7 @@ class _SkillOptionWidgetState extends State<SkillOptionWidget> {
                     width: double.infinity,
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     child: ExpandableNotifier(
-                      initialExpanded: true,
+                      controller: _model.expandableController,
                       child: ExpandablePanel(
                         header: Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -206,6 +209,7 @@ class _SkillOptionWidgetState extends State<SkillOptionWidget> {
                 Expanded(
                   child: TextFormField(
                     controller: _model.textController,
+                    focusNode: _model.textFieldFocusNode,
                     obscureText: false,
                     decoration: InputDecoration(
                       isDense: true,

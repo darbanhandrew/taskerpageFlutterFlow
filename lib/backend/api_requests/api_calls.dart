@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import '../../flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
@@ -37,7 +37,8 @@ class TaskerpageBackendGroup {
       DeleteUserServiceByIdCall();
   static SetAddressMainCall setAddressMainCall = SetAddressMainCall();
   static DeleteAddressCall deleteAddressCall = DeleteAddressCall();
-  static ServiceListCall serviceListCall = ServiceListCall();
+  static CustomerProfileSkillsListCall customerProfileSkillsListCall =
+      CustomerProfileSkillsListCall();
   static ChangeMyRoleCall changeMyRoleCall = ChangeMyRoleCall();
   static ChangeProfileDeatelsCall changeProfileDeatelsCall =
       ChangeProfileDeatelsCall();
@@ -180,9 +181,17 @@ class TaskerpageBackendGroup {
   static CreateChatCall createChatCall = CreateChatCall();
   static CreateChatTestCall createChatTestCall = CreateChatTestCall();
   static GetMyTasksCall getMyTasksCall = GetMyTasksCall();
+  static JoinTaskCall joinTaskCall = JoinTaskCall();
   static GetMyTasksGroupByCall getMyTasksGroupByCall = GetMyTasksGroupByCall();
   static ReadByEmailCall readByEmailCall = ReadByEmailCall();
   static UpdateTasksTimeCall updateTasksTimeCall = UpdateTasksTimeCall();
+  static FollowReqCall followReqCall = FollowReqCall();
+  static AnswerToFollowReqCall answerToFollowReqCall = AnswerToFollowReqCall();
+  static GetAppRolesCall getAppRolesCall = GetAppRolesCall();
+  static UpdateUserRoleCall updateUserRoleCall = UpdateUserRoleCall();
+  static ReadAppRoleCall readAppRoleCall = ReadAppRoleCall();
+  static ConnectionListCall connectionListCall = ConnectionListCall();
+  static UpdateTaskRateCall updateTaskRateCall = UpdateTaskRateCall();
 }
 
 class RegisterCall {
@@ -192,8 +201,8 @@ class RegisterCall {
     String? username = '',
     String? newPassword = '',
     String? roleProfileName = 'End User',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "email": "${email}",
@@ -264,8 +273,8 @@ class LoginCall {
     String? username = '',
     String? password = '',
     int? useJwt = 1,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "usr": "${username}",
@@ -299,8 +308,8 @@ class LoginCall {
 
 class TestAPICall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "email": "<email>",
@@ -338,8 +347,8 @@ class TestAPICall {
 class GetUserCall {
   Future<ApiCallResponse> call({
     String? username = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get user',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User/${username}',
@@ -367,8 +376,8 @@ class GetUserCall {
 
 class UserProfileMeCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'userProfileMe',
       apiUrl:
@@ -567,6 +576,11 @@ class UserProfileMeCall {
         r'''$.user_services[:].service.id''',
         true,
       );
+  dynamic customerSkills(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_skills''',
+        true,
+      );
 }
 
 class UserProfileBasicInfoCall {
@@ -578,14 +592,16 @@ class UserProfileBasicInfoCall {
     String? phoneNumber = '',
     String? dateOfBirth = '',
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? companyName = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "title": "${title}",
   "account_type": "${accountType}",
   "first_name": "${firstName}",
   "last_name": "${lastName}",
+  "company_name": "${companyName}",
   "phone_number": "${phoneNumber}",
   "date_of_birth": "${dateOfBirth}"
 }''';
@@ -610,8 +626,8 @@ class UserProfileBasicInfoCall {
 
 class ServiceCategoryListCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'serviceCategoryList',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill Category',
@@ -637,8 +653,8 @@ class ServiceCategoryListCall {
 class SyncUserServicesCall {
   Future<ApiCallResponse> call({
     dynamic? userServicesListJson,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final userServicesList = _serializeJson(userServicesListJson);
     final ffApiRequestBody = '''
 ${userServicesList}''';
@@ -672,8 +688,8 @@ class AddressCreateCall {
     String? longitude = '',
     int? isMainAddress = 0,
     String? customerProfile = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "address": "${address}",
@@ -769,8 +785,8 @@ class UploadCall {
     String? doctype = '',
     String? docname = '',
     String? folder = 'Home/Attachments',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'upload',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/upload_file',
@@ -801,8 +817,8 @@ class UserEducationAddCall {
     String? schoolTitle = '',
     String? certificate = '',
     String? customerProfile = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "title": "${title}",
@@ -868,8 +884,8 @@ class MyEducationsCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'myEducations',
       apiUrl:
@@ -896,8 +912,8 @@ class MyAddressesCall {
     String? fields = '',
     String? filters = '',
     String? orderBy = 'is_main_address desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'myAddresses',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Address',
@@ -928,8 +944,8 @@ class GetServicesCall {
   Future<ApiCallResponse> call({
     String? category = '',
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getServices',
       apiUrl:
@@ -960,8 +976,8 @@ class CreateUserServiceCall {
     String? serviceCategory = '',
     String? service = '',
     String? userProfile = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "skill_category_name": "${serviceCategory}",
@@ -1021,8 +1037,8 @@ class EditUserServiceCall {
     String? serviceSkillLevel = '',
     String? id = '',
     dynamic? skillOptionsJson,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final skillOptions = _serializeJson(skillOptionsJson, true);
     final ffApiRequestBody = '''
 {
@@ -1080,8 +1096,8 @@ class EditUserServiceCall {
 class GetUserServiceByIdCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getUserServiceById',
       apiUrl:
@@ -1136,8 +1152,8 @@ class GetUserServiceByIdCall {
 class DeleteUserServiceByIdCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'deleteUserServiceById',
       apiUrl:
@@ -1193,8 +1209,8 @@ class SetAddressMainCall {
   Future<ApiCallResponse> call({
     String? id = '',
     bool? isMainAddress,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "is_main_address":${isMainAddress}
@@ -1231,8 +1247,8 @@ class SetAddressMainCall {
 class DeleteAddressCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'deleteAddress',
       apiUrl:
@@ -1250,15 +1266,15 @@ class DeleteAddressCall {
   }
 }
 
-class ServiceListCall {
+class CustomerProfileSkillsListCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'Service List',
+      callName: 'Customer Profile Skills List',
       apiUrl:
           '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills',
       callType: ApiCallType.GET,
@@ -1309,8 +1325,8 @@ class ChangeMyRoleCall {
     String? id = '',
     String? userRole = '',
     String? roleProfileName = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "role": "${userRole}",
@@ -1420,8 +1436,8 @@ class ChangeProfileDeatelsCall {
     int? yearsOfExperience,
     String? driverLicense = '',
     List<String>? userLanguagesList,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final userLanguages = _serializeList(userLanguagesList);
 
     final ffApiRequestBody = '''
@@ -1534,8 +1550,8 @@ class ChangeDescriptionAndProfileImageCall {
     String? id = '',
     String? description = '',
     String? avatar = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "description": "${description}",
@@ -1642,8 +1658,8 @@ class MyPostsCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'myPosts',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
@@ -1702,8 +1718,8 @@ class CreatePostCall {
     String? payCancellationPerHour = '',
     String? cancellationBeforeAppointment = '',
     int? daysOfWeek,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final taskerLanguages = _serializeList(taskerLanguagesList);
 
     final ffApiRequestBody = '''
@@ -1936,8 +1952,8 @@ class UpdatePostCall {
     String? payCancellationPerHour = '',
     String? cancellationBeforeAppointment = '',
     List<String>? daysOfWeekList,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final taskerLanguages = _serializeList(taskerLanguagesList);
     final skillLevel = _serializeList(skillLevelList);
     final daysOfWeek = _serializeList(daysOfWeekList);
@@ -2132,8 +2148,8 @@ class UpdatePostCall {
 
 class InitiatePostCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {}''';
     return ApiManager.instance.makeApiCall(
@@ -2288,8 +2304,8 @@ class InitiatePostCall {
 class SinglePostReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'singlePostRead',
       apiUrl:
@@ -2442,8 +2458,8 @@ class UserProfileListCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'userProfileList',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
@@ -2466,8 +2482,8 @@ class UserProfileListCall {
 class UserProfileReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'userProfileRead',
       apiUrl:
@@ -2617,6 +2633,11 @@ class UserProfileReadCall {
         response,
         r'''$.avatar''',
       );
+  dynamic customerSkills(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_skills''',
+        true,
+      );
 }
 
 class CustomerTaskListCall {
@@ -2624,8 +2645,8 @@ class CustomerTaskListCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Customer Task List',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
@@ -2649,8 +2670,8 @@ class CustomerTaskListCall {
 class PostReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'postRead',
       apiUrl:
@@ -2842,8 +2863,8 @@ class AppointmentListCall {
     String? filters = '[]',
     String? fields = '[\"name\"]',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'appointmentList',
       apiUrl:
@@ -2920,8 +2941,8 @@ class AppointmentListCall {
 
 class AppointmentListCopyCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'appointmentList Copy',
       apiUrl:
@@ -2995,8 +3016,8 @@ class AppointmentListCopyCall {
 class AppointmentReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'appointmentRead',
       apiUrl:
@@ -3028,8 +3049,8 @@ class CreateAppointmentCall {
     String? post = '',
     String? appointmentEndTime = '',
     String? appointmentStartTime = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "appointment_type": "${appointmentType}",
@@ -3068,8 +3089,8 @@ class UpdateAppointmentStatusCall {
   Future<ApiCallResponse> call({
     String? name = '',
     dynamic? bodyJson,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final body = _serializeJson(bodyJson);
     final ffApiRequestBody = '''
 ${body}''';
@@ -3097,8 +3118,8 @@ class UpdateAppointmentCall {
     int? name,
     int? isPosterAccepted,
     int? isTaskerAccepted,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "is_tasker_accepted":"${isTaskerAccepted}",
@@ -3127,8 +3148,8 @@ class MyAppointmentCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'My appointment',
       apiUrl:
@@ -3262,8 +3283,8 @@ class MyAppointmentCall {
 
 class MyBargainsCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'my bargains',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/bargain/my_bargains/',
@@ -3282,8 +3303,8 @@ class MyBargainsCall {
 
 class ServiceCategoryCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'serviceCategory',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/service-category/',
@@ -3312,8 +3333,8 @@ class MyBargainsPostCall {
     int? bargainer,
     int? postId,
     int? appointmentId,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'My bargains post',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/bargain/my_bargains/',
@@ -3359,8 +3380,8 @@ class ReviewCreateCall {
     String? reviewedBy = '',
     double? reviewRate,
     String? comment = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "reviewed_on": "${reviewedOn}",
@@ -3389,8 +3410,8 @@ class ReviewCreateCall {
 
 class ReviewsAboutMeCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Reviews about me',
       apiUrl:
@@ -3411,8 +3432,8 @@ class ReviewsAboutMeCall {
 class SendVerifacationCall {
   Future<ApiCallResponse> call({
     String? to = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "to": "${to}"
@@ -3439,8 +3460,8 @@ class CheckVerficationCall {
   Future<ApiCallResponse> call({
     String? to = '',
     String? code = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "to": "${to}",
@@ -3472,8 +3493,8 @@ class UpdateUserProfileCall {
     String? lastName = '',
     String? phoneNumber = '',
     String? dateOfBirth = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "user_title": "${userTitle}",
@@ -3503,8 +3524,8 @@ class StripeCall {
     String? name = '',
     String? image = '',
     int? price,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "name": "string",
@@ -3535,8 +3556,8 @@ class StripeCall {
 class GetUserServicesCall {
   Future<ApiCallResponse> call({
     String? filter = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get user services',
       apiUrl:
@@ -3561,8 +3582,8 @@ class EducationPartialUpdateCall {
     String? title = '',
     String? certificateUrl = '',
     String? educationLevel = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "title": "${title}",
@@ -3593,8 +3614,8 @@ class UpdateStatusPostCall {
   Future<ApiCallResponse> call({
     int? draft,
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "docstatus": ${draft}
@@ -3624,8 +3645,8 @@ class CreateBargainCall {
     int? bargainee,
     int? bargainer,
     int? postId,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "price": ${price},
@@ -3652,8 +3673,8 @@ class CreateBargainCall {
 class GetServiceCategoryByIdCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getServiceCategoryById',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/service-category/${id}/',
@@ -3701,8 +3722,8 @@ class UpdatePostCalendarDataCall {
   Future<ApiCallResponse> call({
     dynamic? dataJson,
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final data = _serializeJson(dataJson);
     final ffApiRequestBody = '''
 ${data}''';
@@ -3726,8 +3747,8 @@ class UpdatePostServiceCategoryCall {
   Future<ApiCallResponse> call({
     int? relatedServiceCategory,
     int? id,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "related_service_category": ${relatedServiceCategory}
@@ -3756,8 +3777,8 @@ class PostTaskUpdateCall {
     List<String>? taskerLanguagesList,
     String? description = '',
     String? fileDescription = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final taskerLanguages = _serializeList(taskerLanguagesList);
 
     final ffApiRequestBody = '''
@@ -3793,8 +3814,8 @@ class TaskerAgeUpdateCall {
     int? yearsOfExperience,
     bool? insurance,
     String? driverLicense = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "tasker_age":"${taskerAge}" ,
@@ -3829,8 +3850,8 @@ class MaxDistanceUpdatePostCall {
     bool? cancellationPenalty,
     String? payCancellationPerHour = '',
     String? cancellationBeforeAppointment = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "travel_costs": ${travelCosts},
@@ -3860,8 +3881,8 @@ class UpdateAddressinPostCall {
   Future<ApiCallResponse> call({
     int? id,
     int? address,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "address": ${address}
@@ -3884,8 +3905,8 @@ class UpdateAddressinPostCall {
 
 class RandomAdsCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'RandomAds',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/ad/my_ads/',
@@ -3927,8 +3948,8 @@ class RandomAdsCall {
 
 class AllFielsTestCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'all fiels test',
       apiUrl:
@@ -3947,8 +3968,8 @@ class AllFielsTestCall {
 class UpdateAllFiekdsTestCall {
   Future<ApiCallResponse> call({
     double? rating,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "rating": ${rating}
@@ -3974,8 +3995,8 @@ class UpdateAllFiekdsTestCall {
 
 class CreateAllFiledsTestCall {
   Future<ApiCallResponse> call({
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "rating" : 0.1
@@ -4001,8 +4022,8 @@ class CreateAllFiledsTestCall {
 class GenerateKeysCall {
   Future<ApiCallResponse> call({
     String? user = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Generate keys',
       apiUrl:
@@ -4041,8 +4062,8 @@ class UpdateProfileDeatelsCall {
     String? describtion = '',
     String? language = '',
     String? avatar = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "years_of_experience": ${yearsOfExperience},
@@ -4104,8 +4125,8 @@ class TaskCreationCall {
     String? skillLevel = '',
     String? file = '',
     String? fullAddress = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "skill_name": "${skillName}",
@@ -4162,8 +4183,8 @@ class TaskCreationSkillCategoryCall {
   Future<ApiCallResponse> call({
     String? skillCategoryName = '',
     String? poster = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "skill_category_name": "${skillCategoryName}",
@@ -4192,8 +4213,8 @@ class SearchFilterPostsCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'searchFilterPosts',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task',
@@ -4214,8 +4235,8 @@ class SearchFilterPostsCall {
 class GetAddressDetailsCall {
   Future<ApiCallResponse> call({
     String? name = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'getAddressDetails',
       apiUrl:
@@ -4309,8 +4330,8 @@ class GetAddressDetailsCall {
 class GetSkillCategoryDetailsCall {
   Future<ApiCallResponse> call({
     String? name = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Get Skill Category Details',
       apiUrl:
@@ -4374,8 +4395,8 @@ class CustomerProfileListCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Customer Profile List',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
@@ -4404,8 +4425,8 @@ class CreateBidCall {
     String? post = '',
     String? poster = '',
     String? room = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "price": "${price}",
@@ -4459,8 +4480,8 @@ class BidListCall {
     String? filters = '[]',
     String? fields = '[\"name\"]',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Bid List',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Bid',
@@ -4515,8 +4536,8 @@ class BidListCall {
 class CustomerProfileDetailsCall {
   Future<ApiCallResponse> call({
     String? name = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Customer Profile Details',
       apiUrl:
@@ -4616,8 +4637,8 @@ class MyBidCall {
     String? filters = '[]',
     String? fields = '[\"name\"]',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'My bid',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Bid',
@@ -4641,8 +4662,8 @@ class MyBidCall {
 class ServiceDetailCall {
   Future<ApiCallResponse> call({
     String? name = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Service Detail',
       apiUrl:
@@ -4705,8 +4726,8 @@ class UpdateAppintmentStatusCall {
   Future<ApiCallResponse> call({
     String? id = '',
     int? docstatus,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "docstatus":"${docstatus}"
@@ -4734,8 +4755,8 @@ class ReviewReadByIdCall {
   Future<ApiCallResponse> call({
     String? filters = '',
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'review read by id',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Review',
@@ -4759,8 +4780,8 @@ class CheckVerificationCodeCall {
   Future<ApiCallResponse> call({
     String? to = '',
     String? code = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "to":"${to}",
@@ -4788,8 +4809,8 @@ class CheckVerificationCodeCall {
 class SendToVerificationCodeCall {
   Future<ApiCallResponse> call({
     String? to = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "to":"${to}"
@@ -4817,8 +4838,8 @@ class UpdatePhoneVerificationCall {
   Future<ApiCallResponse> call({
     String? id = '',
     int? phoneVerified,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "phone_verified": ${phoneVerified}
@@ -4846,8 +4867,8 @@ class UpdateEmailVerivicationCall {
   Future<ApiCallResponse> call({
     String? id = '',
     int? emailVerified,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "email_verified": ${emailVerified}
@@ -4875,8 +4896,8 @@ class CheckEmailVerificationCall {
   Future<ApiCallResponse> call({
     String? name = '',
     String? code = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "name":"${name}",
@@ -4906,8 +4927,8 @@ class MyReviewsCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'my reviews ',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Review',
@@ -4931,8 +4952,8 @@ class MyReviewsCall {
 class PlanListCall {
   Future<ApiCallResponse> call({
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'plan list',
       apiUrl:
@@ -4955,8 +4976,8 @@ class PlanListCall {
 class PlanReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'plan read',
       apiUrl:
@@ -4979,8 +5000,8 @@ class PayCall {
     String? subscriptionPlanName = '',
     String? successUrl = '',
     String? cancelUrl = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "subscription_plan_name":"${subscriptionPlanName}",
@@ -5015,8 +5036,8 @@ class GetCustomerAdCall {
   Future<ApiCallResponse> call({
     String? customerProfile = '',
     String? position = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "customer_profile": "${customerProfile}",
@@ -5045,8 +5066,8 @@ class ChangeMainAddressCall {
   Future<ApiCallResponse> call({
     int? isMainAddress,
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "is_main_address":${isMainAddress}
@@ -5075,8 +5096,8 @@ class UpdateNameAndLastNameCall {
     String? id = '',
     String? firstName = '',
     String? lastName = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "first_name":"${firstName}",
@@ -5105,8 +5126,8 @@ class UpdateEmailAddressCall {
   Future<ApiCallResponse> call({
     String? id = '',
     String? email = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "email":"${email}"
@@ -5133,8 +5154,8 @@ class UpdatePasswordCall {
   Future<ApiCallResponse> call({
     String? id = '',
     String? password = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "new_password":"<new_password>"
@@ -5161,8 +5182,8 @@ class UpdateProfileCall {
   Future<ApiCallResponse> call({
     String? id = '',
     String? avatar = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "avatar":"${avatar}"
@@ -5190,8 +5211,8 @@ class UpdateBannerCall {
   Future<ApiCallResponse> call({
     String? id = '',
     String? banner = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "banner":"${banner}"
@@ -5218,8 +5239,8 @@ class UpdateBannerCall {
 class SkillDetailsCall {
   Future<ApiCallResponse> call({
     String? name = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Skill Details',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Skill/${name}',
@@ -5240,8 +5261,8 @@ class UpdateSkillCategoryInTaskCall {
   Future<ApiCallResponse> call({
     String? id = '',
     String? skillCategoryName = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "skill_category_name":"${skillCategoryName}"
@@ -5275,8 +5296,8 @@ class UpdateTaskDetailsCall {
     String? file = '',
     int? isOnline,
     dynamic? optionsJson,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final options = _serializeJson(optionsJson, true);
     final ffApiRequestBody = '''
 {
@@ -5311,8 +5332,8 @@ class UpdateTaskOptionsCall {
   Future<ApiCallResponse> call({
     dynamic? optionsJson,
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final options = _serializeJson(optionsJson, true);
     final ffApiRequestBody = '''
 {
@@ -5346,8 +5367,8 @@ class UpdateTaskAddressCall {
     String? longitude = '',
     String? country = '',
     String? city = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'update task address',
       apiUrl:
@@ -5387,8 +5408,8 @@ class UpdateTaskScheduleCall {
     String? repeatEvery = '',
     String? preferredDays = '',
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Update Task Schedule',
       apiUrl:
@@ -5425,8 +5446,8 @@ class UpdateTaskerTypeCall {
     String? taskerGender = '',
     String? taskerAgeRange = '',
     int? identified,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'update tasker type',
       apiUrl:
@@ -5455,8 +5476,8 @@ class UpdateTaskerTypeTwoCall {
     String? driverLicense = '',
     int? insurance,
     String? yearsOfExperience = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'updateTaskerTypeTwo',
       apiUrl:
@@ -5483,8 +5504,8 @@ class UpdateTaskerTypeThreeCall {
   Future<ApiCallResponse> call({
     int? maxDistance,
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'updateTaskerTypeThree',
       apiUrl:
@@ -5509,8 +5530,8 @@ class InitSubCall {
   Future<ApiCallResponse> call({
     String? subscriptionPlanName = '',
     String? customerProfileName = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "subscription_plan_name": "${subscriptionPlanName}",
@@ -5542,8 +5563,8 @@ class InitSubCall {
 class GetSubscriptionUpdateCall {
   Future<ApiCallResponse> call({
     String? name = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "name": "${name}"
@@ -5571,8 +5592,8 @@ class AplyCoponCall {
   Future<ApiCallResponse> call({
     String? couponName = '',
     String? subscriptionName = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'aply copon',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/apply_coupon',
@@ -5596,8 +5617,8 @@ class GetPaymentUrlCall {
   Future<ApiCallResponse> call({
     String? customerProfileName = '',
     String? subscriptionName = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "subscription_name": "${subscriptionName}",
@@ -5625,8 +5646,8 @@ class UpdateSubscriptionCall {
   Future<ApiCallResponse> call({
     String? id = '',
     int? isSubscribed,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "is_subscribed":"${isSubscribed}"
@@ -5653,8 +5674,8 @@ class UpdateSubscriptionCall {
 class PaymentsHistoryCall {
   Future<ApiCallResponse> call({
     String? filters = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'payments history',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Sales Invoice',
@@ -5676,8 +5697,8 @@ class PaymentsHistoryCall {
 class DeatelsPaymentsHistoryReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'deatels payments history read',
       apiUrl:
@@ -5703,8 +5724,8 @@ class DeatelsPaymentsHistoryReadCall {
 class LanguagesListCall {
   Future<ApiCallResponse> call({
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'languages list',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Language',
@@ -5726,8 +5747,8 @@ class LanguagesListCall {
 class CountryListCall {
   Future<ApiCallResponse> call({
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Country list',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Country',
@@ -5749,8 +5770,8 @@ class CountryListCall {
 class GetSubscriptionDetalsCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get subscription detals',
       apiUrl:
@@ -5778,8 +5799,8 @@ class IssueListCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'issue list',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Issue',
@@ -5805,8 +5826,8 @@ class NotificationLogCall {
     String? fields = '',
     String? filters = '',
     String? orderBy = 'creation desc',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'notification log',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Notification Log',
@@ -5837,8 +5858,8 @@ class NotificationReadCall {
   Future<ApiCallResponse> call({
     String? id = '',
     int? read,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'notification read',
       apiUrl:
@@ -5862,8 +5883,8 @@ class NotificationReadCall {
 class EducationDeletCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'education delet',
       apiUrl:
@@ -5884,8 +5905,8 @@ class EducationDeletCall {
 class SkillDeletCall {
   Future<ApiCallResponse> call({
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'skill delet',
       apiUrl:
@@ -5907,8 +5928,8 @@ class UpdateIdentificationCall {
   Future<ApiCallResponse> call({
     String? id = '',
     int? identified,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
 "identified":"${identified}"
@@ -5936,8 +5957,8 @@ class ChatListCall {
   Future<ApiCallResponse> call({
     String? user = '',
     int? task,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'chat list',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.room.get',
@@ -6000,8 +6021,8 @@ class ChatsRoomCall {
     String? orderBy = 'creation desc',
     int? start = 0,
     int? pageLength = 10,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'chats room',
       apiUrl:
@@ -6051,8 +6072,8 @@ class ChatsRoomCopyCall {
   Future<ApiCallResponse> call({
     String? room = '',
     String? email = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'chats room Copy',
       apiUrl:
@@ -6098,8 +6119,8 @@ class ChatsRoomCopyCall {
 class MarkAsReadCall {
   Future<ApiCallResponse> call({
     String? room = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'Mark As Read',
       apiUrl:
@@ -6126,8 +6147,8 @@ class SendMessageCall {
     String? room = '',
     String? user = '',
     String? content = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'send message',
       apiUrl:
@@ -6157,8 +6178,8 @@ class CreateChatCall {
     String? users = '',
     String? type = '',
     String? task = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final ffApiRequestBody = '''
 {
   "room_name": "${roomName}",
@@ -6183,6 +6204,11 @@ class CreateChatCall {
       cache: false,
     );
   }
+
+  dynamic room(dynamic response) => getJsonField(
+        response,
+        r'''$.message.room''',
+      );
 }
 
 class CreateChatTestCall {
@@ -6190,8 +6216,8 @@ class CreateChatTestCall {
     String? roomName = '',
     List<String>? membersList,
     String? type = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     final members = _serializeList(membersList);
 
     final ffApiRequestBody = '''
@@ -6227,8 +6253,8 @@ class GetMyTasksCall {
     String? orderBy = 'creation desc',
     int? limitStart,
     int? limit,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get my tasks',
       apiUrl:
@@ -6252,6 +6278,37 @@ class GetMyTasksCall {
   }
 }
 
+class JoinTaskCall {
+  Future<ApiCallResponse> call({
+    String? user = '',
+    String? status = '',
+    String? customerTask = '',
+    bool? isOwner = false,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'join task',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task Taskers',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'user': user,
+        'status': status,
+        'customer_task': customerTask,
+        'is_owner': isOwner,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
 class GetMyTasksGroupByCall {
   Future<ApiCallResponse> call({
     String? filters = '',
@@ -6259,8 +6316,8 @@ class GetMyTasksGroupByCall {
     String? orderBy = 'creation desc',
     int? limitStart = 0,
     int? limit = 100,
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'get my tasks group by',
       apiUrl:
@@ -6292,10 +6349,10 @@ class GetMyTasksGroupByCall {
 
 class ReadByEmailCall {
   Future<ApiCallResponse> call({
-    String? user = '',
+    String? filters = '',
     String? fields = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'read by email',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
@@ -6304,7 +6361,7 @@ class ReadByEmailCall {
         'Authorization': '${apiGlobalKey}',
       },
       params: {
-        'filters': user,
+        'filters': filters,
         'fields': fields,
       },
       returnBody: true,
@@ -6336,8 +6393,8 @@ class UpdateTasksTimeCall {
   Future<ApiCallResponse> call({
     String? repeatType = '',
     String? id = '',
-    String? apiGlobalKey = 'token 93c031f5d19f49e:9b69a0c2d98e87e',
-  }) {
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'update tasks time',
       apiUrl:
@@ -6350,6 +6407,247 @@ class UpdateTasksTimeCall {
         'repeat_type': repeatType,
       },
       bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class FollowReqCall {
+  Future<ApiCallResponse> call({
+    int? requestor,
+    int? requested,
+    String? status = '',
+    String? requestMessage = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "requestor": ${requestor},
+  "requested": ${requested},
+  "status": "${status}",
+  "request_message": "${requestMessage}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Follow req',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Follow Request',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class AnswerToFollowReqCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? status = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "status": "${status}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'answer to follow req',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Follow Request/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetAppRolesCall {
+  Future<ApiCallResponse> call({
+    String? filters = '[]',
+    String? fields = '[\"role_profile_name\",\"message\"]',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'getAppRoles',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/App Roles',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': filters,
+        'fields': fields,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic roleProfilesList(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      );
+  dynamic roleProfileNames(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].role_profile_name''',
+        true,
+      );
+  dynamic roleProfileMessages(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].message''',
+        true,
+      );
+}
+
+class UpdateUserRoleCall {
+  Future<ApiCallResponse> call({
+    String? roleProfileName = '',
+    String? name = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateUserRole',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User/${name}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'role_profile_name': roleProfileName,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class ReadAppRoleCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Read App Role',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/App Roles/${name}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic appRoleJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  dynamic appRoleName(dynamic response) => getJsonField(
+        response,
+        r'''$.data.name''',
+      );
+  dynamic roleProfileName(dynamic response) => getJsonField(
+        response,
+        r'''$.data.role_profile_name''',
+      );
+  dynamic message(dynamic response) => getJsonField(
+        response,
+        r'''$.data.message''',
+      );
+  dynamic addSkillsText(dynamic response) => getJsonField(
+        response,
+        r'''$.data.add_skills_text''',
+      );
+  dynamic skillsLimit(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skills_limit''',
+      );
+  dynamic doctype(dynamic response) => getJsonField(
+        response,
+        r'''$.data.doctype''',
+      );
+}
+
+class ConnectionListCall {
+  Future<ApiCallResponse> call({
+    String? filters = '',
+    String? fields = '',
+    String? orderBy = 'creation desc',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'connection list',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Follow Request',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': filters,
+        'fields': fields,
+        'order_by': orderBy,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class UpdateTaskRateCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? rateType = '',
+    int? rate,
+    String? rateCurrency = '',
+    String? rateSessionDuration = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:d65ece4f7e421d8',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "rate_type": "${rateType}",
+  "rate": ${rate},
+  "rate_currency": "${rateCurrency}",
+  "rate_session_duration": "${rateSessionDuration}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'update task rate',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Task/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
