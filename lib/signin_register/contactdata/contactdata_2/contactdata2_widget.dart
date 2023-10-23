@@ -17,7 +17,13 @@ import 'contactdata2_model.dart';
 export 'contactdata2_model.dart';
 
 class Contactdata2Widget extends StatefulWidget {
-  const Contactdata2Widget({Key? key}) : super(key: key);
+  const Contactdata2Widget({
+    Key? key,
+    bool? isSignUp,
+  })  : this.isSignUp = isSignUp ?? false,
+        super(key: key);
+
+  final bool isSignUp;
 
   @override
   _Contactdata2WidgetState createState() => _Contactdata2WidgetState();
@@ -99,28 +105,30 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        wrapWithModel(
-                          model: _model.headerModel,
-                          updateCallback: () => setState(() {}),
-                          child: HeaderWidget(
-                            openDrawer: () async {
-                              scaffoldKey.currentState!.openDrawer();
-                            },
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 16.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          wrapWithModel(
+                            model: _model.headerModel,
+                            updateCallback: () => setState(() {}),
+                            child: HeaderWidget(
+                              openDrawer: () async {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                            ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Expanded(
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 8.0, 0.0, 0.0),
+                        if (!widget.isSignUp)
+                          Expanded(
                             child: wrapWithModel(
                               model: _model.navigateBackModel,
                               updateCallback: () => setState(() {}),
@@ -129,7 +137,6 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                               ),
                             ),
                           ),
-                        ),
                       ],
                     ),
                     Expanded(
@@ -371,6 +378,91 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                   ],
                 ),
               ),
+              if (widget.isSignUp)
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            color: Color(0x33000000),
+                            offset: Offset(5.0, 5.0),
+                            spreadRadius: 10.0,
+                          )
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed(
+                                  'Add_another_education',
+                                  queryParameters: {
+                                    'isSignUp': serializeParam(
+                                      true,
+                                      ParamType.bool,
+                                    ),
+                                    'addAnother': serializeParam(
+                                      false,
+                                      ParamType.bool,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              },
+                              child: Container(
+                                width: 104.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  borderRadius: BorderRadius.circular(1.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Save',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                          ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5.0, 0.0, 0.0, 0.0),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        color: Colors.white,
+                                        size: 10.0,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
             ],
           ),
         ),

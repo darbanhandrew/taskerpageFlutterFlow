@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'skill_options_check_component_widget.dart'
@@ -12,8 +13,8 @@ class SkillOptionsCheckComponentModel
     extends FlutterFlowModel<SkillOptionsCheckComponentWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for Checkbox widget.
-  bool? checkboxValue;
+  // State field(s) for Switch widget.
+  bool? switchValue;
 
   /// Initialization and disposal methods.
 

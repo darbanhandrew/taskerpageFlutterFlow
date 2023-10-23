@@ -110,6 +110,10 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                       r'''$.data.preferred_days''',
                     )),
                   ),
+                )
+                ..daysPerWeek = getJsonField(
+                  (_model.apiResultbhr?.jsonBody ?? ''),
+                  r'''$.data.days_per_week''',
                 ),
             );
           });
@@ -550,9 +554,19 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           fontSize: 13.0,
                                         ),
                                   ),
-                                  count: _model.countControllerValue1 ??= 1,
-                                  updateCount: (count) => setState(() =>
-                                      _model.countControllerValue1 = count),
+                                  count: _model.countControllerValue1 ??=
+                                      FFAppState().createTask.daysPerWeek,
+                                  updateCount: (count) async {
+                                    setState(() =>
+                                        _model.countControllerValue1 = count);
+                                    setState(() {
+                                      FFAppState().updateCreateTaskStruct(
+                                        (e) => e
+                                          ..daysPerWeek =
+                                              _model.countControllerValue1,
+                                      );
+                                    });
+                                  },
                                   stepSize: 1,
                                   minimum: 1,
                                   contentPadding:
@@ -630,9 +644,25 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           fontSize: 13.0,
                                         ),
                                   ),
-                                  count: _model.countControllerValue2 ??= 1,
-                                  updateCount: (count) => setState(() =>
-                                      _model.countControllerValue2 = count),
+                                  count: _model.countControllerValue2 ??=
+                                      FFAppState()
+                                          .createTask
+                                          .taskSchedule
+                                          .numberOfHoursPerSession,
+                                  updateCount: (count) async {
+                                    setState(() =>
+                                        _model.countControllerValue2 = count);
+                                    setState(() {
+                                      FFAppState().updateCreateTaskStruct(
+                                        (e) => e
+                                          ..updateTaskSchedule(
+                                            (e) => e
+                                              ..numberOfHoursPerSession =
+                                                  _model.countControllerValue3,
+                                          ),
+                                      );
+                                    });
+                                  },
                                   stepSize: 1,
                                   minimum: 1,
                                   contentPadding:
@@ -1588,6 +1618,8 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         .toList()),
                                 id: widget.id,
                                 apiGlobalKey: FFAppState().apiKey,
+                                daysPerWeek:
+                                    FFAppState().createTask.daysPerWeek,
                               );
                               _shouldSetState = true;
                               if ((_model.updatedSchedule2?.succeeded ??

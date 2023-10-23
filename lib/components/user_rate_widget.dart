@@ -61,8 +61,8 @@ class _UserRateWidgetState extends State<UserRateWidget> {
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(2.0),
+          topRight: Radius.circular(2.0),
         ),
       ),
       child: Container(
@@ -73,8 +73,8 @@ class _UserRateWidgetState extends State<UserRateWidget> {
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(0.0),
             bottomRight: Radius.circular(0.0),
-            topLeft: Radius.circular(16.0),
-            topRight: Radius.circular(16.0),
+            topLeft: Radius.circular(2.0),
+            topRight: Radius.circular(2.0),
           ),
         ),
         child: Column(
@@ -132,7 +132,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                           fontFamily: 'Lato',
                           color: Color(0xFF222222),
                           fontSize: 16.0,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                         ),
                   ),
                 ],
@@ -155,7 +155,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                     initialRating: _model.ratingBarValue ??= 3.0,
                     unratedColor: Color(0xFFFFF3C2),
                     itemCount: 5,
-                    itemSize: 50.0,
+                    itemSize: 45.0,
                     glowColor: Color(0xFFFBD927),
                   ),
                 ],

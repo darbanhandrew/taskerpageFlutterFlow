@@ -1,11 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/drawer_content_widget.dart';
-import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
-import '/components/skill_level_sheet_widget.dart';
-import '/components/skill_options_check_component_widget.dart';
-import '/components/skill_options_chips_component_widget.dart';
+import '/components/selectable_skill_details_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -62,6 +59,7 @@ class _Skills4WidgetState extends State<Skills4Widget> {
               .toList()
               .cast<UserServiceStruct>();
         });
+        setState(() {});
       }
     });
 
@@ -178,7 +176,7 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                   builder: (context) {
                                     final serviceCategoryIds = _model
                                         .customerProfileSkills
-                                        .map((e) => e.serviceCategory)
+                                        .map((e) => e.skillCategoryName)
                                         .toList();
                                     return ListView.separated(
                                       padding: EdgeInsets.zero,
@@ -201,6 +199,8 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                             setState(() {
                                               _model.selectedServiceCategory =
                                                   serviceCategoryIdsItem;
+                                              _model.selectedCategoryIndex =
+                                                  serviceCategoryIdsIndex;
                                             });
                                           },
                                           child: Container(
@@ -267,660 +267,96 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                   },
                                 ),
                               ),
-                              Divider(
-                                height: 48.0,
-                                thickness: 1.0,
-                                indent: 32.0,
-                                endIndent: 32.0,
-                                color: Color(0xFFE3E3E3),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 0.0, 32.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      'Skills',
-                                      textAlign: TextAlign.justify,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
+                              FutureBuilder<ApiCallResponse>(
+                                future:
+                                    TaskerpageBackendGroup.getServicesCall.call(
+                                  category: '[]',
+                                  fields:
+                                      '[\"name\",\"skill_category_name\",\"skills\",\"skill_options\",\"name\"]',
                                 ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    32.0, 10.0, 32.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Expanded(
-                                      child: FutureBuilder<ApiCallResponse>(
-                                        future: TaskerpageBackendGroup
-                                            .getServicesCall
-                                            .call(
-                                          category:
-                                              '[[\"skill_category_name\",\"=\",\"${_model.selectedServiceCategory}\"]]',
-                                          apiGlobalKey: FFAppState().apiKey,
-                                          fields: '[\"skill_name\",\"name\"]',
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        child: SpinKitThreeBounce(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 50.0,
                                         ),
-                                        builder: (context, snapshot) {
-                                          // Customize what your widget looks like when it's loading.
-                                          if (!snapshot.hasData) {
-                                            return Center(
-                                              child: SizedBox(
-                                                width: 50.0,
-                                                height: 50.0,
-                                                child: SpinKitThreeBounce(
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 50.0,
-                                                ),
-                                              ),
-                                            );
-                                          }
-                                          final gridViewGetServicesResponse =
-                                              snapshot.data!;
-                                          return Builder(
-                                            builder: (context) {
-                                              final services =
-                                                  TaskerpageBackendGroup
-                                                          .getServicesCall
-                                                          .servicesList(
-                                                            gridViewGetServicesResponse
-                                                                .jsonBody,
-                                                          )
-                                                          ?.toList() ??
-                                                      [];
-                                              if (services.isEmpty) {
-                                                return EmtyContainerWidget(
-                                                  title:
-                                                      'Choose a skill category !',
-                                                  goTo: () async {},
-                                                );
-                                              }
-                                              return GridView.builder(
-                                                padding: EdgeInsets.zero,
-                                                gridDelegate:
-                                                    SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: 2,
-                                                  crossAxisSpacing: 12.0,
-                                                  mainAxisSpacing: 6.0,
-                                                  childAspectRatio: 4.2,
-                                                ),
-                                                shrinkWrap: true,
-                                                scrollDirection: Axis.vertical,
-                                                itemCount: services.length,
-                                                itemBuilder:
-                                                    (context, servicesIndex) {
-                                                  final servicesItem =
-                                                      services[servicesIndex];
-                                                  return InkWell(
-                                                    splashColor:
-                                                        Colors.transparent,
-                                                    focusColor:
-                                                        Colors.transparent,
-                                                    hoverColor:
-                                                        Colors.transparent,
-                                                    highlightColor:
-                                                        Colors.transparent,
-                                                    onTap: () async {
-                                                      var _shouldSetState =
-                                                          false;
-                                                      if (!FFAppState()
-                                                          .SelectServices
-                                                          .contains(
-                                                              getJsonField(
-                                                            servicesItem,
-                                                            r'''$.name''',
-                                                          ).toString())) {
-                                                        _model.createdUserService =
-                                                            await TaskerpageBackendGroup
-                                                                .createUserServiceCall
-                                                                .call(
-                                                          serviceCategory: _model
-                                                              .selectedServiceCategory,
-                                                          service: getJsonField(
-                                                            servicesItem,
-                                                            r'''$.name''',
-                                                          ).toString(),
-                                                          userProfile:
-                                                              getJsonField(
-                                                            FFAppState()
-                                                                .userProfile,
-                                                            r'''$.data.name''',
-                                                          ).toString(),
-                                                          apiGlobalKey:
-                                                              FFAppState()
-                                                                  .apiKey,
-                                                        );
-                                                        _shouldSetState = true;
-                                                        if ((_model
-                                                                .createdUserService
-                                                                ?.succeeded ??
-                                                            true)) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SkillLevelSheetWidget(
-                                                                    userService:
-                                                                        getJsonField(
-                                                                      (_model.createdUserService
-                                                                              ?.jsonBody ??
-                                                                          ''),
-                                                                      r'''$.data''',
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else {
-                                                          if (_shouldSetState)
-                                                            setState(() {});
-                                                          return;
-                                                        }
-                                                      } else {
-                                                        _model.userServiceGet =
-                                                            await TaskerpageBackendGroup
-                                                                .getUserServicesCall
-                                                                .call(
-                                                          filter:
-                                                              '[[\"skill_category_name\",\"=\",\"${_model.selectedServiceCategory}\"],[\"skill_name\",\"=\",\"${getJsonField(
-                                                            servicesItem,
-                                                            r'''$.name''',
-                                                          ).toString()}\"],[\"customer_profile\",\"=\",\"${getJsonField(
-                                                            FFAppState()
-                                                                .userProfile,
-                                                            r'''$.data.name''',
-                                                          ).toString()}\"]]',
-                                                          apiGlobalKey:
-                                                              FFAppState()
-                                                                  .apiKey,
-                                                        );
-                                                        _shouldSetState = true;
-                                                        if ((_model
-                                                                .userServiceGet
-                                                                ?.succeeded ??
-                                                            true)) {
-                                                          await showModalBottomSheet(
-                                                            isScrollControlled:
-                                                                true,
-                                                            backgroundColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            enableDrag: false,
-                                                            context: context,
-                                                            builder: (context) {
-                                                              return GestureDetector(
-                                                                onTap: () => _model
-                                                                        .unfocusNode
-                                                                        .canRequestFocus
-                                                                    ? FocusScope.of(
-                                                                            context)
-                                                                        .requestFocus(_model
-                                                                            .unfocusNode)
-                                                                    : FocusScope.of(
-                                                                            context)
-                                                                        .unfocus(),
-                                                                child: Padding(
-                                                                  padding: MediaQuery
-                                                                      .viewInsetsOf(
-                                                                          context),
-                                                                  child:
-                                                                      SkillLevelSheetWidget(
-                                                                    userService:
-                                                                        getJsonField(
-                                                                      (_model.userServiceGet
-                                                                              ?.jsonBody ??
-                                                                          ''),
-                                                                      r'''$.data[0]''',
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              );
-                                                            },
-                                                          ).then((value) =>
-                                                              safeSetState(
-                                                                  () {}));
-                                                        } else {
-                                                          if (_shouldSetState)
-                                                            setState(() {});
-                                                          return;
-                                                        }
-                                                      }
-
-                                                      if (_shouldSetState)
-                                                        setState(() {});
-                                                    },
-                                                    child: Container(
-                                                      width: 100.0,
-                                                      height: 100.0,
-                                                      decoration: BoxDecoration(
-                                                        color: FlutterFlowTheme
-                                                                .of(context)
-                                                            .secondaryBackground,
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(2.0),
-                                                        border: Border.all(
-                                                          color: FFAppState()
-                                                                      .SelectServices
-                                                                      .contains(
-                                                                          getJsonField(
-                                                                        servicesItem,
-                                                                        r'''$.name''',
-                                                                      )
-                                                                              .toString()) ==
-                                                                  true
-                                                              ? FlutterFlowTheme
-                                                                      .of(
-                                                                          context)
-                                                                  .primary
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondary,
-                                                          width: 1.0,
-                                                        ),
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    15.0,
-                                                                    0.0,
-                                                                    15.0,
-                                                                    0.0),
-                                                        child: Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            Flexible(
-                                                              child: Text(
-                                                                getJsonField(
-                                                                  servicesItem,
-                                                                  r'''$.skill_name''',
-                                                                )
-                                                                    .toString()
-                                                                    .maybeHandleOverflow(
-                                                                      maxChars:
-                                                                          17,
-                                                                      replacement:
-                                                                          '…',
-                                                                    ),
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: FFAppState().SelectServices.contains(getJsonField(
-                                                                                    servicesItem,
-                                                                                    r'''$.name''',
-                                                                                  ).toString()) ==
-                                                                              true
-                                                                          ? FlutterFlowTheme.of(context).primary
-                                                                          : FlutterFlowTheme.of(context).secondary,
-                                                                      fontSize:
-                                                                          12.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .w500,
-                                                                    ),
-                                                              ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  );
-                                                },
-                                              );
-                                            },
-                                          );
-                                        },
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 25.0, 0.0, 0.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          32.0, 0.0, 32.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              '${getJsonField(
-                                                widget.userService,
-                                                r'''$.skill_name''',
-                                              ).toString()} Skill level',
-                                              textAlign: TextAlign.center,
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFF292929),
-                                                    fontSize: 15.0,
-                                                    fontWeight: FontWeight.w500,
-                                                  ),
-                                            ),
+                                    );
+                                  }
+                                  final listViewGetServicesResponse =
+                                      snapshot.data!;
+                                  return ListView(
+                                    padding: EdgeInsets.zero,
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.vertical,
+                                    children: [
+                                      if (_model.selectedServiceCategory ==
+                                          getJsonField(
+                                            listViewGetServicesResponse
+                                                .jsonBody,
+                                            r'''$.data.name''',
+                                          ))
+                                        FutureBuilder<ApiCallResponse>(
+                                          future: TaskerpageBackendGroup
+                                              .getSkillCategoryDetailsCall
+                                              .call(
+                                            name:
+                                                _model.selectedServiceCategory,
+                                            apiGlobalKey: FFAppState().apiKey,
                                           ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          90.0, 25.0, 90.0, 0.0),
-                                      child: Builder(
-                                        builder: (context) {
-                                          final skillLevls = functions
-                                              .returnSkillLevelEnums()
-                                              .toList();
-                                          return ListView.separated(
-                                            padding: EdgeInsets.zero,
-                                            shrinkWrap: true,
-                                            scrollDirection: Axis.vertical,
-                                            itemCount: skillLevls.length,
-                                            separatorBuilder: (_, __) =>
-                                                SizedBox(height: 8.0),
-                                            itemBuilder:
-                                                (context, skillLevlsIndex) {
-                                              final skillLevlsItem =
-                                                  skillLevls[skillLevlsIndex];
-                                              return InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  setState(() {});
-                                                },
-                                                child: Container(
-                                                  width: 230.0,
-                                                  height: 36.0,
-                                                  decoration: BoxDecoration(
+                                          builder: (context, snapshot) {
+                                            // Customize what your widget looks like when it's loading.
+                                            if (!snapshot.hasData) {
+                                              return Center(
+                                                child: SizedBox(
+                                                  width: 50.0,
+                                                  height: 50.0,
+                                                  child: SpinKitThreeBounce(
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .secondaryBackground,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            2.0),
-                                                    border: Border.all(
-                                                      color: () {
-                                                        if ((_model.chosenSkillLevel ==
-                                                                    null ||
-                                                                _model.chosenSkillLevel ==
-                                                                    '') &&
-                                                            (skillLevlsItem ==
-                                                                getJsonField(
-                                                                  widget
-                                                                      .userService,
-                                                                  r'''$.service_skill_level''',
-                                                                ))) {
-                                                          return FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary;
-                                                        } else if (_model
-                                                                .chosenSkillLevel ==
-                                                            skillLevlsItem) {
-                                                          return FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary;
-                                                        } else {
-                                                          return FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondary;
-                                                        }
-                                                      }(),
-                                                      width: 1.0,
-                                                    ),
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        skillLevlsItem,
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: () {
-                                                                    if ((_model.chosenSkillLevel ==
-                                                                                null ||
-                                                                            _model.chosenSkillLevel ==
-                                                                                '') &&
-                                                                        (skillLevlsItem ==
-                                                                            getJsonField(
-                                                                              widget.userService,
-                                                                              r'''$.service_skill_level''',
-                                                                            ))) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary;
-                                                                    } else if (_model
-                                                                            .chosenSkillLevel ==
-                                                                        skillLevlsItem) {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary;
-                                                                    } else {
-                                                                      return FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary;
-                                                                    }
-                                                                  }(),
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                    ],
+                                                        .primary,
+                                                    size: 50.0,
                                                   ),
                                                 ),
                                               );
-                                            },
-                                          );
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Divider(
-                                    height: 60.0,
-                                    thickness: 1.0,
-                                    indent: 32.0,
-                                    endIndent: 32.0,
-                                    color: Color(0x615E5D5D),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 0.0, 32.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Skill Options',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Color(0xFF292929),
-                                                fontSize: 15.0,
-                                                fontWeight: FontWeight.w500,
+                                            }
+                                            final selectableSkillDetailsGetSkillCategoryDetailsResponse =
+                                                snapshot.data!;
+                                            return wrapWithModel(
+                                              model: _model
+                                                  .selectableSkillDetailsModel,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child:
+                                                  SelectableSkillDetailsWidget(
+                                                selectedCategoryIndex: _model
+                                                    .selectedCategoryIndex,
+                                                customerProfileSkills: _model
+                                                    .customerProfileSkills,
+                                                skillCategory:
+                                                    SkillCategoryStruct.fromMap(
+                                                        getJsonField(
+                                                  selectableSkillDetailsGetSkillCategoryDetailsResponse
+                                                      .jsonBody,
+                                                  r'''$.data''',
+                                                )),
+                                                selectedCustomerProfileSkill: _model
+                                                        .customerProfileSkills[
+                                                    _model
+                                                        .selectedCategoryIndex!],
                                               ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 20.0, 32.0, 0.0),
-                                    child: Builder(
-                                      builder: (context) {
-                                        final skillOptions = getJsonField(
-                                          optionsSkillDetailsResponse.jsonBody,
-                                          r'''$.data.skill_options''',
-                                        ).toList();
-                                        if (skillOptions.isEmpty) {
-                                          return EmtyContainerWidget(
-                                            goTo: () async {},
-                                          );
-                                        }
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children:
-                                              List.generate(skillOptions.length,
-                                                  (skillOptionsIndex) {
-                                            final skillOptionsItem =
-                                                skillOptions[skillOptionsIndex];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                if (functions.jsonToString(
-                                                        getJsonField(
-                                                      skillOptionsItem,
-                                                      r'''$.type''',
-                                                    )) ==
-                                                    'Check')
-                                                  Expanded(
-                                                    child: wrapWithModel(
-                                                      model: _model
-                                                          .skillOptionsCheckComponentModels
-                                                          .getModel(
-                                                        getJsonField(
-                                                          skillOptionsItem,
-                                                          r'''$.option_name''',
-                                                        ).toString(),
-                                                        skillOptionsIndex,
-                                                      ),
-                                                      updateCallback: () =>
-                                                          setState(() {}),
-                                                      updateOnChange: true,
-                                                      child:
-                                                          SkillOptionsCheckComponentWidget(
-                                                        key: Key(
-                                                          'Keyhku_${getJsonField(
-                                                            skillOptionsItem,
-                                                            r'''$.option_name''',
-                                                          ).toString()}',
-                                                        ),
-                                                        skillOption:
-                                                            getJsonField(
-                                                          skillOptionsItem,
-                                                          r'''$''',
-                                                        ),
-                                                        defaultValue: false,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                if (functions.jsonToString(
-                                                        getJsonField(
-                                                      skillOptionsItem,
-                                                      r'''$.type''',
-                                                    )) ==
-                                                    'Select')
-                                                  Expanded(
-                                                    child: wrapWithModel(
-                                                      model: _model
-                                                          .skillOptionsChipsComponentModels
-                                                          .getModel(
-                                                        getJsonField(
-                                                          skillOptionsItem,
-                                                          r'''$.option_name''',
-                                                        ).toString(),
-                                                        skillOptionsIndex,
-                                                      ),
-                                                      updateCallback: () =>
-                                                          setState(() {}),
-                                                      child:
-                                                          SkillOptionsChipsComponentWidget(
-                                                        key: Key(
-                                                          'Key96v_${getJsonField(
-                                                            skillOptionsItem,
-                                                            r'''$.option_name''',
-                                                          ).toString()}',
-                                                        ),
-                                                        skillOption:
-                                                            getJsonField(
-                                                          skillOptionsItem,
-                                                          r'''$''',
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                              ],
                                             );
-                                          }).divide(SizedBox(height: 8.0)),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
+                                          },
+                                        ),
+                                    ],
+                                  );
+                                },
                               ),
                             ],
                           ),
@@ -985,27 +421,165 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (!widget.addAnother) {
-                                context.pushNamed(
-                                  'Contactdata-1',
-                                  queryParameters: {
-                                    'taskCreation': serializeParam(
-                                      false,
-                                      ParamType.bool,
-                                    ),
-                                  }.withoutNulls,
+                              _model.selectedCategoryIndex = 0;
+                              while (_model.customerProfileSkills.length >
+                                  _model.selectedCategoryIndex!) {
+                                _model.skillCategoryDetails =
+                                    await TaskerpageBackendGroup
+                                        .getSkillCategoryDetailsCall
+                                        .call(
+                                  name: _model
+                                      .customerProfileSkills[
+                                          _model.selectedCategoryIndex!]
+                                      .skillCategoryName,
+                                  apiGlobalKey: FFAppState().apiKey,
                                 );
-
-                                setState(() {
-                                  FFAppState().ChhosenSkillCategory = [];
-                                });
-                              } else {
-                                context.pushNamed('Skills_List');
-
-                                setState(() {
-                                  FFAppState().ChhosenSkillCategory = [];
-                                });
+                                if ((_model.skillCategoryDetails?.succeeded ??
+                                    true)) {
+                                  _model.selectedSkills = TaskerpageBackendGroup
+                                      .getSkillCategoryDetailsCall
+                                      .skills(
+                                        (_model.skillCategoryDetails
+                                                ?.jsonBody ??
+                                            ''),
+                                      )!
+                                      .map((e) => e != null && e != ''
+                                          ? SkillStruct.fromMap(e)
+                                          : null)
+                                      .withoutNulls
+                                      .toList()
+                                      .cast<SkillStruct>();
+                                  while (_model.selectedSkills.length >
+                                      _model.innerLoopIndex!) {
+                                    if (!_model
+                                        .selectableSkillDetailsModel
+                                        .selectableSkillsListModel
+                                        .selectableBoxModels
+                                        .getValueForKey(
+                                      _model
+                                          .selectedSkills[
+                                              _model.innerLoopIndex!]
+                                          .skill,
+                                      (m) => m.checkboxValue,
+                                    )!) {
+                                      _model.removeAtIndexFromSelectedSkills(
+                                          _model.innerLoopIndex!);
+                                    }
+                                    _model.innerLoopIndex =
+                                        _model.innerLoopIndex! + 1;
+                                  }
+                                }
+                                _model.updateCustomerProfileSkillsAtIndex(
+                                  _model.selectedCategoryIndex!,
+                                  (e) => e
+                                    ..skills = _model.selectedSkills.toList(),
+                                );
+                                _model.updateCustomerProfileSkillsAtIndex(
+                                  _model.selectedCategoryIndex!,
+                                  (e) => e
+                                    ..skillLevel = _model
+                                        .selectableSkillDetailsModel
+                                        .selectSkillLevelModel
+                                        .choiceChipsValue,
+                                );
+                                _model.innerLoopIndex = 0;
+                                while (SkillCategoryStruct.fromMap((_model
+                                                .skillCategoryDetails
+                                                ?.jsonBody ??
+                                            ''))
+                                        .skillOptions
+                                        .length >
+                                    _model.innerLoopIndex!) {
+                                  _model.updateCustomerProfileSkillsAtIndex(
+                                    _model.selectedCategoryIndex!,
+                                    (e) => e
+                                      ..updateCustomerSkillOptions(
+                                        (e) => e[_model.innerLoopIndex!]
+                                          ..values = (((_model.skillCategoryDetails?.jsonBody ??
+                                                                              '') !=
+                                                                          null &&
+                                                                      (_model.skillCategoryDetails?.jsonBody ??
+                                                                              '') !=
+                                                                          ''
+                                                                  ? SkillCategoryStruct.fromMap((_model
+                                                                          .skillCategoryDetails
+                                                                          ?.jsonBody ??
+                                                                      ''))
+                                                                  : null)
+                                                              ?.skillOptions?[
+                                                          _model
+                                                              .innerLoopIndex!])
+                                                      ?.type ==
+                                                  'Select'
+                                              ? functions.convertListOfStringToString(_model
+                                                  .selectableSkillDetailsModel
+                                                  .skillOptionsChipsComponentModels
+                                                  .getValueForKey(
+                                                    SkillCategoryStruct.fromMap(
+                                                            (_model.skillCategoryDetails
+                                                                    ?.jsonBody ??
+                                                                ''))
+                                                        .skillOptions[_model
+                                                            .innerLoopIndex!]
+                                                        .optionName,
+                                                    (m) => m.choiceChipsValues,
+                                                  )
+                                                  ?.toList())
+                                              : _model
+                                                  .selectableSkillDetailsModel
+                                                  .skillOptionsCheckComponentModels
+                                                  .getValueForKey(
+                                                    SkillCategoryStruct.fromMap(
+                                                            (_model.skillCategoryDetails
+                                                                    ?.jsonBody ??
+                                                                ''))
+                                                        .skillOptions[_model
+                                                            .innerLoopIndex!]
+                                                        .optionName,
+                                                    (m) => m.switchValue,
+                                                  )
+                                                  ?.toString(),
+                                      ),
+                                  );
+                                  _model.innerLoopIndex =
+                                      _model.innerLoopIndex! + 1;
+                                }
+                                _model.selectedCategoryIndex =
+                                    _model.selectedCategoryIndex! + 1;
                               }
+                              FFAppState().updateUserStruct(
+                                (e) => e
+                                  ..customerSkills =
+                                      _model.customerProfileSkills.toList(),
+                              );
+                              _model.apiResulteko = await TaskerpageBackendGroup
+                                  .updateCustomerProfileCall
+                                  .call(
+                                customerSkillsJson: _model.customerProfileSkills
+                                    .map((e) => e.toMap())
+                                    .toList(),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              if ((_model.apiResulteko?.succeeded ?? true)) {
+                                context.pushNamed('Skills_List');
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                      'there was a problem updating your skills',
+                                      style: TextStyle(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryText,
+                                      ),
+                                    ),
+                                    duration: Duration(milliseconds: 4000),
+                                    backgroundColor:
+                                        FlutterFlowTheme.of(context).secondary,
+                                  ),
+                                );
+                              }
+
+                              setState(() {});
                             },
                             child: Container(
                               width: 104.0,

@@ -12,6 +12,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -688,11 +689,20 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                           ).toString()}',
                                                         ),
                                                         skillOption:
-                                                            getJsonField(
+                                                            SkillOptionsStruct
+                                                                .fromMap(
+                                                                    getJsonField(
                                                           skillOptionsItem,
                                                           r'''$''',
-                                                        ),
-                                                        defaultValue: false,
+                                                        )),
+                                                        defaultValue: FFAppState()
+                                                                    .createTask
+                                                                    .taskOptions[
+                                                                        skillOptionsIndex]
+                                                                    .values ==
+                                                                'true'
+                                                            ? true
+                                                            : false,
                                                       ),
                                                     ),
                                                   ),
@@ -724,10 +734,12 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                           ).toString()}',
                                                         ),
                                                         skillOption:
-                                                            getJsonField(
+                                                            SkillOptionsStruct
+                                                                .fromMap(
+                                                                    getJsonField(
                                                           skillOptionsItem,
                                                           r'''$''',
-                                                        ),
+                                                        )),
                                                         selectedChips: '',
                                                       ),
                                                     ),
@@ -1319,13 +1331,14 @@ class _Task2WidgetState extends State<Task2Widget> {
                                             type: _model
                                                 .skillOptionList.first.type,
                                             values: _model
-                                                .skillOptionsCheckComponentModels
-                                                .getValueForKey(
-                                                  _model.skillOptionList.first
-                                                      .name,
-                                                  (m) => m.checkboxValue,
-                                                )
-                                                ?.toString(),
+                                                    .skillOptionsCheckComponentModels
+                                                    .getValueForKey(
+                                              _model.skillOptionList.first
+                                                  .optionName,
+                                              (m) => m.switchValue,
+                                            )!
+                                                ? 'true'
+                                                : 'false',
                                           ));
                                         } else {
                                           setState(() {
@@ -1343,7 +1356,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                             _model
                                                                 .skillOptionList
                                                                 .first
-                                                                .name,
+                                                                .optionName,
                                                             (m) => m
                                                                 .choiceChipsValues,
                                                           )

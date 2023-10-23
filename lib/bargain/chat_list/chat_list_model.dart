@@ -15,29 +15,31 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ChatListModel extends FlutterFlowModel<ChatListWidget> {
+  ///  Local state fields for this page.
+
+  int? taskID;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  Completer<ApiCallResponse>? apiRequestCompleter;
-  // Model for My_post_card component.
-  late MyPostCardModel myPostCardModel;
+  Completer<ApiCallResponse>? apiRequestCompleter3;
+  Completer<ApiCallResponse>? apiRequestCompleter1;
+  Completer<ApiCallResponse>? apiRequestCompleter4;
+  Completer<ApiCallResponse>? apiRequestCompleter2;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    myPostCardModel = createModel(context, () => MyPostCardModel());
-  }
+  void initState(BuildContext context) {}
 
   void dispose() {
     unfocusNode.dispose();
-    myPostCardModel.dispose();
   }
 
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
 
-  Future waitForApiRequestCompleted({
+  Future waitForApiRequestCompleted3({
     double minWait = 0,
     double maxWait = double.infinity,
   }) async {
@@ -45,7 +47,52 @@ class ChatListModel extends FlutterFlowModel<ChatListWidget> {
     while (true) {
       await Future.delayed(Duration(milliseconds: 50));
       final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = apiRequestCompleter?.isCompleted ?? false;
+      final requestComplete = apiRequestCompleter3?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForApiRequestCompleted1({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter1?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForApiRequestCompleted4({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter4?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForApiRequestCompleted2({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter2?.isCompleted ?? false;
       if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
         break;
       }

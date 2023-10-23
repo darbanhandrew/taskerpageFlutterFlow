@@ -30,22 +30,18 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
   late HeaderModel headerModel;
   // Model for requard_star component.
   late RequardStarModel requardStarModel1;
-  // Model for requard_star component.
-  late RequardStarModel requardStarModel2;
-  // Model for requard_star component.
-  late RequardStarModel requardStarModel3;
   // State field(s) for CompanyName widget.
   FocusNode? companyNameFocusNode;
   TextEditingController? companyNameController;
   String? Function(BuildContext, String?)? companyNameControllerValidator;
   // Model for requard_star component.
-  late RequardStarModel requardStarModel4;
+  late RequardStarModel requardStarModel2;
   // State field(s) for FirstName widget.
   FocusNode? firstNameFocusNode;
   TextEditingController? firstNameController;
   String? Function(BuildContext, String?)? firstNameControllerValidator;
   // Model for requard_star component.
-  late RequardStarModel requardStarModel5;
+  late RequardStarModel requardStarModel3;
   // State field(s) for LastName widget.
   FocusNode? lastNameFocusNode;
   TextEditingController? lastNameController;
@@ -59,7 +55,7 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
   final textFieldMask = MaskTextInputFormatter(mask: '(###) ###-####');
   String? Function(BuildContext, String?)? textController4Validator;
   // Model for requard_star component.
-  late RequardStarModel requardStarModel6;
+  late RequardStarModel requardStarModel4;
   DateTime? datePicked;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
@@ -76,8 +72,6 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
     requardStarModel2 = createModel(context, () => RequardStarModel());
     requardStarModel3 = createModel(context, () => RequardStarModel());
     requardStarModel4 = createModel(context, () => RequardStarModel());
-    requardStarModel5 = createModel(context, () => RequardStarModel());
-    requardStarModel6 = createModel(context, () => RequardStarModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
@@ -86,23 +80,21 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
     unfocusNode.dispose();
     headerModel.dispose();
     requardStarModel1.dispose();
-    requardStarModel2.dispose();
-    requardStarModel3.dispose();
     companyNameFocusNode?.dispose();
     companyNameController?.dispose();
 
-    requardStarModel4.dispose();
+    requardStarModel2.dispose();
     firstNameFocusNode?.dispose();
     firstNameController?.dispose();
 
-    requardStarModel5.dispose();
+    requardStarModel3.dispose();
     lastNameFocusNode?.dispose();
     lastNameController?.dispose();
 
     textFieldFocusNode?.dispose();
     textController4?.dispose();
 
-    requardStarModel6.dispose();
+    requardStarModel4.dispose();
     buttonNextModel.dispose();
     drawerContentModel.dispose();
   }

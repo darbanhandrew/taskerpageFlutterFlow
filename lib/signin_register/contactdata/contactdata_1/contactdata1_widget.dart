@@ -415,10 +415,10 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                       fontWeight: FontWeight.w500,
                                     ),
                                 borderSide: BorderSide(
-                                  color: Color(0xFF5E5D5D),
+                                  color: FlutterFlowTheme.of(context).secondary,
                                   width: 1.0,
                                 ),
-                                borderRadius: BorderRadius.circular(5.0),
+                                borderRadius: BorderRadius.circular(2.0),
                               ),
                             ),
                           ),
@@ -507,12 +507,12 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                             },
                             child: Container(
                               width: 150.0,
-                              height: 41.0,
+                              height: 36.0,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(8.0),
+                                borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
-                                  color: Color(0xFF5450E2),
+                                  color: FlutterFlowTheme.of(context).primary,
                                 ),
                               ),
                               child: Row(
@@ -525,7 +525,8 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                         .bodyMedium
                                         .override(
                                           fontFamily: 'Lato',
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           fontSize: 14.0,
                                         ),
                                   ),
@@ -616,17 +617,6 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            Color(0xFF5E5D5D),
-                                                        width: 1.0,
-                                                      ),
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              5.0),
-                                                    ),
-                                                    focusedBorder:
-                                                        OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                        color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .secondary,
@@ -634,7 +624,20 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
+                                                    ),
+                                                    focusedBorder:
+                                                        OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        width: 1.0,
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              2.0),
                                                     ),
                                                     errorBorder:
                                                         OutlineInputBorder(
@@ -645,7 +648,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                     ),
                                                     focusedErrorBorder:
                                                         OutlineInputBorder(
@@ -656,7 +659,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                     ),
                                                     contentPadding:
                                                         EdgeInsetsDirectional
@@ -740,16 +743,6 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -758,7 +751,20 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -768,7 +774,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -778,7 +784,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   contentPadding:
                                                       EdgeInsetsDirectional
@@ -880,16 +886,6 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                   enabledBorder:
                                                       OutlineInputBorder(
                                                     borderSide: BorderSide(
-                                                      color: Color(0xFF5E5D5D),
-                                                      width: 1.0,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            5.0),
-                                                  ),
-                                                  focusedBorder:
-                                                      OutlineInputBorder(
-                                                    borderSide: BorderSide(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -898,7 +894,20 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
+                                                  ),
+                                                  focusedBorder:
+                                                      OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      width: 1.0,
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2.0),
                                                   ),
                                                   errorBorder:
                                                       OutlineInputBorder(
@@ -908,7 +917,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   focusedErrorBorder:
                                                       OutlineInputBorder(
@@ -918,7 +927,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     ),
                                                     borderRadius:
                                                         BorderRadius.circular(
-                                                            5.0),
+                                                            2.0),
                                                   ),
                                                   contentPadding:
                                                       EdgeInsetsDirectional
@@ -981,6 +990,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       _model.cityFocusNode,
                                                   textInputAction:
                                                       TextInputAction.next,
+                                                  readOnly: true,
                                                   obscureText: false,
                                                   decoration: InputDecoration(
                                                     isDense: true,
@@ -1000,12 +1010,14 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                         OutlineInputBorder(
                                                       borderSide: BorderSide(
                                                         color:
-                                                            Color(0xFF5E5D5D),
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .tertiary,
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                     ),
                                                     focusedBorder:
                                                         OutlineInputBorder(
@@ -1013,12 +1025,12 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .secondary,
+                                                                .primary,
                                                         width: 1.0,
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                     ),
                                                     errorBorder:
                                                         OutlineInputBorder(
@@ -1029,7 +1041,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                     ),
                                                     focusedErrorBorder:
                                                         OutlineInputBorder(
@@ -1040,7 +1052,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                                       borderRadius:
                                                           BorderRadius.circular(
-                                                              5.0),
+                                                              2.0),
                                                     ),
                                                     contentPadding:
                                                         EdgeInsetsDirectional
@@ -1117,6 +1129,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                             focusNode: _model.stateFocusNode,
                                             textInputAction:
                                                 TextInputAction.next,
+                                            readOnly: true,
                                             obscureText: false,
                                             decoration: InputDecoration(
                                               isDense: true,
@@ -1133,21 +1146,23 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: Color(0xFF5E5D5D),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiary,
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondary,
+                                                      .primary,
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1155,7 +1170,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
@@ -1164,7 +1179,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               contentPadding:
                                                   EdgeInsetsDirectional
@@ -1251,21 +1266,23 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                       ),
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
-                                                  color: Color(0xFF5E5D5D),
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .tertiary,
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               focusedBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .secondary,
+                                                      .primary,
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               errorBorder: OutlineInputBorder(
                                                 borderSide: BorderSide(
@@ -1273,7 +1290,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               focusedErrorBorder:
                                                   OutlineInputBorder(
@@ -1282,7 +1299,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                   width: 1.0,
                                                 ),
                                                 borderRadius:
-                                                    BorderRadius.circular(5.0),
+                                                    BorderRadius.circular(2.0),
                                               ),
                                               contentPadding:
                                                   EdgeInsetsDirectional
@@ -1362,13 +1379,13 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                     color: Color(0x00FFFFFF),
                                     borderRadius: BorderRadius.circular(5.0),
                                     border: Border.all(
-                                      color: Color(0xFF5450E2),
+                                      color: Colors.white,
                                       width: 1.0,
                                     ),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
                                         'Discard',
@@ -1376,7 +1393,9 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                             .bodyMedium
                                             .override(
                                               fontFamily: 'Lato',
-                                              color: Color(0xFF5450E2),
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
                                               fontSize: 14.0,
                                             ),
                                       ),
@@ -1493,14 +1512,10 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                           context.safePop();
                                         } else {
                                           context.pushNamed(
-                                            'Add_another_education',
+                                            'Contactdata-2',
                                             queryParameters: {
                                               'isSignUp': serializeParam(
                                                 true,
-                                                ParamType.bool,
-                                              ),
-                                              'addAnother': serializeParam(
-                                                false,
                                                 ParamType.bool,
                                               ),
                                             }.withoutNulls,
@@ -1536,10 +1551,10 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                 },
                                 child: Container(
                                   width: 104.0,
-                                  height: 40.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    borderRadius: BorderRadius.circular(1.0),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -1642,10 +1657,10 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                 },
                                 child: Container(
                                   width: 104.0,
-                                  height: 40.0,
+                                  height: 36.0,
                                   decoration: BoxDecoration(
-                                    color: Color(0xFF5450E2),
-                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    borderRadius: BorderRadius.circular(1.0),
                                   ),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,

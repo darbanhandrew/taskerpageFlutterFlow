@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -18,7 +19,7 @@ class SkillOptionsChipsComponentWidget extends StatefulWidget {
     this.selectedChips,
   }) : super(key: key);
 
-  final dynamic skillOption;
+  final SkillOptionsStruct? skillOption;
   final String? selectedChips;
 
   @override
@@ -62,10 +63,10 @@ class _SkillOptionsChipsComponentWidgetState
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(
-              getJsonField(
-                widget.skillOption,
-                r'''$.option_name''',
-              ).toString(),
+              valueOrDefault<String>(
+                widget.skillOption?.optionName,
+                'Option Name',
+              ),
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Lato',
                     fontSize: 13.0,
@@ -82,10 +83,7 @@ class _SkillOptionsChipsComponentWidgetState
               Expanded(
                 child: FlutterFlowChoiceChips(
                   options: functions
-                      .convertStringToListOfString(getJsonField(
-                        widget.skillOption,
-                        r'''$.values''',
-                      ))!
+                      .convertStringToListOfString2(widget.skillOption?.values)!
                       .map((label) => ChipData(label))
                       .toList(),
                   onChanged: (val) =>

@@ -13,8 +13,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -1222,125 +1222,80 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 16.0, 0.0, 15.0),
-                                              child: FutureBuilder<
-                                                  ApiCallResponse>(
-                                                future: (_model
-                                                            .apiRequestCompleter ??=
-                                                        Completer<
-                                                            ApiCallResponse>()
-                                                          ..complete(
-                                                              TaskerpageBackendGroup
-                                                                  .customerProfileSkillsListCall
-                                                                  .call(
-                                                            apiGlobalKey:
-                                                                FFAppState()
-                                                                    .apiKey,
-                                                            fields:
-                                                                '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\"]',
-                                                            filters:
-                                                                '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                                              FFAppState()
-                                                                  .userProfile,
-                                                              r'''$.data.name''',
-                                                            ).toString()}\"]]',
-                                                          )))
-                                                    .future,
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            SpinKitThreeBounce(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          size: 50.0,
-                                                        ),
-                                                      ),
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final myServices = (TaskerpageBackendGroup
+                                                              .userProfileMeCall
+                                                              .customerSkills(
+                                                                taskerProfileUserProfileMeResponse
+                                                                    .jsonBody,
+                                                              )
+                                                              ?.map((e) => e !=
+                                                                          null &&
+                                                                      e != ''
+                                                                  ? UserServiceStruct
+                                                                      .fromMap(
+                                                                          e)
+                                                                  : null)
+                                                              .withoutNulls
+                                                              .toList()
+                                                              ?.toList() ??
+                                                          [])
+                                                      .take(3)
+                                                      .toList();
+                                                  if (myServices.isEmpty) {
+                                                    return EmtyContainerWidget(
+                                                      title:
+                                                          'Add a new skill !',
+                                                      goTo: () async {
+                                                        context.pushNamed(
+                                                          'Skills-3',
+                                                          queryParameters: {
+                                                            'addAnother':
+                                                                serializeParam(
+                                                              true,
+                                                              ParamType.bool,
+                                                            ),
+                                                          }.withoutNulls,
+                                                        );
+                                                      },
                                                     );
                                                   }
-                                                  final listViewCustomerProfileSkillsListResponse =
-                                                      snapshot.data!;
-                                                  return Builder(
-                                                    builder: (context) {
-                                                      final myServices =
-                                                          getJsonField(
-                                                        listViewCustomerProfileSkillsListResponse
-                                                            .jsonBody,
-                                                        r'''$.data''',
-                                                      )
-                                                              .toList()
-                                                              .take(3)
-                                                              .toList();
-                                                      if (myServices.isEmpty) {
-                                                        return EmtyContainerWidget(
-                                                          title:
-                                                              'Add a new skill !',
-                                                          goTo: () async {
-                                                            context.pushNamed(
-                                                              'Skills-3',
-                                                              queryParameters: {
-                                                                'addAnother':
-                                                                    serializeParam(
-                                                                  true,
-                                                                  ParamType
-                                                                      .bool,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          },
-                                                        );
-                                                      }
-                                                      return ListView.separated(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        primary: false,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            myServices.length,
-                                                        separatorBuilder:
-                                                            (_, __) => SizedBox(
-                                                                height: 8.0),
-                                                        itemBuilder: (context,
-                                                            myServicesIndex) {
-                                                          final myServicesItem =
-                                                              myServices[
-                                                                  myServicesIndex];
-                                                          return wrapWithModel(
-                                                            model: _model
-                                                                .skillCardModels
-                                                                .getModel(
-                                                              myServicesIndex
-                                                                  .toString(),
+                                                  return ListView.separated(
+                                                    padding: EdgeInsets.zero,
+                                                    primary: false,
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.vertical,
+                                                    itemCount:
+                                                        myServices.length,
+                                                    separatorBuilder: (_, __) =>
+                                                        SizedBox(height: 8.0),
+                                                    itemBuilder: (context,
+                                                        myServicesIndex) {
+                                                      final myServicesItem =
+                                                          myServices[
+                                                              myServicesIndex];
+                                                      return wrapWithModel(
+                                                        model: _model
+                                                            .skillCardModels
+                                                            .getModel(
+                                                          myServicesIndex
+                                                              .toString(),
+                                                          myServicesIndex,
+                                                        ),
+                                                        updateCallback: () =>
+                                                            setState(() {}),
+                                                        child: SkillCardWidget(
+                                                          key: Key(
+                                                            'Keysxq_${myServicesIndex.toString()}',
+                                                          ),
+                                                          userService:
+                                                              myServicesItem,
+                                                          index:
                                                               myServicesIndex,
-                                                            ),
-                                                            updateCallback:
-                                                                () => setState(
-                                                                    () {}),
-                                                            child:
-                                                                SkillCardWidget(
-                                                              key: Key(
-                                                                'Keysxq_${myServicesIndex.toString()}',
-                                                              ),
-                                                              userService:
-                                                                  myServicesItem,
-                                                              index:
-                                                                  myServicesIndex,
-                                                              action: () async {
-                                                                setState(() =>
-                                                                    _model.apiRequestCompleter =
-                                                                        null);
-                                                                await _model
-                                                                    .waitForApiRequestCompleted();
-                                                              },
-                                                            ),
-                                                          );
-                                                        },
+                                                          action: () async {},
+                                                        ),
                                                       );
                                                     },
                                                   );
@@ -4105,11 +4060,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         },
                                         child: Container(
                                           width: 209.0,
-                                          height: 44.0,
+                                          height: 40.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
-                                                BorderRadius.circular(5.0),
+                                                BorderRadius.circular(2.0),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -4249,11 +4205,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       },
                                       child: Container(
                                         width: 209.0,
-                                        height: 44.0,
+                                        height: 40.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -4463,11 +4420,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                         },
                                         child: Container(
                                           width: 209.0,
-                                          height: 44.0,
+                                          height: 40.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
-                                                BorderRadius.circular(5.0),
+                                                BorderRadius.circular(2.0),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -4618,11 +4576,12 @@ class _TaskerProfileWidgetState extends State<TaskerProfileWidget>
                                       },
                                       child: Container(
                                         width: 209.0,
-                                        height: 44.0,
+                                        height: 40.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,

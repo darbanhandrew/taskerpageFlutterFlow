@@ -865,13 +865,10 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                               _shouldSetState = true;
                               if ((_model.taskCrreation?.succeeded ?? true)) {
                                 context.pushNamed(
-                                  'TaskView',
+                                  'PublishTask',
                                   queryParameters: {
                                     'id': serializeParam(
-                                      getJsonField(
-                                        (_model.taskCrreation?.jsonBody ?? ''),
-                                        r'''$.data.name''',
-                                      ).toString(),
+                                      widget.id,
                                       ParamType.String,
                                     ),
                                   }.withoutNulls,

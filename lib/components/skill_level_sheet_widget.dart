@@ -5,6 +5,7 @@ import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -363,10 +364,12 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                                       r'''$.option_name''',
                                                     ).toString()}',
                                                   ),
-                                                  skillOption: getJsonField(
+                                                  skillOption:
+                                                      SkillOptionsStruct
+                                                          .fromMap(getJsonField(
                                                     skillOptionsItem,
                                                     r'''$''',
-                                                  ),
+                                                  )),
                                                   defaultValue: false,
                                                 ),
                                               ),
@@ -398,10 +401,12 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                                       r'''$.option_name''',
                                                     ).toString()}',
                                                   ),
-                                                  skillOption: getJsonField(
+                                                  skillOption:
+                                                      SkillOptionsStruct
+                                                          .fromMap(getJsonField(
                                                     skillOptionsItem,
                                                     r'''$''',
-                                                  ),
+                                                  )),
                                                 ),
                                               ),
                                             ),
@@ -514,13 +519,14 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                     .addToSkillOptions(SkillOptionsStruct(
                                   name: _model.skillOptionsList.first.name,
                                   type: _model.skillOptionsList.first.type,
-                                  values:
-                                      _model.skillOptionsCheckComponentModels
+                                  values: _model
+                                          .skillOptionsCheckComponentModels
                                           .getValueForKey(
-                                            _model.skillOptionsList.first.name,
-                                            (m) => m.checkboxValue,
-                                          )
-                                          ?.toString(),
+                                    _model.skillOptionsList.first.name,
+                                    (m) => m.switchValue,
+                                  )!
+                                      ? 'true'
+                                      : 'false',
                                 ));
                               } else {
                                 FFAppState()

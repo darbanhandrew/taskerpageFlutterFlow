@@ -18,7 +18,13 @@ import 'education2_model.dart';
 export 'education2_model.dart';
 
 class Education2Widget extends StatefulWidget {
-  const Education2Widget({Key? key}) : super(key: key);
+  const Education2Widget({
+    Key? key,
+    bool? isSignUp,
+  })  : this.isSignUp = isSignUp ?? false,
+        super(key: key);
+
+  final bool isSignUp;
 
   @override
   _Education2WidgetState createState() => _Education2WidgetState();
@@ -729,6 +735,84 @@ class _Education2WidgetState extends State<Education2Widget> {
                           ),
                         ),
                       ),
+                      if (widget.isSignUp)
+                        Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Container(
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: 60.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 5.0,
+                                    color: Color(0x33000000),
+                                    offset: Offset(5.0, 5.0),
+                                    spreadRadius: 10.0,
+                                  )
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    32.0, 0.0, 32.0, 0.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed('Profiledetails');
+                                      },
+                                      child: Container(
+                                        width: 104.0,
+                                        height: 36.0,
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          borderRadius:
+                                              BorderRadius.circular(1.0),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'Save',
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color: Colors.white,
+                                                        fontSize: 14.0,
+                                                      ),
+                                            ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(5.0, 0.0, 0.0, 0.0),
+                                              child: Icon(
+                                                Icons.arrow_forward_ios_rounded,
+                                                color: Colors.white,
+                                                size: 10.0,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                     ],
                   ),
                   if (FFAppState().AddCertificateForEducation == true)

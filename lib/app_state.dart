@@ -195,6 +195,23 @@ class FFAppState extends ChangeNotifier {
         }
       }
     });
+    _safeInit(() {
+      if (prefs.containsKey('ff_cheapsChat')) {
+        try {
+          final serializedData = prefs.getString('ff_cheapsChat') ?? '{}';
+          _cheapsChat =
+              CheapsChatStruct.fromSerializableMap(jsonDecode(serializedData));
+        } catch (e) {
+          print("Can't decode persisted data type. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      _gender = prefs.getStringList('ff_gender') ?? _gender;
+    });
+    _safeInit(() {
+      _DocumentType = prefs.getStringList('ff_DocumentType') ?? _DocumentType;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -633,7 +650,7 @@ class FFAppState extends ChangeNotifier {
     _closeAd = _value;
   }
 
-  String _appApiKey = 'token 58d674f26c65799:577ceab4127df24';
+  String _appApiKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87';
   String get appApiKey => _appApiKey;
   set appApiKey(String _value) {
     _appApiKey = _value;
@@ -941,6 +958,103 @@ class FFAppState extends ChangeNotifier {
   void updateUserStruct(Function(UserStruct) updateFn) {
     updateFn(_user);
     prefs.setString('ff_user', _user.serialize());
+  }
+
+  CheapsChatStruct _cheapsChat = CheapsChatStruct();
+  CheapsChatStruct get cheapsChat => _cheapsChat;
+  set cheapsChat(CheapsChatStruct _value) {
+    _cheapsChat = _value;
+    prefs.setString('ff_cheapsChat', _value.serialize());
+  }
+
+  void updateCheapsChatStruct(Function(CheapsChatStruct) updateFn) {
+    updateFn(_cheapsChat);
+    prefs.setString('ff_cheapsChat', _cheapsChat.serialize());
+  }
+
+  List<String> _gender = ['Mr', 'Mrs', 'Mx'];
+  List<String> get gender => _gender;
+  set gender(List<String> _value) {
+    _gender = _value;
+    prefs.setStringList('ff_gender', _value);
+  }
+
+  void addToGender(String _value) {
+    _gender.add(_value);
+    prefs.setStringList('ff_gender', _gender);
+  }
+
+  void removeFromGender(String _value) {
+    _gender.remove(_value);
+    prefs.setStringList('ff_gender', _gender);
+  }
+
+  void removeAtIndexFromGender(int _index) {
+    _gender.removeAt(_index);
+    prefs.setStringList('ff_gender', _gender);
+  }
+
+  void updateGenderAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _gender[_index] = updateFn(_gender[_index]);
+    prefs.setStringList('ff_gender', _gender);
+  }
+
+  void insertAtIndexInGender(int _index, String _value) {
+    _gender.insert(_index, _value);
+    prefs.setStringList('ff_gender', _gender);
+  }
+
+  List<String> _DocumentType = [
+    'National ID',
+    'Passport',
+    'Residence Permit',
+    'Driver‘s License'
+  ];
+  List<String> get DocumentType => _DocumentType;
+  set DocumentType(List<String> _value) {
+    _DocumentType = _value;
+    prefs.setStringList('ff_DocumentType', _value);
+  }
+
+  void addToDocumentType(String _value) {
+    _DocumentType.add(_value);
+    prefs.setStringList('ff_DocumentType', _DocumentType);
+  }
+
+  void removeFromDocumentType(String _value) {
+    _DocumentType.remove(_value);
+    prefs.setStringList('ff_DocumentType', _DocumentType);
+  }
+
+  void removeAtIndexFromDocumentType(int _index) {
+    _DocumentType.removeAt(_index);
+    prefs.setStringList('ff_DocumentType', _DocumentType);
+  }
+
+  void updateDocumentTypeAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _DocumentType[_index] = updateFn(_DocumentType[_index]);
+    prefs.setStringList('ff_DocumentType', _DocumentType);
+  }
+
+  void insertAtIndexInDocumentType(int _index, String _value) {
+    _DocumentType.insert(_index, _value);
+    prefs.setStringList('ff_DocumentType', _DocumentType);
+  }
+
+  SignUpRateStruct _signUpRate = SignUpRateStruct();
+  SignUpRateStruct get signUpRate => _signUpRate;
+  set signUpRate(SignUpRateStruct _value) {
+    _signUpRate = _value;
+  }
+
+  void updateSignUpRateStruct(Function(SignUpRateStruct) updateFn) {
+    updateFn(_signUpRate);
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

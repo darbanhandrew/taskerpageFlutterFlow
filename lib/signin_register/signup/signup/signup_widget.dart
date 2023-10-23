@@ -585,6 +585,9 @@ class _SignupWidgetState extends State<SignupWidget> {
                                 setState(() {
                                   FFAppState().loading = true;
                                 });
+                                setState(() {
+                                  _model.status = 'Creating User';
+                                });
                                 if (_model.password1Controller.text ==
                                     _model.password2Controller.text) {
                                   _model.rigester = await TaskerpageBackendGroup
@@ -600,59 +603,76 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   );
                                   _shouldSetState = true;
                                   if ((_model.rigester?.succeeded ?? true)) {
-                                    _model.apiResultfu7 =
+                                    setState(() {
+                                      _model.status = 'Assigning Chat Bot';
+                                    });
+                                    _model.settingPassword =
                                         await TaskerpageBackendGroup
-                                            .generateKeysCall
+                                            .setUserPasswordCall
                                             .call(
-                                      user: _model.emailAddressController.text,
+                                      name: _model.emailAddressController.text,
+                                      newPassword:
+                                          _model.password1Controller.text,
                                     );
                                     _shouldSetState = true;
-                                    if ((_model.apiResultfu7?.succeeded ??
+                                    if ((_model.settingPassword?.succeeded ??
                                         true)) {
-                                      setState(() {
-                                        FFAppState().apiKey =
-                                            'token ${TaskerpageBackendGroup.generateKeysCall.apiKey(
-                                                  (_model.apiResultfu7
-                                                          ?.jsonBody ??
-                                                      ''),
-                                                ).toString()}:${TaskerpageBackendGroup.generateKeysCall.apiSecret(
-                                                  (_model.apiResultfu7
-                                                          ?.jsonBody ??
-                                                      ''),
-                                                ).toString()}';
-                                      });
-                                    } else {
-                                      if (_shouldSetState) setState(() {});
-                                      return;
-                                    }
-
-                                    _model.apiResultd93 =
-                                        await TaskerpageBackendGroup
-                                            .userProfileMeCall
-                                            .call(
-                                      apiGlobalKey: FFAppState().apiKey,
-                                    );
-                                    _shouldSetState = true;
-                                    if ((_model.apiResultd93?.succeeded ??
-                                        true)) {
-                                      setState(() {
-                                        FFAppState().userProfile =
-                                            (_model.apiResultd93?.jsonBody ??
-                                                '');
-                                        FFAppState().loading = false;
-                                      });
-                                      await actions.joinSocketChannel(
-                                        _model.emailAddressController.text,
+                                      _model.apiResultfu7 =
+                                          await TaskerpageBackendGroup.loginCall
+                                              .call(
+                                        username:
+                                            _model.emailAddressController.text,
+                                        password:
+                                            _model.password1Controller.text,
+                                        useJwt: 1,
                                       );
+                                      _shouldSetState = true;
+                                      if ((_model.apiResultfu7?.succeeded ??
+                                          true)) {
+                                        setState(() {
+                                          FFAppState().apiKey =
+                                              'Bearer ${getJsonField(
+                                            (_model.apiResultfu7?.jsonBody ??
+                                                ''),
+                                            r'''$.token''',
+                                          ).toString()}';
+                                        });
+                                      } else {
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
 
-                                      context.pushNamed('PersonalDetails');
+                                      _model.apiResultd93 =
+                                          await TaskerpageBackendGroup
+                                              .userProfileMeCall
+                                              .call(
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      _shouldSetState = true;
+                                      if ((_model.apiResultd93?.succeeded ??
+                                          true)) {
+                                        setState(() {
+                                          FFAppState().userProfile =
+                                              (_model.apiResultd93?.jsonBody ??
+                                                  '');
+                                          FFAppState().loading = false;
+                                        });
+                                        await actions.joinSocketChannel(
+                                          _model.emailAddressController.text,
+                                        );
+
+                                        context.pushNamed('PersonalDetails');
+                                      } else {
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+
+                                      if (_shouldSetState) setState(() {});
+                                      return;
                                     } else {
                                       if (_shouldSetState) setState(() {});
                                       return;
                                     }
-
-                                    if (_shouldSetState) setState(() {});
-                                    return;
                                   } else {
                                     setState(() {
                                       FFAppState().loading = false;
@@ -700,7 +720,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   children: [
                                     Text(
                                       FFAppState().loading
-                                          ? 'Just a moment ..'
+                                          ? _model.status
                                           : 'Register',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium

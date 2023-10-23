@@ -64,7 +64,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
             BoxShadow(
               blurRadius: 4.0,
               color: Color(0x33000000),
-              offset: Offset(1.0, 2.0),
+              offset: Offset(0.0, 2.0),
               spreadRadius: 1.0,
             )
           ],

@@ -156,7 +156,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Skills_List',
           path: '/skillsList',
-          builder: (context, params) => SkillsListWidget(),
+          builder: (context, params) => SkillsListWidget(
+            isEdit: params.getParam('isEdit', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'Contactdata-1',
@@ -169,7 +171,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Contactdata-2',
           path: '/contactdata2',
-          builder: (context, params) => Contactdata2Widget(),
+          builder: (context, params) => Contactdata2Widget(
+            isSignUp: params.getParam('isSignUp', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'Contactdata-3',
@@ -199,7 +203,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Education-2',
           path: '/education2',
-          builder: (context, params) => Education2Widget(),
+          builder: (context, params) => Education2Widget(
+            isSignUp: params.getParam('isSignUp', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'Profiledetails',
@@ -516,6 +522,50 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PublishTaskWidget(
             id: params.getParam('id', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'ID1',
+          path: '/id1',
+          builder: (context, params) => Id1Widget(),
+        ),
+        FFRoute(
+          name: 'ID2',
+          path: '/id2',
+          builder: (context, params) => Id2Widget(),
+        ),
+        FFRoute(
+          name: 'ID3',
+          path: '/id3',
+          builder: (context, params) => Id3Widget(),
+        ),
+        FFRoute(
+          name: 'ID4',
+          path: '/id4',
+          builder: (context, params) => Id4Widget(),
+        ),
+        FFRoute(
+          name: 'identification_card',
+          path: '/identificationCard',
+          builder: (context, params) => IdentificationCardWidget(),
+        ),
+        FFRoute(
+          name: 'RateSignUp',
+          path: '/rateSignUp',
+          builder: (context, params) => RateSignUpWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'Rates_list',
+          path: '/ratesList',
+          builder: (context, params) => RatesListWidget(
+            id: params.getParam('id', ParamType.int),
+          ),
+        ),
+        FFRoute(
+          name: 'test2',
+          path: '/test2',
+          builder: (context, params) => Test2Widget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

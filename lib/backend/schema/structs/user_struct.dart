@@ -7,23 +7,20 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class UserStruct extends BaseStruct {
   UserStruct({
-    List<UserServiceStruct>? customerProfileSkills,
-  }) : _customerProfileSkills = customerProfileSkills;
+    List<UserServiceStruct>? customerSkills,
+  }) : _customerSkills = customerSkills;
 
-  // "customerProfileSkills" field.
-  List<UserServiceStruct>? _customerProfileSkills;
-  List<UserServiceStruct> get customerProfileSkills =>
-      _customerProfileSkills ?? const [];
-  set customerProfileSkills(List<UserServiceStruct>? val) =>
-      _customerProfileSkills = val;
-  void updateCustomerProfileSkills(
-          Function(List<UserServiceStruct>) updateFn) =>
-      updateFn(_customerProfileSkills ??= []);
-  bool hasCustomerProfileSkills() => _customerProfileSkills != null;
+  // "customer_skills" field.
+  List<UserServiceStruct>? _customerSkills;
+  List<UserServiceStruct> get customerSkills => _customerSkills ?? const [];
+  set customerSkills(List<UserServiceStruct>? val) => _customerSkills = val;
+  void updateCustomerSkills(Function(List<UserServiceStruct>) updateFn) =>
+      updateFn(_customerSkills ??= []);
+  bool hasCustomerSkills() => _customerSkills != null;
 
   static UserStruct fromMap(Map<String, dynamic> data) => UserStruct(
-        customerProfileSkills: getStructList(
-          data['customerProfileSkills'],
+        customerSkills: getStructList(
+          data['customer_skills'],
           UserServiceStruct.fromMap,
         ),
       );
@@ -32,14 +29,13 @@ class UserStruct extends BaseStruct {
       data is Map<String, dynamic> ? UserStruct.fromMap(data) : null;
 
   Map<String, dynamic> toMap() => {
-        'customerProfileSkills':
-            _customerProfileSkills?.map((e) => e.toMap()).toList(),
+        'customer_skills': _customerSkills?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'customerProfileSkills': serializeParam(
-          _customerProfileSkills,
+        'customer_skills': serializeParam(
+          _customerSkills,
           ParamType.DataStruct,
           true,
         ),
@@ -47,8 +43,8 @@ class UserStruct extends BaseStruct {
 
   static UserStruct fromSerializableMap(Map<String, dynamic> data) =>
       UserStruct(
-        customerProfileSkills: deserializeStructParam<UserServiceStruct>(
-          data['customerProfileSkills'],
+        customerSkills: deserializeStructParam<UserServiceStruct>(
+          data['customer_skills'],
           ParamType.DataStruct,
           true,
           structBuilder: UserServiceStruct.fromSerializableMap,
@@ -62,11 +58,11 @@ class UserStruct extends BaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is UserStruct &&
-        listEquality.equals(customerProfileSkills, other.customerProfileSkills);
+        listEquality.equals(customerSkills, other.customerSkills);
   }
 
   @override
-  int get hashCode => const ListEquality().hash([customerProfileSkills]);
+  int get hashCode => const ListEquality().hash([customerSkills]);
 }
 
 UserStruct createUserStruct() => UserStruct();

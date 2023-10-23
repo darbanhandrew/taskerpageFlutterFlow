@@ -10,9 +10,11 @@ class SkillOptionsStruct extends BaseStruct {
     String? name,
     String? type,
     String? values,
+    String? optionName,
   })  : _name = name,
         _type = type,
-        _values = values;
+        _values = values,
+        _optionName = optionName;
 
   // "name" field.
   String? _name;
@@ -32,11 +34,18 @@ class SkillOptionsStruct extends BaseStruct {
   set values(String? val) => _values = val;
   bool hasValues() => _values != null;
 
+  // "option_name" field.
+  String? _optionName;
+  String get optionName => _optionName ?? '';
+  set optionName(String? val) => _optionName = val;
+  bool hasOptionName() => _optionName != null;
+
   static SkillOptionsStruct fromMap(Map<String, dynamic> data) =>
       SkillOptionsStruct(
         name: data['name'] as String?,
         type: data['type'] as String?,
         values: data['values'] as String?,
+        optionName: data['option_name'] as String?,
       );
 
   static SkillOptionsStruct? maybeFromMap(dynamic data) =>
@@ -46,6 +55,7 @@ class SkillOptionsStruct extends BaseStruct {
         'name': _name,
         'type': _type,
         'values': _values,
+        'option_name': _optionName,
       }.withoutNulls;
 
   @override
@@ -60,6 +70,10 @@ class SkillOptionsStruct extends BaseStruct {
         ),
         'values': serializeParam(
           _values,
+          ParamType.String,
+        ),
+        'option_name': serializeParam(
+          _optionName,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -81,6 +95,11 @@ class SkillOptionsStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        optionName: deserializeParam(
+          data['option_name'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -91,20 +110,24 @@ class SkillOptionsStruct extends BaseStruct {
     return other is SkillOptionsStruct &&
         name == other.name &&
         type == other.type &&
-        values == other.values;
+        values == other.values &&
+        optionName == other.optionName;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([name, type, values]);
+  int get hashCode =>
+      const ListEquality().hash([name, type, values, optionName]);
 }
 
 SkillOptionsStruct createSkillOptionsStruct({
   String? name,
   String? type,
   String? values,
+  String? optionName,
 }) =>
     SkillOptionsStruct(
       name: name,
       type: type,
       values: values,
+      optionName: optionName,
     );

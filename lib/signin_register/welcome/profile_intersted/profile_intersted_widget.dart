@@ -6,6 +6,7 @@ import '/components/header_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -135,6 +136,8 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             requestFn: () =>
                                 TaskerpageBackendGroup.getAppRolesCall.call(
                               apiGlobalKey: FFAppState().apiKey,
+                              fields:
+                                  '[\"name\",\"role_profile_name\",\"message\",\"add_skills_text\",\"skills_limit\"]',
                             ),
                           ),
                           builder: (context, snapshot) {
@@ -154,23 +157,25 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             final columnGetAppRolesResponse = snapshot.data!;
                             return Builder(
                               builder: (context) {
-                                final roleProfileMessage =
-                                    TaskerpageBackendGroup.getAppRolesCall
-                                            .roleProfileMessages(
-                                              columnGetAppRolesResponse
-                                                  .jsonBody,
-                                            )
-                                            ?.toList() ??
-                                        [];
+                                final roleProfile = TaskerpageBackendGroup
+                                        .getAppRolesCall
+                                        .roleProfilesList(
+                                          columnGetAppRolesResponse.jsonBody,
+                                        )
+                                        ?.map((e) => e != null && e != ''
+                                            ? AppRolesStruct.fromMap(e)
+                                            : null)
+                                        .withoutNulls
+                                        .toList()
+                                        ?.toList() ??
+                                    [];
                                 return Column(
                                   mainAxisSize: MainAxisSize.min,
                                   mainAxisAlignment: MainAxisAlignment.start,
-                                  children:
-                                      List.generate(roleProfileMessage.length,
-                                          (roleProfileMessageIndex) {
-                                    final roleProfileMessageItem =
-                                        roleProfileMessage[
-                                            roleProfileMessageIndex];
+                                  children: List.generate(roleProfile.length,
+                                      (roleProfileIndex) {
+                                    final roleProfileItem =
+                                        roleProfile[roleProfileIndex];
                                     return Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
                                           32.0, 0.0, 32.0, 0.0),
@@ -185,33 +190,12 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
-                                              setState(() {
-                                                FFAppState()
-                                                    .updateUserInformationStruct(
-                                                  (e) => e
-                                                    ..role =
-                                                        '${(TaskerpageBackendGroup.getAppRolesCall.roleProfileNames(
-                                                      columnGetAppRolesResponse
-                                                          .jsonBody,
-                                                    ) as List).map<String>((s) => s.toString()).toList()[roleProfileMessageIndex].toString()}',
-                                                );
-                                              });
                                               _model.apiResult786 =
                                                   await TaskerpageBackendGroup
                                                       .updateUserRoleCall
                                                       .call(
-                                                roleProfileName:
-                                                    (TaskerpageBackendGroup
-                                                            .getAppRolesCall
-                                                            .roleProfileNames(
-                                                  columnGetAppRolesResponse
-                                                      .jsonBody,
-                                                ) as List)
-                                                        .map<String>(
-                                                            (s) => s.toString())
-                                                        .toList()[
-                                                            roleProfileMessageIndex]
-                                                        .toString(),
+                                                roleProfileName: roleProfileItem
+                                                    .roleProfileName,
                                                 name: getJsonField(
                                                   FFAppState().userProfile,
                                                   r'''$.data.user''',
@@ -219,6 +203,14 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                 apiGlobalKey:
                                                     FFAppState().apiKey,
                                               );
+                                              setState(() {
+                                                FFAppState()
+                                                    .updateUserInformationStruct(
+                                                  (e) => e
+                                                    ..role =
+                                                        '${roleProfileItem.roleProfileName}',
+                                                );
+                                              });
 
                                               setState(() {});
                                             },
@@ -235,7 +227,8 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                   color: FFAppState()
                                                               .UserInformation
                                                               .role ==
-                                                          'Tasker'
+                                                          roleProfileItem
+                                                              .roleProfileName
                                                       ? FlutterFlowTheme.of(
                                                               context)
                                                           .primary
@@ -251,8 +244,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                     MainAxisAlignment.center,
                                                 children: [
                                                   Text(
-                                                    roleProfileMessageItem
-                                                        .toString(),
+                                                    roleProfileItem.message,
                                                     style:
                                                         FlutterFlowTheme.of(
                                                                 context)
@@ -263,7 +255,8 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                               color: FFAppState()
                                                                           .UserInformation
                                                                           .role ==
-                                                                      'Tasker'
+                                                                      roleProfileItem
+                                                                          .roleProfileName
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
                                                                       .primary
@@ -283,7 +276,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                         ],
                                       ),
                                     );
-                                  }),
+                                  }).divide(SizedBox(height: 16.0)),
                                 );
                               },
                             );

@@ -131,7 +131,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
           return Scaffold(
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFFF2F2F2),
             body: Center(
               child: SizedBox(
                 width: 50.0,
@@ -151,7 +151,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
               : FocusScope.of(context).unfocus(),
           child: Scaffold(
             key: scaffoldKey,
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xFFF2F2F2),
             drawer: Container(
               width: MediaQuery.sizeOf(context).width * 0.85,
               child: Drawer(
@@ -1010,16 +1010,10 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                                   context.pushNamed(
                                                       'Contactdata-2');
                                                 },
-                                                child: ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          0.0),
-                                                  child: Image.asset(
-                                                    'assets/images/Icon.png',
-                                                    width: 25.0,
-                                                    height: 25.0,
-                                                    fit: BoxFit.none,
-                                                  ),
+                                                child: FaIcon(
+                                                  FontAwesomeIcons.solidEdit,
+                                                  color: Color(0xFF8A8A8A),
+                                                  size: 19.0,
                                                 ),
                                               ),
                                             ],

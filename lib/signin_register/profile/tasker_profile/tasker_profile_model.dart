@@ -13,8 +13,8 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'dart:async';
 import 'tasker_profile_widget.dart' show TaskerProfileWidget;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +42,6 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
   late EditIconModel editIconModel4;
   // Models for skillCard dynamic component.
   late FlutterFlowDynamicModels<SkillCardModel> skillCardModels;
-  Completer<ApiCallResponse>? apiRequestCompleter;
   // Model for editIcon component.
   late EditIconModel editIconModel5;
   // Model for editIcon component.
@@ -120,19 +119,4 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
-
-  Future waitForApiRequestCompleted({
-    double minWait = 0,
-    double maxWait = double.infinity,
-  }) async {
-    final stopwatch = Stopwatch()..start();
-    while (true) {
-      await Future.delayed(Duration(milliseconds: 50));
-      final timeElapsed = stopwatch.elapsedMilliseconds;
-      final requestComplete = apiRequestCompleter?.isCompleted ?? false;
-      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
-        break;
-      }
-    }
-  }
 }

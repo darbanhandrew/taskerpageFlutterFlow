@@ -151,7 +151,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                       ))
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
-                                          32.0, 20.0, 32.0, 38.0),
+                                          32.0, 20.0, 32.0, 22.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -206,121 +206,486 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                               ),
                             ),
                           ),
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Expanded(
-                                child: Container(
-                                  width: 100.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        blurRadius: 4.0,
-                                        color: Color(0x33000000),
-                                        offset: Offset(0.0, 2.0),
-                                        spreadRadius: 4.0,
-                                      )
-                                    ],
-                                  ),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            32.0, 30.0, 32.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            FutureBuilder<ApiCallResponse>(
-                                              future: TaskerpageBackendGroup
-                                                  .userProfileReadCall
-                                                  .call(
-                                                id: getJsonField(
-                                                  publishTaskPostReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.poster''',
-                                                ).toString(),
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
-                                              ),
-                                              builder: (context, snapshot) {
-                                                // Customize what your widget looks like when it's loading.
-                                                if (!snapshot.hasData) {
-                                                  return Center(
-                                                    child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      child: SpinKitThreeBounce(
-                                                        color:
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 16.0, 0.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width: 100.0,
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                          spreadRadius: 4.0,
+                                        )
+                                      ],
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  32.0, 30.0, 32.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              FutureBuilder<ApiCallResponse>(
+                                                future: TaskerpageBackendGroup
+                                                    .userProfileReadCall
+                                                    .call(
+                                                  id: getJsonField(
+                                                    publishTaskPostReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.poster''',
+                                                  ).toString(),
+                                                  apiGlobalKey:
+                                                      FFAppState().apiKey,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 50.0,
+                                                        height: 50.0,
+                                                        child:
+                                                            SpinKitThreeBounce(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 50.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final columnUserProfileReadResponse =
+                                                      snapshot.data!;
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    6.0),
+                                                        child: Container(
+                                                          width: 50.0,
+                                                          height: 50.0,
+                                                          clipBehavior:
+                                                              Clip.antiAlias,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            shape:
+                                                                BoxShape.circle,
+                                                          ),
+                                                          child: Image.network(
+                                                            '${FFAppState().baseUrl}${getJsonField(
+                                                              columnUserProfileReadResponse
+                                                                  .jsonBody,
+                                                              r'''$.data.avatar''',
+                                                            ).toString()}',
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      Text(
+                                                        getJsonField(
+                                                          columnUserProfileReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.first_name''',
+                                                        ).toString(),
+                                                        style:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .primary,
-                                                        size: 50.0,
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                                  fontSize:
+                                                                      13.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
                                                       ),
-                                                    ),
+                                                      Text(
+                                                        getJsonField(
+                                                          columnUserProfileReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.last_name''',
+                                                        ).toString(),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
+                                                                  fontSize:
+                                                                      13.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                      ),
+                                                    ],
                                                   );
-                                                }
-                                                final columnUserProfileReadResponse =
-                                                    snapshot.data!;
-                                                return Column(
+                                                },
+                                              ),
+                                              Expanded(
+                                                child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  6.0),
-                                                      child: Container(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: Image.network(
-                                                          '${FFAppState().baseUrl}${getJsonField(
-                                                            columnUserProfileReadResponse
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Text(
+                                                          getJsonField(
+                                                            publishTaskPostReadResponse
                                                                 .jsonBody,
-                                                            r'''$.data.avatar''',
-                                                          ).toString()}',
-                                                          fit: BoxFit.cover,
+                                                            r'''$.data.skill_category_name''',
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                fontSize: 18.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
                                                         ),
-                                                      ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Icon(
+                                                            Icons
+                                                                .verified_rounded,
+                                                            color: Color(
+                                                                0xFF49A1FF),
+                                                            size: 19.0,
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      getJsonField(
-                                                        columnUserProfileReadResponse
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Text(
+                                                          getJsonField(
+                                                            publishTaskPostReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.skill_name''',
+                                                          ).toString(),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
+                                                        if (functions
+                                                                .jsonToInt(
+                                                                    getJsonField(
+                                                                  publishTaskPostReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.is_online''',
+                                                                ))
+                                                                .toString() ==
+                                                            '1')
+                                                          Text(
+                                                            'Online Task',
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .bodyMedium
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Lato',
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  fontSize:
+                                                                      12.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w500,
+                                                                ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Expanded(
+                                                          child: Container(
+                                                            width: 100.0,
+                                                            height: 45.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Color(
+                                                                  0xFFF2F2F2),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          5.0),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  '${getJsonField(
+                                                                    publishTaskPostReadResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data.rate''',
+                                                                  ).toString()} ${getJsonField(
+                                                                    publishTaskPostReadResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data.rate_currency''',
+                                                                  ).toString()}',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lato',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .alternate,
+                                                                        fontSize:
+                                                                            18.0,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ].divide(
+                                                      SizedBox(height: 5.5)),
+                                                ),
+                                              ),
+                                            ].divide(SizedBox(width: 24.0)),
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  32.0, 29.0, 32.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Task discription',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF222222),
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  32.0, 17.5, 32.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Flexible(
+                                                child: Text(
+                                                  getJsonField(
+                                                    publishTaskPostReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.description''',
+                                                  ).toString(),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            Color(0xFF222222),
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        if (getJsonField(
+                                              publishTaskPostReadResponse
+                                                  .jsonBody,
+                                              r'''$.data.file''',
+                                            ) !=
+                                            null)
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 16.0, 32.0, 0.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 5.0, 0.0),
+                                                  child: Icon(
+                                                    Icons.file_copy,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryText,
+                                                    size: 20.0,
+                                                  ),
+                                                ),
+                                                Flexible(
+                                                  child: InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      await launchURL(
+                                                          '${FFAppState().baseUrl}${getJsonField(
+                                                        publishTaskPostReadResponse
                                                             .jsonBody,
-                                                        r'''$.data.first_name''',
-                                                      ).toString(),
+                                                        r'''$.data.file''',
+                                                      ).toString()}');
+                                                    },
+                                                    child: Text(
+                                                      'https://taskerpage.com${getJsonField(
+                                                        publishTaskPostReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.file''',
+                                                      ).toString()}',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
                                                           .override(
                                                             fontFamily: 'Lato',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                            fontSize: 13.0,
+                                                            color: Color(
+                                                                0xFF494949),
+                                                            fontSize: 12.0,
                                                             fontWeight:
                                                                 FontWeight.w500,
                                                           ),
                                                     ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  32.0, 22.0, 32.0, 0.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Text(
+                                                'Conditions',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFF222222),
+                                                          fontSize: 14.0,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  32.0, 12.0, 32.0, 30.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Container(
+                                                width: 195.0,
+                                                height: 22.0,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFDEDEDE),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          3.0),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
                                                     Text(
-                                                      getJsonField(
-                                                        columnUserProfileReadResponse
-                                                            .jsonBody,
-                                                        r'''$.data.last_name''',
-                                                      ).toString(),
+                                                      'Trimming, Hedging, Lawn',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -335,360 +700,17 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                           ),
                                                     ),
                                                   ],
-                                                );
-                                              },
-                                            ),
-                                            Expanded(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: [
-                                                      Text(
-                                                        getJsonField(
-                                                          publishTaskPostReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.skill_category_name''',
-                                                        ).toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  fontSize:
-                                                                      18.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    8.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Icon(
-                                                          Icons
-                                                              .verified_rounded,
-                                                          color:
-                                                              Color(0xFF49A1FF),
-                                                          size: 19.0,
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Text(
-                                                        getJsonField(
-                                                          publishTaskPostReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.skill_name''',
-                                                        ).toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                ),
-                                                      ),
-                                                      if (functions
-                                                              .jsonToInt(
-                                                                  getJsonField(
-                                                                publishTaskPostReadResponse
-                                                                    .jsonBody,
-                                                                r'''$.data.is_online''',
-                                                              ))
-                                                              .toString() ==
-                                                          '1')
-                                                        Text(
-                                                          'Online Task',
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyMedium
-                                                              .override(
-                                                                fontFamily:
-                                                                    'Lato',
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                fontSize: 12.0,
-                                                                fontWeight:
-                                                                    FontWeight
-                                                                        .w500,
-                                                              ),
-                                                        ),
-                                                    ],
-                                                  ),
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Expanded(
-                                                        child: Container(
-                                                          width: 100.0,
-                                                          height: 45.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xFFF2F2F2),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                '${getJsonField(
-                                                                  publishTaskPostReadResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data.rate''',
-                                                                ).toString()} ${getJsonField(
-                                                                  publishTaskPostReadResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data.rate_currency''',
-                                                                ).toString()}',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .alternate,
-                                                                      fontSize:
-                                                                          18.0,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ].divide(SizedBox(height: 5.5)),
-                                              ),
-                                            ),
-                                          ].divide(SizedBox(width: 24.0)),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            32.0, 29.0, 32.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'Task discription',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFF222222),
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            32.0, 17.5, 32.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Text(
-                                                getJsonField(
-                                                  publishTaskPostReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.description''',
-                                                ).toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF222222),
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      if (getJsonField(
-                                            publishTaskPostReadResponse
-                                                .jsonBody,
-                                            r'''$.data.file''',
-                                          ) !=
-                                          null)
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  32.0, 16.0, 32.0, 0.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 5.0, 0.0),
-                                                child: Icon(
-                                                  Icons.file_copy,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
-                                                  size: 20.0,
-                                                ),
-                                              ),
-                                              Flexible(
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await launchURL(
-                                                        '${FFAppState().baseUrl}${getJsonField(
-                                                      publishTaskPostReadResponse
-                                                          .jsonBody,
-                                                      r'''$.data.file''',
-                                                    ).toString()}');
-                                                  },
-                                                  child: Text(
-                                                    'https://taskerpage.com${getJsonField(
-                                                      publishTaskPostReadResponse
-                                                          .jsonBody,
-                                                      r'''$.data.file''',
-                                                    ).toString()}',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color:
-                                                              Color(0xFF494949),
-                                                          fontSize: 12.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
                                                 ),
                                               ),
                                             ],
                                           ),
                                         ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            32.0, 22.0, 32.0, 0.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              'Conditions',
-                                              style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodyMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFF222222),
-                                                    fontSize: 14.0,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            32.0, 12.0, 32.0, 30.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 195.0,
-                                              height: 22.0,
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFDEDEDE),
-                                                borderRadius:
-                                                    BorderRadius.circular(3.0),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    'Trimming, Hedging, Lawn',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 13.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
@@ -740,7 +762,15 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      ' 20€ ',
+                                                      '${getJsonField(
+                                                        publishTaskPostReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.rate''',
+                                                      ).toString()} ${getJsonField(
+                                                        publishTaskPostReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.rate_currency''',
+                                                      ).toString()}',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -754,7 +784,17 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                           ),
                                                     ),
                                                     Text(
-                                                      'Hourly Rate',
+                                                      functions.jsonToString(
+                                                                  getJsonField(
+                                                                publishTaskPostReadResponse
+                                                                    .jsonBody,
+                                                                r'''$.data.rate_type''',
+                                                              )) ==
+                                                              'Offer a rate'
+                                                          ? 'Hourly Rate'
+                                                          : 'Total Rate',
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -787,7 +827,29 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      '8 hr',
+                                                      functions.jsonToString(
+                                                                  getJsonField(
+                                                                publishTaskPostReadResponse
+                                                                    .jsonBody,
+                                                                r'''$.data.repeat_type''',
+                                                              )) ==
+                                                              'Exact Dates'
+                                                          ? '${getJsonField(
+                                                              publishTaskPostReadResponse
+                                                                  .jsonBody,
+                                                              r'''$.data.number_of_hours_per_session''',
+                                                            ).toString()} hr'
+                                                          : '${functions.multiplication(getJsonField(
+                                                                publishTaskPostReadResponse
+                                                                    .jsonBody,
+                                                                r'''$.data.number_of_hours_per_session''',
+                                                              ), getJsonField(
+                                                                publishTaskPostReadResponse
+                                                                    .jsonBody,
+                                                                r'''$.data.days_per_week''',
+                                                              )).toString()} hr',
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -801,7 +863,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                           ),
                                                     ),
                                                     Text(
-                                                      'Monthly',
+                                                      'Total time',
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -834,7 +896,13 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                       MainAxisAlignment.center,
                                                   children: [
                                                     Text(
-                                                      'Monthly',
+                                                      getJsonField(
+                                                        publishTaskPostReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.repeat_type''',
+                                                      ).toString(),
+                                                      textAlign:
+                                                          TextAlign.center,
                                                       style: FlutterFlowTheme
                                                               .of(context)
                                                           .bodyMedium
@@ -901,7 +969,23 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              '2th May 2019to 2th Jul 2019',
+                                                              '${getJsonField(
+                                                                publishTaskPostReadResponse
+                                                                    .jsonBody,
+                                                                r'''$.data.start_date''',
+                                                              ).toString()}${getJsonField(
+                                                                    publishTaskPostReadResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data.end_on''',
+                                                                  ) != null ? '   to   ' : ''}${getJsonField(
+                                                                    publishTaskPostReadResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data.end_on''',
+                                                                  ) != null ? getJsonField(
+                                                                  publishTaskPostReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.end_on''',
+                                                                ).toString() : ''}',
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -940,7 +1024,22 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                               ),
                                                             ),
                                                             Text(
-                                                              'Morningsor Afternoons ',
+                                                              getJsonField(
+                                                                        publishTaskPostReadResponse
+                                                                            .jsonBody,
+                                                                        r'''$.data.start_range_time''',
+                                                                      ) !=
+                                                                      null
+                                                                  ? getJsonField(
+                                                                      publishTaskPostReadResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.start_range_time''',
+                                                                    ).toString()
+                                                                  : getJsonField(
+                                                                      publishTaskPostReadResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.start_time''',
+                                                                    ).toString(),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
                                                                   .bodyMedium
@@ -1009,24 +1108,44 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                                   CrossAxisAlignment
                                                                       .start,
                                                               children: [
+                                                                if (functions
+                                                                        .jsonToString(
+                                                                            getJsonField(
+                                                                      publishTaskPostReadResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.repeat_type''',
+                                                                    )) !=
+                                                                    'Exact Dates')
+                                                                  Text(
+                                                                    '${getJsonField(
+                                                                      publishTaskPostReadResponse
+                                                                          .jsonBody,
+                                                                      r'''$.data.days_per_week''',
+                                                                    ).toString()} ${functions.jsonToString(getJsonField(
+                                                                          publishTaskPostReadResponse
+                                                                              .jsonBody,
+                                                                          r'''$.data.repeat_type''',
+                                                                        )) == 'Weekly' ? 'days per week ' : 'days per mounth '}',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Lato',
+                                                                          color:
+                                                                              Color(0xFF222222),
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          fontWeight:
+                                                                              FontWeight.bold,
+                                                                        ),
+                                                                  ),
                                                                 Text(
-                                                                  '2 days per month ',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Lato',
-                                                                        color: Color(
-                                                                            0xFF222222),
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
-                                                                ),
-                                                                Text(
-                                                                  '2 hours each session',
+                                                                  '${getJsonField(
+                                                                    publishTaskPostReadResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data.number_of_hours_per_session''',
+                                                                  ).toString()} hours each session',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1080,7 +1199,16 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                                         .max,
                                                                 children: [
                                                                   Text(
-                                                                    'Sun, Mon, Tue, Wed, Thu',
+                                                                    getJsonField(
+                                                                              publishTaskPostReadResponse.jsonBody,
+                                                                              r'''$.data.preferred_days''',
+                                                                            ) !=
+                                                                            null
+                                                                        ? getJsonField(
+                                                                            publishTaskPostReadResponse.jsonBody,
+                                                                            r'''$.data.preferred_days''',
+                                                                          ).toString()
+                                                                        : '-',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1159,7 +1287,15 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                 ),
                                               ),
                                               Text(
-                                                '44139 Dortmund | DE',
+                                                '${getJsonField(
+                                                  publishTaskPostReadResponse
+                                                      .jsonBody,
+                                                  r'''$.data.city''',
+                                                ).toString()} | ${getJsonField(
+                                                  publishTaskPostReadResponse
+                                                      .jsonBody,
+                                                  r'''$.data.language''',
+                                                ).toString()}',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -1186,7 +1322,17 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                               child:
                                                   Builder(builder: (context) {
                                                 final _googleMapMarker =
-                                                    FFAppState().location;
+                                                    functions.fulllatLong(
+                                                        getJsonField(
+                                                          publishTaskPostReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.latitude''',
+                                                        ).toString(),
+                                                        getJsonField(
+                                                          publishTaskPostReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.longitude''',
+                                                        ).toString());
                                                 return FlutterFlowGoogleMap(
                                                   controller: _model
                                                       .googleMapsController,
@@ -1195,16 +1341,23 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                           latLng,
                                                   initialLocation: _model
                                                           .googleMapsCenter ??=
-                                                      LatLng(13.106061,
-                                                          -59.613158),
+                                                      functions.fulllatLong(
+                                                          getJsonField(
+                                                            publishTaskPostReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.latitude''',
+                                                          ).toString(),
+                                                          getJsonField(
+                                                            publishTaskPostReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.longitude''',
+                                                          ).toString()),
                                                   markers: [
-                                                    if (_googleMapMarker !=
-                                                        null)
-                                                      FlutterFlowMarker(
-                                                        _googleMapMarker
-                                                            .serialize(),
-                                                        _googleMapMarker,
-                                                      ),
+                                                    FlutterFlowMarker(
+                                                      _googleMapMarker
+                                                          .serialize(),
+                                                      _googleMapMarker,
+                                                    ),
                                                   ],
                                                   markerColor:
                                                       GoogleMarkerColor.violet,
@@ -1218,7 +1371,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                   showLocation: true,
                                                   showCompass: false,
                                                   showMapToolbar: false,
-                                                  showTraffic: true,
+                                                  showTraffic: false,
                                                   centerMapOnMarkerTap: true,
                                                 );
                                               }),
@@ -1370,55 +1523,56 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Icon(
-                                    Icons.keyboard_arrow_left,
-                                    color: Color(0xFF292929),
-                                    size: 17.0,
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        6.0, 0.0, 0.0, 2.0),
-                                    child: Text(
-                                      'Back',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFF292929),
-                                            fontSize: 13.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  context.safePop();
+                                },
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Icon(
+                                      Icons.keyboard_arrow_left,
+                                      color: Color(0xFF292929),
+                                      size: 17.0,
                                     ),
-                                  ),
-                                ],
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          6.0, 0.0, 0.0, 2.0),
+                                      child: Text(
+                                        'Back',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFF292929),
+                                              fontSize: 13.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                              if ((getJsonField(
-                                        publishTaskPostReadResponse.jsonBody,
-                                        r'''$.data.poster''',
-                                      ) ==
-                                      getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.name''',
-                                      )) &&
-                                  (functions
-                                          .jsonToInt(getJsonField(
-                                            publishTaskPostReadResponse
-                                                .jsonBody,
-                                            r'''$.data.docstatus''',
-                                          ))
-                                          .toString() ==
-                                      '0'))
-                                Flexible(
-                                  child: InkWell(
-                                    splashColor: Colors.transparent,
-                                    focusColor: Colors.transparent,
-                                    hoverColor: Colors.transparent,
-                                    highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      var _shouldSetState = false;
+                              Flexible(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    var _shouldSetState = false;
+                                    if (getJsonField(
+                                          publishTaskPostReadResponse.jsonBody,
+                                          r'''$.data.poster''',
+                                        ) ==
+                                        getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        )) {
                                       if (functions
                                               .jsonToInt(getJsonField(
                                                 publishTaskPostReadResponse
@@ -1459,38 +1613,194 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                           }.withoutNulls,
                                         );
                                       }
+                                    } else {
+                                      _model.userRead =
+                                          await TaskerpageBackendGroup
+                                              .userProfileReadCall
+                                              .call(
+                                        id: getJsonField(
+                                          publishTaskPostReadResponse.jsonBody,
+                                          r'''$.data.poster''',
+                                        ).toString(),
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      _shouldSetState = true;
+                                      _model.startChat22 =
+                                          await TaskerpageBackendGroup
+                                              .createChatCall
+                                              .call(
+                                        roomName: 'G - (${getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.name''',
+                                        ).toString()}-${getJsonField(
+                                          publishTaskPostReadResponse.jsonBody,
+                                          r'''$.data.poster''',
+                                        ).toString()}) T - (${getJsonField(
+                                          publishTaskPostReadResponse.jsonBody,
+                                          r'''$.data.name''',
+                                        ).toString()})',
+                                        users: '[\'${getJsonField(
+                                          (_model.userRead?.jsonBody ?? ''),
+                                          r'''$.data.user''',
+                                        ).toString()}\']',
+                                        type: 'Group',
+                                        task: getJsonField(
+                                          publishTaskPostReadResponse.jsonBody,
+                                          r'''$.data.name''',
+                                        ).toString(),
+                                        apiGlobalKey: FFAppState().apiKey,
+                                      );
+                                      _shouldSetState = true;
+                                      if ((_model.startChat22?.succeeded ??
+                                          true)) {
+                                        context.pushNamed(
+                                          'chat',
+                                          pathParameters: {
+                                            'room': serializeParam(
+                                              TaskerpageBackendGroup
+                                                  .createChatCall
+                                                  .room(
+                                                    (_model.startChat22
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                  )
+                                                  .toString(),
+                                              ParamType.String,
+                                            ),
+                                          }.withoutNulls,
+                                          queryParameters: {
+                                            'curentUser': serializeParam(
+                                              getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.user''',
+                                              ).toString(),
+                                              ParamType.String,
+                                            ),
+                                            'startChat': serializeParam(
+                                              dateTimeFormat(
+                                                  'MMMEd',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    (_model.startChat22
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                    r'''$.message.modified''',
+                                                  ).toString())),
+                                              ParamType.String,
+                                            ),
+                                            'nameFamily': serializeParam(
+                                              '${getJsonField(
+                                                (_model.userRead?.jsonBody ??
+                                                    ''),
+                                                r'''$.data.first_name''',
+                                              ).toString()} ${getJsonField(
+                                                (_model.userRead?.jsonBody ??
+                                                    ''),
+                                                r'''$.data.last_name''',
+                                              ).toString()}',
+                                              ParamType.String,
+                                            ),
+                                            'avatar': serializeParam(
+                                              getJsonField(
+                                                (_model.userRead?.jsonBody ??
+                                                    ''),
+                                                r'''$.data.avatar''',
+                                              ).toString(),
+                                              ParamType.String,
+                                            ),
+                                            'postID': serializeParam(
+                                              getJsonField(
+                                                publishTaskPostReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.name''',
+                                              ),
+                                              ParamType.int,
+                                            ),
+                                            'taskerID': serializeParam(
+                                              getJsonField(
+                                                (_model.userRead?.jsonBody ??
+                                                    ''),
+                                                r'''$.data.name''',
+                                              ),
+                                              ParamType.int,
+                                            ),
+                                          }.withoutNulls,
+                                        );
+                                      } else {
+                                        if (_shouldSetState) setState(() {});
+                                        return;
+                                      }
+                                    }
 
-                                      if (_shouldSetState) setState(() {});
-                                    },
-                                    child: Container(
-                                      width: 180.0,
-                                      height: 36.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        borderRadius:
-                                            BorderRadius.circular(0.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'PUBLISH TASK',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Colors.white,
-                                                  fontSize: 14.0,
-                                                ),
+                                    if (_shouldSetState) setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 200.0,
+                                    height: 36.0,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderRadius: BorderRadius.circular(0.0),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          getJsonField(
+                                                    publishTaskPostReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.poster''',
+                                                  ) ==
+                                                  getJsonField(
+                                                    FFAppState().userProfile,
+                                                    r'''$.data.name''',
+                                                  )
+                                              ? (functions
+                                                          .jsonToInt(
+                                                              getJsonField(
+                                                            publishTaskPostReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.docstatus''',
+                                                          ))
+                                                          .toString() ==
+                                                      '0'
+                                                  ? 'PUBLISH TASK'
+                                                  : 'EDIT TASK')
+                                              : 'Start Chat',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Colors.white,
+                                                fontSize: 14.0,
+                                              ),
+                                        ),
+                                        if (getJsonField(
+                                              publishTaskPostReadResponse
+                                                  .jsonBody,
+                                              r'''$.data.poster''',
+                                            ) !=
+                                            getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ))
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    6.0, 0.0, 0.0, 0.0),
+                                            child: Icon(
+                                              Icons.chat,
+                                              color: Colors.white,
+                                              size: 20.0,
+                                            ),
                                           ),
-                                        ],
-                                      ),
+                                      ],
                                     ),
                                   ),
                                 ),
+                              ),
                             ],
                           ),
                         ),

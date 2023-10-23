@@ -23,6 +23,8 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
 
   String? apiSecret;
 
+  String status = '';
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -44,7 +46,9 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
   String? Function(BuildContext, String?)? password2ControllerValidator;
   // Stores action output result for [Backend Call - API (register)] action in Container widget.
   ApiCallResponse? rigester;
-  // Stores action output result for [Backend Call - API (Generate keys)] action in Container widget.
+  // Stores action output result for [Backend Call - API (setUserPassword)] action in Container widget.
+  ApiCallResponse? settingPassword;
+  // Stores action output result for [Backend Call - API (login)] action in Container widget.
   ApiCallResponse? apiResultfu7;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? apiResultd93;

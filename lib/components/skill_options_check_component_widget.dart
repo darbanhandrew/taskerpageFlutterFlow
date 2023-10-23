@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,7 @@ class SkillOptionsCheckComponentWidget extends StatefulWidget {
   })  : this.defaultValue = defaultValue ?? false,
         super(key: key);
 
-  final dynamic skillOption;
+  final SkillOptionsStruct? skillOption;
   final bool defaultValue;
 
   @override
@@ -57,35 +58,25 @@ class _SkillOptionsCheckComponentWidgetState
       mainAxisSize: MainAxisSize.max,
       children: [
         Text(
-          getJsonField(
-            widget.skillOption,
-            r'''$.option_name''',
-          ).toString(),
+          valueOrDefault<String>(
+            widget.skillOption?.optionName,
+            'Option ',
+          ),
           style: FlutterFlowTheme.of(context).bodyMedium.override(
                 fontFamily: 'Lato',
                 fontSize: 13.0,
                 fontWeight: FontWeight.w500,
               ),
         ),
-        Theme(
-          data: ThemeData(
-            checkboxTheme: CheckboxThemeData(
-              visualDensity: VisualDensity.compact,
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(4.0),
-              ),
-            ),
-            unselectedWidgetColor: FlutterFlowTheme.of(context).secondaryText,
-          ),
-          child: Checkbox(
-            value: _model.checkboxValue ??= widget.defaultValue,
-            onChanged: (newValue) async {
-              setState(() => _model.checkboxValue = newValue!);
-            },
-            activeColor: FlutterFlowTheme.of(context).primary,
-            checkColor: FlutterFlowTheme.of(context).info,
-          ),
+        Switch.adaptive(
+          value: _model.switchValue ??= widget.defaultValue,
+          onChanged: (newValue) async {
+            setState(() => _model.switchValue = newValue!);
+          },
+          activeColor: FlutterFlowTheme.of(context).primary,
+          activeTrackColor: FlutterFlowTheme.of(context).accent1,
+          inactiveTrackColor: FlutterFlowTheme.of(context).alternate,
+          inactiveThumbColor: FlutterFlowTheme.of(context).secondaryText,
         ),
       ],
     );

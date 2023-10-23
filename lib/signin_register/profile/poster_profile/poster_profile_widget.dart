@@ -2810,11 +2810,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         },
                                         child: Container(
                                           width: 209.0,
-                                          height: 44.0,
+                                          height: 40.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
-                                                BorderRadius.circular(5.0),
+                                                BorderRadius.circular(2.0),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -2954,11 +2955,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       },
                                       child: Container(
                                         width: 209.0,
-                                        height: 44.0,
+                                        height: 40.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,
@@ -3167,11 +3169,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                         },
                                         child: Container(
                                           width: 209.0,
-                                          height: 44.0,
+                                          height: 40.0,
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF5450E2),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
-                                                BorderRadius.circular(5.0),
+                                                BorderRadius.circular(2.0),
                                           ),
                                           child: Row(
                                             mainAxisSize: MainAxisSize.max,
@@ -3319,11 +3322,12 @@ class _PosterProfileWidgetState extends State<PosterProfileWidget>
                                       },
                                       child: Container(
                                         width: 209.0,
-                                        height: 44.0,
+                                        height: 40.0,
                                         decoration: BoxDecoration(
-                                          color: Color(0xFF5450E2),
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
                                           borderRadius:
-                                              BorderRadius.circular(5.0),
+                                              BorderRadius.circular(2.0),
                                         ),
                                         child: Row(
                                           mainAxisSize: MainAxisSize.max,

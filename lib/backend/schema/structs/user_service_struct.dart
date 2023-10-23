@@ -7,63 +7,60 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class UserServiceStruct extends BaseStruct {
   UserServiceStruct({
-    String? serviceSkillLevel,
-    String? serviceCategory,
-    List<String>? service,
-    SkillOptionsStruct? serviceOptions,
-    String? id,
-    String? skill,
+    String? skillCategoryName,
+    String? skillName,
+    String? skillLevel,
+    String? customerProfile,
+    String? icon,
+    String? name,
     List<SkillStruct>? skills,
-  })  : _serviceSkillLevel = serviceSkillLevel,
-        _serviceCategory = serviceCategory,
-        _service = service,
-        _serviceOptions = serviceOptions,
-        _id = id,
-        _skill = skill,
-        _skills = skills;
+    List<SkillOptionsStruct>? customerSkillOptions,
+  })  : _skillCategoryName = skillCategoryName,
+        _skillName = skillName,
+        _skillLevel = skillLevel,
+        _customerProfile = customerProfile,
+        _icon = icon,
+        _name = name,
+        _skills = skills,
+        _customerSkillOptions = customerSkillOptions;
 
-  // "service_skill_level" field.
-  String? _serviceSkillLevel;
-  String get serviceSkillLevel => _serviceSkillLevel ?? '';
-  set serviceSkillLevel(String? val) => _serviceSkillLevel = val;
-  bool hasServiceSkillLevel() => _serviceSkillLevel != null;
+  // "skill_category_name" field.
+  String? _skillCategoryName;
+  String get skillCategoryName => _skillCategoryName ?? '';
+  set skillCategoryName(String? val) => _skillCategoryName = val;
+  bool hasSkillCategoryName() => _skillCategoryName != null;
 
-  // "serviceCategory" field.
-  String? _serviceCategory;
-  String get serviceCategory => _serviceCategory ?? '';
-  set serviceCategory(String? val) => _serviceCategory = val;
-  bool hasServiceCategory() => _serviceCategory != null;
+  // "skill_name" field.
+  String? _skillName;
+  String get skillName => _skillName ?? '';
+  set skillName(String? val) => _skillName = val;
+  bool hasSkillName() => _skillName != null;
 
-  // "service" field.
-  List<String>? _service;
-  List<String> get service => _service ?? const [];
-  set service(List<String>? val) => _service = val;
-  void updateService(Function(List<String>) updateFn) =>
-      updateFn(_service ??= []);
-  bool hasService() => _service != null;
+  // "skill_level" field.
+  String? _skillLevel;
+  String get skillLevel => _skillLevel ?? '';
+  set skillLevel(String? val) => _skillLevel = val;
+  bool hasSkillLevel() => _skillLevel != null;
 
-  // "serviceOptions" field.
-  SkillOptionsStruct? _serviceOptions;
-  SkillOptionsStruct get serviceOptions =>
-      _serviceOptions ?? SkillOptionsStruct();
-  set serviceOptions(SkillOptionsStruct? val) => _serviceOptions = val;
-  void updateServiceOptions(Function(SkillOptionsStruct) updateFn) =>
-      updateFn(_serviceOptions ??= SkillOptionsStruct());
-  bool hasServiceOptions() => _serviceOptions != null;
+  // "customer_profile" field.
+  String? _customerProfile;
+  String get customerProfile => _customerProfile ?? '';
+  set customerProfile(String? val) => _customerProfile = val;
+  bool hasCustomerProfile() => _customerProfile != null;
 
-  // "id" field.
-  String? _id;
-  String get id => _id ?? '';
-  set id(String? val) => _id = val;
-  bool hasId() => _id != null;
+  // "icon" field.
+  String? _icon;
+  String get icon => _icon ?? '';
+  set icon(String? val) => _icon = val;
+  bool hasIcon() => _icon != null;
 
-  // "skill" field.
-  String? _skill;
-  String get skill => _skill ?? '';
-  set skill(String? val) => _skill = val;
-  bool hasSkill() => _skill != null;
+  // "name" field.
+  String? _name;
+  String get name => _name ?? '';
+  set name(String? val) => _name = val;
+  bool hasName() => _name != null;
 
-  // "Skills" field.
+  // "skills" field.
   List<SkillStruct>? _skills;
   List<SkillStruct> get skills => _skills ?? const [];
   set skills(List<SkillStruct>? val) => _skills = val;
@@ -71,17 +68,32 @@ class UserServiceStruct extends BaseStruct {
       updateFn(_skills ??= []);
   bool hasSkills() => _skills != null;
 
+  // "customer_skill_options" field.
+  List<SkillOptionsStruct>? _customerSkillOptions;
+  List<SkillOptionsStruct> get customerSkillOptions =>
+      _customerSkillOptions ?? const [];
+  set customerSkillOptions(List<SkillOptionsStruct>? val) =>
+      _customerSkillOptions = val;
+  void updateCustomerSkillOptions(
+          Function(List<SkillOptionsStruct>) updateFn) =>
+      updateFn(_customerSkillOptions ??= []);
+  bool hasCustomerSkillOptions() => _customerSkillOptions != null;
+
   static UserServiceStruct fromMap(Map<String, dynamic> data) =>
       UserServiceStruct(
-        serviceSkillLevel: data['service_skill_level'] as String?,
-        serviceCategory: data['serviceCategory'] as String?,
-        service: getDataList(data['service']),
-        serviceOptions: SkillOptionsStruct.maybeFromMap(data['serviceOptions']),
-        id: data['id'] as String?,
-        skill: data['skill'] as String?,
+        skillCategoryName: data['skill_category_name'] as String?,
+        skillName: data['skill_name'] as String?,
+        skillLevel: data['skill_level'] as String?,
+        customerProfile: data['customer_profile'] as String?,
+        icon: data['icon'] as String?,
+        name: data['name'] as String?,
         skills: getStructList(
-          data['Skills'],
+          data['skills'],
           SkillStruct.fromMap,
+        ),
+        customerSkillOptions: getStructList(
+          data['customer_skill_options'],
+          SkillOptionsStruct.fromMap,
         ),
       );
 
@@ -89,44 +101,50 @@ class UserServiceStruct extends BaseStruct {
       data is Map<String, dynamic> ? UserServiceStruct.fromMap(data) : null;
 
   Map<String, dynamic> toMap() => {
-        'service_skill_level': _serviceSkillLevel,
-        'serviceCategory': _serviceCategory,
-        'service': _service,
-        'serviceOptions': _serviceOptions?.toMap(),
-        'id': _id,
-        'skill': _skill,
-        'Skills': _skills?.map((e) => e.toMap()).toList(),
+        'skill_category_name': _skillCategoryName,
+        'skill_name': _skillName,
+        'skill_level': _skillLevel,
+        'customer_profile': _customerProfile,
+        'icon': _icon,
+        'name': _name,
+        'skills': _skills?.map((e) => e.toMap()).toList(),
+        'customer_skill_options':
+            _customerSkillOptions?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
-        'service_skill_level': serializeParam(
-          _serviceSkillLevel,
+        'skill_category_name': serializeParam(
+          _skillCategoryName,
           ParamType.String,
         ),
-        'serviceCategory': serializeParam(
-          _serviceCategory,
+        'skill_name': serializeParam(
+          _skillName,
           ParamType.String,
         ),
-        'service': serializeParam(
-          _service,
+        'skill_level': serializeParam(
+          _skillLevel,
           ParamType.String,
+        ),
+        'customer_profile': serializeParam(
+          _customerProfile,
+          ParamType.String,
+        ),
+        'icon': serializeParam(
+          _icon,
+          ParamType.String,
+        ),
+        'name': serializeParam(
+          _name,
+          ParamType.String,
+        ),
+        'skills': serializeParam(
+          _skills,
+          ParamType.DataStruct,
           true,
         ),
-        'serviceOptions': serializeParam(
-          _serviceOptions,
-          ParamType.DataStruct,
-        ),
-        'id': serializeParam(
-          _id,
-          ParamType.String,
-        ),
-        'skill': serializeParam(
-          _skill,
-          ParamType.String,
-        ),
-        'Skills': serializeParam(
-          _skills,
+        'customer_skill_options': serializeParam(
+          _customerSkillOptions,
           ParamType.DataStruct,
           true,
         ),
@@ -134,42 +152,47 @@ class UserServiceStruct extends BaseStruct {
 
   static UserServiceStruct fromSerializableMap(Map<String, dynamic> data) =>
       UserServiceStruct(
-        serviceSkillLevel: deserializeParam(
-          data['service_skill_level'],
+        skillCategoryName: deserializeParam(
+          data['skill_category_name'],
           ParamType.String,
           false,
         ),
-        serviceCategory: deserializeParam(
-          data['serviceCategory'],
+        skillName: deserializeParam(
+          data['skill_name'],
           ParamType.String,
           false,
         ),
-        service: deserializeParam<String>(
-          data['service'],
-          ParamType.String,
-          true,
-        ),
-        serviceOptions: deserializeStructParam(
-          data['serviceOptions'],
-          ParamType.DataStruct,
-          false,
-          structBuilder: SkillOptionsStruct.fromSerializableMap,
-        ),
-        id: deserializeParam(
-          data['id'],
+        skillLevel: deserializeParam(
+          data['skill_level'],
           ParamType.String,
           false,
         ),
-        skill: deserializeParam(
-          data['skill'],
+        customerProfile: deserializeParam(
+          data['customer_profile'],
+          ParamType.String,
+          false,
+        ),
+        icon: deserializeParam(
+          data['icon'],
+          ParamType.String,
+          false,
+        ),
+        name: deserializeParam(
+          data['name'],
           ParamType.String,
           false,
         ),
         skills: deserializeStructParam<SkillStruct>(
-          data['Skills'],
+          data['skills'],
           ParamType.DataStruct,
           true,
           structBuilder: SkillStruct.fromSerializableMap,
+        ),
+        customerSkillOptions: deserializeStructParam<SkillOptionsStruct>(
+          data['customer_skill_options'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: SkillOptionsStruct.fromSerializableMap,
         ),
       );
 
@@ -180,38 +203,42 @@ class UserServiceStruct extends BaseStruct {
   bool operator ==(Object other) {
     const listEquality = ListEquality();
     return other is UserServiceStruct &&
-        serviceSkillLevel == other.serviceSkillLevel &&
-        serviceCategory == other.serviceCategory &&
-        listEquality.equals(service, other.service) &&
-        serviceOptions == other.serviceOptions &&
-        id == other.id &&
-        skill == other.skill &&
-        listEquality.equals(skills, other.skills);
+        skillCategoryName == other.skillCategoryName &&
+        skillName == other.skillName &&
+        skillLevel == other.skillLevel &&
+        customerProfile == other.customerProfile &&
+        icon == other.icon &&
+        name == other.name &&
+        listEquality.equals(skills, other.skills) &&
+        listEquality.equals(customerSkillOptions, other.customerSkillOptions);
   }
 
   @override
   int get hashCode => const ListEquality().hash([
-        serviceSkillLevel,
-        serviceCategory,
-        service,
-        serviceOptions,
-        id,
-        skill,
-        skills
+        skillCategoryName,
+        skillName,
+        skillLevel,
+        customerProfile,
+        icon,
+        name,
+        skills,
+        customerSkillOptions
       ]);
 }
 
 UserServiceStruct createUserServiceStruct({
-  String? serviceSkillLevel,
-  String? serviceCategory,
-  SkillOptionsStruct? serviceOptions,
-  String? id,
-  String? skill,
+  String? skillCategoryName,
+  String? skillName,
+  String? skillLevel,
+  String? customerProfile,
+  String? icon,
+  String? name,
 }) =>
     UserServiceStruct(
-      serviceSkillLevel: serviceSkillLevel,
-      serviceCategory: serviceCategory,
-      serviceOptions: serviceOptions ?? SkillOptionsStruct(),
-      id: id,
-      skill: skill,
+      skillCategoryName: skillCategoryName,
+      skillName: skillName,
+      skillLevel: skillLevel,
+      customerProfile: customerProfile,
+      icon: icon,
+      name: name,
     );

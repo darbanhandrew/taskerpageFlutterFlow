@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/checkbox_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -20,7 +21,7 @@ class SkillCardWidget extends StatefulWidget {
     required this.index,
   }) : super(key: key);
 
-  final dynamic userService;
+  final UserServiceStruct? userService;
   final Future<dynamic> Function()? action;
   final int? index;
 
@@ -129,10 +130,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                   shape: BoxShape.circle,
                                 ),
                                 child: Image.network(
-                                  getJsonField(
-                                    widget.userService,
-                                    r'''$.icon''',
-                                  ),
+                                  '${FFAppState().baseUrl}${widget.userService?.icon}',
                                   fit: BoxFit.none,
                                 ),
                               ),
@@ -144,10 +142,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         10.0, 0.0, 0.0, 0.0),
                                     child: Text(
-                                      getJsonField(
-                                        widget.userService,
-                                        r'''$.skill_category_name''',
-                                      ).toString(),
+                                      valueOrDefault<String>(
+                                        widget.userService?.skillCategoryName,
+                                        'Skill Category Name',
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -189,7 +187,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 3.0, 0.0, 12.0),
+                              10.0, 3.0, 10.0, 12.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -209,30 +207,35 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     20.0, 0.0, 0.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: Color(0xFFD4D4D4),
-                                        borderRadius:
-                                            BorderRadius.circular(2.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            5.0, 3.0, 10.0, 3.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              getJsonField(
-                                                widget.userService,
-                                                r'''$.skill_name''',
-                                              ).toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
+                                child: Builder(
+                                  builder: (context) {
+                                    final skills =
+                                        widget.userService?.skills?.toList() ??
+                                            [];
+                                    return Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: List.generate(skills.length,
+                                          (skillsIndex) {
+                                        final skillsItem = skills[skillsIndex];
+                                        return Container(
+                                          decoration: BoxDecoration(
+                                            color: Color(0xFFD4D4D4),
+                                            borderRadius:
+                                                BorderRadius.circular(2.0),
+                                          ),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    5.0, 3.0, 10.0, 3.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  skillsItem.skillName,
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
                                                       .bodyMedium
                                                       .override(
                                                         fontFamily: 'Lato',
@@ -244,12 +247,14 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                         fontWeight:
                                                             FontWeight.normal,
                                                       ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  ].divide(SizedBox(width: 8.0)),
+                                          ),
+                                        );
+                                      }).divide(SizedBox(width: 8.0)),
+                                    );
+                                  },
                                 ),
                               ),
                             ],
@@ -295,10 +300,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                               MainAxisAlignment.center,
                                           children: [
                                             Text(
-                                              getJsonField(
-                                                widget.userService,
-                                                r'''$.skill_level''',
-                                              ).toString(),
+                                              valueOrDefault<String>(
+                                                widget.userService?.skillLevel,
+                                                'No Skill Level',
+                                              ),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -325,10 +330,10 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         ),
                         Builder(
                           builder: (context) {
-                            final option = getJsonField(
-                              widget.userService,
-                              r'''$.options''',
-                            ).toList();
+                            final option = widget
+                                    .userService?.customerSkillOptions
+                                    ?.toList() ??
+                                [];
                             return ListView.separated(
                               padding: EdgeInsets.zero,
                               shrinkWrap: true,
@@ -346,10 +351,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        '${getJsonField(
-                                          optionItem,
-                                          r'''$.name''',
-                                        ).toString()}:',
+                                        '${optionItem.optionName}:',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -368,10 +370,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                           builder: (context) {
                                             final values = functions
                                                     .convertStringtoListOfString(
-                                                        getJsonField(
-                                                      optionItem,
-                                                      r'''$.values''',
-                                                    ).toString())
+                                                        optionItem.values)
                                                     ?.toList() ??
                                                 [];
                                             return Row(
@@ -419,11 +418,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                                     .center,
                                                             children: [
                                                               Text(
-                                                                getJsonField(
-                                                                  widget
-                                                                      .userService,
-                                                                  r'''$.skill_level''',
-                                                                ).toString(),
+                                                                valuesItem,
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
@@ -456,20 +451,14 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                                         model: _model
                                                             .checkboxModels
                                                             .getModel(
-                                                          '${getJsonField(
-                                                            optionItem,
-                                                            r'''$.name''',
-                                                          ).toString()}-${valuesItem}',
+                                                          '${optionItem.name}-${valuesItem}',
                                                           valuesIndex,
                                                         ),
                                                         updateCallback: () =>
                                                             setState(() {}),
                                                         child: CheckboxWidget(
                                                           key: Key(
-                                                            'Keyv4e_${'${getJsonField(
-                                                              optionItem,
-                                                              r'''$.name''',
-                                                            ).toString()}-${valuesItem}'}',
+                                                            'Keyv4e_${'${optionItem.name}-${valuesItem}'}',
                                                           ),
                                                           selected:
                                                               valuesItem ==
@@ -545,10 +534,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         var _shouldSetState = false;
                         _model.apiResult8x8 =
                             await TaskerpageBackendGroup.skillDeletCall.call(
-                          id: getJsonField(
-                            widget.userService,
-                            r'''$.name''',
-                          ).toString(),
+                          id: widget.userService?.name,
                           apiGlobalKey: FFAppState().apiKey,
                         );
                         _shouldSetState = true;

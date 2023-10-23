@@ -8,7 +8,9 @@ import '/flutter_flow/flutter_flow_util.dart';
 class SkillStruct extends BaseStruct {
   SkillStruct({
     String? skill,
-  }) : _skill = skill;
+    String? skillName,
+  })  : _skill = skill,
+        _skillName = skillName;
 
   // "skill" field.
   String? _skill;
@@ -16,8 +18,15 @@ class SkillStruct extends BaseStruct {
   set skill(String? val) => _skill = val;
   bool hasSkill() => _skill != null;
 
+  // "skill_name" field.
+  String? _skillName;
+  String get skillName => _skillName ?? '';
+  set skillName(String? val) => _skillName = val;
+  bool hasSkillName() => _skillName != null;
+
   static SkillStruct fromMap(Map<String, dynamic> data) => SkillStruct(
         skill: data['skill'] as String?,
+        skillName: data['skill_name'] as String?,
       );
 
   static SkillStruct? maybeFromMap(dynamic data) =>
@@ -25,12 +34,17 @@ class SkillStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'skill': _skill,
+        'skill_name': _skillName,
       }.withoutNulls;
 
   @override
   Map<String, dynamic> toSerializableMap() => {
         'skill': serializeParam(
           _skill,
+          ParamType.String,
+        ),
+        'skill_name': serializeParam(
+          _skillName,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -42,6 +56,11 @@ class SkillStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        skillName: deserializeParam(
+          data['skill_name'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -49,16 +68,20 @@ class SkillStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
-    return other is SkillStruct && skill == other.skill;
+    return other is SkillStruct &&
+        skill == other.skill &&
+        skillName == other.skillName;
   }
 
   @override
-  int get hashCode => const ListEquality().hash([skill]);
+  int get hashCode => const ListEquality().hash([skill, skillName]);
 }
 
 SkillStruct createSkillStruct({
   String? skill,
+  String? skillName,
 }) =>
     SkillStruct(
       skill: skill,
+      skillName: skillName,
     );

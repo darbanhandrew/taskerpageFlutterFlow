@@ -1,11 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/drawer_content_widget.dart';
-import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
-import '/components/skill_level_sheet_widget.dart';
-import '/components/skill_options_check_component_widget.dart';
-import '/components/skill_options_chips_component_widget.dart';
+import '/components/selectable_skill_details_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -55,6 +52,21 @@ class Skills4Model extends FlutterFlowModel<Skills4Widget> {
           int index, Function(UserServiceStruct) updateFn) =>
       customerProfileSkills[index] = updateFn(customerProfileSkills[index]);
 
+  int? selectedCategoryIndex = 0;
+
+  List<SkillStruct> selectedSkills = [];
+  void addToSelectedSkills(SkillStruct item) => selectedSkills.add(item);
+  void removeFromSelectedSkills(SkillStruct item) =>
+      selectedSkills.remove(item);
+  void removeAtIndexFromSelectedSkills(int index) =>
+      selectedSkills.removeAt(index);
+  void insertAtIndexInSelectedSkills(int index, SkillStruct item) =>
+      selectedSkills.insert(index, item);
+  void updateSelectedSkillsAtIndex(int index, Function(SkillStruct) updateFn) =>
+      selectedSkills[index] = updateFn(selectedSkills[index]);
+
+  int? innerLoopIndex = 0;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -64,34 +76,27 @@ class Skills4Model extends FlutterFlowModel<Skills4Widget> {
   late DrawerContentModel drawerContentModel;
   // Model for Header component.
   late HeaderModel headerModel;
-  // Stores action output result for [Backend Call - API (createUserService)] action in Container widget.
-  ApiCallResponse? createdUserService;
-  // Stores action output result for [Backend Call - API (Get user services)] action in Container widget.
-  ApiCallResponse? userServiceGet;
-  // Models for skillOptionsCheckComponent dynamic component.
-  late FlutterFlowDynamicModels<SkillOptionsCheckComponentModel>
-      skillOptionsCheckComponentModels;
-  // Models for skillOptionsChipsComponent dynamic component.
-  late FlutterFlowDynamicModels<SkillOptionsChipsComponentModel>
-      skillOptionsChipsComponentModels;
+  // Model for selectableSkillDetails component.
+  late SelectableSkillDetailsModel selectableSkillDetailsModel;
+  // Stores action output result for [Backend Call - API (Get Skill Category Details)] action in Container widget.
+  ApiCallResponse? skillCategoryDetails;
+  // Stores action output result for [Backend Call - API (Update Customer Profile)] action in Container widget.
+  ApiCallResponse? apiResulteko;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     drawerContentModel = createModel(context, () => DrawerContentModel());
     headerModel = createModel(context, () => HeaderModel());
-    skillOptionsCheckComponentModels =
-        FlutterFlowDynamicModels(() => SkillOptionsCheckComponentModel());
-    skillOptionsChipsComponentModels =
-        FlutterFlowDynamicModels(() => SkillOptionsChipsComponentModel());
+    selectableSkillDetailsModel =
+        createModel(context, () => SelectableSkillDetailsModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     drawerContentModel.dispose();
     headerModel.dispose();
-    skillOptionsCheckComponentModels.dispose();
-    skillOptionsChipsComponentModels.dispose();
+    selectableSkillDetailsModel.dispose();
   }
 
   /// Action blocks are added here.

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -7,6 +8,7 @@ import '/components/skill_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -17,7 +19,13 @@ import 'skills_list_model.dart';
 export 'skills_list_model.dart';
 
 class SkillsListWidget extends StatefulWidget {
-  const SkillsListWidget({Key? key}) : super(key: key);
+  const SkillsListWidget({
+    Key? key,
+    bool? isEdit,
+  })  : this.isEdit = isEdit ?? true,
+        super(key: key);
+
+  final bool isEdit;
 
   @override
   _SkillsListWidgetState createState() => _SkillsListWidgetState();
@@ -129,16 +137,9 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                 future: (_model.apiRequestCompleter ??=
                                         Completer<ApiCallResponse>()
                                           ..complete(TaskerpageBackendGroup
-                                              .customerProfileSkillsListCall
+                                              .userProfileMeCall
                                               .call(
                                             apiGlobalKey: FFAppState().apiKey,
-                                            fields:
-                                                '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\"]',
-                                            filters:
-                                                '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                              FFAppState().userProfile,
-                                              r'''$.data.name''',
-                                            ).toString()}\"]]',
                                           )))
                                     .future,
                                 builder: (context, snapshot) {
@@ -156,15 +157,23 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                       ),
                                     );
                                   }
-                                  final listViewCustomerProfileSkillsListResponse =
+                                  final listViewUserProfileMeResponse =
                                       snapshot.data!;
                                   return Builder(
                                     builder: (context) {
-                                      final myServices = getJsonField(
-                                        listViewCustomerProfileSkillsListResponse
-                                            .jsonBody,
-                                        r'''$.data''',
-                                      ).toList();
+                                      final myServices = TaskerpageBackendGroup
+                                              .userProfileMeCall
+                                              .customerSkills(
+                                                listViewUserProfileMeResponse
+                                                    .jsonBody,
+                                              )
+                                              ?.map((e) => e != null && e != ''
+                                                  ? UserServiceStruct.fromMap(e)
+                                                  : null)
+                                              .withoutNulls
+                                              .toList()
+                                              ?.toList() ??
+                                          [];
                                       return ListView.separated(
                                         padding: EdgeInsets.zero,
                                         primary: false,
@@ -295,19 +304,67 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                         ),
                       ),
                     ),
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        wrapWithModel(
-                          model: _model.navBarModel,
-                          updateCallback: () => setState(() {}),
-                          child: NavBarWidget(),
-                        ),
-                      ],
-                    ),
                   ],
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  if (!widget.isEdit)
+                    wrapWithModel(
+                      model: _model.navBarModel,
+                      updateCallback: () => setState(() {}),
+                      child: NavBarWidget(),
+                    ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (widget.isEdit)
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            color: Color(0x33000000),
+                            offset: Offset(5.0, 5.0),
+                            spreadRadius: 10.0,
+                          )
+                        ],
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Contactdata-1');
+                              },
+                              child: wrapWithModel(
+                                model: _model.buttonNextModel,
+                                updateCallback: () => setState(() {}),
+                                child: ButtonNextWidget(
+                                  text: 'Next',
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                ],
               ),
             ],
           ),

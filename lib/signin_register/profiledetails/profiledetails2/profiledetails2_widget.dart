@@ -195,242 +195,260 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              final selectedMedia = await selectMedia(
-                                mediaSource: MediaSource.photoGallery,
-                                multiImage: false,
-                              );
-                              if (selectedMedia != null &&
-                                  selectedMedia.every((m) => validateFileFormat(
-                                      m.storagePath, context))) {
-                                setState(() => _model.isDataUploading1 = true);
-                                var selectedUploadedFiles = <FFUploadedFile>[];
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                final selectedMedia = await selectMedia(
+                                  mediaSource: MediaSource.photoGallery,
+                                  multiImage: false,
+                                );
+                                if (selectedMedia != null &&
+                                    selectedMedia.every((m) =>
+                                        validateFileFormat(
+                                            m.storagePath, context))) {
+                                  setState(
+                                      () => _model.isDataUploading1 = true);
+                                  var selectedUploadedFiles =
+                                      <FFUploadedFile>[];
 
-                                try {
-                                  selectedUploadedFiles = selectedMedia
-                                      .map((m) => FFUploadedFile(
-                                            name: m.storagePath.split('/').last,
-                                            bytes: m.bytes,
-                                            height: m.dimensions?.height,
-                                            width: m.dimensions?.width,
-                                            blurHash: m.blurHash,
-                                          ))
-                                      .toList();
-                                } finally {
-                                  _model.isDataUploading1 = false;
+                                  try {
+                                    selectedUploadedFiles = selectedMedia
+                                        .map((m) => FFUploadedFile(
+                                              name:
+                                                  m.storagePath.split('/').last,
+                                              bytes: m.bytes,
+                                              height: m.dimensions?.height,
+                                              width: m.dimensions?.width,
+                                              blurHash: m.blurHash,
+                                            ))
+                                        .toList();
+                                  } finally {
+                                    _model.isDataUploading1 = false;
+                                  }
+                                  if (selectedUploadedFiles.length ==
+                                      selectedMedia.length) {
+                                    setState(() {
+                                      _model.uploadedLocalFile1 =
+                                          selectedUploadedFiles.first;
+                                    });
+                                  } else {
+                                    setState(() {});
+                                    return;
+                                  }
                                 }
-                                if (selectedUploadedFiles.length ==
-                                    selectedMedia.length) {
+
+                                _model.apiResultekx3 =
+                                    await TaskerpageBackendGroup.uploadCall
+                                        .call(
+                                  file: _model.uploadedLocalFile1,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                  doctype: 'Customer Profile',
+                                  docname: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ).toString(),
+                                );
+                                if ((_model.apiResultekx3?.succeeded ?? true)) {
                                   setState(() {
-                                    _model.uploadedLocalFile1 =
-                                        selectedUploadedFiles.first;
+                                    _model.avatarURL = getJsonField(
+                                      (_model.apiResultekx3?.jsonBody ?? ''),
+                                      r'''$.message.file_url''',
+                                    ).toString();
+                                  });
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e..avatar = _model.avatarURL,
+                                    );
                                   });
                                 } else {
-                                  setState(() {});
-                                  return;
-                                }
-                              }
-
-                              _model.apiResultekx3 =
-                                  await TaskerpageBackendGroup.uploadCall.call(
-                                file: _model.uploadedLocalFile1,
-                                apiGlobalKey: FFAppState().apiKey,
-                                doctype: 'Customer Profile',
-                                docname: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.name''',
-                                ).toString(),
-                              );
-                              if ((_model.apiResultekx3?.succeeded ?? true)) {
-                                setState(() {
-                                  _model.avatarURL = getJsonField(
-                                    (_model.apiResultekx3?.jsonBody ?? ''),
-                                    r'''$.message.file_url''',
-                                  ).toString();
-                                });
-                                setState(() {
-                                  FFAppState().updateUserInformationStruct(
-                                    (e) => e..avatar = _model.avatarURL,
-                                  );
-                                });
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Not Done'),
-                                      content: Text('Not Done'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-
-                              setState(() {});
-                            },
-                            child: Container(
-                              width: 154.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                borderRadius: BorderRadius.circular(0.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'From Gallery',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w500,
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Not Done'),
+                                        content: Text('Not Done'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
                                           ),
-                                    ),
-                                  ],
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+
+                                setState(() {});
+                              },
+                              child: Container(
+                                width: 154.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'From Gallery',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              final selectedMedia = await selectMedia(
-                                multiImage: false,
-                              );
-                              if (selectedMedia != null &&
-                                  selectedMedia.every((m) => validateFileFormat(
-                                      m.storagePath, context))) {
-                                setState(() => _model.isDataUploading2 = true);
-                                var selectedUploadedFiles = <FFUploadedFile>[];
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                final selectedMedia = await selectMedia(
+                                  multiImage: false,
+                                );
+                                if (selectedMedia != null &&
+                                    selectedMedia.every((m) =>
+                                        validateFileFormat(
+                                            m.storagePath, context))) {
+                                  setState(
+                                      () => _model.isDataUploading2 = true);
+                                  var selectedUploadedFiles =
+                                      <FFUploadedFile>[];
 
-                                try {
-                                  selectedUploadedFiles = selectedMedia
-                                      .map((m) => FFUploadedFile(
-                                            name: m.storagePath.split('/').last,
-                                            bytes: m.bytes,
-                                            height: m.dimensions?.height,
-                                            width: m.dimensions?.width,
-                                            blurHash: m.blurHash,
-                                          ))
-                                      .toList();
-                                } finally {
-                                  _model.isDataUploading2 = false;
+                                  try {
+                                    selectedUploadedFiles = selectedMedia
+                                        .map((m) => FFUploadedFile(
+                                              name:
+                                                  m.storagePath.split('/').last,
+                                              bytes: m.bytes,
+                                              height: m.dimensions?.height,
+                                              width: m.dimensions?.width,
+                                              blurHash: m.blurHash,
+                                            ))
+                                        .toList();
+                                  } finally {
+                                    _model.isDataUploading2 = false;
+                                  }
+                                  if (selectedUploadedFiles.length ==
+                                      selectedMedia.length) {
+                                    setState(() {
+                                      _model.uploadedLocalFile2 =
+                                          selectedUploadedFiles.first;
+                                    });
+                                  } else {
+                                    setState(() {});
+                                    return;
+                                  }
                                 }
-                                if (selectedUploadedFiles.length ==
-                                    selectedMedia.length) {
+
+                                _model.apiResultekx4 =
+                                    await TaskerpageBackendGroup.uploadCall
+                                        .call(
+                                  file: _model.uploadedLocalFile1,
+                                  apiGlobalKey: FFAppState().apiKey,
+                                  doctype: 'Customer Profile',
+                                  docname: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ).toString(),
+                                );
+                                if ((_model.apiResultekx4?.succeeded ?? true)) {
                                   setState(() {
-                                    _model.uploadedLocalFile2 =
-                                        selectedUploadedFiles.first;
+                                    _model.avatarURL = getJsonField(
+                                      (_model.apiResultekx3?.jsonBody ?? ''),
+                                      r'''$.message.file_url''',
+                                    ).toString();
+                                  });
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e..avatar = _model.avatarURL,
+                                    );
                                   });
                                 } else {
-                                  setState(() {});
-                                  return;
-                                }
-                              }
-
-                              _model.apiResultekx4 =
-                                  await TaskerpageBackendGroup.uploadCall.call(
-                                file: _model.uploadedLocalFile1,
-                                apiGlobalKey: FFAppState().apiKey,
-                                doctype: 'Customer Profile',
-                                docname: getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.name''',
-                                ).toString(),
-                              );
-                              if ((_model.apiResultekx4?.succeeded ?? true)) {
-                                setState(() {
-                                  _model.avatarURL = getJsonField(
-                                    (_model.apiResultekx3?.jsonBody ?? ''),
-                                    r'''$.message.file_url''',
-                                  ).toString();
-                                });
-                                setState(() {
-                                  FFAppState().updateUserInformationStruct(
-                                    (e) => e..avatar = _model.avatarURL,
-                                  );
-                                });
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Not Done'),
-                                      content: Text('Not Done'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-
-                              setState(() {});
-                            },
-                            child: Container(
-                              width: 154.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                borderRadius: BorderRadius.circular(0.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Take Photo',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w500,
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Not Done'),
+                                        content: Text('Not Done'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
                                           ),
-                                    ),
-                                  ],
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+
+                                setState(() {});
+                              },
+                              child: Container(
+                                width: 154.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.5,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Take Photo',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
+                        ].divide(SizedBox(width: 12.0)),
                       ),
                     ),
                     if (_model.avatarURL != null && _model.avatarURL != '')

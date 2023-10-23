@@ -5,6 +5,7 @@ import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'skill_level_sheet_widget.dart' show SkillLevelSheetWidget;
 import 'package:flutter/material.dart';

@@ -19,7 +19,7 @@ bool checkIfServiceCategoryExists(
     return false;
   }
   for (final service in userServices) {
-    if (service.serviceCategory == serviceCategoryId) {
+    if (service.skillCategoryName == serviceCategoryId) {
       return true;
     }
   }
@@ -48,83 +48,12 @@ List<UserServiceStruct> updateUserServices(
   }
   if (add) {
     // add serviceCategoryId to userServices
-    userServices.add(UserServiceStruct(serviceCategory: serviceCategoryId));
+    userServices.add(UserServiceStruct(skillCategoryName: serviceCategoryId));
   } else {
     // remove serviceCategoryId from userServices
-    userServices
-        .removeWhere((service) => service.serviceCategory == serviceCategoryId);
+    userServices.removeWhere(
+        (service) => service.skillCategoryName == serviceCategoryId);
   }
-  return userServices;
-}
-
-List<UserServiceStruct> addUserService(
-  List<UserServiceStruct>? userServices,
-  List<String> serviceId,
-  String serviceCategoryId,
-  bool add,
-) {
-  if (userServices == null) {
-    userServices = [];
-  }
-
-  if (add) {
-    // Check if the serviceId and serviceCategoryId tuple already exists in the list
-    if (userServices.any((userService) =>
-        userService.service == serviceId &&
-        userService.serviceCategory == serviceCategoryId)) {
-      // If it does, return the original list
-      return userServices;
-    } else {
-      // If it doesn't, add a new UserServiceStruct to the list with the given serviceId and serviceCategoryId
-      userServices.add(UserServiceStruct(
-          service: serviceId, serviceCategory: serviceCategoryId));
-    }
-  } else {
-    // Remove the UserServiceStruct with the given serviceId and serviceCategoryId from the list
-    userServices.removeWhere((userService) =>
-        userService.service == serviceId &&
-        userService.serviceCategory == serviceCategoryId);
-  }
-
-  return userServices;
-}
-
-List<UserServiceStruct> updateServiceSkillLevel(
-  List<UserServiceStruct>? userServices,
-  List<String> serviceId,
-  String serviceCategoryId,
-  String skillLevel,
-) {
-  if (userServices == null) {
-    userServices = [];
-  }
-
-  // Check if the serviceId and serviceCategoryId tuple already exists in the list
-  if (userServices.any((userService) =>
-      userService.service == serviceId &&
-      userService.serviceCategory == serviceCategoryId)) {
-    // If it does, update or remove the skillLevel based on whether it's null or not
-    if (skillLevel == null) {
-      userServices
-          .firstWhere((userService) =>
-              userService.service == serviceId &&
-              userService.serviceCategory == serviceCategoryId)
-          .serviceSkillLevel = null;
-    } else {
-      userServices
-          .firstWhere((userService) =>
-              userService.service == serviceId &&
-              userService.serviceCategory == serviceCategoryId)
-          .serviceSkillLevel = skillLevel;
-    }
-  } else {
-    // If it doesn't, add a new UserServiceStruct to the list with the given serviceId and serviceCategoryId
-    userServices.add(UserServiceStruct(
-        service: serviceId,
-        serviceCategory: serviceCategoryId,
-        serviceSkillLevel: skillLevel));
-  }
-
   return userServices;
 }
 
@@ -138,8 +67,7 @@ bool checkIfServiceExists(
     return false;
   }
   for (final service in userServices) {
-    if (service.service == serviceId &&
-        service.serviceCategory == serviceCategoryId) {
+    if (service.skillCategoryName == serviceCategoryId) {
       return true;
     }
   }
@@ -297,9 +225,9 @@ dynamic userServicesToJson(List<UserServiceStruct>? userServices) {
   final userServicesList = [];
   for (final userService in userServices) {
     userServicesList.add({
-      'service': userService.service,
-      'service_category': userService.serviceCategory,
-      'service_skill_level': userService.serviceSkillLevel,
+      'service': userService.skillName,
+      'service_category': userService.skillCategoryName,
+      'service_skill_level': userService.skillLevel,
     });
   }
   return userServicesList;
@@ -312,9 +240,9 @@ List<UserServiceStruct> jsonToUserServices(dynamic userServicesJson) {
   final userServices = <UserServiceStruct>[];
   for (final userServiceJson in userServicesJson) {
     userServices.add(UserServiceStruct(
-      service: userServiceJson['service'],
-      serviceCategory: userServiceJson['service_category'],
-      serviceSkillLevel: userServiceJson['service_skill_level'],
+      skillName: userServiceJson['skill_name'],
+      skillCategoryName: userServiceJson['skill_category_name'],
+      skillLevel: userServiceJson['skill_level'],
     ));
   }
   return userServices;
@@ -1105,4 +1033,41 @@ int? stringToInt(String? string) {
     return null;
   }
   return int.tryParse(string);
+}
+
+int? multiplication(
+  int? int1,
+  int? int2,
+) {
+  // Multiply the first number by the second
+
+  if (int1 != null && int2 != null) {
+    return int1 * int2;
+  }
+  return null;
+}
+
+List<SkillStruct>? returnSelectedSkillsBooleanList(
+  List<bool> checkedSkills,
+  List<SkillStruct> skillList,
+) {
+  if (checkedSkills.length != skillList.length) {
+    // This check ensures that the lengths of the two lists match.
+    // If they don't match, it returns null as a sign of error.
+    return null;
+  }
+
+  List<SkillStruct> selectedSkills = [];
+
+  for (int i = 0; i < checkedSkills.length; i++) {
+    if (checkedSkills[i]) {
+      selectedSkills.add(skillList[i]);
+    }
+  }
+
+  return selectedSkills;
+}
+
+String? returnSingleTrueIndex(List<bool>? booleanList) {
+  return "hello";
 }

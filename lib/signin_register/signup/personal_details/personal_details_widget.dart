@@ -187,11 +187,6 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                     ),
                               ),
                             ),
-                            wrapWithModel(
-                              model: _model.requardStarModel1,
-                              updateCallback: () => setState(() {}),
-                              child: RequardStarWidget(),
-                            ),
                           ],
                         ),
                       ),
@@ -364,11 +359,6 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
-                            ),
-                            wrapWithModel(
-                              model: _model.requardStarModel2,
-                              updateCallback: () => setState(() {}),
-                              child: RequardStarWidget(),
                             ),
                           ],
                         ),
@@ -631,7 +621,7 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                     ),
                                   ),
                                   wrapWithModel(
-                                    model: _model.requardStarModel3,
+                                    model: _model.requardStarModel1,
                                     updateCallback: () => setState(() {}),
                                     child: RequardStarWidget(),
                                   ),
@@ -644,167 +634,19 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 41.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(2.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                      ),
-                                    ),
-                                    child: Visibility(
-                                      visible: FFAppState()
-                                              .UserInformation
-                                              .accounttype ==
-                                          'company',
-                                      child: TextFormField(
-                                        controller:
-                                            _model.companyNameController,
-                                        focusNode: _model.companyNameFocusNode,
-                                        onFieldSubmitted: (_) async {
-                                          setState(() {
-                                            FFAppState()
-                                                .updateUserInformationStruct(
-                                              (e) => e
-                                                ..firstname = _model
-                                                    .companyNameController.text,
-                                            );
-                                          });
-                                        },
-                                        textInputAction: TextInputAction.next,
-                                        obscureText: false,
-                                        decoration: InputDecoration(
-                                          isDense: true,
-                                          labelStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium,
-                                          hintText: 'Kevin',
-                                          hintStyle:
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMedium
-                                                  .override(
-                                                    fontFamily: 'Lato',
-                                                    color: Color(0xFFACABAB),
-                                                  ),
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .tertiary,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                          ),
-                                          focusedBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                          ),
-                                          errorBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE8083F),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                          ),
-                                          focusedErrorBorder:
-                                              OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                              color: Color(0xFFE8083F),
-                                              width: 1.0,
-                                            ),
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                          ),
-                                        ),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color: Color(0xFF212121),
-                                              fontSize: 14.0,
-                                            ),
-                                        minLines: 1,
-                                        validator: _model
-                                            .companyNameControllerValidator
-                                            .asValidator(context),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 18.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      3.0, 0.0, 0.0, 0.0),
-                                  child: Text(
-                                    'First Name',
-                                    textAlign: TextAlign.justify,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF292929),
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ),
-                                wrapWithModel(
-                                  model: _model.requardStarModel4,
-                                  updateCallback: () => setState(() {}),
-                                  child: RequardStarWidget(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 8.0, 32.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    height: 41.0,
-                                    decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryBackground,
-                                      borderRadius: BorderRadius.circular(2.0),
-                                      border: Border.all(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                      ),
-                                    ),
+                                if (FFAppState().UserInformation.accounttype ==
+                                    'company')
+                                  Expanded(
                                     child: TextFormField(
-                                      controller: _model.firstNameController,
-                                      focusNode: _model.firstNameFocusNode,
+                                      controller: _model.companyNameController,
+                                      focusNode: _model.companyNameFocusNode,
                                       onFieldSubmitted: (_) async {
                                         setState(() {
                                           FFAppState()
                                               .updateUserInformationStruct(
                                             (e) => e
                                               ..firstname = _model
-                                                  .firstNameController.text,
+                                                  .companyNameController.text,
                                           );
                                         });
                                       },
@@ -865,9 +707,123 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                           ),
                                       minLines: 1,
                                       validator: _model
-                                          .firstNameControllerValidator
+                                          .companyNameControllerValidator
                                           .asValidator(context),
                                     ),
+                                  ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 18.0, 32.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      3.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    'First Name',
+                                    textAlign: TextAlign.justify,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF292929),
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ),
+                                wrapWithModel(
+                                  model: _model.requardStarModel2,
+                                  updateCallback: () => setState(() {}),
+                                  child: RequardStarWidget(),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 8.0, 32.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: _model.firstNameController,
+                                    focusNode: _model.firstNameFocusNode,
+                                    onFieldSubmitted: (_) async {
+                                      setState(() {
+                                        FFAppState()
+                                            .updateUserInformationStruct(
+                                          (e) => e
+                                            ..firstname =
+                                                _model.firstNameController.text,
+                                        );
+                                      });
+                                    },
+                                    textInputAction: TextInputAction.next,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium,
+                                      hintText: 'Kevin',
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Color(0xFFACABAB),
+                                          ),
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .tertiary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFE8083F),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: Color(0xFFE8083F),
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                    ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF212121),
+                                          fontSize: 14.0,
+                                        ),
+                                    minLines: 1,
+                                    validator: _model
+                                        .firstNameControllerValidator
+                                        .asValidator(context),
                                   ),
                                 ),
                               ],
@@ -899,7 +855,7 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                               ),
                             ),
                             wrapWithModel(
-                              model: _model.requardStarModel5,
+                              model: _model.requardStarModel3,
                               updateCallback: () => setState(() {}),
                               child: RequardStarWidget(),
                             ),
@@ -913,84 +869,72 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             Expanded(
-                              child: Container(
-                                height: 41.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                ),
-                                child: TextFormField(
-                                  controller: _model.lastNameController,
-                                  focusNode: _model.lastNameFocusNode,
-                                  onFieldSubmitted: (_) async {
-                                    setState(() {
-                                      FFAppState().updateUserInformationStruct(
-                                        (e) => e
-                                          ..lastname =
-                                              _model.lastNameController.text,
-                                      );
-                                    });
-                                  },
-                                  textInputAction: TextInputAction.next,
-                                  obscureText: false,
-                                  decoration: InputDecoration(
-                                    isDense: true,
-                                    labelStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium,
-                                    hintText: 'smith',
-                                    hintStyle: FlutterFlowTheme.of(context)
-                                        .labelMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFFACABAB),
-                                        ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiary,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(2.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(2.0),
-                                    ),
-                                    errorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFE8083F),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(2.0),
-                                    ),
-                                    focusedErrorBorder: OutlineInputBorder(
-                                      borderSide: BorderSide(
-                                        color: Color(0xFFE8083F),
-                                        width: 1.0,
-                                      ),
-                                      borderRadius: BorderRadius.circular(2.0),
-                                    ),
-                                  ),
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
+                              child: TextFormField(
+                                controller: _model.lastNameController,
+                                focusNode: _model.lastNameFocusNode,
+                                onFieldSubmitted: (_) async {
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e
+                                        ..lastname =
+                                            _model.lastNameController.text,
+                                    );
+                                  });
+                                },
+                                textInputAction: TextInputAction.next,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  isDense: true,
+                                  labelStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  hintText: 'smith',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
                                       .override(
                                         fontFamily: 'Lato',
-                                        color: Color(0xFF212121),
-                                        fontSize: 14.0,
+                                        color: Color(0xFFACABAB),
                                       ),
-                                  minLines: 1,
-                                  validator: _model.lastNameControllerValidator
-                                      .asValidator(context),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8083F),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8083F),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(2.0),
+                                  ),
                                 ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF212121),
+                                      fontSize: 14.0,
+                                    ),
+                                minLines: 1,
+                                validator: _model.lastNameControllerValidator
+                                    .asValidator(context),
                               ),
                             ),
                           ],
@@ -1125,103 +1069,79 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                         ),
                                       ],
                                     ),
-                                    Container(
-                                      decoration: BoxDecoration(),
-                                      child: Container(
-                                        height: 41.0,
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .secondaryBackground,
+                                    TextFormField(
+                                      controller: _model.textController4,
+                                      focusNode: _model.textFieldFocusNode,
+                                      onFieldSubmitted: (_) async {
+                                        setState(() {
+                                          FFAppState()
+                                              .updateUserInformationStruct(
+                                            (e) => e
+                                              ..mobilenumber =
+                                                  _model.textController4.text,
+                                          );
+                                        });
+                                      },
+                                      textInputAction: TextInputAction.next,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        isDense: true,
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        hintText: '30 327696376',
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFFACABAB),
+                                            ),
+                                        enabledBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .tertiary,
+                                            width: 1.0,
+                                          ),
                                           borderRadius:
                                               BorderRadius.circular(2.0),
-                                          border: Border.all(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondary,
-                                          ),
                                         ),
-                                        child: TextFormField(
-                                          controller: _model.textController4,
-                                          focusNode: _model.textFieldFocusNode,
-                                          onFieldSubmitted: (_) async {
-                                            setState(() {
-                                              FFAppState()
-                                                  .updateUserInformationStruct(
-                                                (e) => e
-                                                  ..mobilenumber = _model
-                                                      .textController4.text,
-                                              );
-                                            });
-                                          },
-                                          textInputAction: TextInputAction.next,
-                                          obscureText: false,
-                                          decoration: InputDecoration(
-                                            isDense: true,
-                                            labelStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium,
-                                            hintText: '30 327696376',
-                                            hintStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelMedium
-                                                    .override(
-                                                      fontFamily: 'Lato',
-                                                      color: Color(0xFFACABAB),
-                                                    ),
-                                            enabledBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .tertiary,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            focusedBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            errorBorder: OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE8083F),
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            focusedErrorBorder:
-                                                OutlineInputBorder(
-                                              borderSide: BorderSide(
-                                                color: Color(0xFFE8083F),
-                                                width: 1.0,
-                                              ),
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
+                                        focusedBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 1.0,
                                           ),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color: Color(0xFF212121),
-                                                fontSize: 14.0,
-                                              ),
-                                          minLines: 1,
-                                          keyboardType: TextInputType.phone,
-                                          validator: _model
-                                              .textController4Validator
-                                              .asValidator(context),
-                                          inputFormatters: [
-                                            _model.textFieldMask
-                                          ],
+                                          borderRadius:
+                                              BorderRadius.circular(2.0),
+                                        ),
+                                        errorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFE8083F),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(2.0),
+                                        ),
+                                        focusedErrorBorder: OutlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: Color(0xFFE8083F),
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(2.0),
                                         ),
                                       ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Color(0xFF212121),
+                                            fontSize: 14.0,
+                                          ),
+                                      minLines: 1,
+                                      keyboardType: TextInputType.phone,
+                                      validator: _model.textController4Validator
+                                          .asValidator(context),
+                                      inputFormatters: [_model.textFieldMask],
                                     ),
                                   ],
                                 ),
@@ -1254,7 +1174,7 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                               ),
                             ),
                             wrapWithModel(
-                              model: _model.requardStarModel6,
+                              model: _model.requardStarModel4,
                               updateCallback: () => setState(() {}),
                               child: RequardStarWidget(),
                             ),

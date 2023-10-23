@@ -274,7 +274,7 @@ class _OnSiteAppointmentDeatelsWidgetState
                                       'Poster'))
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 0.0, 32.0, 0.0),
+                                      32.0, 28.0, 32.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,

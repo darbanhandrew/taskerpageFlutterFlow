@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
+import '/components/appointment_card_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';

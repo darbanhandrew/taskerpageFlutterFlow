@@ -28,6 +28,10 @@ class PublishTaskModel extends FlutterFlowModel<PublishTaskWidget> {
   final googleMapsController = Completer<GoogleMapController>();
   // Stores action output result for [Backend Call - API (UpdateStatusPost)] action in Container widget.
   ApiCallResponse? updateStatusPost;
+  // Stores action output result for [Backend Call - API (userProfileRead)] action in Container widget.
+  ApiCallResponse? userRead;
+  // Stores action output result for [Backend Call - API (create chat)] action in Container widget.
+  ApiCallResponse? startChat22;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
 

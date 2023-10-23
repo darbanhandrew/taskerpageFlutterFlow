@@ -1,22 +1,25 @@
 export '/backend/schema/util/schema_util.dart';
 
 export 'addresses_struct.dart';
+export 'app_roles_struct.dart';
 export 'current_user_struct.dart';
 export 'education_struct.dart';
 export 'reviwe_struct.dart';
+export 'sign_up_rate_struct.dart';
+export 'skill_category_struct.dart';
 export 'task_address_struct.dart';
 export 'task_creation_struct.dart';
 export 'task_deatels_struct.dart';
 export 'task_rates_struct.dart';
 export 'appointment_struct.dart';
 export 'chat_message_struct.dart';
+export 'cheaps_chat_struct.dart';
 export 'crate_task_struct.dart';
 export 'create_task_struct.dart';
 export 'filter_struct.dart';
 export 'location_filter_struct.dart';
 export 'pos_calendar_struct.dart';
 export 'repeatable_task_details_struct.dart';
-export 'service_options_struct.dart';
 export 'skill_struct.dart';
 export 'skill_filter_struct.dart';
 export 'skill_options_struct.dart';

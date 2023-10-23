@@ -14,13 +14,15 @@ class CreateTaskStruct extends BaseStruct {
     TaskerTypeStruct? taskerType,
     List<SkillOptionsStruct>? taskOptions,
     TaskRatesStruct? taskRates,
+    int? daysPerWeek,
   })  : _skillCategory = skillCategory,
         _taskDeatels = taskDeatels,
         _taskAddress = taskAddress,
         _taskSchedule = taskSchedule,
         _taskerType = taskerType,
         _taskOptions = taskOptions,
-        _taskRates = taskRates;
+        _taskRates = taskRates,
+        _daysPerWeek = daysPerWeek;
 
   // "skill_category" field.
   String? _skillCategory;
@@ -76,6 +78,13 @@ class CreateTaskStruct extends BaseStruct {
       updateFn(_taskRates ??= TaskRatesStruct());
   bool hasTaskRates() => _taskRates != null;
 
+  // "days_per_week" field.
+  int? _daysPerWeek;
+  int get daysPerWeek => _daysPerWeek ?? 0;
+  set daysPerWeek(int? val) => _daysPerWeek = val;
+  void incrementDaysPerWeek(int amount) => _daysPerWeek = daysPerWeek + amount;
+  bool hasDaysPerWeek() => _daysPerWeek != null;
+
   static CreateTaskStruct fromMap(Map<String, dynamic> data) =>
       CreateTaskStruct(
         skillCategory: data['skill_category'] as String?,
@@ -88,6 +97,7 @@ class CreateTaskStruct extends BaseStruct {
           SkillOptionsStruct.fromMap,
         ),
         taskRates: TaskRatesStruct.maybeFromMap(data['TaskRates']),
+        daysPerWeek: castToType<int>(data['days_per_week']),
       );
 
   static CreateTaskStruct? maybeFromMap(dynamic data) =>
@@ -101,6 +111,7 @@ class CreateTaskStruct extends BaseStruct {
         'taskerType': _taskerType?.toMap(),
         'taskOptions': _taskOptions?.map((e) => e.toMap()).toList(),
         'TaskRates': _taskRates?.toMap(),
+        'days_per_week': _daysPerWeek,
       }.withoutNulls;
 
   @override
@@ -133,6 +144,10 @@ class CreateTaskStruct extends BaseStruct {
         'TaskRates': serializeParam(
           _taskRates,
           ParamType.DataStruct,
+        ),
+        'days_per_week': serializeParam(
+          _daysPerWeek,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -179,6 +194,11 @@ class CreateTaskStruct extends BaseStruct {
           false,
           structBuilder: TaskRatesStruct.fromSerializableMap,
         ),
+        daysPerWeek: deserializeParam(
+          data['days_per_week'],
+          ParamType.int,
+          false,
+        ),
       );
 
   @override
@@ -194,7 +214,8 @@ class CreateTaskStruct extends BaseStruct {
         taskSchedule == other.taskSchedule &&
         taskerType == other.taskerType &&
         listEquality.equals(taskOptions, other.taskOptions) &&
-        taskRates == other.taskRates;
+        taskRates == other.taskRates &&
+        daysPerWeek == other.daysPerWeek;
   }
 
   @override
@@ -205,7 +226,8 @@ class CreateTaskStruct extends BaseStruct {
         taskSchedule,
         taskerType,
         taskOptions,
-        taskRates
+        taskRates,
+        daysPerWeek
       ]);
 }
 
@@ -216,6 +238,7 @@ CreateTaskStruct createCreateTaskStruct({
   TaskScheduleStruct? taskSchedule,
   TaskerTypeStruct? taskerType,
   TaskRatesStruct? taskRates,
+  int? daysPerWeek,
 }) =>
     CreateTaskStruct(
       skillCategory: skillCategory,
@@ -224,4 +247,5 @@ CreateTaskStruct createCreateTaskStruct({
       taskSchedule: taskSchedule ?? TaskScheduleStruct(),
       taskerType: taskerType ?? TaskerTypeStruct(),
       taskRates: taskRates ?? TaskRatesStruct(),
+      daysPerWeek: daysPerWeek,
     );

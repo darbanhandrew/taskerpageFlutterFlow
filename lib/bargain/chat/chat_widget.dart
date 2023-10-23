@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
 import '/components/set_appointment_widget.dart';
@@ -241,7 +242,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                         ),
                                   ),
                                   Text(
-                                    'XXXXXXXXXXXX',
+                                    'Post ${widget.postID?.toString()}',
                                     style: FlutterFlowTheme.of(context)
                                         .bodyMedium
                                         .override(
@@ -553,12 +554,18 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                               ),
                                                             ),
                                                           ),
-                                                          if (false)
+                                                          if (functions
+                                                                  .jsonToString(
+                                                                      getJsonField(
+                                                                chatsItem,
+                                                                r'''$.action_type''',
+                                                              )) ==
+                                                              'appointment')
                                                             Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
+                                                                          12.0,
                                                                           8.0,
                                                                           0.0,
                                                                           0.0),
@@ -568,7 +575,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         .max,
                                                                 mainAxisAlignment:
                                                                     MainAxisAlignment
-                                                                        .center,
+                                                                        .start,
                                                                 children: [
                                                                   InkWell(
                                                                     splashColor:
@@ -594,7 +601,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .secondaryBackground,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(15.0),
+                                                                            BorderRadius.circular(10.0),
                                                                         border:
                                                                             Border.all(
                                                                           color:
@@ -679,7 +686,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .primary,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(15.0),
+                                                                            BorderRadius.circular(10.0),
                                                                         border:
                                                                             Border.all(
                                                                           color:
@@ -764,7 +771,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                         color: FlutterFlowTheme.of(context)
                                                                             .tertiary,
                                                                         borderRadius:
-                                                                            BorderRadius.circular(15.0),
+                                                                            BorderRadius.circular(10.0),
                                                                         border:
                                                                             Border.all(
                                                                           color:
@@ -799,7 +806,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                                                   ),
                                                                 ].divide(SizedBox(
                                                                     width:
-                                                                        10.0)),
+                                                                        8.0)),
                                                               ),
                                                             ),
                                                         ],
@@ -1010,133 +1017,180 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () => _model.unfocusNode.canRequestFocus
-                                    ? FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode)
-                                    : FocusScope.of(context).unfocus(),
-                                child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: SetAppointmentWidget(
-                                    id: widget.taskerID!.toString(),
-                                    postID: widget.postID!.toString(),
-                                    setOredit: false,
+                  Builder(
+                    builder: (context) {
+                      final cheapsChat = _model.chatPageChips.toList();
+                      return SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: List.generate(cheapsChat.length,
+                              (cheapsChatIndex) {
+                            final cheapsChatItem = cheapsChat[cheapsChatIndex];
+                            return InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                if (cheapsChatItem.type == 'special') {
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: SetAppointmentWidget(
+                                            id: widget.taskerID!.toString(),
+                                            postID: widget.postID!.toString(),
+                                            setOredit: false,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                } else if (cheapsChatItem.type == 'phone') {
+                                  _model.apiResult55u9 =
+                                      await TaskerpageBackendGroup
+                                          .sendMessageCall
+                                          .call(
+                                    email: widget.curentUser,
+                                    user: widget.curentUser,
+                                    room: widget.room,
+                                    content: 'Hello, I am ${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.first_name''',
+                                    ).toString()} ${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.last_name''',
+                                    ).toString()} In case of cooperation, contact this number - ${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.phone_number''',
+                                    ).toString()}',
+                                    apiGlobalKey:
+                                        'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                                  );
+                                  if ((_model.apiResult55u9?.succeeded ??
+                                      true)) {
+                                    setState(() {
+                                      _model.textController?.text = '';
+                                    });
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('error'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                } else {
+                                  _model.sendMessage =
+                                      await TaskerpageBackendGroup
+                                          .sendMessageCall
+                                          .call(
+                                    email: widget.curentUser,
+                                    user: widget.curentUser,
+                                    room: widget.room,
+                                    content: 'Hello, I am ${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.first_name''',
+                                    ).toString()} ${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.last_name''',
+                                    ).toString()} In case of cooperation, contact this email address - ${getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.user''',
+                                    ).toString()}',
+                                    apiGlobalKey:
+                                        'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                                  );
+                                  if ((_model.sendMessage?.succeeded ?? true)) {
+                                    setState(() {
+                                      _model.textController?.text = '';
+                                    });
+                                  } else {
+                                    await showDialog(
+                                      context: context,
+                                      builder: (alertDialogContext) {
+                                        return AlertDialog(
+                                          title: Text('error'),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () => Navigator.pop(
+                                                  alertDialogContext),
+                                              child: Text('Ok'),
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+                                }
+
+                                setState(() {});
+                              },
+                              child: Container(
+                                height: 26.0,
+                                decoration: BoxDecoration(
+                                  color: cheapsChatItem.type == 'special'
+                                      ? FlutterFlowTheme.of(context).primary
+                                      : FlutterFlowTheme.of(context)
+                                          .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
                                   ),
                                 ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
-                        },
-                        child: Container(
-                          height: 26.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 8.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'Set Appointment',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await showModalBottomSheet(
-                            isScrollControlled: true,
-                            backgroundColor: Colors.transparent,
-                            enableDrag: false,
-                            context: context,
-                            builder: (context) {
-                              return GestureDetector(
-                                onTap: () => _model.unfocusNode.canRequestFocus
-                                    ? FocusScope.of(context)
-                                        .requestFocus(_model.unfocusNode)
-                                    : FocusScope.of(context).unfocus(),
                                 child: Padding(
-                                  padding: MediaQuery.viewInsetsOf(context),
-                                  child: SetAppointmentWidget(
-                                    id: '',
-                                    postID: '',
-                                    setOredit: false,
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        cheapsChatItem.title,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: cheapsChatItem.type ==
+                                                      'special'
+                                                  ? Colors.white
+                                                  : FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 10.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              );
-                            },
-                          ).then((value) => safeSetState(() {}));
-                        },
-                        child: Container(
-                          height: 26.0,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context).primary,
-                            borderRadius: BorderRadius.circular(10.0),
-                            border: Border.all(
-                              color: FlutterFlowTheme.of(context).primary,
-                            ),
-                          ),
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                8.0, 0.0, 8.0, 0.0),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Text(
-                                  'Place Bid',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                        fontSize: 10.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ],
-                            ),
-                          ),
+                              ),
+                            );
+                          }).divide(SizedBox(width: 8.0)),
                         ),
-                      ),
-                    ].divide(SizedBox(width: 8.0)),
+                      );
+                    },
                   ),
                   Padding(
                     padding:

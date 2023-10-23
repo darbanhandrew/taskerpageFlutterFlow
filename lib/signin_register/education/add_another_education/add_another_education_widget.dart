@@ -927,16 +927,13 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       color: Colors.white,
                                       borderRadius: BorderRadius.circular(1.0),
                                       border: Border.all(
-                                        color: widget.isSignUp
-                                            ? Colors.transparent
-                                            : FlutterFlowTheme.of(context)
-                                                .primary,
+                                        color: Color(0x00FFFFFF),
                                       ),
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Text(
                                           () {
@@ -953,13 +950,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
-                                                color: widget.isSignUp
-                                                    ? FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondary
-                                                    : FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .secondary,
                                                 fontSize: 14.0,
                                               ),
                                         ),
@@ -1104,7 +1097,15 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       if ((_model
                                               .educationRequest2?.succeeded ??
                                           true)) {
-                                        context.pushNamed('Profiledetails');
+                                        context.pushNamed(
+                                          'Education-2',
+                                          queryParameters: {
+                                            'isSignUp': serializeParam(
+                                              true,
+                                              ParamType.bool,
+                                            ),
+                                          }.withoutNulls,
+                                        );
 
                                         setState(() {
                                           FFAppState()
@@ -1498,11 +1499,12 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                     },
                                     child: Container(
                                       width: 209.0,
-                                      height: 44.0,
+                                      height: 40.0,
                                       decoration: BoxDecoration(
-                                        color: Color(0xFF5450E2),
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         borderRadius:
-                                            BorderRadius.circular(5.0),
+                                            BorderRadius.circular(2.0),
                                       ),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
@@ -1614,10 +1616,11 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                   },
                                   child: Container(
                                     width: 209.0,
-                                    height: 44.0,
+                                    height: 40.0,
                                     decoration: BoxDecoration(
-                                      color: Color(0xFF5450E2),
-                                      borderRadius: BorderRadius.circular(5.0),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      borderRadius: BorderRadius.circular(2.0),
                                     ),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,

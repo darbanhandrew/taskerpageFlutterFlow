@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
 import '/components/set_appointment_widget.dart';
@@ -21,6 +22,20 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class ChatModel extends FlutterFlowModel<ChatWidget> {
+  ///  Local state fields for this page.
+
+  List<CheapsChatStruct> chatPageChips = [];
+  void addToChatPageChips(CheapsChatStruct item) => chatPageChips.add(item);
+  void removeFromChatPageChips(CheapsChatStruct item) =>
+      chatPageChips.remove(item);
+  void removeAtIndexFromChatPageChips(int index) =>
+      chatPageChips.removeAt(index);
+  void insertAtIndexInChatPageChips(int index, CheapsChatStruct item) =>
+      chatPageChips.insert(index, item);
+  void updateChatPageChipsAtIndex(
+          int index, Function(CheapsChatStruct) updateFn) =>
+      chatPageChips[index] = updateFn(chatPageChips[index]);
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
@@ -28,6 +43,10 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   ApiCallResponse? apiResult39c;
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
+  // Stores action output result for [Backend Call - API (send message)] action in Container widget.
+  ApiCallResponse? apiResult55u9;
+  // Stores action output result for [Backend Call - API (send message)] action in Container widget.
+  ApiCallResponse? sendMessage;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

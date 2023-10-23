@@ -524,6 +524,9 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                       FFAppState().userProfile = null;
                     });
                   },
+                  onDoubleTap: () async {
+                    context.pushNamed('test2');
+                  },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
                     children: [

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/button_next_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -7,6 +8,7 @@ import '/components/skill_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import 'dart:async';
 import 'skills_list_widget.dart' show SkillsListWidget;
 import 'package:flutter/material.dart';
@@ -28,6 +30,8 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter;
   // Model for NavBar component.
   late NavBarModel navBarModel;
+  // Model for button_Next component.
+  late ButtonNextModel buttonNextModel;
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
 
@@ -38,6 +42,7 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
     navigateBackModel = createModel(context, () => NavigateBackModel());
     skillCardModels = FlutterFlowDynamicModels(() => SkillCardModel());
     navBarModel = createModel(context, () => NavBarModel());
+    buttonNextModel = createModel(context, () => ButtonNextModel());
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
@@ -47,6 +52,7 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
     navigateBackModel.dispose();
     skillCardModels.dispose();
     navBarModel.dispose();
+    buttonNextModel.dispose();
     drawerContentModel.dispose();
   }
 

@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
+import '/components/appointment_card_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -235,520 +236,159 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 itemCount:
                                                     invationAppointment.length,
                                                 separatorBuilder: (_, __) =>
-                                                    SizedBox(height: 8.0),
+                                                    SizedBox(height: 16.0),
                                                 itemBuilder: (context,
                                                     invationAppointmentIndex) {
                                                   final invationAppointmentItem =
                                                       invationAppointment[
                                                           invationAppointmentIndex];
-                                                  return Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(5.0, 5.0,
-                                                                5.0, 0.0),
-                                                    child: FutureBuilder<
-                                                        ApiCallResponse>(
-                                                      future: TaskerpageBackendGroup
-                                                          .customerProfileDetailsCall
-                                                          .call(
-                                                        name: functions.jsonToString(
-                                                                    getJsonField(
-                                                                  FFAppState()
-                                                                      .userProfile,
-                                                                  r'''$.data.role_profile_name''',
-                                                                )) ==
-                                                                'Tasker'
-                                                            ? functions
-                                                                .jsonToString(
-                                                                    getJsonField(
-                                                                invationAppointmentItem,
-                                                                r'''$.poster''',
-                                                              ))
-                                                            : functions
-                                                                .jsonToString(
-                                                                    getJsonField(
-                                                                invationAppointmentItem,
-                                                                r'''$.tasker''',
-                                                              )),
-                                                        apiGlobalKey:
-                                                            FFAppState().apiKey,
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              child:
-                                                                  SpinKitThreeBounce(
-                                                                color: FlutterFlowTheme.of(
+                                                  return AppointmentCardWidget(
+                                                    key: Key(
+                                                        'Keyppv_${invationAppointmentIndex}_of_${invationAppointment.length}'),
+                                                    json: getJsonField(
+                                                      invationAppointmentItem,
+                                                      r'''$.data''',
+                                                    ),
+                                                    accepted: true,
+                                                    state: 'invation',
+                                                    accept: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
                                                                         context)
-                                                                    .primary,
-                                                                size: 50.0,
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  AlerModalMassageAcceptAppointmentWidget(
+                                                                id: getJsonField(
+                                                                  invationAppointmentItem,
+                                                                  r'''$.name''',
+                                                                ),
                                                               ),
                                                             ),
                                                           );
-                                                        }
-                                                        final containerCustomerProfileDetailsResponse =
-                                                            snapshot.data!;
-                                                        return InkWell(
-                                                          splashColor: Colors
-                                                              .transparent,
-                                                          focusColor: Colors
-                                                              .transparent,
-                                                          hoverColor: Colors
-                                                              .transparent,
-                                                          highlightColor: Colors
-                                                              .transparent,
-                                                          onTap: () async {
-                                                            if (functions
-                                                                    .jsonToString(
-                                                                        getJsonField(
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    },
+                                                    reject: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        context: context,
+                                                        builder: (context) {
+                                                          return GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  AlerModalMassageRejectAppointmentWidget(
+                                                                id: getJsonField(
                                                                   invationAppointmentItem,
-                                                                  r'''$.appointment_type''',
-                                                                )) ==
-                                                                'Online') {
-                                                              context.pushNamed(
-                                                                'Online_AppointmentDeatels',
-                                                                queryParameters:
-                                                                    {
-                                                                  'appointmentId':
-                                                                      serializeParam(
-                                                                    getJsonField(
-                                                                      invationAppointmentItem,
-                                                                      r'''$.name''',
-                                                                    ).toString(),
-                                                                    ParamType
-                                                                        .String,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
-                                                            } else {
-                                                              if (functions
-                                                                      .jsonToString(
-                                                                          getJsonField(
-                                                                    invationAppointmentItem,
-                                                                    r'''$.appointment_type''',
-                                                                  )) ==
-                                                                  'By Phone') {
-                                                                context
-                                                                    .pushNamed(
-                                                                  'By_Phone_AppointmentDeatels',
-                                                                  queryParameters:
-                                                                      {
-                                                                    'appointmentId':
-                                                                        serializeParam(
-                                                                      getJsonField(
-                                                                        invationAppointmentItem,
-                                                                        r'''$.name''',
-                                                                      ).toString(),
-                                                                      ParamType
-                                                                          .String,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              } else {
-                                                                context
-                                                                    .pushNamed(
-                                                                  'On_site_AppointmentDeatels',
-                                                                  queryParameters:
-                                                                      {
-                                                                    'appointmentId':
-                                                                        serializeParam(
-                                                                      getJsonField(
-                                                                        invationAppointmentItem,
-                                                                        r'''$.name''',
-                                                                      ).toString(),
-                                                                      ParamType
-                                                                          .String,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              }
-                                                            }
-                                                          },
-                                                          child: Container(
-                                                            width: 100.0,
-                                                            height: 148.0,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color:
-                                                                  Colors.white,
-                                                              boxShadow: [
-                                                                BoxShadow(
-                                                                  blurRadius:
-                                                                      4.0,
-                                                                  color: Color(
-                                                                      0x33000000),
-                                                                  offset:
-                                                                      Offset(
-                                                                          0.0,
-                                                                          0.0),
-                                                                  spreadRadius:
-                                                                      2.0,
-                                                                )
-                                                              ],
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          1.0),
-                                                            ),
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              children: [
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          16.0,
-                                                                          13.0,
-                                                                          16.0),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Container(
-                                                                            width:
-                                                                                60.0,
-                                                                            height:
-                                                                                60.0,
-                                                                            clipBehavior:
-                                                                                Clip.antiAlias,
-                                                                            decoration:
-                                                                                BoxDecoration(
-                                                                              shape: BoxShape.circle,
-                                                                            ),
-                                                                            child:
-                                                                                Image.network(
-                                                                              '${FFAppState().baseUrl}${getJsonField(
-                                                                                containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                r'''$.data.avatar''',
-                                                                              ).toString()}',
-                                                                              fit: BoxFit.cover,
-                                                                            ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                8.0,
-                                                                                0.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Column(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.center,
-                                                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                                      child: Text(
-                                                                                        '${getJsonField(
-                                                                                          containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                          r'''$.data.first_name''',
-                                                                                        ).toString()} ${getJsonField(
-                                                                                          containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                          r'''$.data.last_name''',
-                                                                                        ).toString()}',
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: Colors.black,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
-                                                                                  child: Text(
-                                                                                    getJsonField(
-                                                                                      invationAppointmentItem,
-                                                                                      r'''$.appointment_type''',
-                                                                                    ).toString(),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: Colors.black,
-                                                                                          fontSize: 14.0,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      getJsonField(
-                                                                                        invationAppointmentItem,
-                                                                                        r'''$.appointment_time''',
-                                                                                      ).toString(),
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: Colors.black,
-                                                                                            fontSize: 12.0,
-                                                                                            fontWeight: FontWeight.w500,
-                                                                                          ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
-                                                                                      child: Icon(
-                                                                                        Icons.info_outline_rounded,
-                                                                                        color: Color(0xFF212121),
-                                                                                        size: 18.0,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ],
-                                                                  ),
+                                                                  r'''$.name''',
                                                                 ),
-                                                                Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await showModalBottomSheet(
-                                                                          isScrollControlled:
-                                                                              true,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
-                                                                          enableDrag:
-                                                                              false,
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return GestureDetector(
-                                                                              onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                              child: Padding(
-                                                                                padding: MediaQuery.viewInsetsOf(context),
-                                                                                child: AlerModalMassageRejectAppointmentWidget(
-                                                                                  id: getJsonField(
-                                                                                    invationAppointmentItem,
-                                                                                    r'''$.name''',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        ).then((value) =>
-                                                                            safeSetState(() {}));
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            92.0,
-                                                                        height:
-                                                                            36.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              Color(0x00FFFFFF),
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(2.0),
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Reject',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: FlutterFlowTheme.of(context).primary,
-                                                                                    fontSize: 14.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    InkWell(
-                                                                      splashColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      focusColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      hoverColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .transparent,
-                                                                      onTap:
-                                                                          () async {
-                                                                        await showModalBottomSheet(
-                                                                          isScrollControlled:
-                                                                              true,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
-                                                                          enableDrag:
-                                                                              false,
-                                                                          context:
-                                                                              context,
-                                                                          builder:
-                                                                              (context) {
-                                                                            return GestureDetector(
-                                                                              onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                              child: Padding(
-                                                                                padding: MediaQuery.viewInsetsOf(context),
-                                                                                child: AlerModalMassageAcceptAppointmentWidget(
-                                                                                  id: getJsonField(
-                                                                                    invationAppointmentItem,
-                                                                                    r'''$.name''',
-                                                                                  ),
-                                                                                ),
-                                                                              ),
-                                                                            );
-                                                                          },
-                                                                        ).then((value) =>
-                                                                            safeSetState(() {}));
-                                                                      },
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            92.0,
-                                                                        height:
-                                                                            36.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(2.0),
-                                                                          border:
-                                                                              Border.all(
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                          ),
-                                                                        ),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Accept',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: Colors.white,
-                                                                                    fontSize: 14.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    if (false)
-                                                                      InkWell(
-                                                                        splashColor:
-                                                                            Colors.transparent,
-                                                                        focusColor:
-                                                                            Colors.transparent,
-                                                                        hoverColor:
-                                                                            Colors.transparent,
-                                                                        highlightColor:
-                                                                            Colors.transparent,
-                                                                        onTap:
-                                                                            () async {},
-                                                                        child:
-                                                                            Container(
-                                                                          width:
-                                                                              92.0,
-                                                                          height:
-                                                                              39.0,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            color:
-                                                                                Color(0xFFEF0EB0),
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(5.0),
-                                                                            border:
-                                                                                Border.all(
-                                                                              color: Color(0xFFEF0EB0),
-                                                                            ),
-                                                                          ),
-                                                                          child:
-                                                                              Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            children: [
-                                                                              Text(
-                                                                                'Edit',
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Lato',
-                                                                                      color: Colors.white,
-                                                                                      fontSize: 14.0,
-                                                                                      fontWeight: FontWeight.w500,
-                                                                                    ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                  ].divide(SizedBox(
-                                                                      width:
-                                                                          10.0)),
-                                                                ),
-                                                              ],
+                                                              ),
                                                             ),
-                                                          ),
+                                                          );
+                                                        },
+                                                      ).then((value) =>
+                                                          safeSetState(() {}));
+                                                    },
+                                                    view: () async {
+                                                      if (functions
+                                                              .jsonToString(
+                                                                  getJsonField(
+                                                            invationAppointmentItem,
+                                                            r'''$.appointment_type''',
+                                                          )) ==
+                                                          'Online') {
+                                                        context.pushNamed(
+                                                          'Online_AppointmentDeatels',
+                                                          queryParameters: {
+                                                            'appointmentId':
+                                                                serializeParam(
+                                                              getJsonField(
+                                                                invationAppointmentItem,
+                                                                r'''$.name''',
+                                                              ).toString(),
+                                                              ParamType.String,
+                                                            ),
+                                                          }.withoutNulls,
                                                         );
-                                                      },
-                                                    ),
+                                                      } else {
+                                                        if (functions
+                                                                .jsonToString(
+                                                                    getJsonField(
+                                                              invationAppointmentItem,
+                                                              r'''$.appointment_type''',
+                                                            )) ==
+                                                            'By Phone') {
+                                                          context.pushNamed(
+                                                            'By_Phone_AppointmentDeatels',
+                                                            queryParameters: {
+                                                              'appointmentId':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  invationAppointmentItem,
+                                                                  r'''$.name''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          context.pushNamed(
+                                                            'On_site_AppointmentDeatels',
+                                                            queryParameters: {
+                                                              'appointmentId':
+                                                                  serializeParam(
+                                                                getJsonField(
+                                                                  invationAppointmentItem,
+                                                                  r'''$.name''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
+                                                              ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        }
+                                                      }
+                                                    },
+                                                    edit: () async {},
                                                   );
                                                 },
                                               );
@@ -830,299 +470,80 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                     final pendingAppointmentItem =
                                                         pendingAppointment[
                                                             pendingAppointmentIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  5.0,
-                                                                  5.0,
-                                                                  5.0,
-                                                                  0.0),
-                                                      child: FutureBuilder<
-                                                          ApiCallResponse>(
-                                                        future: TaskerpageBackendGroup
-                                                            .customerProfileDetailsCall
-                                                            .call(
-                                                          name: functions.jsonToString(
-                                                                      getJsonField(
-                                                                    FFAppState()
-                                                                        .userProfile,
-                                                                    r'''$.data.role_profile_name''',
-                                                                  )) ==
-                                                                  'Tasker'
-                                                              ? functions
-                                                                  .jsonToString(
-                                                                      getJsonField(
+                                                    return AppointmentCardWidget(
+                                                      key: Key(
+                                                          'Keypcy_${pendingAppointmentIndex}_of_${pendingAppointment.length}'),
+                                                      json: getJsonField(
+                                                        pendingAppointmentItem,
+                                                        r'''$.data''',
+                                                      ),
+                                                      accepted: false,
+                                                      state: 'pending',
+                                                      accept: () async {},
+                                                      reject: () async {},
+                                                      view: () async {
+                                                        if (functions
+                                                                .jsonToString(
+                                                                    getJsonField(
+                                                              pendingAppointmentItem,
+                                                              r'''$.appointment_type''',
+                                                            )) ==
+                                                            'Online') {
+                                                          context.pushNamed(
+                                                            'Online_AppointmentDeatels',
+                                                            queryParameters: {
+                                                              'appointmentId':
+                                                                  serializeParam(
+                                                                getJsonField(
                                                                   pendingAppointmentItem,
-                                                                  r'''$.poster''',
-                                                                ))
-                                                              : functions
-                                                                  .jsonToString(
-                                                                      getJsonField(
-                                                                  pendingAppointmentItem,
-                                                                  r'''$.tasker''',
-                                                                )),
-                                                          apiGlobalKey:
-                                                              FFAppState()
-                                                                  .apiKey,
-                                                        ),
-                                                        builder: (context,
-                                                            snapshot) {
-                                                          // Customize what your widget looks like when it's loading.
-                                                          if (!snapshot
-                                                              .hasData) {
-                                                            return Center(
-                                                              child: SizedBox(
-                                                                width: 50.0,
-                                                                height: 50.0,
-                                                                child:
-                                                                    SpinKitThreeBounce(
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary,
-                                                                  size: 50.0,
-                                                                ),
+                                                                  r'''$.name''',
+                                                                ).toString(),
+                                                                ParamType
+                                                                    .String,
                                                               ),
+                                                            }.withoutNulls,
+                                                          );
+                                                        } else {
+                                                          if (functions
+                                                                  .jsonToString(
+                                                                      getJsonField(
+                                                                pendingAppointmentItem,
+                                                                r'''$.appointment_type''',
+                                                              )) ==
+                                                              'By Phone') {
+                                                            context.pushNamed(
+                                                              'By_Phone_AppointmentDeatels',
+                                                              queryParameters: {
+                                                                'appointmentId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    pendingAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          } else {
+                                                            context.pushNamed(
+                                                              'On_site_AppointmentDeatels',
+                                                              queryParameters: {
+                                                                'appointmentId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    pendingAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
                                                             );
                                                           }
-                                                          final containerCustomerProfileDetailsResponse =
-                                                              snapshot.data!;
-                                                          return InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              if (functions
-                                                                      .jsonToString(
-                                                                          getJsonField(
-                                                                    pendingAppointmentItem,
-                                                                    r'''$.appointment_type''',
-                                                                  )) ==
-                                                                  'Online') {
-                                                                context
-                                                                    .pushNamed(
-                                                                  'Online_AppointmentDeatels',
-                                                                  queryParameters:
-                                                                      {
-                                                                    'appointmentId':
-                                                                        serializeParam(
-                                                                      getJsonField(
-                                                                        pendingAppointmentItem,
-                                                                        r'''$.name''',
-                                                                      ).toString(),
-                                                                      ParamType
-                                                                          .String,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              } else {
-                                                                if (functions
-                                                                        .jsonToString(
-                                                                            getJsonField(
-                                                                      pendingAppointmentItem,
-                                                                      r'''$.appointment_type''',
-                                                                    )) ==
-                                                                    'By Phone') {
-                                                                  context
-                                                                      .pushNamed(
-                                                                    'By_Phone_AppointmentDeatels',
-                                                                    queryParameters:
-                                                                        {
-                                                                      'appointmentId':
-                                                                          serializeParam(
-                                                                        getJsonField(
-                                                                          pendingAppointmentItem,
-                                                                          r'''$.name''',
-                                                                        ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                  );
-                                                                } else {
-                                                                  context
-                                                                      .pushNamed(
-                                                                    'On_site_AppointmentDeatels',
-                                                                    queryParameters:
-                                                                        {
-                                                                      'appointmentId':
-                                                                          serializeParam(
-                                                                        getJsonField(
-                                                                          pendingAppointmentItem,
-                                                                          r'''$.name''',
-                                                                        ).toString(),
-                                                                        ParamType
-                                                                            .String,
-                                                                      ),
-                                                                    }.withoutNulls,
-                                                                  );
-                                                                }
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              width: 100.0,
-                                                              height: 100.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Colors
-                                                                    .white,
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                    blurRadius:
-                                                                        4.0,
-                                                                    color: Color(
-                                                                        0x33000000),
-                                                                    offset:
-                                                                        Offset(
-                                                                            0.0,
-                                                                            0.0),
-                                                                    spreadRadius:
-                                                                        2.0,
-                                                                  )
-                                                                ],
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            1.0),
-                                                              ),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        16.0,
-                                                                        16.0,
-                                                                        13.0,
-                                                                        20.0),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      children: [
-                                                                        Container(
-                                                                          width:
-                                                                              60.0,
-                                                                          height:
-                                                                              60.0,
-                                                                          clipBehavior:
-                                                                              Clip.antiAlias,
-                                                                          decoration:
-                                                                              BoxDecoration(
-                                                                            shape:
-                                                                                BoxShape.circle,
-                                                                          ),
-                                                                          child:
-                                                                              Image.network(
-                                                                            '${FFAppState().baseUrl}${getJsonField(
-                                                                              containerCustomerProfileDetailsResponse.jsonBody,
-                                                                              r'''$.data.avatar''',
-                                                                            ).toString()}',
-                                                                            fit:
-                                                                                BoxFit.cover,
-                                                                          ),
-                                                                        ),
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              8.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0),
-                                                                          child:
-                                                                              Column(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                                    child: Text(
-                                                                                      '${getJsonField(
-                                                                                        containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                        r'''$.data.first_name''',
-                                                                                      ).toString()} ${getJsonField(
-                                                                                        containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                        r'''$.data.last_name''',
-                                                                                      ).toString()}',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: Colors.black,
-                                                                                            fontSize: 14.0,
-                                                                                            fontWeight: FontWeight.bold,
-                                                                                          ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
-                                                                                child: Text(
-                                                                                  getJsonField(
-                                                                                    pendingAppointmentItem,
-                                                                                    r'''$.appointment_type''',
-                                                                                  ).toString(),
-                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                        fontFamily: 'Lato',
-                                                                                        color: Colors.black,
-                                                                                        fontSize: 14.0,
-                                                                                        fontWeight: FontWeight.w500,
-                                                                                      ),
-                                                                                ),
-                                                                              ),
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    getJsonField(
-                                                                                      pendingAppointmentItem,
-                                                                                      r'''$.appointment_time''',
-                                                                                    ).toString(),
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: Colors.black,
-                                                                                          fontSize: 12.0,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                        ),
-                                                                                  ),
-                                                                                  Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
-                                                                                    child: Icon(
-                                                                                      Icons.info_outline_rounded,
-                                                                                      color: Color(0xFF212121),
-                                                                                      size: 18.0,
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ),
+                                                        }
+                                                      },
+                                                      edit: () async {},
                                                     );
                                                   },
                                                 );
@@ -1333,7 +754,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                           },
                                                           child: Container(
                                                             width: 100.0,
-                                                            height: 100.0,
+                                                            height: 227.0,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color:
@@ -1357,165 +778,166 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                                       .circular(
                                                                           1.0),
                                                             ),
-                                                            child: Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          16.0,
-                                                                          16.0,
-                                                                          13.0,
-                                                                          20.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                children: [
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Container(
-                                                                        width:
-                                                                            60.0,
-                                                                        height:
-                                                                            60.0,
-                                                                        clipBehavior:
-                                                                            Clip.antiAlias,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          shape:
-                                                                              BoxShape.circle,
+                                                            child: Visibility(
+                                                              visible: false,
+                                                              child: Padding(
+                                                                padding: EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        16.0,
+                                                                        16.0,
+                                                                        13.0,
+                                                                        20.0),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .spaceBetween,
+                                                                  children: [
+                                                                    Row(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Container(
+                                                                          width:
+                                                                              60.0,
+                                                                          height:
+                                                                              60.0,
+                                                                          clipBehavior:
+                                                                              Clip.antiAlias,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                          ),
+                                                                          child:
+                                                                              Image.network(
+                                                                            '${FFAppState().baseUrl}${getJsonField(
+                                                                              containerCustomerProfileDetailsResponse.jsonBody,
+                                                                              r'''$.data.avatar''',
+                                                                            ).toString()}',
+                                                                            fit:
+                                                                                BoxFit.cover,
+                                                                          ),
                                                                         ),
-                                                                        child: Image
-                                                                            .network(
-                                                                          '${FFAppState().baseUrl}${getJsonField(
-                                                                            containerCustomerProfileDetailsResponse.jsonBody,
-                                                                            r'''$.data.avatar''',
-                                                                          ).toString()}',
-                                                                          fit: BoxFit
-                                                                              .cover,
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Column(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          crossAxisAlignment:
-                                                                              CrossAxisAlignment.start,
-                                                                          children: [
-                                                                            Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
-                                                                                  child: Text(
-                                                                                    '${getJsonField(
-                                                                                      containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                      r'''$.data.first_name''',
-                                                                                    ).toString()} ${getJsonField(
-                                                                                      containerCustomerProfileDetailsResponse.jsonBody,
-                                                                                      r'''$.data.last_name''',
-                                                                                    ).toString()}',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: Colors.black,
-                                                                                          fontSize: 14.0,
-                                                                                          fontWeight: FontWeight.bold,
-                                                                                        ),
-                                                                                  ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                            Padding(
-                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
-                                                                              child: Text(
-                                                                                getJsonField(
-                                                                                  acceptedAppointmentItem,
-                                                                                  r'''$.appointment_type''',
-                                                                                ).toString(),
-                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                      fontFamily: 'Lato',
-                                                                                      color: Colors.black,
-                                                                                      fontSize: 14.0,
-                                                                                      fontWeight: FontWeight.w500,
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              8.0,
+                                                                              0.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            crossAxisAlignment:
+                                                                                CrossAxisAlignment.start,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 5.0, 0.0),
+                                                                                    child: Text(
+                                                                                      '${getJsonField(
+                                                                                        containerCustomerProfileDetailsResponse.jsonBody,
+                                                                                        r'''$.data.first_name''',
+                                                                                      ).toString()} ${getJsonField(
+                                                                                        containerCustomerProfileDetailsResponse.jsonBody,
+                                                                                        r'''$.data.last_name''',
+                                                                                      ).toString()}',
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: Colors.black,
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                          ),
                                                                                     ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
-                                                                            ),
-                                                                            Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              children: [
-                                                                                Text(
+                                                                              Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 6.0),
+                                                                                child: Text(
                                                                                   getJsonField(
                                                                                     acceptedAppointmentItem,
-                                                                                    r'''$.appointment_time''',
+                                                                                    r'''$.appointment_type''',
                                                                                   ).toString(),
                                                                                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                         fontFamily: 'Lato',
                                                                                         color: Colors.black,
-                                                                                        fontSize: 12.0,
+                                                                                        fontSize: 14.0,
                                                                                         fontWeight: FontWeight.w500,
                                                                                       ),
                                                                                 ),
-                                                                                Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
-                                                                                  child: Icon(
-                                                                                    Icons.info_outline_rounded,
-                                                                                    color: Color(0xFF212121),
-                                                                                    size: 18.0,
+                                                                              ),
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    getJsonField(
+                                                                                      acceptedAppointmentItem,
+                                                                                      r'''$.appointment_time''',
+                                                                                    ).toString(),
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: Colors.black,
+                                                                                          fontSize: 12.0,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                        ),
                                                                                   ),
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ],
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 0.0, 0.0),
+                                                                                    child: Icon(
+                                                                                      Icons.info_outline_rounded,
+                                                                                      color: Color(0xFF212121),
+                                                                                      size: 18.0,
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
                                                                         ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .end,
-                                                                    children: [
-                                                                      Container(
-                                                                        width:
-                                                                            30.0,
-                                                                        height:
-                                                                            30.0,
-                                                                        decoration:
-                                                                            BoxDecoration(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                          shape:
-                                                                              BoxShape.circle,
+                                                                      ],
+                                                                    ),
+                                                                    Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      mainAxisAlignment:
+                                                                          MainAxisAlignment
+                                                                              .end,
+                                                                      children: [
+                                                                        Container(
+                                                                          width:
+                                                                              30.0,
+                                                                          height:
+                                                                              30.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primary,
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                          ),
+                                                                          child:
+                                                                              Icon(
+                                                                            Icons.done_rounded,
+                                                                            color:
+                                                                                Colors.white,
+                                                                            size:
+                                                                                18.0,
+                                                                          ),
                                                                         ),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .done_rounded,
-                                                                          color:
-                                                                              Colors.white,
-                                                                          size:
-                                                                              18.0,
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ],
+                                                                      ],
+                                                                    ),
+                                                                  ],
+                                                                ),
                                                               ),
                                                             ),
                                                           ),

@@ -15,7 +15,7 @@ export '/signin_register/signin/email_verification_page/email_verification_page_
 export '/signin_register/signin/sign_in_verification_accepted/sign_in_verification_accepted_widget.dart'
     show SignInVerificationAcceptedWidget;
 export '/signin_register/signin/sign_in/sign_in_widget.dart' show SignInWidget;
-export '/signin_register/forgetpassword/forget_password_2/forget_password2_widget.dart'
+export '/signin_register/forget_password_2/forget_password2_widget.dart'
     show ForgetPassword2Widget;
 export '/signin_register/forgetpassword/forget_password_3/forget_password3_widget.dart'
     show ForgetPassword3Widget;
@@ -142,3 +142,14 @@ export '/bargain/all_followers/all_followers_widget.dart'
     show AllFollowersWidget;
 export '/task_creation/preview/publish_task/publish_task_widget.dart'
     show PublishTaskWidget;
+export '/signin_register/identification/id1/id1_widget.dart' show Id1Widget;
+export '/signin_register/identification/id2/id2_widget.dart' show Id2Widget;
+export '/signin_register/identification/id3/id3_widget.dart' show Id3Widget;
+export '/signin_register/identification/id4/id4_widget.dart' show Id4Widget;
+export '/signin_register/identification/identification_card/identification_card_widget.dart'
+    show IdentificationCardWidget;
+export '/signin_register/rate/rate_sign_up/rate_sign_up_widget.dart'
+    show RateSignUpWidget;
+export '/signin_register/rate/rates_list/rates_list_widget.dart'
+    show RatesListWidget;
+export '/test2/test2_widget.dart' show Test2Widget;
