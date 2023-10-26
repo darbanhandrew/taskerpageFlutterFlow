@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -115,7 +116,7 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
               model: _model.navigationBarModel,
               updateCallback: () => setState(() {}),
               child: NavigationBarWidget(
-                currentPage: 'task_time',
+                currentPage: 'task',
                 postId: widget.id,
                 closeDrawer: () async {
                   if (scaffoldKey.currentState!.isDrawerOpen ||
@@ -124,6 +125,17 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
                   }
                 },
               ),
+            ),
+          ),
+        ),
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -136,7 +148,9 @@ class _TaskstimeWidgetState extends State<TaskstimeWidget> {
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
-                  openDrawer: () async {},
+                  openDrawer: () async {
+                    scaffoldKey.currentState!.openEndDrawer();
+                  },
                 ),
               ),
               Expanded(

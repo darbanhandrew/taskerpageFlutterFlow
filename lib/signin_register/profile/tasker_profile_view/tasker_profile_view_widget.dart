@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/checkbox_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/my_posts_sheet_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/view_certificate_widget.dart';
@@ -132,21 +132,14 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF6F6F6),
-            drawer: Container(
-              width: MediaQuery.sizeOf(context).width * 0.85,
+            endDrawer: Container(
+              width: double.infinity,
               child: Drawer(
                 elevation: 16.0,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8EAFF),
-                  ),
-                  child: wrapWithModel(
-                    model: _model.drawerContentModel,
-                    updateCallback: () => setState(() {}),
-                    child: DrawerContentWidget(),
-                  ),
+                child: wrapWithModel(
+                  model: _model.mainDrawerModel,
+                  updateCallback: () => setState(() {}),
+                  child: MainDrawerWidget(),
                 ),
               ),
             ),
@@ -160,7 +153,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
                       openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openEndDrawer();
                       },
                     ),
                   ),
@@ -678,70 +671,18 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 20.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 15.0, 0.0),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Followers',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        fontSize: 15.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                                Text(
-                                                  functions
-                                                      .numberofListitems(
-                                                          (getJsonField(
-                                                        rowGetUserResponse
-                                                            .jsonBody,
-                                                        r'''$.data.followers''',
-                                                        true,
-                                                      ) as List)
-                                                              .map<String>((s) =>
-                                                                  s.toString())
-                                                              .toList())
-                                                      .toString(),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        fontSize: 14.0,
-                                                        fontWeight:
-                                                            FontWeight.bold,
-                                                      ),
-                                                ),
-                                              ].divide(SizedBox(height: 4.0)),
-                                            ),
-                                          ),
-                                          Column(
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 15.0, 0.0),
+                                          child: Column(
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Text(
-                                                'Connection',
+                                                'Followers',
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -761,7 +702,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                         (getJsonField(
                                                       rowGetUserResponse
                                                           .jsonBody,
-                                                      r'''$.data.following''',
+                                                      r'''$.data.followers''',
                                                       true,
                                                     ) as List)
                                                             .map<String>((s) =>
@@ -783,8 +724,51 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                               ),
                                             ].divide(SizedBox(height: 4.0)),
                                           ),
-                                        ],
-                                      ),
+                                        ),
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Text(
+                                              'Connection',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    fontSize: 15.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                            Text(
+                                              functions
+                                                  .numberofListitems(
+                                                      (getJsonField(
+                                                    rowGetUserResponse.jsonBody,
+                                                    r'''$.data.following''',
+                                                    true,
+                                                  ) as List)
+                                                          .map<String>((s) =>
+                                                              s.toString())
+                                                          .toList())
+                                                  .toString(),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.bold,
+                                                  ),
+                                            ),
+                                          ].divide(SizedBox(height: 4.0)),
+                                        ),
+                                      ],
                                     ),
                                     InkWell(
                                       splashColor: Colors.transparent,
@@ -829,16 +813,14 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                 style: TextStyle(
                                                   color: FlutterFlowTheme.of(
                                                           context)
-                                                      .success,
+                                                      .primary,
                                                   fontWeight: FontWeight.w500,
                                                   fontSize: 13.0,
                                                 ),
                                               ),
                                               duration:
                                                   Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
+                                              backgroundColor: Colors.white,
                                             ),
                                           );
                                         } else {
@@ -857,9 +839,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                               ),
                                               duration:
                                                   Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondary,
+                                              backgroundColor: Colors.white,
                                             ),
                                           );
                                         }

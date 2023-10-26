@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/components/termof_service_widget.dart';
@@ -32,6 +33,8 @@ class PublishTaskModel extends FlutterFlowModel<PublishTaskWidget> {
   ApiCallResponse? userRead;
   // Stores action output result for [Backend Call - API (create chat)] action in Container widget.
   ApiCallResponse? startChat22;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
 
@@ -41,6 +44,7 @@ class PublishTaskModel extends FlutterFlowModel<PublishTaskWidget> {
     headerModel = createModel(context, () => HeaderModel());
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
@@ -48,6 +52,7 @@ class PublishTaskModel extends FlutterFlowModel<PublishTaskWidget> {
     unfocusNode.dispose();
     headerModel.dispose();
     taskcreationMenueModel.dispose();
+    mainDrawerModel.dispose();
     navigationBarModel.dispose();
   }
 

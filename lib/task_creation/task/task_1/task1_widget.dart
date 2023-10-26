@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/selectable_container_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
@@ -100,23 +101,30 @@ class _Task1WidgetState extends State<Task1Widget> {
           width: MediaQuery.sizeOf(context).width * 0.6,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Colors.white,
+            child: wrapWithModel(
+              model: _model.navigationBarModel,
+              updateCallback: () => setState(() {}),
+              child: NavigationBarWidget(
+                currentPage: 'task',
+                postId: widget.id,
+                closeDrawer: () async {
+                  if (scaffoldKey.currentState!.isDrawerOpen ||
+                      scaffoldKey.currentState!.isEndDrawerOpen) {
+                    Navigator.pop(context);
+                  }
+                },
               ),
-              child: wrapWithModel(
-                model: _model.navigationBarModel,
-                updateCallback: () => setState(() {}),
-                child: NavigationBarWidget(
-                  currentPage: 'task1',
-                  postId: widget.id,
-                  closeDrawer: () async {
-                    scaffoldKey.currentState!.openDrawer();
-                  },
-                ),
-              ),
+            ),
+          ),
+        ),
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -139,7 +147,7 @@ class _Task1WidgetState extends State<Task1Widget> {
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
                             openDrawer: () async {
-                              scaffoldKey.currentState!.openDrawer();
+                              scaffoldKey.currentState!.openEndDrawer();
                             },
                           ),
                         ),

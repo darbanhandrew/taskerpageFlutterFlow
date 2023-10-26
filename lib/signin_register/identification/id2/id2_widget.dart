@@ -1,11 +1,15 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/date_of_birth_pick_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/text_field_and_title_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +18,12 @@ import 'id2_model.dart';
 export 'id2_model.dart';
 
 class Id2Widget extends StatefulWidget {
-  const Id2Widget({Key? key}) : super(key: key);
+  const Id2Widget({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  final String? name;
 
   @override
   _Id2WidgetState createState() => _Id2WidgetState();
@@ -29,6 +38,51 @@ class _Id2WidgetState extends State<Id2Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => Id2Model());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.updateIdentificationStruct(
+          (e) => e
+            ..documentNumber =
+                _model.textFieldAndTitleModel.stateController.text
+            ..expiryDate = _model.dateOfBirthPickModel.datePicked,
+        );
+      });
+      if (widget.name != null && widget.name != '') {
+        _model.identificationDetails =
+            await TaskerpageBackendGroup.getIdentificationDetailsCall.call(
+          name: widget.name,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.identificationDetails?.succeeded ?? true)) {
+          setState(() {
+            _model.identification = functions.jsonToIdentificationStruct(
+                TaskerpageBackendGroup.getIdentificationDetailsCall
+                    .identificationJson(
+              (_model.identificationDetails?.jsonBody ?? ''),
+            ));
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Identification doesn\'t exist,create a new one',
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                ),
+              ),
+              duration: Duration(milliseconds: 4000),
+              backgroundColor: FlutterFlowTheme.of(context).secondary,
+            ),
+          );
+
+          context.goNamed('ID1');
+        }
+      } else {
+        context.goNamed('ID1');
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -60,21 +114,14 @@ class _Id2WidgetState extends State<Id2Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
-              ),
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -92,7 +139,7 @@ class _Id2WidgetState extends State<Id2Widget> {
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
                       openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openEndDrawer();
                       },
                     ),
                   ),
@@ -178,8 +225,11 @@ class _Id2WidgetState extends State<Id2Widget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           setState(() {
-                                            _model.pageDocumentType =
-                                                documentTypeItem;
+                                            _model.updateIdentificationStruct(
+                                              (e) => e
+                                                ..documentType =
+                                                    documentTypeItem,
+                                            );
                                           });
                                         },
                                         child: Container(
@@ -192,7 +242,8 @@ class _Id2WidgetState extends State<Id2Widget> {
                                                 BorderRadius.circular(2.0),
                                             border: Border.all(
                                               color: documentTypeItem ==
-                                                      _model.pageDocumentType
+                                                      _model.identification
+                                                          ?.documentType
                                                   ? FlutterFlowTheme.of(context)
                                                       .primary
                                                   : FlutterFlowTheme.of(context)
@@ -213,7 +264,8 @@ class _Id2WidgetState extends State<Id2Widget> {
                                                       fontFamily: 'Lato',
                                                       color: documentTypeItem ==
                                                               _model
-                                                                  .pageDocumentType
+                                                                  .identification
+                                                                  ?.documentType
                                                           ? FlutterFlowTheme.of(
                                                                   context)
                                                               .primary
@@ -246,7 +298,8 @@ class _Id2WidgetState extends State<Id2Widget> {
                         model: _model.textFieldAndTitleModel,
                         updateCallback: () => setState(() {}),
                         child: TextFieldAndTitleWidget(
-                          test: 'Document Number',
+                          label: 'Document Number',
+                          defaultValue: _model.identification!.documentNumber,
                         ),
                       ),
                       Padding(
@@ -256,7 +309,8 @@ class _Id2WidgetState extends State<Id2Widget> {
                           model: _model.dateOfBirthPickModel,
                           updateCallback: () => setState(() {}),
                           child: DateOfBirthPickWidget(
-                            test: 'Expiry Date',
+                            label: 'Expiry Date',
+                            defaultValue: _model.identification?.expiryDate,
                           ),
                         ),
                       ),
@@ -272,41 +326,43 @@ class _Id2WidgetState extends State<Id2Widget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 174.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).primary,
+                            if (false)
+                              Container(
+                                width: 174.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Icon(
+                                      Icons.upload_file_outlined,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      size: 20.0,
+                                    ),
+                                    Text(
+                                      'Upload document',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ].divide(SizedBox(width: 6.0)),
                                 ),
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.upload_file_outlined,
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 20.0,
-                                  ),
-                                  Text(
-                                    'Upload document',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ].divide(SizedBox(width: 6.0)),
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -348,28 +404,68 @@ class _Id2WidgetState extends State<Id2Widget> {
                                   fontSize: 14.0,
                                 ),
                           ),
-                          Container(
-                            width: 104.0,
-                            height: 36.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              borderRadius: BorderRadius.circular(1.0),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Save',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                ),
-                              ],
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              setState(() {
+                                _model.updateIdentificationStruct(
+                                  (e) => e
+                                    ..documentNumber = _model
+                                        .textFieldAndTitleModel
+                                        .stateController
+                                        .text
+                                    ..expiryDate =
+                                        _model.dateOfBirthPickModel.datePicked,
+                                );
+                              });
+                              _model.apiResultv1s = await TaskerpageBackendGroup
+                                  .updateIdentificationDetailsCall
+                                  .call(
+                                name: _model.identification?.name,
+                                bodyJson: functions.identificationStructToJson(
+                                    _model.identification!, true),
+                                apiGlobalKey: FFAppState().apiKey,
+                              );
+                              if ((_model.apiResultv1s?.succeeded ?? true)) {
+                                context.pushNamed(
+                                  'ID3',
+                                  queryParameters: {
+                                    'name': serializeParam(
+                                      _model.identification?.name,
+                                      ParamType.String,
+                                    ),
+                                  }.withoutNulls,
+                                );
+                              }
+
+                              setState(() {});
+                            },
+                            child: Container(
+                              width: 104.0,
+                              height: 36.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(1.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Save',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

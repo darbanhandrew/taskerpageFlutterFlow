@@ -1,8 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/ad_card_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_tasker_list_widget.dart';
@@ -45,8 +45,8 @@ class TaskerListModel extends FlutterFlowModel<TaskerListWidget> {
   final googleMapsController = Completer<GoogleMapController>();
   // Model for NavBar component.
   late NavBarModel navBarModel;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -55,7 +55,7 @@ class TaskerListModel extends FlutterFlowModel<TaskerListWidget> {
     navigateBackModel = createModel(context, () => NavigateBackModel());
     adCardModel = createModel(context, () => AdCardModel());
     navBarModel = createModel(context, () => NavBarModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -67,7 +67,7 @@ class TaskerListModel extends FlutterFlowModel<TaskerListWidget> {
 
     adCardModel.dispose();
     navBarModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

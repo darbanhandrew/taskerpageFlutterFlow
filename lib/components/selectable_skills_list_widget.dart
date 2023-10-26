@@ -1,10 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/emty_container_widget.dart';
-import '/components/selectable_box_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -58,11 +57,9 @@ class _SelectableSkillsListWidgetState
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
-      future: TaskerpageBackendGroup.getServicesCall.call(
-        category:
-            '[[\"skill_category_name\",\"=\",\"${widget.selectedServiceCategory}\"]]',
+      future: TaskerpageBackendGroup.getSkillCategoryDetailsCall.call(
+        name: widget.selectedServiceCategory,
         apiGlobalKey: FFAppState().apiKey,
-        fields: '[\"skill_name\",\"name\"]',
       ),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
@@ -78,19 +75,17 @@ class _SelectableSkillsListWidgetState
             ),
           );
         }
-        final gridViewGetServicesResponse = snapshot.data!;
+        final gridViewGetSkillCategoryDetailsResponse = snapshot.data!;
         return Builder(
           builder: (context) {
-            final services = TaskerpageBackendGroup.getServicesCall
-                    .servicesList(
-                      gridViewGetServicesResponse.jsonBody,
-                    )
-                    ?.map((e) =>
-                        e != null && e != '' ? SkillStruct.fromMap(e) : null)
-                    .withoutNulls
-                    .toList()
-                    ?.toList() ??
-                [];
+            final services = functions
+                .listJsonToSkillStruct(
+                    TaskerpageBackendGroup.getSkillCategoryDetailsCall
+                        .skills(
+                          gridViewGetSkillCategoryDetailsResponse.jsonBody,
+                        )!
+                        .toList())
+                .toList();
             if (services.isEmpty) {
               return EmtyContainerWidget(
                 title: 'Choose a skill category !',
@@ -110,24 +105,7 @@ class _SelectableSkillsListWidgetState
               itemCount: services.length,
               itemBuilder: (context, servicesIndex) {
                 final servicesItem = services[servicesIndex];
-                return wrapWithModel(
-                  model: _model.selectableBoxModels.getModel(
-                    servicesItem.skill,
-                    servicesIndex,
-                  ),
-                  updateCallback: () => setState(() {}),
-                  child: SelectableBoxWidget(
-                    key: Key(
-                      'Keycv4_${servicesItem.skill}',
-                    ),
-                    isActive: widget.selectedSkills!
-                            .where((e) => e.skill == servicesItem.skill)
-                            .toList()
-                            .length >
-                        0,
-                    label: servicesItem.skillName,
-                  ),
-                );
+                return Container(width: 100, height: 100, color: Colors.green);
               },
             );
           },

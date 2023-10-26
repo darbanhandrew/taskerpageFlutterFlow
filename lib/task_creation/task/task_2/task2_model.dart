@@ -4,6 +4,7 @@ import '/components/button_next_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
@@ -90,6 +91,8 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (update task details)] action in button_Next widget.
   ApiCallResponse? updatedTask;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
 
@@ -106,6 +109,7 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
     dropeDownLanguagesModel =
         createModel(context, () => DropeDownLanguagesModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
@@ -120,6 +124,7 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
     textController?.dispose();
 
     buttonNextModel.dispose();
+    mainDrawerModel.dispose();
     navigationBarModel.dispose();
   }
 

@@ -534,7 +534,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         var _shouldSetState = false;
                         _model.apiResult8x8 =
                             await TaskerpageBackendGroup.skillDeletCall.call(
-                          id: widget.userService?.name,
+                          id: widget.userService?.name?.toString(),
                           apiGlobalKey: FFAppState().apiKey,
                         );
                         _shouldSetState = true;

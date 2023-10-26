@@ -4,6 +4,7 @@ export 'addresses_struct.dart';
 export 'app_roles_struct.dart';
 export 'current_user_struct.dart';
 export 'education_struct.dart';
+export 'identification_struct.dart';
 export 'reviwe_struct.dart';
 export 'sign_up_rate_struct.dart';
 export 'skill_category_struct.dart';

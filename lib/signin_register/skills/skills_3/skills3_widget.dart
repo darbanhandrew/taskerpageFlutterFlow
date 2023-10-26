@@ -1,10 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -39,31 +39,27 @@ class _Skills3WidgetState extends State<Skills3Widget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.userProfile =
-          await TaskerpageBackendGroup.userProfileReadCall.call(
-        id: getJsonField(
+      _model.mySkillCategories =
+          await TaskerpageBackendGroup.getMySkillCategoriesCall.call(
+        apiGlobalKey: FFAppState().apiKey,
+        customerProfile: getJsonField(
           FFAppState().userProfile,
           r'''$.data.name''',
-        ).toString().toString(),
-        apiGlobalKey: FFAppState().apiKey,
+        ),
       );
-      if ((_model.userProfile?.succeeded ?? true)) {
+      if ((_model.mySkillCategories?.succeeded ?? true)) {
         setState(() {
-          _model.chosenSkillCategory =
-              (TaskerpageBackendGroup.userProfileReadCall.customerSkills(
-            (_model.userProfile?.jsonBody ?? ''),
+          _model.chosenSkillCategory = (TaskerpageBackendGroup
+                  .getMySkillCategoriesCall
+                  .mySkillCategoryNames(
+            (_model.mySkillCategories?.jsonBody ?? ''),
           ) as List)
-                  .map<String>((s) => s.toString())
-                  .toList()!
-                  .map((e) => getJsonField(
-                        e,
-                        r'''$.skill_category_name''',
-                      ))
-                  .toList()
-                  .map((e) => e.toString())
-                  .toList()
-                  .toList()
-                  .cast<String>();
+              .map<String>((s) => s.toString())
+              .toList()!
+              .map((e) => e.toString())
+              .toList()
+              .toList()
+              .cast<String>();
         });
       }
     });
@@ -98,21 +94,14 @@ class _Skills3WidgetState extends State<Skills3Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
-              ),
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -140,7 +129,7 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                               color: Colors.transparent,
                               child: HeaderWidget(
                                 openDrawer: () async {
-                                  scaffoldKey.currentState!.openDrawer();
+                                  scaffoldKey.currentState!.openEndDrawer();
                                 },
                               ),
                             ),
@@ -512,55 +501,46 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed(
-                                'Skills-4',
-                                queryParameters: {
-                                  'addAnother': serializeParam(
-                                    widget.addAnother ? true : false,
-                                    ParamType.bool,
-                                  ),
-                                }.withoutNulls,
-                              );
-
                               if (_model.chosenSkillCategory.length > 0) {
-                                setState(() {
-                                  FFAppState().updateUserStruct(
-                                    (e) => e
-                                      ..customerSkills = FFAppState()
-                                          .user
-                                          .customerSkills
-                                          .where((e) => _model
-                                              .chosenSkillCategory
-                                              .contains(e.skillCategoryName))
-                                          .toList(),
+                                _model.syncedSkills =
+                                    await TaskerpageBackendGroup
+                                        .syncSkillCategoriesCall
+                                        .call(
+                                  newSkillsList:
+                                      functions.convertListOfStringToString(
+                                          _model.chosenSkillCategory.toList()),
+                                  customerProfileName: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.name''',
+                                  ),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                if ((_model.syncedSkills?.succeeded ?? true)) {
+                                  context.pushNamed(
+                                    'Skills-4',
+                                    queryParameters: {
+                                      'addAnother': serializeParam(
+                                        widget.addAnother ? true : false,
+                                        ParamType.bool,
+                                      ),
+                                    }.withoutNulls,
                                   );
-                                });
-                                while (_model.chosenSkillCategory.length > 0) {
-                                  if (FFAppState()
-                                          .user
-                                          .customerSkills
-                                          .where((e) =>
-                                              e.skillCategoryName ==
-                                              _model.chosenSkillCategory.first)
-                                          .toList()
-                                          .length <=
-                                      0) {
-                                    setState(() {
-                                      FFAppState().updateUserStruct(
-                                        (e) => e
-                                          ..updateCustomerSkills(
-                                            (e) => e.add(UserServiceStruct(
-                                              skillCategoryName: _model
-                                                  .chosenSkillCategory.first,
-                                            )),
-                                          ),
-                                      );
-                                    });
-                                  }
-                                  setState(() {
-                                    _model.removeAtIndexFromChosenSkillCategory(
-                                        0);
-                                  });
+                                } else {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                        'there was a problem syncing your skill categories',
+                                        style: TextStyle(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryText,
+                                        ),
+                                      ),
+                                      duration: Duration(milliseconds: 4000),
+                                      backgroundColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                  );
                                 }
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
@@ -578,6 +558,8 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                   ),
                                 );
                               }
+
+                              setState(() {});
                             },
                             child: Container(
                               width: 104.0,

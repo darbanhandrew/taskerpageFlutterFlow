@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -93,21 +93,14 @@ class _SignupWidgetState extends State<SignupWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
-              ),
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -130,7 +123,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
                             openDrawer: () async {
-                              scaffoldKey.currentState!.openDrawer();
+                              scaffoldKey.currentState!.openEndDrawer();
                             },
                           ),
                         ),

@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -52,8 +52,8 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
   ApiCallResponse? apiResultfu7;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? apiResultd93;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -61,7 +61,7 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
     headerModel = createModel(context, () => HeaderModel());
     password1Visibility = false;
     password2Visibility = false;
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -76,7 +76,7 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
     password2FocusNode?.dispose();
     password2Controller?.dispose();
 
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

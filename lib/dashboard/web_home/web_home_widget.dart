@@ -1,4 +1,5 @@
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -59,6 +60,17 @@ class _WebHomeWidgetState extends State<WebHomeWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -71,7 +83,9 @@ class _WebHomeWidgetState extends State<WebHomeWidget> {
                     model: _model.headerModel,
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
-                      openDrawer: () async {},
+                      openDrawer: () async {
+                        scaffoldKey.currentState!.openEndDrawer();
+                      },
                     ),
                   ),
                 ],

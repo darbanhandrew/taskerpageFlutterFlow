@@ -1,8 +1,6 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -57,67 +55,15 @@ class _Test2WidgetState extends State<Test2Widget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        backgroundColor: Color(0x00FFFFFF),
         body: SafeArea(
           top: true,
-          child: FutureBuilder<ApiCallResponse>(
-            future: TaskerpageBackendGroup.getAppRolesCall.call(
-              apiGlobalKey: FFAppState().apiKey,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).secondaryBackground,
             ),
-            builder: (context, snapshot) {
-              // Customize what your widget looks like when it's loading.
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
-                    child: SpinKitThreeBounce(
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 50.0,
-                    ),
-                  ),
-                );
-              }
-              final columnGetAppRolesResponse = snapshot.data!;
-              return Builder(
-                builder: (context) {
-                  final roleProfileMessage = TaskerpageBackendGroup
-                          .getAppRolesCall
-                          .roleProfilesList(
-                            columnGetAppRolesResponse.jsonBody,
-                          )
-                          ?.map((e) => e != null && e != ''
-                              ? AppRolesStruct.fromMap(e)
-                              : null)
-                          .withoutNulls
-                          .toList()
-                          ?.toList() ??
-                      [];
-                  return Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: List.generate(roleProfileMessage.length,
-                        (roleProfileMessageIndex) {
-                      final roleProfileMessageItem =
-                          roleProfileMessage[roleProfileMessageIndex];
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            (roleProfileMessageItem.toMap()).toString(),
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 30.0,
-                                ),
-                          ),
-                        ],
-                      );
-                    }),
-                  );
-                },
-              );
-            },
           ),
         ),
       ),

@@ -1,12 +1,16 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/date_of_birth_pick_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/text_field_and_title_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'id2_widget.dart' show Id2Widget;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,17 +21,25 @@ class Id2Model extends FlutterFlowModel<Id2Widget> {
 
   String? pageDocumentType;
 
+  IdentificationStruct? identification;
+  void updateIdentificationStruct(Function(IdentificationStruct) updateFn) =>
+      updateFn(identification ??= IdentificationStruct());
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Get Identification Details)] action in ID2 widget.
+  ApiCallResponse? identificationDetails;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for text_field_and_title component.
   late TextFieldAndTitleModel textFieldAndTitleModel;
   // Model for date_of_birth_pick component.
   late DateOfBirthPickModel dateOfBirthPickModel;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Stores action output result for [Backend Call - API (Update Identification Details)] action in Container widget.
+  ApiCallResponse? apiResultv1s;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -36,7 +48,7 @@ class Id2Model extends FlutterFlowModel<Id2Widget> {
     textFieldAndTitleModel =
         createModel(context, () => TextFieldAndTitleModel());
     dateOfBirthPickModel = createModel(context, () => DateOfBirthPickModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -44,7 +56,7 @@ class Id2Model extends FlutterFlowModel<Id2Widget> {
     headerModel.dispose();
     textFieldAndTitleModel.dispose();
     dateOfBirthPickModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

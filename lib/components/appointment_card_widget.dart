@@ -183,7 +183,7 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text(
-                                'view',
+                                widget.state == 'done' ? 'Review' : 'view',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(

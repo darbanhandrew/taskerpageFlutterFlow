@@ -1,8 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/my_skill_widget.dart';
-import '/components/navigation_bar_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -114,23 +114,14 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.6,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
-              model: _model.navigationBarModel,
+              model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
-              child: NavigationBarWidget(
-                currentPage: 'Rate',
-                postId: widget.id?.toString(),
-                closeDrawer: () async {
-                  if (scaffoldKey.currentState!.isDrawerOpen ||
-                      scaffoldKey.currentState!.isEndDrawerOpen) {
-                    Navigator.pop(context);
-                  }
-                },
-              ),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -143,7 +134,9 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                 model: _model.headerModel,
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
-                  openDrawer: () async {},
+                  openDrawer: () async {
+                    scaffoldKey.currentState!.openEndDrawer();
+                  },
                 ),
               ),
               Expanded(

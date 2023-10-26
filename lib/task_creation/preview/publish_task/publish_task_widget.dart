@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/components/termof_service_widget.dart';
@@ -100,7 +101,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                   model: _model.navigationBarModel,
                   updateCallback: () => setState(() {}),
                   child: NavigationBarWidget(
-                    currentPage: 'publish',
+                    currentPage: 'task',
                     postId: widget.id,
                     closeDrawer: () async {
                       if (scaffoldKey.currentState!.isDrawerOpen ||
@@ -109,6 +110,17 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                       }
                     },
                   ),
+                ),
+              ),
+            ),
+            endDrawer: Container(
+              width: double.infinity,
+              child: Drawer(
+                elevation: 16.0,
+                child: wrapWithModel(
+                  model: _model.mainDrawerModel,
+                  updateCallback: () => setState(() {}),
+                  child: MainDrawerWidget(),
                 ),
               ),
             ),
@@ -125,7 +137,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                         updateCallback: () => setState(() {}),
                         child: HeaderWidget(
                           openDrawer: () async {
-                            scaffoldKey.currentState!.openDrawer();
+                            scaffoldKey.currentState!.openEndDrawer();
                           },
                         ),
                       ),

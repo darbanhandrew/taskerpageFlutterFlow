@@ -204,7 +204,7 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                           future: TaskerpageBackendGroup.getUserCall.call(
                             username: getJsonField(
                               FFAppState().userProfile,
-                              r'''$.data.name''',
+                              r'''$.data.user''',
                             ).toString(),
                             apiGlobalKey: FFAppState().apiKey,
                           ),
@@ -228,9 +228,10 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                 final connections = getJsonField(
                                   listViewGetUserResponse.jsonBody,
                                   r'''$.data.following''',
-                                ).toList();
+                                ).toList().take(3).toList();
                                 return ListView.builder(
                                   padding: EdgeInsets.zero,
+                                  primary: false,
                                   shrinkWrap: true,
                                   scrollDirection: Axis.vertical,
                                   itemCount: connections.length,
@@ -238,7 +239,7 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                     final connectionsItem =
                                         connections[connectionsIndex];
                                     return Container(
-                                      width: 100.0,
+                                      width: double.infinity,
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                       ),
@@ -247,9 +248,12 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                             .readByEmailCall
                                             .call(
                                           filters:
-                                              '[[\"user\",\"=\",\"${connectionsItem.toString()}\"]]',
+                                              '[[\"user\",\"=\",\"${getJsonField(
+                                            connectionsItem,
+                                            r'''$.follower_user''',
+                                          ).toString()}\"]]',
                                           fields:
-                                              '[\"first_name\",\"name\",\"last_name\",\"avatar\",\"city\",\"country\",\"description\"]',
+                                              '[\"first_name\",\"name\",\"last_name\",\"avatar\",\"city\",\"country\",\"role\",\"role_profile_name\"]',
                                         ),
                                         builder: (context, snapshot) {
                                           // Customize what your widget looks like when it's loading.
@@ -275,7 +279,7 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        32.0, 9.0, 32.0, 20.0),
+                                                        32.0, 10.0, 32.0, 10.0),
                                                 child: InkWell(
                                                   splashColor:
                                                       Colors.transparent,
@@ -290,7 +294,7 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                             getJsonField(
                                                           columnReadByEmailResponse
                                                               .jsonBody,
-                                                          r'''$.data.role''',
+                                                          r'''$.data[:].role''',
                                                         )) ==
                                                         'Tasker') {
                                                       context.pushNamed(
@@ -329,107 +333,39 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                         MainAxisSize.max,
                                                     crossAxisAlignment:
                                                         CrossAxisAlignment
-                                                            .start,
+                                                            .center,
                                                     children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    32.5,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Container(
-                                                              width: 50.0,
-                                                              height: 50.0,
-                                                              clipBehavior: Clip
-                                                                  .antiAlias,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                shape: BoxShape
-                                                                    .circle,
-                                                              ),
-                                                              child:
-                                                                  Image.network(
-                                                                '${FFAppState().baseUrl}${getJsonField(
-                                                                  columnReadByEmailResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data[:].avatar''',
-                                                                ).toString()}',
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width: 50.0,
+                                                            height: 50.0,
+                                                            clipBehavior:
+                                                                Clip.antiAlias,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              shape: BoxShape
+                                                                  .circle,
                                                             ),
-                                                          ],
-                                                        ),
+                                                            child:
+                                                                Image.network(
+                                                              '${FFAppState().baseUrl}${getJsonField(
+                                                                columnReadByEmailResponse
+                                                                    .jsonBody,
+                                                                r'''$.data[:].avatar''',
+                                                              ).toString()}',
+                                                              fit: BoxFit.cover,
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                       Expanded(
                                                         child: Column(
                                                           mainAxisSize:
                                                               MainAxisSize.max,
                                                           children: [
-                                                            Row(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              mainAxisAlignment:
-                                                                  MainAxisAlignment
-                                                                      .end,
-                                                              children: [
-                                                                Container(
-                                                                  width: 120.0,
-                                                                  height: 36.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    border:
-                                                                        Border
-                                                                            .all(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                    ),
-                                                                  ),
-                                                                  child: Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .center,
-                                                                    children: [
-                                                                      Text(
-                                                                        'Disconnect',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: FlutterFlowTheme.of(context).primary,
-                                                                              fontSize: 13.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                      Icon(
-                                                                        Icons
-                                                                            .link_off_rounded,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                        size:
-                                                                            20.0,
-                                                                      ),
-                                                                    ].divide(SizedBox(
-                                                                        width:
-                                                                            8.0)),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
                                                             Row(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -464,20 +400,23 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
-                                                                          8.0,
+                                                                          3.0,
                                                                           0.0,
                                                                           0.0),
                                                               child: Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
                                                                 children: [
                                                                   Flexible(
                                                                     child: Text(
                                                                       getJsonField(
                                                                         columnReadByEmailResponse
                                                                             .jsonBody,
-                                                                        r'''$.data[:].description''',
+                                                                        r'''$.data[:].role_profile_name''',
                                                                       ).toString(),
                                                                       style: FlutterFlowTheme.of(
                                                                               context)
@@ -502,7 +441,7 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                                   EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
-                                                                          8.0,
+                                                                          4.0,
                                                                           0.0,
                                                                           0.0),
                                                               child: Row(
@@ -539,6 +478,63 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                             ),
                                                           ],
                                                         ),
+                                                      ),
+                                                      Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width: 100.0,
+                                                            height: 36.0,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryBackground,
+                                                              border:
+                                                                  Border.all(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                              ),
+                                                            ),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  'Disconnect',
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lato',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        fontSize:
+                                                                            13.0,
+                                                                        fontWeight:
+                                                                            FontWeight.w500,
+                                                                      ),
+                                                                ),
+                                                                Icon(
+                                                                  Icons
+                                                                      .link_off_rounded,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  size: 19.0,
+                                                                ),
+                                                              ].divide(SizedBox(
+                                                                  width: 4.0)),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
                                                     ].divide(
                                                         SizedBox(width: 10.0)),

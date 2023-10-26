@@ -12,17 +12,17 @@ class UserServiceStruct extends BaseStruct {
     String? skillLevel,
     String? customerProfile,
     String? icon,
-    String? name,
     List<SkillStruct>? skills,
     List<SkillOptionsStruct>? customerSkillOptions,
+    int? name,
   })  : _skillCategoryName = skillCategoryName,
         _skillName = skillName,
         _skillLevel = skillLevel,
         _customerProfile = customerProfile,
         _icon = icon,
-        _name = name,
         _skills = skills,
-        _customerSkillOptions = customerSkillOptions;
+        _customerSkillOptions = customerSkillOptions,
+        _name = name;
 
   // "skill_category_name" field.
   String? _skillCategoryName;
@@ -54,12 +54,6 @@ class UserServiceStruct extends BaseStruct {
   set icon(String? val) => _icon = val;
   bool hasIcon() => _icon != null;
 
-  // "name" field.
-  String? _name;
-  String get name => _name ?? '';
-  set name(String? val) => _name = val;
-  bool hasName() => _name != null;
-
   // "skills" field.
   List<SkillStruct>? _skills;
   List<SkillStruct> get skills => _skills ?? const [];
@@ -79,6 +73,13 @@ class UserServiceStruct extends BaseStruct {
       updateFn(_customerSkillOptions ??= []);
   bool hasCustomerSkillOptions() => _customerSkillOptions != null;
 
+  // "name" field.
+  int? _name;
+  int get name => _name ?? 0;
+  set name(int? val) => _name = val;
+  void incrementName(int amount) => _name = name + amount;
+  bool hasName() => _name != null;
+
   static UserServiceStruct fromMap(Map<String, dynamic> data) =>
       UserServiceStruct(
         skillCategoryName: data['skill_category_name'] as String?,
@@ -86,7 +87,6 @@ class UserServiceStruct extends BaseStruct {
         skillLevel: data['skill_level'] as String?,
         customerProfile: data['customer_profile'] as String?,
         icon: data['icon'] as String?,
-        name: data['name'] as String?,
         skills: getStructList(
           data['skills'],
           SkillStruct.fromMap,
@@ -95,6 +95,7 @@ class UserServiceStruct extends BaseStruct {
           data['customer_skill_options'],
           SkillOptionsStruct.fromMap,
         ),
+        name: castToType<int>(data['name']),
       );
 
   static UserServiceStruct? maybeFromMap(dynamic data) =>
@@ -106,10 +107,10 @@ class UserServiceStruct extends BaseStruct {
         'skill_level': _skillLevel,
         'customer_profile': _customerProfile,
         'icon': _icon,
-        'name': _name,
         'skills': _skills?.map((e) => e.toMap()).toList(),
         'customer_skill_options':
             _customerSkillOptions?.map((e) => e.toMap()).toList(),
+        'name': _name,
       }.withoutNulls;
 
   @override
@@ -134,10 +135,6 @@ class UserServiceStruct extends BaseStruct {
           _icon,
           ParamType.String,
         ),
-        'name': serializeParam(
-          _name,
-          ParamType.String,
-        ),
         'skills': serializeParam(
           _skills,
           ParamType.DataStruct,
@@ -147,6 +144,10 @@ class UserServiceStruct extends BaseStruct {
           _customerSkillOptions,
           ParamType.DataStruct,
           true,
+        ),
+        'name': serializeParam(
+          _name,
+          ParamType.int,
         ),
       }.withoutNulls;
 
@@ -177,11 +178,6 @@ class UserServiceStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        name: deserializeParam(
-          data['name'],
-          ParamType.String,
-          false,
-        ),
         skills: deserializeStructParam<SkillStruct>(
           data['skills'],
           ParamType.DataStruct,
@@ -193,6 +189,11 @@ class UserServiceStruct extends BaseStruct {
           ParamType.DataStruct,
           true,
           structBuilder: SkillOptionsStruct.fromSerializableMap,
+        ),
+        name: deserializeParam(
+          data['name'],
+          ParamType.int,
+          false,
         ),
       );
 
@@ -208,9 +209,9 @@ class UserServiceStruct extends BaseStruct {
         skillLevel == other.skillLevel &&
         customerProfile == other.customerProfile &&
         icon == other.icon &&
-        name == other.name &&
         listEquality.equals(skills, other.skills) &&
-        listEquality.equals(customerSkillOptions, other.customerSkillOptions);
+        listEquality.equals(customerSkillOptions, other.customerSkillOptions) &&
+        name == other.name;
   }
 
   @override
@@ -220,9 +221,9 @@ class UserServiceStruct extends BaseStruct {
         skillLevel,
         customerProfile,
         icon,
-        name,
         skills,
-        customerSkillOptions
+        customerSkillOptions,
+        name
       ]);
 }
 
@@ -232,7 +233,7 @@ UserServiceStruct createUserServiceStruct({
   String? skillLevel,
   String? customerProfile,
   String? icon,
-  String? name,
+  int? name,
 }) =>
     UserServiceStruct(
       skillCategoryName: skillCategoryName,

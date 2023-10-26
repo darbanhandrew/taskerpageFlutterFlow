@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -126,6 +127,17 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
             ),
           ),
         ),
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -140,7 +152,7 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                       updateCallback: () => setState(() {}),
                       child: HeaderWidget(
                         openDrawer: () async {
-                          scaffoldKey.currentState!.openDrawer();
+                          scaffoldKey.currentState!.openEndDrawer();
                         },
                       ),
                     ),

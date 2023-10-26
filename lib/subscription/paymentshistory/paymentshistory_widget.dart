@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -60,8 +61,16 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF2F2F2),
-        drawer: Drawer(
-          elevation: 16.0,
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -74,7 +83,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                 updateCallback: () => setState(() {}),
                 child: HeaderWidget(
                   openDrawer: () async {
-                    scaffoldKey.currentState!.openDrawer();
+                    scaffoldKey.currentState!.openEndDrawer();
                   },
                 ),
               ),

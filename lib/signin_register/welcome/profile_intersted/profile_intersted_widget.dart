@@ -1,12 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -62,21 +62,14 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
-              ),
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -99,7 +92,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
                             openDrawer: () async {
-                              scaffoldKey.currentState!.openDrawer();
+                              scaffoldKey.currentState!.openEndDrawer();
                             },
                           ),
                         ),
@@ -157,16 +150,15 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             final columnGetAppRolesResponse = snapshot.data!;
                             return Builder(
                               builder: (context) {
-                                final roleProfile = TaskerpageBackendGroup
-                                        .getAppRolesCall
-                                        .roleProfilesList(
-                                          columnGetAppRolesResponse.jsonBody,
-                                        )
-                                        ?.map((e) => e != null && e != ''
-                                            ? AppRolesStruct.fromMap(e)
-                                            : null)
-                                        .withoutNulls
-                                        .toList()
+                                final roleProfile = functions
+                                        .listJsonToAppRolesStruct(
+                                            TaskerpageBackendGroup
+                                                .getAppRolesCall
+                                                .roleProfilesList(
+                                                  columnGetAppRolesResponse
+                                                      .jsonBody,
+                                                )!
+                                                .toList())
                                         ?.toList() ??
                                     [];
                                 return Column(
@@ -190,6 +182,14 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                             hoverColor: Colors.transparent,
                                             highlightColor: Colors.transparent,
                                             onTap: () async {
+                                              setState(() {
+                                                FFAppState()
+                                                    .updateUserInformationStruct(
+                                                  (e) => e
+                                                    ..role =
+                                                        '${roleProfileItem.roleProfileName}',
+                                                );
+                                              });
                                               _model.apiResult786 =
                                                   await TaskerpageBackendGroup
                                                       .updateUserRoleCall
@@ -200,17 +200,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                   FFAppState().userProfile,
                                                   r'''$.data.user''',
                                                 ).toString(),
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
                                               );
-                                              setState(() {
-                                                FFAppState()
-                                                    .updateUserInformationStruct(
-                                                  (e) => e
-                                                    ..role =
-                                                        '${roleProfileItem.roleProfileName}',
-                                                );
-                                              });
 
                                               setState(() {});
                                             },

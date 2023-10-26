@@ -1,6 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -32,22 +32,22 @@ class ScanedQRCODEModel extends FlutterFlowModel<ScanedQRCODEWidget> {
   // State field(s) for GoogleMap widget.
   LatLng? googleMapsCenter;
   final googleMapsController = Completer<GoogleMapController>();
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

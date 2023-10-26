@@ -190,7 +190,7 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
                                 updateCallback: () => setState(() {}),
                                 child: HeaderWidget(
                                   openDrawer: () async {
-                                    scaffoldKey.currentState!.openDrawer();
+                                    scaffoldKey.currentState!.openEndDrawer();
                                   },
                                 ),
                               ),

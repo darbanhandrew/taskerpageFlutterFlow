@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
 import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/visibility_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -75,8 +75,8 @@ class PosterProfileModel extends FlutterFlowModel<PosterProfileWidget> {
   ApiCallResponse? apiResult59uCopy05;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? profile2;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -87,7 +87,7 @@ class PosterProfileModel extends FlutterFlowModel<PosterProfileWidget> {
     editIconModel3 = createModel(context, () => EditIconModel());
     editIconModel4 = createModel(context, () => EditIconModel());
     navBarModel = createModel(context, () => NavBarModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -98,7 +98,7 @@ class PosterProfileModel extends FlutterFlowModel<PosterProfileWidget> {
     editIconModel3.dispose();
     editIconModel4.dispose();
     navBarModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

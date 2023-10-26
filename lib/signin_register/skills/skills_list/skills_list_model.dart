@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/skill_card_widget.dart';
@@ -32,8 +32,8 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
   late NavBarModel navBarModel;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -43,7 +43,7 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
     skillCardModels = FlutterFlowDynamicModels(() => SkillCardModel());
     navBarModel = createModel(context, () => NavBarModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -53,7 +53,7 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
     skillCardModels.dispose();
     navBarModel.dispose();
     buttonNextModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

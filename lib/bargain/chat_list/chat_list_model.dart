@@ -1,4 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -26,16 +28,27 @@ class ChatListModel extends FlutterFlowModel<ChatListWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter1;
   Completer<ApiCallResponse>? apiRequestCompleter4;
   Completer<ApiCallResponse>? apiRequestCompleter2;
+  // Model for Header component.
+  late HeaderModel headerModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    headerModel = createModel(context, () => HeaderModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+  }
 
   void dispose() {
     unfocusNode.dispose();
+    headerModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.
+
+  Future refreshChatPage(BuildContext context) async {}
 
   /// Additional helper methods are added here.
 

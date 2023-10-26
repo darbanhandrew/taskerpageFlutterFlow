@@ -1,4 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,7 +21,7 @@ class ChatListWidget extends StatefulWidget {
   const ChatListWidget({
     Key? key,
     required this.task,
-    required this.myPost,
+    this.myPost,
   }) : super(key: key);
 
   final int? task;
@@ -41,9 +43,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.taskID = widget.task;
-      });
+      _model.taskID = widget.task;
       await actions.listenSocketEvent(
         'private_room_creation',
         () async {
@@ -58,6 +58,14 @@ class _ChatListWidgetState extends State<ChatListWidget> {
           await _model.waitForApiRequestCompleted3();
         },
       );
+      setState(() => _model.apiRequestCompleter1 = null);
+      await _model.waitForApiRequestCompleted1();
+      setState(() => _model.apiRequestCompleter4 = null);
+      await _model.waitForApiRequestCompleted4();
+      setState(() => _model.apiRequestCompleter2 = null);
+      await _model.waitForApiRequestCompleted2();
+      setState(() => _model.apiRequestCompleter3 = null);
+      await _model.waitForApiRequestCompleted3();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -90,9 +98,34 @@ class _ChatListWidgetState extends State<ChatListWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF2F2F2),
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          ),
+        ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                wrapWithModel(
+                  model: _model.headerModel,
+                  updateCallback: () => setState(() {}),
+                  child: HeaderWidget(
+                    openDrawer: () async {
+                      scaffoldKey.currentState!.openEndDrawer();
+                    },
+                  ),
+                ),
+              ],
+            ),
             Padding(
               padding: EdgeInsetsDirectional.fromSTEB(27.0, 32.0, 0.0, 20.0),
               child: FutureBuilder<ApiCallResponse>(
@@ -593,8 +626,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                               FFAppState().userProfile,
                                               r'''$.data.user''',
                                             ).toString(),
-                                            apiGlobalKey:
-                                                'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                                            apiGlobalKey: FFAppState().apiKey,
                                             task: _model.taskID,
                                           )))
                                     .future,
@@ -681,8 +713,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                       FFAppState().userProfile,
                                       r'''$.data.user''',
                                     ).toString(),
-                                    apiGlobalKey:
-                                        'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                                    apiGlobalKey: FFAppState().apiKey,
                                     task: _model.taskID,
                                   )))
                                 .future,

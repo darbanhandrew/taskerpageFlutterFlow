@@ -1,9 +1,14 @@
-import '/components/drawer_content_widget.dart';
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,7 +17,12 @@ import 'id4_model.dart';
 export 'id4_model.dart';
 
 class Id4Widget extends StatefulWidget {
-  const Id4Widget({Key? key}) : super(key: key);
+  const Id4Widget({
+    Key? key,
+    required this.name,
+  }) : super(key: key);
+
+  final String? name;
 
   @override
   _Id4WidgetState createState() => _Id4WidgetState();
@@ -27,6 +37,42 @@ class _Id4WidgetState extends State<Id4Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => Id4Model());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.name != null && widget.name != '') {
+        _model.getIdentificationDetails =
+            await TaskerpageBackendGroup.getIdentificationDetailsCall.call(
+          name: widget.name,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.getIdentificationDetails?.succeeded ?? true)) {
+          setState(() {
+            _model.identification = TaskerpageBackendGroup
+                            .getIdentificationDetailsCall
+                            .identificationJson(
+                          (_model.getIdentificationDetails?.jsonBody ?? ''),
+                        ) !=
+                        null &&
+                    TaskerpageBackendGroup.getIdentificationDetailsCall
+                            .identificationJson(
+                          (_model.getIdentificationDetails?.jsonBody ?? ''),
+                        ) !=
+                        ''
+                ? IdentificationStruct.fromMap(TaskerpageBackendGroup
+                    .getIdentificationDetailsCall
+                    .identificationJson(
+                    (_model.getIdentificationDetails?.jsonBody ?? ''),
+                  ))
+                : null;
+          });
+        } else {
+          context.goNamed('ID1');
+        }
+      } else {
+        context.goNamed('ID1');
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -58,21 +104,14 @@ class _Id4WidgetState extends State<Id4Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
-              ),
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -90,7 +129,7 @@ class _Id4WidgetState extends State<Id4Widget> {
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
                       openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openEndDrawer();
                       },
                     ),
                   ),
@@ -130,33 +169,40 @@ class _Id4WidgetState extends State<Id4Widget> {
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              width: 103.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  width: 1.5,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Take photo',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          fontSize: 14.0,
-                                        ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {},
+                              child: Container(
+                                width: 103.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    width: 1.5,
                                   ),
-                                ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Take photo',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            fontSize: 14.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                             Container(
@@ -211,10 +257,32 @@ class _Id4WidgetState extends State<Id4Widget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Icon(
-                                Icons.add,
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 24.0,
+                              Expanded(
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: CachedNetworkImage(
+                                    fadeInDuration: Duration(milliseconds: 500),
+                                    fadeOutDuration:
+                                        Duration(milliseconds: 500),
+                                    imageUrl:
+                                        'https://picsum.photos/seed/697/600',
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
+                                    fit: BoxFit.cover,
+                                    errorWidget: (context, error, stackTrace) =>
+                                        Image.asset(
+                                      'assets/images/error_image.jpg',
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height:
+                                          MediaQuery.sizeOf(context).height *
+                                              1.0,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
                             ],
                           ),

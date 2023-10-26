@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
-import '/components/navigation_bar_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/rate_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -24,22 +24,22 @@ class RatesListModel extends FlutterFlowModel<RatesListWidget> {
   late HeaderModel headerModel;
   // Model for rate_card component.
   late RateCardModel rateCardModel;
-  // Model for navigationBar component.
-  late NavigationBarModel navigationBarModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     rateCardModel = createModel(context, () => RateCardModel());
-    navigationBarModel = createModel(context, () => NavigationBarModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     rateCardModel.dispose();
-    navigationBarModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

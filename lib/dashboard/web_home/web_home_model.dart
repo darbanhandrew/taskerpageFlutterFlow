@@ -1,4 +1,5 @@
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -19,18 +20,22 @@ class WebHomeModel extends FlutterFlowModel<WebHomeWidget> {
   late HeaderModel headerModel;
   // Model for NavBar component.
   late NavBarModel navBarModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navBarModel = createModel(context, () => NavBarModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     navBarModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

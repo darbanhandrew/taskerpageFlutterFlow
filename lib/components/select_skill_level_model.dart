@@ -1,4 +1,3 @@
-import '/components/selectable_box_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -17,18 +16,12 @@ class SelectSkillLevelModel extends FlutterFlowModel<SelectSkillLevelWidget> {
   // State field(s) for ChoiceChips widget.
   String? choiceChipsValue;
   FormFieldController<List<String>>? choiceChipsValueController;
-  // Models for selectableBox dynamic component.
-  late FlutterFlowDynamicModels<SelectableBoxModel> selectableBoxModels;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {
-    selectableBoxModels = FlutterFlowDynamicModels(() => SelectableBoxModel());
-  }
+  void initState(BuildContext context) {}
 
-  void dispose() {
-    selectableBoxModels.dispose();
-  }
+  void dispose() {}
 
   /// Action blocks are added here.
 

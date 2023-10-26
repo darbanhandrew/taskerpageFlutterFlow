@@ -1,7 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/components/emty_container_widget.dart';
 import '/components/select_skill_level_widget.dart';
-import '/components/selectable_skills_list_widget.dart';
 import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -18,8 +17,6 @@ class SelectableSkillDetailsModel
     extends FlutterFlowModel<SelectableSkillDetailsWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // Model for selectableSkillsList component.
-  late SelectableSkillsListModel selectableSkillsListModel;
   // Model for selectSkillLevel component.
   late SelectSkillLevelModel selectSkillLevelModel;
   // Models for skillOptionsCheckComponent dynamic component.
@@ -32,8 +29,6 @@ class SelectableSkillDetailsModel
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    selectableSkillsListModel =
-        createModel(context, () => SelectableSkillsListModel());
     selectSkillLevelModel = createModel(context, () => SelectSkillLevelModel());
     skillOptionsCheckComponentModels =
         FlutterFlowDynamicModels(() => SkillOptionsCheckComponentModel());
@@ -42,7 +37,6 @@ class SelectableSkillDetailsModel
   }
 
   void dispose() {
-    selectableSkillsListModel.dispose();
     selectSkillLevelModel.dispose();
     skillOptionsCheckComponentModels.dispose();
     skillOptionsChipsComponentModels.dispose();

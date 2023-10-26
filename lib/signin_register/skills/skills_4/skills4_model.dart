@@ -1,13 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
-import '/components/selectable_skill_details_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
+import 'dart:async';
 import 'skills4_widget.dart' show Skills4Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -67,36 +66,40 @@ class Skills4Model extends FlutterFlowModel<Skills4Widget> {
 
   int? innerLoopIndex = 0;
 
+  dynamic selectedCustomerProfile;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (userProfileMe)] action in Skills-4 widget.
-  ApiCallResponse? userProfile;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Stores action output result for [Backend Call - API (Customer Profile Skills List)] action in Skills-4 widget.
+  ApiCallResponse? apiResultfko;
   // Model for Header component.
   late HeaderModel headerModel;
-  // Model for selectableSkillDetails component.
-  late SelectableSkillDetailsModel selectableSkillDetailsModel;
-  // Stores action output result for [Backend Call - API (Get Skill Category Details)] action in Container widget.
-  ApiCallResponse? skillCategoryDetails;
-  // Stores action output result for [Backend Call - API (Update Customer Profile)] action in Container widget.
-  ApiCallResponse? apiResulteko;
+  // Stores action output result for [Backend Call - API (Get Customer Profile Skills Details)] action in Container widget.
+  ApiCallResponse? skillDetails;
+  // Stores action output result for [Backend Call - API (Update Customer Profile Skill Level)] action in Container widget.
+  ApiCallResponse? apiResultj09;
+  // Stores action output result for [Backend Call - API (Update Customer Profile Skill Level)] action in Container widget.
+  ApiCallResponse? apiResultj091;
+  // Stores action output result for [Backend Call - API (Delete Skills)] action in Container widget.
+  ApiCallResponse? deletedSkill;
+  // Stores action output result for [Backend Call - API (Update Skills)] action in Container widget.
+  ApiCallResponse? apiResultcsw;
+  Completer<ApiCallResponse>? apiRequestCompleter;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    drawerContentModel = createModel(context, () => DrawerContentModel());
     headerModel = createModel(context, () => HeaderModel());
-    selectableSkillDetailsModel =
-        createModel(context, () => SelectableSkillDetailsModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    drawerContentModel.dispose();
     headerModel.dispose();
-    selectableSkillDetailsModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.
@@ -104,4 +107,19 @@ class Skills4Model extends FlutterFlowModel<Skills4Widget> {
   Future updateUserServices(BuildContext context) async {}
 
   /// Additional helper methods are added here.
+
+  Future waitForApiRequestCompleted({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
 }

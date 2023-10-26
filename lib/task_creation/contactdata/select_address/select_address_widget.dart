@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -146,7 +147,7 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
               model: _model.navigationBarModel,
               updateCallback: () => setState(() {}),
               child: NavigationBarWidget(
-                currentPage: 'task1',
+                currentPage: 'task',
                 postId: widget.id,
                 closeDrawer: () async {
                   if (scaffoldKey.currentState!.isDrawerOpen ||
@@ -155,6 +156,17 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                   }
                 },
               ),
+            ),
+          ),
+        ),
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -177,7 +189,7 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                           updateCallback: () => setState(() {}),
                           child: HeaderWidget(
                             openDrawer: () async {
-                              scaffoldKey.currentState!.openDrawer();
+                              scaffoldKey.currentState!.openEndDrawer();
                             },
                           ),
                         ),

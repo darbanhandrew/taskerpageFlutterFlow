@@ -4,6 +4,7 @@ import '/components/button_next_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
@@ -164,6 +165,17 @@ class _Task2WidgetState extends State<Task2Widget> {
             ),
           ),
         ),
+        endDrawer: Container(
+          width: double.infinity,
+          child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          ),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -178,7 +190,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
                       openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openEndDrawer();
                       },
                     ),
                   ),

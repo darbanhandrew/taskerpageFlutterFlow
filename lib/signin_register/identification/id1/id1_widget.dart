@@ -1,11 +1,15 @@
+import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/date_of_birth_pick_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/text_field_and_title_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,7 +18,13 @@ import 'id1_model.dart';
 export 'id1_model.dart';
 
 class Id1Widget extends StatefulWidget {
-  const Id1Widget({Key? key}) : super(key: key);
+  const Id1Widget({
+    Key? key,
+    String? name,
+  })  : this.name = name ?? 'create',
+        super(key: key);
+
+  final String name;
 
   @override
   _Id1WidgetState createState() => _Id1WidgetState();
@@ -29,6 +39,50 @@ class _Id1WidgetState extends State<Id1Widget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => Id1Model());
+
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if (widget.name == 'create') {
+        setState(() {
+          _model.updateIdentificationStruct(
+            (e) => e..name = 'new',
+          );
+        });
+      } else {
+        _model.apiResultd0a =
+            await TaskerpageBackendGroup.getIdentificationDetailsCall.call(
+          name: widget.name,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResultd0a?.succeeded ?? true)) {
+          setState(() {
+            _model.identification = functions.jsonToIdentificationStruct(
+                TaskerpageBackendGroup.getIdentificationDetailsCall
+                    .identificationJson(
+              (_model.apiResultd0a?.jsonBody ?? ''),
+            ));
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Identification doesn\'t exist,create a new one',
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                ),
+              ),
+              duration: Duration(milliseconds: 4000),
+              backgroundColor: FlutterFlowTheme.of(context).secondary,
+            ),
+          );
+          setState(() {
+            _model.updateIdentificationStruct(
+              (e) => e..name = 'new',
+            );
+          });
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -60,21 +114,14 @@ class _Id1WidgetState extends State<Id1Widget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Colors.white,
-        drawer: Container(
-          width: MediaQuery.sizeOf(context).width * 0.85,
+        endDrawer: Container(
+          width: double.infinity,
           child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
-              ),
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
             ),
           ),
         ),
@@ -92,7 +139,7 @@ class _Id1WidgetState extends State<Id1Widget> {
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
                       openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openEndDrawer();
                       },
                     ),
                   ),
@@ -176,7 +223,9 @@ class _Id1WidgetState extends State<Id1Widget> {
                                         highlightColor: Colors.transparent,
                                         onTap: () async {
                                           setState(() {
-                                            _model.selectedGender = genderItem;
+                                            _model.updateIdentificationStruct(
+                                              (e) => e..title = genderItem,
+                                            );
                                           });
                                         },
                                         child: Container(
@@ -189,7 +238,8 @@ class _Id1WidgetState extends State<Id1Widget> {
                                                 BorderRadius.circular(2.0),
                                             border: Border.all(
                                               color: genderItem ==
-                                                      _model.selectedGender
+                                                      _model
+                                                          .identification?.title
                                                   ? FlutterFlowTheme.of(context)
                                                       .primary
                                                   : FlutterFlowTheme.of(context)
@@ -210,7 +260,8 @@ class _Id1WidgetState extends State<Id1Widget> {
                                                       fontFamily: 'Lato',
                                                       color: genderItem ==
                                                               _model
-                                                                  .selectedGender
+                                                                  .identification
+                                                                  ?.title
                                                           ? FlutterFlowTheme.of(
                                                                   context)
                                                               .primary
@@ -240,10 +291,19 @@ class _Id1WidgetState extends State<Id1Widget> {
                         color: Color(0xFFD4D4D4),
                       ),
                       wrapWithModel(
-                        model: _model.textFieldAndTitleModel,
+                        model: _model.textFieldAndTitleModel1,
                         updateCallback: () => setState(() {}),
                         child: TextFieldAndTitleWidget(
-                          test: 'First name (Exactly as Id)',
+                          label: 'First name (Exactly as Id)',
+                          defaultValue: _model.identification!.firstName,
+                        ),
+                      ),
+                      wrapWithModel(
+                        model: _model.textFieldAndTitleModel2,
+                        updateCallback: () => setState(() {}),
+                        child: TextFieldAndTitleWidget(
+                          label: 'Last Name (Exactly as Id)',
+                          defaultValue: _model.identification!.lastName,
                         ),
                       ),
                       Padding(
@@ -253,7 +313,8 @@ class _Id1WidgetState extends State<Id1Widget> {
                           model: _model.dateOfBirthPickModel,
                           updateCallback: () => setState(() {}),
                           child: DateOfBirthPickWidget(
-                            test: 'Last name (Exactly as Id)',
+                            label: 'Last name (Exactly as Id)',
+                            defaultValue: _model.identification?.dateOfBirth,
                           ),
                         ),
                       ),
@@ -295,28 +356,118 @@ class _Id1WidgetState extends State<Id1Widget> {
                                   fontSize: 14.0,
                                 ),
                           ),
-                          Container(
-                            width: 104.0,
-                            height: 36.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              borderRadius: BorderRadius.circular(1.0),
-                            ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Save',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                ),
-                              ],
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              var _shouldSetState = false;
+                              setState(() {
+                                _model.updateIdentificationStruct(
+                                  (e) => e
+                                    ..firstName = _model.textFieldAndTitleModel1
+                                        .stateController.text
+                                    ..lastName = _model.textFieldAndTitleModel2
+                                        .stateController.text
+                                    ..dateOfBirth =
+                                        _model.dateOfBirthPickModel.datePicked,
+                                );
+                              });
+                              if (_model.identification?.name == 'new') {
+                                setState(() {
+                                  _model.updateIdentificationStruct(
+                                    (e) => e..name = '',
+                                  );
+                                });
+                                _model.createdIdentification =
+                                    await TaskerpageBackendGroup
+                                        .createIdentificationCall
+                                        .call(
+                                  bodyJson:
+                                      functions.identificationStructToJson(
+                                          _model.identification!, true),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.createdIdentification?.succeeded ??
+                                    true)) {
+                                  setState(() {
+                                    _model.identification =
+                                        functions.jsonToIdentificationStruct(
+                                            TaskerpageBackendGroup
+                                                .getIdentificationDetailsCall
+                                                .identificationJson(
+                                      (_model.apiResultd0a?.jsonBody ?? ''),
+                                    ));
+                                  });
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+                              } else {
+                                _model.apiResultemi =
+                                    await TaskerpageBackendGroup
+                                        .updateIdentificationDetailsCall
+                                        .call(
+                                  name: _model.identification?.name,
+                                  bodyJson:
+                                      functions.identificationStructToJson(
+                                          _model.identification!, true),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                _shouldSetState = true;
+                                if ((_model.apiResultemi?.succeeded ?? true)) {
+                                  setState(() {
+                                    _model.identification =
+                                        functions.jsonToIdentificationStruct(
+                                            TaskerpageBackendGroup
+                                                .updateIdentificationDetailsCall
+                                                .identificationJson(
+                                      (_model.apiResultemi?.jsonBody ?? ''),
+                                    ));
+                                  });
+                                } else {
+                                  if (_shouldSetState) setState(() {});
+                                  return;
+                                }
+                              }
+
+                              context.pushNamed(
+                                'ID2',
+                                queryParameters: {
+                                  'name': serializeParam(
+                                    _model.identification?.name,
+                                    ParamType.String,
+                                  ),
+                                }.withoutNulls,
+                              );
+
+                              if (_shouldSetState) setState(() {});
+                            },
+                            child: Container(
+                              width: 104.0,
+                              height: 36.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(1.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Save',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

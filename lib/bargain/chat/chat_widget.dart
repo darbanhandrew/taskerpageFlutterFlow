@@ -211,49 +211,149 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 0.0, 10.0, 0.0),
-                                child: Container(
-                                  width: 45.0,
-                                  height: 45.0,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    '${FFAppState().baseUrl}${widget.avatar}',
-                                    fit: BoxFit.cover,
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    _model.apiResulty27Copy =
+                                        await TaskerpageBackendGroup
+                                            .userProfileReadCall
+                                            .call(
+                                      id: widget.taskerID?.toString(),
+                                      apiGlobalKey: FFAppState().apiKey,
+                                    );
+                                    if (functions.jsonToString(getJsonField(
+                                          (_model.apiResulty27?.jsonBody ?? ''),
+                                          r'''$.data.role''',
+                                        )) ==
+                                        'Tasker') {
+                                      context.pushNamed(
+                                        'Tasker_Profile_view',
+                                        queryParameters: {
+                                          'id': serializeParam(
+                                            getJsonField(
+                                              (_model.apiResulty27?.jsonBody ??
+                                                  ''),
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                            ParamType.String,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    } else {
+                                      context.pushNamed(
+                                        'Poster_Profile_view',
+                                        queryParameters: {
+                                          'id': serializeParam(
+                                            getJsonField(
+                                              (_model.apiResulty27?.jsonBody ??
+                                                  ''),
+                                              r'''$.data.name''',
+                                            ),
+                                            ParamType.int,
+                                          ),
+                                        }.withoutNulls,
+                                      );
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 45.0,
+                                    height: 45.0,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      '${FFAppState().baseUrl}${widget.avatar}',
+                                      fit: BoxFit.cover,
+                                    ),
                                   ),
                                 ),
                               ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    widget.nameFamily!,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.bold,
+                              InkWell(
+                                splashColor: Colors.transparent,
+                                focusColor: Colors.transparent,
+                                hoverColor: Colors.transparent,
+                                highlightColor: Colors.transparent,
+                                onTap: () async {
+                                  _model.apiResulty27 =
+                                      await TaskerpageBackendGroup
+                                          .userProfileReadCall
+                                          .call(
+                                    id: widget.taskerID?.toString(),
+                                    apiGlobalKey: FFAppState().apiKey,
+                                  );
+                                  if (functions.jsonToString(getJsonField(
+                                        (_model.apiResulty27?.jsonBody ?? ''),
+                                        r'''$.data.role''',
+                                      )) ==
+                                      'Tasker') {
+                                    context.pushNamed(
+                                      'Tasker_Profile_view',
+                                      queryParameters: {
+                                        'id': serializeParam(
+                                          getJsonField(
+                                            (_model.apiResulty27?.jsonBody ??
+                                                ''),
+                                            r'''$.data.name''',
+                                          ).toString(),
+                                          ParamType.String,
                                         ),
-                                  ),
-                                  Text(
-                                    'Post ${widget.postID?.toString()}',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: FlutterFlowTheme.of(context)
-                                              .alternate,
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
+                                      }.withoutNulls,
+                                    );
+                                  } else {
+                                    context.pushNamed(
+                                      'Poster_Profile_view',
+                                      queryParameters: {
+                                        'id': serializeParam(
+                                          getJsonField(
+                                            (_model.apiResulty27?.jsonBody ??
+                                                ''),
+                                            r'''$.data.name''',
+                                          ),
+                                          ParamType.int,
                                         ),
-                                  ),
-                                ].divide(SizedBox(height: 4.0)),
+                                      }.withoutNulls,
+                                    );
+                                  }
+
+                                  setState(() {});
+                                },
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      widget.nameFamily!,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                    ),
+                                    Text(
+                                      'Post ${widget.postID?.toString()}',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            fontSize: 12.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ].divide(SizedBox(height: 4.0)),
+                                ),
                               ),
                             ],
                           ),
@@ -352,8 +452,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       TaskerpageBackendGroup.chatsRoomCall.call(
                                     room: widget.room,
                                     email: widget.curentUser,
-                                    apiGlobalKey:
-                                        'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                                    apiGlobalKey: FFAppState().apiKey,
                                     orderBy: 'creation desc',
                                     start: 0,
                                     pageLength: 100,
@@ -1304,8 +1403,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                               user: widget.curentUser,
                               room: widget.room,
                               content: _model.textController.text,
-                              apiGlobalKey:
-                                  'token 93c031f5d19f49e:9b69a0c2d98e87e',
+                              apiGlobalKey: FFAppState().apiKey,
                             );
                             if ((_model.apiResult55u?.succeeded ?? true)) {
                               setState(() {

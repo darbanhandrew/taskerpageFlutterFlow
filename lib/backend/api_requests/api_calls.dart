@@ -195,6 +195,24 @@ class TaskerpageBackendGroup {
   static UpdateCustomerProfileCall updateCustomerProfileCall =
       UpdateCustomerProfileCall();
   static SetUserPasswordCall setUserPasswordCall = SetUserPasswordCall();
+  static GetMySkillCategoriesCall getMySkillCategoriesCall =
+      GetMySkillCategoriesCall();
+  static SyncSkillCategoriesCall syncSkillCategoriesCall =
+      SyncSkillCategoriesCall();
+  static UpdateSkillsCall updateSkillsCall = UpdateSkillsCall();
+  static DeleteSkillsCall deleteSkillsCall = DeleteSkillsCall();
+  static UpdateCustomerProfileSkillLevelCall
+      updateCustomerProfileSkillLevelCall =
+      UpdateCustomerProfileSkillLevelCall();
+  static GetCustomerProfileSkillsDetailsCall
+      getCustomerProfileSkillsDetailsCall =
+      GetCustomerProfileSkillsDetailsCall();
+  static UpdateIdentificationDetailsCall updateIdentificationDetailsCall =
+      UpdateIdentificationDetailsCall();
+  static CreateIdentificationCall createIdentificationCall =
+      CreateIdentificationCall();
+  static GetIdentificationDetailsCall getIdentificationDetailsCall =
+      GetIdentificationDetailsCall();
 }
 
 class RegisterCall {
@@ -812,6 +830,11 @@ class UploadCall {
       cache: false,
     );
   }
+
+  dynamic fileUrl(dynamic response) => getJsonField(
+        response,
+        r'''$.message.file_url''',
+      );
 }
 
 class UserEducationAddCall {
@@ -6550,6 +6573,10 @@ class UpdateUserRoleCall {
     String? name = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
   }) async {
+    final ffApiRequestBody = '''
+{
+"role_profile_name":"${roleProfileName}"
+}''';
     return ApiManager.instance.makeApiCall(
       callName: 'updateUserRole',
       apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User/${name}',
@@ -6557,10 +6584,9 @@ class UpdateUserRoleCall {
       headers: {
         'Authorization': '${apiGlobalKey}',
       },
-      params: {
-        'role_profile_name': roleProfileName,
-      },
-      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -6685,6 +6711,7 @@ class UpdateTaskRateCall {
 class UpdateCustomerProfileCall {
   Future<ApiCallResponse> call({
     dynamic? customerSkillsJson,
+    int? name,
     String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
   }) async {
     final customerSkills = _serializeJson(customerSkillsJson, true);
@@ -6694,7 +6721,8 @@ class UpdateCustomerProfileCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'Update Customer Profile',
-      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${name}',
       callType: ApiCallType.PUT,
       headers: {
         'Authorization': '${apiGlobalKey}',
@@ -6736,6 +6764,341 @@ class SetUserPasswordCall {
       cache: false,
     );
   }
+}
+
+class GetMySkillCategoriesCall {
+  Future<ApiCallResponse> call({
+    int? customerProfile,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get My Skill Categories',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.customer_profile_skills.get_my_skill_categories',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'customer_profile': customerProfile,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic mySkillCategories(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      );
+  dynamic customerProfileSkillNames(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].name''',
+        true,
+      );
+  dynamic mySkillCategoryNames(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].skill_category_name''',
+        true,
+      );
+}
+
+class SyncSkillCategoriesCall {
+  Future<ApiCallResponse> call({
+    String? newSkillsList = '',
+    int? customerProfileName,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Sync Skill Categories',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.customer_profile_skills.sync_skill_categories',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'new_skills_list': newSkillsList,
+        'customer_profile_name': customerProfileName,
+      },
+      bodyType: BodyType.MULTIPART,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic skillCategoriesList(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      );
+  dynamic docNames(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].name''',
+        true,
+      );
+  dynamic skillCategoryNames(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].skill_category_name''',
+        true,
+      );
+}
+
+class UpdateSkillsCall {
+  Future<ApiCallResponse> call({
+    String? skill = '',
+    String? customerProfileSkill = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Update Skills',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.customer_profile_skills.update_skills',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'skill': skill,
+        'customer_profile_skill': customerProfileSkill,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic addedChildSkill(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic childSkillName(dynamic response) => getJsonField(
+        response,
+        r'''$.message.name''',
+      );
+  dynamic childSkillSkill(dynamic response) => getJsonField(
+        response,
+        r'''$.message.skill''',
+      );
+  dynamic childSkillParent(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parent''',
+      );
+  dynamic childSkillSkillName(dynamic response) => getJsonField(
+        response,
+        r'''$.message.skill_name''',
+      );
+  dynamic childSkillParentField(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parentfield''',
+      );
+  dynamic childSkillParentType(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parenttype''',
+      );
+}
+
+class DeleteSkillsCall {
+  Future<ApiCallResponse> call({
+    String? skill = '',
+    String? customerProfileSkill = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Delete Skills',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.customer_profile_skills.update_skills',
+      callType: ApiCallType.DELETE,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'skill': skill,
+        'customer_profile_skill': customerProfileSkill,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic addedChildSkill(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic childSkillName(dynamic response) => getJsonField(
+        response,
+        r'''$.message.name''',
+      );
+  dynamic childSkillSkill(dynamic response) => getJsonField(
+        response,
+        r'''$.message.skill''',
+      );
+  dynamic childSkillParent(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parent''',
+      );
+  dynamic childSkillSkillName(dynamic response) => getJsonField(
+        response,
+        r'''$.message.skill_name''',
+      );
+  dynamic childSkillParentField(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parentfield''',
+      );
+  dynamic childSkillParentType(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parenttype''',
+      );
+}
+
+class UpdateCustomerProfileSkillLevelCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? skillLevel = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Update Customer Profile Skill Level',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${name}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'skill_level': skillLevel,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetCustomerProfileSkillsDetailsCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Customer Profile Skills Details',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile Skills/${name}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class UpdateIdentificationDetailsCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    dynamic? bodyJson,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    final body = _serializeJson(bodyJson);
+    final ffApiRequestBody = '''
+${body}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Update Identification Details',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Identification/${name}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic identificationJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+}
+
+class CreateIdentificationCall {
+  Future<ApiCallResponse> call({
+    dynamic? bodyJson,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    final body = _serializeJson(bodyJson);
+    final ffApiRequestBody = '''
+${body}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Create Identification',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Identification/',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic identificationJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+}
+
+class GetIdentificationDetailsCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Identification Details',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Identification/${name}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic identificationJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
 }
 
 /// End Taskerpage Backend Group Code

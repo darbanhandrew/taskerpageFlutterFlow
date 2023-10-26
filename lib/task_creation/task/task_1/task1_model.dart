@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/selectable_container_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
@@ -35,6 +36,8 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
   ApiCallResponse? create;
   // Stores action output result for [Backend Call - API (update skillCategoryInTask)] action in button_Next widget.
   ApiCallResponse? apiResultggw;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
 
@@ -47,6 +50,7 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
     selectableContainerModels =
         FlutterFlowDynamicModels(() => SelectableContainerModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
@@ -56,6 +60,7 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
     taskcreationMenueModel.dispose();
     selectableContainerModels.dispose();
     buttonNextModel.dispose();
+    mainDrawerModel.dispose();
     navigationBarModel.dispose();
   }
 

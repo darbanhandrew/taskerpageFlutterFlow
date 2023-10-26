@@ -43,6 +43,10 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   ApiCallResponse? apiResult39c;
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
+  // Stores action output result for [Backend Call - API (userProfileRead)] action in CircleImage widget.
+  ApiCallResponse? apiResulty27Copy;
+  // Stores action output result for [Backend Call - API (userProfileRead)] action in Column widget.
+  ApiCallResponse? apiResulty27;
   // Stores action output result for [Backend Call - API (send message)] action in Container widget.
   ApiCallResponse? apiResult55u9;
   // Stores action output result for [Backend Call - API (send message)] action in Container widget.

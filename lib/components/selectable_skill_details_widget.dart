@@ -1,7 +1,6 @@
 import '/backend/schema/structs/index.dart';
 import '/components/emty_container_widget.dart';
 import '/components/select_skill_level_widget.dart';
-import '/components/selectable_skills_list_widget.dart';
 import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -75,44 +74,6 @@ class _SelectableSkillDetailsWidgetState
             color: Color(0xFFE3E3E3),
           ),
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Skills',
-                  textAlign: TextAlign.justify,
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Lato',
-                        color: FlutterFlowTheme.of(context).alternate,
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 10.0, 32.0, 0.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Expanded(
-                  child: wrapWithModel(
-                    model: _model.selectableSkillsListModel,
-                    updateCallback: () => setState(() {}),
-                    child: SelectableSkillsListWidget(
-                      selectedServiceCategory:
-                          widget.skillCategory!.skillCategoryName,
-                      selectedSkills:
-                          widget.selectedCustomerProfileSkill?.skills,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 20.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
@@ -124,14 +85,15 @@ class _SelectableSkillDetailsWidgetState
                   endIndent: 32.0,
                   color: Color(0x615E5D5D),
                 ),
-                wrapWithModel(
-                  model: _model.selectSkillLevelModel,
-                  updateCallback: () => setState(() {}),
-                  child: SelectSkillLevelWidget(
-                    selectedSkillLevel:
-                        widget.selectedCustomerProfileSkill?.skillLevel,
+                if (false)
+                  wrapWithModel(
+                    model: _model.selectSkillLevelModel,
+                    updateCallback: () => setState(() {}),
+                    child: SelectSkillLevelWidget(
+                      selectedSkillLevel:
+                          widget.selectedCustomerProfileSkill?.skillLevel,
+                    ),
                   ),
-                ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
                   child: Row(
@@ -150,89 +112,94 @@ class _SelectableSkillDetailsWidgetState
                     ],
                   ),
                 ),
-                Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
-                  child: Builder(
-                    builder: (context) {
-                      final skillOptions =
-                          widget.skillCategory?.skillOptions?.toList() ?? [];
-                      if (skillOptions.isEmpty) {
-                        return EmtyContainerWidget(
-                          goTo: () async {},
-                        );
-                      }
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: List.generate(skillOptions.length,
-                            (skillOptionsIndex) {
-                          final skillOptionsItem =
-                              skillOptions[skillOptionsIndex];
-                          return Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              if (skillOptionsItem.type == 'Check')
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model
-                                        .skillOptionsCheckComponentModels
-                                        .getModel(
-                                      skillOptionsItem.optionName,
-                                      skillOptionsIndex,
-                                    ),
-                                    updateCallback: () => setState(() {}),
-                                    updateOnChange: true,
-                                    child: SkillOptionsCheckComponentWidget(
-                                      key: Key(
-                                        'Keyt3k_${skillOptionsItem.optionName}',
+                if (false)
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
+                    child: Builder(
+                      builder: (context) {
+                        final skillOptions =
+                            widget.skillCategory?.skillOptions?.toList() ?? [];
+                        if (skillOptions.isEmpty) {
+                          return EmtyContainerWidget(
+                            goTo: () async {},
+                          );
+                        }
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: List.generate(skillOptions.length,
+                              (skillOptionsIndex) {
+                            final skillOptionsItem =
+                                skillOptions[skillOptionsIndex];
+                            return Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                if (skillOptionsItem.type == 'Check')
+                                  Expanded(
+                                    child: wrapWithModel(
+                                      model: _model
+                                          .skillOptionsCheckComponentModels
+                                          .getModel(
+                                        skillOptionsItem.optionName,
+                                        skillOptionsIndex,
                                       ),
-                                      skillOption: skillOptionsItem,
-                                      defaultValue: functions.stringToBoolean(
-                                          valueOrDefault<String>(
-                                        ((widget.customerProfileSkills?[widget
-                                                        .selectedCategoryIndex!])
-                                                    ?.customerSkillOptions?[
-                                                skillOptionsIndex])
-                                            ?.values,
-                                        'false',
-                                      )),
-                                    ),
-                                  ),
-                                ),
-                              if (skillOptionsItem.type == 'Select')
-                                Expanded(
-                                  child: wrapWithModel(
-                                    model: _model
-                                        .skillOptionsChipsComponentModels
-                                        .getModel(
-                                      skillOptionsItem.optionName,
-                                      skillOptionsIndex,
-                                    ),
-                                    updateCallback: () => setState(() {}),
-                                    child: SkillOptionsChipsComponentWidget(
-                                      key: Key(
-                                        'Keyai6_${skillOptionsItem.optionName}',
-                                      ),
-                                      skillOption: skillOptionsItem,
-                                      selectedChips:
+                                      updateCallback: () => setState(() {}),
+                                      updateOnChange: true,
+                                      child: SkillOptionsCheckComponentWidget(
+                                        key: Key(
+                                          'Keyt3k_${skillOptionsItem.optionName}',
+                                        ),
+                                        skillOption: skillOptionsItem,
+                                        defaultValue: functions.stringToBoolean(
+                                            valueOrDefault<String>(
                                           ((widget.customerProfileSkills?[widget
                                                           .selectedCategoryIndex!])
                                                       ?.customerSkillOptions?[
                                                   skillOptionsIndex])
                                               ?.values,
+                                          'false',
+                                        )),
+                                      ),
                                     ),
                                   ),
-                                ),
-                            ],
-                          );
-                        }).divide(SizedBox(height: 8.0)),
-                      );
-                    },
+                                if (skillOptionsItem.type == 'Select')
+                                  Expanded(
+                                    child: wrapWithModel(
+                                      model: _model
+                                          .skillOptionsChipsComponentModels
+                                          .getModel(
+                                        skillOptionsItem.optionName,
+                                        skillOptionsIndex,
+                                      ),
+                                      updateCallback: () => setState(() {}),
+                                      child: SkillOptionsChipsComponentWidget(
+                                        key: Key(
+                                          'Keyai6_${skillOptionsItem.optionName}',
+                                        ),
+                                        skillOption: skillOptionsItem,
+                                        selectedChips:
+                                            ((widget.customerProfileSkills?[widget
+                                                            .selectedCategoryIndex!])
+                                                        ?.customerSkillOptions?[
+                                                    skillOptionsIndex])
+                                                ?.values,
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            );
+                          }).divide(SizedBox(height: 8.0)),
+                        );
+                      },
+                    ),
                   ),
-                ),
               ],
             ),
+          ),
+          Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [],
           ),
         ],
       ),

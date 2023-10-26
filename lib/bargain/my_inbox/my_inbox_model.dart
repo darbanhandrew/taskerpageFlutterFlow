@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/bargain_filter_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/components/sort_bargain_widget.dart';
@@ -32,8 +32,8 @@ class MyInboxModel extends FlutterFlowModel<MyInboxWidget> {
 
   // Model for NavBar component.
   late NavBarModel navBarModel;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -41,7 +41,7 @@ class MyInboxModel extends FlutterFlowModel<MyInboxWidget> {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
     navBarModel = createModel(context, () => NavBarModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -50,7 +50,7 @@ class MyInboxModel extends FlutterFlowModel<MyInboxWidget> {
     navigateBackModel.dispose();
     tabBarController?.dispose();
     navBarModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

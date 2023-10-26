@@ -1,7 +1,7 @@
 import '/backend/schema/structs/index.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -29,8 +29,8 @@ class ProfiledetailsModel extends FlutterFlowModel<ProfiledetailsWidget> {
   late DropeDownLanguagesModel dropeDownLanguagesModel;
   // State field(s) for Switch widget.
   bool? switchValue;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -38,14 +38,14 @@ class ProfiledetailsModel extends FlutterFlowModel<ProfiledetailsWidget> {
     headerModel = createModel(context, () => HeaderModel());
     dropeDownLanguagesModel =
         createModel(context, () => DropeDownLanguagesModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
     dropeDownLanguagesModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

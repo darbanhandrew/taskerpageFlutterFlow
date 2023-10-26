@@ -424,14 +424,16 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                                       .addressName
                                                                       .toString(),
                                                                 ),
-                                                                options: functions
-                                                                    .jsonListToStringList(
-                                                                        getJsonField(
+                                                                options: List<
+                                                                        String>.from(
+                                                                    functions
+                                                                        .jsonListToStringList(
+                                                                            getJsonField(
                                                                   dropDownMyAddressesResponse
                                                                       .jsonBody,
                                                                   r'''$.data[:].name''',
                                                                   true,
-                                                                ))!,
+                                                                ))!),
                                                                 optionLabels: functions
                                                                     .jsonListToStringList(
                                                                         getJsonField(

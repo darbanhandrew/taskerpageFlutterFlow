@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -31,6 +32,8 @@ class TaskertypeModel extends FlutterFlowModel<TaskertypeWidget> {
   ApiCallResponse? updateTAskerType;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -39,6 +42,7 @@ class TaskertypeModel extends FlutterFlowModel<TaskertypeWidget> {
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -46,6 +50,7 @@ class TaskertypeModel extends FlutterFlowModel<TaskertypeWidget> {
     headerModel.dispose();
     taskcreationMenueModel.dispose();
     navigationBarModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

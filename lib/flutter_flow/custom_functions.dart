@@ -1071,3 +1071,490 @@ List<SkillStruct>? returnSelectedSkillsBooleanList(
 String? returnSingleTrueIndex(List<bool>? booleanList) {
   return "hello";
 }
+
+AppRolesStruct jsonToAppRolesStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return AppRolesStruct(
+      roleProfileName: jsonData['role_profile_name'] as String?,
+      message: jsonData['message'] as String?,
+      addSkillsText: jsonData['add_skills_text'] as String?,
+      skillsLimit: jsonData['skills_limit'] as int?,
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+dynamic appRolesStructToJson(
+  AppRolesStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if (struct.hasRoleProfileName() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.roleProfileName != ''))) {
+    data['role_profile_name'] = struct.roleProfileName;
+  }
+
+  if (struct.hasMessage() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.message != ''))) {
+    data['message'] = struct.message;
+  }
+
+  if (struct.hasAddSkillsText() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.addSkillsText != ''))) {
+    data['add_skills_text'] = struct.addSkillsText;
+  }
+
+  if (struct.hasSkillsLimit() && struct.skillsLimit != 0) {
+    // Assuming you want to exclude zero value as well
+    data['skills_limit'] = struct.skillsLimit;
+  }
+
+  return data;
+}
+
+dynamic listAppRolesStructToJson(
+  List<AppRolesStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => appRolesStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<AppRolesStruct>? listJsonToAppRolesStruct(List<dynamic> jsonDataList) {
+  return jsonDataList
+      .map((jsonData) => jsonToAppRolesStruct(jsonData))
+      .toList()
+      .cast<AppRolesStruct>();
+}
+
+dynamic skillOptionsStructToJson(
+  SkillOptionsStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if (struct.hasName() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.name != ''))) {
+    data['name'] = struct.name;
+  }
+
+  if (struct.hasType() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.type != ''))) {
+    data['type'] = struct.type;
+  }
+
+  if (struct.hasValues() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.values != ''))) {
+    data['values'] = struct.values;
+  }
+
+  if (struct.hasOptionName() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.optionName != ''))) {
+    data['option_name'] = struct.optionName;
+  }
+
+  return data;
+}
+
+SkillOptionsStruct jsonToSkillOptionsStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return SkillOptionsStruct(
+      name: jsonData['name'] as String?,
+      type: jsonData['type'] as String?,
+      values: jsonData['values'] as String?,
+      optionName: jsonData['option_name'] as String?,
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+dynamic listSkillOptionsStructToJson(
+  List<SkillOptionsStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => skillOptionsStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<SkillOptionsStruct> listJsonToSkillOptionsStruct(
+    List<dynamic> jsonDataList) {
+  return jsonDataList
+      .map((jsonData) => jsonToSkillOptionsStruct(jsonData))
+      .toList();
+}
+
+dynamic skillStructToJson(
+  SkillStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if (struct.hasSkill() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.skill != ''))) {
+    data['skill'] = struct.skill;
+  }
+  if (struct.hasSkillName() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.skillName != ''))) {
+    data['skill_name'] = struct.skillName;
+  }
+
+  return data;
+}
+
+SkillStruct jsonToSkillStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return SkillStruct(
+      skill: jsonData['skill'] as String?,
+      skillName: jsonData['skill_name'] as String?,
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+List<dynamic> listSkillStructToJson(
+  List<SkillStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => skillStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<SkillStruct> listJsonToSkillStruct(List<dynamic> jsonDataList) {
+  return jsonDataList.map((jsonData) => jsonToSkillStruct(jsonData)).toList();
+}
+
+dynamic skillCategoryStructToJson(
+  SkillCategoryStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if (struct.hasSkillCategoryName() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.skillCategoryName != ''))) {
+    data['skill_category_name'] = struct.skillCategoryName;
+  }
+
+  if (struct.hasIcon() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.icon != ''))) {
+    data['icon'] = struct.icon;
+  }
+
+  if (struct.hasDescription() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.description != ''))) {
+    data['description'] = struct.description;
+  }
+
+  if (struct.hasAmendedFrom() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.amendedFrom != ''))) {
+    data['amended_from'] = struct.amendedFrom;
+  }
+
+  if (struct.hasSkillOptions()) {
+    data['skill_options'] = struct.skillOptions
+        .map((e) => skillOptionsStructToJson(e, excludeEmptyStrings))
+        .toList();
+  }
+
+  if (struct.hasSkills()) {
+    // Assuming you will create a skillStructToJson function for the SkillStruct.
+    data['skills'] = struct.skills
+        .map((e) => skillStructToJson(e, excludeEmptyStrings))
+        .toList();
+  }
+
+  return data;
+}
+
+SkillCategoryStruct jsonToSkillCategoryStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return SkillCategoryStruct(
+      skillCategoryName: jsonData['skill_category_name'] as String?,
+      icon: jsonData['icon'] as String?,
+      description: jsonData['description'] as String?,
+      amendedFrom: jsonData['amended_from'] as String?,
+      skillOptions: (jsonData['skill_options'] as List<dynamic>?)
+          ?.map(jsonToSkillOptionsStruct)
+          .toList(),
+      skills: (jsonData['skills'] as List<dynamic>?)
+          ?.map(jsonToSkillStruct)
+          .toList(),
+      // Assuming you will create a jsonToSkillStruct function for the SkillStruct.
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+List<dynamic> listSkillCategoryStructToJson(
+  List<SkillCategoryStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => skillCategoryStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<SkillCategoryStruct> listJsonToSkillCategoryStruct(dynamic jsonDataList) {
+  return jsonDataList
+      .map((jsonData) => jsonToSkillCategoryStruct(jsonData))
+      .toList();
+}
+
+dynamic userServiceStructToJson(
+  UserServiceStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if (struct.hasSkillCategoryName() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.skillCategoryName != ''))) {
+    data['skill_category_name'] = struct.skillCategoryName;
+  }
+
+  if (struct.hasSkillName() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.skillName != ''))) {
+    data['skill_name'] = struct.skillName;
+  }
+
+  if (struct.hasSkillLevel() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.skillLevel != ''))) {
+    data['skill_level'] = struct.skillLevel;
+  }
+
+  if (struct.hasCustomerProfile() &&
+      (!excludeEmptyStrings ||
+          (excludeEmptyStrings && struct.customerProfile != ''))) {
+    data['customer_profile'] = struct.customerProfile;
+  }
+
+  if (struct.hasIcon() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.icon != ''))) {
+    data['icon'] = struct.icon;
+  }
+
+  if (struct.hasName() &&
+      (!excludeEmptyStrings || (excludeEmptyStrings && struct.name != ''))) {
+    data['name'] = struct.name;
+  }
+
+  if (struct.hasSkills()) {
+    // Assuming you will create a skillStructToJson function for the SkillStruct.
+    data['skills'] = struct.skills
+        .map((e) => skillStructToJson(e, excludeEmptyStrings))
+        .toList();
+  }
+
+  if (struct.hasCustomerSkillOptions()) {
+    // Assuming you will create a skillOptionsStructToJson function for the SkillOptionsStruct.
+    data['customer_skill_options'] = struct.customerSkillOptions
+        .map((e) => skillOptionsStructToJson(e, excludeEmptyStrings))
+        .toList();
+  }
+
+  return data;
+}
+
+UserServiceStruct jsonToUserServiceStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return UserServiceStruct(
+      skillCategoryName: jsonData['skill_category_name'] as String?,
+      skillName: jsonData['skill_name'] as String?,
+      skillLevel: jsonData['skill_level'] as String?,
+      customerProfile: jsonData['customer_profile'] as String?,
+      icon: jsonData['icon'] as String?,
+      name: jsonData['name'] as int?,
+      skills: (jsonData['skills'] as List<dynamic>?)
+          ?.map(jsonToSkillStruct)
+          .toList(),
+      // Assuming you will create a jsonToSkillStruct function for the SkillStruct.
+      customerSkillOptions:
+          (jsonData['customer_skill_options'] as List<dynamic>?)
+              ?.map(jsonToSkillOptionsStruct)
+              .toList(),
+      // Assuming you will create a jsonToSkillOptionsStruct function for the SkillOptionsStruct.
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+List<dynamic> listUserServiceStructToJson(
+  List<UserServiceStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => userServiceStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<UserServiceStruct> listJsonToUserServiceStruct(
+    List<dynamic> jsonDataList) {
+  return jsonDataList
+      .map((jsonData) => jsonToUserServiceStruct(jsonData))
+      .toList();
+}
+
+dynamic userStructToJson(
+  UserStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if (struct.hasCustomerSkills()) {
+    data['customer_skills'] = struct.customerSkills
+        .map((e) => userServiceStructToJson(e, excludeEmptyStrings))
+        .toList();
+  }
+
+  return data;
+}
+
+UserStruct jsonToUserStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return UserStruct(
+      customerSkills: (jsonData['customer_skills'] as List<dynamic>?)
+          ?.map(jsonToUserServiceStruct)
+          .toList(),
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+List<dynamic> listUserStructToJson(
+  List<UserStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => userStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<UserStruct> listJsonToUserStruct(List<dynamic> jsonDataList) {
+  return jsonDataList.map((jsonData) => jsonToUserStruct(jsonData)).toList();
+}
+
+dynamic identificationStructToJson(
+  IdentificationStruct struct,
+  bool excludeEmptyStrings,
+) {
+  final Map<String, dynamic> data = {};
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.customerProfile != ''))) {
+    data['customer_profile'] = struct.customerProfile;
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.customerProfileType != ''))) {
+    data['customer_profile_type'] = struct.customerProfileType;
+  }
+
+  if ((!excludeEmptyStrings || (excludeEmptyStrings && struct.title != ''))) {
+    data['title'] = struct.title;
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.firstName != ''))) {
+    data['first_name'] = struct.firstName;
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.lastName != ''))) {
+    data['last_name'] = struct.lastName;
+  }
+
+  if (struct.dateOfBirth != null) {
+    data['date_of_birth'] =
+        DateFormat('yyyy-MM-dd').format(struct.dateOfBirth!);
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.documentType != ''))) {
+    data['document_type'] = struct.documentType;
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.documentNumber != ''))) {
+    data['document_number'] = struct.documentNumber;
+  }
+
+  if (struct.expiryDate != null) {
+    data['expiry_date'] = DateFormat('yyyy-MM-dd').format(struct.expiryDate!);
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.documentFile != ''))) {
+    data['document_file'] = struct.documentFile;
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.documentUserPhoto != ''))) {
+    data['document_user_photo'] = struct.documentUserPhoto;
+  }
+
+  if ((!excludeEmptyStrings || (excludeEmptyStrings && struct.status != ''))) {
+    data['status'] = struct.status;
+  }
+
+  if ((!excludeEmptyStrings ||
+      (excludeEmptyStrings && struct.amendedFrom != ''))) {
+    data['amended_from'] = struct.amendedFrom;
+  }
+
+  return data;
+}
+
+IdentificationStruct jsonToIdentificationStruct(dynamic jsonData) {
+  if (jsonData is Map<String, dynamic>) {
+    return IdentificationStruct(
+      name: jsonData['name'] as String?,
+      customerProfile: jsonData['customer_profile'] as int?,
+      customerProfileType: jsonData['customer_profile_type'] as String?,
+      title: jsonData['title'] as String?,
+      firstName: jsonData['first_name'] as String?,
+      lastName: jsonData['last_name'] as String?,
+      dateOfBirth: (jsonData['date_of_birth'] != null)
+          ? jsonToDateTime(jsonData['date_of_birth'])
+          : null,
+      documentType: jsonData['document_type'] as String?,
+      documentNumber: jsonData['document_number'] as String?,
+      expiryDate: (jsonData['expiry_date'] != null)
+          ? jsonToDateTime(jsonData['expiry_date'])
+          : null,
+      documentFile: jsonData['document_file'] as String?,
+      documentUserPhoto: jsonData['document_user_photo'] as String?,
+      status: jsonData['status'] as String?,
+      amendedFrom: jsonData['amended_from'] as String?,
+    );
+  }
+  throw ArgumentError('Provided data is not a valid Map<String, dynamic>');
+}
+
+List<dynamic> listIdentificationStructToJson(
+  List<IdentificationStruct> structs,
+  bool excludeEmptyStrings,
+) {
+  return structs
+      .map((struct) => identificationStructToJson(struct, excludeEmptyStrings))
+      .toList();
+}
+
+List<IdentificationStruct> listJsonToIdentificationStruct(
+    List<dynamic> jsonDataList) {
+  return jsonDataList
+      .map((jsonData) => jsonToIdentificationStruct(jsonData))
+      .toList()
+      .cast<IdentificationStruct>();
+}

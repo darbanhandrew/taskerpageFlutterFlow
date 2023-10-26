@@ -2,6 +2,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +13,12 @@ export 'date_of_birth_pick_model.dart';
 class DateOfBirthPickWidget extends StatefulWidget {
   const DateOfBirthPickWidget({
     Key? key,
-    required this.test,
+    required this.label,
+    this.defaultValue,
   }) : super(key: key);
 
-  final String? test;
+  final String? label;
+  final DateTime? defaultValue;
 
   @override
   _DateOfBirthPickWidgetState createState() => _DateOfBirthPickWidgetState();
@@ -34,6 +37,13 @@ class _DateOfBirthPickWidgetState extends State<DateOfBirthPickWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => DateOfBirthPickModel());
+
+    // On component load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      setState(() {
+        _model.dateOfBirth = widget.defaultValue;
+      });
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -56,7 +66,7 @@ class _DateOfBirthPickWidgetState extends State<DateOfBirthPickWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(
-              widget.test!,
+              widget.label!,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Lato',
                     color: Color(0xFF292929),

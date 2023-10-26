@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/comit_to_post_sheet_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -130,21 +130,14 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF6F6F6),
-            drawer: Container(
-              width: MediaQuery.sizeOf(context).width * 0.85,
+            endDrawer: Container(
+              width: double.infinity,
               child: Drawer(
                 elevation: 16.0,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8EAFF),
-                  ),
-                  child: wrapWithModel(
-                    model: _model.drawerContentModel,
-                    updateCallback: () => setState(() {}),
-                    child: DrawerContentWidget(),
-                  ),
+                child: wrapWithModel(
+                  model: _model.mainDrawerModel,
+                  updateCallback: () => setState(() {}),
+                  child: MainDrawerWidget(),
                 ),
               ),
             ),
@@ -158,7 +151,7 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                     updateCallback: () => setState(() {}),
                     child: HeaderWidget(
                       openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
+                        scaffoldKey.currentState!.openEndDrawer();
                       },
                     ),
                   ),
@@ -611,310 +604,214 @@ class _PosterProfileViewWidgetState extends State<PosterProfileViewWidget>
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
+                                32.0, 0.0, 32.0, 12.0),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 0.0, 32.0, 0.0),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future:
-                                        TaskerpageBackendGroup.getUserCall.call(
-                                      username: getJsonField(
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'Followers',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        Text(
+                                          functions
+                                              .numberofListitems((getJsonField(
+                                                posterProfileViewUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.followers''',
+                                                true,
+                                              ) as List)
+                                                  .map<String>(
+                                                      (s) => s.toString())
+                                                  .toList())
+                                              .toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ].divide(SizedBox(height: 4.0)),
+                                    ),
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          'Connection',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                        Text(
+                                          functions
+                                              .numberofListitems((getJsonField(
+                                                posterProfileViewUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.foilowing''',
+                                                true,
+                                              ) as List)
+                                                  .map<String>(
+                                                      (s) => s.toString())
+                                                  .toList())
+                                              .toString(),
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.bold,
+                                              ),
+                                        ),
+                                      ].divide(SizedBox(height: 4.0)),
+                                    ),
+                                  ].divide(SizedBox(width: 15.0)),
+                                ),
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    _model.followREQ =
+                                        await TaskerpageBackendGroup
+                                            .followReqCall
+                                            .call(
+                                      requestor: getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ),
+                                      requested: getJsonField(
                                         posterProfileViewUserProfileReadResponse
                                             .jsonBody,
-                                        r'''$.data.user''',
-                                      ).toString(),
+                                        r'''$.data.name''',
+                                      ),
+                                      status: 'Pending',
+                                      requestMessage: 'Hi, i\'m ${getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.first_name''',
+                                      ).toString()} ${getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.last_name''',
+                                      ).toString()} with ${getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.years_of_experience''',
+                                      ).toString()} years_of_experience !',
                                       apiGlobalKey: FFAppState().apiKey,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
-                                            child: SpinKitThreeBounce(
+                                    );
+                                    if ((_model.followREQ?.succeeded ?? true)) {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Connection request sent ',
+                                            style: TextStyle(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
-                                              size: 50.0,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 13.0,
                                             ),
                                           ),
-                                        );
-                                      }
-                                      final rowGetUserResponse = snapshot.data!;
-                                      return Row(
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      );
+                                    } else {
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(
+                                        SnackBar(
+                                          content: Text(
+                                            'Pleas try again !',
+                                            style: TextStyle(
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .error,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 13.0,
+                                            ),
+                                          ),
+                                          duration:
+                                              Duration(milliseconds: 4000),
+                                          backgroundColor: Colors.white,
+                                        ),
+                                      );
+                                    }
+
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    width: 130.0,
+                                    height: 36.0,
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      borderRadius: BorderRadius.circular(2.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
+                                            MainAxisAlignment.center,
                                         children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 20.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 0.0, 15.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      Text(
-                                                        'Followers',
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  fontSize:
-                                                                      15.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                      ),
-                                                      Text(
-                                                        functions
-                                                            .numberofListitems(
-                                                                (getJsonField(
-                                                              rowGetUserResponse
-                                                                  .jsonBody,
-                                                              r'''$.data.followers''',
-                                                              true,
-                                                            ) as List)
-                                                                    .map<String>(
-                                                                        (s) => s
-                                                                            .toString())
-                                                                    .toList())
-                                                            .toString(),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .alternate,
-                                                                  fontSize:
-                                                                      14.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
-                                                                ),
-                                                      ),
-                                                    ].divide(
-                                                        SizedBox(height: 4.0)),
-                                                  ),
-                                                ),
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      'Connection',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                            fontSize: 15.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                    Text(
-                                                      functions
-                                                          .numberofListitems(
-                                                              (getJsonField(
-                                                            rowGetUserResponse
-                                                                .jsonBody,
-                                                            r'''$.data.following''',
-                                                            true,
-                                                          ) as List)
-                                                                  .map<String>(
-                                                                      (s) => s
-                                                                          .toString())
-                                                                  .toList())
-                                                          .toString(),
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(height: 4.0)),
-                                                ),
-                                              ],
-                                            ),
+                                          Icon(
+                                            Icons.add_link_rounded,
+                                            color: Color(0xFFF6F6F6),
+                                            size: 20.0,
                                           ),
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              _model.followREQ =
-                                                  await TaskerpageBackendGroup
-                                                      .followReqCall
-                                                      .call(
-                                                requestor: getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.name''',
+                                          Text(
+                                            'Connect',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: Color(0xFFF6F6F6),
+                                                  fontSize: 14.0,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
-                                                requested: getJsonField(
-                                                  posterProfileViewUserProfileReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.name''',
-                                                ),
-                                                status: 'Pending',
-                                                requestMessage:
-                                                    'Hi, i\'m ${getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.first_name''',
-                                                ).toString()} ${getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.last_name''',
-                                                ).toString()} with ${getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.years_of_experience''',
-                                                ).toString()} years_of_experience !',
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
-                                              );
-                                              if ((_model
-                                                      .followREQ?.succeeded ??
-                                                  true)) {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Connection request sent ',
-                                                      style: TextStyle(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .success,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 13.0,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                  ),
-                                                );
-                                              } else {
-                                                ScaffoldMessenger.of(context)
-                                                    .showSnackBar(
-                                                  SnackBar(
-                                                    content: Text(
-                                                      'Pleas try again !',
-                                                      style: TextStyle(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .error,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        fontSize: 13.0,
-                                                      ),
-                                                    ),
-                                                    duration: Duration(
-                                                        milliseconds: 4000),
-                                                    backgroundColor:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .secondary,
-                                                  ),
-                                                );
-                                              }
-
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              width: 130.0,
-                                              height: 36.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                boxShadow: [
-                                                  BoxShadow(
-                                                    blurRadius: 4.0,
-                                                    color: Color(0x33000000),
-                                                    offset: Offset(0.0, 2.0),
-                                                  )
-                                                ],
-                                                borderRadius:
-                                                    BorderRadius.circular(2.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 0.0, 8.0, 0.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  children: [
-                                                    Icon(
-                                                      Icons.add_link_rounded,
-                                                      color: Color(0xFFF6F6F6),
-                                                      size: 20.0,
-                                                    ),
-                                                    Text(
-                                                      'Connect',
-                                                      style: FlutterFlowTheme
-                                                              .of(context)
-                                                          .bodyMedium
-                                                          .override(
-                                                            fontFamily: 'Lato',
-                                                            color: Color(
-                                                                0xFFF6F6F6),
-                                                            fontSize: 14.0,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                    ),
-                                                  ].divide(
-                                                      SizedBox(width: 8.0)),
-                                                ),
-                                              ),
-                                            ),
                                           ),
-                                        ],
-                                      );
-                                    },
+                                        ].divide(SizedBox(width: 8.0)),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ],

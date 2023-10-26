@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
@@ -37,6 +38,8 @@ class RatesModel extends FlutterFlowModel<RatesWidget> {
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (update task rate)] action in button_Next widget.
   ApiCallResponse? apiResult9kx20;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
 
@@ -47,6 +50,7 @@ class RatesModel extends FlutterFlowModel<RatesWidget> {
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
@@ -55,6 +59,7 @@ class RatesModel extends FlutterFlowModel<RatesWidget> {
     headerModel.dispose();
     taskcreationMenueModel.dispose();
     buttonNextModel.dispose();
+    mainDrawerModel.dispose();
     navigationBarModel.dispose();
   }
 

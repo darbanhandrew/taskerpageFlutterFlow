@@ -11,10 +11,12 @@ export 'text_field_and_title_model.dart';
 class TextFieldAndTitleWidget extends StatefulWidget {
   const TextFieldAndTitleWidget({
     Key? key,
-    required this.test,
+    required this.label,
+    required this.defaultValue,
   }) : super(key: key);
 
-  final String? test;
+  final String? label;
+  final String? defaultValue;
 
   @override
   _TextFieldAndTitleWidgetState createState() =>
@@ -35,7 +37,7 @@ class _TextFieldAndTitleWidgetState extends State<TextFieldAndTitleWidget> {
     super.initState();
     _model = createModel(context, () => TextFieldAndTitleModel());
 
-    _model.stateController ??= TextEditingController();
+    _model.stateController ??= TextEditingController(text: widget.defaultValue);
     _model.stateFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -58,7 +60,7 @@ class _TextFieldAndTitleWidgetState extends State<TextFieldAndTitleWidget> {
           mainAxisSize: MainAxisSize.max,
           children: [
             Text(
-              widget.test!,
+              widget.label!,
               style: FlutterFlowTheme.of(context).bodyMedium.override(
                     fontFamily: 'Lato',
                     color: Color(0xFF292929),

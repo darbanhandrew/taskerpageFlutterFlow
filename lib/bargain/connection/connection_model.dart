@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -23,16 +24,20 @@ class ConnectionModel extends FlutterFlowModel<ConnectionWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter;
   // Stores action output result for [Backend Call - API (answer to follow req)] action in Container widget.
   ApiCallResponse? apiResult1woCopy;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

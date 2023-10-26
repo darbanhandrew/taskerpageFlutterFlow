@@ -430,14 +430,16 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                           .toString()
                                                                       : '',
                                                                 ),
-                                                                options: functions
-                                                                    .jsonListToStringList(
-                                                                        getJsonField(
+                                                                options: List<
+                                                                        String>.from(
+                                                                    functions
+                                                                        .jsonListToStringList(
+                                                                            getJsonField(
                                                                   dropDownMyAddressesResponse
                                                                       .jsonBody,
                                                                   r'''$.data[:].name''',
                                                                   true,
-                                                                ))!,
+                                                                ))!),
                                                                 optionLabels: functions
                                                                     .jsonListToStringList(
                                                                         getJsonField(

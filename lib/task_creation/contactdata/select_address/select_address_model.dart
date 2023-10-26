@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -32,6 +33,8 @@ class SelectAddressModel extends FlutterFlowModel<SelectAddressWidget> {
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (update task address)] action in button_Next widget.
   ApiCallResponse? updatedAddress;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for navigationBar component.
   late NavigationBarModel navigationBarModel;
 
@@ -42,6 +45,7 @@ class SelectAddressModel extends FlutterFlowModel<SelectAddressWidget> {
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
@@ -50,6 +54,7 @@ class SelectAddressModel extends FlutterFlowModel<SelectAddressWidget> {
     headerModel.dispose();
     taskcreationMenueModel.dispose();
     buttonNextModel.dispose();
+    mainDrawerModel.dispose();
     navigationBarModel.dispose();
   }
 

@@ -1,4 +1,3 @@
-import '/components/selectable_box_widget.dart';
 import '/flutter_flow/flutter_flow_choice_chips.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -136,34 +135,8 @@ class _SelectSkillLevelWidgetState extends State<SelectSkillLevelWidget> {
                   separatorBuilder: (_, __) => SizedBox(height: 8.0),
                   itemBuilder: (context, skillLevlsIndex) {
                     final skillLevlsItem = skillLevls[skillLevlsIndex];
-                    return InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        setState(() {
-                          _model.choiceChipsValueController?.value = [
-                            skillLevlsItem
-                          ];
-                        });
-                      },
-                      child: wrapWithModel(
-                        model: _model.selectableBoxModels.getModel(
-                          skillLevlsItem,
-                          skillLevlsIndex,
-                        ),
-                        updateCallback: () => setState(() {}),
-                        updateOnChange: true,
-                        child: SelectableBoxWidget(
-                          key: Key(
-                            'Key6nv_${skillLevlsItem}',
-                          ),
-                          isActive: _model.choiceChipsValue == skillLevlsItem,
-                          label: skillLevlsItem,
-                        ),
-                      ),
-                    );
+                    return Container(
+                        width: 100, height: 100, color: Colors.green);
                   },
                 );
               },

@@ -1,9 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/edit_icon_widget.dart';
 import '/components/edit_name_family_widget.dart';
 import '/components/emty_container_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/skill_card_widget.dart';
 import '/components/visibility_widget.dart';
@@ -84,8 +84,8 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
   ApiCallResponse? apiResult59uCopy;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? profile4;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -99,7 +99,7 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
     editIconModel5 = createModel(context, () => EditIconModel());
     editIconModel6 = createModel(context, () => EditIconModel());
     navBarModel = createModel(context, () => NavBarModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -113,7 +113,7 @@ class TaskerProfileModel extends FlutterFlowModel<TaskerProfileWidget> {
     editIconModel5.dispose();
     editIconModel6.dispose();
     navBarModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

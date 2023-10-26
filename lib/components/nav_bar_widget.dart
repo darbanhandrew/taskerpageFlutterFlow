@@ -1,5 +1,3 @@
-import '/backend/api_requests/api_calls.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -46,277 +44,228 @@ class _NavBarWidgetState extends State<NavBarWidget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 6.5),
-      child: FutureBuilder<ApiCallResponse>(
-        future: TaskerpageBackendGroup.userProfileMeCall.call(
-          apiGlobalKey: FFAppState().apiKey,
-        ),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitThreeBounce(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
-                ),
-              ),
-            );
-          }
-          final containerUserProfileMeResponse = snapshot.data!;
-          return Container(
-            width: double.infinity,
-            height: 70.0,
-            decoration: BoxDecoration(
-              color: Color(0x00FFFFFF),
-            ),
-            child: Align(
-              alignment: AlignmentDirectional(0.00, 0.00),
-              child: Stack(
-                alignment: AlignmentDirectional(0.0, 0.0),
+    return Container(
+      width: double.infinity,
+      height: 60.0,
+      decoration: BoxDecoration(
+        color: FlutterFlowTheme.of(context).secondaryBackground,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 4.0,
+            color: Color(0x33000000),
+            offset: Offset(0.0, 2.0),
+            spreadRadius: 3.0,
+          )
+        ],
+      ),
+      child: Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+        child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                setState(() {
+                  _model.footerState = 1;
+                });
+
+                context.pushNamed('connection');
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Material(
-                        color: Colors.transparent,
-                        elevation: 0.0,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        child: Container(
-                          width: double.infinity,
-                          height: 70.0,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFE7E7E7),
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                        ),
-                      ),
-                    ],
+                  Icon(
+                    Icons.people_alt_sharp,
+                    color: _model.footerState == 1
+                        ? FlutterFlowTheme.of(context).primary
+                        : Color(0xFF8A8A8A),
+                    size: 25.0,
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      if (functions.jsonToString(getJsonField(
-                            FFAppState().userProfile,
-                            r'''$.data.role''',
-                          )) ==
-                          'Poster')
-                        FlutterFlowIconButton(
-                          borderColor: Colors.transparent,
-                          borderRadius: 30.0,
-                          borderWidth: 1.0,
-                          buttonSize: 50.0,
-                          icon: Icon(
-                            Icons.search_off,
-                            color: FFAppState().checkNavbarState == 5
-                                ? FlutterFlowTheme.of(context).primary
-                                : Color(0xFF5E5D5D),
-                            size: 28.0,
-                          ),
-                          onPressed: () async {
-                            setState(() {
-                              FFAppState().checkNavbarState = 5;
-                            });
-
-                            context.pushNamed('TaskerList');
-                          },
-                        ),
-                      if (functions.jsonToString(getJsonField(
-                            FFAppState().userProfile,
-                            r'''$.data.role''',
-                          )) ==
-                          'Tasker')
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            setState(() {
-                              FFAppState().checkNavbarState = 1;
-                            });
-                            if (functions.jsonToString(getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.role''',
-                                )) ==
-                                'Poster') {
-                              context.pushNamed('Poster_Profile');
-                            } else {
-                              context.pushNamed('Tasker_Profile');
-                            }
-                          },
-                          child: Container(
-                            width: FFAppState().checkNavbarState == 1
-                                ? 40.0
-                                : 37.0,
-                            height: 37.0,
-                            clipBehavior: Clip.antiAlias,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                            ),
-                            child: Image.network(
-                              getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.avatar''',
-                                      ) !=
-                                      null
-                                  ? 'https://taskerpage.com${getJsonField(
-                                      FFAppState().userProfile,
-                                      r'''$.data.avatar''',
-                                    ).toString()}'
-                                  : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 1.0,
-                        buttonSize: 50.0,
-                        icon: Icon(
-                          Icons.group_rounded,
-                          color: FFAppState().checkNavbarState == 2
+                  Text(
+                    'My network',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: _model.footerState == 1
                               ? FlutterFlowTheme.of(context).primary
-                              : Color(0xFF5E5D5D),
-                          size: 25.0,
+                              : Color(0xFF8A8A8A),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
                         ),
-                        onPressed: () async {
-                          if (functions.jsonToString(getJsonField(
-                                containerUserProfileMeResponse.jsonBody,
-                                r'''$.data.role''',
-                              )) ==
-                              'Tasker') {
-                            setState(() {
-                              FFAppState().checkNavbarState = 2;
-                            });
-
-                            context.pushNamed('MyInbox');
-                          } else {
-                            setState(() {
-                              FFAppState().checkNavbarState = 2;
-                            });
-
-                            context.pushNamed('MyPosts');
-                          }
-                        },
-                      ),
-                      Flexible(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            if (functions.jsonToString(getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.role''',
-                                )) ==
-                                'Poster')
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 25.0,
-                                borderWidth: 1.0,
-                                buttonSize: 60.0,
-                                fillColor: FlutterFlowTheme.of(context).primary,
-                                icon: Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                  size: 30.0,
-                                ),
-                                onPressed: () async {
-                                  setState(() {
-                                    FFAppState().checkNavbarState = 6;
-                                  });
-
-                                  context.pushNamed(
-                                    'Task-1',
-                                    queryParameters: {
-                                      'id': serializeParam(
-                                        null,
-                                        ParamType.String,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                },
-                              ),
-                            if (functions.jsonToString(getJsonField(
-                                  FFAppState().userProfile,
-                                  r'''$.data.role''',
-                                )) ==
-                                'Tasker')
-                              FlutterFlowIconButton(
-                                borderColor: Colors.transparent,
-                                borderRadius: 25.0,
-                                borderWidth: 1.0,
-                                buttonSize: 60.0,
-                                fillColor: FlutterFlowTheme.of(context).primary,
-                                icon: Icon(
-                                  Icons.search_off,
-                                  color: Colors.white,
-                                  size: 30.0,
-                                ),
-                                onPressed: () async {
-                                  context.pushNamed('TaskList');
-                                },
-                              ),
-                          ],
-                        ),
-                      ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 1.0,
-                        buttonSize: 50.0,
-                        icon: Icon(
-                          Icons.chair_rounded,
-                          color: FFAppState().checkNavbarState == 3
-                              ? FlutterFlowTheme.of(context).primary
-                              : Color(0xFF5E5D5D),
-                          size: 25.0,
-                        ),
-                        onPressed: () async {
-                          setState(() {
-                            FFAppState().checkNavbarState = 3;
-                          });
-
-                          context.pushNamed('AppointmentList');
-                        },
-                      ),
-                      FlutterFlowIconButton(
-                        borderColor: Colors.transparent,
-                        borderRadius: 30.0,
-                        borderWidth: 1.0,
-                        buttonSize: 50.0,
-                        icon: Icon(
-                          Icons.space_dashboard,
-                          color: FFAppState().checkNavbarState == 4
-                              ? FlutterFlowTheme.of(context).primary
-                              : Color(0xFF5E5D5D),
-                          size: 25.0,
-                        ),
-                        onPressed: () async {
-                          setState(() {
-                            FFAppState().checkNavbarState = 4;
-                          });
-
-                          context.pushNamed('TaskersDashboard');
-                        },
-                      ),
-                    ].divide(SizedBox(width: 15.0)),
                   ),
-                ],
+                ].divide(SizedBox(height: 4.0)),
               ),
             ),
-          );
-        },
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                setState(() {
+                  _model.footerState = 2;
+                });
+
+                context.pushNamed('notification_log');
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.notifications_none,
+                    color: _model.footerState == 2
+                        ? FlutterFlowTheme.of(context).primary
+                        : Color(0xFF8A8A8A),
+                    size: 25.0,
+                  ),
+                  Text(
+                    'Notification',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: _model.footerState == 2
+                              ? FlutterFlowTheme.of(context).primary
+                              : Color(0xFF8A8A8A),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ].divide(SizedBox(height: 4.0)),
+              ),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                setState(() {
+                  _model.footerState = 3;
+                });
+
+                context.pushNamed(
+                  'chat_list',
+                  queryParameters: {
+                    'task': serializeParam(
+                      0,
+                      ParamType.int,
+                    ),
+                  }.withoutNulls,
+                );
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.message_outlined,
+                    color: _model.footerState == 3
+                        ? FlutterFlowTheme.of(context).primary
+                        : Color(0xFF8A8A8A),
+                    size: 25.0,
+                  ),
+                  Text(
+                    'Messaging',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: _model.footerState == 3
+                              ? FlutterFlowTheme.of(context).primary
+                              : Color(0xFF8A8A8A),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ].divide(SizedBox(height: 4.0)),
+              ),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                setState(() {
+                  _model.footerState = 4;
+                });
+
+                context.pushNamed('AppointmentList');
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.calendar_month_outlined,
+                    color: _model.footerState == 4
+                        ? FlutterFlowTheme.of(context).primary
+                        : Color(0xFF8A8A8A),
+                    size: 25.0,
+                  ),
+                  Text(
+                    'Calendar',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: _model.footerState == 4
+                              ? FlutterFlowTheme.of(context).primary
+                              : Color(0xFF8A8A8A),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ].divide(SizedBox(height: 4.0)),
+              ),
+            ),
+            InkWell(
+              splashColor: Colors.transparent,
+              focusColor: Colors.transparent,
+              hoverColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              onTap: () async {
+                setState(() {
+                  _model.footerState = 5;
+                });
+                if (functions.jsonToString(getJsonField(
+                      FFAppState().userProfile,
+                      r'''$.data.role''',
+                    )) ==
+                    'Tasker') {
+                  context.pushNamed('Tasker_Profile');
+                } else {
+                  context.pushNamed('Poster_Profile');
+                }
+              },
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.person_outline,
+                    color: _model.footerState == 5
+                        ? FlutterFlowTheme.of(context).primary
+                        : Color(0xFF8A8A8A),
+                    size: 25.0,
+                  ),
+                  Text(
+                    'Profile',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: _model.footerState == 5
+                              ? FlutterFlowTheme.of(context).primary
+                              : Color(0xFF8A8A8A),
+                          fontSize: 12.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                  ),
+                ].divide(SizedBox(height: 4.0)),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

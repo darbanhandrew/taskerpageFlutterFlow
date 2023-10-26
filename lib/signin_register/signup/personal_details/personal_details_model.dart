@@ -1,8 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/requard_star_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -61,8 +61,8 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (userProfileBasicInfo)] action in button_Next widget.
   ApiCallResponse? userProfileBasicInfoResult;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -73,7 +73,7 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
     requardStarModel3 = createModel(context, () => RequardStarModel());
     requardStarModel4 = createModel(context, () => RequardStarModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    drawerContentModel = createModel(context, () => DrawerContentModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -96,7 +96,7 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
 
     requardStarModel4.dispose();
     buttonNextModel.dispose();
-    drawerContentModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

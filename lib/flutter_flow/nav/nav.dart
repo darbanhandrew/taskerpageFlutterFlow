@@ -44,13 +44,41 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
       refreshListenable: appStateNotifier,
       errorBuilder: (context, state) => _RouteErrorBuilder(
         state: state,
-        child: SignInWidget(),
+        child: appStateNotifier.showSplashImage
+            ? Builder(
+                builder: (context) => Container(
+                  color: FlutterFlowTheme.of(context).info,
+                  child: Center(
+                    child: Image.asset(
+                      'assets/images/Group_2213.png',
+                      width: double.infinity,
+                      height: double.infinity,
+                      fit: BoxFit.contain,
+                    ),
+                  ),
+                ),
+              )
+            : SignInWidget(),
       ),
       routes: [
         FFRoute(
           name: '_initialize',
           path: '/',
-          builder: (context, _) => SignInWidget(),
+          builder: (context, _) => appStateNotifier.showSplashImage
+              ? Builder(
+                  builder: (context) => Container(
+                    color: FlutterFlowTheme.of(context).info,
+                    child: Center(
+                      child: Image.asset(
+                        'assets/images/Group_2213.png',
+                        width: double.infinity,
+                        height: double.infinity,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
+                  ),
+                )
+              : SignInWidget(),
         ),
         FFRoute(
           name: 'SelectCountryLanguage',
@@ -526,22 +554,30 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'ID1',
           path: '/id1',
-          builder: (context, params) => Id1Widget(),
+          builder: (context, params) => Id1Widget(
+            name: params.getParam('name', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'ID2',
           path: '/id2',
-          builder: (context, params) => Id2Widget(),
+          builder: (context, params) => Id2Widget(
+            name: params.getParam('name', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'ID3',
           path: '/id3',
-          builder: (context, params) => Id3Widget(),
+          builder: (context, params) => Id3Widget(
+            name: params.getParam('name', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'ID4',
           path: '/id4',
-          builder: (context, params) => Id4Widget(),
+          builder: (context, params) => Id4Widget(
+            name: params.getParam('name', ParamType.String),
+          ),
         ),
         FFRoute(
           name: 'identification_card',
