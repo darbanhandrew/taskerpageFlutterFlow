@@ -324,12 +324,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           path: '/chat/:room',
           builder: (context, params) => ChatWidget(
             room: params.getParam('room', ParamType.String),
-            curentUser: params.getParam('curentUser', ParamType.String),
-            startChat: params.getParam('startChat', ParamType.String),
-            nameFamily: params.getParam('nameFamily', ParamType.String),
-            avatar: params.getParam('avatar', ParamType.String),
-            postID: params.getParam('postID', ParamType.int),
-            taskerID: params.getParam('taskerID', ParamType.int),
           ),
         ),
         FFRoute(
@@ -493,11 +487,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => IssueListWidget(),
         ),
         FFRoute(
-          name: 'test',
-          path: '/test',
-          builder: (context, params) => TestWidget(),
-        ),
-        FFRoute(
           name: 'notification_log',
           path: '/notificationLog',
           builder: (context, params) => NotificationLogWidget(),
@@ -582,26 +571,29 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'identification_card',
           path: '/identificationCard',
-          builder: (context, params) => IdentificationCardWidget(),
+          builder: (context, params) => IdentificationCardWidget(
+            signUp: params.getParam('signUp', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'RateSignUp',
-          path: '/rateSignUp',
+          path: '/user-rate/:name',
           builder: (context, params) => RateSignUpWidget(
-            id: params.getParam('id', ParamType.int),
+            name: params.getParam('name', ParamType.String),
           ),
         ),
         FFRoute(
           name: 'Rates_list',
           path: '/ratesList',
-          builder: (context, params) => RatesListWidget(
-            id: params.getParam('id', ParamType.int),
-          ),
+          builder: (context, params) => RatesListWidget(),
         ),
         FFRoute(
           name: 'test2',
           path: '/test2',
-          builder: (context, params) => Test2Widget(),
+          builder: (context, params) => Test2Widget(
+            task: params.getParam('task', ParamType.int),
+            user: params.getParam('user', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

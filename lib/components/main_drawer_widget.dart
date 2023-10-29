@@ -263,11 +263,18 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                                 shape: BoxShape.circle,
                                               ),
                                               child: Image.network(
-                                                '${FFAppState().baseUrl}${getJsonField(
-                                                  containerUserProfileReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.avatar''',
-                                                ).toString()}',
+                                                getJsonField(
+                                                          containerUserProfileReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.avatar''',
+                                                        ) !=
+                                                        null
+                                                    ? '${FFAppState().baseUrl}${getJsonField(
+                                                        containerUserProfileReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.avatar''',
+                                                      ).toString()}'
+                                                    : '${FFAppState().baseUrl}/files/Group 2177.png',
                                                 fit: BoxFit.cover,
                                               ),
                                             ),

@@ -201,7 +201,7 @@ String convertDataTypeToTaskerSkillFilter(SkillFilterStruct? filter) {
     filterList.add(["skill_category_name", "=", filter.skillCategoryName]);
   }
   if (filter.hasSkillName()) {
-    filterList.add(["skill_name", "=", filter.skillName]);
+    filterList.add(["Child Skill", "skill_name", "=", filter.skillName]);
   }
   if (filter.hasSkillLevel()) {
     filterList.add(["skill_level", "=", filter.skillLevel]);
@@ -1476,8 +1476,7 @@ dynamic identificationStructToJson(
   }
 
   if (struct.dateOfBirth != null) {
-    data['date_of_birth'] =
-        DateFormat('yyyy-MM-dd').format(struct.dateOfBirth!);
+    data['date_of_birth'] = struct.dateOfBirth;
   }
 
   if ((!excludeEmptyStrings ||
@@ -1491,7 +1490,7 @@ dynamic identificationStructToJson(
   }
 
   if (struct.expiryDate != null) {
-    data['expiry_date'] = DateFormat('yyyy-MM-dd').format(struct.expiryDate!);
+    data['expiry_date'] = struct.expiryDate;
   }
 
   if ((!excludeEmptyStrings ||
@@ -1520,19 +1519,15 @@ IdentificationStruct jsonToIdentificationStruct(dynamic jsonData) {
   if (jsonData is Map<String, dynamic>) {
     return IdentificationStruct(
       name: jsonData['name'] as String?,
-      customerProfile: jsonData['customer_profile'] as int?,
+      customerProfile: jsonData['customer_profile'] as String?,
       customerProfileType: jsonData['customer_profile_type'] as String?,
       title: jsonData['title'] as String?,
       firstName: jsonData['first_name'] as String?,
       lastName: jsonData['last_name'] as String?,
-      dateOfBirth: (jsonData['date_of_birth'] != null)
-          ? jsonToDateTime(jsonData['date_of_birth'])
-          : null,
+      dateOfBirth: jsonData['date_of_birth'] as String?,
       documentType: jsonData['document_type'] as String?,
       documentNumber: jsonData['document_number'] as String?,
-      expiryDate: (jsonData['expiry_date'] != null)
-          ? jsonToDateTime(jsonData['expiry_date'])
-          : null,
+      expiryDate: jsonData['expiry_date'] as String?,
       documentFile: jsonData['document_file'] as String?,
       documentUserPhoto: jsonData['document_user_photo'] as String?,
       status: jsonData['status'] as String?,
@@ -1557,4 +1552,55 @@ List<IdentificationStruct> listJsonToIdentificationStruct(
       .map((jsonData) => jsonToIdentificationStruct(jsonData))
       .toList()
       .cast<IdentificationStruct>();
+}
+
+int? compeletedProfile(int? badgesNumber) {
+  // Multiply the badgesNumber by 25
+  return badgesNumber != null ? badgesNumber * 25 : null;
+}
+
+double? compeletedProgresbar(int? compeletedProfile) {
+  // Divide the compeletedProfile by 100
+  if (compeletedProfile != null) {
+    return compeletedProfile / 100;
+  } else {
+    return null;
+  }
+}
+
+String generateQuery(
+  String? fullName,
+  List<String> fields,
+) {
+// Ensure there are fields to process
+  if (fields.isEmpty || fullName == null || fullName.isEmpty) {
+    return '[]';
+  }
+
+  // Split the input string by spaces to get individual name parts
+  List<String> nameParts =
+      fullName.split(' ').where((s) => s.isNotEmpty).toList();
+
+  // Start with an opening bracket
+  String result = '[';
+
+  // Loop through each name part and concatenate the query string
+  for (String namePart in nameParts) {
+    for (String field in fields) {
+      result += '["' + field + '","like","%' + namePart + '%"],';
+    }
+  }
+
+  // Remove the trailing comma
+  result = result.substring(0, result.length - 1);
+
+  // Add a closing bracket and return the result
+  result += ']';
+  return result;
+}
+
+List<ChatRoomStruct> convertJsonListToChatRoomStructList(
+    List<dynamic> chatListJson) {
+  // convert a list of json to a list of struct using frommap
+  return chatListJson.map((json) => ChatRoomStruct.fromMap(json)).toList();
 }

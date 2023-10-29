@@ -275,13 +275,40 @@ class _EmailVerificationPageDeprecatedWidgetState
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Flexible(
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(0.0),
-                                child: Image.asset(
-                                  'assets/images/Group_1756.png',
-                                  width: 70.0,
-                                  height: 70.0,
-                                  fit: BoxFit.none,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      'We just sent you a email to below \nemail address !',
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Flexible(
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    0.0, 54.0, 0.0, 0.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  child: Image.asset(
+                                    'assets/images/Clip_path_group_(3).png',
+                                    width: 79.0,
+                                    height: 79.0,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
                               ),
                             ),
@@ -327,8 +354,8 @@ class _EmailVerificationPageDeprecatedWidgetState
                                         .override(
                                           fontFamily: 'Lato',
                                           color: Color(0xFF8A8A8A),
-                                          fontSize: 14.0,
-                                          fontWeight: FontWeight.w600,
+                                          fontSize: 12.0,
+                                          fontWeight: FontWeight.w500,
                                           decoration: TextDecoration.underline,
                                         ),
                                   ),

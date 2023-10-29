@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/components/drope_down_languages_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -10,7 +9,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,26 +23,10 @@ class ProfiledetailsWidget extends StatefulWidget {
   _ProfiledetailsWidgetState createState() => _ProfiledetailsWidgetState();
 }
 
-class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
-    with TickerProviderStateMixin {
+class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
   late ProfiledetailsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = {
-    'rowOnPageLoadAnimation': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 15.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
@@ -249,8 +231,7 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget>
                             ),
                           ),
                         ],
-                      ).animateOnPageLoad(
-                          animationsMap['rowOnPageLoadAnimation']!),
+                      ),
                     ),
                     Divider(
                       height: 32.0,

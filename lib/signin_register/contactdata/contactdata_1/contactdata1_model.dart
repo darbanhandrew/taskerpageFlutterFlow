@@ -23,6 +23,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 class Contactdata1Model extends FlutterFlowModel<Contactdata1Widget> {
+  ///  Local state fields for this page.
+
+  int? mapORno;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();

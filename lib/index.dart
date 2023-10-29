@@ -15,7 +15,7 @@ export '/signin_register/signin/email_verification_page/email_verification_page_
 export '/signin_register/signin/sign_in_verification_accepted/sign_in_verification_accepted_widget.dart'
     show SignInVerificationAcceptedWidget;
 export '/signin_register/signin/sign_in/sign_in_widget.dart' show SignInWidget;
-export '/signin_register/forget_password_2/forget_password2_widget.dart'
+export '/signin_register/forgetpassword/forget_password_2/forget_password2_widget.dart'
     show ForgetPassword2Widget;
 export '/signin_register/forgetpassword/forget_password_3/forget_password3_widget.dart'
     show ForgetPassword3Widget;
@@ -127,7 +127,6 @@ export '/dashboard/web_home/web_home_widget.dart' show WebHomeWidget;
 export '/subscription/paymentshistory/paymentshistory_widget.dart'
     show PaymentshistoryWidget;
 export '/dashboard/issue_list/issue_list_widget.dart' show IssueListWidget;
-export '/dashboard/test/test_widget.dart' show TestWidget;
 export '/dashboard/notification_log/notification_log_widget.dart'
     show NotificationLogWidget;
 export '/bargain/chat_list/chat_list_widget.dart' show ChatListWidget;

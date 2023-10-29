@@ -3,7 +3,6 @@ import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
-import '/components/navigate_back_widget.dart';
 import '/components/skill_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -105,33 +104,42 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Expanded(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 8.0, 0.0, 0.0),
-                                    child: wrapWithModel(
-                                      model: _model.navigateBackModel,
-                                      updateCallback: () => setState(() {}),
-                                      child: NavigateBackWidget(
-                                        text: 'Skills',
-                                      ),
-                                    ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  32.0, 32.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Text(
+                                    'Skills',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF292929),
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold,
+                                        ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 8.0, 32.0, 16.0),
+                                  32.0, 20.0, 32.0, 16.0),
                               child: FutureBuilder<ApiCallResponse>(
                                 future: (_model.apiRequestCompleter ??=
                                         Completer<ApiCallResponse>()
                                           ..complete(TaskerpageBackendGroup
-                                              .userProfileMeCall
+                                              .customerProfileSkillsListCall
                                               .call(
+                                            filters:
+                                                '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString()}\"]]',
+                                            fields: '[\"*\"]',
+                                            orderBy: 'creation desc',
                                             apiGlobalKey: FFAppState().apiKey,
                                           )))
                                     .future,
@@ -150,23 +158,23 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                       ),
                                     );
                                   }
-                                  final listViewUserProfileMeResponse =
+                                  final listViewCustomerProfileSkillsListResponse =
                                       snapshot.data!;
                                   return Builder(
                                     builder: (context) {
                                       final myServices = TaskerpageBackendGroup
-                                              .userProfileMeCall
-                                              .customerSkills(
-                                                listViewUserProfileMeResponse
+                                              .customerProfileSkillsListCall
+                                              .myServices(
+                                                listViewCustomerProfileSkillsListResponse
                                                     .jsonBody,
                                               )
-                                              ?.map((e) => e != null && e != ''
-                                                  ? UserServiceStruct.fromMap(e)
-                                                  : null)
-                                              .withoutNulls
-                                              .toList()
                                               ?.toList() ??
                                           [];
+                                      if (myServices.isEmpty) {
+                                        return Image.asset(
+                                          'assets/images/Group_2020.png',
+                                        );
+                                      }
                                       return ListView.separated(
                                         padding: EdgeInsets.zero,
                                         primary: false,
@@ -182,28 +190,68 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                           return Container(
                                             height: 285.0,
                                             decoration: BoxDecoration(),
-                                            child: wrapWithModel(
-                                              model: _model.skillCardModels
-                                                  .getModel(
-                                                myServicesIndex.toString(),
-                                                myServicesIndex,
+                                            child:
+                                                FutureBuilder<ApiCallResponse>(
+                                              future: TaskerpageBackendGroup
+                                                  .getCustomerProfileSkillsDetailsCall
+                                                  .call(
+                                                name: getJsonField(
+                                                  myServicesItem,
+                                                  r'''$.name''',
+                                                ).toString(),
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
                                               ),
-                                              updateCallback: () =>
-                                                  setState(() {}),
-                                              child: SkillCardWidget(
-                                                key: Key(
-                                                  'Key5mz_${myServicesIndex.toString()}',
-                                                ),
-                                                userService: myServicesItem,
-                                                index: myServicesIndex,
-                                                action: () async {
-                                                  setState(() => _model
-                                                          .apiRequestCompleter =
-                                                      null);
-                                                  await _model
-                                                      .waitForApiRequestCompleted();
-                                                },
-                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50.0,
+                                                      height: 50.0,
+                                                      child: SpinKitThreeBounce(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 50.0,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                final skillCardGetCustomerProfileSkillsDetailsResponse =
+                                                    snapshot.data!;
+                                                return wrapWithModel(
+                                                  model: _model.skillCardModels
+                                                      .getModel(
+                                                    myServicesIndex.toString(),
+                                                    myServicesIndex,
+                                                  ),
+                                                  updateCallback: () =>
+                                                      setState(() {}),
+                                                  child: SkillCardWidget(
+                                                    key: Key(
+                                                      'Key5mz_${myServicesIndex.toString()}',
+                                                    ),
+                                                    userService:
+                                                        UserServiceStruct
+                                                            .fromMap(
+                                                                getJsonField(
+                                                      skillCardGetCustomerProfileSkillsDetailsResponse
+                                                          .jsonBody,
+                                                      r'''$.data''',
+                                                    )),
+                                                    index: myServicesIndex,
+                                                    action: () async {
+                                                      setState(() => _model
+                                                              .apiRequestCompleter =
+                                                          null);
+                                                      await _model
+                                                          .waitForApiRequestCompleted();
+                                                    },
+                                                  ),
+                                                );
+                                              },
                                             ),
                                           );
                                         },
@@ -213,85 +261,141 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                 },
                               ),
                             ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 0.0, 32.0, 30.0),
-                              child: Container(
-                                width: double.infinity,
-                                height: 180.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0x00FFFFFF),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: Image.asset(
-                                      'assets/images/Rectangle_1937.png',
-                                    ).image,
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 24.0, 32.0, 20.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          context.pushNamed(
-                                            'Skills-3',
-                                            queryParameters: {
-                                              'addAnother': serializeParam(
-                                                true,
-                                                ParamType.bool,
-                                              ),
-                                            }.withoutNulls,
-                                          );
-                                        },
+                            FutureBuilder<ApiCallResponse>(
+                              future: TaskerpageBackendGroup
+                                  .customerProfileSkillsListCall
+                                  .call(
+                                filters:
+                                    '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                  FFAppState().userProfile,
+                                  r'''$.data.name''',
+                                ).toString()}\"]]',
+                                fields: '[\"name\"]',
+                                orderBy: 'creation desc',
+                                apiGlobalKey: FFAppState().apiKey,
+                              ),
+                              builder: (context, snapshot) {
+                                // Customize what your widget looks like when it's loading.
+                                if (!snapshot.hasData) {
+                                  return Center(
+                                    child: SizedBox(
+                                      width: 50.0,
+                                      height: 50.0,
+                                      child: SpinKitThreeBounce(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        size: 50.0,
+                                      ),
+                                    ),
+                                  );
+                                }
+                                final columnCustomerProfileSkillsListResponse =
+                                    snapshot.data!;
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    if (getJsonField(
+                                          columnCustomerProfileSkillsListResponse
+                                              .jsonBody,
+                                          r'''$.data''',
+                                        ) !=
+                                        null)
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            32.0, 0.0, 32.0, 30.0),
                                         child: Container(
-                                          width: 184.0,
-                                          height: 36.0,
+                                          width: double.infinity,
+                                          height: 180.0,
                                           decoration: BoxDecoration(
                                             color: Color(0x00FFFFFF),
-                                            borderRadius:
-                                                BorderRadius.circular(1.0),
-                                            border: Border.all(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
+                                            image: DecorationImage(
+                                              fit: BoxFit.fill,
+                                              image: Image.asset(
+                                                'assets/images/Rectangle_1937.png',
+                                              ).image,
                                             ),
                                           ),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Text(
-                                                '+ Add another Skills',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          fontSize: 14.0,
-                                                          fontWeight:
-                                                              FontWeight.w500,
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 24.0, 32.0, 20.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    context.pushNamed(
+                                                      'Skills-3',
+                                                      queryParameters: {
+                                                        'addAnother':
+                                                            serializeParam(
+                                                          true,
+                                                          ParamType.bool,
                                                         ),
-                                              ),
-                                            ],
+                                                      }.withoutNulls,
+                                                    );
+                                                  },
+                                                  child: Container(
+                                                    width: 184.0,
+                                                    height: 36.0,
+                                                    decoration: BoxDecoration(
+                                                      color: Color(0x00FFFFFF),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              1.0),
+                                                      border: Border.all(
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                      ),
+                                                    ),
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
+                                                          '+ Add another Skills',
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                fontSize: 14.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w500,
+                                                              ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                              ),
+                                  ],
+                                );
+                              },
                             ),
                           ],
                         ),

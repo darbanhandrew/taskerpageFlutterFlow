@@ -6,6 +6,7 @@ import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -299,6 +300,10 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                             address: myMainAddressesItem,
                                             action: () async {
                                               setState(() => _model
+                                                  .apiRequestCompleter2 = null);
+                                              await _model
+                                                  .waitForApiRequestCompleted2();
+                                              setState(() => _model
                                                   .apiRequestCompleter1 = null);
                                               await _model
                                                   .waitForApiRequestCompleted1();
@@ -409,19 +414,35 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed(
-                                  'Add_another_education',
-                                  queryParameters: {
-                                    'isSignUp': serializeParam(
-                                      true,
-                                      ParamType.bool,
-                                    ),
-                                    'addAnother': serializeParam(
-                                      false,
-                                      ParamType.bool,
-                                    ),
-                                  }.withoutNulls,
-                                );
+                                if (functions.jsonToString(getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.role''',
+                                    )) ==
+                                    'Tasker') {
+                                  context.pushNamed(
+                                    'Add_another_education',
+                                    queryParameters: {
+                                      'isSignUp': serializeParam(
+                                        true,
+                                        ParamType.bool,
+                                      ),
+                                      'addAnother': serializeParam(
+                                        false,
+                                        ParamType.bool,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                } else {
+                                  context.pushNamed(
+                                    'ID1',
+                                    queryParameters: {
+                                      'name': serializeParam(
+                                        '',
+                                        ParamType.String,
+                                      ),
+                                    }.withoutNulls,
+                                  );
+                                }
                               },
                               child: Container(
                                 width: 104.0,

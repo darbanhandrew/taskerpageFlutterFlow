@@ -179,32 +179,36 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                           children: [
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 32.0, 15.0, 0.0),
+                                  44.0, 32.0, 44.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    TaskerpageBackendGroup.readAppRoleCall
-                                        .addSkillsText(
-                                          columnReadAppRoleResponse.jsonBody,
-                                        )
-                                        .toString(),
-                                    textAlign: TextAlign.center,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          fontSize: 18.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+                                  Flexible(
+                                    child: Text(
+                                      TaskerpageBackendGroup.readAppRoleCall
+                                          .addSkillsText(
+                                            columnReadAppRoleResponse.jsonBody,
+                                          )
+                                          .toString(),
+                                      textAlign: TextAlign.center,
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                    ),
                                   ),
                                 ],
                               ),
                             ),
                             Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 25.0, 32.0, 0.0),
+                                  32.0, 38.0, 32.0, 0.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
                                 children: [

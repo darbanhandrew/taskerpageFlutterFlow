@@ -1,11 +1,9 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/ad_card_widget.dart';
-import '/components/header_widget.dart';
+import '/components/filter_header_widget.dart';
 import '/components/main_drawer_widget.dart';
-import '/components/nav_bar_widget.dart';
-import '/components/navigate_back_widget.dart';
-import '/components/sort_task_list_widget.dart';
 import '/components/task_card_widget.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -14,7 +12,9 @@ import '/search/filter/filter_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,11 +28,41 @@ class TaskListWidget extends StatefulWidget {
   _TaskListWidgetState createState() => _TaskListWidgetState();
 }
 
-class _TaskListWidgetState extends State<TaskListWidget> {
+class _TaskListWidgetState extends State<TaskListWidget>
+    with TickerProviderStateMixin {
   late TaskListModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   LatLng? currentUserLocationValue;
+
+  final animationsMap = {
+    'rowOnPageLoadAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onPageLoad,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+    'rowOnActionTriggerAnimation': AnimationInfo(
+      trigger: AnimationTrigger.onActionTrigger,
+      applyInitialState: true,
+      effects: [
+        MoveEffect(
+          curve: Curves.easeInOut,
+          delay: 0.ms,
+          duration: 600.ms,
+          begin: Offset(0.0, -5.0),
+          end: Offset(0.0, 0.0),
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -43,6 +73,13 @@ class _TaskListWidgetState extends State<TaskListWidget> {
         .then((loc) => setState(() => currentUserLocationValue = loc));
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+    setupAnimations(
+      animationsMap.values.where((anim) =>
+          anim.trigger == AnimationTrigger.onActionTrigger ||
+          !anim.applyInitialState),
+      this,
+    );
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -105,35 +142,166 @@ class _TaskListWidgetState extends State<TaskListWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              wrapWithModel(
-                model: _model.headerModel,
-                updateCallback: () => setState(() {}),
-                child: HeaderWidget(
-                  openDrawer: () async {
-                    scaffoldKey.currentState!.openEndDrawer();
-                  },
-                ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: wrapWithModel(
+                      model: _model.filterHeaderModel,
+                      updateCallback: () => setState(() {}),
+                      child: Hero(
+                        tag: 'filterHeader',
+                        transitionOnUserGestures: true,
+                        child: Material(
+                          color: Colors.transparent,
+                          child: FilterHeaderWidget(
+                            taskORtasker: 'Task',
+                            filterAction: () async {
+                              await showModalBottomSheet(
+                                isScrollControlled: true,
+                                backgroundColor: Colors.transparent,
+                                enableDrag: false,
+                                context: context,
+                                builder: (context) {
+                                  return GestureDetector(
+                                    onTap: () => _model
+                                            .unfocusNode.canRequestFocus
+                                        ? FocusScope.of(context)
+                                            .requestFocus(_model.unfocusNode)
+                                        : FocusScope.of(context).unfocus(),
+                                    child: Padding(
+                                      padding: MediaQuery.viewInsetsOf(context),
+                                      child: FilterWidget(
+                                        action: () async {
+                                          setState(() => _model
+                                              .apiRequestCompleter = null);
+                                        },
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ).then((value) => safeSetState(() {}));
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
+              if (FFAppState().SortViewTasker)
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Container(
+                        width: 100.0,
+                        height: 50.0,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFF6F6F6),
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 4.0,
+                              color: Color(0x33000000),
+                              offset: Offset(0.0, 2.0),
+                            )
+                          ],
+                        ),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 0.0, 0.0),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'All',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                Text(
+                                  'Date',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                Text(
+                                  'Relevance',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                Text(
+                                  'Price',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .alternate,
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 32.0, 0.0),
+                                  child: Text(
+                                    'Open task only',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          fontSize: 14.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ),
+                              ].divide(SizedBox(width: 32.0)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )
+                    .animateOnPageLoad(animationsMap['rowOnPageLoadAnimation']!)
+                    .animateOnActionTrigger(
+                      animationsMap['rowOnActionTriggerAnimation']!,
+                    ),
               Expanded(
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 20.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 20.0),
                   child: SingleChildScrollView(
                     primary: false,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        Flexible(
-                          child: wrapWithModel(
-                            model: _model.navigateBackModel,
-                            updateCallback: () => setState(() {}),
-                            child: NavigateBackWidget(
-                              text: 'Task wall',
-                            ),
-                          ),
-                        ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 16.0, 32.0, 8.0),
+                              32.0, 27.0, 32.0, 8.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.end,
@@ -150,7 +318,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                       isDense: true,
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .labelMedium,
-                                      hintText: 'search tasker ...',
+                                      hintText: 'search task ...',
                                       hintStyle: FlutterFlowTheme.of(context)
                                           .labelMedium
                                           .override(
@@ -161,11 +329,11 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                       enabledBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
                                           color: FlutterFlowTheme.of(context)
-                                              .tertiary,
+                                              .secondary,
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(2.0),
+                                            BorderRadius.circular(8.0),
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -174,7 +342,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(2.0),
+                                            BorderRadius.circular(8.0),
                                       ),
                                       errorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -183,7 +351,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(2.0),
+                                            BorderRadius.circular(8.0),
                                       ),
                                       focusedErrorBorder: OutlineInputBorder(
                                         borderSide: BorderSide(
@@ -192,7 +360,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                           width: 1.0,
                                         ),
                                         borderRadius:
-                                            BorderRadius.circular(2.0),
+                                            BorderRadius.circular(8.0),
                                       ),
                                       prefixIcon: Icon(
                                         Icons.search_sharp,
@@ -212,10 +380,123 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                             ],
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              32.0, 0.0, 32.0, 0.0),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Expanded(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      FFAppState().mapView = false;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 36.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0x00FFFFFF),
+                                      borderRadius: BorderRadius.circular(2.0),
+                                      border: Border.all(
+                                        color: !FFAppState().mapView
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Card View',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: !FFAppState().mapView
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      FFAppState().mapView = true;
+                                    });
+                                  },
+                                  child: Container(
+                                    width: 100.0,
+                                    height: 36.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0x00FFFFFF),
+                                      borderRadius: BorderRadius.circular(2.0),
+                                      border: Border.all(
+                                        color: FFAppState().mapView
+                                            ? FlutterFlowTheme.of(context)
+                                                .primary
+                                            : FlutterFlowTheme.of(context)
+                                                .secondary,
+                                      ),
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          'Map View',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: FFAppState().mapView
+                                                    ? FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary
+                                                    : FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondary,
+                                                fontSize: 13.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ].divide(SizedBox(width: 12.0)),
+                          ),
+                        ),
                         Flexible(
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                32.0, 5.0, 32.0, 0.0),
+                                32.0, 0.0, 32.0, 0.0),
                             child: FutureBuilder<ApiCallResponse>(
                               future: (_model.apiRequestCompleter ??= Completer<
                                       ApiCallResponse>()
@@ -258,308 +539,6 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 8.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      enableDrag: false,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
-                                                          child: Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child: FilterWidget(
-                                                              action: () async {
-                                                                setState(() =>
-                                                                    _model.apiRequestCompleter =
-                                                                        null);
-                                                              },
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        safeSetState(() {}));
-                                                  },
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            0.0),
-                                                    child: Image.asset(
-                                                      'assets/images/icons8-filter-32.png',
-                                                      width: 25.0,
-                                                      height: 25.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child: FilterWidget(
-                                                            action: () async {
-                                                              setState(() =>
-                                                                  _model.apiRequestCompleter =
-                                                                      null);
-                                                            },
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                                child: Text(
-                                                  FFAppState().taskSearchString !=
-                                                              null &&
-                                                          FFAppState()
-                                                                  .taskSearchString !=
-                                                              ''
-                                                      ? 'Filters'
-                                                      : 'Filters Applied',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        15.0, 0.0, 8.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    await showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      enableDrag: false,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
-                                                          child: Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child:
-                                                                SortTaskListWidget(),
-                                                          ),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        safeSetState(() {}));
-                                                  },
-                                                  child: ClipRRect(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            0.0),
-                                                    child: Image.asset(
-                                                      'assets/images/icons8-sort-30.png',
-                                                      width: 25.0,
-                                                      height: 25.0,
-                                                      fit: BoxFit.cover,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              SortTaskListWidget(),
-                                                        ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                                child: Text(
-                                                  FFAppState().Sort,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            Color(0xFF5450E2),
-                                                        fontSize: 12.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: 20.0,
-                                            child: VerticalDivider(
-                                              thickness: 1.0,
-                                              color: Color(0x53767676),
-                                            ),
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                'Map View',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          fontSize: 12.0,
-                                                        ),
-                                              ),
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.00, 0.00),
-                                                child: Switch.adaptive(
-                                                  value: _model.switchValue ??=
-                                                      FFAppState().mapView,
-                                                  onChanged: (newValue) async {
-                                                    setState(() =>
-                                                        _model.switchValue =
-                                                            newValue!);
-                                                    if (newValue!) {
-                                                      setState(() {
-                                                        FFAppState().mapView =
-                                                            true;
-                                                      });
-                                                    } else {
-                                                      setState(() {
-                                                        FFAppState().mapView =
-                                                            false;
-                                                      });
-                                                    }
-                                                  },
-                                                  activeColor:
-                                                      Color(0xFF5450E0),
-                                                  activeTrackColor:
-                                                      Color(0x53767676),
-                                                  inactiveTrackColor:
-                                                      Color(0x25767676),
-                                                  inactiveThumbColor:
-                                                      Color(0x15969696),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
                                       SingleChildScrollView(
                                         child: Column(
                                           mainAxisSize: MainAxisSize.max,
@@ -567,7 +546,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
-                                                      0.0, 20.0, 0.0, 0.0),
+                                                      0.0, 16.0, 0.0, 0.0),
                                               child: wrapWithModel(
                                                 model: _model.adCardModel,
                                                 updateCallback: () =>
@@ -581,7 +560,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 24.0, 0.0, 10.0),
+                                                        0.0, 16.0, 0.0, 10.0),
                                                 child: Builder(
                                                   builder: (context) {
                                                     final posts = getJsonField(
@@ -627,7 +606,7 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                                             decoration: BoxDecoration(
                                               color: Color(0xFFF6F6F6),
                                               borderRadius:
-                                                  BorderRadius.circular(8.0),
+                                                  BorderRadius.circular(2.0),
                                             ),
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
@@ -721,16 +700,6 @@ class _TaskListWidgetState extends State<TaskListWidget> {
                     ),
                   ),
                 ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  wrapWithModel(
-                    model: _model.navBarModel,
-                    updateCallback: () => setState(() {}),
-                    child: NavBarWidget(),
-                  ),
-                ],
               ),
             ],
           ),

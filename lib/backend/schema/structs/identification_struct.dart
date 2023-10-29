@@ -8,47 +8,39 @@ import '/flutter_flow/flutter_flow_util.dart';
 class IdentificationStruct extends BaseStruct {
   IdentificationStruct({
     String? name,
-    int? customerProfile,
     String? customerProfileType,
     String? title,
     String? firstName,
     String? lastName,
-    DateTime? dateOfBirth,
     String? documentType,
     String? documentNumber,
-    DateTime? expiryDate,
     String? documentFile,
     String? documentUserPhoto,
     String? status,
     String? amendedFrom,
+    String? customerProfile,
+    String? dateOfBirth,
+    String? expiryDate,
   })  : _name = name,
-        _customerProfile = customerProfile,
         _customerProfileType = customerProfileType,
         _title = title,
         _firstName = firstName,
         _lastName = lastName,
-        _dateOfBirth = dateOfBirth,
         _documentType = documentType,
         _documentNumber = documentNumber,
-        _expiryDate = expiryDate,
         _documentFile = documentFile,
         _documentUserPhoto = documentUserPhoto,
         _status = status,
-        _amendedFrom = amendedFrom;
+        _amendedFrom = amendedFrom,
+        _customerProfile = customerProfile,
+        _dateOfBirth = dateOfBirth,
+        _expiryDate = expiryDate;
 
   // "name" field.
   String? _name;
   String get name => _name ?? '';
   set name(String? val) => _name = val;
   bool hasName() => _name != null;
-
-  // "customer_profile" field.
-  int? _customerProfile;
-  int get customerProfile => _customerProfile ?? 0;
-  set customerProfile(int? val) => _customerProfile = val;
-  void incrementCustomerProfile(int amount) =>
-      _customerProfile = customerProfile + amount;
-  bool hasCustomerProfile() => _customerProfile != null;
 
   // "customer_profile_type" field.
   String? _customerProfileType;
@@ -74,12 +66,6 @@ class IdentificationStruct extends BaseStruct {
   set lastName(String? val) => _lastName = val;
   bool hasLastName() => _lastName != null;
 
-  // "date_of_birth" field.
-  DateTime? _dateOfBirth;
-  DateTime? get dateOfBirth => _dateOfBirth;
-  set dateOfBirth(DateTime? val) => _dateOfBirth = val;
-  bool hasDateOfBirth() => _dateOfBirth != null;
-
   // "document_type" field.
   String? _documentType;
   String get documentType => _documentType ?? '';
@@ -91,12 +77,6 @@ class IdentificationStruct extends BaseStruct {
   String get documentNumber => _documentNumber ?? '';
   set documentNumber(String? val) => _documentNumber = val;
   bool hasDocumentNumber() => _documentNumber != null;
-
-  // "expiry_date" field.
-  DateTime? _expiryDate;
-  DateTime? get expiryDate => _expiryDate;
-  set expiryDate(DateTime? val) => _expiryDate = val;
-  bool hasExpiryDate() => _expiryDate != null;
 
   // "document_file" field.
   String? _documentFile;
@@ -122,22 +102,40 @@ class IdentificationStruct extends BaseStruct {
   set amendedFrom(String? val) => _amendedFrom = val;
   bool hasAmendedFrom() => _amendedFrom != null;
 
+  // "customer_profile" field.
+  String? _customerProfile;
+  String get customerProfile => _customerProfile ?? '';
+  set customerProfile(String? val) => _customerProfile = val;
+  bool hasCustomerProfile() => _customerProfile != null;
+
+  // "date_of_birth" field.
+  String? _dateOfBirth;
+  String get dateOfBirth => _dateOfBirth ?? '';
+  set dateOfBirth(String? val) => _dateOfBirth = val;
+  bool hasDateOfBirth() => _dateOfBirth != null;
+
+  // "expiry_date" field.
+  String? _expiryDate;
+  String get expiryDate => _expiryDate ?? '';
+  set expiryDate(String? val) => _expiryDate = val;
+  bool hasExpiryDate() => _expiryDate != null;
+
   static IdentificationStruct fromMap(Map<String, dynamic> data) =>
       IdentificationStruct(
         name: data['name'] as String?,
-        customerProfile: castToType<int>(data['customer_profile']),
         customerProfileType: data['customer_profile_type'] as String?,
         title: data['title'] as String?,
         firstName: data['first_name'] as String?,
         lastName: data['last_name'] as String?,
-        dateOfBirth: data['date_of_birth'] as DateTime?,
         documentType: data['document_type'] as String?,
         documentNumber: data['document_number'] as String?,
-        expiryDate: data['expiry_date'] as DateTime?,
         documentFile: data['document_file'] as String?,
         documentUserPhoto: data['document_user_photo'] as String?,
         status: data['status'] as String?,
         amendedFrom: data['amended_from'] as String?,
+        customerProfile: data['customer_profile'] as String?,
+        dateOfBirth: data['date_of_birth'] as String?,
+        expiryDate: data['expiry_date'] as String?,
       );
 
   static IdentificationStruct? maybeFromMap(dynamic data) =>
@@ -145,19 +143,19 @@ class IdentificationStruct extends BaseStruct {
 
   Map<String, dynamic> toMap() => {
         'name': _name,
-        'customer_profile': _customerProfile,
         'customer_profile_type': _customerProfileType,
         'title': _title,
         'first_name': _firstName,
         'last_name': _lastName,
-        'date_of_birth': _dateOfBirth,
         'document_type': _documentType,
         'document_number': _documentNumber,
-        'expiry_date': _expiryDate,
         'document_file': _documentFile,
         'document_user_photo': _documentUserPhoto,
         'status': _status,
         'amended_from': _amendedFrom,
+        'customer_profile': _customerProfile,
+        'date_of_birth': _dateOfBirth,
+        'expiry_date': _expiryDate,
       }.withoutNulls;
 
   @override
@@ -165,10 +163,6 @@ class IdentificationStruct extends BaseStruct {
         'name': serializeParam(
           _name,
           ParamType.String,
-        ),
-        'customer_profile': serializeParam(
-          _customerProfile,
-          ParamType.int,
         ),
         'customer_profile_type': serializeParam(
           _customerProfileType,
@@ -186,10 +180,6 @@ class IdentificationStruct extends BaseStruct {
           _lastName,
           ParamType.String,
         ),
-        'date_of_birth': serializeParam(
-          _dateOfBirth,
-          ParamType.DateTime,
-        ),
         'document_type': serializeParam(
           _documentType,
           ParamType.String,
@@ -197,10 +187,6 @@ class IdentificationStruct extends BaseStruct {
         'document_number': serializeParam(
           _documentNumber,
           ParamType.String,
-        ),
-        'expiry_date': serializeParam(
-          _expiryDate,
-          ParamType.DateTime,
         ),
         'document_file': serializeParam(
           _documentFile,
@@ -218,6 +204,18 @@ class IdentificationStruct extends BaseStruct {
           _amendedFrom,
           ParamType.String,
         ),
+        'customer_profile': serializeParam(
+          _customerProfile,
+          ParamType.String,
+        ),
+        'date_of_birth': serializeParam(
+          _dateOfBirth,
+          ParamType.String,
+        ),
+        'expiry_date': serializeParam(
+          _expiryDate,
+          ParamType.String,
+        ),
       }.withoutNulls;
 
   static IdentificationStruct fromSerializableMap(Map<String, dynamic> data) =>
@@ -225,11 +223,6 @@ class IdentificationStruct extends BaseStruct {
         name: deserializeParam(
           data['name'],
           ParamType.String,
-          false,
-        ),
-        customerProfile: deserializeParam(
-          data['customer_profile'],
-          ParamType.int,
           false,
         ),
         customerProfileType: deserializeParam(
@@ -252,11 +245,6 @@ class IdentificationStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
-        dateOfBirth: deserializeParam(
-          data['date_of_birth'],
-          ParamType.DateTime,
-          false,
-        ),
         documentType: deserializeParam(
           data['document_type'],
           ParamType.String,
@@ -265,11 +253,6 @@ class IdentificationStruct extends BaseStruct {
         documentNumber: deserializeParam(
           data['document_number'],
           ParamType.String,
-          false,
-        ),
-        expiryDate: deserializeParam(
-          data['expiry_date'],
-          ParamType.DateTime,
           false,
         ),
         documentFile: deserializeParam(
@@ -292,6 +275,21 @@ class IdentificationStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        customerProfile: deserializeParam(
+          data['customer_profile'],
+          ParamType.String,
+          false,
+        ),
+        dateOfBirth: deserializeParam(
+          data['date_of_birth'],
+          ParamType.String,
+          false,
+        ),
+        expiryDate: deserializeParam(
+          data['expiry_date'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -301,69 +299,69 @@ class IdentificationStruct extends BaseStruct {
   bool operator ==(Object other) {
     return other is IdentificationStruct &&
         name == other.name &&
-        customerProfile == other.customerProfile &&
         customerProfileType == other.customerProfileType &&
         title == other.title &&
         firstName == other.firstName &&
         lastName == other.lastName &&
-        dateOfBirth == other.dateOfBirth &&
         documentType == other.documentType &&
         documentNumber == other.documentNumber &&
-        expiryDate == other.expiryDate &&
         documentFile == other.documentFile &&
         documentUserPhoto == other.documentUserPhoto &&
         status == other.status &&
-        amendedFrom == other.amendedFrom;
+        amendedFrom == other.amendedFrom &&
+        customerProfile == other.customerProfile &&
+        dateOfBirth == other.dateOfBirth &&
+        expiryDate == other.expiryDate;
   }
 
   @override
   int get hashCode => const ListEquality().hash([
         name,
-        customerProfile,
         customerProfileType,
         title,
         firstName,
         lastName,
-        dateOfBirth,
         documentType,
         documentNumber,
-        expiryDate,
         documentFile,
         documentUserPhoto,
         status,
-        amendedFrom
+        amendedFrom,
+        customerProfile,
+        dateOfBirth,
+        expiryDate
       ]);
 }
 
 IdentificationStruct createIdentificationStruct({
   String? name,
-  int? customerProfile,
   String? customerProfileType,
   String? title,
   String? firstName,
   String? lastName,
-  DateTime? dateOfBirth,
   String? documentType,
   String? documentNumber,
-  DateTime? expiryDate,
   String? documentFile,
   String? documentUserPhoto,
   String? status,
   String? amendedFrom,
+  String? customerProfile,
+  String? dateOfBirth,
+  String? expiryDate,
 }) =>
     IdentificationStruct(
       name: name,
-      customerProfile: customerProfile,
       customerProfileType: customerProfileType,
       title: title,
       firstName: firstName,
       lastName: lastName,
-      dateOfBirth: dateOfBirth,
       documentType: documentType,
       documentNumber: documentNumber,
-      expiryDate: expiryDate,
       documentFile: documentFile,
       documentUserPhoto: documentUserPhoto,
       status: status,
       amendedFrom: amendedFrom,
+      customerProfile: customerProfile,
+      dateOfBirth: dateOfBirth,
+      expiryDate: expiryDate,
     );

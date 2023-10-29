@@ -928,26 +928,45 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          () {
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
                                             if (widget.isSignUp) {
-                                              return 'i\'ll do it later';
-                                            } else if (widget.education !=
-                                                null) {
-                                              return 'Discard';
-                                            } else {
-                                              return 'Cancel';
+                                              context.pushNamed(
+                                                'Education-2',
+                                                queryParameters: {
+                                                  'isSignUp': serializeParam(
+                                                    true,
+                                                    ParamType.bool,
+                                                  ),
+                                                }.withoutNulls,
+                                              );
                                             }
-                                          }(),
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondary,
-                                                fontSize: 14.0,
-                                              ),
+                                          },
+                                          child: Text(
+                                            () {
+                                              if (widget.isSignUp) {
+                                                return 'i\'ll do it later';
+                                              } else if (widget.education !=
+                                                  null) {
+                                                return 'Discard';
+                                              } else {
+                                                return 'Cancel';
+                                              }
+                                            }(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondary,
+                                                  fontSize: 14.0,
+                                                ),
+                                          ),
                                         ),
                                       ],
                                     ),

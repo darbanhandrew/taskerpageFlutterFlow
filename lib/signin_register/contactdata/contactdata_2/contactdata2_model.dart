@@ -6,6 +6,7 @@ import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'contactdata2_widget.dart' show Contactdata2Widget;
 import 'dart:async';
 import 'package:flutter/material.dart';

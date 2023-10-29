@@ -45,8 +45,7 @@ class _Id2WidgetState extends State<Id2Widget> {
         _model.updateIdentificationStruct(
           (e) => e
             ..documentNumber =
-                _model.textFieldAndTitleModel.stateController.text
-            ..expiryDate = _model.dateOfBirthPickModel.datePicked,
+                _model.textFieldAndTitleModel.stateController.text,
         );
       });
       if (widget.name != null && widget.name != '') {
@@ -310,15 +309,17 @@ class _Id2WidgetState extends State<Id2Widget> {
                           updateCallback: () => setState(() {}),
                           child: DateOfBirthPickWidget(
                             label: 'Expiry Date',
-                            defaultValue: _model.identification?.expiryDate,
+                            defaultValue: functions.jsonToDateTime(
+                                _model.identification?.expiryDate),
                           ),
                         ),
                       ),
-                      Divider(
-                        height: 40.0,
-                        thickness: 1.0,
-                        color: Color(0xFFD4D4D4),
-                      ),
+                      if (false)
+                        Divider(
+                          height: 40.0,
+                          thickness: 1.0,
+                          color: Color(0xFFD4D4D4),
+                        ),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
@@ -417,8 +418,8 @@ class _Id2WidgetState extends State<Id2Widget> {
                                         .textFieldAndTitleModel
                                         .stateController
                                         .text
-                                    ..expiryDate =
-                                        _model.dateOfBirthPickModel.datePicked,
+                                    ..expiryDate = dateTimeFormat('yyyy/MM/dd',
+                                        _model.dateOfBirthPickModel.datePicked),
                                 );
                               });
                               _model.apiResultv1s = await TaskerpageBackendGroup

@@ -81,7 +81,7 @@ class _AlerModalMassageWidgetState extends State<AlerModalMassageWidget>
                 offset: Offset(0.0, 2.0),
               )
             ],
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
               color: Color(0xFFE0E3E7),
             ),
@@ -122,13 +122,13 @@ class _AlerModalMassageWidgetState extends State<AlerModalMassageWidget>
                         },
                         child: Container(
                           width: 104.0,
-                          height: 44.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                             border: Border.all(
-                              color: Color(0xFF5450E2),
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
                           ),
                           child: Row(
@@ -141,7 +141,8 @@ class _AlerModalMassageWidgetState extends State<AlerModalMassageWidget>
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFF5450E2),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -150,36 +151,29 @@ class _AlerModalMassageWidgetState extends State<AlerModalMassageWidget>
                           ),
                         ),
                       ),
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {},
-                        child: Container(
-                          width: 129.0,
-                          height: 44.0,
-                          decoration: BoxDecoration(
-                            color: Color(0xFF5450E2),
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Yes',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Colors.white,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                              ),
-                            ],
-                          ),
+                      Container(
+                        width: 129.0,
+                        height: 36.0,
+                        decoration: BoxDecoration(
+                          color: FlutterFlowTheme.of(context).primary,
+                          borderRadius: BorderRadius.circular(2.0),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Yes',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.white,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ],
                         ),
                       ),
                     ].divide(SizedBox(width: 10.0)),

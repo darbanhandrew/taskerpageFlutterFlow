@@ -1,19 +1,16 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/aler_modal_massage_accept_appointment_widget.dart';
-import '/components/aler_modal_massage_reject_appointment_widget.dart';
+import '/bargain/chat_message/chat_message_widget.dart';
 import '/components/set_appointment_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,85 +21,18 @@ class ChatWidget extends StatefulWidget {
   const ChatWidget({
     Key? key,
     required this.room,
-    required this.curentUser,
-    required this.startChat,
-    required this.nameFamily,
-    required this.avatar,
-    required this.postID,
-    required this.taskerID,
   }) : super(key: key);
 
   final String? room;
-  final String? curentUser;
-  final String? startChat;
-  final String? nameFamily;
-  final String? avatar;
-  final int? postID;
-  final int? taskerID;
 
   @override
   _ChatWidgetState createState() => _ChatWidgetState();
 }
 
-class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
+class _ChatWidgetState extends State<ChatWidget> {
   late ChatModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final animationsMap = {
-    'rowOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-8.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(-8.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnActionTriggerAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(8.0, 0.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'rowOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 600.ms,
-          begin: Offset(0.0, 5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-  };
 
   @override
   void initState() {
@@ -111,31 +41,59 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResult39c = await TaskerpageBackendGroup.markAsReadCall.call(
-        room: widget.room,
+      _model.chatRoomDetails =
+          await TaskerpageBackendGroup.getChatRoomDetailsCall.call(
+        roomName: widget.room,
+        email: getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.user''',
+        ).toString().toString(),
         apiGlobalKey: FFAppState().apiKey,
       );
-      await actions.listenSocketEvent(
-        widget.room!,
-        () async {
-          setState(() {
-            _model.clearChatMessagesCacheKey(_model.apiRequestLastUniqueKey);
-            _model.apiRequestCompleted = false;
-          });
-          await _model.waitForApiRequestCompleted();
-        },
-      );
+      if ((_model.chatRoomDetails?.succeeded ?? true)) {
+        _model.chatRoom =
+            TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
+                          (_model.chatRoomDetails?.jsonBody ?? ''),
+                        ) !=
+                        null &&
+                    TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
+                          (_model.chatRoomDetails?.jsonBody ?? ''),
+                        ) !=
+                        ''
+                ? ChatRoomStruct.fromMap(
+                    TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
+                    (_model.chatRoomDetails?.jsonBody ?? ''),
+                  ))
+                : null;
+        _model.apiResult39c = await TaskerpageBackendGroup.markAsReadCall.call(
+          room: widget.room,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        await actions.listenSocketEvent(
+          widget.room!,
+          () async {
+            setState(() {
+              _model.clearChatMessagesCacheKey(_model.apiRequestLastUniqueKey);
+              _model.apiRequestCompleted = false;
+            });
+            await _model.waitForApiRequestCompleted();
+          },
+        );
+      } else {
+        context.pushNamed(
+          'chat_list',
+          queryParameters: {
+            'task': serializeParam(
+              0,
+              ParamType.int,
+            ),
+          }.withoutNulls,
+        );
+      }
     });
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
-
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -208,128 +166,70 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                   ),
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 10.0, 0.0),
-                                child: InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    _model.apiResulty27Copy =
-                                        await TaskerpageBackendGroup
-                                            .userProfileReadCall
-                                            .call(
-                                      id: widget.taskerID?.toString(),
-                                      apiGlobalKey: FFAppState().apiKey,
+                              Builder(
+                                builder: (context) {
+                                  if (_model.chatRoom
+                                          ?.hasOppositePersonAvatar() ??
+                                      false) {
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 10.0, 0.0),
+                                      child: InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {},
+                                        child: Container(
+                                          width: 45.0,
+                                          height: 45.0,
+                                          clipBehavior: Clip.antiAlias,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                          ),
+                                          child: Image.network(
+                                            '${FFAppState().baseUrl}${_model.chatRoom?.oppositePersonAvatar}',
+                                            fit: BoxFit.cover,
+                                          ),
+                                        ),
+                                      ),
                                     );
-                                    if (functions.jsonToString(getJsonField(
-                                          (_model.apiResulty27?.jsonBody ?? ''),
-                                          r'''$.data.role''',
-                                        )) ==
-                                        'Tasker') {
-                                      context.pushNamed(
-                                        'Tasker_Profile_view',
-                                        queryParameters: {
-                                          'id': serializeParam(
-                                            getJsonField(
-                                              (_model.apiResulty27?.jsonBody ??
-                                                  ''),
-                                              r'''$.data.name''',
-                                            ).toString(),
-                                            ParamType.String,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    } else {
-                                      context.pushNamed(
-                                        'Poster_Profile_view',
-                                        queryParameters: {
-                                          'id': serializeParam(
-                                            getJsonField(
-                                              (_model.apiResulty27?.jsonBody ??
-                                                  ''),
-                                              r'''$.data.name''',
-                                            ),
-                                            ParamType.int,
-                                          ),
-                                        }.withoutNulls,
-                                      );
-                                    }
-
-                                    setState(() {});
-                                  },
-                                  child: Container(
-                                    width: 45.0,
-                                    height: 45.0,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      '${FFAppState().baseUrl}${widget.avatar}',
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
+                                  } else {
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 8.0, 0.0),
+                                      child: Container(
+                                        width: 50.0,
+                                        height: 50.0,
+                                        clipBehavior: Clip.antiAlias,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                        ),
+                                        child: Image.asset(
+                                          'assets/images/Group_2176.png',
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                },
                               ),
                               InkWell(
                                 splashColor: Colors.transparent,
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  _model.apiResulty27 =
-                                      await TaskerpageBackendGroup
-                                          .userProfileReadCall
-                                          .call(
-                                    id: widget.taskerID?.toString(),
-                                    apiGlobalKey: FFAppState().apiKey,
-                                  );
-                                  if (functions.jsonToString(getJsonField(
-                                        (_model.apiResulty27?.jsonBody ?? ''),
-                                        r'''$.data.role''',
-                                      )) ==
-                                      'Tasker') {
-                                    context.pushNamed(
-                                      'Tasker_Profile_view',
-                                      queryParameters: {
-                                        'id': serializeParam(
-                                          getJsonField(
-                                            (_model.apiResulty27?.jsonBody ??
-                                                ''),
-                                            r'''$.data.name''',
-                                          ).toString(),
-                                          ParamType.String,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  } else {
-                                    context.pushNamed(
-                                      'Poster_Profile_view',
-                                      queryParameters: {
-                                        'id': serializeParam(
-                                          getJsonField(
-                                            (_model.apiResulty27?.jsonBody ??
-                                                ''),
-                                            r'''$.data.name''',
-                                          ),
-                                          ParamType.int,
-                                        ),
-                                      }.withoutNulls,
-                                    );
-                                  }
-
-                                  setState(() {});
-                                },
+                                onTap: () async {},
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      widget.nameFamily!,
+                                      valueOrDefault<String>(
+                                        _model.chatRoom?.roomName,
+                                        'Chat Room',
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -341,7 +241,7 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           ),
                                     ),
                                     Text(
-                                      'Post ${widget.postID?.toString()}',
+                                      'Post ${_model.chatRoom?.customerTask}',
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -378,60 +278,6 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            width: 100.0,
-                            height: 1.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).tertiary,
-                            ),
-                          ),
-                        ),
-                        Container(
-                          width: 110.0,
-                          height: 26.0,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(15.0),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                widget.startChat!,
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color:
-                                          FlutterFlowTheme.of(context).tertiary,
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.w300,
-                                    ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: 100.0,
-                            height: 1.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).tertiary,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
                   Expanded(
                     child: Padding(
                       padding:
@@ -448,10 +294,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                 future: _model
                                     .chatMessages(
                                   uniqueQueryKey: widget.room,
-                                  requestFn: () =>
-                                      TaskerpageBackendGroup.chatsRoomCall.call(
+                                  requestFn: () => TaskerpageBackendGroup
+                                      .chatRoomMessagesCall
+                                      .call(
                                     room: widget.room,
-                                    email: widget.curentUser,
+                                    email: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.user''',
+                                    ).toString(),
                                     apiGlobalKey: FFAppState().apiKey,
                                     orderBy: 'creation desc',
                                     start: 0,
@@ -481,14 +331,23 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       ),
                                     );
                                   }
-                                  final listViewChatsRoomResponse =
+                                  final listViewChatRoomMessagesResponse =
                                       snapshot.data!;
                                   return Builder(
                                     builder: (context) {
-                                      final chats = getJsonField(
-                                        listViewChatsRoomResponse.jsonBody,
-                                        r'''$.message''',
-                                      ).toList();
+                                      final chats = TaskerpageBackendGroup
+                                              .chatRoomMessagesCall
+                                              .chatMessagesJson(
+                                                listViewChatRoomMessagesResponse
+                                                    .jsonBody,
+                                              )
+                                              ?.map((e) => e != null && e != ''
+                                                  ? ChatMessageStruct.fromMap(e)
+                                                  : null)
+                                              .withoutNulls
+                                              .toList()
+                                              ?.toList() ??
+                                          [];
                                       return ListView.separated(
                                         padding: EdgeInsets.zero,
                                         reverse: true,
@@ -499,602 +358,21 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                             SizedBox(height: 20.0),
                                         itemBuilder: (context, chatsIndex) {
                                           final chatsItem = chats[chatsIndex];
-                                          return Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              if (functions.jsonToString(
-                                                      getJsonField(
-                                                    chatsItem,
-                                                    r'''$.sender''',
-                                                  )) !=
-                                                  widget.curentUser)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  12.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        width: 40.0,
-                                                        height: 40.0,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: Image.network(
-                                                          '${FFAppState().baseUrl}${widget.avatar}',
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        12.0,
-                                                                        0.0,
-                                                                        14.0,
-                                                                        0.0),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Color(
-                                                                    0x00FFFFFF),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                                border:
-                                                                    Border.all(
-                                                                  color: Color(
-                                                                      0x00FFFFFF),
-                                                                  width: 1.0,
-                                                                ),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Text(
-                                                                        widget
-                                                                            .nameFamily!,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                              fontSize: 14.0,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                      ),
-                                                                      Text(
-                                                                        dateTimeFormat(
-                                                                            'jm',
-                                                                            functions.jsonToDateTime(getJsonField(
-                                                                              chatsItem,
-                                                                              r'''$.creation''',
-                                                                            ).toString())),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: Color(0xFF989898),
-                                                                              fontSize: 12.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .spaceBetween,
-                                                                      children: [
-                                                                        Flexible(
-                                                                          child:
-                                                                              Text(
-                                                                            getJsonField(
-                                                                              chatsItem,
-                                                                              r'''$.content''',
-                                                                            ).toString(),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Lato',
-                                                                                  color: Color(0xFF292929),
-                                                                                  fontSize: 14.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          if (functions
-                                                                  .jsonToString(
-                                                                      getJsonField(
-                                                                chatsItem,
-                                                                r'''$.action_type''',
-                                                              )) ==
-                                                              'appointment')
-                                                            Padding(
-                                                              padding:
-                                                                  EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          12.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {},
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          26.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            8.0,
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Edit Appointment',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: FlutterFlowTheme.of(context).primary,
-                                                                                    fontSize: 10.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      await showModalBottomSheet(
-                                                                        isScrollControlled:
-                                                                            true,
-                                                                        backgroundColor:
-                                                                            Colors.transparent,
-                                                                        enableDrag:
-                                                                            false,
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (context) {
-                                                                          return GestureDetector(
-                                                                            onTap: () => _model.unfocusNode.canRequestFocus
-                                                                                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                                : FocusScope.of(context).unfocus(),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: MediaQuery.viewInsetsOf(context),
-                                                                              child: AlerModalMassageAcceptAppointmentWidget(
-                                                                                id: 0,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ).then((value) =>
-                                                                          safeSetState(
-                                                                              () {}));
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          26.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primary,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primary,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            10.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Accept',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: Colors.white,
-                                                                                    fontSize: 10.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      await showModalBottomSheet(
-                                                                        isScrollControlled:
-                                                                            true,
-                                                                        backgroundColor:
-                                                                            Colors.transparent,
-                                                                        enableDrag:
-                                                                            false,
-                                                                        context:
-                                                                            context,
-                                                                        builder:
-                                                                            (context) {
-                                                                          return GestureDetector(
-                                                                            onTap: () => _model.unfocusNode.canRequestFocus
-                                                                                ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-                                                                                : FocusScope.of(context).unfocus(),
-                                                                            child:
-                                                                                Padding(
-                                                                              padding: MediaQuery.viewInsetsOf(context),
-                                                                              child: AlerModalMassageRejectAppointmentWidget(
-                                                                                id: 0,
-                                                                              ),
-                                                                            ),
-                                                                          );
-                                                                        },
-                                                                      ).then((value) =>
-                                                                          safeSetState(
-                                                                              () {}));
-                                                                    },
-                                                                    child:
-                                                                        Container(
-                                                                      height:
-                                                                          26.0,
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .tertiary,
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(10.0),
-                                                                        border:
-                                                                            Border.all(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).tertiary,
-                                                                        ),
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            10.0,
-                                                                            0.0,
-                                                                            10.0,
-                                                                            0.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          children: [
-                                                                            Text(
-                                                                              'Reject',
-                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                    fontFamily: 'Lato',
-                                                                                    color: FlutterFlowTheme.of(context).alternate,
-                                                                                    fontSize: 10.0,
-                                                                                    fontWeight: FontWeight.w500,
-                                                                                  ),
-                                                                            ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ].divide(SizedBox(
-                                                                    width:
-                                                                        8.0)),
-                                                              ),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                                    .animateOnPageLoad(
-                                                        animationsMap[
-                                                            'rowOnPageLoadAnimation1']!)
-                                                    .animateOnActionTrigger(
-                                                      animationsMap[
-                                                          'rowOnActionTriggerAnimation1']!,
-                                                    ),
-                                              if (functions.jsonToString(
-                                                      getJsonField(
-                                                    chatsItem,
-                                                    r'''$.sender''',
-                                                  )) ==
-                                                  widget.curentUser)
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: [
-                                                    Expanded(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        14.0,
-                                                                        0.0,
-                                                                        12.0,
-                                                                        0.0),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Color(
-                                                                    0x00FFFFFF),
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            10.0),
-                                                                border:
-                                                                    Border.all(
-                                                                  color: Color(
-                                                                      0x00FFFFFF),
-                                                                  width: 1.0,
-                                                                ),
-                                                              ),
-                                                              child: Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Row(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    mainAxisAlignment:
-                                                                        MainAxisAlignment
-                                                                            .spaceBetween,
-                                                                    children: [
-                                                                      Text(
-                                                                        dateTimeFormat(
-                                                                            'jm',
-                                                                            functions.jsonToDateTime(getJsonField(
-                                                                              chatsItem,
-                                                                              r'''$.creation''',
-                                                                            ).toString())),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: Color(0xFF989898),
-                                                                              fontSize: 12.0,
-                                                                              fontWeight: FontWeight.w500,
-                                                                            ),
-                                                                      ),
-                                                                      Text(
-                                                                        '${getJsonField(
-                                                                          FFAppState()
-                                                                              .userProfile,
-                                                                          r'''$.data.first_name''',
-                                                                        ).toString()} ${getJsonField(
-                                                                          FFAppState()
-                                                                              .userProfile,
-                                                                          r'''$.data.last_name''',
-                                                                        ).toString()}',
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: 'Lato',
-                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                              fontSize: 14.0,
-                                                                              fontWeight: FontWeight.bold,
-                                                                            ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Row(
-                                                                      mainAxisSize:
-                                                                          MainAxisSize
-                                                                              .max,
-                                                                      mainAxisAlignment:
-                                                                          MainAxisAlignment
-                                                                              .end,
-                                                                      children: [
-                                                                        Flexible(
-                                                                          child:
-                                                                              Text(
-                                                                            getJsonField(
-                                                                              chatsItem,
-                                                                              r'''$.content''',
-                                                                            ).toString(),
-                                                                            style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                  fontFamily: 'Lato',
-                                                                                  color: FlutterFlowTheme.of(context).alternate,
-                                                                                  fontSize: 14.0,
-                                                                                  fontWeight: FontWeight.w500,
-                                                                                ),
-                                                                          ),
-                                                                        ),
-                                                                      ],
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  12.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        width: 40.0,
-                                                        height: 40.0,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: Image.network(
-                                                          '${FFAppState().baseUrl}${getJsonField(
-                                                            FFAppState()
-                                                                .userProfile,
-                                                            r'''$.data.avatar''',
-                                                          ).toString()}',
-                                                          fit: BoxFit.cover,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                )
-                                                    .animateOnPageLoad(
-                                                        animationsMap[
-                                                            'rowOnPageLoadAnimation2']!)
-                                                    .animateOnActionTrigger(
-                                                      animationsMap[
-                                                          'rowOnActionTriggerAnimation2']!,
-                                                    ),
-                                            ],
+                                          return wrapWithModel(
+                                            model: _model.chatMessageModels
+                                                .getModel(
+                                              chatsItem.name,
+                                              chatsIndex,
+                                            ),
+                                            updateCallback: () =>
+                                                setState(() {}),
+                                            child: ChatMessageWidget(
+                                              key: Key(
+                                                'Key8k6_${chatsItem.name}',
+                                              ),
+                                              chatMessage: chatsItem,
+                                              chatRoom: _model.chatRoom!,
+                                            ),
                                           );
                                         },
                                       );
@@ -1151,8 +429,10 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                           padding:
                                               MediaQuery.viewInsetsOf(context),
                                           child: SetAppointmentWidget(
-                                            id: widget.taskerID!.toString(),
-                                            postID: widget.postID!.toString(),
+                                            id: _model.chatRoom!
+                                                .oppositePersonCustomerProfile,
+                                            postID:
+                                                _model.chatRoom!.customerTask,
                                             setOredit: false,
                                           ),
                                         ),
@@ -1164,8 +444,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       await TaskerpageBackendGroup
                                           .sendMessageCall
                                           .call(
-                                    email: widget.curentUser,
-                                    user: widget.curentUser,
+                                    email: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.user''',
+                                    ).toString(),
+                                    user: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.user''',
+                                    ).toString(),
                                     room: widget.room,
                                     content: 'Hello, I am ${getJsonField(
                                       FFAppState().userProfile,
@@ -1207,8 +493,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                                       await TaskerpageBackendGroup
                                           .sendMessageCall
                                           .call(
-                                    email: widget.curentUser,
-                                    user: widget.curentUser,
+                                    email: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.user''',
+                                    ).toString(),
+                                    user: getJsonField(
+                                      FFAppState().userProfile,
+                                      r'''$.data.user''',
+                                    ).toString(),
                                     room: widget.room,
                                     content: 'Hello, I am ${getJsonField(
                                       FFAppState().userProfile,
@@ -1399,8 +691,14 @@ class _ChatWidgetState extends State<ChatWidget> with TickerProviderStateMixin {
                             _model.apiResult55u = await TaskerpageBackendGroup
                                 .sendMessageCall
                                 .call(
-                              email: widget.curentUser,
-                              user: widget.curentUser,
+                              email: getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.user''',
+                              ).toString(),
+                              user: getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.user''',
+                              ).toString(),
                               room: widget.room,
                               content: _model.textController.text,
                               apiGlobalKey: FFAppState().apiKey,

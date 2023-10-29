@@ -16,6 +16,7 @@ class TaskerFilterStruct extends BaseStruct {
     String? name,
     List<String>? names,
     bool? anytasker,
+    String? searchString,
   })  : _anyLocation = anyLocation,
         _locationFilter = locationFilter,
         _anySkill = anySkill,
@@ -24,7 +25,8 @@ class TaskerFilterStruct extends BaseStruct {
         _taskerTypeFilter = taskerTypeFilter,
         _name = name,
         _names = names,
-        _anytasker = anytasker;
+        _anytasker = anytasker,
+        _searchString = searchString;
 
   // "anyLocation" field.
   bool? _anyLocation;
@@ -89,6 +91,12 @@ class TaskerFilterStruct extends BaseStruct {
   set anytasker(bool? val) => _anytasker = val;
   bool hasAnytasker() => _anytasker != null;
 
+  // "searchString" field.
+  String? _searchString;
+  String get searchString => _searchString ?? '';
+  set searchString(String? val) => _searchString = val;
+  bool hasSearchString() => _searchString != null;
+
   static TaskerFilterStruct fromMap(Map<String, dynamic> data) =>
       TaskerFilterStruct(
         anyLocation: data['anyLocation'] as bool?,
@@ -102,6 +110,7 @@ class TaskerFilterStruct extends BaseStruct {
         name: data['name'] as String?,
         names: getDataList(data['names']),
         anytasker: data['anytasker'] as bool?,
+        searchString: data['searchString'] as String?,
       );
 
   static TaskerFilterStruct? maybeFromMap(dynamic data) =>
@@ -117,6 +126,7 @@ class TaskerFilterStruct extends BaseStruct {
         'name': _name,
         'names': _names,
         'anytasker': _anytasker,
+        'searchString': _searchString,
       }.withoutNulls;
 
   @override
@@ -157,6 +167,10 @@ class TaskerFilterStruct extends BaseStruct {
         'anytasker': serializeParam(
           _anytasker,
           ParamType.bool,
+        ),
+        'searchString': serializeParam(
+          _searchString,
+          ParamType.String,
         ),
       }.withoutNulls;
 
@@ -210,6 +224,11 @@ class TaskerFilterStruct extends BaseStruct {
           ParamType.bool,
           false,
         ),
+        searchString: deserializeParam(
+          data['searchString'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -227,7 +246,8 @@ class TaskerFilterStruct extends BaseStruct {
         taskerTypeFilter == other.taskerTypeFilter &&
         name == other.name &&
         listEquality.equals(names, other.names) &&
-        anytasker == other.anytasker;
+        anytasker == other.anytasker &&
+        searchString == other.searchString;
   }
 
   @override
@@ -240,7 +260,8 @@ class TaskerFilterStruct extends BaseStruct {
         taskerTypeFilter,
         name,
         names,
-        anytasker
+        anytasker,
+        searchString
       ]);
 }
 
@@ -253,6 +274,7 @@ TaskerFilterStruct createTaskerFilterStruct({
   TaskerTypeFilterStruct? taskerTypeFilter,
   String? name,
   bool? anytasker,
+  String? searchString,
 }) =>
     TaskerFilterStruct(
       anyLocation: anyLocation,
@@ -263,4 +285,5 @@ TaskerFilterStruct createTaskerFilterStruct({
       taskerTypeFilter: taskerTypeFilter ?? TaskerTypeFilterStruct(),
       name: name,
       anytasker: anytasker,
+      searchString: searchString,
     );

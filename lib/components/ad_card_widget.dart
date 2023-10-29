@@ -158,8 +158,8 @@ class _AdCardWidgetState extends State<AdCardWidget>
                         },
                         child: Icon(
                           Icons.close_rounded,
-                          color: FlutterFlowTheme.of(context).secondaryText,
-                          size: 24.0,
+                          color: FlutterFlowTheme.of(context).primary,
+                          size: 20.0,
                         ),
                       ),
                     ],
@@ -240,14 +240,14 @@ class _AdCardWidgetState extends State<AdCardWidget>
                       ],
                     ),
                   ),
-                  Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
-                        child: InkWell(
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        InkWell(
                           splashColor: Colors.transparent,
                           focusColor: Colors.transparent,
                           hoverColor: Colors.transparent,
@@ -290,8 +290,8 @@ class _AdCardWidgetState extends State<AdCardWidget>
                             ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

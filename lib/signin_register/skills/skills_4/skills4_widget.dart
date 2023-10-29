@@ -214,7 +214,7 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                   ),
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        90.0, 30.0, 90.0, 0.0),
+                                        90.0, 30.0, 90.0, 2.0),
                                     child: Builder(
                                       builder: (context) {
                                         final serviceCategoryIds =
@@ -232,7 +232,7 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                           scrollDirection: Axis.vertical,
                                           itemCount: serviceCategoryIds.length,
                                           separatorBuilder: (_, __) =>
-                                              SizedBox(height: 8.0),
+                                              SizedBox(height: 6.0),
                                           itemBuilder: (context,
                                               serviceCategoryIdsIndex) {
                                             final serviceCategoryIdsItem =
@@ -365,38 +365,111 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                       },
                                     ),
                                   ),
-                                  if (_model.selectedServiceCategory != null &&
-                                      _model.selectedServiceCategory != '')
-                                    Column(
+                                ],
+                              ),
+                            ],
+                          ),
+                          Divider(
+                            height: 36.0,
+                            thickness: 1.0,
+                            indent: 32.0,
+                            endIndent: 32.0,
+                            color: Color(0xFFE3E3E3),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 0.0, 32.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Skills',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF292929),
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          if (_model.selectedServiceCategory != null &&
+                              _model.selectedServiceCategory != '')
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 0.0, 0.0, 2.0),
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 32.0, 0.0),
+                                    child: Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Container(
-                                              width: 100.0,
-                                              height: 100.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                              ),
-                                              child: Builder(
+                                        Expanded(
+                                          child: FutureBuilder<ApiCallResponse>(
+                                            future: TaskerpageBackendGroup
+                                                .getServicesCall
+                                                .call(
+                                              category:
+                                                  '[[\"skill_category_name\",\"=\",\"${_model.selectedServiceCategory}\"]]',
+                                              fields:
+                                                  '[\"name\",\"skill_name\",\"skill_category_name\"]',
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    child: SpinKitThreeBounce(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 50.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              final gridViewGetServicesResponse =
+                                                  snapshot.data!;
+                                              return Builder(
                                                 builder: (context) {
-                                                  final skillLevels = functions
-                                                      .returnSkillLevelEnums()
-                                                      .toList();
-                                                  return ListView.builder(
+                                                  final skills =
+                                                      TaskerpageBackendGroup
+                                                              .getServicesCall
+                                                              .servicesList(
+                                                                gridViewGetServicesResponse
+                                                                    .jsonBody,
+                                                              )
+                                                              ?.toList() ??
+                                                          [];
+                                                  return GridView.builder(
                                                     padding: EdgeInsets.zero,
+                                                    gridDelegate:
+                                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 2,
+                                                      crossAxisSpacing: 12.0,
+                                                      mainAxisSpacing: 6.0,
+                                                      childAspectRatio: 4.2,
+                                                    ),
+                                                    shrinkWrap: true,
                                                     scrollDirection:
                                                         Axis.vertical,
-                                                    itemCount:
-                                                        skillLevels.length,
-                                                    itemBuilder: (context,
-                                                        skillLevelsIndex) {
-                                                      final skillLevelsItem =
-                                                          skillLevels[
-                                                              skillLevelsIndex];
+                                                    itemCount: skills.length,
+                                                    itemBuilder:
+                                                        (context, skillsIndex) {
+                                                      final skillsItem =
+                                                          skills[skillsIndex];
                                                       return InkWell(
                                                         splashColor:
                                                             Colors.transparent,
@@ -411,60 +484,58 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                                   .customerProfileSkills[
                                                                       _model
                                                                           .selectedCategoryIndex!]
-                                                                  .skillLevel ==
-                                                              skillLevelsItem) {
+                                                                  .skills
+                                                                  .where((e) =>
+                                                                      e.skill ==
+                                                                      getJsonField(
+                                                                        skillsItem,
+                                                                        r'''$.name''',
+                                                                      ))
+                                                                  .toList()
+                                                                  .length >
+                                                              0) {
                                                             setState(() {
                                                               _model
                                                                   .updateCustomerProfileSkillsAtIndex(
                                                                 _model
                                                                     .selectedCategoryIndex!,
                                                                 (e) => e
-                                                                  ..skillLevel =
-                                                                      '',
+                                                                  ..updateSkills(
+                                                                    (e) => e.remove(
+                                                                        SkillStruct(
+                                                                      skill:
+                                                                          getJsonField(
+                                                                        skillsItem,
+                                                                        r'''$.name''',
+                                                                      ).toString(),
+                                                                      skillName:
+                                                                          getJsonField(
+                                                                        skillsItem,
+                                                                        r'''$.skill_name''',
+                                                                      ).toString(),
+                                                                    )),
+                                                                  ),
                                                               );
                                                             });
-                                                            _model.apiResultj09 =
+                                                            _model.deletedSkill =
                                                                 await TaskerpageBackendGroup
-                                                                    .updateCustomerProfileSkillLevelCall
+                                                                    .deleteSkillsCall
                                                                     .call(
-                                                              name:
+                                                              skill:
+                                                                  getJsonField(
+                                                                skillsItem,
+                                                                r'''$.name''',
+                                                              ).toString(),
+                                                              customerProfileSkill:
                                                                   getJsonField(
                                                                 _model
                                                                     .selectedCustomerProfile,
                                                                 r'''$.name''',
                                                               ).toString(),
-                                                              skillLevel: '',
                                                               apiGlobalKey:
                                                                   FFAppState()
                                                                       .apiKey,
                                                             );
-                                                            if ((_model
-                                                                    .apiResultj09
-                                                                    ?.succeeded ??
-                                                                true)) {
-                                                              ScaffoldMessenger
-                                                                      .of(context)
-                                                                  .showSnackBar(
-                                                                SnackBar(
-                                                                  content: Text(
-                                                                    'Skill Level updated',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                    ),
-                                                                  ),
-                                                                  duration: Duration(
-                                                                      milliseconds:
-                                                                          4000),
-                                                                  backgroundColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                ),
-                                                              );
-                                                            }
                                                           } else {
                                                             setState(() {
                                                               _model
@@ -472,54 +543,47 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                                 _model
                                                                     .selectedCategoryIndex!,
                                                                 (e) => e
-                                                                  ..skillLevel =
-                                                                      skillLevelsItem,
+                                                                  ..updateSkills(
+                                                                    (e) => e.add(
+                                                                        SkillStruct(
+                                                                      skill:
+                                                                          getJsonField(
+                                                                        skillsItem,
+                                                                        r'''$.name''',
+                                                                      ).toString(),
+                                                                      skillName:
+                                                                          getJsonField(
+                                                                        skillsItem,
+                                                                        r'''$.skill_name''',
+                                                                      ).toString(),
+                                                                    )),
+                                                                  ),
                                                               );
                                                             });
-                                                            _model.apiResultj091 =
+                                                            _model.apiResultcsw =
                                                                 await TaskerpageBackendGroup
-                                                                    .updateCustomerProfileSkillLevelCall
+                                                                    .updateSkillsCall
                                                                     .call(
-                                                              name:
+                                                              skill:
+                                                                  getJsonField(
+                                                                skillsItem,
+                                                                r'''$.name''',
+                                                              ).toString(),
+                                                              customerProfileSkill:
                                                                   getJsonField(
                                                                 _model
                                                                     .selectedCustomerProfile,
                                                                 r'''$.name''',
                                                               ).toString(),
-                                                              skillLevel:
-                                                                  skillLevelsItem,
                                                               apiGlobalKey:
                                                                   FFAppState()
                                                                       .apiKey,
                                                             );
-                                                            if ((_model
-                                                                    .apiResultj091
-                                                                    ?.succeeded ??
-                                                                true)) {
-                                                              ScaffoldMessenger
-                                                                      .of(context)
-                                                                  .showSnackBar(
-                                                                SnackBar(
-                                                                  content: Text(
-                                                                    'Skill Level Clearred',
-                                                                    style:
-                                                                        TextStyle(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primaryText,
-                                                                    ),
-                                                                  ),
-                                                                  duration: Duration(
-                                                                      milliseconds:
-                                                                          4000),
-                                                                  backgroundColor:
-                                                                      FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondary,
-                                                                ),
-                                                              );
-                                                            }
                                                           }
+
+                                                          setState(() => _model
+                                                                  .apiRequestCompleter =
+                                                              null);
 
                                                           setState(() {});
                                                         },
@@ -528,24 +592,9 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                           height: 36.0,
                                                           decoration:
                                                               BoxDecoration(
-                                                            color: _model
-                                                                        .customerProfileSkills[_model
-                                                                            .selectedCategoryIndex!]
-                                                                        .skillLevel ==
-                                                                    skillLevelsItem
-                                                                ? FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary
-                                                                : Colors.white,
-                                                            boxShadow: [
-                                                              BoxShadow(
-                                                                blurRadius: 4.0,
-                                                                color: Color(
-                                                                    0x33000000),
-                                                                offset: Offset(
-                                                                    0.0, 2.0),
-                                                              )
-                                                            ],
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
@@ -554,13 +603,24 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                               color: _model
                                                                           .customerProfileSkills[_model
                                                                               .selectedCategoryIndex!]
-                                                                          .skillLevel ==
-                                                                      skillLevelsItem
+                                                                          .skills
+                                                                          .where(
+                                                                              (e) =>
+                                                                                  e
+                                                                                      .skill ==
+                                                                                  getJsonField(
+                                                                                    skillsItem,
+                                                                                    r'''$.name''',
+                                                                                  ))
+                                                                          .toList()
+                                                                          .length >
+                                                                      0
                                                                   ? FlutterFlowTheme.of(
                                                                           context)
                                                                       .primary
-                                                                  : Colors
-                                                                      .white,
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
                                                               width: 1.0,
                                                             ),
                                                           ),
@@ -573,19 +633,35 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                                     .center,
                                                             children: [
                                                               Text(
-                                                                skillLevelsItem,
+                                                                getJsonField(
+                                                                  skillsItem,
+                                                                  r'''$.skill_name''',
+                                                                )
+                                                                    .toString()
+                                                                    .maybeHandleOverflow(
+                                                                      maxChars:
+                                                                          19,
+                                                                      replacement:
+                                                                          '…',
+                                                                    ),
                                                                 style: FlutterFlowTheme.of(
                                                                         context)
                                                                     .bodyMedium
                                                                     .override(
                                                                       fontFamily:
                                                                           'Lato',
-                                                                      color: _model.customerProfileSkills[_model.selectedCategoryIndex!].skillLevel ==
-                                                                              skillLevelsItem
-                                                                          ? Colors
-                                                                              .white
-                                                                          : FlutterFlowTheme.of(context)
-                                                                              .secondary,
+                                                                      color: _model.customerProfileSkills[_model.selectedCategoryIndex!].skills
+                                                                                  .where((e) =>
+                                                                                      e.skill ==
+                                                                                      getJsonField(
+                                                                                        skillsItem,
+                                                                                        r'''$.name''',
+                                                                                      ))
+                                                                                  .toList()
+                                                                                  .length >
+                                                                              0
+                                                                          ? FlutterFlowTheme.of(context).primary
+                                                                          : FlutterFlowTheme.of(context).secondary,
                                                                       fontSize:
                                                                           14.0,
                                                                       fontWeight:
@@ -600,364 +676,204 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                                     },
                                                   );
                                                 },
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              width: 300.0,
-                                              height: 100.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                              ),
-                                              child: FutureBuilder<
-                                                  ApiCallResponse>(
-                                                future: TaskerpageBackendGroup
-                                                    .getServicesCall
-                                                    .call(
-                                                  category:
-                                                      '[[\"skill_category_name\",\"=\",\"${_model.selectedServiceCategory}\"]]',
-                                                  fields:
-                                                      '[\"name\",\"skill_name\",\"skill_category_name\"]',
-                                                  apiGlobalKey:
-                                                      FFAppState().apiKey,
-                                                ),
-                                                builder: (context, snapshot) {
-                                                  // Customize what your widget looks like when it's loading.
-                                                  if (!snapshot.hasData) {
-                                                    return Center(
-                                                      child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
-                                                        child:
-                                                            SpinKitThreeBounce(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          size: 50.0,
-                                                        ),
-                                                      ),
-                                                    );
-                                                  }
-                                                  final gridViewGetServicesResponse =
-                                                      snapshot.data!;
-                                                  return Builder(
-                                                    builder: (context) {
-                                                      final skills =
-                                                          TaskerpageBackendGroup
-                                                                  .getServicesCall
-                                                                  .servicesList(
-                                                                    gridViewGetServicesResponse
-                                                                        .jsonBody,
-                                                                  )
-                                                                  ?.toList() ??
-                                                              [];
-                                                      return GridView.builder(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        gridDelegate:
-                                                            SliverGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 2,
-                                                          crossAxisSpacing:
-                                                              10.0,
-                                                          mainAxisSpacing: 10.0,
-                                                          childAspectRatio: 1.0,
-                                                        ),
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            skills.length,
-                                                        itemBuilder: (context,
-                                                            skillsIndex) {
-                                                          final skillsItem =
-                                                              skills[
-                                                                  skillsIndex];
-                                                          return InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              if (_model
-                                                                      .customerProfileSkills[
-                                                                          _model
-                                                                              .selectedCategoryIndex!]
-                                                                      .skills
-                                                                      .where((e) =>
-                                                                          e.skill ==
-                                                                          getJsonField(
-                                                                            skillsItem,
-                                                                            r'''$.name''',
-                                                                          ))
-                                                                      .toList()
-                                                                      .length >
-                                                                  0) {
-                                                                setState(() {
-                                                                  _model
-                                                                      .updateCustomerProfileSkillsAtIndex(
-                                                                    _model
-                                                                        .selectedCategoryIndex!,
-                                                                    (e) => e
-                                                                      ..updateSkills(
-                                                                        (e) => e
-                                                                            .remove(SkillStruct(
-                                                                          skill:
-                                                                              getJsonField(
-                                                                            skillsItem,
-                                                                            r'''$.name''',
-                                                                          ).toString(),
-                                                                          skillName:
-                                                                              getJsonField(
-                                                                            skillsItem,
-                                                                            r'''$.skill_name''',
-                                                                          ).toString(),
-                                                                        )),
-                                                                      ),
-                                                                  );
-                                                                });
-                                                                _model.deletedSkill =
-                                                                    await TaskerpageBackendGroup
-                                                                        .deleteSkillsCall
-                                                                        .call(
-                                                                  skill:
-                                                                      getJsonField(
-                                                                    skillsItem,
-                                                                    r'''$.name''',
-                                                                  ).toString(),
-                                                                  customerProfileSkill:
-                                                                      getJsonField(
-                                                                    _model
-                                                                        .selectedCustomerProfile,
-                                                                    r'''$.name''',
-                                                                  ).toString(),
-                                                                  apiGlobalKey:
-                                                                      FFAppState()
-                                                                          .apiKey,
-                                                                );
-                                                                if ((_model
-                                                                        .deletedSkill
-                                                                        ?.succeeded ??
-                                                                    true)) {
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      content:
-                                                                          Text(
-                                                                        'updated',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                        ),
-                                                                      ),
-                                                                      duration: Duration(
-                                                                          milliseconds:
-                                                                              4000),
-                                                                      backgroundColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .secondary,
-                                                                    ),
-                                                                  );
-                                                                }
-                                                              } else {
-                                                                setState(() {
-                                                                  _model
-                                                                      .updateCustomerProfileSkillsAtIndex(
-                                                                    _model
-                                                                        .selectedCategoryIndex!,
-                                                                    (e) => e
-                                                                      ..updateSkills(
-                                                                        (e) => e
-                                                                            .add(SkillStruct(
-                                                                          skill:
-                                                                              getJsonField(
-                                                                            skillsItem,
-                                                                            r'''$.name''',
-                                                                          ).toString(),
-                                                                          skillName:
-                                                                              getJsonField(
-                                                                            skillsItem,
-                                                                            r'''$.skill_name''',
-                                                                          ).toString(),
-                                                                        )),
-                                                                      ),
-                                                                  );
-                                                                });
-                                                                _model.apiResultcsw =
-                                                                    await TaskerpageBackendGroup
-                                                                        .updateSkillsCall
-                                                                        .call(
-                                                                  skill:
-                                                                      getJsonField(
-                                                                    skillsItem,
-                                                                    r'''$.name''',
-                                                                  ).toString(),
-                                                                  customerProfileSkill:
-                                                                      getJsonField(
-                                                                    _model
-                                                                        .selectedCustomerProfile,
-                                                                    r'''$.name''',
-                                                                  ).toString(),
-                                                                  apiGlobalKey:
-                                                                      FFAppState()
-                                                                          .apiKey,
-                                                                );
-                                                                if ((_model
-                                                                        .apiResultcsw
-                                                                        ?.succeeded ??
-                                                                    true)) {
-                                                                  ScaffoldMessenger.of(
-                                                                          context)
-                                                                      .showSnackBar(
-                                                                    SnackBar(
-                                                                      content:
-                                                                          Text(
-                                                                        'updated',
-                                                                        style:
-                                                                            TextStyle(
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                        ),
-                                                                      ),
-                                                                      duration: Duration(
-                                                                          milliseconds:
-                                                                              4000),
-                                                                      backgroundColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .secondary,
-                                                                    ),
-                                                                  );
-                                                                }
-                                                              }
-
-                                                              setState(() =>
-                                                                  _model.apiRequestCompleter =
-                                                                      null);
-
-                                                              setState(() {});
-                                                            },
-                                                            child: Container(
-                                                              width: 100.0,
-                                                              height: 36.0,
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: _model
-                                                                            .customerProfileSkills[_model.selectedCategoryIndex!]
-                                                                            .skills
-                                                                            .where((e) =>
-                                                                                e.skill ==
-                                                                                getJsonField(
-                                                                                  skillsItem,
-                                                                                  r'''$.name''',
-                                                                                ))
-                                                                            .toList()
-                                                                            .length >
-                                                                        0
-                                                                    ? FlutterFlowTheme.of(context).primary
-                                                                    : Colors.white,
-                                                                boxShadow: [
-                                                                  BoxShadow(
-                                                                    blurRadius:
-                                                                        4.0,
-                                                                    color: Color(
-                                                                        0x33000000),
-                                                                    offset:
-                                                                        Offset(
-                                                                            0.0,
-                                                                            2.0),
-                                                                  )
-                                                                ],
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            2.0),
-                                                                border:
-                                                                    Border.all(
-                                                                  color: _model
-                                                                              .customerProfileSkills[_model.selectedCategoryIndex!]
-                                                                              .skills
-                                                                              .where((e) =>
-                                                                                  e.skill ==
-                                                                                  getJsonField(
-                                                                                    skillsItem,
-                                                                                    r'''$.name''',
-                                                                                  ))
-                                                                              .toList()
-                                                                              .length >
-                                                                          0
-                                                                      ? FlutterFlowTheme.of(context).primary
-                                                                      : Colors.white,
-                                                                  width: 1.0,
-                                                                ),
-                                                              ),
-                                                              child: Row(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
-                                                                children: [
-                                                                  Text(
-                                                                    getJsonField(
-                                                                      skillsItem,
-                                                                      r'''$.skill_name''',
-                                                                    ).toString(),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              'Lato',
-                                                                          color: _model.customerProfileSkills[_model.selectedCategoryIndex!].skills
-                                                                                      .where((e) =>
-                                                                                          e.skill ==
-                                                                                          getJsonField(
-                                                                                            skillsItem,
-                                                                                            r'''$.name''',
-                                                                                          ))
-                                                                                      .toList()
-                                                                                      .length >
-                                                                                  0
-                                                                              ? Colors.white
-                                                                              : FlutterFlowTheme.of(context).secondary,
-                                                                          fontSize:
-                                                                              14.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                              ),
-                                            ),
-                                          ],
+                                              );
+                                            },
+                                          ),
                                         ),
                                       ],
                                     ),
+                                  ),
                                 ],
                               ),
-                            ],
+                            ),
+                          Divider(
+                            height: 36.0,
+                            thickness: 1.0,
+                            indent: 32.0,
+                            endIndent: 32.0,
+                            color: Color(0xFFE3E3E3),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0, 0.0, 32.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  'Skill Level',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF292929),
+                                        fontSize: 15.0,
+                                        fontWeight: FontWeight.w500,
+                                      ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                79.5, 0.0, 79.5, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Builder(
+                                        builder: (context) {
+                                          final skillLevels = functions
+                                              .returnSkillLevelEnums()
+                                              .toList();
+                                          return ListView.separated(
+                                            padding: EdgeInsets.zero,
+                                            shrinkWrap: true,
+                                            scrollDirection: Axis.vertical,
+                                            itemCount: skillLevels.length,
+                                            separatorBuilder: (_, __) =>
+                                                SizedBox(height: 6.0),
+                                            itemBuilder:
+                                                (context, skillLevelsIndex) {
+                                              final skillLevelsItem =
+                                                  skillLevels[skillLevelsIndex];
+                                              return InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  if (_model
+                                                          .customerProfileSkills[
+                                                              _model
+                                                                  .selectedCategoryIndex!]
+                                                          .skillLevel ==
+                                                      skillLevelsItem) {
+                                                    setState(() {
+                                                      _model
+                                                          .updateCustomerProfileSkillsAtIndex(
+                                                        _model
+                                                            .selectedCategoryIndex!,
+                                                        (e) =>
+                                                            e..skillLevel = '',
+                                                      );
+                                                    });
+                                                    _model.apiResultj09 =
+                                                        await TaskerpageBackendGroup
+                                                            .updateCustomerProfileSkillLevelCall
+                                                            .call(
+                                                      name: getJsonField(
+                                                        _model
+                                                            .selectedCustomerProfile,
+                                                        r'''$.name''',
+                                                      ).toString(),
+                                                      skillLevel: '',
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    );
+                                                  } else {
+                                                    setState(() {
+                                                      _model
+                                                          .updateCustomerProfileSkillsAtIndex(
+                                                        _model
+                                                            .selectedCategoryIndex!,
+                                                        (e) => e
+                                                          ..skillLevel =
+                                                              skillLevelsItem,
+                                                      );
+                                                    });
+                                                    _model.apiResultj091 =
+                                                        await TaskerpageBackendGroup
+                                                            .updateCustomerProfileSkillLevelCall
+                                                            .call(
+                                                      name: getJsonField(
+                                                        _model
+                                                            .selectedCustomerProfile,
+                                                        r'''$.name''',
+                                                      ).toString(),
+                                                      skillLevel:
+                                                          skillLevelsItem,
+                                                      apiGlobalKey:
+                                                          FFAppState().apiKey,
+                                                    );
+                                                  }
+
+                                                  setState(() {});
+                                                },
+                                                child: Container(
+                                                  width: 50.0,
+                                                  height: 36.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2.0),
+                                                    border: Border.all(
+                                                      color: _model
+                                                                  .customerProfileSkills[
+                                                                      _model
+                                                                          .selectedCategoryIndex!]
+                                                                  .skillLevel ==
+                                                              skillLevelsItem
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      width: 1.0,
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Text(
+                                                        skillLevelsItem,
+                                                        style: FlutterFlowTheme
+                                                                .of(context)
+                                                            .bodyMedium
+                                                            .override(
+                                                              fontFamily:
+                                                                  'Lato',
+                                                              color: _model
+                                                                          .customerProfileSkills[_model
+                                                                              .selectedCategoryIndex!]
+                                                                          .skillLevel ==
+                                                                      skillLevelsItem
+                                                                  ? FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary
+                                                                  : FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondary,
+                                                              fontSize: 14.0,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w500,
+                                                            ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              );
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ],
                       ),
@@ -998,7 +914,15 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
-                                        context.pushNamed('Contactdata-1');
+                                        context.pushNamed(
+                                          'Skills_List',
+                                          queryParameters: {
+                                            'isEdit': serializeParam(
+                                              false,
+                                              ParamType.bool,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       },
                                       child: Text(
                                         'I\'ll do it later',
@@ -1019,27 +943,14 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        title: Text('Data'),
-                                        content: Text(functions
-                                            .listUserServiceStructToJson(
-                                                _model.customerProfileSkills
-                                                    .toList(),
-                                                false)
-                                            .first
-                                            .toString()),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
+                                  context.pushNamed(
+                                    'Skills_List',
+                                    queryParameters: {
+                                      'isEdit': serializeParam(
+                                        true,
+                                        ParamType.bool,
+                                      ),
+                                    }.withoutNulls,
                                   );
                                 },
                                 child: Container(

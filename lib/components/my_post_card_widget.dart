@@ -1,12 +1,15 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
+import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
+import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 import 'my_post_card_model.dart';
 export 'my_post_card_model.dart';
@@ -166,14 +169,15 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 18.0, 0.0),
-                                          child: Container(
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 12.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Container(
                                             width: 113.0,
                                             height: 22.0,
                                             decoration: BoxDecoration(
@@ -210,49 +214,109 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                               ],
                                             ),
                                           ),
-                                        ),
-                                        Container(
-                                          height: 22.0,
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFDEDEDE),
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    8.0, 0.0, 8.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  dateTimeFormat(
-                                                      'M/d h:mm a',
-                                                      functions.jsonToDateTime(
-                                                          getJsonField(
-                                                        flippableCardPostReadResponse
-                                                            .jsonBody,
-                                                        r'''$.data.start_date''',
-                                                      ).toString())),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        fontSize: 12.0,
-                                                      ),
-                                                ),
-                                              ],
+                                          Expanded(
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(9.0, 0.0, 9.0, 0.0),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  FlutterFlowTimer(
+                                                    initialTime: _model
+                                                        .timerMilliseconds,
+                                                    getDisplayTime: (value) =>
+                                                        StopWatchTimer
+                                                            .getDisplayTime(
+                                                                value,
+                                                                milliSecond:
+                                                                    false),
+                                                    controller:
+                                                        _model.timerController,
+                                                    updateStateInterval:
+                                                        Duration(
+                                                            milliseconds: 1000),
+                                                    onChanged: (value,
+                                                        displayTime,
+                                                        shouldUpdate) {
+                                                      _model.timerMilliseconds =
+                                                          value;
+                                                      _model.timerValue =
+                                                          displayTime;
+                                                      if (shouldUpdate)
+                                                        setState(() {});
+                                                    },
+                                                    textAlign: TextAlign.start,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
+                                                  LinearPercentIndicator(
+                                                    percent: 0.5,
+                                                    lineHeight: 2.5,
+                                                    animation: true,
+                                                    animateFromLastPercent:
+                                                        true,
+                                                    progressColor:
+                                                        Color(0xFF28A853),
+                                                    backgroundColor:
+                                                        Color(0xFFF2F2F2),
+                                                    barRadius:
+                                                        Radius.circular(18.0),
+                                                    padding: EdgeInsets.zero,
+                                                  ),
+                                                ].divide(SizedBox(height: 5.0)),
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          Container(
+                                            height: 22.0,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFDEDEDE),
+                                              borderRadius:
+                                                  BorderRadius.circular(2.0),
+                                            ),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(8.0, 0.0, 8.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    '${getJsonField(
+                                                      widget.postData,
+                                                      r'''$.rate''',
+                                                    ).toString()}${getJsonField(
+                                                      widget.postData,
+                                                      r'''$.rate_currency''',
+                                                    ).toString()}',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          fontSize: 12.0,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Padding(
                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -297,7 +361,7 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                                     r'''$.data.skill_name''',
                                                   ).toString()}'
                                                       .maybeHandleOverflow(
-                                                    maxChars: 36,
+                                                    maxChars: 20,
                                                     replacement: '…',
                                                   ),
                                                   style: FlutterFlowTheme.of(
@@ -384,69 +448,16 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                           thickness: 0.7,
                           color: Color(0xFFDEDEDE),
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              12.0, 0.0, 12.0, 8.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                height: 22.0,
-                                decoration: BoxDecoration(
-                                  color: Color(0xFFDEDEDE),
-                                  borderRadius: BorderRadius.circular(2.0),
-                                ),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 8.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Text(
-                                        () {
-                                          if (functions
-                                                  .jsonToInt(getJsonField(
-                                                    flippableCardPostReadResponse
-                                                        .jsonBody,
-                                                    r'''$.data.docstatus''',
-                                                  ))
-                                                  .toString() ==
-                                              '1') {
-                                            return 'Published';
-                                          } else if (functions
-                                                  .jsonToInt(getJsonField(
-                                                    flippableCardPostReadResponse
-                                                        .jsonBody,
-                                                    r'''$.data.docstatus''',
-                                                  ))
-                                                  .toString() ==
-                                              '2') {
-                                            return 'Canceled';
-                                          } else {
-                                            return 'Draft';
-                                          }
-                                        }(),
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              fontSize: 12.0,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 8.0, 0.0),
-                                child: Container(
+                        Flexible(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 12.0, 8.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
                                   height: 22.0,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFDEDEDE),
@@ -457,25 +468,29 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                         8.0, 0.0, 8.0, 0.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           () {
                                             if (functions
                                                     .jsonToInt(getJsonField(
-                                                  flippableCardPostReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.docstatus''',
-                                                )) ==
-                                                1) {
-                                              return 'Open';
+                                                      flippableCardPostReadResponse
+                                                          .jsonBody,
+                                                      r'''$.data.docstatus''',
+                                                    ))
+                                                    .toString() ==
+                                                '1') {
+                                              return 'Published';
                                             } else if (functions
                                                     .jsonToInt(getJsonField(
-                                                  flippableCardPostReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.docstatus''',
-                                                )) ==
-                                                2) {
-                                              return 'Closed';
+                                                      flippableCardPostReadResponse
+                                                          .jsonBody,
+                                                      r'''$.data.docstatus''',
+                                                    ))
+                                                    .toString() ==
+                                                '2') {
+                                              return 'Canceled';
                                             } else {
                                               return 'Draft';
                                             }
@@ -488,15 +503,56 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                                     FlutterFlowTheme.of(context)
                                                         .alternate,
                                                 fontSize: 12.0,
-                                                fontWeight: FontWeight.w500,
                                               ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                              ),
-                            ].divide(SizedBox(width: 18.0)),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 8.0, 0.0),
+                                  child: Container(
+                                    height: 22.0,
+                                    decoration: BoxDecoration(
+                                      color: Color(0xFFDEDEDE),
+                                      borderRadius: BorderRadius.circular(2.0),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 0.0, 8.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            getJsonField(
+                                                      widget.postData,
+                                                      r'''$.poster''',
+                                                    ) ==
+                                                    getJsonField(
+                                                      FFAppState().userProfile,
+                                                      r'''$.data.name''',
+                                                    )
+                                                ? 'You posted this task'
+                                                : 'You joined this task',
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  fontSize: 12.0,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ].divide(SizedBox(width: 18.0)),
+                            ),
                           ),
                         ),
                         Padding(
@@ -520,11 +576,16 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
-                                        getJsonField(
-                                          flippableCardPostReadResponse
-                                              .jsonBody,
-                                          r'''$.data.repeat_type''',
-                                        ).toString(),
+                                        'Estimated Start time: ${getJsonField(
+                                              widget.postData,
+                                              r'''$.start_time''',
+                                            ) != null ? getJsonField(
+                                            widget.postData,
+                                            r'''$.start_time''',
+                                          ).toString() : getJsonField(
+                                            widget.postData,
+                                            r'''$.start_range_time''',
+                                          ).toString()}',
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -539,11 +600,6 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                   ),
                                 ),
                               ),
-                              Icon(
-                                Icons.keyboard_arrow_down_rounded,
-                                color: FlutterFlowTheme.of(context).secondary,
-                                size: 20.0,
-                              ),
                             ],
                           ),
                         ),
@@ -555,7 +611,7 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
             ),
           ),
           back: Container(
-            width: 326.0,
+            width: double.infinity,
             height: 170.0,
             decoration: BoxDecoration(
               color: Colors.white,

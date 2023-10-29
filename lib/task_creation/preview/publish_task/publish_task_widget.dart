@@ -1680,63 +1680,6 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                               ParamType.String,
                                             ),
                                           }.withoutNulls,
-                                          queryParameters: {
-                                            'curentUser': serializeParam(
-                                              getJsonField(
-                                                FFAppState().userProfile,
-                                                r'''$.data.user''',
-                                              ).toString(),
-                                              ParamType.String,
-                                            ),
-                                            'startChat': serializeParam(
-                                              dateTimeFormat(
-                                                  'MMMEd',
-                                                  functions.jsonToDateTime(
-                                                      getJsonField(
-                                                    (_model.startChat22
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.message.modified''',
-                                                  ).toString())),
-                                              ParamType.String,
-                                            ),
-                                            'nameFamily': serializeParam(
-                                              '${getJsonField(
-                                                (_model.userRead?.jsonBody ??
-                                                    ''),
-                                                r'''$.data.first_name''',
-                                              ).toString()} ${getJsonField(
-                                                (_model.userRead?.jsonBody ??
-                                                    ''),
-                                                r'''$.data.last_name''',
-                                              ).toString()}',
-                                              ParamType.String,
-                                            ),
-                                            'avatar': serializeParam(
-                                              getJsonField(
-                                                (_model.userRead?.jsonBody ??
-                                                    ''),
-                                                r'''$.data.avatar''',
-                                              ).toString(),
-                                              ParamType.String,
-                                            ),
-                                            'postID': serializeParam(
-                                              getJsonField(
-                                                publishTaskPostReadResponse
-                                                    .jsonBody,
-                                                r'''$.data.name''',
-                                              ),
-                                              ParamType.int,
-                                            ),
-                                            'taskerID': serializeParam(
-                                              getJsonField(
-                                                (_model.userRead?.jsonBody ??
-                                                    ''),
-                                                r'''$.data.name''',
-                                              ),
-                                              ParamType.int,
-                                            ),
-                                          }.withoutNulls,
                                         );
                                       } else {
                                         if (_shouldSetState) setState(() {});

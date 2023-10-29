@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/task_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -66,14 +65,24 @@ class _StartChatWidgetState extends State<StartChatWidget> {
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(2.0),
+          bottomRight: Radius.circular(2.0),
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
       ),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.5,
+        height: MediaQuery.sizeOf(context).height * 0.45,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(2.0),
+            bottomRight: Radius.circular(2.0),
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+          ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -91,7 +100,7 @@ class _StartChatWidgetState extends State<StartChatWidget> {
             ),
             Expanded(
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(32.0, 24.0, 32.0, 25.0),
+                padding: EdgeInsetsDirectional.fromSTEB(32.0, 26.0, 32.0, 25.0),
                 child: Column(
                   mainAxisSize: MainAxisSize.max,
                   children: [
@@ -228,62 +237,6 @@ class _StartChatWidgetState extends State<StartChatWidget> {
                                                   )
                                                   .toString(),
                                               ParamType.String,
-                                            ),
-                                          }.withoutNulls,
-                                          queryParameters: {
-                                            'curentUser': serializeParam(
-                                              getJsonField(
-                                                FFAppState().userProfile,
-                                                r'''$.data.user''',
-                                              ).toString(),
-                                              ParamType.String,
-                                            ),
-                                            'startChat': serializeParam(
-                                              dateTimeFormat(
-                                                  'MMMEd',
-                                                  functions.jsonToDateTime(
-                                                      getJsonField(
-                                                    (_model.startChat2
-                                                            ?.jsonBody ??
-                                                        ''),
-                                                    r'''$.message.modified''',
-                                                  ).toString())),
-                                              ParamType.String,
-                                            ),
-                                            'nameFamily': serializeParam(
-                                              '${getJsonField(
-                                                containerUserProfileReadResponse
-                                                    .jsonBody,
-                                                r'''$.data.first_name''',
-                                              ).toString()} ${getJsonField(
-                                                containerUserProfileReadResponse
-                                                    .jsonBody,
-                                                r'''$.data.last_name''',
-                                              ).toString()}',
-                                              ParamType.String,
-                                            ),
-                                            'avatar': serializeParam(
-                                              getJsonField(
-                                                containerUserProfileReadResponse
-                                                    .jsonBody,
-                                                r'''$.data.avatar''',
-                                              ).toString(),
-                                              ParamType.String,
-                                            ),
-                                            'postID': serializeParam(
-                                              getJsonField(
-                                                widget.post,
-                                                r'''$.name''',
-                                              ),
-                                              ParamType.int,
-                                            ),
-                                            'taskerID': serializeParam(
-                                              getJsonField(
-                                                containerUserProfileReadResponse
-                                                    .jsonBody,
-                                                r'''$.data.name''',
-                                              ),
-                                              ParamType.int,
                                             ),
                                           }.withoutNulls,
                                         );

@@ -490,13 +490,17 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                       width: 20.0,
                                       height: 20.0,
                                       decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
+                                        color: Colors.white,
                                         shape: BoxShape.circle,
+                                        border: Border.all(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                        ),
                                       ),
                                       child: Icon(
                                         Icons.close_rounded,
-                                        color: Colors.white,
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
                                         size: 15.0,
                                       ),
                                     ),
@@ -533,81 +537,85 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                         ],
                       ),
                     ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 18.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: _model.textController,
-                              focusNode: _model.textFieldFocusNode,
-                              onFieldSubmitted: (_) async {
-                                setState(() {
-                                  FFAppState().updateUserInformationStruct(
-                                    (e) => e
-                                      ..describation =
-                                          _model.textController.text,
-                                  );
-                                });
-                              },
-                              textInputAction: TextInputAction.done,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelStyle:
-                                    FlutterFlowTheme.of(context).labelMedium,
-                                hintText: 'Type Your Describtion ...',
-                                hintStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Lato',
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 18.0, 32.0, 10.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: TextFormField(
+                                controller: _model.textController,
+                                focusNode: _model.textFieldFocusNode,
+                                onFieldSubmitted: (_) async {
+                                  setState(() {
+                                    FFAppState().updateUserInformationStruct(
+                                      (e) => e
+                                        ..describation =
+                                            _model.textController.text,
+                                    );
+                                  });
+                                },
+                                textInputAction: TextInputAction.done,
+                                obscureText: false,
+                                decoration: InputDecoration(
+                                  labelStyle:
+                                      FlutterFlowTheme.of(context).labelMedium,
+                                  hintText: 'Type Your Describtion ...',
+                                  hintStyle: FlutterFlowTheme.of(context)
+                                      .labelMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: FlutterFlowTheme.of(context)
+                                            .tertiary,
+                                      ),
+                                  enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
                                       color:
                                           FlutterFlowTheme.of(context).tertiary,
+                                      width: 1.0,
                                     ),
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 1.0,
+                                    borderRadius: BorderRadius.circular(1.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(1.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    width: 1.0,
+                                  focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(1.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(1.0),
-                                ),
-                                errorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFE8083F),
-                                    width: 1.0,
+                                  errorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8083F),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(1.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(1.0),
-                                ),
-                                focusedErrorBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0xFFE8083F),
-                                    width: 1.0,
+                                  focusedErrorBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Color(0xFFE8083F),
+                                      width: 1.0,
+                                    ),
+                                    borderRadius: BorderRadius.circular(1.0),
                                   ),
-                                  borderRadius: BorderRadius.circular(1.0),
                                 ),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color: Color(0xFF212121),
+                                      fontSize: 14.0,
+                                    ),
+                                maxLines: 20,
+                                maxLength: 400,
+                                validator: _model.textControllerValidator
+                                    .asValidator(context),
                               ),
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF212121),
-                                    fontSize: 14.0,
-                                  ),
-                              maxLines: 20,
-                              validator: _model.textControllerValidator
-                                  .asValidator(context),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   ],
@@ -696,11 +704,16 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                         r'''$.data.role''',
                                       )) ==
                                       'Tasker') {
-                                    context.pushNamed('TaskersDashboard');
-                                  } else {
-                                    context.pushNamed('PostersDashboard');
+                                    context.pushNamed(
+                                      'ID1',
+                                      queryParameters: {
+                                        'name': serializeParam(
+                                          '',
+                                          ParamType.String,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   }
-
                                   _model.apiResulteh8 =
                                       await TaskerpageBackendGroup
                                           .userProfileMeCall

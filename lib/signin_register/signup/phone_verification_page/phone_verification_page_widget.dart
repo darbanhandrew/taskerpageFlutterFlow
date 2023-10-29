@@ -314,7 +314,7 @@ class _PhoneVerificationPageWidgetState
                                   .override(
                                     fontFamily: 'Lato',
                                     color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
+                                    fontSize: 12.0,
                                     fontWeight: FontWeight.w500,
                                     decoration: TextDecoration.underline,
                                   ),

@@ -1,14 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
-import '/components/aler_modal_massage_accept_appointment_widget.dart';
-import '/components/aler_modal_massage_reject_appointment_widget.dart';
+import '/bargain/chat_message/chat_message_widget.dart';
 import '/components/set_appointment_widget.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/request_manager.dart';
 
 import 'chat_widget.dart' show ChatWidget;
@@ -16,7 +14,6 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -36,17 +33,21 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
           int index, Function(CheapsChatStruct) updateFn) =>
       chatPageChips[index] = updateFn(chatPageChips[index]);
 
+  ChatRoomStruct? chatRoom;
+  void updateChatRoomStruct(Function(ChatRoomStruct) updateFn) =>
+      updateFn(chatRoom ??= ChatRoomStruct());
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Get Chat Room Details)] action in chat widget.
+  ApiCallResponse? chatRoomDetails;
   // Stores action output result for [Backend Call - API (Mark As Read)] action in chat widget.
   ApiCallResponse? apiResult39c;
   bool apiRequestCompleted = false;
   String? apiRequestLastUniqueKey;
-  // Stores action output result for [Backend Call - API (userProfileRead)] action in CircleImage widget.
-  ApiCallResponse? apiResulty27Copy;
-  // Stores action output result for [Backend Call - API (userProfileRead)] action in Column widget.
-  ApiCallResponse? apiResulty27;
+  // Models for ChatMessage dynamic component.
+  late FlutterFlowDynamicModels<ChatMessageModel> chatMessageModels;
   // Stores action output result for [Backend Call - API (send message)] action in Container widget.
   ApiCallResponse? apiResult55u9;
   // Stores action output result for [Backend Call - API (send message)] action in Container widget.
@@ -77,10 +78,13 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    chatMessageModels = FlutterFlowDynamicModels(() => ChatMessageModel());
+  }
 
   void dispose() {
     unfocusNode.dispose();
+    chatMessageModels.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 

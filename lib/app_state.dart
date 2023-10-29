@@ -212,6 +212,10 @@ class FFAppState extends ChangeNotifier {
     _safeInit(() {
       _DocumentType = prefs.getStringList('ff_DocumentType') ?? _DocumentType;
     });
+    _safeInit(() {
+      _appointmentType =
+          prefs.getStringList('ff_appointmentType') ?? _appointmentType;
+    });
   }
 
   void update(VoidCallback callback) {
@@ -1047,14 +1051,57 @@ class FFAppState extends ChangeNotifier {
     prefs.setStringList('ff_DocumentType', _DocumentType);
   }
 
-  SignUpRateStruct _signUpRate = SignUpRateStruct();
-  SignUpRateStruct get signUpRate => _signUpRate;
-  set signUpRate(SignUpRateStruct _value) {
-    _signUpRate = _value;
+  bool _closeWelcomeCard = true;
+  bool get closeWelcomeCard => _closeWelcomeCard;
+  set closeWelcomeCard(bool _value) {
+    _closeWelcomeCard = _value;
   }
 
-  void updateSignUpRateStruct(Function(SignUpRateStruct) updateFn) {
-    updateFn(_signUpRate);
+  bool _SortViewTasker = false;
+  bool get SortViewTasker => _SortViewTasker;
+  set SortViewTasker(bool _value) {
+    _SortViewTasker = _value;
+  }
+
+  List<String> _appointmentType = ['Online', 'By Phone', 'On-Site'];
+  List<String> get appointmentType => _appointmentType;
+  set appointmentType(List<String> _value) {
+    _appointmentType = _value;
+    prefs.setStringList('ff_appointmentType', _value);
+  }
+
+  void addToAppointmentType(String _value) {
+    _appointmentType.add(_value);
+    prefs.setStringList('ff_appointmentType', _appointmentType);
+  }
+
+  void removeFromAppointmentType(String _value) {
+    _appointmentType.remove(_value);
+    prefs.setStringList('ff_appointmentType', _appointmentType);
+  }
+
+  void removeAtIndexFromAppointmentType(int _index) {
+    _appointmentType.removeAt(_index);
+    prefs.setStringList('ff_appointmentType', _appointmentType);
+  }
+
+  void updateAppointmentTypeAtIndex(
+    int _index,
+    String Function(String) updateFn,
+  ) {
+    _appointmentType[_index] = updateFn(_appointmentType[_index]);
+    prefs.setStringList('ff_appointmentType', _appointmentType);
+  }
+
+  void insertAtIndexInAppointmentType(int _index, String _value) {
+    _appointmentType.insert(_index, _value);
+    prefs.setStringList('ff_appointmentType', _appointmentType);
+  }
+
+  bool _watingForSelectRole = false;
+  bool get watingForSelectRole => _watingForSelectRole;
+  set watingForSelectRole(bool _value) {
+    _watingForSelectRole = _value;
   }
 
   final _myAddressesManager = FutureRequestManager<ApiCallResponse>();

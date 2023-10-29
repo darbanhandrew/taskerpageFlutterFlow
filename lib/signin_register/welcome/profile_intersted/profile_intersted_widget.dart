@@ -122,7 +122,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                     Flexible(
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 100.0, 0.0, 0.0),
+                            0.0, 142.0, 0.0, 0.0),
                         child: FutureBuilder<ApiCallResponse>(
                           future: FFAppState().appRoles(
                             uniqueQueryKey: FFAppState().apiKey,
@@ -184,6 +184,10 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                             onTap: () async {
                                               setState(() {
                                                 FFAppState()
+                                                    .watingForSelectRole = true;
+                                              });
+                                              setState(() {
+                                                FFAppState()
                                                     .updateUserInformationStruct(
                                                   (e) => e
                                                     ..role =
@@ -201,12 +205,32 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                   r'''$.data.user''',
                                                 ).toString(),
                                               );
+                                              _model.apiResultgzf =
+                                                  await TaskerpageBackendGroup
+                                                      .updateRoleCall
+                                                      .call(
+                                                id: getJsonField(
+                                                  FFAppState().userProfile,
+                                                  r'''$.data.name''',
+                                                ).toString(),
+                                                roleProfileName: roleProfileItem
+                                                    .roleProfileName,
+                                                role: roleProfileItem
+                                                    .roleProfileName,
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                              );
+                                              setState(() {
+                                                FFAppState()
+                                                        .watingForSelectRole =
+                                                    false;
+                                              });
 
                                               setState(() {});
                                             },
                                             child: Container(
-                                              width: 230.0,
-                                              height: 40.0,
+                                              width: 216.0,
+                                              height: 36.0,
                                               decoration: BoxDecoration(
                                                 color:
                                                     FlutterFlowTheme.of(context)
@@ -225,7 +249,6 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                                       : FlutterFlowTheme.of(
                                                               context)
                                                           .secondary,
-                                                  width: 1.0,
                                                 ),
                                               ),
                                               child: Row(
@@ -266,7 +289,7 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                         ],
                                       ),
                                     );
-                                  }).divide(SizedBox(height: 16.0)),
+                                  }).divide(SizedBox(height: 8.0)),
                                 );
                               },
                             );
@@ -307,11 +330,10 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              if (FFAppState().UserInformation.role ==
-                                  'POSTER') {
-                                context.pushNamed('Skills-1');
-                              } else {
-                                context.pushNamed('Skills-3');
+                              var _shouldSetState = false;
+                              if (FFAppState().watingForSelectRole) {
+                                if (_shouldSetState) setState(() {});
+                                return;
                               }
 
                               _model.apiResults8k = await TaskerpageBackendGroup
@@ -319,18 +341,26 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                                   .call(
                                 apiGlobalKey: FFAppState().apiKey,
                               );
+                              _shouldSetState = true;
                               setState(() {
                                 FFAppState().userProfile =
                                     (_model.apiResults8k?.jsonBody ?? '');
                               });
+                              if (FFAppState().UserInformation.role == 'test') {
+                                context.pushNamed('Skills-1');
+                              } else {
+                                context.pushNamed('Skills-3');
+                              }
 
-                              setState(() {});
+                              if (_shouldSetState) setState(() {});
                             },
                             child: wrapWithModel(
                               model: _model.buttonNextModel,
                               updateCallback: () => setState(() {}),
                               child: ButtonNextWidget(
-                                text: 'Next',
+                                text: FFAppState().watingForSelectRole
+                                    ? 'Wating'
+                                    : 'Next',
                               ),
                             ),
                           ),

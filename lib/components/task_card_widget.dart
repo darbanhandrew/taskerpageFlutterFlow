@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -57,7 +58,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
       speed: 400,
       front: Container(
         width: 326.0,
-        height: 203.0,
+        height: 190.0,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -265,7 +266,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
               ),
             ),
             Divider(
-              height: 32.0,
+              height: 26.0,
               thickness: 1.0,
               color: Color(0xFFDEDEDE),
             ),
@@ -273,48 +274,106 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
               padding: EdgeInsetsDirectional.fromSTEB(19.5, 0.0, 19.5, 0.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Container(
-                    width: 50.0,
-                    height: 50.0,
-                    clipBehavior: Clip.antiAlias,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                    ),
-                    child: Image.network(
-                      'https://picsum.photos/seed/589/600',
-                      fit: BoxFit.cover,
+                  Flexible(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        FutureBuilder<ApiCallResponse>(
+                          future:
+                              TaskerpageBackendGroup.userProfileReadCall.call(
+                            id: getJsonField(
+                              widget.post,
+                              r'''$.poster''',
+                            ).toString(),
+                            apiGlobalKey: FFAppState().apiKey,
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50.0,
+                                  height: 50.0,
+                                  child: SpinKitThreeBounce(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 50.0,
+                                  ),
+                                ),
+                              );
+                            }
+                            final circleImageUserProfileReadResponse =
+                                snapshot.data!;
+                            return Container(
+                              width: 50.0,
+                              height: 50.0,
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.network(
+                                '${FFAppState().baseUrl}${getJsonField(
+                                  circleImageUserProfileReadResponse.jsonBody,
+                                  r'''$.data.avatar''',
+                                ).toString()}',
+                                fit: BoxFit.cover,
+                              ),
+                            );
+                          },
+                        ),
+                        Flexible(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                12.0, 0.0, 0.0, 0.0),
+                            child: Text(
+                              getJsonField(
+                                widget.post,
+                                r'''$.description''',
+                              ).toString().maybeHandleOverflow(
+                                    maxChars: 30,
+                                    replacement: '…',
+                                  ),
+                              maxLines: 1,
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF292929),
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  Flexible(
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
-                      child: Text(
-                        getJsonField(
+                  Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        '${getJsonField(
                           widget.post,
-                          r'''$.description''',
-                        ).toString().maybeHandleOverflow(
-                              maxChars: 30,
-                              replacement: '…',
-                            ),
-                        maxLines: 1,
+                          r'''$.rate''',
+                        ).toString()}${getJsonField(
+                          widget.post,
+                          r'''$.rate_currency''',
+                        ).toString()}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Lato',
                               color: Color(0xFF292929),
-                              fontSize: 13.0,
-                              fontWeight: FontWeight.w500,
+                              fontSize: 18.0,
                             ),
                       ),
-                    ),
+                    ],
                   ),
                 ],
               ),
             ),
             Divider(
-              height: 32.0,
+              height: 26.0,
               thickness: 1.0,
               color: Color(0xFFDEDEDE),
             ),
@@ -356,7 +415,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                       },
                       child: Icon(
                         Icons.share_outlined,
-                        color: Color(0xFF5450E2),
+                        color: FlutterFlowTheme.of(context).primary,
                         size: 24.0,
                       ),
                     ),
@@ -369,7 +428,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
       ),
       back: Container(
         width: 326.0,
-        height: 203.0,
+        height: 190.0,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -416,7 +475,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                       offset: Offset(0.0, 2.0),
                     )
                   ],
-                  borderRadius: BorderRadius.circular(2.0),
+                  borderRadius: BorderRadius.circular(0.0),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,

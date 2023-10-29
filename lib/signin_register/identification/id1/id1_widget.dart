@@ -7,6 +7,7 @@ import '/components/text_field_and_title_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -45,7 +46,12 @@ class _Id1WidgetState extends State<Id1Widget> {
       if (widget.name == 'create') {
         setState(() {
           _model.updateIdentificationStruct(
-            (e) => e..name = 'new',
+            (e) => e
+              ..name = 'new'
+              ..customerProfile = getJsonField(
+                FFAppState().userProfile,
+                r'''$.data.name''',
+              ).toString().toString(),
           );
         });
       } else {
@@ -298,12 +304,16 @@ class _Id1WidgetState extends State<Id1Widget> {
                           defaultValue: _model.identification!.firstName,
                         ),
                       ),
-                      wrapWithModel(
-                        model: _model.textFieldAndTitleModel2,
-                        updateCallback: () => setState(() {}),
-                        child: TextFieldAndTitleWidget(
-                          label: 'Last Name (Exactly as Id)',
-                          defaultValue: _model.identification!.lastName,
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 15.0, 0.0, 0.0),
+                        child: wrapWithModel(
+                          model: _model.textFieldAndTitleModel2,
+                          updateCallback: () => setState(() {}),
+                          child: TextFieldAndTitleWidget(
+                            label: 'Last Name (Exactly as Id)',
+                            defaultValue: _model.identification!.lastName,
+                          ),
                         ),
                       ),
                       Padding(
@@ -313,8 +323,9 @@ class _Id1WidgetState extends State<Id1Widget> {
                           model: _model.dateOfBirthPickModel,
                           updateCallback: () => setState(() {}),
                           child: DateOfBirthPickWidget(
-                            label: 'Last name (Exactly as Id)',
-                            defaultValue: _model.identification?.dateOfBirth,
+                            label: 'Date of birth',
+                            defaultValue: functions.jsonToDateTime(
+                                _model.identification?.dateOfBirth),
                           ),
                         ),
                       ),
@@ -370,8 +381,8 @@ class _Id1WidgetState extends State<Id1Widget> {
                                         .stateController.text
                                     ..lastName = _model.textFieldAndTitleModel2
                                         .stateController.text
-                                    ..dateOfBirth =
-                                        _model.dateOfBirthPickModel.datePicked,
+                                    ..dateOfBirth = dateTimeFormat('yyyy/MM/dd',
+                                        _model.dateOfBirthPickModel.datePicked),
                                 );
                               });
                               if (_model.identification?.name == 'new') {
@@ -393,13 +404,32 @@ class _Id1WidgetState extends State<Id1Widget> {
                                 if ((_model.createdIdentification?.succeeded ??
                                     true)) {
                                   setState(() {
-                                    _model.identification =
-                                        functions.jsonToIdentificationStruct(
+                                    _model
+                                        .identification = TaskerpageBackendGroup
+                                                    .createIdentificationCall
+                                                    .identificationJson(
+                                                  (_model.createdIdentification
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                null &&
                                             TaskerpageBackendGroup
-                                                .getIdentificationDetailsCall
+                                                    .createIdentificationCall
+                                                    .identificationJson(
+                                                  (_model.createdIdentification
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                ''
+                                        ? IdentificationStruct.fromMap(
+                                            TaskerpageBackendGroup
+                                                .createIdentificationCall
                                                 .identificationJson(
-                                      (_model.apiResultd0a?.jsonBody ?? ''),
-                                    ));
+                                            (_model.createdIdentification
+                                                    ?.jsonBody ??
+                                                ''),
+                                          ))
+                                        : null;
                                   });
                                 } else {
                                   if (_shouldSetState) setState(() {});
@@ -419,13 +449,31 @@ class _Id1WidgetState extends State<Id1Widget> {
                                 _shouldSetState = true;
                                 if ((_model.apiResultemi?.succeeded ?? true)) {
                                   setState(() {
-                                    _model.identification =
-                                        functions.jsonToIdentificationStruct(
+                                    _model
+                                        .identification = TaskerpageBackendGroup
+                                                    .updateIdentificationDetailsCall
+                                                    .identificationJson(
+                                                  (_model.apiResultemi
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                null &&
+                                            TaskerpageBackendGroup
+                                                    .updateIdentificationDetailsCall
+                                                    .identificationJson(
+                                                  (_model.apiResultemi
+                                                          ?.jsonBody ??
+                                                      ''),
+                                                ) !=
+                                                ''
+                                        ? IdentificationStruct.fromMap(
                                             TaskerpageBackendGroup
                                                 .updateIdentificationDetailsCall
                                                 .identificationJson(
-                                      (_model.apiResultemi?.jsonBody ?? ''),
-                                    ));
+                                            (_model.apiResultemi?.jsonBody ??
+                                                ''),
+                                          ))
+                                        : null;
                                   });
                                 } else {
                                   if (_shouldSetState) setState(() {});

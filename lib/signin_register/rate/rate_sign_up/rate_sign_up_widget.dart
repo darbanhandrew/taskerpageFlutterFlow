@@ -3,12 +3,12 @@ import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/my_skill_widget.dart';
-import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -21,10 +21,11 @@ export 'rate_sign_up_model.dart';
 class RateSignUpWidget extends StatefulWidget {
   const RateSignUpWidget({
     Key? key,
-    required this.id,
-  }) : super(key: key);
+    String? name,
+  })  : this.name = name ?? 'new',
+        super(key: key);
 
-  final int? id;
+  final String name;
 
   @override
   _RateSignUpWidgetState createState() => _RateSignUpWidgetState();
@@ -42,48 +43,51 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.id != null) {
-        _model.apiResultsr988 = await TaskerpageBackendGroup.postReadCall.call(
-          id: widget.id?.toString(),
+      if (widget.name == 'new') {
+        setState(() {
+          _model.userRate = UserRateStruct(
+            name: '',
+            customerProfile: getJsonField(
+              FFAppState().userProfile,
+              r'''$.data.name''',
+            ).toString().toString(),
+            customerProfileUser: getJsonField(
+              FFAppState().userProfile,
+              r'''$.data.user''',
+            ).toString().toString(),
+            isAll: 1,
+          );
+        });
+      } else {
+        _model.userRateDetails =
+            await TaskerpageBackendGroup.getUserRateDetailsCall.call(
+          name: widget.name,
           apiGlobalKey: FFAppState().apiKey,
         );
-        if ((_model.apiResultsr988?.succeeded ?? true)) {
+        if ((_model.userRateDetails?.succeeded ?? true)) {
           setState(() {
-            FFAppState().updateCreateTaskStruct(
-              (e) => e
-                ..updateTaskRates(
-                  (e) => e
-                    ..type = getJsonField(
-                      (_model.apiResultsr988?.jsonBody ?? ''),
-                      r'''$.data.rate_type''',
-                    ).toString().toString()
-                    ..howMuch = getJsonField(
-                      (_model.apiResultsr988?.jsonBody ?? ''),
-                      r'''$.data.rate''',
-                    )
-                    ..currency = getJsonField(
-                      (_model.apiResultsr988?.jsonBody ?? ''),
-                      r'''$.data.rate_currency''',
-                    ).toString().toString(),
-                ),
-            );
+            _model.userRate = TaskerpageBackendGroup.getUserRateDetailsCall
+                            .userRateJson(
+                          (_model.userRateDetails?.jsonBody ?? ''),
+                        ) !=
+                        null &&
+                    TaskerpageBackendGroup.getUserRateDetailsCall.userRateJson(
+                          (_model.userRateDetails?.jsonBody ?? ''),
+                        ) !=
+                        ''
+                ? UserRateStruct.fromMap(
+                    TaskerpageBackendGroup.getUserRateDetailsCall.userRateJson(
+                    (_model.userRateDetails?.jsonBody ?? ''),
+                  ))
+                : null;
           });
-        } else {
-          return;
         }
-      } else {
-        context.pushNamed(
-          'Task-1',
-          queryParameters: {
-            'id': serializeParam(
-              widget.id?.toString(),
-              ParamType.String,
-            ),
-          }.withoutNulls,
-        );
       }
     });
 
+    _model.textController ??=
+        TextEditingController(text: _model.userRate?.amount?.toString());
+    _model.textFieldFocusNode ??= FocusNode();
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -178,8 +182,8 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 setState(() {
-                                  FFAppState().updateSignUpRateStruct(
-                                    (e) => e..type = 'For Selected Skills',
+                                  _model.updateUserRateStruct(
+                                    (e) => e..isAll = 0,
                                   );
                                 });
                                 await showModalBottomSheet(
@@ -197,11 +201,25 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: MySkillWidget(),
+                                        child: MySkillWidget(
+                                          userRate: _model.userRate!,
+                                        ),
                                       ),
                                     );
                                   },
-                                ).then((value) => safeSetState(() {}));
+                                ).then((value) => safeSetState(
+                                    () => _model.updatedUserRate = value));
+
+                                setState(() {
+                                  _model.updateUserRateStruct(
+                                    (e) => e
+                                      ..skillCategories = _model
+                                          .updatedUserRate!.skillCategories
+                                          .toList(),
+                                  );
+                                });
+
+                                setState(() {});
                               },
                               child: Container(
                                 width: 100.0,
@@ -211,8 +229,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(2.0),
                                   border: Border.all(
-                                    color: FFAppState().signUpRate.type ==
-                                            'For Selected Skills'
+                                    color: _model.userRate?.isAll == 0
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .secondary,
@@ -229,10 +246,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .signUpRate
-                                                        .type ==
-                                                    'For Selected Skills'
+                                            color: _model.userRate?.isAll == 0
                                                 ? FlutterFlowTheme.of(context)
                                                     .primary
                                                 : FlutterFlowTheme.of(context)
@@ -254,8 +268,8 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 setState(() {
-                                  FFAppState().updateSignUpRateStruct(
-                                    (e) => e..type = 'Apply for all my Skills',
+                                  _model.updateUserRateStruct(
+                                    (e) => e..isAll = 1,
                                   );
                                 });
                               },
@@ -267,8 +281,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                       .secondaryBackground,
                                   borderRadius: BorderRadius.circular(2.0),
                                   border: Border.all(
-                                    color: FFAppState().signUpRate.type ==
-                                            'Apply for all my Skills'
+                                    color: _model.userRate?.isAll == 1
                                         ? FlutterFlowTheme.of(context).primary
                                         : FlutterFlowTheme.of(context)
                                             .secondary,
@@ -285,10 +298,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                           .bodyMedium
                                           .override(
                                             fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .signUpRate
-                                                        .type ==
-                                                    'Apply for all my Skills'
+                                            color: _model.userRate?.isAll == 1
                                                 ? FlutterFlowTheme.of(context)
                                                     .primary
                                                 : FlutterFlowTheme.of(context)
@@ -336,62 +346,71 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                     ),
                               ),
                               Container(
-                                width: 95.0,
-                                height: 36.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryBackground,
-                                  borderRadius: BorderRadius.circular(2.0),
-                                  shape: BoxShape.rectangle,
-                                  border: Border.all(
-                                    color:
-                                        FlutterFlowTheme.of(context).tertiary,
-                                    width: 1.0,
-                                  ),
-                                ),
-                                child: FlutterFlowCountController(
-                                  decrementIconBuilder: (enabled) => Icon(
-                                    Icons.keyboard_arrow_down_rounded,
-                                    color: enabled
-                                        ? Color(0xFFF06543)
-                                        : FlutterFlowTheme.of(context)
-                                            .alternate,
-                                    size: 15.0,
-                                  ),
-                                  incrementIconBuilder: (enabled) => Icon(
-                                    Icons.keyboard_arrow_up_rounded,
-                                    color: enabled
-                                        ? Color(0xFFF06543)
-                                        : FlutterFlowTheme.of(context)
-                                            .alternate,
-                                    size: 15.0,
-                                  ),
-                                  countBuilder: (count) => Text(
-                                    count.toString(),
-                                    style: FlutterFlowTheme.of(context)
-                                        .titleLarge
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          fontSize: 13.0,
+                                width: 100.0,
+                                decoration: BoxDecoration(),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  child: Container(
+                                    width: 10.0,
+                                    child: TextFormField(
+                                      controller: _model.textController,
+                                      focusNode: _model.textFieldFocusNode,
+                                      autofocus: true,
+                                      obscureText: false,
+                                      decoration: InputDecoration(
+                                        labelText: 'Label here...',
+                                        labelStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        hintStyle: FlutterFlowTheme.of(context)
+                                            .labelMedium,
+                                        enabledBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .alternate,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
                                         ),
+                                        focusedBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        errorBorder: UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                        focusedErrorBorder:
+                                            UnderlineInputBorder(
+                                          borderSide: BorderSide(
+                                            color: FlutterFlowTheme.of(context)
+                                                .error,
+                                            width: 2.0,
+                                          ),
+                                          borderRadius:
+                                              BorderRadius.circular(8.0),
+                                        ),
+                                      ),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
+                                      keyboardType:
+                                          const TextInputType.numberWithOptions(
+                                              decimal: true),
+                                      validator: _model.textControllerValidator
+                                          .asValidator(context),
+                                    ),
                                   ),
-                                  count: _model.countControllerValue ??=
-                                      FFAppState().signUpRate.howMuch,
-                                  updateCount: (count) async {
-                                    setState(() =>
-                                        _model.countControllerValue = count);
-                                    setState(() {
-                                      FFAppState().updateSignUpRateStruct(
-                                        (e) => e
-                                          ..howMuch =
-                                              _model.countControllerValue,
-                                      );
-                                    });
-                                  },
-                                  stepSize: 1,
-                                  contentPadding:
-                                      EdgeInsetsDirectional.fromSTEB(
-                                          5.0, 0.0, 5.0, 0.0),
                                 ),
                               ),
                             ].divide(SizedBox(height: 6.0)),
@@ -416,13 +435,17 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                 controller: _model.dropDownValueController ??=
                                     FormFieldController<String>(
                                   _model.dropDownValue ??=
-                                      FFAppState().signUpRate.currency,
+                                      valueOrDefault<String>(
+                                    _model.userRate?.currency,
+                                    'EUR',
+                                  ),
                                 ),
-                                options: ['USD', 'EUR'],
+                                options: List<String>.from(['EUR', 'USD']),
+                                optionLabels: ['€', '\$'],
                                 onChanged: (val) async {
                                   setState(() => _model.dropDownValue = val);
                                   setState(() {
-                                    FFAppState().updateSignUpRateStruct(
+                                    _model.updateUserRateStruct(
                                       (e) => e..currency = _model.dropDownValue,
                                     );
                                   });
@@ -435,6 +458,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                       fontFamily: 'Lato',
                                       fontSize: 14.0,
                                     ),
+                                hintText: 'Choose Currency',
                                 icon: Icon(
                                   Icons.keyboard_arrow_down_rounded,
                                   color: Color(0xFF3D3D3D),
@@ -502,38 +526,82 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'I\'ll do it later',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF8A8A8A),
-                                  fontSize: 14.0,
-                                ),
-                          ),
-                          Container(
-                            width: 104.0,
-                            height: 36.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context).primary,
-                              borderRadius: BorderRadius.circular(1.0),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed('Rates_list');
+                            },
+                            child: Text(
+                              'I\'ll do it later',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF8A8A8A),
+                                    fontSize: 14.0,
+                                  ),
                             ),
-                            child: Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  'Save',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                      ),
-                                ),
-                              ],
+                          ),
+                          InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              if (_model.userRate?.name == '') {
+                                _model.createdUserRate =
+                                    await TaskerpageBackendGroup
+                                        .createUserRateCall
+                                        .call(
+                                  bodyJson: _model.userRate?.toMap(),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                if ((_model.createdUserRate?.succeeded ??
+                                    true)) {
+                                  context.pushNamed('Rates_list');
+                                }
+                              } else {
+                                _model.apiResultagj =
+                                    await TaskerpageBackendGroup
+                                        .updateUserRateCall
+                                        .call(
+                                  name: _model.userRate?.name,
+                                  bodyJson: _model.userRate?.toMap(),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                );
+                                if ((_model.apiResultagj?.succeeded ?? true)) {
+                                  context.pushNamed('Rates_list');
+                                }
+                              }
+
+                              setState(() {});
+                            },
+                            child: Container(
+                              width: 104.0,
+                              height: 36.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context).primary,
+                                borderRadius: BorderRadius.circular(1.0),
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    'Save',
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Colors.white,
+                                          fontSize: 14.0,
+                                        ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ),
                         ],

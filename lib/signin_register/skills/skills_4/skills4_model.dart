@@ -77,15 +77,15 @@ class Skills4Model extends FlutterFlowModel<Skills4Widget> {
   late HeaderModel headerModel;
   // Stores action output result for [Backend Call - API (Get Customer Profile Skills Details)] action in Container widget.
   ApiCallResponse? skillDetails;
-  // Stores action output result for [Backend Call - API (Update Customer Profile Skill Level)] action in Container widget.
-  ApiCallResponse? apiResultj09;
-  // Stores action output result for [Backend Call - API (Update Customer Profile Skill Level)] action in Container widget.
-  ApiCallResponse? apiResultj091;
   // Stores action output result for [Backend Call - API (Delete Skills)] action in Container widget.
   ApiCallResponse? deletedSkill;
   // Stores action output result for [Backend Call - API (Update Skills)] action in Container widget.
   ApiCallResponse? apiResultcsw;
   Completer<ApiCallResponse>? apiRequestCompleter;
+  // Stores action output result for [Backend Call - API (Update Customer Profile Skill Level)] action in Container widget.
+  ApiCallResponse? apiResultj09;
+  // Stores action output result for [Backend Call - API (Update Customer Profile Skill Level)] action in Container widget.
+  ApiCallResponse? apiResultj091;
   // Model for Main_Drawer component.
   late MainDrawerModel mainDrawerModel;
 

@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/tasker_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'start_chat_on_tasker_widget.dart' show StartChatOnTaskerWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';

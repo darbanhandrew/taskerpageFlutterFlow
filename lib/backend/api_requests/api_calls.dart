@@ -174,7 +174,7 @@ class TaskerpageBackendGroup {
   static UpdateIdentificationCall updateIdentificationCall =
       UpdateIdentificationCall();
   static ChatListCall chatListCall = ChatListCall();
-  static ChatsRoomCall chatsRoomCall = ChatsRoomCall();
+  static ChatRoomMessagesCall chatRoomMessagesCall = ChatRoomMessagesCall();
   static ChatsRoomCopyCall chatsRoomCopyCall = ChatsRoomCopyCall();
   static MarkAsReadCall markAsReadCall = MarkAsReadCall();
   static SendMessageCall sendMessageCall = SendMessageCall();
@@ -213,6 +213,20 @@ class TaskerpageBackendGroup {
       CreateIdentificationCall();
   static GetIdentificationDetailsCall getIdentificationDetailsCall =
       GetIdentificationDetailsCall();
+  static ListUserIdentificationCall listUserIdentificationCall =
+      ListUserIdentificationCall();
+  static GetUserRateDetailsCall getUserRateDetailsCall =
+      GetUserRateDetailsCall();
+  static CreateUserRateCall createUserRateCall = CreateUserRateCall();
+  static UpdateUserRateCall updateUserRateCall = UpdateUserRateCall();
+  static UpdateRoleCall updateRoleCall = UpdateRoleCall();
+  static GetUserRateListCall getUserRateListCall = GetUserRateListCall();
+  static UserBadgesCall userBadgesCall = UserBadgesCall();
+  static GetChatRoomDetailsCall getChatRoomDetailsCall =
+      GetChatRoomDetailsCall();
+  static GetPossibleTransitionsCall getPossibleTransitionsCall =
+      GetPossibleTransitionsCall();
+  static ProcessActionCall processActionCall = ProcessActionCall();
 }
 
 class RegisterCall {
@@ -4427,6 +4441,7 @@ class CustomerProfileListCall {
     String? filters = '',
     String? fields = '',
     String? orderBy = '',
+    String? orFilters = '',
     String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
   }) async {
     return ApiManager.instance.makeApiCall(
@@ -6046,9 +6061,29 @@ class ChatListCall {
         r'''$.message[:].type''',
         true,
       );
+  dynamic customerTasks(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].customer_task''',
+        true,
+      );
+  dynamic catBots(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].chat_bot''',
+        true,
+      );
+  dynamic oppositePersionEmail(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].opposite_person_email''',
+        true,
+      );
+  dynamic chatListJson(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      );
 }
 
-class ChatsRoomCall {
+class ChatRoomMessagesCall {
   Future<ApiCallResponse> call({
     String? room = '',
     String? email = '',
@@ -6058,7 +6093,7 @@ class ChatsRoomCall {
     String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
   }) async {
     return ApiManager.instance.makeApiCall(
-      callName: 'chats room',
+      callName: 'Chat Room Messages',
       apiUrl:
           '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.message.get_all',
       callType: ApiCallType.POST,
@@ -6098,6 +6133,11 @@ class ChatsRoomCall {
   dynamic senderemail(dynamic response) => getJsonField(
         response,
         r'''$.message[:].sender_email''',
+        true,
+      );
+  dynamic chatMessagesJson(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
         true,
       );
 }
@@ -7053,7 +7093,7 @@ ${body}''';
     return ApiManager.instance.makeApiCall(
       callName: 'Create Identification',
       apiUrl:
-          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Identification/',
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Identification',
       callType: ApiCallType.POST,
       headers: {
         'Authorization': '${apiGlobalKey}',
@@ -7099,6 +7139,503 @@ class GetIdentificationDetailsCall {
         response,
         r'''$.data''',
       );
+}
+
+class ListUserIdentificationCall {
+  Future<ApiCallResponse> call({
+    String? filters = '',
+    String? fields = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'List User Identification',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Identification',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': filters,
+        'fields': fields,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic userIdentifications(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      );
+}
+
+class GetUserRateDetailsCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get User Rate Details',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Rate/${name}',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic skillCategories(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skill_categories''',
+        true,
+      );
+  dynamic customerProfileUser(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_profile_user''',
+      );
+  dynamic customerProfile(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_profile''',
+      );
+  dynamic currency(dynamic response) => getJsonField(
+        response,
+        r'''$.data.currency''',
+      );
+  dynamic amount(dynamic response) => getJsonField(
+        response,
+        r'''$.data.amount''',
+      );
+  dynamic label(dynamic response) => getJsonField(
+        response,
+        r'''$.data.label''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.data.name''',
+      );
+  dynamic userRateJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  dynamic skillCategoryNamesList(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skill_categories[:].skill_category''',
+        true,
+      );
+}
+
+class CreateUserRateCall {
+  Future<ApiCallResponse> call({
+    dynamic? bodyJson,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    final body = _serializeJson(bodyJson);
+    final ffApiRequestBody = '''
+${body}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Create User Rate',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User Rate',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic skillCategories(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skill_categories''',
+        true,
+      );
+  dynamic customerProfileUser(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_profile_user''',
+      );
+  dynamic customerProfile(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_profile''',
+      );
+  dynamic currency(dynamic response) => getJsonField(
+        response,
+        r'''$.data.currency''',
+      );
+  dynamic amount(dynamic response) => getJsonField(
+        response,
+        r'''$.data.amount''',
+      );
+  dynamic label(dynamic response) => getJsonField(
+        response,
+        r'''$.data.label''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.data.name''',
+      );
+  dynamic userRateJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  dynamic skillCategoryNamesList(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skill_categories[:].skill_category''',
+        true,
+      );
+}
+
+class UpdateUserRateCall {
+  Future<ApiCallResponse> call({
+    String? name = '',
+    dynamic? bodyJson,
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    final body = _serializeJson(bodyJson);
+    final ffApiRequestBody = '''
+${body}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Update User Rate ',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/User Rate/${name}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic skillCategories(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skill_categories''',
+        true,
+      );
+  dynamic customerProfileUser(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_profile_user''',
+      );
+  dynamic customerProfile(dynamic response) => getJsonField(
+        response,
+        r'''$.data.customer_profile''',
+      );
+  dynamic currency(dynamic response) => getJsonField(
+        response,
+        r'''$.data.currency''',
+      );
+  dynamic amount(dynamic response) => getJsonField(
+        response,
+        r'''$.data.amount''',
+      );
+  dynamic label(dynamic response) => getJsonField(
+        response,
+        r'''$.data.label''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.data.name''',
+      );
+  dynamic userRateJson(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+      );
+  dynamic skillCategoryNamesList(dynamic response) => getJsonField(
+        response,
+        r'''$.data.skill_categories[:].skill_category''',
+        true,
+      );
+}
+
+class UpdateRoleCall {
+  Future<ApiCallResponse> call({
+    String? id = '',
+    String? roleProfileName = '',
+    String? role = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    final ffApiRequestBody = '''
+{
+  "role": "${role}",
+  "role_profile_name": "${roleProfileName}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'updateRole',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/resource/Customer Profile/${id}',
+      callType: ApiCallType.PUT,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetUserRateListCall {
+  Future<ApiCallResponse> call({
+    String? filters = '',
+    String? fields = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get User Rate List',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/User Rate',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'filters': filters,
+        'fields': fields,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic userRateJsonList(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      );
+  dynamic userRateNamesList(dynamic response) => getJsonField(
+        response,
+        r'''$.data[:].name''',
+        true,
+      );
+}
+
+class UserBadgesCall {
+  Future<ApiCallResponse> call({
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'user badges',
+      apiUrl: '${TaskerpageBackendGroup.baseUrl}/api/resource/App Badges',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {},
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+}
+
+class GetChatRoomDetailsCall {
+  Future<ApiCallResponse> call({
+    String? roomName = '',
+    String? email = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Chat Room Details',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/chat.api.room.get_room_by_name',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'room_name': roomName,
+        'email': email,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic chatRoomJson(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.message.name''',
+      );
+  dynamic owner(dynamic response) => getJsonField(
+        response,
+        r'''$.message.owner''',
+      );
+  dynamic creation(dynamic response) => getJsonField(
+        response,
+        r'''$.message.creation''',
+      );
+  dynamic modified(dynamic response) => getJsonField(
+        response,
+        r'''$.message.modified''',
+      );
+  dynamic modifiedBy(dynamic response) => getJsonField(
+        response,
+        r'''$.message.modified_by''',
+      );
+  dynamic docstatus(dynamic response) => getJsonField(
+        response,
+        r'''$.message.docstatus''',
+      );
+  dynamic idx(dynamic response) => getJsonField(
+        response,
+        r'''$.message.idx''',
+      );
+  dynamic roomName(dynamic response) => getJsonField(
+        response,
+        r'''$.message.room_name''',
+      );
+  dynamic type(dynamic response) => getJsonField(
+        response,
+        r'''$.message.type''',
+      );
+  dynamic members(dynamic response) => getJsonField(
+        response,
+        r'''$.message.members''',
+      );
+  dynamic isRead(dynamic response) => getJsonField(
+        response,
+        r'''$.message.is_read''',
+      );
+  dynamic customerTask(dynamic response) => getJsonField(
+        response,
+        r'''$.message.customer_task''',
+      );
+  dynamic doctype(dynamic response) => getJsonField(
+        response,
+        r'''$.message.doctype''',
+      );
+  dynamic users(dynamic response) => getJsonField(
+        response,
+        r'''$.message.users''',
+        true,
+      );
+  dynamic oppositePersonEmail(dynamic response) => getJsonField(
+        response,
+        r'''$.message.opposite_person_email''',
+      );
+  dynamic oppositePersonAvatar(dynamic response) => getJsonField(
+        response,
+        r'''$.message.opposite_person_avatar''',
+      );
+  dynamic oppositePersonCustomerProfile(dynamic response) => getJsonField(
+        response,
+        r'''$.message.opposite_person_customer_profile''',
+      );
+}
+
+class GetPossibleTransitionsCall {
+  Future<ApiCallResponse> call({
+    String? currentState = '',
+    String? doctype = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Possible Transitions',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.util.get_possible_transitions',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'current_state': currentState,
+        'doctype': doctype,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic actionsJson(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+        true,
+      );
+  dynamic actionsState(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].state''',
+        true,
+      );
+  dynamic actionsAllowedRoles(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].allowed''',
+        true,
+      );
+  dynamic actionsNextState(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].next_state''',
+        true,
+      );
+  dynamic action(dynamic response) => getJsonField(
+        response,
+        r'''$.message[:].action''',
+        true,
+      );
+}
+
+class ProcessActionCall {
+  Future<ApiCallResponse> call({
+    String? doctype = '',
+    String? docname = '',
+    String? action = '',
+    String? refrenceDoctype = '',
+    String? refrenceDocname = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Process Action',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.workflow.process_action',
+      callType: ApiCallType.POST,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'doctype': doctype,
+        'docname': docname,
+        'action': action,
+        'refrence_doctype': refrenceDoctype,
+        'refrence_docname': refrenceDocname,
+      },
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
 }
 
 /// End Taskerpage Backend Group Code

@@ -1,3 +1,4 @@
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,15 @@ import 'rate_card_model.dart';
 export 'rate_card_model.dart';
 
 class RateCardWidget extends StatefulWidget {
-  const RateCardWidget({Key? key}) : super(key: key);
+  const RateCardWidget({
+    Key? key,
+    required this.userRate,
+    int? indexInList,
+  })  : this.indexInList = indexInList ?? 0,
+        super(key: key);
+
+  final UserRateStruct? userRate;
+  final int indexInList;
 
   @override
   _RateCardWidgetState createState() => _RateCardWidgetState();
@@ -83,7 +92,7 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '1',
+                            widget.indexInList.toString(),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -108,7 +117,7 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            '24 €     per hour',
+                            '${widget.userRate?.amount?.toString()} ${widget.userRate?.currency} per hour',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -125,10 +134,27 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                  child: FaIcon(
-                    FontAwesomeIcons.solidEdit,
-                    color: Color(0xFF8A8A8A),
-                    size: 19.0,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      context.pushNamed(
+                        'RateSignUp',
+                        pathParameters: {
+                          'name': serializeParam(
+                            widget.userRate?.name,
+                            ParamType.String,
+                          ),
+                        }.withoutNulls,
+                      );
+                    },
+                    child: FaIcon(
+                      FontAwesomeIcons.solidEdit,
+                      color: Color(0xFF8A8A8A),
+                      size: 19.0,
+                    ),
                   ),
                 ),
               ],
@@ -157,38 +183,47 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        height: 22.0,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFD4D4D4),
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              8.0, 0.0, 15.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Therapy-Nursing',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF494949),
-                                      fontSize: 13.0,
-                                      fontWeight: FontWeight.w500,
-                                    ),
+                  child: Builder(
+                    builder: (context) {
+                      final skillCategories =
+                          widget.userRate?.skillCategories?.toList() ?? [];
+                      return Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: List.generate(skillCategories.length,
+                            (skillCategoriesIndex) {
+                          final skillCategoriesItem =
+                              skillCategories[skillCategoriesIndex];
+                          return Container(
+                            height: 22.0,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFD4D4D4),
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 15.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    skillCategoriesItem.skillCategoryName,
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF494949),
+                                          fontSize: 13.0,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ].divide(SizedBox(width: 9.0)),
+                            ),
+                          );
+                        }).divide(SizedBox(width: 9.0)),
+                      );
+                    },
                   ),
                 ),
               ],

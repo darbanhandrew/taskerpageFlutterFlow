@@ -464,7 +464,7 @@ class _Id3WidgetState extends State<Id3Widget> {
                                           transitionOnUserGestures: true,
                                           child: ClipRRect(
                                             borderRadius:
-                                                BorderRadius.circular(8.0),
+                                                BorderRadius.circular(2.0),
                                             child: CachedNetworkImage(
                                               fadeInDuration:
                                                   Duration(milliseconds: 500),

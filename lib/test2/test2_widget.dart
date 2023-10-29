@@ -1,6 +1,8 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -10,7 +12,16 @@ import 'test2_model.dart';
 export 'test2_model.dart';
 
 class Test2Widget extends StatefulWidget {
-  const Test2Widget({Key? key}) : super(key: key);
+  const Test2Widget({
+    Key? key,
+    int? task,
+    String? user,
+  })  : this.task = task ?? 0,
+        this.user = user ?? 'emad123@yahoo.com',
+        super(key: key);
+
+  final int task;
+  final String user;
 
   @override
   _Test2WidgetState createState() => _Test2WidgetState();
@@ -58,12 +69,56 @@ class _Test2WidgetState extends State<Test2Widget> {
         backgroundColor: Color(0x00FFFFFF),
         body: SafeArea(
           top: true,
-          child: Container(
-            width: double.infinity,
-            height: double.infinity,
-            decoration: BoxDecoration(
-              color: FlutterFlowTheme.of(context).secondaryBackground,
+          child: FutureBuilder<ApiCallResponse>(
+            future: TaskerpageBackendGroup.chatListCall.call(
+              user: widget.user,
+              task: widget.task,
+              apiGlobalKey: FFAppState().apiKey,
             ),
+            builder: (context, snapshot) {
+              // Customize what your widget looks like when it's loading.
+              if (!snapshot.hasData) {
+                return Center(
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: SpinKitThreeBounce(
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 50.0,
+                    ),
+                  ),
+                );
+              }
+              final listViewChatListResponse = snapshot.data!;
+              return Builder(
+                builder: (context) {
+                  final chatRooms = TaskerpageBackendGroup.chatListCall
+                          .chatListJson(
+                            listViewChatListResponse.jsonBody,
+                          )
+                          ?.toList() ??
+                      [];
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    itemCount: chatRooms.length,
+                    itemBuilder: (context, chatRoomsIndex) {
+                      final chatRoomsItem = chatRooms[chatRoomsIndex];
+                      return Text(
+                        valueOrDefault<String>(
+                          (chatRoomsItem != null && chatRoomsItem != ''
+                                  ? ChatRoomStruct.fromMap(chatRoomsItem)
+                                  : null)
+                              ?.room,
+                          '000',
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                      );
+                    },
+                  );
+                },
+              );
+            },
           ),
         ),
       ),

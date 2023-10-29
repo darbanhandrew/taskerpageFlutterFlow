@@ -1,9 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
-import '/flutter_flow/flutter_flow_radio_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -153,7 +151,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
         ),
       ],
     ),
-    'dividerOnPageLoadAnimation1': AnimationInfo(
+    'dividerOnPageLoadAnimation': AnimationInfo(
       trigger: AnimationTrigger.onPageLoad,
       applyInitialState: true,
       effects: [
@@ -166,33 +164,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
         ),
       ],
     ),
-    'dividerOnActionTriggerAnimation1': AnimationInfo(
-      trigger: AnimationTrigger.onActionTrigger,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 450.ms,
-          begin: Offset(0.0, -5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'dividerOnPageLoadAnimation2': AnimationInfo(
-      trigger: AnimationTrigger.onPageLoad,
-      applyInitialState: true,
-      effects: [
-        MoveEffect(
-          curve: Curves.easeInOut,
-          delay: 0.ms,
-          duration: 450.ms,
-          begin: Offset(0.0, -5.0),
-          end: Offset(0.0, 0.0),
-        ),
-      ],
-    ),
-    'dividerOnActionTriggerAnimation2': AnimationInfo(
+    'dividerOnActionTriggerAnimation': AnimationInfo(
       trigger: AnimationTrigger.onActionTrigger,
       applyInitialState: true,
       effects: [
@@ -243,14 +215,24 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
       color: Colors.transparent,
       elevation: 5.0,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(2.0),
+          bottomRight: Radius.circular(2.0),
+          topLeft: Radius.circular(8.0),
+          topRight: Radius.circular(8.0),
+        ),
       ),
       child: Container(
         width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.95,
+        height: MediaQuery.sizeOf(context).height * 0.85,
         decoration: BoxDecoration(
           color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.circular(2.0),
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(2.0),
+            bottomRight: Radius.circular(2.0),
+            topLeft: Radius.circular(8.0),
+            topRight: Radius.circular(8.0),
+          ),
         ),
         child: FutureBuilder<ApiCallResponse>(
           future: TaskerpageBackendGroup.postReadCall.call(
@@ -361,33 +343,81 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              26.0, 10.0, 32.0, 0.0),
+                              32.0, 10.0, 32.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              FlutterFlowRadioButton(
-                                options:
-                                    ['Online', 'By Phone', 'On-Site'].toList(),
-                                onChanged: (val) => setState(() {}),
-                                controller:
-                                    _model.radioButtonValueController ??=
-                                        FormFieldController<String>(null),
-                                optionHeight: 32.0,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF212121),
-                                      fontWeight: FontWeight.w500,
-                                    ),
-                                buttonPosition: RadioButtonPosition.left,
-                                direction: Axis.vertical,
-                                radioButtonColor:
-                                    FlutterFlowTheme.of(context).primary,
-                                inactiveRadioButtonColor: Color(0xFF3D3D3D),
-                                toggleable: false,
-                                horizontalAlignment: WrapAlignment.start,
-                                verticalAlignment: WrapCrossAlignment.start,
+                              Expanded(
+                                child: Builder(
+                                  builder: (context) {
+                                    final appointmentType =
+                                        FFAppState().appointmentType.toList();
+                                    return GridView.builder(
+                                      padding: EdgeInsets.zero,
+                                      gridDelegate:
+                                          SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount: 2,
+                                        crossAxisSpacing: 12.0,
+                                        mainAxisSpacing: 6.0,
+                                        childAspectRatio: 5.0,
+                                      ),
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: appointmentType.length,
+                                      itemBuilder:
+                                          (context, appointmentTypeIndex) {
+                                        final appointmentTypeItem =
+                                            appointmentType[
+                                                appointmentTypeIndex];
+                                        return Container(
+                                          width: 100.0,
+                                          height: 100.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            borderRadius:
+                                                BorderRadius.circular(2.0),
+                                            border: Border.all(
+                                              color: appointmentTypeItem ==
+                                                      _model.type
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                            ),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                appointmentTypeItem,
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .bodyMedium
+                                                    .override(
+                                                      fontFamily: 'Lato',
+                                                      color: appointmentTypeItem ==
+                                                              _model.type
+                                                          ? FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary
+                                                          : FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                      fontSize: 13.0,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                    ),
+                                              ),
+                                            ],
+                                          ),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
                               ),
                             ],
                           ),
@@ -399,12 +429,12 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                           endIndent: 32.0,
                           color: Color(0xD0ACABAB),
                         ),
-                        if ((_model.radioButtonValue == 'On-Site') &&
+                        if ((_model.type == 'On-Site') &&
                             (functions.jsonToString(getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.data.role''',
-                                )) ==
-                                'Poster'))
+                                )) !=
+                                'Tasker'))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 32.0, 0.0, 32.0, 0.0),
@@ -431,7 +461,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                       'rowOnActionTriggerAnimation1']!,
                                 ),
                           ),
-                        if ((_model.radioButtonValue == 'On-Site') &&
+                        if ((_model.type == 'On-Site') &&
                             (functions.jsonToString(getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.data.role''',
@@ -713,7 +743,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                               },
                             ),
                           ),
-                        if ((_model.radioButtonValue == 'On-Site') &&
+                        if ((_model.type == 'On-Site') &&
                             (functions.jsonToString(getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.data.role''',
@@ -803,7 +833,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                       'rowOnActionTriggerAnimation2']!,
                                 ),
                           ),
-                        if ((_model.radioButtonValue == 'On-Site') &&
+                        if ((_model.type == 'On-Site') &&
                             (functions.jsonToString(getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.data.role''',
@@ -835,7 +865,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                       'rowOnActionTriggerAnimation3']!,
                                 ),
                           ),
-                        if ((_model.radioButtonValue == 'On-Site') &&
+                        if ((_model.type == 'On-Site') &&
                             (functions.jsonToString(getJsonField(
                                   FFAppState().userProfile,
                                   r'''$.data.role''',
@@ -872,7 +902,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                       'rowOnActionTriggerAnimation4']!,
                                 ),
                           ),
-                        if (_model.radioButtonValue == 'On-Site')
+                        if (_model.type == 'On-Site')
                           Divider(
                             height: 40.0,
                             thickness: 1.0,
@@ -881,10 +911,10 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                             color: Color(0xD0ACABAB),
                           )
                               .animateOnPageLoad(
-                                  animationsMap['dividerOnPageLoadAnimation1']!)
+                                  animationsMap['dividerOnPageLoadAnimation']!)
                               .animateOnActionTrigger(
                                 animationsMap[
-                                    'dividerOnActionTriggerAnimation1']!,
+                                    'dividerOnActionTriggerAnimation']!,
                               ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
@@ -989,22 +1019,9 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                             ],
                           ),
                         ),
-                        Divider(
-                          height: 40.0,
-                          thickness: 1.0,
-                          indent: 32.0,
-                          endIndent: 32.0,
-                          color: Color(0xD0ACABAB),
-                        )
-                            .animateOnPageLoad(
-                                animationsMap['dividerOnPageLoadAnimation2']!)
-                            .animateOnActionTrigger(
-                              animationsMap[
-                                  'dividerOnActionTriggerAnimation2']!,
-                            ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              32.0, 0.0, 32.0, 0.0),
+                              32.0, 10.0, 32.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
@@ -1238,7 +1255,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                           var _shouldSetState = false;
                           if ((_model.selectedLatitude == 0.0) &&
                               (_model.selectedLongitude == 0.0) &&
-                              (_model.radioButtonValue == 'On-Site')) {
+                              (_model.type == 'On-Site')) {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
@@ -1262,7 +1279,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   await TaskerpageBackendGroup
                                       .createAppointmentCall
                                       .call(
-                                appointmentType: _model.radioButtonValue,
+                                appointmentType: _model.type,
                                 meetingLink: '',
                                 appointmentLocationLat:
                                     _model.selectedLatitude.toString(),
@@ -1326,7 +1343,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                   await TaskerpageBackendGroup
                                       .createAppointmentCall
                                       .call(
-                                appointmentType: _model.radioButtonValue,
+                                appointmentType: _model.type,
                                 meetingLink: '',
                                 appointmentLocationLat: getJsonField(
                                   columnPostReadResponse.jsonBody,

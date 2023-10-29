@@ -63,7 +63,6 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
       speed: 400,
       front: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
-        height: 210.0,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -71,6 +70,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
               blurRadius: 4.0,
               color: Color(0x33000000),
               offset: Offset(0.0, 2.0),
+              spreadRadius: 2.0,
             )
           ],
           borderRadius: BorderRadius.circular(0.0),
@@ -122,16 +122,20 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             children: [
-                              Container(
-                                width: 30.0,
-                                height: 30.0,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  '${FFAppState().baseUrl}${widget.userService?.icon}',
-                                  fit: BoxFit.none,
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    12.0, 0.0, 0.0, 0.0),
+                                child: Container(
+                                  width: 30.0,
+                                  height: 30.0,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    '${FFAppState().baseUrl}${widget.userService?.icon}',
+                                    fit: BoxFit.none,
+                                  ),
                                 ),
                               ),
                               Column(
@@ -140,7 +144,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        10.0, 0.0, 0.0, 0.0),
+                                        9.2, 0.0, 0.0, 0.0),
                                     child: Text(
                                       valueOrDefault<String>(
                                         widget.userService?.skillCategoryName,
@@ -162,16 +166,15 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                               Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 8.0, 0.0),
+                                      0.0, 0.0, 16.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
                                       Icon(
                                         Icons.edit,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 18.0,
+                                        color: Color(0xFFC5C5C5),
+                                        size: 16.0,
                                       ),
                                     ],
                                   ),
@@ -187,7 +190,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 3.0, 10.0, 12.0),
+                              10.0, 3.0, 16.0, 12.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -204,57 +207,59 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
-                                child: Builder(
-                                  builder: (context) {
-                                    final skills =
-                                        widget.userService?.skills?.toList() ??
-                                            [];
-                                    return Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: List.generate(skills.length,
-                                          (skillsIndex) {
-                                        final skillsItem = skills[skillsIndex];
-                                        return Container(
-                                          decoration: BoxDecoration(
-                                            color: Color(0xFFD4D4D4),
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                          ),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    5.0, 3.0, 10.0, 3.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  skillsItem.skillName,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        fontSize: 13.0,
-                                                        fontWeight:
-                                                            FontWeight.normal,
-                                                      ),
-                                                ),
-                                              ],
+                              Flexible(
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      13.0, 0.0, 0.0, 0.0),
+                                  child: Builder(
+                                    builder: (context) {
+                                      final skills = widget.userService?.skills
+                                              ?.toList() ??
+                                          [];
+                                      return Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: List.generate(skills.length,
+                                            (skillsIndex) {
+                                          final skillsItem =
+                                              skills[skillsIndex];
+                                          return Container(
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFD4D4D4),
+                                              borderRadius:
+                                                  BorderRadius.circular(2.0),
                                             ),
-                                          ),
-                                        );
-                                      }).divide(SizedBox(width: 8.0)),
-                                    );
-                                  },
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      5.0, 3.0, 10.0, 3.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    skillsItem.skillName,
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .alternate,
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          );
+                                        }).divide(SizedBox(width: 8.0)),
+                                      );
+                                    },
+                                  ),
                                 ),
                               ),
                             ],
@@ -262,7 +267,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              10.0, 0.0, 0.0, 0.0),
+                              10.0, 0.0, 16.0, 0.0),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.start,
@@ -281,7 +286,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                               ),
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 0.0, 0.0, 0.0),
+                                    13.0, 0.0, 0.0, 0.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -328,169 +333,178 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                             ],
                           ),
                         ),
-                        Builder(
-                          builder: (context) {
-                            final option = widget
-                                    .userService?.customerSkillOptions
-                                    ?.toList() ??
-                                [];
-                            return ListView.separated(
-                              padding: EdgeInsets.zero,
-                              shrinkWrap: true,
-                              scrollDirection: Axis.vertical,
-                              itemCount: option.length,
-                              separatorBuilder: (_, __) =>
-                                  SizedBox(height: 8.0),
-                              itemBuilder: (context, optionIndex) {
-                                final optionItem = option[optionIndex];
-                                return Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 20.0, 0.0, 0.0),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${optionItem.optionName}:',
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: 'Lato',
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .alternate,
-                                              fontSize: 14.0,
-                                              fontWeight: FontWeight.w500,
-                                            ),
-                                      ),
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            20.0, 0.0, 0.0, 0.0),
-                                        child: Builder(
-                                          builder: (context) {
-                                            final values = functions
-                                                    .convertStringtoListOfString(
-                                                        optionItem.values)
-                                                    ?.toList() ??
-                                                [];
-                                            return Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: List.generate(
-                                                  values.length, (valuesIndex) {
-                                                final valuesItem =
-                                                    values[valuesIndex];
-                                                return Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    if (!(valueOrDefault<bool>(
-                                                          valuesItem == 'true',
-                                                          false,
-                                                        ) ||
-                                                        valueOrDefault<bool>(
-                                                          valuesItem == 'false',
-                                                          false,
-                                                        )))
-                                                      Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color:
-                                                              Color(0xFFD4D4D4),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      2.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      5.0,
-                                                                      3.0,
-                                                                      10.0,
-                                                                      3.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                valuesItem,
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .alternate,
-                                                                      fontSize:
-                                                                          13.0,
-                                                                      fontWeight:
-                                                                          FontWeight
-                                                                              .normal,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    if (valueOrDefault<bool>(
-                                                          valuesItem == 'true',
-                                                          false,
-                                                        ) ||
-                                                        valueOrDefault<bool>(
-                                                          valuesItem == 'false',
-                                                          false,
-                                                        ))
-                                                      wrapWithModel(
-                                                        model: _model
-                                                            .checkboxModels
-                                                            .getModel(
-                                                          '${optionItem.name}-${valuesItem}',
-                                                          valuesIndex,
-                                                        ),
-                                                        updateCallback: () =>
-                                                            setState(() {}),
-                                                        child: CheckboxWidget(
-                                                          key: Key(
-                                                            'Keyv4e_${'${optionItem.name}-${valuesItem}'}',
-                                                          ),
-                                                          selected:
-                                                              valuesItem ==
-                                                                  'true',
-                                                          trueIcon: Icon(
-                                                            Icons.done_rounded,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                          ),
-                                                          falsIcon: Icon(
-                                                            Icons.close_rounded,
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .alternate,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                  ],
-                                                );
-                                              }).divide(SizedBox(width: 8.0)),
-                                            );
-                                          },
+                        if (false)
+                          Builder(
+                            builder: (context) {
+                              final option = widget
+                                      .userService?.customerSkillOptions
+                                      ?.toList() ??
+                                  [];
+                              return ListView.separated(
+                                padding: EdgeInsets.zero,
+                                shrinkWrap: true,
+                                scrollDirection: Axis.vertical,
+                                itemCount: option.length,
+                                separatorBuilder: (_, __) =>
+                                    SizedBox(height: 8.0),
+                                itemBuilder: (context, optionIndex) {
+                                  final optionItem = option[optionIndex];
+                                  return Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10.0, 20.0, 0.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          '${optionItem.optionName}:',
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                fontSize: 14.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  20.0, 0.0, 0.0, 0.0),
+                                          child: Builder(
+                                            builder: (context) {
+                                              final values = functions
+                                                      .convertStringtoListOfString(
+                                                          optionItem.values)
+                                                      ?.toList() ??
+                                                  [];
+                                              return Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children:
+                                                    List.generate(values.length,
+                                                        (valuesIndex) {
+                                                  final valuesItem =
+                                                      values[valuesIndex];
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      if (!(valueOrDefault<
+                                                              bool>(
+                                                            valuesItem ==
+                                                                'true',
+                                                            false,
+                                                          ) ||
+                                                          valueOrDefault<bool>(
+                                                            valuesItem ==
+                                                                'false',
+                                                            false,
+                                                          )))
+                                                        Container(
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: Color(
+                                                                0xFFD4D4D4),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        2.0),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        5.0,
+                                                                        3.0,
+                                                                        10.0,
+                                                                        3.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Text(
+                                                                  valuesItem,
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        fontFamily:
+                                                                            'Lato',
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .alternate,
+                                                                        fontSize:
+                                                                            13.0,
+                                                                        fontWeight:
+                                                                            FontWeight.normal,
+                                                                      ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      if (valueOrDefault<bool>(
+                                                            valuesItem ==
+                                                                'true',
+                                                            false,
+                                                          ) ||
+                                                          valueOrDefault<bool>(
+                                                            valuesItem ==
+                                                                'false',
+                                                            false,
+                                                          ))
+                                                        wrapWithModel(
+                                                          model: _model
+                                                              .checkboxModels
+                                                              .getModel(
+                                                            '${optionItem.name}-${valuesItem}',
+                                                            valuesIndex,
+                                                          ),
+                                                          updateCallback: () =>
+                                                              setState(() {}),
+                                                          child: CheckboxWidget(
+                                                            key: Key(
+                                                              'Keyv4e_${'${optionItem.name}-${valuesItem}'}',
+                                                            ),
+                                                            selected:
+                                                                valuesItem ==
+                                                                    'true',
+                                                            trueIcon: Icon(
+                                                              Icons
+                                                                  .done_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primary,
+                                                            ),
+                                                            falsIcon: Icon(
+                                                              Icons
+                                                                  .close_rounded,
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .alternate,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  );
+                                                }).divide(SizedBox(width: 8.0)),
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                },
+                              );
+                            },
+                          ),
                       ],
                     ),
                   ),
@@ -502,7 +516,6 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
       ),
       back: Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
-        height: 210.0,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -510,6 +523,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
               blurRadius: 4.0,
               color: Color(0x33000000),
               offset: Offset(0.0, 2.0),
+              spreadRadius: 2.0,
             )
           ],
           borderRadius: BorderRadius.circular(0.0),
@@ -524,56 +538,54 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        var _shouldSetState = false;
-                        _model.apiResult8x8 =
-                            await TaskerpageBackendGroup.skillDeletCall.call(
-                          id: widget.userService?.name?.toString(),
-                          apiGlobalKey: FFAppState().apiKey,
-                        );
-                        _shouldSetState = true;
-                        if ((_model.apiResult8x8?.succeeded ?? true)) {
-                          await widget.action?.call();
-                        } else {
-                          if (_shouldSetState) setState(() {});
-                          return;
-                        }
-
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      var _shouldSetState = false;
+                      _model.apiResult8x8 =
+                          await TaskerpageBackendGroup.skillDeletCall.call(
+                        id: widget.userService?.name?.toString(),
+                        apiGlobalKey: FFAppState().apiKey,
+                      );
+                      _shouldSetState = true;
+                      if ((_model.apiResult8x8?.succeeded ?? true)) {
+                        await widget.action?.call();
+                      } else {
                         if (_shouldSetState) setState(() {});
-                      },
-                      child: Container(
-                        width: 104.0,
-                        height: 36.0,
-                        decoration: BoxDecoration(
-                          color: Color(0x00FFFFFF),
-                          borderRadius: BorderRadius.circular(2.0),
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).primary,
+                        return;
+                      }
+
+                      if (_shouldSetState) setState(() {});
+                    },
+                    child: Container(
+                      width: 104.0,
+                      height: 36.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(2.0),
+                        border: Border.all(
+                          color: FlutterFlowTheme.of(context).primary,
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Delete',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Lato',
+                                  color: Colors.white,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
                           ),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Delete',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
                   ),

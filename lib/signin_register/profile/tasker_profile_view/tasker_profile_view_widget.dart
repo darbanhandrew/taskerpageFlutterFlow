@@ -234,7 +234,7 @@ class _TaskerProfileViewWidgetState extends State<TaskerProfileViewWidget>
                                                         .jsonBody,
                                                     r'''$.data.avatar''',
                                                   ).toString()}'
-                                                : 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Windows_10_Default_Profile_Picture.svg',
+                                                : '${FFAppState().baseUrl}/files/Group 2177.png',
                                             fit: BoxFit.cover,
                                           ),
                                         ),

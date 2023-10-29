@@ -398,13 +398,13 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                               },
                               defaultText: 'Select Location',
                               icon: Icon(
-                                Icons.place,
+                                Icons.place_outlined,
                                 color: Color(0xFF212121),
                                 size: 18.0,
                               ),
                               buttonOptions: FFButtonOptions(
                                 width: 200.0,
-                                height: 41.0,
+                                height: 36.0,
                                 color: Colors.white,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
@@ -431,110 +431,234 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (!functions.isLatLngNullIsland(
-                                  _model.placePickerValue.latLng)) {
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
                                 setState(() {
-                                  FFAppState().showAddress = false;
+                                  _model.mapORno = 1;
                                 });
-                                setState(() {
-                                  _model.postalCodeController?.text =
-                                      _model.placePickerValue.zipCode;
-                                });
-                                setState(() {
-                                  _model.cityController?.text =
-                                      _model.placePickerValue.city;
-                                });
-                                setState(() {
-                                  _model.stateController?.text =
-                                      _model.placePickerValue.state;
-                                });
-                                setState(() {
-                                  _model.countryController?.text =
-                                      _model.placePickerValue.country;
-                                });
-                                setState(() {
-                                  _model.streetController?.text =
-                                      _model.placePickerValue.address;
-                                });
-                                await showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  backgroundColor: Colors.transparent,
-                                  enableDrag: false,
-                                  context: context,
-                                  builder: (context) {
-                                    return GestureDetector(
-                                      onTap: () => _model
-                                              .unfocusNode.canRequestFocus
-                                          ? FocusScope.of(context)
-                                              .requestFocus(_model.unfocusNode)
-                                          : FocusScope.of(context).unfocus(),
-                                      child: Padding(
-                                        padding:
-                                            MediaQuery.viewInsetsOf(context),
-                                        child: PrivacyPolicyWidget(
-                                          latLong:
-                                              _model.placePickerValue.latLng,
+                                if (!functions.isLatLngNullIsland(
+                                    _model.placePickerValue.latLng)) {
+                                  setState(() {
+                                    FFAppState().showAddress = false;
+                                  });
+                                  setState(() {
+                                    _model.postalCodeController?.text =
+                                        _model.placePickerValue.zipCode;
+                                  });
+                                  setState(() {
+                                    _model.cityController?.text =
+                                        _model.placePickerValue.city;
+                                  });
+                                  setState(() {
+                                    _model.stateController?.text =
+                                        _model.placePickerValue.state;
+                                  });
+                                  setState(() {
+                                    _model.countryController?.text =
+                                        _model.placePickerValue.country;
+                                  });
+                                  setState(() {
+                                    _model.streetController?.text =
+                                        _model.placePickerValue.address;
+                                  });
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: PrivacyPolicyWidget(
+                                            latLong:
+                                                _model.placePickerValue.latLng,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  },
-                                ).then((value) => safeSetState(() {}));
-                              } else {
-                                await showDialog(
-                                  context: context,
-                                  builder: (alertDialogContext) {
-                                    return AlertDialog(
-                                      title: Text('Can\'t load address'),
-                                      content: Text(
-                                          'your address is not accurate enough'),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              Navigator.pop(alertDialogContext),
-                                          child: Text('Ok'),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              }
-                            },
-                            child: Container(
-                              width: 150.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Check my address',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          fontSize: 14.0,
-                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Can\'t load address'),
+                                        content: Text(
+                                            'your address is not accurate enough'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 150.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: _model.mapORno == 1
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
                                   ),
-                                ],
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'View in map',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: _model.mapORno == 1
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                            fontSize: 13.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ],
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                if (!functions.isLatLngNullIsland(
+                                    _model.placePickerValue.latLng)) {
+                                  setState(() {
+                                    FFAppState().showAddress = false;
+                                  });
+                                  setState(() {
+                                    _model.postalCodeController?.text =
+                                        _model.placePickerValue.zipCode;
+                                  });
+                                  setState(() {
+                                    _model.cityController?.text =
+                                        _model.placePickerValue.city;
+                                  });
+                                  setState(() {
+                                    _model.stateController?.text =
+                                        _model.placePickerValue.state;
+                                  });
+                                  setState(() {
+                                    _model.countryController?.text =
+                                        _model.placePickerValue.country;
+                                  });
+                                  setState(() {
+                                    _model.streetController?.text =
+                                        _model.placePickerValue.address;
+                                  });
+                                  await showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    backgroundColor: Colors.transparent,
+                                    enableDrag: false,
+                                    context: context,
+                                    builder: (context) {
+                                      return GestureDetector(
+                                        onTap: () => _model
+                                                .unfocusNode.canRequestFocus
+                                            ? FocusScope.of(context)
+                                                .requestFocus(
+                                                    _model.unfocusNode)
+                                            : FocusScope.of(context).unfocus(),
+                                        child: Padding(
+                                          padding:
+                                              MediaQuery.viewInsetsOf(context),
+                                          child: PrivacyPolicyWidget(
+                                            latLong:
+                                                _model.placePickerValue.latLng,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ).then((value) => safeSetState(() {}));
+                                } else {
+                                  await showDialog(
+                                    context: context,
+                                    builder: (alertDialogContext) {
+                                      return AlertDialog(
+                                        title: Text('Can\'t load address'),
+                                        content: Text(
+                                            'your address is not accurate enough'),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () => Navigator.pop(
+                                                alertDialogContext),
+                                            child: Text('Ok'),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              child: Container(
+                                width: 150.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: _model.mapORno == 2
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                  ),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'I\'m sure',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: _model.mapORno == 2
+                                                ? FlutterFlowTheme.of(context)
+                                                    .primary
+                                                : FlutterFlowTheme.of(context)
+                                                    .secondary,
+                                            fontSize: 13.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 12.0)),
                       ),
                     ),
                     if (FFAppState().showAddress)
@@ -549,7 +673,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                               children: [
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      32.0, 16.0, 32.0, 0.0),
+                                      32.0, 20.0, 32.0, 0.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -1530,7 +1654,15 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                 ''),
                                             r'''$.data.role''',
                                           ).toString()}') {
-                                        context.pushNamed('PostersDashboard');
+                                        context.pushNamed(
+                                          'Contactdata-2',
+                                          queryParameters: {
+                                            'isSignUp': serializeParam(
+                                              true,
+                                              ParamType.bool,
+                                            ),
+                                          }.withoutNulls,
+                                        );
                                       } else {
                                         if (_shouldSetState) setState(() {});
                                         return;

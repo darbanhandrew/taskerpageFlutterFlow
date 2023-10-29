@@ -90,7 +90,7 @@ class _AlerModalMassageRejectAppointmentWidgetState
                 offset: Offset(0.0, 2.0),
               )
             ],
-            borderRadius: BorderRadius.circular(20.0),
+            borderRadius: BorderRadius.circular(8.0),
             border: Border.all(
               color: Color(0xFFE0E3E7),
             ),
@@ -131,13 +131,13 @@ class _AlerModalMassageRejectAppointmentWidgetState
                         },
                         child: Container(
                           width: 104.0,
-                          height: 44.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context)
                                 .secondaryBackground,
-                            borderRadius: BorderRadius.circular(5.0),
+                            borderRadius: BorderRadius.circular(2.0),
                             border: Border.all(
-                              color: Color(0xFF5450E2),
+                              color: FlutterFlowTheme.of(context).primary,
                             ),
                           ),
                           child: Row(
@@ -150,7 +150,8 @@ class _AlerModalMassageRejectAppointmentWidgetState
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFF5450E2),
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),
@@ -181,10 +182,10 @@ class _AlerModalMassageRejectAppointmentWidgetState
                         },
                         child: Container(
                           width: 129.0,
-                          height: 44.0,
+                          height: 36.0,
                           decoration: BoxDecoration(
-                            color: Color(0xFF5450E2),
-                            borderRadius: BorderRadius.circular(5.0),
+                            color: FlutterFlowTheme.of(context).primary,
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                           child: Row(
                             mainAxisSize: MainAxisSize.max,
