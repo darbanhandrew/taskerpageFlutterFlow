@@ -7,6 +7,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -51,11 +52,22 @@ class _Id3WidgetState extends State<Id3Widget> {
         );
         if ((_model.identificationDetails?.succeeded ?? true)) {
           setState(() {
-            _model.identification = functions.jsonToIdentificationStruct(
-                TaskerpageBackendGroup.getIdentificationDetailsCall
-                    .identificationJson(
-              (_model.identificationDetails?.jsonBody ?? ''),
-            ));
+            _model.identification = functions.convertSingleMap(getJsonField(
+                          (_model.identificationDetails?.jsonBody ?? ''),
+                          r'''$.data''',
+                        )) !=
+                        null &&
+                    functions.convertSingleMap(getJsonField(
+                          (_model.identificationDetails?.jsonBody ?? ''),
+                          r'''$.data''',
+                        )) !=
+                        ''
+                ? IdentificationStruct.fromMap(
+                    functions.convertSingleMap(getJsonField(
+                    (_model.identificationDetails?.jsonBody ?? ''),
+                    r'''$.data''',
+                  )))
+                : null;
           });
         } else {
           context.goNamed('ID1');
@@ -423,75 +435,70 @@ class _Id3WidgetState extends State<Id3Widget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  FlutterFlowExpandedImageView(
-                                                image: CachedNetworkImage(
-                                                  fadeInDuration: Duration(
-                                                      milliseconds: 500),
-                                                  fadeOutDuration: Duration(
-                                                      milliseconds: 500),
-                                                  imageUrl:
-                                                      '${FFAppState().baseUrl}${_model.identification?.documentFile}',
-                                                  fit: BoxFit.contain,
-                                                  errorWidget: (context, error,
-                                                          stackTrace) =>
-                                                      Image.asset(
-                                                    'assets/images/error_image.jpg',
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            3.0, 3.0, 3.0, 3.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child:
+                                                    FlutterFlowExpandedImageView(
+                                                  image: CachedNetworkImage(
+                                                    fadeInDuration: Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl:
+                                                        '${FFAppState().baseUrl}${_model.identification?.documentFile}',
                                                     fit: BoxFit.contain,
+                                                    errorWidget: (context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        Image.asset(
+                                                      'assets/images/error_image.jpg',
+                                                      fit: BoxFit.contain,
+                                                    ),
                                                   ),
+                                                  allowRotation: true,
+                                                  tag:
+                                                      '${FFAppState().baseUrl}${_model.identification?.documentFile}',
+                                                  useHeroAnimation: true,
                                                 ),
-                                                allowRotation: true,
-                                                tag:
-                                                    '${FFAppState().baseUrl}${_model.identification?.documentFile}',
-                                                useHeroAnimation: true,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag:
-                                              '${FFAppState().baseUrl}${_model.identification?.documentFile}',
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(2.0),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration:
-                                                  Duration(milliseconds: 500),
-                                              fadeOutDuration:
-                                                  Duration(milliseconds: 500),
-                                              imageUrl:
-                                                  '${FFAppState().baseUrl}${_model.identification?.documentFile}',
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  1.0,
-                                              fit: BoxFit.cover,
-                                              errorWidget: (context, error,
-                                                      stackTrace) =>
-                                                  Image.asset(
-                                                'assets/images/error_image.jpg',
-                                                width:
-                                                    MediaQuery.sizeOf(context)
-                                                            .width *
-                                                        1.0,
-                                                height:
-                                                    MediaQuery.sizeOf(context)
-                                                            .height *
-                                                        1.0,
+                                            );
+                                          },
+                                          child: Hero(
+                                            tag:
+                                                '${FFAppState().baseUrl}${_model.identification?.documentFile}',
+                                            transitionOnUserGestures: true,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(2.0),
+                                              child: CachedNetworkImage(
+                                                fadeInDuration:
+                                                    Duration(milliseconds: 500),
+                                                fadeOutDuration:
+                                                    Duration(milliseconds: 500),
+                                                imageUrl:
+                                                    '${FFAppState().baseUrl}${_model.identification?.documentFile}',
+                                                width: 274.0,
+                                                height: 261.0,
                                                 fit: BoxFit.cover,
+                                                errorWidget: (context, error,
+                                                        stackTrace) =>
+                                                    Image.asset(
+                                                  'assets/images/error_image.jpg',
+                                                  width: 274.0,
+                                                  height: 261.0,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),

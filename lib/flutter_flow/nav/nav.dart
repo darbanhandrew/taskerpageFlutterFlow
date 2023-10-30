@@ -577,7 +577,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         ),
         FFRoute(
           name: 'RateSignUp',
-          path: '/user-rate/:name',
+          path: '/user-rate',
           builder: (context, params) => RateSignUpWidget(
             name: params.getParam('name', ParamType.String),
           ),
@@ -585,7 +585,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         FFRoute(
           name: 'Rates_list',
           path: '/ratesList',
-          builder: (context, params) => RatesListWidget(),
+          builder: (context, params) => RatesListWidget(
+            isEdit: params.getParam('isEdit', ParamType.bool),
+          ),
         ),
         FFRoute(
           name: 'test2',
@@ -593,6 +595,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => Test2Widget(
             task: params.getParam('task', ParamType.int),
             user: params.getParam('user', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'User_profile',
+          path: '/userProfile',
+          builder: (context, params) => UserProfileWidget(
+            id: params.getParam('id', ParamType.String),
           ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),

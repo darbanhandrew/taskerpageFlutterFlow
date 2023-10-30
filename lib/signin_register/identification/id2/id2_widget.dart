@@ -41,13 +41,10 @@ class _Id2WidgetState extends State<Id2Widget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      setState(() {
-        _model.updateIdentificationStruct(
-          (e) => e
-            ..documentNumber =
-                _model.textFieldAndTitleModel.stateController.text,
-        );
-      });
+      _model.updateIdentificationStruct(
+        (e) => e
+          ..documentNumber = _model.textFieldAndTitleModel.stateController.text,
+      );
       if (widget.name != null && widget.name != '') {
         _model.identificationDetails =
             await TaskerpageBackendGroup.getIdentificationDetailsCall.call(

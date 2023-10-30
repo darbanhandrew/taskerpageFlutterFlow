@@ -8,6 +8,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -51,22 +52,23 @@ class _Id4WidgetState extends State<Id4Widget> {
         );
         if ((_model.getIdentificationDetails?.succeeded ?? true)) {
           setState(() {
-            _model.identification = TaskerpageBackendGroup
+            _model.identification = functions.convertSingleMap(
+                            TaskerpageBackendGroup.getIdentificationDetailsCall
+                                .identificationJson(
+                          (_model.getIdentificationDetails?.jsonBody ?? ''),
+                        )) !=
+                        null &&
+                    functions.convertSingleMap(TaskerpageBackendGroup
                             .getIdentificationDetailsCall
                             .identificationJson(
                           (_model.getIdentificationDetails?.jsonBody ?? ''),
-                        ) !=
-                        null &&
-                    TaskerpageBackendGroup.getIdentificationDetailsCall
-                            .identificationJson(
-                          (_model.getIdentificationDetails?.jsonBody ?? ''),
-                        ) !=
+                        )) !=
                         ''
-                ? IdentificationStruct.fromMap(TaskerpageBackendGroup
-                    .getIdentificationDetailsCall
-                    .identificationJson(
+                ? IdentificationStruct.fromMap(functions.convertSingleMap(
+                    TaskerpageBackendGroup.getIdentificationDetailsCall
+                        .identificationJson(
                     (_model.getIdentificationDetails?.jsonBody ?? ''),
-                  ))
+                  )))
                 : null;
           });
         } else {
@@ -359,75 +361,82 @@ class _Id4WidgetState extends State<Id4Widget> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Expanded(
-                                      child: InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          await Navigator.push(
-                                            context,
-                                            PageTransition(
-                                              type: PageTransitionType.fade,
-                                              child:
-                                                  FlutterFlowExpandedImageView(
-                                                image: CachedNetworkImage(
-                                                  fadeInDuration: Duration(
-                                                      milliseconds: 500),
-                                                  fadeOutDuration: Duration(
-                                                      milliseconds: 500),
-                                                  imageUrl:
-                                                      '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
-                                                  fit: BoxFit.contain,
-                                                  errorWidget: (context, error,
-                                                          stackTrace) =>
-                                                      Image.asset(
-                                                    'assets/images/error_image.jpg',
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            3.0, 3.0, 3.0, 3.0),
+                                        child: InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              PageTransition(
+                                                type: PageTransitionType.fade,
+                                                child:
+                                                    FlutterFlowExpandedImageView(
+                                                  image: CachedNetworkImage(
+                                                    fadeInDuration: Duration(
+                                                        milliseconds: 500),
+                                                    fadeOutDuration: Duration(
+                                                        milliseconds: 500),
+                                                    imageUrl:
+                                                        '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
                                                     fit: BoxFit.contain,
+                                                    errorWidget: (context,
+                                                            error,
+                                                            stackTrace) =>
+                                                        Image.asset(
+                                                      'assets/images/error_image.jpg',
+                                                      fit: BoxFit.contain,
+                                                    ),
                                                   ),
+                                                  allowRotation: false,
+                                                  tag:
+                                                      '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
+                                                  useHeroAnimation: true,
                                                 ),
-                                                allowRotation: false,
-                                                tag:
-                                                    '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
-                                                useHeroAnimation: true,
                                               ),
-                                            ),
-                                          );
-                                        },
-                                        child: Hero(
-                                          tag:
-                                              '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
-                                          transitionOnUserGestures: true,
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(8.0),
-                                            child: CachedNetworkImage(
-                                              fadeInDuration:
-                                                  Duration(milliseconds: 500),
-                                              fadeOutDuration:
-                                                  Duration(milliseconds: 500),
-                                              imageUrl:
-                                                  '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
-                                              width: MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  1.0,
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  1.0,
-                                              fit: BoxFit.cover,
-                                              errorWidget: (context, error,
-                                                      stackTrace) =>
-                                                  Image.asset(
-                                                'assets/images/error_image.jpg',
+                                            );
+                                          },
+                                          child: Hero(
+                                            tag:
+                                                '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
+                                            transitionOnUserGestures: true,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(2.0),
+                                              child: CachedNetworkImage(
+                                                fadeInDuration:
+                                                    Duration(milliseconds: 500),
+                                                fadeOutDuration:
+                                                    Duration(milliseconds: 500),
+                                                imageUrl:
+                                                    '${FFAppState().baseUrl}${_model.identification?.documentUserPhoto}',
                                                 width:
                                                     MediaQuery.sizeOf(context)
                                                             .width *
-                                                        1.0,
+                                                        2.74,
                                                 height:
                                                     MediaQuery.sizeOf(context)
                                                             .height *
-                                                        1.0,
+                                                        2.61,
                                                 fit: BoxFit.cover,
+                                                errorWidget: (context, error,
+                                                        stackTrace) =>
+                                                    Image.asset(
+                                                  'assets/images/error_image.jpg',
+                                                  width:
+                                                      MediaQuery.sizeOf(context)
+                                                              .width *
+                                                          2.74,
+                                                  height:
+                                                      MediaQuery.sizeOf(context)
+                                                              .height *
+                                                          2.61,
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -671,7 +680,15 @@ class _Id4WidgetState extends State<Id4Widget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              context.pushNamed('identification_card');
+                              context.pushNamed(
+                                'identification_card',
+                                queryParameters: {
+                                  'signUp': serializeParam(
+                                    true,
+                                    ParamType.bool,
+                                  ),
+                                }.withoutNulls,
+                              );
                             },
                             child: Text(
                               'I\'ll do it later',

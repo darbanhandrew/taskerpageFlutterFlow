@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/badge_single_icon_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -149,75 +151,21 @@ class _Education2WidgetState extends State<Education2Widget> {
                                             ),
                                       ),
                                     ),
-                                    FutureBuilder<ApiCallResponse>(
-                                      future: TaskerpageBackendGroup
-                                          .myEducationsCall
-                                          .call(
-                                        apiGlobalKey: FFAppState().apiKey,
-                                        filters:
-                                            '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                          FFAppState().userProfile,
-                                          r'''$.data.name''',
-                                        ).toString()}\"]]',
-                                        fields:
-                                            '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50.0,
-                                              height: 50.0,
-                                              child: SpinKitThreeBounce(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 50.0,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        final rowMyEducationsResponse =
-                                            snapshot.data!;
-                                        return Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            if (getJsonField(
-                                                  rowMyEducationsResponse
-                                                      .jsonBody,
-                                                  r'''$.data''',
-                                                ) !=
-                                                null)
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(0.0),
-                                                child: Image.asset(
-                                                  'assets/images/Mask_Group_543.png',
-                                                  width: 40.0,
-                                                  height: 40.0,
-                                                  fit: BoxFit.none,
-                                                ),
-                                              ),
-                                            if (getJsonField(
-                                                  rowMyEducationsResponse
-                                                      .jsonBody,
-                                                  r'''$.data''',
-                                                ) ==
-                                                null)
-                                              ClipRRect(
-                                                borderRadius:
-                                                    BorderRadius.circular(0.0),
-                                                child: Image.asset(
-                                                  'assets/images/Mask_Group_543.png',
-                                                  width: 40.0,
-                                                  height: 40.0,
-                                                  fit: BoxFit.none,
-                                                ),
-                                              ),
-                                          ],
-                                        );
-                                      },
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        wrapWithModel(
+                                          model: _model.badgeSingleIconModel,
+                                          updateCallback: () => setState(() {}),
+                                          child: BadgeSingleIconWidget(
+                                            appBadge: 'EDUCATION',
+                                            customerProfile: getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.name''',
+                                            ).toString(),
+                                          ),
+                                        ),
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -892,9 +840,15 @@ class _Education2WidgetState extends State<Education2Widget> {
                                       hoverColor: Colors.transparent,
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
+                                        await action_blocks
+                                            .updateCustomerProfileBadge(
+                                          context,
+                                          appBadge: 'EDUCATION',
+                                        );
+
                                         context.pushNamed(
                                           'RateSignUp',
-                                          pathParameters: {
+                                          queryParameters: {
                                             'name': serializeParam(
                                               '',
                                               ParamType.String,

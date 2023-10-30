@@ -1,8 +1,9 @@
 import '/backend/schema/structs/index.dart';
+import '/components/set_appointment_widget.dart';
+import '/components/share_customer_profile_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -11,7 +12,14 @@ import 'chat_action_bottom_sheet_model.dart';
 export 'chat_action_bottom_sheet_model.dart';
 
 class ChatActionBottomSheetWidget extends StatefulWidget {
-  const ChatActionBottomSheetWidget({Key? key}) : super(key: key);
+  const ChatActionBottomSheetWidget({
+    Key? key,
+    required this.action,
+    required this.chatRoom,
+  }) : super(key: key);
+
+  final String? action;
+  final ChatRoomStruct? chatRoom;
 
   @override
   _ChatActionBottomSheetWidgetState createState() =>
@@ -33,19 +41,6 @@ class _ChatActionBottomSheetWidgetState
     super.initState();
     _model = createModel(context, () => ChatActionBottomSheetModel());
 
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      Navigator.pop(
-          context,
-          ChatMessageStruct(
-            refrenceDoctype: 'Customer Profile',
-            refrenceDoc: getJsonField(
-              FFAppState().userProfile,
-              r'''$.data.name''',
-            ).toString().toString(),
-          ));
-    });
-
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -60,30 +55,55 @@ class _ChatActionBottomSheetWidgetState
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Material(
-      color: Colors.transparent,
-      elevation: 5.0,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(2.0),
-          bottomRight: Radius.circular(2.0),
-          topLeft: Radius.circular(8.0),
-          topRight: Radius.circular(8.0),
-        ),
-      ),
-      child: Container(
-        width: double.infinity,
-        height: MediaQuery.sizeOf(context).height * 0.85,
-        decoration: BoxDecoration(
-          color: FlutterFlowTheme.of(context).secondaryBackground,
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(2.0),
-            bottomRight: Radius.circular(2.0),
-            topLeft: Radius.circular(8.0),
-            topRight: Radius.circular(8.0),
-          ),
-        ),
-      ),
+    return Builder(
+      builder: (context) {
+        if (widget.action == 'Propose Appointment') {
+          return wrapWithModel(
+            model: _model.setAppointmentModel,
+            updateCallback: () => setState(() {}),
+            child: SetAppointmentWidget(
+              setOredit: false,
+              id: widget.chatRoom!.oppositePersonCustomerProfile,
+              postID: widget.chatRoom!.customerTask,
+            ),
+          );
+        } else if (widget.action == 'Share Contact') {
+          return wrapWithModel(
+            model: _model.shareCustomerProfileModel,
+            updateCallback: () => setState(() {}),
+            child: ShareCustomerProfileWidget(),
+          );
+        } else {
+          return InkWell(
+            splashColor: Colors.transparent,
+            focusColor: Colors.transparent,
+            hoverColor: Colors.transparent,
+            highlightColor: Colors.transparent,
+            onTap: () async {
+              Navigator.pop(
+                  context,
+                  ChatMessageStruct(
+                    refrenceDoctype: 'Customer Profile',
+                    refrenceDoc: getJsonField(
+                      FFAppState().userProfile,
+                      r'''$.data.name''',
+                    ).toString(),
+                  ));
+            },
+            child: Container(
+              width: 100.0,
+              height: 100.0,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+              ),
+              child: Text(
+                'Coming soon',
+                style: FlutterFlowTheme.of(context).bodyMedium,
+              ),
+            ),
+          );
+        }
+      },
     );
   }
 }

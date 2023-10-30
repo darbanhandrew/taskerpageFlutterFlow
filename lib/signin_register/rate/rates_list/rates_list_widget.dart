@@ -1,11 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/rate_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -15,7 +17,13 @@ import 'rates_list_model.dart';
 export 'rates_list_model.dart';
 
 class RatesListWidget extends StatefulWidget {
-  const RatesListWidget({Key? key}) : super(key: key);
+  const RatesListWidget({
+    Key? key,
+    bool? isEdit,
+  })  : this.isEdit = isEdit ?? true,
+        super(key: key);
+
+  final bool isEdit;
 
   @override
   _RatesListWidgetState createState() => _RatesListWidgetState();
@@ -146,14 +154,19 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                 snapshot.data!;
                             return Builder(
                               builder: (context) {
-                                final userRateNamesList =
-                                    TaskerpageBackendGroup.getUserRateListCall
-                                            .userRateNamesList(
-                                              listViewGetUserRateListResponse
-                                                  .jsonBody,
-                                            )
-                                            ?.toList() ??
-                                        [];
+                                final userRateNamesList = functions
+                                    .convertMap(TaskerpageBackendGroup
+                                        .getUserRateListCall
+                                        .userRateNamesList(
+                                          listViewGetUserRateListResponse
+                                              .jsonBody,
+                                        )!
+                                        .toList())
+                                    .map((e) => e != null && e != ''
+                                        ? UserRateStruct.fromMap(e)
+                                        : null)
+                                    .withoutNulls
+                                    .toList();
                                 if (userRateNamesList.isEmpty) {
                                   return Image.asset(
                                     'assets/images/Group_2179.png',
@@ -167,7 +180,7 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                   onTap: () async {
                                     context.pushNamed(
                                       'RateSignUp',
-                                      pathParameters: {
+                                      queryParameters: {
                                         'name': serializeParam(
                                           '',
                                           ParamType.String,
@@ -191,8 +204,7 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                         future: TaskerpageBackendGroup
                                             .getUserRateDetailsCall
                                             .call(
-                                          name:
-                                              userRateNamesListItem.toString(),
+                                          name: userRateNamesListItem.name,
                                           apiGlobalKey: FFAppState().apiKey,
                                         ),
                                         builder: (context, snapshot) {
@@ -216,21 +228,20 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                           return wrapWithModel(
                                             model:
                                                 _model.rateCardModels.getModel(
-                                              userRateNamesListItem.toString(),
+                                              userRateNamesListItem.name,
                                               userRateNamesListIndex,
                                             ),
                                             updateCallback: () =>
                                                 setState(() {}),
                                             child: RateCardWidget(
                                               key: Key(
-                                                'Keyknb_${userRateNamesListItem.toString()}',
+                                                'Keyknb_${userRateNamesListItem.name}',
                                               ),
                                               userRate: UserRateStruct.fromMap(
-                                                  TaskerpageBackendGroup
-                                                      .getUserRateDetailsCall
-                                                      .userRateJson(
+                                                  getJsonField(
                                                 rateCardGetUserRateDetailsResponse
                                                     .jsonBody,
+                                                r'''$.data''',
                                               )),
                                               indexInList:
                                                   userRateNamesListIndex,
@@ -261,7 +272,7 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                 onTap: () async {
                                   context.pushNamed(
                                     'RateSignUp',
-                                    pathParameters: {
+                                    queryParameters: {
                                       'name': serializeParam(
                                         '',
                                         ParamType.String,
@@ -335,74 +346,81 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5.0,
-                          color: Color(0x33000000),
-                          offset: Offset(5.0, 5.0),
-                          spreadRadius: 10.0,
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'I\'ll do it later',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  color: Color(0xFF8A8A8A),
-                                  fontSize: 14.0,
-                                ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              context.pushNamed('Profiledetails');
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                borderRadius: BorderRadius.circular(1.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Save',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
+                  if (widget.isEdit)
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 5.0,
+                            color: Color(0x33000000),
+                            offset: Offset(5.0, 5.0),
+                            spreadRadius: 10.0,
+                          )
                         ],
                       ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 0.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'I\'ll do it later',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: Color(0xFF8A8A8A),
+                                    fontSize: 14.0,
+                                  ),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                context.pushNamed('Profiledetails');
+                              },
+                              child: Container(
+                                width: 104.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  borderRadius: BorderRadius.circular(1.0),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text(
+                                      'Save',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: Colors.white,
+                                            fontSize: 14.0,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
-                  ),
+                  if (!widget.isEdit)
+                    wrapWithModel(
+                      model: _model.navBarModel,
+                      updateCallback: () => setState(() {}),
+                      child: NavBarWidget(),
+                    ),
                 ],
               ),
             ],

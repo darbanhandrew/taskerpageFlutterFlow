@@ -227,6 +227,8 @@ class TaskerpageBackendGroup {
   static GetPossibleTransitionsCall getPossibleTransitionsCall =
       GetPossibleTransitionsCall();
   static ProcessActionCall processActionCall = ProcessActionCall();
+  static UpdateCustomerProfileBadgesCall updateCustomerProfileBadgesCall =
+      UpdateCustomerProfileBadgesCall();
 }
 
 class RegisterCall {
@@ -7636,6 +7638,81 @@ class ProcessActionCall {
       cache: false,
     );
   }
+}
+
+class UpdateCustomerProfileBadgesCall {
+  Future<ApiCallResponse> call({
+    String? customerProfile = '',
+    String? appBadge = '',
+    String? apiGlobalKey = 'token 93c031f5d19f49e:3dcd6aa87fd3e87',
+  }) async {
+    return ApiManager.instance.makeApiCall(
+      callName: 'Update Customer Profile Badges',
+      apiUrl:
+          '${TaskerpageBackendGroup.baseUrl}/api/method/taskerpage_core.taskerpage_core.api.app_badges.update_customer_profile_badges',
+      callType: ApiCallType.GET,
+      headers: {
+        'Authorization': '${apiGlobalKey}',
+      },
+      params: {
+        'customer_profile': customerProfile,
+        'app_badge': appBadge,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+    );
+  }
+
+  dynamic cpBadgeJson(dynamic response) => getJsonField(
+        response,
+        r'''$.message''',
+      );
+  dynamic name(dynamic response) => getJsonField(
+        response,
+        r'''$.message.name''',
+      );
+  dynamic badgeName(dynamic response) => getJsonField(
+        response,
+        r'''$.message.badge_name''',
+      );
+  dynamic label(dynamic response) => getJsonField(
+        response,
+        r'''$.message.label''',
+      );
+  dynamic deactiveIcon(dynamic response) => getJsonField(
+        response,
+        r'''$.message.deactive_icon''',
+      );
+  dynamic activeIcon(dynamic response) => getJsonField(
+        response,
+        r'''$.message.active_icon''',
+      );
+  dynamic completedPercent(dynamic response) => getJsonField(
+        response,
+        r'''$.message.completed_percent''',
+      );
+  dynamic enabled(dynamic response) => getJsonField(
+        response,
+        r'''$.message.enabled''',
+      );
+  dynamic parent(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parent''',
+      );
+  dynamic parentfield(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parentfield''',
+      );
+  dynamic parenttype(dynamic response) => getJsonField(
+        response,
+        r'''$.message.parenttype''',
+      );
+  dynamic doctype(dynamic response) => getJsonField(
+        response,
+        r'''$.message.doctype''',
+      );
 }
 
 /// End Taskerpage Backend Group Code

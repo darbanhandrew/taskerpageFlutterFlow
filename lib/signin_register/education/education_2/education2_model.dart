@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/badge_single_icon_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -6,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import 'dart:ui';
+import '/actions/actions.dart' as action_blocks;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'education2_widget.dart' show Education2Widget;
@@ -23,6 +25,8 @@ class Education2Model extends FlutterFlowModel<Education2Widget> {
   Completer<ApiCallResponse>? apiRequestCompleter;
   // Model for Header component.
   late HeaderModel headerModel;
+  // Model for badgeSingleIcon component.
+  late BadgeSingleIconModel badgeSingleIconModel;
   bool isDataUploading1 = false;
   FFUploadedFile uploadedLocalFile1 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
@@ -38,12 +42,14 @@ class Education2Model extends FlutterFlowModel<Education2Widget> {
 
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
+    badgeSingleIconModel = createModel(context, () => BadgeSingleIconModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();
+    badgeSingleIconModel.dispose();
     mainDrawerModel.dispose();
   }
 

@@ -44,20 +44,18 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget.name == 'new') {
-        setState(() {
-          _model.userRate = UserRateStruct(
-            name: '',
-            customerProfile: getJsonField(
-              FFAppState().userProfile,
-              r'''$.data.name''',
-            ).toString().toString(),
-            customerProfileUser: getJsonField(
-              FFAppState().userProfile,
-              r'''$.data.user''',
-            ).toString().toString(),
-            isAll: 1,
-          );
-        });
+        _model.userRate = UserRateStruct(
+          name: '',
+          customerProfile: getJsonField(
+            FFAppState().userProfile,
+            r'''$.data.name''',
+          ).toString().toString(),
+          customerProfileUser: getJsonField(
+            FFAppState().userProfile,
+            r'''$.data.user''',
+          ).toString().toString(),
+          isAll: 1,
+        );
       } else {
         _model.userRateDetails =
             await TaskerpageBackendGroup.getUserRateDetailsCall.call(
@@ -181,11 +179,6 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                setState(() {
-                                  _model.updateUserRateStruct(
-                                    (e) => e..isAll = 0,
-                                  );
-                                });
                                 await showModalBottomSheet(
                                   isScrollControlled: true,
                                   backgroundColor: Colors.transparent,
@@ -210,6 +203,11 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                 ).then((value) => safeSetState(
                                     () => _model.updatedUserRate = value));
 
+                                setState(() {
+                                  _model.updateUserRateStruct(
+                                    (e) => e..isAll = 0,
+                                  );
+                                });
                                 setState(() {
                                   _model.updateUserRateStruct(
                                     (e) => e
@@ -348,68 +346,77 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                               Container(
                                 width: 100.0,
                                 decoration: BoxDecoration(),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 8.0, 0.0),
-                                  child: Container(
-                                    width: 10.0,
-                                    child: TextFormField(
-                                      controller: _model.textController,
-                                      focusNode: _model.textFieldFocusNode,
-                                      autofocus: true,
-                                      obscureText: false,
-                                      decoration: InputDecoration(
-                                        labelText: 'Label here...',
-                                        labelStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                        hintStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium,
-                                        enabledBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
+                                child: Container(
+                                  width: 10.0,
+                                  child: TextFormField(
+                                    controller: _model.textController,
+                                    focusNode: _model.textFieldFocusNode,
+                                    autofocus: true,
+                                    obscureText: false,
+                                    decoration: InputDecoration(
+                                      isDense: true,
+                                      labelStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium
+                                          .override(
+                                            fontFamily: 'Lato',
                                             color: FlutterFlowTheme.of(context)
                                                 .alternate,
-                                            width: 2.0,
                                           ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
+                                      hintStyle: FlutterFlowTheme.of(context)
+                                          .labelMedium,
+                                      enabledBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondary,
+                                          width: 1.0,
                                         ),
-                                        focusedBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        errorBorder: UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
-                                        focusedErrorBorder:
-                                            UnderlineInputBorder(
-                                          borderSide: BorderSide(
-                                            color: FlutterFlowTheme.of(context)
-                                                .error,
-                                            width: 2.0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(8.0),
-                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
                                       ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                      keyboardType:
-                                          const TextInputType.numberWithOptions(
-                                              decimal: true),
-                                      validator: _model.textControllerValidator
-                                          .asValidator(context),
+                                      focusedBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      errorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      focusedErrorBorder: OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                          color: FlutterFlowTheme.of(context)
+                                              .error,
+                                          width: 1.0,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(2.0),
+                                      ),
+                                      contentPadding:
+                                          EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 13.0, 0.0, 13.5),
                                     ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                          fontSize: 13.0,
+                                        ),
+                                    keyboardType:
+                                        const TextInputType.numberWithOptions(
+                                            decimal: true),
+                                    validator: _model.textControllerValidator
+                                        .asValidator(context),
                                   ),
                                 ),
                               ),

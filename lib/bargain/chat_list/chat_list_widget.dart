@@ -760,18 +760,19 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                               final listViewChatListResponse = snapshot.data!;
                               return Builder(
                                 builder: (context) {
-                                  final myChats = TaskerpageBackendGroup
-                                          .chatListCall
-                                          .chatListJson(
-                                            listViewChatListResponse.jsonBody,
-                                          )
-                                          ?.map((e) => e != null && e != ''
-                                              ? ChatRoomStruct.fromMap(e)
-                                              : null)
-                                          .withoutNulls
-                                          .toList()
-                                          ?.toList() ??
-                                      [];
+                                  final myChats = functions
+                                      .convertMap(
+                                          TaskerpageBackendGroup.chatListCall
+                                              .chatListJson(
+                                                listViewChatListResponse
+                                                    .jsonBody,
+                                              )!
+                                              .toList())
+                                      .map((e) => e != null && e != ''
+                                          ? ChatRoomStruct.fromMap(e)
+                                          : null)
+                                      .withoutNulls
+                                      .toList();
                                   return ListView.builder(
                                     padding: EdgeInsets.zero,
                                     primary: false,

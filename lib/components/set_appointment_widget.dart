@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -1333,7 +1334,16 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                               _shouldSetState = true;
                               if ((_model.createdAppointment?.succeeded ??
                                   true)) {
-                                Navigator.pop(context);
+                                Navigator.pop(
+                                    context,
+                                    ChatMessageStruct(
+                                      refrenceDoctype: 'Customer Appointment',
+                                      refrenceDoc: getJsonField(
+                                        (_model.createdAppointment?.jsonBody ??
+                                            ''),
+                                        r'''$.data.name''',
+                                      ).toString(),
+                                    ));
                               } else {
                                 if (_shouldSetState) setState(() {});
                                 return;
@@ -1401,7 +1411,16 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                               _shouldSetState = true;
                               if ((_model.createdAppointment2?.succeeded ??
                                   true)) {
-                                Navigator.pop(context);
+                                Navigator.pop(
+                                    context,
+                                    ChatMessageStruct(
+                                      refrenceDoctype: 'Customer Appointment',
+                                      refrenceDoc: getJsonField(
+                                        (_model.createdAppointment2?.jsonBody ??
+                                            ''),
+                                        r'''$.data.name''',
+                                      ).toString(),
+                                    ));
                               } else {
                                 if (_shouldSetState) setState(() {});
                                 return;

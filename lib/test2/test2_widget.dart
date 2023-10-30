@@ -3,6 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -92,12 +93,17 @@ class _Test2WidgetState extends State<Test2Widget> {
               final listViewChatListResponse = snapshot.data!;
               return Builder(
                 builder: (context) {
-                  final chatRooms = TaskerpageBackendGroup.chatListCall
+                  final chatRooms = functions
+                      .convertMap(TaskerpageBackendGroup.chatListCall
                           .chatListJson(
                             listViewChatListResponse.jsonBody,
-                          )
-                          ?.toList() ??
-                      [];
+                          )!
+                          .toList())
+                      .map((e) => e != null && e != ''
+                          ? ChatRoomStruct.fromMap(e)
+                          : null)
+                      .withoutNulls
+                      .toList();
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -106,10 +112,7 @@ class _Test2WidgetState extends State<Test2Widget> {
                       final chatRoomsItem = chatRooms[chatRoomsIndex];
                       return Text(
                         valueOrDefault<String>(
-                          (chatRoomsItem != null && chatRoomsItem != ''
-                                  ? ChatRoomStruct.fromMap(chatRoomsItem)
-                                  : null)
-                              ?.room,
+                          chatRoomsItem.room,
                           '000',
                         ),
                         style: FlutterFlowTheme.of(context).bodyMedium,

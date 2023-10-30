@@ -294,6 +294,8 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                           child: ChatMessageActionsWidget(
                             parameter1: widget.chatMessage?.name,
                             parameter2: widget.chatMessage?.possibleTransitions,
+                            doctype: 'Chat Message',
+                            chatRoom: widget.chatRoom!,
                           ),
                         ),
                       ],
@@ -400,6 +402,8 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                           child: ChatMessageActionsWidget(
                             parameter1: widget.chatMessage?.name,
                             parameter2: widget.chatMessage?.possibleTransitions,
+                            doctype: 'Chat Message',
+                            chatRoom: widget.chatRoom!,
                           ),
                         ),
                       ],

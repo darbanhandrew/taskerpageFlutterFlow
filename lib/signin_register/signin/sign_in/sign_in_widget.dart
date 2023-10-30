@@ -627,6 +627,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                               Expanded(
                                 child: Container(
                                   width: 100.0,
+                                  height: 1.0,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFA8A8A8),
                                   ),
@@ -650,6 +651,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                               Expanded(
                                 child: Container(
                                   width: 100.0,
+                                  height: 1.0,
                                   decoration: BoxDecoration(
                                     color: Color(0xFFA8A8A8),
                                   ),

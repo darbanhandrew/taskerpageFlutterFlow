@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_count_controller.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
+import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -520,6 +521,15 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
+                              await action_blocks.updateCustomerProfileBadge(
+                                context,
+                                appBadge: 'INSURANCE',
+                              );
+                              await action_blocks.updateCustomerProfileBadge(
+                                context,
+                                appBadge: 'DRIVER LICENSE',
+                              );
+
                               context.pushNamed('Profiledetails2');
                             },
                             child: Container(

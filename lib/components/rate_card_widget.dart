@@ -1,6 +1,7 @@
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -92,7 +93,7 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Text(
-                            widget.indexInList.toString(),
+                            functions.plus1(widget.indexInList).toString(),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -142,7 +143,7 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                     onTap: () async {
                       context.pushNamed(
                         'RateSignUp',
-                        pathParameters: {
+                        queryParameters: {
                           'name': serializeParam(
                             widget.userRate?.name,
                             ParamType.String,

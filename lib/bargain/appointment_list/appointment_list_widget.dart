@@ -39,7 +39,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
     _model.tabBarController = TabController(
       vsync: this,
       length: 5,
-      initialIndex: 0,
+      initialIndex: 3,
     )..addListener(() => setState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -629,11 +629,18 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                               alignment: AlignmentDirectional(
                                                   0.00, 0.00),
                                               child: Text(
-                                                getJsonField(
-                                                  containerAppointmentListResponse
-                                                      .jsonBody,
-                                                  r'''$.data''',
-                                                ).toString(),
+                                                functions
+                                                    .numberofListitems(
+                                                        (getJsonField(
+                                                      containerAppointmentListResponse
+                                                          .jsonBody,
+                                                      r'''$.data''',
+                                                      true,
+                                                    ) as List)
+                                                            .map<String>((s) =>
+                                                                s.toString())
+                                                            .toList())
+                                                    .toString(),
                                                 style:
                                                     FlutterFlowTheme.of(context)
                                                         .bodyMedium
@@ -723,7 +730,11 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             4.0, 0.0, 0.0, 0.0),
                                         child: Text(
-                                          'Select date',
+                                          valueOrDefault<String>(
+                                            dateTimeFormat(
+                                                'yMMMd', _model.datePicked),
+                                            'Select date',
+                                          ),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -746,11 +757,18 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                   ),
                                 ),
                               ),
-                              Icon(
-                                Icons.calendar_month_outlined,
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 28.0,
-                              ),
+                              if (_model.datePicked == null)
+                                Icon(
+                                  Icons.calendar_month_outlined,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 28.0,
+                                ),
+                              if (_model.datePicked != null)
+                                Icon(
+                                  Icons.close_rounded,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  size: 28.0,
+                                ),
                             ],
                           ),
                         ),
@@ -764,7 +782,7 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                   alignment: AlignmentDirectional(0.00, 0.00),
                   child: Padding(
                     padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                        EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 10.0),
                     child: Column(
                       children: [
                         Align(
@@ -878,120 +896,116 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                   final invationAppointmentItem =
                                                       invationAppointment[
                                                           invationAppointmentIndex];
-                                                  return AppointmentCardWidget(
-                                                    key: Key(
-                                                        'Keyppv_${invationAppointmentIndex}_of_${invationAppointment.length}'),
-                                                    json:
-                                                        invationAppointmentItem,
-                                                    accepted: true,
-                                                    state: 'invation',
-                                                    accept: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  AlerModalMassageAcceptAppointmentWidget(
-                                                                id: getJsonField(
-                                                                  invationAppointmentItem,
-                                                                  r'''$.name''',
+                                                  return Visibility(
+                                                    visible: _model
+                                                                .datePicked !=
+                                                            null
+                                                        ? (functions
+                                                                .jsonToDateTime(
+                                                                    getJsonField(
+                                                              invationAppointmentItem,
+                                                              r'''$.appointment_time''',
+                                                            ).toString()) ==
+                                                            _model.datePicked)
+                                                        : true,
+                                                    child:
+                                                        AppointmentCardWidget(
+                                                      key: Key(
+                                                          'Keyppv_${invationAppointmentIndex}_of_${invationAppointment.length}'),
+                                                      json:
+                                                          invationAppointmentItem,
+                                                      accepted: true,
+                                                      state: 'invation',
+                                                      accept: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          enableDrag: false,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    AlerModalMassageAcceptAppointmentWidget(
+                                                                  id: getJsonField(
+                                                                    invationAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                    reject: () async {
-                                                      await showModalBottomSheet(
-                                                        isScrollControlled:
-                                                            true,
-                                                        backgroundColor:
-                                                            Colors.transparent,
-                                                        enableDrag: false,
-                                                        context: context,
-                                                        builder: (context) {
-                                                          return GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  AlerModalMassageRejectAppointmentWidget(
-                                                                id: getJsonField(
-                                                                  invationAppointmentItem,
-                                                                  r'''$.name''',
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      reject: () async {
+                                                        await showModalBottomSheet(
+                                                          isScrollControlled:
+                                                              true,
+                                                          backgroundColor:
+                                                              Colors
+                                                                  .transparent,
+                                                          enableDrag: false,
+                                                          context: context,
+                                                          builder: (context) {
+                                                            return GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    AlerModalMassageRejectAppointmentWidget(
+                                                                  id: getJsonField(
+                                                                    invationAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                          );
-                                                        },
-                                                      ).then((value) =>
-                                                          safeSetState(() {}));
-                                                    },
-                                                    view: () async {
-                                                      if (functions
-                                                              .jsonToString(
-                                                                  getJsonField(
-                                                            invationAppointmentItem,
-                                                            r'''$.appointment_type''',
-                                                          )) ==
-                                                          'Online') {
-                                                        context.pushNamed(
-                                                          'Online_AppointmentDeatels',
-                                                          queryParameters: {
-                                                            'appointmentId':
-                                                                serializeParam(
-                                                              getJsonField(
-                                                                invationAppointmentItem,
-                                                                r'''$.name''',
-                                                              ).toString(),
-                                                              ParamType.String,
-                                                            ),
-                                                          }.withoutNulls,
-                                                        );
-                                                      } else {
+                                                            );
+                                                          },
+                                                        ).then((value) =>
+                                                            safeSetState(
+                                                                () {}));
+                                                      },
+                                                      view: () async {
                                                         if (functions
                                                                 .jsonToString(
                                                                     getJsonField(
                                                               invationAppointmentItem,
                                                               r'''$.appointment_type''',
                                                             )) ==
-                                                            'By Phone') {
+                                                            'Online') {
                                                           context.pushNamed(
-                                                            'By_Phone_AppointmentDeatels',
+                                                            'Online_AppointmentDeatels',
                                                             queryParameters: {
                                                               'appointmentId':
                                                                   serializeParam(
@@ -1005,24 +1019,47 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                             }.withoutNulls,
                                                           );
                                                         } else {
-                                                          context.pushNamed(
-                                                            'On_site_AppointmentDeatels',
-                                                            queryParameters: {
-                                                              'appointmentId':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  invationAppointmentItem,
-                                                                  r'''$.name''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
+                                                          if (functions
+                                                                  .jsonToString(
+                                                                      getJsonField(
+                                                                invationAppointmentItem,
+                                                                r'''$.appointment_type''',
+                                                              )) ==
+                                                              'By Phone') {
+                                                            context.pushNamed(
+                                                              'By_Phone_AppointmentDeatels',
+                                                              queryParameters: {
+                                                                'appointmentId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    invationAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          } else {
+                                                            context.pushNamed(
+                                                              'On_site_AppointmentDeatels',
+                                                              queryParameters: {
+                                                                'appointmentId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    invationAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          }
                                                         }
-                                                      }
-                                                    },
-                                                    edit: () async {},
+                                                      },
+                                                      edit: () async {},
+                                                    ),
                                                   );
                                                 },
                                               );
@@ -1104,47 +1141,38 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                     final pendingAppointmentItem =
                                                         pendingAppointment[
                                                             pendingAppointmentIndex];
-                                                    return AppointmentCardWidget(
-                                                      key: Key(
-                                                          'Keypcy_${pendingAppointmentIndex}_of_${pendingAppointment.length}'),
-                                                      json:
-                                                          pendingAppointmentItem,
-                                                      accepted: false,
-                                                      state: 'pending',
-                                                      accept: () async {},
-                                                      reject: () async {},
-                                                      view: () async {
-                                                        if (functions
-                                                                .jsonToString(
-                                                                    getJsonField(
-                                                              pendingAppointmentItem,
-                                                              r'''$.appointment_type''',
-                                                            )) ==
-                                                            'Online') {
-                                                          context.pushNamed(
-                                                            'Online_AppointmentDeatels',
-                                                            queryParameters: {
-                                                              'appointmentId':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  pendingAppointmentItem,
-                                                                  r'''$.name''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        } else {
+                                                    return Visibility(
+                                                      visible: _model
+                                                                  .datePicked !=
+                                                              null
+                                                          ? (functions
+                                                                  .jsonToDateTime(
+                                                                      getJsonField(
+                                                                pendingAppointmentItem,
+                                                                r'''$.appointment_time''',
+                                                              ).toString()) ==
+                                                              _model.datePicked)
+                                                          : true,
+                                                      child:
+                                                          AppointmentCardWidget(
+                                                        key: Key(
+                                                            'Keypcy_${pendingAppointmentIndex}_of_${pendingAppointment.length}'),
+                                                        json:
+                                                            pendingAppointmentItem,
+                                                        accepted: false,
+                                                        state: 'pending',
+                                                        accept: () async {},
+                                                        reject: () async {},
+                                                        view: () async {
                                                           if (functions
                                                                   .jsonToString(
                                                                       getJsonField(
                                                                 pendingAppointmentItem,
                                                                 r'''$.appointment_type''',
                                                               )) ==
-                                                              'By Phone') {
+                                                              'Online') {
                                                             context.pushNamed(
-                                                              'By_Phone_AppointmentDeatels',
+                                                              'Online_AppointmentDeatels',
                                                               queryParameters: {
                                                                 'appointmentId':
                                                                     serializeParam(
@@ -1158,24 +1186,49 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                               }.withoutNulls,
                                                             );
                                                           } else {
-                                                            context.pushNamed(
-                                                              'On_site_AppointmentDeatels',
-                                                              queryParameters: {
-                                                                'appointmentId':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    pendingAppointmentItem,
-                                                                    r'''$.name''',
-                                                                  ).toString(),
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
+                                                            if (functions
+                                                                    .jsonToString(
+                                                                        getJsonField(
+                                                                  pendingAppointmentItem,
+                                                                  r'''$.appointment_type''',
+                                                                )) ==
+                                                                'By Phone') {
+                                                              context.pushNamed(
+                                                                'By_Phone_AppointmentDeatels',
+                                                                queryParameters:
+                                                                    {
+                                                                  'appointmentId':
+                                                                      serializeParam(
+                                                                    getJsonField(
+                                                                      pendingAppointmentItem,
+                                                                      r'''$.name''',
+                                                                    ).toString(),
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
+                                                            } else {
+                                                              context.pushNamed(
+                                                                'On_site_AppointmentDeatels',
+                                                                queryParameters:
+                                                                    {
+                                                                  'appointmentId':
+                                                                      serializeParam(
+                                                                    getJsonField(
+                                                                      pendingAppointmentItem,
+                                                                      r'''$.name''',
+                                                                    ).toString(),
+                                                                    ParamType
+                                                                        .String,
+                                                                  ),
+                                                                }.withoutNulls,
+                                                              );
+                                                            }
                                                           }
-                                                        }
-                                                      },
-                                                      edit: () async {},
+                                                        },
+                                                        edit: () async {},
+                                                      ),
                                                     );
                                                   },
                                                 );
@@ -1421,46 +1474,38 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                   final rejectedAppointmentItem =
                                                       rejectedAppointment[
                                                           rejectedAppointmentIndex];
-                                                  return AppointmentCardWidget(
-                                                    key: Key(
-                                                        'Keyf2y_${rejectedAppointmentIndex}_of_${rejectedAppointment.length}'),
-                                                    json:
-                                                        rejectedAppointmentItem,
-                                                    accepted: false,
-                                                    state: 'cancel',
-                                                    accept: () async {},
-                                                    reject: () async {},
-                                                    view: () async {
-                                                      if (functions
-                                                              .jsonToString(
-                                                                  getJsonField(
-                                                            rejectedAppointmentItem,
-                                                            r'''$.appointment_type''',
-                                                          )) ==
-                                                          'Online') {
-                                                        context.pushNamed(
-                                                          'Online_AppointmentDeatels',
-                                                          queryParameters: {
-                                                            'appointmentId':
-                                                                serializeParam(
-                                                              getJsonField(
-                                                                rejectedAppointmentItem,
-                                                                r'''$.name''',
-                                                              ).toString(),
-                                                              ParamType.String,
-                                                            ),
-                                                          }.withoutNulls,
-                                                        );
-                                                      } else {
+                                                  return Visibility(
+                                                    visible: _model
+                                                                .datePicked !=
+                                                            null
+                                                        ? (functions
+                                                                .jsonToDateTime(
+                                                                    getJsonField(
+                                                              rejectedAppointmentItem,
+                                                              r'''$.appointment_time''',
+                                                            ).toString()) ==
+                                                            _model.datePicked)
+                                                        : true,
+                                                    child:
+                                                        AppointmentCardWidget(
+                                                      key: Key(
+                                                          'Keyf2y_${rejectedAppointmentIndex}_of_${rejectedAppointment.length}'),
+                                                      json:
+                                                          rejectedAppointmentItem,
+                                                      accepted: false,
+                                                      state: 'cancel',
+                                                      accept: () async {},
+                                                      reject: () async {},
+                                                      view: () async {
                                                         if (functions
                                                                 .jsonToString(
                                                                     getJsonField(
                                                               rejectedAppointmentItem,
                                                               r'''$.appointment_type''',
                                                             )) ==
-                                                            'By Phone') {
+                                                            'Online') {
                                                           context.pushNamed(
-                                                            'By_Phone_AppointmentDeatels',
+                                                            'Online_AppointmentDeatels',
                                                             queryParameters: {
                                                               'appointmentId':
                                                                   serializeParam(
@@ -1474,24 +1519,47 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                             }.withoutNulls,
                                                           );
                                                         } else {
-                                                          context.pushNamed(
-                                                            'On_site_AppointmentDeatels',
-                                                            queryParameters: {
-                                                              'appointmentId':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  rejectedAppointmentItem,
-                                                                  r'''$.name''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
+                                                          if (functions
+                                                                  .jsonToString(
+                                                                      getJsonField(
+                                                                rejectedAppointmentItem,
+                                                                r'''$.appointment_type''',
+                                                              )) ==
+                                                              'By Phone') {
+                                                            context.pushNamed(
+                                                              'By_Phone_AppointmentDeatels',
+                                                              queryParameters: {
+                                                                'appointmentId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    rejectedAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          } else {
+                                                            context.pushNamed(
+                                                              'On_site_AppointmentDeatels',
+                                                              queryParameters: {
+                                                                'appointmentId':
+                                                                    serializeParam(
+                                                                  getJsonField(
+                                                                    rejectedAppointmentItem,
+                                                                    r'''$.name''',
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
+                                                          }
                                                         }
-                                                      }
-                                                    },
-                                                    edit: () async {},
+                                                      },
+                                                      edit: () async {},
+                                                    ),
                                                   );
                                                 },
                                               );
@@ -1571,111 +1639,125 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                   final acceptedAppointmentItem =
                                                       acceptedAppointment[
                                                           acceptedAppointmentIndex];
-                                                  return AppointmentCardWidget(
-                                                    key: Key(
-                                                        'Keyyby_${acceptedAppointmentIndex}_of_${acceptedAppointment.length}'),
-                                                    accepted: false,
-                                                    state: 'done',
-                                                    json:
-                                                        acceptedAppointmentItem,
-                                                    accept: () async {},
-                                                    reject: () async {},
-                                                    view: () async {
-                                                      _model.review =
-                                                          await TaskerpageBackendGroup
-                                                              .reviewReadByIdCall
-                                                              .call(
-                                                        apiGlobalKey:
-                                                            FFAppState().apiKey,
-                                                        filters:
-                                                            '[[\"appointment\",\"=\",\"${getJsonField(
+                                                  return Visibility(
+                                                    visible: _model
+                                                                .datePicked !=
+                                                            null
+                                                        ? (functions
+                                                                .jsonToDateTime(
+                                                                    getJsonField(
+                                                              acceptedAppointmentItem,
+                                                              r'''$.appointment_time''',
+                                                            ).toString()) ==
+                                                            _model.datePicked)
+                                                        : true,
+                                                    child:
+                                                        AppointmentCardWidget(
+                                                      key: Key(
+                                                          'Keyyby_${acceptedAppointmentIndex}_of_${acceptedAppointment.length}'),
+                                                      accepted: false,
+                                                      state: 'done',
+                                                      json:
                                                           acceptedAppointmentItem,
-                                                          r'''$.name''',
-                                                        ).toString()}\"],[\"reviewed_by\",\"=\",\"${getJsonField(
-                                                          FFAppState()
-                                                              .userProfile,
-                                                          r'''$.data.name''',
-                                                        ).toString()}\"]]',
-                                                        fields:
-                                                            '[\"appointment\",\"name\",\"reviewed_by\",\"review_rate\",\"comment\"]',
-                                                      );
-                                                      if (functions
-                                                              .checkLenghtlist(
-                                                                  getJsonField(
-                                                            (_model.review
-                                                                    ?.jsonBody ??
-                                                                ''),
-                                                            r'''$.data''',
-                                                          )) ==
-                                                          false) {
-                                                        await showModalBottomSheet(
-                                                          isScrollControlled:
-                                                              true,
-                                                          backgroundColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          enableDrag: false,
-                                                          context: context,
-                                                          builder: (context) {
-                                                            return GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
-                                                              child: Padding(
-                                                                padding: MediaQuery
-                                                                    .viewInsetsOf(
-                                                                        context),
-                                                                child:
-                                                                    UserRateWidget(
-                                                                  appointmentId:
-                                                                      getJsonField(
-                                                                    acceptedAppointmentItem,
-                                                                    r'''$.name''',
-                                                                  ).toString(),
-                                                                  action:
-                                                                      () async {},
-                                                                ),
-                                                              ),
-                                                            );
-                                                          },
-                                                        ).then((value) =>
-                                                            safeSetState(
-                                                                () {}));
-                                                      } else {
-                                                        await showDialog(
-                                                          context: context,
-                                                          builder:
-                                                              (alertDialogContext) {
-                                                            return AlertDialog(
-                                                              title: Text(
-                                                                  'Review'),
-                                                              content: Text(
-                                                                  'You have already commented on this appointment !'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          },
+                                                      accept: () async {},
+                                                      reject: () async {},
+                                                      view: () async {
+                                                        _model.review =
+                                                            await TaskerpageBackendGroup
+                                                                .reviewReadByIdCall
+                                                                .call(
+                                                          apiGlobalKey:
+                                                              FFAppState()
+                                                                  .apiKey,
+                                                          filters:
+                                                              '[[\"appointment\",\"=\",\"${getJsonField(
+                                                            acceptedAppointmentItem,
+                                                            r'''$.name''',
+                                                          ).toString()}\"],[\"reviewed_by\",\"=\",\"${getJsonField(
+                                                            FFAppState()
+                                                                .userProfile,
+                                                            r'''$.data.name''',
+                                                          ).toString()}\"]]',
+                                                          fields:
+                                                              '[\"appointment\",\"name\",\"reviewed_by\",\"review_rate\",\"comment\"]',
                                                         );
-                                                      }
+                                                        if (functions
+                                                                .checkLenghtlist(
+                                                                    getJsonField(
+                                                              (_model.review
+                                                                      ?.jsonBody ??
+                                                                  ''),
+                                                              r'''$.data''',
+                                                            )) ==
+                                                            false) {
+                                                          await showModalBottomSheet(
+                                                            isScrollControlled:
+                                                                true,
+                                                            backgroundColor:
+                                                                Colors
+                                                                    .transparent,
+                                                            enableDrag: false,
+                                                            context: context,
+                                                            builder: (context) {
+                                                              return GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      UserRateWidget(
+                                                                    appointmentId:
+                                                                        getJsonField(
+                                                                      acceptedAppointmentItem,
+                                                                      r'''$.name''',
+                                                                    ).toString(),
+                                                                    action:
+                                                                        () async {},
+                                                                  ),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ).then((value) =>
+                                                              safeSetState(
+                                                                  () {}));
+                                                        } else {
+                                                          await showDialog(
+                                                            context: context,
+                                                            builder:
+                                                                (alertDialogContext) {
+                                                              return AlertDialog(
+                                                                title: Text(
+                                                                    'Review'),
+                                                                content: Text(
+                                                                    'You have already commented on this appointment !'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext),
+                                                                    child: Text(
+                                                                        'Ok'),
+                                                                  ),
+                                                                ],
+                                                              );
+                                                            },
+                                                          );
+                                                        }
 
-                                                      setState(() {});
-                                                    },
-                                                    edit: () async {},
+                                                        setState(() {});
+                                                      },
+                                                      edit: () async {},
+                                                    ),
                                                   );
                                                 },
                                               );

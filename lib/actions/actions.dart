@@ -24,3 +24,37 @@ Future upload(
 
   return;
 }
+
+Future navigateToUserProfile(BuildContext context) async {
+  context.pushNamed(
+    'User_profile',
+    queryParameters: {
+      'id': serializeParam(
+        getJsonField(
+          FFAppState().userProfile,
+          r'''$.data.name''',
+        ).toString().toString(),
+        ParamType.String,
+      ),
+    }.withoutNulls,
+  );
+}
+
+Future<dynamic> updateCustomerProfileBadge(
+  BuildContext context, {
+  required String? appBadge,
+}) async {
+  ApiCallResponse? apiResultq16;
+
+  apiResultq16 =
+      await TaskerpageBackendGroup.updateCustomerProfileBadgesCall.call(
+    customerProfile: getJsonField(
+      FFAppState().userProfile,
+      r'''$.data.name''',
+    ).toString().toString(),
+    apiGlobalKey: FFAppState().apiKey,
+    appBadge: appBadge,
+  );
+
+  return null;
+}

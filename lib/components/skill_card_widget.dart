@@ -538,6 +538,33 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Container(
+                    width: 104.0,
+                    height: 36.0,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(2.0),
+                      border: Border.all(
+                        color: FlutterFlowTheme.of(context).primary,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Cancel',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Lato',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    fontSize: 13.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
                   InkWell(
                     splashColor: Colors.transparent,
                     focusColor: Colors.transparent,
@@ -623,7 +650,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                         ),
                       ),
                     ),
-                ],
+                ].divide(SizedBox(width: 12.0)),
               ),
             ),
           ],

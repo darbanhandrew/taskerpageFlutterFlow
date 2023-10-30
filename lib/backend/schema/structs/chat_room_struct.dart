@@ -19,6 +19,8 @@ class ChatRoomStruct extends BaseStruct {
     String? modified,
     String? oppositePersonAvatar,
     String? oppositePersonCustomerProfile,
+    List<TransitionsStruct>? possibleTransitions,
+    String? workflowState,
   })  : _roomName = roomName,
         _type = type,
         _members = members,
@@ -30,7 +32,9 @@ class ChatRoomStruct extends BaseStruct {
         _room = room,
         _modified = modified,
         _oppositePersonAvatar = oppositePersonAvatar,
-        _oppositePersonCustomerProfile = oppositePersonCustomerProfile;
+        _oppositePersonCustomerProfile = oppositePersonCustomerProfile,
+        _possibleTransitions = possibleTransitions,
+        _workflowState = workflowState;
 
   // "room_name" field.
   String? _roomName;
@@ -108,6 +112,22 @@ class ChatRoomStruct extends BaseStruct {
   bool hasOppositePersonCustomerProfile() =>
       _oppositePersonCustomerProfile != null;
 
+  // "possible_transitions" field.
+  List<TransitionsStruct>? _possibleTransitions;
+  List<TransitionsStruct> get possibleTransitions =>
+      _possibleTransitions ?? const [];
+  set possibleTransitions(List<TransitionsStruct>? val) =>
+      _possibleTransitions = val;
+  void updatePossibleTransitions(Function(List<TransitionsStruct>) updateFn) =>
+      updateFn(_possibleTransitions ??= []);
+  bool hasPossibleTransitions() => _possibleTransitions != null;
+
+  // "workflow_state" field.
+  String? _workflowState;
+  String get workflowState => _workflowState ?? '';
+  set workflowState(String? val) => _workflowState = val;
+  bool hasWorkflowState() => _workflowState != null;
+
   static ChatRoomStruct fromMap(Map<String, dynamic> data) => ChatRoomStruct(
         roomName: data['room_name'] as String?,
         type: data['type'] as String?,
@@ -122,6 +142,11 @@ class ChatRoomStruct extends BaseStruct {
         oppositePersonAvatar: data['opposite_person_avatar'] as String?,
         oppositePersonCustomerProfile:
             data['opposite_person_customer_profile'] as String?,
+        possibleTransitions: getStructList(
+          data['possible_transitions'],
+          TransitionsStruct.fromMap,
+        ),
+        workflowState: data['workflow_state'] as String?,
       );
 
   static ChatRoomStruct? maybeFromMap(dynamic data) =>
@@ -140,6 +165,9 @@ class ChatRoomStruct extends BaseStruct {
         'modified': _modified,
         'opposite_person_avatar': _oppositePersonAvatar,
         'opposite_person_customer_profile': _oppositePersonCustomerProfile,
+        'possible_transitions':
+            _possibleTransitions?.map((e) => e.toMap()).toList(),
+        'workflow_state': _workflowState,
       }.withoutNulls;
 
   @override
@@ -190,6 +218,15 @@ class ChatRoomStruct extends BaseStruct {
         ),
         'opposite_person_customer_profile': serializeParam(
           _oppositePersonCustomerProfile,
+          ParamType.String,
+        ),
+        'possible_transitions': serializeParam(
+          _possibleTransitions,
+          ParamType.DataStruct,
+          true,
+        ),
+        'workflow_state': serializeParam(
+          _workflowState,
           ParamType.String,
         ),
       }.withoutNulls;
@@ -256,6 +293,17 @@ class ChatRoomStruct extends BaseStruct {
           ParamType.String,
           false,
         ),
+        possibleTransitions: deserializeStructParam<TransitionsStruct>(
+          data['possible_transitions'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: TransitionsStruct.fromSerializableMap,
+        ),
+        workflowState: deserializeParam(
+          data['workflow_state'],
+          ParamType.String,
+          false,
+        ),
       );
 
   @override
@@ -263,6 +311,7 @@ class ChatRoomStruct extends BaseStruct {
 
   @override
   bool operator ==(Object other) {
+    const listEquality = ListEquality();
     return other is ChatRoomStruct &&
         roomName == other.roomName &&
         type == other.type &&
@@ -275,7 +324,9 @@ class ChatRoomStruct extends BaseStruct {
         room == other.room &&
         modified == other.modified &&
         oppositePersonAvatar == other.oppositePersonAvatar &&
-        oppositePersonCustomerProfile == other.oppositePersonCustomerProfile;
+        oppositePersonCustomerProfile == other.oppositePersonCustomerProfile &&
+        listEquality.equals(possibleTransitions, other.possibleTransitions) &&
+        workflowState == other.workflowState;
   }
 
   @override
@@ -291,7 +342,9 @@ class ChatRoomStruct extends BaseStruct {
         room,
         modified,
         oppositePersonAvatar,
-        oppositePersonCustomerProfile
+        oppositePersonCustomerProfile,
+        possibleTransitions,
+        workflowState
       ]);
 }
 
@@ -308,6 +361,7 @@ ChatRoomStruct createChatRoomStruct({
   String? modified,
   String? oppositePersonAvatar,
   String? oppositePersonCustomerProfile,
+  String? workflowState,
 }) =>
     ChatRoomStruct(
       roomName: roomName,
@@ -322,4 +376,5 @@ ChatRoomStruct createChatRoomStruct({
       modified: modified,
       oppositePersonAvatar: oppositePersonAvatar,
       oppositePersonCustomerProfile: oppositePersonCustomerProfile,
+      workflowState: workflowState,
     );

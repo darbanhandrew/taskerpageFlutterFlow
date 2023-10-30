@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -136,27 +137,58 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 102.0,
-                  height: 36.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).primary,
-                    borderRadius: BorderRadius.circular(1.0),
-                  ),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Post a task',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Lato',
-                              color: Colors.white,
-                              fontSize: 14.0,
+                InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    if (functions.jsonToString(getJsonField(
+                          FFAppState().userProfile,
+                          r'''$.data.role''',
+                        )) !=
+                        'Tasker') {
+                      context.pushNamed('Task-1');
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Your role is tasker !',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primary,
                               fontWeight: FontWeight.w500,
+                              fontSize: 13.0,
                             ),
-                      ),
-                    ],
+                          ),
+                          duration: Duration(milliseconds: 3000),
+                          backgroundColor: Colors.white,
+                        ),
+                      );
+                    }
+                  },
+                  child: Container(
+                    width: 102.0,
+                    height: 36.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primary,
+                      borderRadius: BorderRadius.circular(1.0),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Post a task',
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
+                                    fontFamily: 'Lato',
+                                    color: Colors.white,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 InkWell(

@@ -553,6 +553,9 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
+                                setState(() {
+                                  _model.mapORno = 2;
+                                });
                                 if (!functions.isLatLngNullIsland(
                                     _model.placePickerValue.latLng)) {
                                   setState(() {

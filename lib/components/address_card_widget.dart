@@ -226,6 +226,14 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
       back: Container(
         decoration: BoxDecoration(
           color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              blurRadius: 4.0,
+              color: Color(0x33000000),
+              offset: Offset(0.0, 2.0),
+              spreadRadius: 1.0,
+            )
+          ],
           borderRadius: BorderRadius.circular(0.0),
         ),
         child: Column(
@@ -233,7 +241,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 35.0, 0.0, 35.0),
+              padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 30.0),
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -243,7 +251,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                         EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
                     child: Container(
                       width: 104.0,
-                      height: 40.0,
+                      height: 36.0,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(1.5),
@@ -310,7 +318,7 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                     },
                     child: Container(
                       width: 104.0,
-                      height: 40.0,
+                      height: 36.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primary,
                         borderRadius: BorderRadius.circular(1.5),

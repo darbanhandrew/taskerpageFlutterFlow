@@ -528,7 +528,17 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                           color: Color(0xFF494949),
                                           size: 25.0,
                                         ),
-                                        clickAction: () async {},
+                                        clickAction: () async {
+                                          context.pushNamed(
+                                            'identification_card',
+                                            queryParameters: {
+                                              'signUp': serializeParam(
+                                                false,
+                                                ParamType.bool,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),
@@ -599,7 +609,17 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                           color: Color(0xFF494949),
                                           size: 25.0,
                                         ),
-                                        clickAction: () async {},
+                                        clickAction: () async {
+                                          context.pushNamed(
+                                            'Rates_list',
+                                            queryParameters: {
+                                              'isEdit': serializeParam(
+                                                false,
+                                                ParamType.bool,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
                                       ),
                                     ),
                                   ),

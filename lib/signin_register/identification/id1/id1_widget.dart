@@ -44,16 +44,14 @@ class _Id1WidgetState extends State<Id1Widget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget.name == 'create') {
-        setState(() {
-          _model.updateIdentificationStruct(
-            (e) => e
-              ..name = 'new'
-              ..customerProfile = getJsonField(
-                FFAppState().userProfile,
-                r'''$.data.name''',
-              ).toString().toString(),
-          );
-        });
+        _model.updateIdentificationStruct(
+          (e) => e
+            ..name = 'new'
+            ..customerProfile = getJsonField(
+              FFAppState().userProfile,
+              r'''$.data.name''',
+            ).toString().toString(),
+        );
       } else {
         _model.apiResultd0a =
             await TaskerpageBackendGroup.getIdentificationDetailsCall.call(
@@ -388,7 +386,12 @@ class _Id1WidgetState extends State<Id1Widget> {
                               if (_model.identification?.name == 'new') {
                                 setState(() {
                                   _model.updateIdentificationStruct(
-                                    (e) => e..name = '',
+                                    (e) => e
+                                      ..name = ''
+                                      ..customerProfile = getJsonField(
+                                        FFAppState().userProfile,
+                                        r'''$.data.name''',
+                                      ).toString(),
                                   );
                                 });
                                 _model.createdIdentification =

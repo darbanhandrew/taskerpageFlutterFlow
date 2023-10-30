@@ -16,10 +16,15 @@ class ChatMessageActionsWidget extends StatefulWidget {
     Key? key,
     this.parameter1,
     this.parameter2,
-  }) : super(key: key);
+    String? doctype,
+    required this.chatRoom,
+  })  : this.doctype = doctype ?? 'Chat Message',
+        super(key: key);
 
   final String? parameter1;
   final List<TransitionsStruct>? parameter2;
+  final String doctype;
+  final ChatRoomStruct? chatRoom;
 
   @override
   _ChatMessageActionsWidgetState createState() =>
@@ -56,135 +61,115 @@ class _ChatMessageActionsWidgetState extends State<ChatMessageActionsWidget> {
 
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 0.0, 0.0),
-      child: FutureBuilder<ApiCallResponse>(
-        future: TaskerpageBackendGroup.getPossibleTransitionsCall.call(),
-        builder: (context, snapshot) {
-          // Customize what your widget looks like when it's loading.
-          if (!snapshot.hasData) {
-            return Center(
-              child: SizedBox(
-                width: 50.0,
-                height: 50.0,
-                child: SpinKitThreeBounce(
-                  color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
-                ),
-              ),
-            );
-          }
-          final rowGetPossibleTransitionsResponse = snapshot.data!;
-          return Builder(
-            builder: (context) {
-              final possibleTransitions = widget.parameter2?.toList() ?? [];
-              return Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: List.generate(possibleTransitions.length,
-                    (possibleTransitionsIndex) {
-                  final possibleTransitionsItem =
-                      possibleTransitions[possibleTransitionsIndex];
-                  return InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      await showModalBottomSheet(
-                        isScrollControlled: true,
-                        backgroundColor: Colors.transparent,
-                        enableDrag: false,
-                        context: context,
-                        builder: (context) {
-                          return Padding(
-                            padding: MediaQuery.viewInsetsOf(context),
-                            child: ChatActionBottomSheetWidget(),
-                          );
-                        },
-                      ).then((value) => safeSetState(
-                          () => _model.chatActionBottomSheet = value));
-
-                      if (_model.chatActionBottomSheet!.hasRefrenceDoctype()) {
-                        _model.apiResultu11 =
-                            await TaskerpageBackendGroup.processActionCall.call(
-                          doctype: 'Chat Message',
-                          docname: widget.parameter1,
+      child: Builder(
+        builder: (context) {
+          final possibleTransitions = widget.parameter2?.toList() ?? [];
+          return Row(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: List.generate(possibleTransitions.length,
+                (possibleTransitionsIndex) {
+              final possibleTransitionsItem =
+                  possibleTransitions[possibleTransitionsIndex];
+              return InkWell(
+                splashColor: Colors.transparent,
+                focusColor: Colors.transparent,
+                hoverColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () async {
+                  await showModalBottomSheet(
+                    isScrollControlled: true,
+                    backgroundColor: Colors.transparent,
+                    enableDrag: false,
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: ChatActionBottomSheetWidget(
                           action: possibleTransitionsItem.action,
-                          refrenceDoctype: 'Customer Profile',
-                          refrenceDocname: getJsonField(
-                            FFAppState().userProfile,
-                            r'''$.data.name''',
-                          ).toString(),
-                          apiGlobalKey: FFAppState().apiKey,
-                        );
-                        if ((_model.apiResultu11?.succeeded ?? true)) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'Message sent successfuly',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                        } else {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text(
-                                'There was a problem with sending your message.',
-                                style: TextStyle(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                              duration: Duration(milliseconds: 4000),
-                              backgroundColor:
-                                  FlutterFlowTheme.of(context).secondary,
-                            ),
-                          );
-                        }
-                      }
-
-                      setState(() {});
-                    },
-                    child: Container(
-                      height: 26.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(10.0),
-                        border: Border.all(
-                          color: FlutterFlowTheme.of(context).primary,
+                          chatRoom: widget.chatRoom!,
                         ),
-                      ),
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              possibleTransitionsItem.action,
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
+                      );
+                    },
+                  ).then((value) =>
+                      safeSetState(() => _model.chatActionBottomSheet = value));
+
+                  if (_model.chatActionBottomSheet!.hasRefrenceDoctype()) {
+                    _model.apiResultu11 =
+                        await TaskerpageBackendGroup.processActionCall.call(
+                      doctype: widget.doctype,
+                      docname: widget.parameter1,
+                      action: possibleTransitionsItem.action,
+                      refrenceDoctype: 'Customer Profile',
+                      refrenceDocname: getJsonField(
+                        FFAppState().userProfile,
+                        r'''$.data.name''',
+                      ).toString(),
+                      apiGlobalKey: FFAppState().apiKey,
+                    );
+                    if ((_model.apiResultu11?.succeeded ?? true)) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'Message sent successfuly',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text(
+                            'There was a problem with sending your message.',
+                            style: TextStyle(
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                          duration: Duration(milliseconds: 4000),
+                          backgroundColor:
+                              FlutterFlowTheme.of(context).secondary,
+                        ),
+                      );
+                    }
+                  }
+
+                  setState(() {});
+                },
+                child: Container(
+                  height: 26.0,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                    borderRadius: BorderRadius.circular(10.0),
+                    border: Border.all(
+                      color: FlutterFlowTheme.of(context).primary,
+                    ),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          possibleTransitionsItem.action,
+                          style:
+                              FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Lato',
                                     color: FlutterFlowTheme.of(context).primary,
                                     fontSize: 10.0,
                                     fontWeight: FontWeight.w500,
                                   ),
-                            ),
-                          ],
                         ),
-                      ),
+                      ],
                     ),
-                  );
-                }).divide(SizedBox(width: 8.0)),
+                  ),
+                ),
               );
-            },
+            }).divide(SizedBox(width: 8.0)),
           );
         },
       ),

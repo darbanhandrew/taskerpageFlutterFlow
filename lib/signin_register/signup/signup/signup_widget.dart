@@ -856,6 +856,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   Expanded(
                                     child: Container(
                                       width: 100.0,
+                                      height: 1.0,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFA8A8A8),
                                       ),
@@ -879,6 +880,7 @@ class _SignupWidgetState extends State<SignupWidget> {
                                   Expanded(
                                     child: Container(
                                       width: 100.0,
+                                      height: 1.0,
                                       decoration: BoxDecoration(
                                         color: Color(0xFFA8A8A8),
                                       ),

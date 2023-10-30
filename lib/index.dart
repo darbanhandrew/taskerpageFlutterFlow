@@ -152,3 +152,4 @@ export '/signin_register/rate/rate_sign_up/rate_sign_up_widget.dart'
 export '/signin_register/rate/rates_list/rates_list_widget.dart'
     show RatesListWidget;
 export '/test2/test2_widget.dart' show Test2Widget;
+export '/user_profile/user_profile_widget.dart' show UserProfileWidget;

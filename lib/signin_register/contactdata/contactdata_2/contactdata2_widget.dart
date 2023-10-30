@@ -45,6 +45,8 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
       setState(() {
         FFAppState().DeleteAddressBackGroundColor = false;
       });
+      setState(() => _model.apiRequestCompleter1 = null);
+      await _model.waitForApiRequestCompleted1();
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -300,13 +302,13 @@ class _Contactdata2WidgetState extends State<Contactdata2Widget> {
                                             address: myMainAddressesItem,
                                             action: () async {
                                               setState(() => _model
-                                                  .apiRequestCompleter2 = null);
-                                              await _model
-                                                  .waitForApiRequestCompleted2();
-                                              setState(() => _model
                                                   .apiRequestCompleter1 = null);
                                               await _model
                                                   .waitForApiRequestCompleted1();
+                                              setState(() => _model
+                                                  .apiRequestCompleter2 = null);
+                                              await _model
+                                                  .waitForApiRequestCompleted2();
                                             },
                                           );
                                         },

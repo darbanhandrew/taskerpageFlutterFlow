@@ -1599,8 +1599,38 @@ String generateQuery(
   return result;
 }
 
-List<ChatRoomStruct> convertJsonListToChatRoomStructList(
-    List<dynamic> chatListJson) {
-  // convert a list of json to a list of struct using frommap
-  return chatListJson.map((json) => ChatRoomStruct.fromMap(json)).toList();
+List<dynamic> convertMap(List<dynamic> originalMap) {
+  List<dynamic> newList = [];
+  for (var item in originalMap) {
+    if (item is Map) {
+      Map<String, dynamic> newMap = {};
+      for (var key in item.keys) {
+        if (key is String) {
+          newMap[key] = item[key];
+        } else {
+          newMap[key.toString()] = item[key];
+        }
+      }
+      newList.add(newMap);
+    } else {
+      newList.add(item); // If item is not a map, add it to newList as is
+    }
+  }
+  return newList;
+}
+
+dynamic convertSingleMap(dynamic json) {
+  if (json is Map) {
+    Map<String, dynamic> newMap = {};
+    for (var key in json.keys) {
+      if (key is String) {
+        newMap[key] = json[key];
+      } else {
+        newMap[key.toString()] = json[key];
+      }
+    }
+    return newMap;
+  } else {
+    return json; // If json is not a map, return it as is
+  }
 }
