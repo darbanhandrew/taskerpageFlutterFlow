@@ -26,7 +26,7 @@ class SocketApi {
 
   // The Socket.IO client instance
   IO.Socket? _socket;
-
+  Set<String> _events = {};
   // Connect to the WebSocket server and return the client instance
   IO.Socket connect() {
     if (_socket == null) {
@@ -38,13 +38,21 @@ class SocketApi {
     return _socket!;
   }
 
-  // Listen for an event
   void on(String event, Function(dynamic) callback) {
-    _socket?.on(event, callback);
+    if (!_events.contains(event)) {
+      // Check if the event is not already being listened to
+      _socket?.on(event, callback);
+      _events.add(event); // Add the event to the set
+    }
   }
 
+  // Modified off method
   void off(String event) {
-    _socket?.off(event);
+    if (_events.contains(event)) {
+      // Check if the event is being listened to
+      _socket?.off(event);
+      _events.remove(event); // Remove the event from the set
+    }
   }
 
   // Emit an event

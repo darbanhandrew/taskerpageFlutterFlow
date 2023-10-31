@@ -7,6 +7,7 @@ export 'chat_message_header_struct.dart';
 export 'chat_room_struct.dart';
 export 'child_skill_category_struct.dart';
 export 'current_user_struct.dart';
+export 'customer_profile_struct.dart';
 export 'customer_profile_badge_struct.dart';
 export 'education_struct.dart';
 export 'identification_struct.dart';
