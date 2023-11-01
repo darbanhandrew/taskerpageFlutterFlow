@@ -57,8 +57,6 @@ export '/signin_register/profiledetails/profiledetails/profiledetails_widget.dar
     show ProfiledetailsWidget;
 export '/signin_register/profiledetails/profiledetails2/profiledetails2_widget.dart'
     show Profiledetails2Widget;
-export '/signin_register/profile/tasker_profile/tasker_profile_widget.dart'
-    show TaskerProfileWidget;
 export '/subscription/show_plans/show_plans_widget.dart' show ShowPlansWidget;
 export '/subscription/success_ful/success_ful_widget.dart'
     show SuccessFulWidget;
@@ -91,22 +89,14 @@ export '/dashboard/taskers_dashboard/taskers_dashboard_widget.dart'
     show TaskersDashboardWidget;
 export '/dashboard/posters_dashboard/posters_dashboard_widget.dart'
     show PostersDashboardWidget;
-export '/signin_register/profile/poster_profile/poster_profile_widget.dart'
-    show PosterProfileWidget;
 export '/dashboard/main_home_page/main_home_page_widget.dart'
     show MainHomePageWidget;
-export '/signin_register/profile/poster_profile_view/poster_profile_view_widget.dart'
-    show PosterProfileViewWidget;
-export '/signin_register/profile/tasker_profile_view/tasker_profile_view_widget.dart'
-    show TaskerProfileViewWidget;
 export '/signin_register/skills/add_another_skill/add_another_skill_widget.dart'
     show AddAnotherSkillWidget;
 export '/signin_register/skills/add_another_skill_2/add_another_skill2_widget.dart'
     show AddAnotherSkill2Widget;
 export '/signin_register/education/add_another_education/add_another_education_widget.dart'
     show AddAnotherEducationWidget;
-export '/task_creation/preview/task_view/task_view_widget.dart'
-    show TaskViewWidget;
 export '/dashboard/tasker_home_page/tasker_home_page_widget.dart'
     show TaskerHomePageWidget;
 export '/dashboard/poster_home_page/poster_home_page_widget.dart'
@@ -152,4 +142,5 @@ export '/signin_register/rate/rate_sign_up/rate_sign_up_widget.dart'
 export '/signin_register/rate/rates_list/rates_list_widget.dart'
     show RatesListWidget;
 export '/test2/test2_widget.dart' show Test2Widget;
-export '/user_profile/user_profile_widget.dart' show UserProfileWidget;
+export '/signin_register/profile/user_profile/user_profile_widget.dart'
+    show UserProfileWidget;

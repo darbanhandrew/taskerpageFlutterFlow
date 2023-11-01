@@ -640,18 +640,11 @@ class _TaskListWidgetState extends State<TaskListWidget>
                                                                       1000));
 
                                                           context.pushNamed(
-                                                            'TaskView',
+                                                            'PublishTask',
                                                             queryParameters: {
                                                               'id':
                                                                   serializeParam(
-                                                                functions.findNameByChosenLatLngFromJsonList(
-                                                                    _model.googleMapsCenter,
-                                                                    getJsonField(
-                                                                      columnCustomerTaskListResponse
-                                                                          .jsonBody,
-                                                                      r'''$.data''',
-                                                                      true,
-                                                                    )),
+                                                                '',
                                                                 ParamType
                                                                     .String,
                                                               ),

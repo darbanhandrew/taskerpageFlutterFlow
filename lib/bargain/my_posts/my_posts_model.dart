@@ -19,30 +19,30 @@ class MyPostsModel extends FlutterFlowModel<MyPostsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for NavigateBack component.
   late NavigateBackModel navigateBackModel;
   // Model for NavBar component.
   late NavBarModel navBarModel;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
     navBarModel = createModel(context, () => NavBarModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
     headerModel.dispose();
     navigateBackModel.dispose();
     navBarModel.dispose();
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

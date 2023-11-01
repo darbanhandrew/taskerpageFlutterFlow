@@ -928,7 +928,7 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                               updateCallback: () => setState(() {}),
                               child: WizardFooterWidget(
                                 cancelText: '',
-                                saveText: 'next',
+                                saveText: 'Next',
                                 saveAction: () async {
                                   _model.apiResultq16 =
                                       await TaskerpageBackendGroup

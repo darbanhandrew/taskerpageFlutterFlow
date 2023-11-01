@@ -451,7 +451,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
               highlightColor: Colors.transparent,
               onTap: () async {
                 context.pushNamed(
-                  'TaskView',
+                  'PublishTask',
                   queryParameters: {
                     'id': serializeParam(
                       getJsonField(

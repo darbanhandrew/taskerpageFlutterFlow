@@ -187,30 +187,10 @@ class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {
                                     itemBuilder: (context, userPostsIndex) {
                                       final userPostsItem =
                                           userPosts[userPostsIndex];
-                                      return InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          context.pushNamed(
-                                            'TaskView',
-                                            queryParameters: {
-                                              'id': serializeParam(
-                                                getJsonField(
-                                                  userPostsItem,
-                                                  r'''$.id''',
-                                                ).toString(),
-                                                ParamType.String,
-                                              ),
-                                            }.withoutNulls,
-                                          );
-                                        },
-                                        child: TaskCardWidget(
-                                          key: Key(
-                                              'Keys73_${userPostsIndex}_of_${userPosts.length}'),
-                                          post: userPostsItem,
-                                        ),
+                                      return TaskCardWidget(
+                                        key: Key(
+                                            'Keys73_${userPostsIndex}_of_${userPosts.length}'),
+                                        post: userPostsItem,
                                       );
                                     },
                                   );

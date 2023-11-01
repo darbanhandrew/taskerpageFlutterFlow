@@ -411,10 +411,10 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
                       highlightColor: Colors.transparent,
                       onTap: () async {
                         context.pushNamed(
-                          'TaskView',
+                          'User_profile',
                           queryParameters: {
                             'id': serializeParam(
-                              (int.tryParse(widget.postId!))?.toString(),
+                              widget.postId,
                               ParamType.String,
                             ),
                           }.withoutNulls,

@@ -81,11 +81,7 @@ class _DrawerContentWidgetState extends State<DrawerContentWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      if (FFAppState().UserInformation.role == 'Poster') {
-                        context.pushNamed('Poster_Profile');
-                      } else {
-                        context.pushNamed('Tasker_Profile');
-                      }
+                      context.pushNamed('User_profile');
                     },
                     child: Container(
                       width: 55.0,

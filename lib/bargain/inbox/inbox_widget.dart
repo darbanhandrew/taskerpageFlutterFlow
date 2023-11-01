@@ -578,7 +578,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                             () async {
                                                                           context
                                                                               .pushNamed(
-                                                                            'Tasker_Profile_view',
+                                                                            'User_profile',
                                                                             queryParameters:
                                                                                 {
                                                                               'id': serializeParam(
@@ -642,7 +642,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                                     highlightColor: Colors.transparent,
                                                                                     onTap: () async {
                                                                                       context.pushNamed(
-                                                                                        'Tasker_Profile_view',
+                                                                                        'User_profile',
                                                                                         queryParameters: {
                                                                                           'id': serializeParam(
                                                                                             getJsonField(
@@ -1159,7 +1159,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                               )) ==
                                                               'Tasker') {
                                                             context.pushNamed(
-                                                              'Tasker_Profile_view',
+                                                              'User_profile',
                                                               queryParameters: {
                                                                 'id':
                                                                     serializeParam(
@@ -1175,7 +1175,7 @@ class _InboxWidgetState extends State<InboxWidget>
                                                             );
                                                           } else {
                                                             context.pushNamed(
-                                                              'Poster_Profile_view',
+                                                              'User_profile',
                                                               queryParameters: {
                                                                 'id':
                                                                     serializeParam(
@@ -1183,8 +1183,9 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                     containerUserProfileReadResponse
                                                                         .jsonBody,
                                                                     r'''$.data.name''',
-                                                                  ),
-                                                                  ParamType.int,
+                                                                  ).toString(),
+                                                                  ParamType
+                                                                      .String,
                                                                 ),
                                                               }.withoutNulls,
                                                             );

@@ -668,7 +668,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                context.pushNamed('Tasker_Profile');
+                                context.pushNamed('User_profile');
                               },
                               child: Text(
                                 'I\'ll do it later',

@@ -453,17 +453,7 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                           size: 25.0,
                                         ),
                                         clickAction: () async {
-                                          if (functions
-                                                  .jsonToString(getJsonField(
-                                                containerUserProfileReadResponse
-                                                    .jsonBody,
-                                                r'''$.data.role''',
-                                              )) ==
-                                              'Tasker') {
-                                            context.pushNamed('Tasker_Profile');
-                                          } else {
-                                            context.pushNamed('Poster_Profile');
-                                          }
+                                          context.pushNamed('User_profile');
                                         },
                                       ),
                                     ),

@@ -1634,3 +1634,17 @@ dynamic convertSingleMap(dynamic json) {
     return json; // If json is not a map, return it as is
   }
 }
+
+int? age(DateTime? dateOfBirth) {
+  // Take the date of birth from the dateOfBirth and calculate her age
+  if (dateOfBirth == null) {
+    return null;
+  }
+  final now = DateTime.now();
+  final age = now.year - dateOfBirth.year;
+  if (now.month < dateOfBirth.month ||
+      (now.month == dateOfBirth.month && now.day < dateOfBirth.day)) {
+    return age - 1;
+  }
+  return age;
+}

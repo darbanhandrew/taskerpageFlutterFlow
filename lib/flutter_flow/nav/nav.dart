@@ -246,11 +246,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => Profiledetails2Widget(),
         ),
         FFRoute(
-          name: 'Tasker_Profile',
-          path: '/taskerProfile',
-          builder: (context, params) => TaskerProfileWidget(),
-        ),
-        FFRoute(
           name: 'ShowPlans',
           path: '/showPlans',
           builder: (context, params) => ShowPlansWidget(),
@@ -373,28 +368,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => PostersDashboardWidget(),
         ),
         FFRoute(
-          name: 'Poster_Profile',
-          path: '/posterProfile',
-          builder: (context, params) => PosterProfileWidget(),
-        ),
-        FFRoute(
           name: 'MainHomePage',
           path: '/mainHomePage',
           builder: (context, params) => MainHomePageWidget(),
-        ),
-        FFRoute(
-          name: 'Poster_Profile_view',
-          path: '/posterProfileView',
-          builder: (context, params) => PosterProfileViewWidget(
-            id: params.getParam('id', ParamType.int),
-          ),
-        ),
-        FFRoute(
-          name: 'Tasker_Profile_view',
-          path: '/taskerProfileView',
-          builder: (context, params) => TaskerProfileViewWidget(
-            id: params.getParam('id', ParamType.String),
-          ),
         ),
         FFRoute(
           name: 'add_another_skill',
@@ -413,13 +389,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             isSignUp: params.getParam('isSignUp', ParamType.bool),
             education: params.getParam('education', ParamType.JSON),
             addAnother: params.getParam('addAnother', ParamType.bool),
-          ),
-        ),
-        FFRoute(
-          name: 'TaskView',
-          path: '/taskView',
-          builder: (context, params) => TaskViewWidget(
-            id: params.getParam('id', ParamType.String),
           ),
         ),
         FFRoute(

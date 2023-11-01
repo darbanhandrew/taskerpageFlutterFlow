@@ -363,7 +363,7 @@ class _OnSiteAppointmentDeatelsWidgetState
                                               )) ==
                                               'Tasker') {
                                             context.pushNamed(
-                                              'Tasker_Profile_view',
+                                              'User_profile',
                                               queryParameters: {
                                                 'id': serializeParam(
                                                   getJsonField(
@@ -377,15 +377,15 @@ class _OnSiteAppointmentDeatelsWidgetState
                                             );
                                           } else {
                                             context.pushNamed(
-                                              'Poster_Profile_view',
+                                              'User_profile',
                                               queryParameters: {
                                                 'id': serializeParam(
                                                   getJsonField(
                                                     columnCustomerProfileDetailsResponse
                                                         .jsonBody,
                                                     r'''$.data.name''',
-                                                  ),
-                                                  ParamType.int,
+                                                  ).toString(),
+                                                  ParamType.String,
                                                 ),
                                               }.withoutNulls,
                                             );
@@ -420,74 +420,21 @@ class _OnSiteAppointmentDeatelsWidgetState
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   children: [
-                                                    InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        if (functions
-                                                                .jsonToString(
-                                                                    getJsonField(
-                                                              columnCustomerProfileDetailsResponse
-                                                                  .jsonBody,
-                                                              r'''$.data.role''',
-                                                            )) ==
-                                                            'Tasker') {
-                                                          context.pushNamed(
-                                                            'Tasker_Profile_view',
-                                                            queryParameters: {
-                                                              'id':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  columnCustomerProfileDetailsResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data.name''',
-                                                                ).toString(),
-                                                                ParamType
-                                                                    .String,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        } else {
-                                                          context.pushNamed(
-                                                            'Poster_Profile_view',
-                                                            queryParameters: {
-                                                              'id':
-                                                                  serializeParam(
-                                                                getJsonField(
-                                                                  columnCustomerProfileDetailsResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data.name''',
-                                                                ),
-                                                                ParamType.int,
-                                                              ),
-                                                            }.withoutNulls,
-                                                          );
-                                                        }
-                                                      },
-                                                      child: Container(
-                                                        width: 60.0,
-                                                        height: 60.0,
-                                                        clipBehavior:
-                                                            Clip.antiAlias,
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                        ),
-                                                        child: Image.network(
-                                                          '${FFAppState().baseUrl}${getJsonField(
-                                                            columnCustomerProfileDetailsResponse
-                                                                .jsonBody,
-                                                            r'''$.data.avatar''',
-                                                          ).toString()}',
-                                                          fit: BoxFit.cover,
-                                                        ),
+                                                    Container(
+                                                      width: 60.0,
+                                                      height: 60.0,
+                                                      clipBehavior:
+                                                          Clip.antiAlias,
+                                                      decoration: BoxDecoration(
+                                                        shape: BoxShape.circle,
+                                                      ),
+                                                      child: Image.network(
+                                                        '${FFAppState().baseUrl}${getJsonField(
+                                                          columnCustomerProfileDetailsResponse
+                                                              .jsonBody,
+                                                          r'''$.data.avatar''',
+                                                        ).toString()}',
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                     Padding(
@@ -513,85 +460,30 @@ class _OnSiteAppointmentDeatelsWidgetState
                                                                 MainAxisSize
                                                                     .max,
                                                             children: [
-                                                              InkWell(
-                                                                splashColor: Colors
-                                                                    .transparent,
-                                                                focusColor: Colors
-                                                                    .transparent,
-                                                                hoverColor: Colors
-                                                                    .transparent,
-                                                                highlightColor:
-                                                                    Colors
-                                                                        .transparent,
-                                                                onTap:
-                                                                    () async {
-                                                                  if (functions
-                                                                          .jsonToString(
-                                                                              getJsonField(
-                                                                        columnCustomerProfileDetailsResponse
-                                                                            .jsonBody,
-                                                                        r'''$.data.role''',
-                                                                      )) ==
-                                                                      'Tasker') {
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'Tasker_Profile_view',
-                                                                      queryParameters:
-                                                                          {
-                                                                        'id':
-                                                                            serializeParam(
-                                                                          getJsonField(
-                                                                            columnCustomerProfileDetailsResponse.jsonBody,
-                                                                            r'''$.data.name''',
-                                                                          ).toString(),
-                                                                          ParamType
-                                                                              .String,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  } else {
-                                                                    context
-                                                                        .pushNamed(
-                                                                      'Poster_Profile_view',
-                                                                      queryParameters:
-                                                                          {
-                                                                        'id':
-                                                                            serializeParam(
-                                                                          getJsonField(
-                                                                            columnCustomerProfileDetailsResponse.jsonBody,
-                                                                            r'''$.data.name''',
-                                                                          ),
-                                                                          ParamType
-                                                                              .int,
-                                                                        ),
-                                                                      }.withoutNulls,
-                                                                    );
-                                                                  }
-                                                                },
-                                                                child: Text(
-                                                                  '${getJsonField(
-                                                                    columnCustomerProfileDetailsResponse
-                                                                        .jsonBody,
-                                                                    r'''$.data.first_name''',
-                                                                  ).toString()} ${getJsonField(
-                                                                    columnCustomerProfileDetailsResponse
-                                                                        .jsonBody,
-                                                                    r'''$.data.last_name''',
-                                                                  ).toString()}',
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            'Lato',
-                                                                        color: Colors
-                                                                            .black,
-                                                                        fontSize:
-                                                                            14.0,
-                                                                        fontWeight:
-                                                                            FontWeight.bold,
-                                                                      ),
-                                                                ),
+                                                              Text(
+                                                                '${getJsonField(
+                                                                  columnCustomerProfileDetailsResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.first_name''',
+                                                                ).toString()} ${getJsonField(
+                                                                  columnCustomerProfileDetailsResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.last_name''',
+                                                                ).toString()}',
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMedium
+                                                                    .override(
+                                                                      fontFamily:
+                                                                          'Lato',
+                                                                      color: Colors
+                                                                          .black,
+                                                                      fontSize:
+                                                                          14.0,
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold,
+                                                                    ),
                                                               ),
                                                             ],
                                                           ),

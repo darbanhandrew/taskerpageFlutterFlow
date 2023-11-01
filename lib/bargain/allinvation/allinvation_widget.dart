@@ -290,41 +290,19 @@ class _AllinvationWidgetState extends State<AllinvationWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    if (functions.jsonToString(
-                                                            getJsonField(
-                                                          columnUserProfileReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.role''',
-                                                        )) ==
-                                                        'Tasker') {
-                                                      context.pushNamed(
-                                                        'Tasker_Profile_view',
-                                                        queryParameters: {
-                                                          'id': serializeParam(
-                                                            getJsonField(
-                                                              columnUserProfileReadResponse
-                                                                  .jsonBody,
-                                                              r'''$.data.name''',
-                                                            ).toString(),
-                                                            ParamType.String,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    } else {
-                                                      context.pushNamed(
-                                                        'Poster_Profile_view',
-                                                        queryParameters: {
-                                                          'id': serializeParam(
-                                                            getJsonField(
-                                                              columnUserProfileReadResponse
-                                                                  .jsonBody,
-                                                              r'''$.data.name''',
-                                                            ),
-                                                            ParamType.int,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    }
+                                                    context.pushNamed(
+                                                      'User_profile',
+                                                      queryParameters: {
+                                                        'id': serializeParam(
+                                                          getJsonField(
+                                                            columnUserProfileReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.name''',
+                                                          ).toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
                                                   },
                                                   child: Row(
                                                     mainAxisSize:

@@ -285,9 +285,9 @@ class _Contactdata4WidgetState extends State<Contactdata4Widget> {
                             onTap: () async {
                               if (FFAppState().UserInformation.role ==
                                   'Poster') {
-                                context.pushNamed('Poster_Profile');
+                                context.pushNamed('User_profile');
                               } else {
-                                context.pushNamed('Tasker_Profile');
+                                context.pushNamed('User_profile');
                               }
                             },
                             child: Container(

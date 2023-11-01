@@ -784,18 +784,15 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
 
                                                                     context
                                                                         .pushNamed(
-                                                                      'Tasker_Profile_view',
+                                                                      'User_profile',
                                                                       queryParameters:
                                                                           {
                                                                         'id':
                                                                             serializeParam(
-                                                                          functions.findNameByChosenLatLngFromJsonList(
-                                                                              _model.googleMapsCenter,
-                                                                              getJsonField(
-                                                                                columnCustomerProfileListResponse.jsonBody,
-                                                                                r'''$.data''',
-                                                                                true,
-                                                                              )),
+                                                                          getJsonField(
+                                                                            columnCustomerProfileListResponse.jsonBody,
+                                                                            r'''$.data.name''',
+                                                                          ).toString(),
                                                                           ParamType
                                                                               .String,
                                                                         ),

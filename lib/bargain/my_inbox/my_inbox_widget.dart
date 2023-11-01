@@ -530,7 +530,7 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                           () async {
                                                                         context
                                                                             .pushNamed(
-                                                                          'Poster_Profile_view',
+                                                                          'User_profile',
                                                                           queryParameters:
                                                                               {
                                                                             'id':
@@ -538,8 +538,8 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                               getJsonField(
                                                                                 containerUserProfileReadResponse.jsonBody,
                                                                                 r'''$.data.name''',
-                                                                              ),
-                                                                              ParamType.int,
+                                                                              ).toString(),
+                                                                              ParamType.String,
                                                                             ),
                                                                           }.withoutNulls,
                                                                         );
@@ -596,14 +596,14 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                                   highlightColor: Colors.transparent,
                                                                                   onTap: () async {
                                                                                     context.pushNamed(
-                                                                                      'Poster_Profile_view',
+                                                                                      'User_profile',
                                                                                       queryParameters: {
                                                                                         'id': serializeParam(
                                                                                           getJsonField(
                                                                                             containerUserProfileReadResponse.jsonBody,
                                                                                             r'''$.data.name''',
-                                                                                          ),
-                                                                                          ParamType.int,
+                                                                                          ).toString(),
+                                                                                          ParamType.String,
                                                                                         ),
                                                                                       }.withoutNulls,
                                                                                     );
@@ -688,20 +688,7 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                               focusColor: Colors.transparent,
                                                                               hoverColor: Colors.transparent,
                                                                               highlightColor: Colors.transparent,
-                                                                              onTap: () async {
-                                                                                context.pushNamed(
-                                                                                  'TaskView',
-                                                                                  queryParameters: {
-                                                                                    'id': serializeParam(
-                                                                                      getJsonField(
-                                                                                        myBargainsPostItem,
-                                                                                        r'''$.post''',
-                                                                                      ).toString(),
-                                                                                      ParamType.String,
-                                                                                    ),
-                                                                                  }.withoutNulls,
-                                                                                );
-                                                                              },
+                                                                              onTap: () async {},
                                                                               child: Text(
                                                                                 'Post ${getJsonField(
                                                                                   myBargainsPostItem,
@@ -1047,22 +1034,7 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                               .transparent,
                                                           highlightColor: Colors
                                                               .transparent,
-                                                          onTap: () async {
-                                                            context.pushNamed(
-                                                              'TaskView',
-                                                              queryParameters: {
-                                                                'id':
-                                                                    serializeParam(
-                                                                  getJsonField(
-                                                                    myBidsItem,
-                                                                    r'''$.post''',
-                                                                  ).toString(),
-                                                                  ParamType
-                                                                      .String,
-                                                                ),
-                                                              }.withoutNulls,
-                                                            );
-                                                          },
+                                                          onTap: () async {},
                                                           child: Container(
                                                             decoration:
                                                                 BoxDecoration(

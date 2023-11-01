@@ -520,7 +520,7 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
               highlightColor: Colors.transparent,
               onTap: () async {
                 context.pushNamed(
-                  'Tasker_Profile_view',
+                  'User_profile',
                   queryParameters: {
                     'id': serializeParam(
                       getJsonField(

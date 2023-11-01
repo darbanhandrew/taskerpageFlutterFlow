@@ -234,7 +234,7 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
                           appBadge: 'COMPELETED PROFILE',
                         );
 
-                        context.pushNamed('Tasker_Profile');
+                        context.pushNamed('User_profile');
                       },
                       child: Container(
                         width: 113.0,

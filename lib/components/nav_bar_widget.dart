@@ -1,6 +1,5 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -229,15 +228,8 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 setState(() {
                   _model.footerState = 5;
                 });
-                if (functions.jsonToString(getJsonField(
-                      FFAppState().userProfile,
-                      r'''$.data.role''',
-                    )) ==
-                    'Tasker') {
-                  context.pushNamed('Tasker_Profile');
-                } else {
-                  context.pushNamed('Poster_Profile');
-                }
+
+                context.pushNamed('User_profile');
               },
               child: Column(
                 mainAxisSize: MainAxisSize.max,

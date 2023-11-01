@@ -365,20 +365,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
               focusColor: Colors.transparent,
               hoverColor: Colors.transparent,
               highlightColor: Colors.transparent,
-              onTap: () async {
-                context.pushNamed(
-                  'TaskView',
-                  queryParameters: {
-                    'id': serializeParam(
-                      getJsonField(
-                        widget.post,
-                        r'''$.name''',
-                      ).toString(),
-                      ParamType.String,
-                    ),
-                  }.withoutNulls,
-                );
-              },
+              onTap: () async {},
               child: Container(
                 width: 80.0,
                 height: 36.0,

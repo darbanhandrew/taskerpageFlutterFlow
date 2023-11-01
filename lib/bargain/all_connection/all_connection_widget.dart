@@ -290,43 +290,21 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                   highlightColor:
                                                       Colors.transparent,
                                                   onTap: () async {
-                                                    if (functions.jsonToString(
-                                                            getJsonField(
-                                                          columnReadByEmailResponse
-                                                              .jsonBody,
-                                                          r'''$.data[:].role''',
-                                                        )) ==
-                                                        'Tasker') {
-                                                      context.pushNamed(
-                                                        'Tasker_Profile_view',
-                                                        queryParameters: {
-                                                          'id': serializeParam(
-                                                            TaskerpageBackendGroup
-                                                                .readByEmailCall
-                                                                .id(
-                                                                  columnReadByEmailResponse
-                                                                      .jsonBody,
-                                                                )
-                                                                .toString(),
-                                                            ParamType.String,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    } else {
-                                                      context.pushNamed(
-                                                        'Poster_Profile_view',
-                                                        queryParameters: {
-                                                          'id': serializeParam(
-                                                            getJsonField(
-                                                              columnReadByEmailResponse
-                                                                  .jsonBody,
-                                                              r'''$.data[:].name''',
-                                                            ),
-                                                            ParamType.int,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
-                                                    }
+                                                    context.pushNamed(
+                                                      'User_profile',
+                                                      queryParameters: {
+                                                        'id': serializeParam(
+                                                          TaskerpageBackendGroup
+                                                              .readByEmailCall
+                                                              .id(
+                                                                columnReadByEmailResponse
+                                                                    .jsonBody,
+                                                              )
+                                                              .toString(),
+                                                          ParamType.String,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
                                                   },
                                                   child: Row(
                                                     mainAxisSize:

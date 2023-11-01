@@ -1,7 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -87,38 +86,19 @@ class _ConnectionListWidgetState extends State<ConnectionListWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    if (functions.jsonToString(getJsonField(
-                          columnReadByEmailResponse.jsonBody,
-                          r'''$.data[:].role''',
-                        )) ==
-                        'Tasker') {
-                      context.pushNamed(
-                        'Tasker_Profile_view',
-                        queryParameters: {
-                          'id': serializeParam(
-                            TaskerpageBackendGroup.readByEmailCall
-                                .id(
-                                  columnReadByEmailResponse.jsonBody,
-                                )
-                                .toString(),
-                            ParamType.String,
-                          ),
-                        }.withoutNulls,
-                      );
-                    } else {
-                      context.pushNamed(
-                        'Poster_Profile_view',
-                        queryParameters: {
-                          'id': serializeParam(
-                            getJsonField(
-                              columnReadByEmailResponse.jsonBody,
-                              r'''$.data[:].name''',
-                            ),
-                            ParamType.int,
-                          ),
-                        }.withoutNulls,
-                      );
-                    }
+                    context.pushNamed(
+                      'User_profile',
+                      queryParameters: {
+                        'id': serializeParam(
+                          TaskerpageBackendGroup.readByEmailCall
+                              .id(
+                                columnReadByEmailResponse.jsonBody,
+                              )
+                              .toString(),
+                          ParamType.String,
+                        ),
+                      }.withoutNulls,
+                    );
                   },
                   child: Row(
                     mainAxisSize: MainAxisSize.max,

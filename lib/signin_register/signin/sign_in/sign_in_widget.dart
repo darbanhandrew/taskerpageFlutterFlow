@@ -495,13 +495,13 @@ class _SignInWidgetState extends State<SignInWidget> {
                                           (_model.apiResultem2?.jsonBody ?? ''),
                                           r'''$.data.role''',
                                         ).toString()}') {
-                                      context.pushNamed('Tasker_Profile');
+                                      context.pushNamed('User_profile');
                                     } else if ('Poster' ==
                                         '${getJsonField(
                                           (_model.apiResultem2?.jsonBody ?? ''),
                                           r'''$.data.role''',
                                         ).toString()}') {
-                                      context.pushNamed('Poster_Profile');
+                                      context.pushNamed('User_profile');
                                     }
                                   } else {
                                     if (_shouldSetState) setState(() {});
