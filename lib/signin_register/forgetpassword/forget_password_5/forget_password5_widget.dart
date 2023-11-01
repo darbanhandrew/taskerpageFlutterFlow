@@ -129,7 +129,7 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
                           ClipRRect(
                             borderRadius: BorderRadius.circular(0.0),
                             child: Image.asset(
-                              'assets/images/Mask_Group_51.png',
+                              'assets/images/2vqf7_',
                               width: 80.0,
                               height: 80.0,
                               fit: BoxFit.none,
