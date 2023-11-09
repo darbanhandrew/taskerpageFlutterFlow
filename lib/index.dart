@@ -144,3 +144,6 @@ export '/signin_register/rate/rates_list/rates_list_widget.dart'
 export '/test2/test2_widget.dart' show Test2Widget;
 export '/signin_register/profile/user_profile/user_profile_widget.dart'
     show UserProfileWidget;
+export '/bargain/profile/profile_widget.dart' show ProfileWidget;
+export '/bargain/profile_details/profile_details_widget.dart'
+    show ProfileDetailsWidget;

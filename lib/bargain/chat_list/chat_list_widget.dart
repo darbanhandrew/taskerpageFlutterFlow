@@ -16,6 +16,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'chat_list_model.dart';
 export 'chat_list_model.dart';
 
@@ -107,14 +108,15 @@ class _ChatListWidgetState extends State<ChatListWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: Column(
           mainAxisSize: MainAxisSize.max,
@@ -150,11 +152,11 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                     if (!snapshot.hasData) {
                       return Center(
                         child: SizedBox(
-                          width: 50.0,
-                          height: 50.0,
+                          width: 35.0,
+                          height: 35.0,
                           child: SpinKitThreeBounce(
                             color: FlutterFlowTheme.of(context).primary,
-                            size: 50.0,
+                            size: 35.0,
                           ),
                         ),
                       );
@@ -223,13 +225,13 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                       if (!snapshot.hasData) {
                                         return Center(
                                           child: SizedBox(
-                                            width: 50.0,
-                                            height: 50.0,
+                                            width: 35.0,
+                                            height: 35.0,
                                             child: SpinKitThreeBounce(
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primary,
-                                              size: 50.0,
+                                              size: 35.0,
                                             ),
                                           ),
                                         );
@@ -409,12 +411,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                   if (!snapshot.hasData) {
                                     return Center(
                                       child: SizedBox(
-                                        width: 50.0,
-                                        height: 50.0,
+                                        width: 35.0,
+                                        height: 35.0,
                                         child: SpinKitThreeBounce(
                                           color: FlutterFlowTheme.of(context)
                                               .primary,
-                                          size: 50.0,
+                                          size: 35.0,
                                         ),
                                       ),
                                     );
@@ -508,12 +510,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                 if (!snapshot.hasData) {
                                   return Center(
                                     child: SizedBox(
-                                      width: 50.0,
-                                      height: 50.0,
+                                      width: 35.0,
+                                      height: 35.0,
                                       child: SpinKitThreeBounce(
                                         color: FlutterFlowTheme.of(context)
                                             .primary,
-                                        size: 50.0,
+                                        size: 35.0,
                                       ),
                                     ),
                                   );
@@ -559,14 +561,14 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                   if (!snapshot.hasData) {
                                                     return Center(
                                                       child: SizedBox(
-                                                        width: 50.0,
-                                                        height: 50.0,
+                                                        width: 35.0,
+                                                        height: 35.0,
                                                         child:
                                                             SpinKitThreeBounce(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primary,
-                                                          size: 50.0,
+                                                          size: 35.0,
                                                         ),
                                                       ),
                                                     );
@@ -655,12 +657,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                     if (!snapshot.hasData) {
                                       return Center(
                                         child: SizedBox(
-                                          width: 50.0,
-                                          height: 50.0,
+                                          width: 35.0,
+                                          height: 35.0,
                                           child: SpinKitThreeBounce(
                                             color: FlutterFlowTheme.of(context)
                                                 .primary,
-                                            size: 50.0,
+                                            size: 35.0,
                                           ),
                                         ),
                                       );
@@ -747,12 +749,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                               if (!snapshot.hasData) {
                                 return Center(
                                   child: SizedBox(
-                                    width: 50.0,
-                                    height: 50.0,
+                                    width: 35.0,
+                                    height: 35.0,
                                     child: SpinKitThreeBounce(
                                       color:
                                           FlutterFlowTheme.of(context).primary,
-                                      size: 50.0,
+                                      size: 35.0,
                                     ),
                                   ),
                                 );

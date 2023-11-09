@@ -60,11 +60,11 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
         if (!snapshot.hasData) {
           return Center(
             child: SizedBox(
-              width: 50.0,
-              height: 50.0,
+              width: 35.0,
+              height: 35.0,
               child: SpinKitThreeBounce(
                 color: FlutterFlowTheme.of(context).primary,
-                size: 50.0,
+                size: 35.0,
               ),
             ),
           );
@@ -453,7 +453,7 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                           size: 25.0,
                                         ),
                                         clickAction: () async {
-                                          context.pushNamed('User_profile');
+                                          context.pushNamed('Profile');
                                         },
                                       ),
                                     ),

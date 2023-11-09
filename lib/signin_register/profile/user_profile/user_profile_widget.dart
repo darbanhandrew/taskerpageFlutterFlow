@@ -16,6 +16,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'user_profile_model.dart';
 export 'user_profile_model.dart';
 
@@ -84,11 +85,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
             backgroundColor: Color(0xFFF2F2F2),
             body: Center(
               child: SizedBox(
-                width: 50.0,
-                height: 50.0,
+                width: 35.0,
+                height: 35.0,
                 child: SpinKitThreeBounce(
                   color: FlutterFlowTheme.of(context).primary,
-                  size: 50.0,
+                  size: 35.0,
                 ),
               ),
             ),
@@ -104,14 +105,15 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
             backgroundColor: Color(0xFFF2F2F2),
             endDrawer: Container(
               width: double.infinity,
-              child: Drawer(
+              child: WebViewAware(
+                  child: Drawer(
                 elevation: 16.0,
                 child: wrapWithModel(
                   model: _model.mainDrawerModel,
                   updateCallback: () => setState(() {}),
                   child: MainDrawerWidget(),
                 ),
-              ),
+              )),
             ),
             body: SafeArea(
               top: true,
@@ -631,14 +633,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                               if (!snapshot.hasData) {
                                                 return Center(
                                                   child: SizedBox(
-                                                    width: 50.0,
-                                                    height: 50.0,
+                                                    width: 35.0,
+                                                    height: 35.0,
                                                     child: SpinKitThreeBounce(
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primary,
-                                                      size: 50.0,
+                                                      size: 35.0,
                                                     ),
                                                   ),
                                                 );
@@ -844,7 +846,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                 apiGlobalKey:
                                                     FFAppState().apiKey,
                                                 fields:
-                                                    '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\",\"skill_options\"]',
+                                                    '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\",\"customer_skill_options\"]',
                                                 filters:
                                                     '[[\"customer_profile\",\"=\",\"${getJsonField(
                                                   userProfileUserProfileReadResponse
@@ -857,14 +859,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
+                                                      width: 35.0,
+                                                      height: 35.0,
                                                       child: SpinKitThreeBounce(
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        size: 50.0,
+                                                        size: 35.0,
                                                       ),
                                                     ),
                                                   );
@@ -936,23 +938,44 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             16.0,
-                                                                            12.0,
+                                                                            10.0,
                                                                             0.0,
                                                                             0.0),
                                                                         child:
-                                                                            Text(
-                                                                          getJsonField(
-                                                                            skillsItem,
-                                                                            r'''$.skill_category_name''',
-                                                                          ).toString(),
-                                                                          style: FlutterFlowTheme.of(context)
-                                                                              .displaySmall
-                                                                              .override(
-                                                                                fontFamily: 'Lato',
-                                                                                color: FlutterFlowTheme.of(context).alternate,
-                                                                                fontSize: 14.0,
-                                                                                fontWeight: FontWeight.w500,
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.center,
+                                                                          children: [
+                                                                            Container(
+                                                                              width: 35.0,
+                                                                              height: 35.0,
+                                                                              clipBehavior: Clip.antiAlias,
+                                                                              decoration: BoxDecoration(
+                                                                                shape: BoxShape.circle,
                                                                               ),
+                                                                              child: Image.network(
+                                                                                'https://picsum.photos/seed/949/600',
+                                                                                fit: BoxFit.cover,
+                                                                              ),
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(10.5, 0.0, 0.0, 0.0),
+                                                                              child: Text(
+                                                                                getJsonField(
+                                                                                  skillsItem,
+                                                                                  r'''$.skill_category_name''',
+                                                                                ).toString(),
+                                                                                style: FlutterFlowTheme.of(context).displaySmall.override(
+                                                                                      fontFamily: 'Lato',
+                                                                                      color: FlutterFlowTheme.of(context).alternate,
+                                                                                      fontSize: 14.0,
+                                                                                      fontWeight: FontWeight.w500,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
                                                                       collapsed:
@@ -960,7 +983,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                         width: double
                                                                             .infinity,
                                                                         height:
-                                                                            12.0,
+                                                                            10.0,
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
@@ -1015,35 +1038,49 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                         ],
                                                                                       ),
                                                                                     ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(0.0, 9.0, 0.0, 0.0),
-                                                                                      child: Row(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        children: [
-                                                                                          Container(
-                                                                                            height: 22.0,
-                                                                                            decoration: BoxDecoration(
-                                                                                              color: Color(0xFFDEDEDE),
-                                                                                              borderRadius: BorderRadius.circular(2.0),
-                                                                                            ),
-                                                                                            child: Padding(
-                                                                                              padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
-                                                                                              child: Row(
-                                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                                children: [
-                                                                                                  Text(
-                                                                                                    'Garden Care ',
-                                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                          fontFamily: 'Lato',
-                                                                                                          fontSize: 13.0,
-                                                                                                          fontWeight: FontWeight.w500,
-                                                                                                        ),
+                                                                                    Flexible(
+                                                                                      child: Padding(
+                                                                                        padding: EdgeInsetsDirectional.fromSTEB(0.0, 9.0, 0.0, 0.0),
+                                                                                        child: Builder(
+                                                                                          builder: (context) {
+                                                                                            final skill = getJsonField(
+                                                                                              skillsItem,
+                                                                                              r'''$.skills''',
+                                                                                            ).toList();
+                                                                                            return Row(
+                                                                                              mainAxisSize: MainAxisSize.max,
+                                                                                              children: List.generate(skill.length, (skillIndex) {
+                                                                                                final skillItem = skill[skillIndex];
+                                                                                                return Container(
+                                                                                                  height: 22.0,
+                                                                                                  decoration: BoxDecoration(
+                                                                                                    color: Color(0xFFDEDEDE),
+                                                                                                    borderRadius: BorderRadius.circular(2.0),
                                                                                                   ),
-                                                                                                ],
-                                                                                              ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
+                                                                                                  child: Padding(
+                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
+                                                                                                    child: Row(
+                                                                                                      mainAxisSize: MainAxisSize.max,
+                                                                                                      children: [
+                                                                                                        Text(
+                                                                                                          getJsonField(
+                                                                                                            skillItem,
+                                                                                                            r'''$.skill_name''',
+                                                                                                          ).toString(),
+                                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                fontFamily: 'Lato',
+                                                                                                                fontSize: 13.0,
+                                                                                                                fontWeight: FontWeight.w500,
+                                                                                                              ),
+                                                                                                        ),
+                                                                                                      ],
+                                                                                                    ),
+                                                                                                  ),
+                                                                                                );
+                                                                                              }).divide(SizedBox(width: 8.0)),
+                                                                                            );
+                                                                                          },
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                     Padding(
@@ -1080,7 +1117,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                 mainAxisSize: MainAxisSize.max,
                                                                                                 children: [
                                                                                                   Text(
-                                                                                                    'Educated Professional',
+                                                                                                    getJsonField(
+                                                                                                      skillsItem,
+                                                                                                      r'''$.skill_level''',
+                                                                                                    ).toString(),
                                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                           fontFamily: 'Lato',
                                                                                                           fontSize: 13.0,
@@ -1099,33 +1139,47 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                         mainAxisSize: MainAxisSize.max,
                                                                                         mainAxisAlignment: MainAxisAlignment.end,
                                                                                         children: [
-                                                                                          Row(
-                                                                                            mainAxisSize: MainAxisSize.max,
-                                                                                            children: [
-                                                                                              Container(
-                                                                                                height: 22.0,
-                                                                                                decoration: BoxDecoration(
-                                                                                                  color: Color(0xFFDEDEDE),
-                                                                                                  borderRadius: BorderRadius.circular(2.0),
-                                                                                                ),
-                                                                                                child: Padding(
-                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
-                                                                                                  child: Row(
-                                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                                    children: [
-                                                                                                      Text(
-                                                                                                        'Brings own tools',
-                                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                              fontFamily: 'Lato',
-                                                                                                              fontSize: 13.0,
-                                                                                                              fontWeight: FontWeight.w500,
-                                                                                                            ),
+                                                                                          Flexible(
+                                                                                            child: Builder(
+                                                                                              builder: (context) {
+                                                                                                final customerSkillOptions = getJsonField(
+                                                                                                  skillsItem,
+                                                                                                  r'''$.customer_skill_options''',
+                                                                                                ).toList();
+                                                                                                return Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: List.generate(customerSkillOptions.length, (customerSkillOptionsIndex) {
+                                                                                                    final customerSkillOptionsItem = customerSkillOptions[customerSkillOptionsIndex];
+                                                                                                    return Container(
+                                                                                                      height: 22.0,
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: Color(0xFFDEDEDE),
+                                                                                                        borderRadius: BorderRadius.circular(2.0),
                                                                                                       ),
-                                                                                                    ],
-                                                                                                  ),
-                                                                                                ),
-                                                                                              ),
-                                                                                            ],
+                                                                                                      child: Padding(
+                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
+                                                                                                        child: Row(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              getJsonField(
+                                                                                                                customerSkillOptionsItem,
+                                                                                                                r'''$.option_name''',
+                                                                                                              ).toString(),
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    fontFamily: 'Lato',
+                                                                                                                    fontSize: 13.0,
+                                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
+                                                                                                        ),
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }).divide(SizedBox(width: 8.0)),
+                                                                                                );
+                                                                                              },
+                                                                                            ),
                                                                                           ),
                                                                                         ],
                                                                                       ),
@@ -1248,14 +1302,14 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                 if (!snapshot.hasData) {
                                                   return Center(
                                                     child: SizedBox(
-                                                      width: 50.0,
-                                                      height: 50.0,
+                                                      width: 35.0,
+                                                      height: 35.0,
                                                       child: SpinKitThreeBounce(
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primary,
-                                                        size: 50.0,
+                                                        size: 35.0,
                                                       ),
                                                     ),
                                                   );
@@ -1633,7 +1687,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                 borderRadius: BorderRadius.circular(2.0),
                                                                               ),
                                                                               child: Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 14.0, 0.0),
                                                                                 child: Row(
                                                                                   mainAxisSize: MainAxisSize.max,
                                                                                   children: [
@@ -1985,11 +2039,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                             if (!snapshot.hasData) {
                                                                               return Center(
                                                                                 child: SizedBox(
-                                                                                  width: 50.0,
-                                                                                  height: 50.0,
+                                                                                  width: 35.0,
+                                                                                  height: 35.0,
                                                                                   child: SpinKitThreeBounce(
                                                                                     color: FlutterFlowTheme.of(context).primary,
-                                                                                    size: 50.0,
+                                                                                    size: 35.0,
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -2192,7 +2246,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                                         enableDrag: false,
                                                                                                                         context: context,
                                                                                                                         builder: (context) {
-                                                                                                                          return GestureDetector(
+                                                                                                                          return WebViewAware(
+                                                                                                                              child: GestureDetector(
                                                                                                                             onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
                                                                                                                             child: Padding(
                                                                                                                               padding: MediaQuery.viewInsetsOf(context),
@@ -2204,7 +2259,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                                                 updateCertificateUrl: () async {},
                                                                                                                               ),
                                                                                                                             ),
-                                                                                                                          );
+                                                                                                                          ));
                                                                                                                         },
                                                                                                                       ).then((value) => safeSetState(() {}));
                                                                                                                     }
@@ -2383,7 +2438,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                               Container(
                                                                 width: double
                                                                     .infinity,
-                                                                height: 350.0,
+                                                                height: 370.0,
                                                                 decoration:
                                                                     BoxDecoration(
                                                                   color: Color(
@@ -2408,7 +2463,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           11.0,
                                                                           7.0,
                                                                           11.0,
-                                                                          25.0),
+                                                                          20.0),
                                                                   child: Column(
                                                                     mainAxisSize:
                                                                         MainAxisSize
@@ -2436,11 +2491,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                             if (!snapshot.hasData) {
                                                                               return Center(
                                                                                 child: SizedBox(
-                                                                                  width: 50.0,
-                                                                                  height: 50.0,
+                                                                                  width: 35.0,
+                                                                                  height: 35.0,
                                                                                   child: SpinKitThreeBounce(
                                                                                     color: FlutterFlowTheme.of(context).primary,
-                                                                                    size: 50.0,
+                                                                                    size: 35.0,
                                                                                   ),
                                                                                 ),
                                                                               );
@@ -2477,11 +2532,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                           if (!snapshot.hasData) {
                                                                                             return Center(
                                                                                               child: SizedBox(
-                                                                                                width: 50.0,
-                                                                                                height: 50.0,
+                                                                                                width: 35.0,
+                                                                                                height: 35.0,
                                                                                                 child: SpinKitThreeBounce(
                                                                                                   color: FlutterFlowTheme.of(context).primary,
-                                                                                                  size: 50.0,
+                                                                                                  size: 35.0,
                                                                                                 ),
                                                                                               ),
                                                                                             );
@@ -2943,7 +2998,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                     enableDrag: false,
                                     context: context,
                                     builder: (context) {
-                                      return GestureDetector(
+                                      return WebViewAware(
+                                          child: GestureDetector(
                                         onTap: () => _model
                                                 .unfocusNode.canRequestFocus
                                             ? FocusScope.of(context)
@@ -2961,7 +3017,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             ),
                                           ),
                                         ),
-                                      );
+                                      ));
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 } else {
@@ -2971,7 +3027,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                     enableDrag: false,
                                     context: context,
                                     builder: (context) {
-                                      return GestureDetector(
+                                      return WebViewAware(
+                                          child: GestureDetector(
                                         onTap: () => _model
                                                 .unfocusNode.canRequestFocus
                                             ? FocusScope.of(context)
@@ -2999,7 +3056,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                             ).toString(),
                                           ),
                                         ),
-                                      );
+                                      ));
                                     },
                                   ).then((value) => safeSetState(() {}));
                                 }

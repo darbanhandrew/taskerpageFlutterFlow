@@ -17,6 +17,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'profiledetails2_model.dart';
 export 'profiledetails2_model.dart';
 
@@ -80,6 +81,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
 
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
+
     setupAnimations(
       animationsMap.values.where((anim) =>
           anim.trigger == AnimationTrigger.onActionTrigger ||
@@ -126,14 +128,15 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: Drawer(
+          child: WebViewAware(
+              child: Drawer(
             elevation: 16.0,
             child: wrapWithModel(
               model: _model.mainDrawerModel,
               updateCallback: () => setState(() {}),
               child: MainDrawerWidget(),
             ),
-          ),
+          )),
         ),
         body: SafeArea(
           top: true,
@@ -261,7 +264,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
-                                      return AlertDialog(
+                                      return WebViewAware(
+                                          child: AlertDialog(
                                         title: Text('Not Done'),
                                         content: Text('Not Done'),
                                         actions: [
@@ -271,7 +275,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                             child: Text('Ok'),
                                           ),
                                         ],
-                                      );
+                                      ));
                                     },
                                   );
                                 }
@@ -387,7 +391,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                   await showDialog(
                                     context: context,
                                     builder: (alertDialogContext) {
-                                      return AlertDialog(
+                                      return WebViewAware(
+                                          child: AlertDialog(
                                         title: Text('Not Done'),
                                         content: Text('Not Done'),
                                         actions: [
@@ -397,7 +402,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                             child: Text('Ok'),
                                           ),
                                         ],
-                                      );
+                                      ));
                                     },
                                   );
                                 }
