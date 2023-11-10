@@ -520,6 +520,7 @@ class _AllFollowersWidgetState extends State<AllFollowersWidget> {
                                                 ),
                                               ),
                                               Divider(
+                                                height: 0.0,
                                                 thickness: 1.0,
                                                 color: Color(0xFFD2D2D2),
                                               ),

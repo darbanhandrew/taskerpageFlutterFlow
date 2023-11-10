@@ -209,10 +209,14 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Text(
-                        'Due Date :    ${dateTimeFormat('yMMMd', functions.jsonToDateTime(getJsonField(
-                              widget.json,
-                              r'''$.appointment_time''',
-                            ).toString()))}',
+                        'Due Date :    ${dateTimeFormat(
+                          'yMMMd',
+                          functions.jsonToDateTime(getJsonField(
+                            widget.json,
+                            r'''$.appointment_time''',
+                          ).toString()),
+                          locale: FFLocalizations.of(context).languageCode,
+                        )}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Lato',
                               color: Color(0xFF8A8A8A),
@@ -418,13 +422,21 @@ class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {
                         ),
                       ),
                       Text(
-                        '${dateTimeFormat('jm', functions.jsonToDateTime(getJsonField(
-                              widget.json,
-                              r'''$.appointment_start_time''',
-                            ).toString()))} - ${dateTimeFormat('jm', functions.jsonToDateTime(getJsonField(
-                              widget.json,
-                              r'''$.appointment_end_time''',
-                            ).toString()))}',
+                        '${dateTimeFormat(
+                          'jm',
+                          functions.jsonToDateTime(getJsonField(
+                            widget.json,
+                            r'''$.appointment_start_time''',
+                          ).toString()),
+                          locale: FFLocalizations.of(context).languageCode,
+                        )} - ${dateTimeFormat(
+                          'jm',
+                          functions.jsonToDateTime(getJsonField(
+                            widget.json,
+                            r'''$.appointment_end_time''',
+                          ).toString()),
+                          locale: FFLocalizations.of(context).languageCode,
+                        )}',
                         style: FlutterFlowTheme.of(context).bodyMedium.override(
                               fontFamily: 'Lato',
                               color: FlutterFlowTheme.of(context).alternate,

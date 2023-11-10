@@ -290,7 +290,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         Icons.close_rounded,
                                         color: FlutterFlowTheme.of(context)
                                             .secondaryText,
-                                        size: 20.0,
+                                        size: 24.0,
                                       ),
                                     ),
                                   ],
@@ -1014,7 +1014,12 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                           Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                  'yMMMd', _model.datePicked1),
+                                                'yMMMd',
+                                                _model.datePicked1,
+                                                locale:
+                                                    FFLocalizations.of(context)
+                                                        .languageCode,
+                                              ),
                                               'Select Start Date',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -1117,7 +1122,12 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                           Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                  'H:mm', _model.datePicked2),
+                                                'H:mm',
+                                                _model.datePicked2,
+                                                locale:
+                                                    FFLocalizations.of(context)
+                                                        .languageCode,
+                                              ),
                                               'Select Start Time',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -1191,7 +1201,12 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                           Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                  'H:mm', _model.datePicked3),
+                                                'H:mm',
+                                                _model.datePicked3,
+                                                locale:
+                                                    FFLocalizations.of(context)
+                                                        .languageCode,
+                                              ),
                                               'Select End Time',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -1318,7 +1333,11 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         ? '1'
                                         : '0',
                                 appointmentTime: dateTimeFormat(
-                                    'yyyy/MM/dd HH:mm:ss', _model.datePicked1),
+                                  'yyyy/MM/dd HH:mm:ss',
+                                  _model.datePicked1,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
                                 tasker: functions.jsonToString(getJsonField(
                                           FFAppState().userProfile,
                                           r'''$.data.role_profile_name''',
@@ -1341,10 +1360,18 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                       ).toString(),
                                 apiGlobalKey: FFAppState().apiKey,
                                 post: widget.postID,
-                                appointmentEndTime:
-                                    dateTimeFormat('Hm', _model.datePicked3),
-                                appointmentStartTime:
-                                    dateTimeFormat('Hm', _model.datePicked2),
+                                appointmentEndTime: dateTimeFormat(
+                                  'Hm',
+                                  _model.datePicked3,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                appointmentStartTime: dateTimeFormat(
+                                  'Hm',
+                                  _model.datePicked2,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
                               );
                               _shouldSetState = true;
                               if ((_model.createdAppointment?.succeeded ??
@@ -1395,7 +1422,11 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                         ? '1'
                                         : '0',
                                 appointmentTime: dateTimeFormat(
-                                    'yyyy/MM/dd HH:mm:ss', _model.datePicked1),
+                                  'yyyy/MM/dd HH:mm:ss',
+                                  _model.datePicked1,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
                                 tasker: functions.jsonToString(getJsonField(
                                           FFAppState().userProfile,
                                           r'''$.data.role_profile_name''',
@@ -1418,10 +1449,18 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                       ).toString(),
                                 apiGlobalKey: FFAppState().apiKey,
                                 post: widget.postID,
-                                appointmentEndTime:
-                                    dateTimeFormat('Hm', _model.datePicked3),
-                                appointmentStartTime:
-                                    dateTimeFormat('Hm', _model.datePicked2),
+                                appointmentEndTime: dateTimeFormat(
+                                  'Hm',
+                                  _model.datePicked3,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
+                                appointmentStartTime: dateTimeFormat(
+                                  'Hm',
+                                  _model.datePicked2,
+                                  locale:
+                                      FFLocalizations.of(context).languageCode,
+                                ),
                               );
                               _shouldSetState = true;
                               if ((_model.createdAppointment2?.succeeded ??

@@ -1,11 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/ad_card_web_widget.dart';
 import '/components/badges_header_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
 import '/components/edit_number_widget.dart';
 import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
@@ -155,22 +155,15 @@ class _Contactdata3WidgetState extends State<Contactdata3Widget>
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: Color(0xFFF2F2F2),
-            drawer: Container(
-              width: MediaQuery.sizeOf(context).width * 0.85,
+            endDrawer: Container(
+              width: double.infinity,
               child: WebViewAware(
                   child: Drawer(
                 elevation: 16.0,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8EAFF),
-                  ),
-                  child: wrapWithModel(
-                    model: _model.drawerContentModel,
-                    updateCallback: () => setState(() {}),
-                    child: DrawerContentWidget(),
-                  ),
+                child: wrapWithModel(
+                  model: _model.mainDrawerModel,
+                  updateCallback: () => setState(() {}),
+                  child: MainDrawerWidget(),
                 ),
               )),
             ),

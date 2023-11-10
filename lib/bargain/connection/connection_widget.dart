@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/emty_list_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -195,8 +196,16 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                         return Text(
                                                           functions
                                                               .numberofListitems(
-                                                                  textConnectionListResponse
-                                                                      .jsonBody)
+                                                                  (getJsonField(
+                                                                textConnectionListResponse
+                                                                    .jsonBody,
+                                                                r'''$.data''',
+                                                                true,
+                                                              ) as List)
+                                                                      .map<String>(
+                                                                          (s) =>
+                                                                              s.toString())
+                                                                      .toList())
                                                               .toString(),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
@@ -298,6 +307,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                   .jsonBody,
                                               r'''$.data''',
                                             ).toList().take(3).toList();
+                                            if (invation.isEmpty) {
+                                              return EmtyListWidget(
+                                                iconShow: true,
+                                                text:
+                                                    'You do not have an invitation',
+                                                goTO: () async {},
+                                              );
+                                            }
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -448,11 +465,13 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                                           children: [
                                                                             Text(
                                                                               dateTimeFormat(
-                                                                                  'relative',
-                                                                                  functions.jsonToDateTime(getJsonField(
-                                                                                    invationItem,
-                                                                                    r'''$.creation''',
-                                                                                  ).toString())),
+                                                                                'relative',
+                                                                                functions.jsonToDateTime(getJsonField(
+                                                                                  invationItem,
+                                                                                  r'''$.creation''',
+                                                                                ).toString()),
+                                                                                locale: FFLocalizations.of(context).languageCode,
+                                                                              ),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Lato',
                                                                                     color: Color(0xFF8A8A8A),
@@ -671,6 +690,7 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                             ),
                                                           ),
                                                           Divider(
+                                                            height: 0.0,
                                                             thickness: 1.0,
                                                             color: Color(
                                                                 0xFFD2D2D2),
@@ -881,6 +901,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                               listViewGetUserResponse.jsonBody,
                                               r'''$.data.following''',
                                             ).toList().take(3).toList();
+                                            if (connections.isEmpty) {
+                                              return EmtyListWidget(
+                                                iconShow: true,
+                                                text:
+                                                    'You do not have an connections',
+                                                goTO: () async {},
+                                              );
+                                            }
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -1152,6 +1180,7 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                             ),
                                                           ),
                                                           Divider(
+                                                            height: 0.0,
                                                             thickness: 1.0,
                                                             color: Color(
                                                                 0xFFD2D2D2),
@@ -1362,6 +1391,14 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                               listViewGetUserResponse.jsonBody,
                                               r'''$.data.followers''',
                                             ).toList().take(3).toList();
+                                            if (followers.isEmpty) {
+                                              return EmtyListWidget(
+                                                iconShow: true,
+                                                text:
+                                                    'You do not have follower',
+                                                goTO: () async {},
+                                              );
+                                            }
                                             return ListView.builder(
                                               padding: EdgeInsets.zero,
                                               primary: false,
@@ -1635,6 +1672,7 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                             ),
                                                           ),
                                                           Divider(
+                                                            height: 0.0,
                                                             thickness: 1.0,
                                                             color: Color(
                                                                 0xFFD2D2D2),

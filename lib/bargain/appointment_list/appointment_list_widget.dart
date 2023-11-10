@@ -734,7 +734,12 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                         child: Text(
                                           valueOrDefault<String>(
                                             dateTimeFormat(
-                                                'yMMMd', _model.datePicked),
+                                              'yMMMd',
+                                              _model.datePicked,
+                                              locale:
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
+                                            ),
                                             'Select date',
                                           ),
                                           style: FlutterFlowTheme.of(context)

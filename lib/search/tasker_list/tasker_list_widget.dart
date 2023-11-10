@@ -354,6 +354,8 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
                       }
                       final columnCustomerProfileListResponse = snapshot.data!;
                       return RefreshIndicator(
+                        color: FlutterFlowTheme.of(context).primary,
+                        backgroundColor: FlutterFlowTheme.of(context).tertiary,
                         onRefresh: () async {
                           setState(() => _model.apiRequestCompleter1 = null);
                           await _model.waitForApiRequestCompleted1();

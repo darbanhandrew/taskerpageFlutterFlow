@@ -1083,10 +1083,9 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                                 ),
                                                                           ),
                                                                           Text(
-                                                                            '${functions.compeletedProfile(getJsonField(
+                                                                            '${functions.compeletedProfile(TaskerpageBackendGroup.userProfileReadCall.badges(
                                                                                   columnUserProfileReadResponse.jsonBody,
-                                                                                  r'''$.data.badges''',
-                                                                                )).toString()}%',
+                                                                                ).length).toString()}%',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: FlutterFlowTheme.of(context).alternate,
@@ -1228,18 +1227,26 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                             (badgesIndex) {
                                                                           final badgesItem =
                                                                               badges[badgesIndex];
-                                                                          return ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(0.0),
+                                                                          return Visibility(
+                                                                            visible: functions
+                                                                                    .jsonToInt(getJsonField(
+                                                                                      badgesItem,
+                                                                                      r'''$.enabled''',
+                                                                                    ))
+                                                                                    .toString() ==
+                                                                                '1',
                                                                             child:
-                                                                                Image.network(
-                                                                              '${FFAppState().baseUrl}${getJsonField(
-                                                                                badgesItem,
-                                                                                r'''$.active_icon''',
-                                                                              ).toString()}',
-                                                                              width: 25.0,
-                                                                              height: 25.0,
-                                                                              fit: BoxFit.cover,
+                                                                                ClipRRect(
+                                                                              borderRadius: BorderRadius.circular(0.0),
+                                                                              child: Image.network(
+                                                                                '${FFAppState().baseUrl}${getJsonField(
+                                                                                  badgesItem,
+                                                                                  r'''$.active_icon''',
+                                                                                ).toString()}',
+                                                                                width: 25.0,
+                                                                                height: 25.0,
+                                                                                fit: BoxFit.cover,
+                                                                              ),
                                                                             ),
                                                                           );
                                                                         }).divide(SizedBox(

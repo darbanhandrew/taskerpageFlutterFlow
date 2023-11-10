@@ -783,11 +783,13 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 6.0, 0.0, 0.0),
                                                                               child: Text(
                                                                                 dateTimeFormat(
-                                                                                    'yMMMd',
-                                                                                    functions.jsonToDateTime(getJsonField(
-                                                                                      myBargainsItem,
-                                                                                      r'''$.creation''',
-                                                                                    ).toString())),
+                                                                                  'yMMMd',
+                                                                                  functions.jsonToDateTime(getJsonField(
+                                                                                    myBargainsItem,
+                                                                                    r'''$.creation''',
+                                                                                  ).toString()),
+                                                                                  locale: FFLocalizations.of(context).languageCode,
+                                                                                ),
                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                       fontFamily: 'Lato',
                                                                                       color: Colors.black,
@@ -1342,11 +1344,15 @@ class _InboxWidgetState extends State<InboxWidget>
                                                                       ),
                                                                       Text(
                                                                         dateTimeFormat(
-                                                                            'yMMMd',
-                                                                            functions.jsonToDateTime(getJsonField(
-                                                                              myBidsItem,
-                                                                              r'''$.creation''',
-                                                                            ).toString())),
+                                                                          'yMMMd',
+                                                                          functions
+                                                                              .jsonToDateTime(getJsonField(
+                                                                            myBidsItem,
+                                                                            r'''$.creation''',
+                                                                          ).toString()),
+                                                                          locale:
+                                                                              FFLocalizations.of(context).languageCode,
+                                                                        ),
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .bodyMedium
                                                                             .override(

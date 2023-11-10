@@ -131,7 +131,12 @@ class _DateOfBirthPickWidgetState extends State<DateOfBirthPickWidget> {
                               10.0, 0.0, 0.0, 0.0),
                           child: Text(
                             valueOrDefault<String>(
-                              dateTimeFormat('d/M/y', _model.datePicked),
+                              dateTimeFormat(
+                                'd/M/y',
+                                _model.datePicked,
+                                locale:
+                                    FFLocalizations.of(context).languageCode,
+                              ),
                               'Set your birth day',
                             ),
                             style: FlutterFlowTheme.of(context)

@@ -155,6 +155,9 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                   r'''$.data''',
                                 ).toList();
                                 return RefreshIndicator(
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  backgroundColor:
+                                      FlutterFlowTheme.of(context).tertiary,
                                   onRefresh: () async {
                                     setState(() =>
                                         _model.apiRequestCompleter = null);

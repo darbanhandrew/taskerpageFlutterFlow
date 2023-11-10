@@ -47,14 +47,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         child: appStateNotifier.showSplashImage
             ? Builder(
                 builder: (context) => Container(
-                  color: FlutterFlowTheme.of(context).info,
-                  child: Center(
-                    child: Image.asset(
-                      'assets/images/Group_2213.png',
-                      width: double.infinity,
-                      height: double.infinity,
-                      fit: BoxFit.contain,
-                    ),
+                  color: Colors.transparent,
+                  child: Image.asset(
+                    'assets/images/tasker.page.png',
+                    fit: BoxFit.none,
                   ),
                 ),
               )
@@ -67,14 +63,10 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: FlutterFlowTheme.of(context).info,
-                    child: Center(
-                      child: Image.asset(
-                        'assets/images/Group_2213.png',
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.contain,
-                      ),
+                    color: Colors.transparent,
+                    child: Image.asset(
+                      'assets/images/tasker.page.png',
+                      fit: BoxFit.none,
                     ),
                   ),
                 )
@@ -579,9 +571,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => ProfileWidget(),
         ),
         FFRoute(
-          name: 'Profile_details',
-          path: '/profileDetails',
-          builder: (context, params) => ProfileDetailsWidget(),
+          name: 'Profile_details_seeting',
+          path: '/profileDetailsSeeting',
+          builder: (context, params) => ProfileDetailsSeetingWidget(),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

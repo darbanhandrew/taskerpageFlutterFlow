@@ -3,7 +3,6 @@ import '/backend/schema/structs/index.dart';
 import '/bargain/chat_message/chat_message_widget.dart';
 import '/components/chat_message_actions_widget.dart';
 import '/components/header_web_widget.dart';
-import '/components/notification_component_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,7 +11,7 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -57,20 +56,22 @@ class _ChatWidgetState extends State<ChatWidget> {
         apiGlobalKey: FFAppState().apiKey,
       );
       if ((_model.chatRoomDetails?.succeeded ?? true)) {
-        _model.chatRoom =
-            TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
-                          (_model.chatRoomDetails?.jsonBody ?? ''),
-                        ) !=
-                        null &&
-                    TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
-                          (_model.chatRoomDetails?.jsonBody ?? ''),
-                        ) !=
-                        ''
-                ? ChatRoomStruct.fromMap(
-                    TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
-                    (_model.chatRoomDetails?.jsonBody ?? ''),
-                  ))
-                : null;
+        setState(() {
+          _model.chatRoom = TaskerpageBackendGroup.getChatRoomDetailsCall
+                          .chatRoomJson(
+                        (_model.chatRoomDetails?.jsonBody ?? ''),
+                      ) !=
+                      null &&
+                  TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
+                        (_model.chatRoomDetails?.jsonBody ?? ''),
+                      ) !=
+                      ''
+              ? ChatRoomStruct.fromMap(
+                  TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
+                  (_model.chatRoomDetails?.jsonBody ?? ''),
+                ))
+              : null;
+        });
         _model.apiResult39c = await TaskerpageBackendGroup.markAsReadCall.call(
           room: widget.room,
           apiGlobalKey: FFAppState().apiKey,
@@ -78,33 +79,10 @@ class _ChatWidgetState extends State<ChatWidget> {
         await actions.listenSocketEvent(
           widget.room!,
           () async {
-            await showAlignedDialog(
-              barrierColor: FlutterFlowTheme.of(context).primary,
-              context: context,
-              isGlobal: true,
-              avoidOverflow: false,
-              targetAnchor: AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
-              followerAnchor: AlignmentDirectional(1.0, -1.0)
-                  .resolve(Directionality.of(context)),
-              builder: (dialogContext) {
-                return Material(
-                  color: Colors.transparent,
-                  child: WebViewAware(
-                      child: GestureDetector(
-                    onTap: () => _model.unfocusNode.canRequestFocus
-                        ? FocusScope.of(context)
-                            .requestFocus(_model.unfocusNode)
-                        : FocusScope.of(context).unfocus(),
-                    child: Container(
-                      height: 200.0,
-                      width: MediaQuery.sizeOf(context).width * 0.3,
-                      child: NotificationComponentWidget(),
-                    ),
-                  )),
-                );
-              },
-            ).then((value) => setState(() {}));
+            setState(() {
+              _model.clearChatMessagesCacheKey(_model.apiRequestLastUniqueKey);
+              _model.apiRequestCompleted = false;
+            });
           },
         );
       } else {
@@ -146,15 +124,16 @@ class _ChatWidgetState extends State<ChatWidget> {
 
     context.watch<FFAppState>();
 
-    return Builder(
-      builder: (context) => GestureDetector(
-        onTap: () => _model.unfocusNode.canRequestFocus
-            ? FocusScope.of(context).requestFocus(_model.unfocusNode)
-            : FocusScope.of(context).unfocus(),
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: Color(0xFFF2F2F2),
-          body: Column(
+    return GestureDetector(
+      onTap: () => _model.unfocusNode.canRequestFocus
+          ? FocusScope.of(context).requestFocus(_model.unfocusNode)
+          : FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        key: scaffoldKey,
+        backgroundColor: Color(0xFFF2F2F2),
+        body: SafeArea(
+          top: true,
+          child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
               if (responsiveVisibility(
@@ -259,7 +238,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                           highlightColor: Colors
                                                               .transparent,
                                                           onTap: () async {
-                                                            context.safePop();
+                                                            context.pushNamed(
+                                                              'chat_list',
+                                                              queryParameters: {
+                                                                'task':
+                                                                    serializeParam(
+                                                                  0,
+                                                                  ParamType.int,
+                                                                ),
+                                                              }.withoutNulls,
+                                                            );
                                                           },
                                                           child: Icon(
                                                             Icons.chevron_left,
@@ -368,7 +356,7 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                             valueOrDefault<
                                                                 String>(
                                                               _model.chatRoom
-                                                                  ?.roomName,
+                                                                  ?.room,
                                                               'Chat Room',
                                                             ),
                                                             style: FlutterFlowTheme
@@ -451,8 +439,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                 20.0, 10.0),
                                                     child: FutureBuilder<
                                                         ApiCallResponse>(
-                                                      future:
-                                                          _model.chatMessages(
+                                                      future: _model
+                                                          .chatMessages(
                                                         uniqueQueryKey:
                                                             widget.room,
                                                         requestFn: () =>
@@ -473,7 +461,16 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                           start: 0,
                                                           pageLength: 100,
                                                         ),
-                                                      ),
+                                                      )
+                                                          .then((result) {
+                                                        try {
+                                                          _model.apiRequestCompleted =
+                                                              true;
+                                                          _model.apiRequestLastUniqueKey =
+                                                              widget.room;
+                                                        } finally {}
+                                                        return result;
+                                                      }),
                                                       builder:
                                                           (context, snapshot) {
                                                         // Customize what your widget looks like when it's loading.

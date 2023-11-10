@@ -5,6 +5,7 @@ import '/components/badges_header_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
 import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
@@ -43,6 +44,8 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   late NavBarModel navBarModel;
   // Model for sideBar_Right component.
   late SideBarRightModel sideBarRightModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -55,6 +58,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     adCardWebModel = createModel(context, () => AdCardWebModel());
     navBarModel = createModel(context, () => NavBarModel());
     sideBarRightModel = createModel(context, () => SideBarRightModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -66,6 +70,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     adCardWebModel.dispose();
     navBarModel.dispose();
     sideBarRightModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

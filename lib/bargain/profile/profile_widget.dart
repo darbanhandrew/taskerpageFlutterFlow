@@ -5,6 +5,7 @@ import '/components/badges_header_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
 import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
@@ -69,6 +70,18 @@ class _ProfileWidgetState extends State<ProfileWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF2F2F2),
+        endDrawer: Container(
+          width: double.infinity,
+          child: WebViewAware(
+              child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          )),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -149,7 +162,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                     updateCallback: () =>
                                                         setState(() {}),
                                                     child: HeaderWidget(
-                                                      openDrawer: () async {},
+                                                      openDrawer: () async {
+                                                        scaffoldKey
+                                                            .currentState!
+                                                            .openEndDrawer();
+                                                      },
                                                     ),
                                                   ),
                                               ],
@@ -579,11 +596,13 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           child:
                                                                               Text(
                                                                             dateTimeFormat(
-                                                                                'yMMMd',
-                                                                                functions.jsonToDateTime(getJsonField(
-                                                                                  FFAppState().userProfile,
-                                                                                  r'''$.data.date_of_birth''',
-                                                                                ).toString())),
+                                                                              'yMMMd',
+                                                                              functions.jsonToDateTime(getJsonField(
+                                                                                FFAppState().userProfile,
+                                                                                r'''$.data.date_of_birth''',
+                                                                              ).toString()),
+                                                                              locale: FFLocalizations.of(context).languageCode,
+                                                                            ),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: FlutterFlowTheme.of(context).alternate,
@@ -949,7 +968,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                 hoverColor: Colors.transparent,
                                                                                 highlightColor: Colors.transparent,
                                                                                 onTap: () async {
-                                                                                  context.pushNamed('Profile_details');
+                                                                                  context.pushNamed('Profile_details_seeting');
                                                                                 },
                                                                                 child: Container(
                                                                                   width: 120.0,

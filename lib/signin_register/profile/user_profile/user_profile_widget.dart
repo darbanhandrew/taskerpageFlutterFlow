@@ -274,7 +274,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                     highlightColor:
                                                         Colors.transparent,
                                                     onTap: () async {
-                                                      Navigator.pop(context);
+                                                      context.safePop();
                                                     },
                                                     child: Icon(
                                                       Icons.close_rounded,
@@ -576,16 +576,25 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                     mainAxisSize: MainAxisSize.max,
                                                                                     children: List.generate(badges.length, (badgesIndex) {
                                                                                       final badgesItem = badges[badgesIndex];
-                                                                                      return ClipRRect(
-                                                                                        borderRadius: BorderRadius.circular(0.0),
-                                                                                        child: Image.network(
-                                                                                          '${FFAppState().baseUrl}${getJsonField(
-                                                                                            badgesItem,
-                                                                                            r'''$.active_icon''',
-                                                                                          ).toString()}',
-                                                                                          width: 20.0,
-                                                                                          height: 20.0,
-                                                                                          fit: BoxFit.cover,
+                                                                                      return Visibility(
+                                                                                        visible: functions
+                                                                                                .jsonToInt(getJsonField(
+                                                                                                  badgesItem,
+                                                                                                  r'''$.enabled''',
+                                                                                                ))
+                                                                                                .toString() ==
+                                                                                            '1',
+                                                                                        child: ClipRRect(
+                                                                                          borderRadius: BorderRadius.circular(0.0),
+                                                                                          child: Image.network(
+                                                                                            '${FFAppState().baseUrl}${getJsonField(
+                                                                                              badgesItem,
+                                                                                              r'''$.active_icon''',
+                                                                                            ).toString()}',
+                                                                                            width: 20.0,
+                                                                                            height: 20.0,
+                                                                                            fit: BoxFit.cover,
+                                                                                          ),
                                                                                         ),
                                                                                       );
                                                                                     }).divide(SizedBox(width: 12.0)),
@@ -845,8 +854,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                   .call(
                                                 apiGlobalKey:
                                                     FFAppState().apiKey,
-                                                fields:
-                                                    '[\"skill_category_name\",\"skill_name\",\"name\",\"skill_level\",\"customer_skill_options\"]',
+                                                fields: '[\"*\"]',
                                                 filters:
                                                     '[[\"customer_profile\",\"=\",\"${getJsonField(
                                                   userProfileUserProfileReadResponse
@@ -938,7 +946,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             16.0,
-                                                                            10.0,
+                                                                            8.0,
                                                                             0.0,
                                                                             0.0),
                                                                         child:
@@ -949,14 +957,17 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                               CrossAxisAlignment.center,
                                                                           children: [
                                                                             Container(
-                                                                              width: 35.0,
-                                                                              height: 35.0,
+                                                                              width: 32.0,
+                                                                              height: 32.0,
                                                                               clipBehavior: Clip.antiAlias,
                                                                               decoration: BoxDecoration(
                                                                                 shape: BoxShape.circle,
                                                                               ),
                                                                               child: Image.network(
-                                                                                'https://picsum.photos/seed/949/600',
+                                                                                '${FFAppState().baseUrl}${getJsonField(
+                                                                                  skillsItem,
+                                                                                  r'''$.icon''',
+                                                                                ).toString()}',
                                                                                 fit: BoxFit.cover,
                                                                               ),
                                                                             ),
@@ -983,7 +994,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                         width: double
                                                                             .infinity,
                                                                         height:
-                                                                            10.0,
+                                                                            9.0,
                                                                         decoration:
                                                                             BoxDecoration(
                                                                           color:
@@ -1004,7 +1015,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           children: [
                                                                             Container(
                                                                               width: double.infinity,
-                                                                              height: 215.0,
+                                                                              height: 180.0,
                                                                               decoration: BoxDecoration(
                                                                                 color: Color(0xFFF9F9F9),
                                                                                 boxShadow: [
@@ -1041,43 +1052,68 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                     Flexible(
                                                                                       child: Padding(
                                                                                         padding: EdgeInsetsDirectional.fromSTEB(0.0, 9.0, 0.0, 0.0),
-                                                                                        child: Builder(
-                                                                                          builder: (context) {
-                                                                                            final skill = getJsonField(
+                                                                                        child: FutureBuilder<ApiCallResponse>(
+                                                                                          future: TaskerpageBackendGroup.getCustomerProfileSkillsDetailsCall.call(
+                                                                                            name: getJsonField(
                                                                                               skillsItem,
-                                                                                              r'''$.skills''',
-                                                                                            ).toList();
-                                                                                            return Row(
-                                                                                              mainAxisSize: MainAxisSize.max,
-                                                                                              children: List.generate(skill.length, (skillIndex) {
-                                                                                                final skillItem = skill[skillIndex];
-                                                                                                return Container(
-                                                                                                  height: 22.0,
-                                                                                                  decoration: BoxDecoration(
-                                                                                                    color: Color(0xFFDEDEDE),
-                                                                                                    borderRadius: BorderRadius.circular(2.0),
+                                                                                              r'''$.name''',
+                                                                                            ).toString(),
+                                                                                            apiGlobalKey: FFAppState().apiKey,
+                                                                                          ),
+                                                                                          builder: (context, snapshot) {
+                                                                                            // Customize what your widget looks like when it's loading.
+                                                                                            if (!snapshot.hasData) {
+                                                                                              return Center(
+                                                                                                child: SizedBox(
+                                                                                                  width: 35.0,
+                                                                                                  height: 35.0,
+                                                                                                  child: SpinKitThreeBounce(
+                                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                                    size: 35.0,
                                                                                                   ),
-                                                                                                  child: Padding(
-                                                                                                    padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
-                                                                                                    child: Row(
-                                                                                                      mainAxisSize: MainAxisSize.max,
-                                                                                                      children: [
-                                                                                                        Text(
-                                                                                                          getJsonField(
-                                                                                                            skillItem,
-                                                                                                            r'''$.skill_name''',
-                                                                                                          ).toString(),
-                                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                fontFamily: 'Lato',
-                                                                                                                fontSize: 13.0,
-                                                                                                                fontWeight: FontWeight.w500,
-                                                                                                              ),
+                                                                                                ),
+                                                                                              );
+                                                                                            }
+                                                                                            final rowGetCustomerProfileSkillsDetailsResponse = snapshot.data!;
+                                                                                            return Builder(
+                                                                                              builder: (context) {
+                                                                                                final skill = getJsonField(
+                                                                                                  rowGetCustomerProfileSkillsDetailsResponse.jsonBody,
+                                                                                                  r'''$.data.skills''',
+                                                                                                ).toList();
+                                                                                                return Row(
+                                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                                  children: List.generate(skill.length, (skillIndex) {
+                                                                                                    final skillItem = skill[skillIndex];
+                                                                                                    return Container(
+                                                                                                      height: 22.0,
+                                                                                                      decoration: BoxDecoration(
+                                                                                                        color: Color(0xFFDEDEDE),
+                                                                                                        borderRadius: BorderRadius.circular(2.0),
+                                                                                                      ),
+                                                                                                      child: Padding(
+                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
+                                                                                                        child: Row(
+                                                                                                          mainAxisSize: MainAxisSize.max,
+                                                                                                          children: [
+                                                                                                            Text(
+                                                                                                              getJsonField(
+                                                                                                                skillItem,
+                                                                                                                r'''$.skill_name''',
+                                                                                                              ).toString(),
+                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                                    fontFamily: 'Lato',
+                                                                                                                    fontSize: 13.0,
+                                                                                                                    fontWeight: FontWeight.w500,
+                                                                                                                  ),
+                                                                                                            ),
+                                                                                                          ],
                                                                                                         ),
-                                                                                                      ],
-                                                                                                    ),
-                                                                                                  ),
+                                                                                                      ),
+                                                                                                    );
+                                                                                                  }).divide(SizedBox(width: 8.0)),
                                                                                                 );
-                                                                                              }).divide(SizedBox(width: 8.0)),
+                                                                                              },
                                                                                             );
                                                                                           },
                                                                                         ),
@@ -1129,56 +1165,6 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                   ),
                                                                                                 ],
                                                                                               ),
-                                                                                            ),
-                                                                                          ),
-                                                                                        ],
-                                                                                      ),
-                                                                                    ),
-                                                                                    Expanded(
-                                                                                      child: Column(
-                                                                                        mainAxisSize: MainAxisSize.max,
-                                                                                        mainAxisAlignment: MainAxisAlignment.end,
-                                                                                        children: [
-                                                                                          Flexible(
-                                                                                            child: Builder(
-                                                                                              builder: (context) {
-                                                                                                final customerSkillOptions = getJsonField(
-                                                                                                  skillsItem,
-                                                                                                  r'''$.customer_skill_options''',
-                                                                                                ).toList();
-                                                                                                return Row(
-                                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                                  children: List.generate(customerSkillOptions.length, (customerSkillOptionsIndex) {
-                                                                                                    final customerSkillOptionsItem = customerSkillOptions[customerSkillOptionsIndex];
-                                                                                                    return Container(
-                                                                                                      height: 22.0,
-                                                                                                      decoration: BoxDecoration(
-                                                                                                        color: Color(0xFFDEDEDE),
-                                                                                                        borderRadius: BorderRadius.circular(2.0),
-                                                                                                      ),
-                                                                                                      child: Padding(
-                                                                                                        padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
-                                                                                                        child: Row(
-                                                                                                          mainAxisSize: MainAxisSize.max,
-                                                                                                          children: [
-                                                                                                            Text(
-                                                                                                              getJsonField(
-                                                                                                                customerSkillOptionsItem,
-                                                                                                                r'''$.option_name''',
-                                                                                                              ).toString(),
-                                                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                                    fontFamily: 'Lato',
-                                                                                                                    fontSize: 13.0,
-                                                                                                                    fontWeight: FontWeight.w500,
-                                                                                                                  ),
-                                                                                                            ),
-                                                                                                          ],
-                                                                                                        ),
-                                                                                                      ),
-                                                                                                    );
-                                                                                                  }).divide(SizedBox(width: 8.0)),
-                                                                                                );
-                                                                                              },
                                                                                             ),
                                                                                           ),
                                                                                         ],
@@ -1716,7 +1702,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                 borderRadius: BorderRadius.circular(2.0),
                                                                               ),
                                                                               child: Padding(
-                                                                                padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 21.0, 0.0),
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 14.0, 0.0),
                                                                                 child: Row(
                                                                                   mainAxisSize: MainAxisSize.max,
                                                                                   children: [
@@ -2623,11 +2609,13 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                             children: [
                                                                                                               Text(
                                                                                                                 dateTimeFormat(
-                                                                                                                    'yMMMd',
-                                                                                                                    functions.jsonToDateTime(getJsonField(
-                                                                                                                      myReviewsItem,
-                                                                                                                      r'''$.creation''',
-                                                                                                                    ).toString())),
+                                                                                                                  'yMMMd',
+                                                                                                                  functions.jsonToDateTime(getJsonField(
+                                                                                                                    myReviewsItem,
+                                                                                                                    r'''$.creation''',
+                                                                                                                  ).toString()),
+                                                                                                                  locale: FFLocalizations.of(context).languageCode,
+                                                                                                                ),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       fontFamily: 'Lato',
                                                                                                                       color: Color(0xFF616161),

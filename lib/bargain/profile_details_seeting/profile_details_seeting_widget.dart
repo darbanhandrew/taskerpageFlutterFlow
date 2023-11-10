@@ -4,6 +4,7 @@ import '/components/ad_card_web_widget.dart';
 import '/components/badges_header_widget.dart';
 import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
@@ -18,25 +19,27 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
-import 'profile_details_model.dart';
-export 'profile_details_model.dart';
+import 'profile_details_seeting_model.dart';
+export 'profile_details_seeting_model.dart';
 
-class ProfileDetailsWidget extends StatefulWidget {
-  const ProfileDetailsWidget({Key? key}) : super(key: key);
+class ProfileDetailsSeetingWidget extends StatefulWidget {
+  const ProfileDetailsSeetingWidget({Key? key}) : super(key: key);
 
   @override
-  _ProfileDetailsWidgetState createState() => _ProfileDetailsWidgetState();
+  _ProfileDetailsSeetingWidgetState createState() =>
+      _ProfileDetailsSeetingWidgetState();
 }
 
-class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
-  late ProfileDetailsModel _model;
+class _ProfileDetailsSeetingWidgetState
+    extends State<ProfileDetailsSeetingWidget> {
+  late ProfileDetailsSeetingModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProfileDetailsModel());
+    _model = createModel(context, () => ProfileDetailsSeetingModel());
 
     _model.textController ??= TextEditingController(
         text: getJsonField(
@@ -75,6 +78,18 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
       child: Scaffold(
         key: scaffoldKey,
         backgroundColor: Color(0xFFF2F2F2),
+        endDrawer: Container(
+          width: double.infinity,
+          child: WebViewAware(
+              child: Drawer(
+            elevation: 16.0,
+            child: wrapWithModel(
+              model: _model.mainDrawerModel,
+              updateCallback: () => setState(() {}),
+              child: MainDrawerWidget(),
+            ),
+          )),
+        ),
         body: SafeArea(
           top: true,
           child: Column(
@@ -149,7 +164,10 @@ class _ProfileDetailsWidgetState extends State<ProfileDetailsWidget> {
                                               updateCallback: () =>
                                                   setState(() {}),
                                               child: HeaderWidget(
-                                                openDrawer: () async {},
+                                                openDrawer: () async {
+                                                  scaffoldKey.currentState!
+                                                      .openEndDrawer();
+                                                },
                                               ),
                                             ),
                                         ],

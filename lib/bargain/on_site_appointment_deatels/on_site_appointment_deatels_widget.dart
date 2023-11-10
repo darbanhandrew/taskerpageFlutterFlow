@@ -659,14 +659,19 @@ class _OnSiteAppointmentDeatelsWidgetState
                                                                 0.0, 0.0),
                                                     child: Text(
                                                       dateTimeFormat(
-                                                          'jm',
-                                                          functions
-                                                              .jsonToDateTime(
-                                                                  getJsonField(
-                                                            onSiteAppointmentDeatelsAppointmentReadResponse
-                                                                .jsonBody,
-                                                            r'''$.data.appointment_start_time''',
-                                                          ).toString())),
+                                                        'jm',
+                                                        functions
+                                                            .jsonToDateTime(
+                                                                getJsonField(
+                                                          onSiteAppointmentDeatelsAppointmentReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.appointment_start_time''',
+                                                        ).toString()),
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      ),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)
@@ -762,14 +767,19 @@ class _OnSiteAppointmentDeatelsWidgetState
                                                                 0.0, 0.0),
                                                     child: Text(
                                                       dateTimeFormat(
-                                                          'jm',
-                                                          functions
-                                                              .jsonToDateTime(
-                                                                  getJsonField(
-                                                            onSiteAppointmentDeatelsAppointmentReadResponse
-                                                                .jsonBody,
-                                                            r'''$.data.appointment_end_time''',
-                                                          ).toString())),
+                                                        'jm',
+                                                        functions
+                                                            .jsonToDateTime(
+                                                                getJsonField(
+                                                          onSiteAppointmentDeatelsAppointmentReadResponse
+                                                              .jsonBody,
+                                                          r'''$.data.appointment_end_time''',
+                                                        ).toString()),
+                                                        locale:
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .languageCode,
+                                                      ),
                                                       style:
                                                           FlutterFlowTheme.of(
                                                                   context)

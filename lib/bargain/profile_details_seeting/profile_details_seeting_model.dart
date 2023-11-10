@@ -4,6 +4,7 @@ import '/components/ad_card_web_widget.dart';
 import '/components/badges_header_widget.dart';
 import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
@@ -12,7 +13,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'profile_details_widget.dart' show ProfileDetailsWidget;
+import 'profile_details_seeting_widget.dart' show ProfileDetailsSeetingWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -20,7 +21,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:webviewx_plus/webviewx_plus.dart';
 
-class ProfileDetailsModel extends FlutterFlowModel<ProfileDetailsWidget> {
+class ProfileDetailsSeetingModel
+    extends FlutterFlowModel<ProfileDetailsSeetingWidget> {
   ///  Local state fields for this page.
 
   String avatarURL = '';
@@ -58,6 +60,8 @@ class ProfileDetailsModel extends FlutterFlowModel<ProfileDetailsWidget> {
   late NavBarModel navBarModel;
   // Model for sideBar_Right component.
   late SideBarRightModel sideBarRightModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
@@ -70,6 +74,7 @@ class ProfileDetailsModel extends FlutterFlowModel<ProfileDetailsWidget> {
     adCardWebModel = createModel(context, () => AdCardWebModel());
     navBarModel = createModel(context, () => NavBarModel());
     sideBarRightModel = createModel(context, () => SideBarRightModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
@@ -84,6 +89,7 @@ class ProfileDetailsModel extends FlutterFlowModel<ProfileDetailsWidget> {
     adCardWebModel.dispose();
     navBarModel.dispose();
     sideBarRightModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

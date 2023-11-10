@@ -3,7 +3,6 @@ import '/backend/schema/structs/index.dart';
 import '/bargain/chat_message/chat_message_widget.dart';
 import '/components/chat_message_actions_widget.dart';
 import '/components/header_web_widget.dart';
-import '/components/notification_component_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -15,7 +14,7 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/request_manager.dart';
 
 import 'chat_widget.dart' show ChatWidget;
-import 'package:aligned_dialog/aligned_dialog.dart';
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -50,6 +49,8 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   ApiCallResponse? chatRoomDetails;
   // Stores action output result for [Backend Call - API (Mark As Read)] action in chat widget.
   ApiCallResponse? apiResult39c;
+  bool apiRequestCompleted = false;
+  String? apiRequestLastUniqueKey;
   // Model for Header_web component.
   late HeaderWebModel headerWebModel;
   // Model for sideBar_left_profile component.
@@ -120,4 +121,19 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
   }) async {}
 
   /// Additional helper methods are added here.
+
+  Future waitForApiRequestCompleted({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleted;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
 }

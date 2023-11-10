@@ -1,11 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/ad_card_web_widget.dart';
 import '/components/badges_header_widget.dart';
-import '/components/drawer_content_widget.dart';
 import '/components/edit_email_or_pass_widget.dart';
 import '/components/edit_number_widget.dart';
 import '/components/header_web_widget.dart';
 import '/components/header_widget.dart';
+import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
 import '/components/side_bar_left_profile_widget.dart';
 import '/components/side_bar_right_widget.dart';
@@ -32,8 +32,6 @@ class Contactdata3Model extends FlutterFlowModel<Contactdata3Widget> {
   final unfocusNode = FocusNode();
   Completer<ApiCallResponse>? apiRequestCompleter;
   InstantTimer? instantTimer;
-  // Model for drawerContent component.
-  late DrawerContentModel drawerContentModel;
   // Model for Header_web component.
   late HeaderWebModel headerWebModel;
   // Model for sideBar_left_profile component.
@@ -50,11 +48,12 @@ class Contactdata3Model extends FlutterFlowModel<Contactdata3Widget> {
   late NavBarModel navBarModel;
   // Model for sideBar_Right component.
   late SideBarRightModel sideBarRightModel;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    drawerContentModel = createModel(context, () => DrawerContentModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
     sideBarLeftProfileModel =
         createModel(context, () => SideBarLeftProfileModel());
@@ -63,12 +62,12 @@ class Contactdata3Model extends FlutterFlowModel<Contactdata3Widget> {
     adCardWebModel = createModel(context, () => AdCardWebModel());
     navBarModel = createModel(context, () => NavBarModel());
     sideBarRightModel = createModel(context, () => SideBarRightModel());
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
     instantTimer?.cancel();
-    drawerContentModel.dispose();
     headerWebModel.dispose();
     sideBarLeftProfileModel.dispose();
     headerModel.dispose();
@@ -76,6 +75,7 @@ class Contactdata3Model extends FlutterFlowModel<Contactdata3Widget> {
     adCardWebModel.dispose();
     navBarModel.dispose();
     sideBarRightModel.dispose();
+    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

@@ -652,7 +652,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                                 children: [
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
-                                        32.0, 10.0, 32.0, 0.0),
+                                        32.0, 10.0, 32.0, 8.0),
                                     child: Builder(
                                       builder: (context) {
                                         final skillOptions = getJsonField(
@@ -773,7 +773,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                           ],
                         ),
                       Divider(
-                        height: 48.0,
+                        height: 20.0,
                         thickness: 1.0,
                         indent: 32.0,
                         endIndent: 32.0,
@@ -849,7 +849,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                         ],
                       ),
                       Divider(
-                        height: 48.0,
+                        height: 20.0,
                         thickness: 1.0,
                         indent: 32.0,
                         endIndent: 32.0,
@@ -968,7 +968,7 @@ class _Task2WidgetState extends State<Task2Widget> {
                         ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 0.0, 32.0, 10.0),
+                            32.0, 8.0, 32.0, 10.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
                           children: [

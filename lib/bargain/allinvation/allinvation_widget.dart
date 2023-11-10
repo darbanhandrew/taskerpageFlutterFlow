@@ -362,13 +362,17 @@ class _AllinvationWidgetState extends State<AllinvationWidget> {
                                                               children: [
                                                                 Text(
                                                                   dateTimeFormat(
-                                                                      'relative',
-                                                                      functions
-                                                                          .jsonToDateTime(
-                                                                              getJsonField(
-                                                                        invationItem,
-                                                                        r'''$.creation''',
-                                                                      ).toString())),
+                                                                    'relative',
+                                                                    functions
+                                                                        .jsonToDateTime(
+                                                                            getJsonField(
+                                                                      invationItem,
+                                                                      r'''$.creation''',
+                                                                    ).toString()),
+                                                                    locale: FFLocalizations.of(
+                                                                            context)
+                                                                        .languageCode,
+                                                                  ),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -690,6 +694,7 @@ class _AllinvationWidgetState extends State<AllinvationWidget> {
                                                 ),
                                               ),
                                               Divider(
+                                                height: 0.0,
                                                 thickness: 1.0,
                                                 color: Color(0xFFD2D2D2),
                                               ),

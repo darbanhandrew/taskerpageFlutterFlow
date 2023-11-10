@@ -160,12 +160,16 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                                         children: [
                                           Text(
                                             dateTimeFormat(
-                                                'yMMMd',
-                                                functions.jsonToDateTime(
-                                                    getJsonField(
-                                                  widget.userProfile,
-                                                  r'''$.creation''',
-                                                ).toString())),
+                                              'yMMMd',
+                                              functions
+                                                  .jsonToDateTime(getJsonField(
+                                                widget.userProfile,
+                                                r'''$.creation''',
+                                              ).toString()),
+                                              locale:
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -192,10 +196,17 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
                                           Text(
-                                            'Since ${dateTimeFormat('yQQQ', functions.jsonToDateTime(getJsonField(
-                                                  widget.userProfile,
-                                                  r'''$.date_of_birth''',
-                                                ).toString()))}',
+                                            'Since ${dateTimeFormat(
+                                              'yQQQ',
+                                              functions
+                                                  .jsonToDateTime(getJsonField(
+                                                widget.userProfile,
+                                                r'''$.date_of_birth''',
+                                              ).toString()),
+                                              locale:
+                                                  FFLocalizations.of(context)
+                                                      .languageCode,
+                                            )}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(

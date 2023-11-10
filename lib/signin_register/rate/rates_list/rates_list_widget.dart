@@ -165,25 +165,32 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    27.0, 0.0, 27.0, 0.0),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Expanded(
-                                                  child: wrapWithModel(
-                                                    model: _model
-                                                        .badgesHeaderModel,
-                                                    updateCallback: () =>
-                                                        setState(() {}),
-                                                    child: BadgesHeaderWidget(),
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                            tabletLandscape: false,
+                                          ))
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      27.0, 0.0, 27.0, 0.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    child: wrapWithModel(
+                                                      model: _model
+                                                          .badgesHeaderModel,
+                                                      updateCallback: () =>
+                                                          setState(() {}),
+                                                      child:
+                                                          BadgesHeaderWidget(),
+                                                    ),
                                                   ),
-                                                ),
-                                              ],
+                                                ],
+                                              ),
                                             ),
-                                          ),
                                           Padding(
                                             padding:
                                                 EdgeInsetsDirectional.fromSTEB(
@@ -256,7 +263,7 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                         functions
                                                             .convertMap(TaskerpageBackendGroup
                                                                 .getUserRateListCall
-                                                                .userRateNamesList(
+                                                                .userRateJsonList(
                                                                   listViewGetUserRateListResponse
                                                                       .jsonBody,
                                                                 )!
@@ -269,12 +276,6 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                                 : null)
                                                             .withoutNulls
                                                             .toList();
-                                                    if (userRateNamesList
-                                                        .isEmpty) {
-                                                      return Image.asset(
-                                                        'assets/images/Group_2179.png',
-                                                      );
-                                                    }
                                                     return InkWell(
                                                       splashColor:
                                                           Colors.transparent,

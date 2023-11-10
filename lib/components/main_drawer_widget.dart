@@ -71,8 +71,8 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
         }
         final containerUserProfileReadResponse = snapshot.data!;
         return Container(
-          width: double.infinity,
-          height: double.infinity,
+          width: MediaQuery.sizeOf(context).width * 1.0,
+          height: MediaQuery.sizeOf(context).height * 1.0,
           decoration: BoxDecoration(
             color: Color(0xFFF9F9F9),
           ),
@@ -168,12 +168,15 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                     ),
                                     Text(
                                       dateTimeFormat(
-                                          'd/M/y',
-                                          functions.jsonToDateTime(getJsonField(
-                                            containerUserProfileReadResponse
-                                                .jsonBody,
-                                            r'''$.data.creation''',
-                                          ).toString())),
+                                        'd/M/y',
+                                        functions.jsonToDateTime(getJsonField(
+                                          containerUserProfileReadResponse
+                                              .jsonBody,
+                                          r'''$.data.creation''',
+                                        ).toString()),
+                                        locale: FFLocalizations.of(context)
+                                            .languageCode,
+                                      ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(
@@ -211,118 +214,101 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 15.0, 0.0, 0.0),
-                          child: Container(
-                            width: double.infinity,
-                            height: 160.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 4.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(0.0, 2.0),
-                                  spreadRadius: 2.0,
-                                )
-                              ],
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  16.0, 20.0, 20.0, 20.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(0.00, 0.00),
-                                        child: Stack(
+                          child: InkWell(
+                            splashColor: Colors.transparent,
+                            focusColor: Colors.transparent,
+                            hoverColor: Colors.transparent,
+                            highlightColor: Colors.transparent,
+                            onTap: () async {
+                              context.pushNamed('User_profile');
+                            },
+                            child: Container(
+                              width: double.infinity,
+                              height: 160.0,
+                              decoration: BoxDecoration(
+                                color: FlutterFlowTheme.of(context)
+                                    .secondaryBackground,
+                                boxShadow: [
+                                  BoxShadow(
+                                    blurRadius: 4.0,
+                                    color: Color(0x33000000),
+                                    offset: Offset(0.0, 2.0),
+                                    spreadRadius: 2.0,
+                                  )
+                                ],
+                              ),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    16.0, 20.0, 20.0, 20.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Align(
                                           alignment:
-                                              AlignmentDirectional(0.0, 0.0),
-                                          children: [
-                                            Container(
-                                              width: 90.0,
-                                              height: 90.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                shape: BoxShape.circle,
-                                                border: Border.all(
-                                                  color: Color(0xFFDBDBDB),
+                                              AlignmentDirectional(0.00, 0.00),
+                                          child: Stack(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            children: [
+                                              Container(
+                                                width: 90.0,
+                                                height: 90.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .secondaryBackground,
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: Color(0xFFDBDBDB),
+                                                  ),
                                                 ),
                                               ),
-                                            ),
-                                            Container(
-                                              width: 75.0,
-                                              height: 75.0,
-                                              clipBehavior: Clip.antiAlias,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                              ),
-                                              child: Image.network(
-                                                getJsonField(
+                                              Container(
+                                                width: 75.0,
+                                                height: 75.0,
+                                                clipBehavior: Clip.antiAlias,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                ),
+                                                child: Image.network(
+                                                  getJsonField(
+                                                            containerUserProfileReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.avatar''',
+                                                          ) !=
+                                                          null
+                                                      ? '${FFAppState().baseUrl}${getJsonField(
                                                           containerUserProfileReadResponse
                                                               .jsonBody,
                                                           r'''$.data.avatar''',
-                                                        ) !=
-                                                        null
-                                                    ? '${FFAppState().baseUrl}${getJsonField(
-                                                        containerUserProfileReadResponse
-                                                            .jsonBody,
-                                                        r'''$.data.avatar''',
-                                                      ).toString()}'
-                                                    : '${FFAppState().baseUrl}/files/Group 2177.png',
-                                                fit: BoxFit.cover,
+                                                        ).toString()}'
+                                                      : '${FFAppState().baseUrl}/files/Group 2177.png',
+                                                  fit: BoxFit.cover,
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          '${getJsonField(
-                                            containerUserProfileReadResponse
-                                                .jsonBody,
-                                            r'''$.data.first_name''',
-                                          ).toString()} ${getJsonField(
-                                            containerUserProfileReadResponse
-                                                .jsonBody,
-                                            r'''$.data.last_name''',
-                                          ).toString()}',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .alternate,
-                                                fontSize: 16.0,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 4.2, 0.0, 0.0),
-                                          child: Text(
+                                      ],
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
                                             '${getJsonField(
                                               containerUserProfileReadResponse
                                                   .jsonBody,
-                                              r'''$.data.city''',
-                                            ).toString()} | ${getJsonField(
+                                              r'''$.data.first_name''',
+                                            ).toString()} ${getJsonField(
                                               containerUserProfileReadResponse
                                                   .jsonBody,
-                                              r'''$.data.language''',
+                                              r'''$.data.last_name''',
                                             ).toString()}',
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -331,101 +317,132 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                                   color: FlutterFlowTheme.of(
                                                           context)
                                                       .alternate,
-                                                  fontSize: 13.0,
-                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 16.0,
+                                                  fontWeight: FontWeight.bold,
                                                 ),
                                           ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 11.5, 0.0, 0.0),
-                                          child: RatingBarIndicator(
-                                            itemBuilder: (context, index) =>
-                                                Icon(
-                                              Icons.star_rounded,
-                                              color: Color(0xFFEFC349),
-                                            ),
-                                            direction: Axis.horizontal,
-                                            rating: getJsonField(
-                                              containerUserProfileReadResponse
-                                                  .jsonBody,
-                                              r'''$.data.review_average''',
-                                            ),
-                                            unratedColor: Color(0xFFDCDCDC),
-                                            itemCount: 5,
-                                            itemSize: 16.0,
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 15.0, 0.0, 0.0),
-                                          child: Container(
-                                            width: 194.0,
-                                            height: 36.0,
-                                            decoration: BoxDecoration(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              borderRadius:
-                                                  BorderRadius.circular(1.0),
-                                            ),
-                                            child: Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Text(
-                                                  functions
-                                                              .jsonToInt(
-                                                                  getJsonField(
-                                                                containerUserProfileReadResponse
-                                                                    .jsonBody,
-                                                                r'''$.data.is_subscribed''',
-                                                              ))
-                                                              .toString() ==
-                                                          '0'
-                                                      ? 'Upgrade to premium'
-                                                      : 'Premium',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color: Colors.white,
-                                                        fontSize: 13.0,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                      ),
-                                                ),
-                                                if (functions
-                                                        .jsonToInt(getJsonField(
-                                                          containerUserProfileReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.is_subscribed''',
-                                                        ))
-                                                        .toString() ==
-                                                    '1')
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Icon(
-                                                      Icons.verified,
-                                                      color: Colors.white,
-                                                      size: 17.0,
-                                                    ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 4.2, 0.0, 0.0),
+                                            child: Text(
+                                              '${getJsonField(
+                                                containerUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.city''',
+                                              ).toString()} | ${getJsonField(
+                                                containerUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.language''',
+                                              ).toString()}',
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    fontSize: 13.0,
+                                                    fontWeight: FontWeight.w500,
                                                   ),
-                                              ],
                                             ),
                                           ),
-                                        ),
-                                      ],
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 11.5, 0.0, 0.0),
+                                            child: RatingBarIndicator(
+                                              itemBuilder: (context, index) =>
+                                                  Icon(
+                                                Icons.star_rounded,
+                                                color: Color(0xFFEFC349),
+                                              ),
+                                              direction: Axis.horizontal,
+                                              rating: getJsonField(
+                                                containerUserProfileReadResponse
+                                                    .jsonBody,
+                                                r'''$.data.review_average''',
+                                              ),
+                                              unratedColor: Color(0xFFDCDCDC),
+                                              itemCount: 5,
+                                              itemSize: 16.0,
+                                            ),
+                                          ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 15.0, 0.0, 0.0),
+                                            child: Container(
+                                              width: 194.0,
+                                              height: 36.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderRadius:
+                                                    BorderRadius.circular(1.0),
+                                              ),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    functions
+                                                                .jsonToInt(
+                                                                    getJsonField(
+                                                                  containerUserProfileReadResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data.is_subscribed''',
+                                                                ))
+                                                                .toString() ==
+                                                            '0'
+                                                        ? 'Upgrade to premium'
+                                                        : 'Premium',
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.white,
+                                                          fontSize: 13.0,
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                  ),
+                                                  if (functions
+                                                          .jsonToInt(
+                                                              getJsonField(
+                                                            containerUserProfileReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.is_subscribed''',
+                                                          ))
+                                                          .toString() ==
+                                                      '1')
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Icon(
+                                                        Icons.verified,
+                                                        color: Colors.white,
+                                                        size: 17.0,
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ].divide(SizedBox(width: 11.5)),
+                                  ].divide(SizedBox(width: 11.5)),
+                                ),
                               ),
                             ),
                           ),

@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
-import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -772,26 +771,8 @@ class _SignupWidgetState extends State<SignupWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await showModalBottomSheet(
-                                isScrollControlled: true,
-                                backgroundColor: Colors.transparent,
-                                enableDrag: false,
-                                context: context,
-                                builder: (context) {
-                                  return WebViewAware(
-                                      child: GestureDetector(
-                                    onTap: () => _model
-                                            .unfocusNode.canRequestFocus
-                                        ? FocusScope.of(context)
-                                            .requestFocus(_model.unfocusNode)
-                                        : FocusScope.of(context).unfocus(),
-                                    child: Padding(
-                                      padding: MediaQuery.viewInsetsOf(context),
-                                      child: TermofServiceWidget(),
-                                    ),
-                                  ));
-                                },
-                              ).then((value) => safeSetState(() {}));
+                              await launchURL(
+                                  'https://taskerpage.com/terms-and-conditions');
                             },
                             child: Text(
                               'Terms of Service',
@@ -826,7 +807,10 @@ class _SignupWidgetState extends State<SignupWidget> {
                             focusColor: Colors.transparent,
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
-                            onTap: () async {},
+                            onTap: () async {
+                              await launchURL(
+                                  'https://taskerpage.com/privacy-policy');
+                            },
                             child: Text(
                               'Privacy Policy',
                               style: FlutterFlowTheme.of(context)

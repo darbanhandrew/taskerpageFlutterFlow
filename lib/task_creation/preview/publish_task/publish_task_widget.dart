@@ -428,7 +428,13 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                             publishTaskPostReadResponse
                                                                 .jsonBody,
                                                             r'''$.data.skill_name''',
-                                                          ).toString(),
+                                                          )
+                                                              .toString()
+                                                              .maybeHandleOverflow(
+                                                                maxChars: 29,
+                                                                replacement:
+                                                                    '…',
+                                                              ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
                                                               .bodyMedium
@@ -480,7 +486,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                         Expanded(
                                                           child: Container(
                                                             width: 100.0,
-                                                            height: 45.0,
+                                                            height: 40.0,
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: Color(
@@ -488,7 +494,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          5.0),
+                                                                          2.0),
                                                             ),
                                                             child: Row(
                                                               mainAxisSize:

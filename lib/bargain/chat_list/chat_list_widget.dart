@@ -135,7 +135,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                 ),
               ],
             ),
-            if (false)
+            if (widget.task! > 0)
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(27.0, 32.0, 0.0, 20.0),
                 child: FutureBuilder<ApiCallResponse>(
@@ -344,25 +344,19 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                   },
                 ),
               ),
+            if (widget.task! > 0)
+              Divider(
+                height: 0.0,
+                thickness: 1.0,
+                color: FlutterFlowTheme.of(context).secondary,
+              ),
             Expanded(
               child: Container(
                 width: double.infinity,
                 height: double.infinity,
                 decoration: BoxDecoration(
                   color: FlutterFlowTheme.of(context).secondaryBackground,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4.0,
-                      color: Color(0x33000000),
-                      spreadRadius: 4.0,
-                    )
-                  ],
-                  borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(0.0),
-                    bottomRight: Radius.circular(0.0),
-                    topLeft: Radius.circular(15.0),
-                    topRight: Radius.circular(15.0),
-                  ),
+                  borderRadius: BorderRadius.circular(0.0),
                 ),
                 child: Padding(
                   padding:
@@ -621,9 +615,10 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Text(
-                              'Chats related ',
+                              widget.task != null ? 'Chats related' : 'Chats',
                               style: FlutterFlowTheme.of(context)
                                   .bodyMedium
                                   .override(
@@ -934,8 +929,11 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                                         ),
                                                                         Text(
                                                                           dateTimeFormat(
-                                                                              'MMMEd',
-                                                                              functions.jsonToDateTime(myChatsItem.modified)),
+                                                                            'MMMEd',
+                                                                            functions.jsonToDateTime(myChatsItem.modified),
+                                                                            locale:
+                                                                                FFLocalizations.of(context).languageCode,
+                                                                          ),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(

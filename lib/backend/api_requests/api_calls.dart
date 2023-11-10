@@ -2682,6 +2682,11 @@ class UserProfileReadCall {
         r'''$.data.customer_skills''',
         true,
       );
+  dynamic badges(dynamic response) => getJsonField(
+        response,
+        r'''$.data.badges''',
+        true,
+      );
 }
 
 class CustomerTaskListCall {
