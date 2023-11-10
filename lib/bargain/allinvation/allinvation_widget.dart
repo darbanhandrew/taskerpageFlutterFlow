@@ -362,17 +362,13 @@ class _AllinvationWidgetState extends State<AllinvationWidget> {
                                                               children: [
                                                                 Text(
                                                                   dateTimeFormat(
-                                                                    'relative',
-                                                                    functions
-                                                                        .jsonToDateTime(
-                                                                            getJsonField(
-                                                                      invationItem,
-                                                                      r'''$.creation''',
-                                                                    ).toString()),
-                                                                    locale: FFLocalizations.of(
-                                                                            context)
-                                                                        .languageCode,
-                                                                  ),
+                                                                      'relative',
+                                                                      functions
+                                                                          .jsonToDateTime(
+                                                                              getJsonField(
+                                                                        invationItem,
+                                                                        r'''$.creation''',
+                                                                      ).toString())),
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium

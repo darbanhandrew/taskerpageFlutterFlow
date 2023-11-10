@@ -168,15 +168,12 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                     ),
                                     Text(
                                       dateTimeFormat(
-                                        'd/M/y',
-                                        functions.jsonToDateTime(getJsonField(
-                                          containerUserProfileReadResponse
-                                              .jsonBody,
-                                          r'''$.data.creation''',
-                                        ).toString()),
-                                        locale: FFLocalizations.of(context)
-                                            .languageCode,
-                                      ),
+                                          'd/M/y',
+                                          functions.jsonToDateTime(getJsonField(
+                                            containerUserProfileReadResponse
+                                                .jsonBody,
+                                            r'''$.data.creation''',
+                                          ).toString())),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

@@ -2609,13 +2609,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                             children: [
                                                                                                               Text(
                                                                                                                 dateTimeFormat(
-                                                                                                                  'yMMMd',
-                                                                                                                  functions.jsonToDateTime(getJsonField(
-                                                                                                                    myReviewsItem,
-                                                                                                                    r'''$.creation''',
-                                                                                                                  ).toString()),
-                                                                                                                  locale: FFLocalizations.of(context).languageCode,
-                                                                                                                ),
+                                                                                                                    'yMMMd',
+                                                                                                                    functions.jsonToDateTime(getJsonField(
+                                                                                                                      myReviewsItem,
+                                                                                                                      r'''$.creation''',
+                                                                                                                    ).toString())),
                                                                                                                 style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                                                       fontFamily: 'Lato',
                                                                                                                       color: Color(0xFF616161),

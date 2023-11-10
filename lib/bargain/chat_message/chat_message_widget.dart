@@ -227,12 +227,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                                         ),
                                         Text(
                                           dateTimeFormat(
-                                            'jm',
-                                            functions.jsonToDateTime(
-                                                widget.chatMessage?.creation),
-                                            locale: FFLocalizations.of(context)
-                                                .languageCode,
-                                          ),
+                                              'jm',
+                                              functions.jsonToDateTime(widget
+                                                  .chatMessage?.creation)),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
@@ -481,12 +478,9 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                                   children: [
                                     Text(
                                       dateTimeFormat(
-                                        'jm',
-                                        functions.jsonToDateTime(
-                                            widget.chatMessage?.creation),
-                                        locale: FFLocalizations.of(context)
-                                            .languageCode,
-                                      ),
+                                          'jm',
+                                          functions.jsonToDateTime(
+                                              widget.chatMessage?.creation)),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

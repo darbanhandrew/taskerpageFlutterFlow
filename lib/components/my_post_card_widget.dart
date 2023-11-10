@@ -192,17 +192,13 @@ class _MyPostCardWidgetState extends State<MyPostCardWidget> {
                                               children: [
                                                 Text(
                                                   dateTimeFormat(
-                                                    'MMMEd',
-                                                    functions.jsonToDateTime(
-                                                        getJsonField(
-                                                      flippableCardPostReadResponse
-                                                          .jsonBody,
-                                                      r'''$.data.creation''',
-                                                    ).toString()),
-                                                    locale: FFLocalizations.of(
-                                                            context)
-                                                        .languageCode,
-                                                  ),
+                                                      'MMMEd',
+                                                      functions.jsonToDateTime(
+                                                          getJsonField(
+                                                        flippableCardPostReadResponse
+                                                            .jsonBody,
+                                                        r'''$.data.creation''',
+                                                      ).toString())),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .bodyMedium

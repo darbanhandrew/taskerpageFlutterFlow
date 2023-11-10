@@ -112,14 +112,11 @@ class _MyPostCardForSheetWidgetState extends State<MyPostCardForSheetWidget> {
                                   children: [
                                     Text(
                                       dateTimeFormat(
-                                        'M/d h:mm a',
-                                        functions.jsonToDateTime(getJsonField(
-                                          widget.postData,
-                                          r'''$.start_date''',
-                                        ).toString()),
-                                        locale: FFLocalizations.of(context)
-                                            .languageCode,
-                                      ),
+                                          'M/d h:mm a',
+                                          functions.jsonToDateTime(getJsonField(
+                                            widget.postData,
+                                            r'''$.start_date''',
+                                          ).toString())),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
                                           .override(

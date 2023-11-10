@@ -361,12 +361,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                         Text(
                                           valueOrDefault<String>(
                                             dateTimeFormat(
-                                              'yMMMd',
-                                              _model.datePicked1,
-                                              locale:
-                                                  FFLocalizations.of(context)
-                                                      .languageCode,
-                                            ),
+                                                'yMMMd', _model.datePicked1),
                                             'Start Date',
                                           ),
                                           style: FlutterFlowTheme.of(context)
@@ -472,16 +467,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                           Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                'yMMMd',
-                                                FFAppState()
-                                                    .createTask
-                                                    .taskSchedule
-                                                    .repeatableTaskDetails
-                                                    .endOn,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ),
+                                                  'yMMMd',
+                                                  FFAppState()
+                                                      .createTask
+                                                      .taskSchedule
+                                                      .repeatableTaskDetails
+                                                      .endOn),
                                               'End Date',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -1159,12 +1150,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                               if (_model.datePicked3 != null)
                                 Text(
                                   valueOrDefault<String>(
-                                    'From: ${dateTimeFormat(
-                                      'Hm',
-                                      _model.datePicked3,
-                                      locale: FFLocalizations.of(context)
-                                          .languageCode,
-                                    )}',
+                                    'From: ${dateTimeFormat('Hm', _model.datePicked3)}',
                                     'Select start time',
                                   ),
                                   style: FlutterFlowTheme.of(context)
@@ -1593,28 +1579,22 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                       .updateTaskScheduleCall
                                       .call(
                                 startDate: dateTimeFormat(
-                                  'yyyy-MM-dd',
-                                  FFAppState()
-                                      .createTask
-                                      .taskSchedule
-                                      .startDate,
-                                  locale:
-                                      FFLocalizations.of(context).languageCode,
-                                ),
+                                    'yyyy-MM-dd',
+                                    FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .startDate),
                                 isExactStartTime: functions.booltoInt(
                                     FFAppState()
                                         .createTask
                                         .taskSchedule
                                         .isExactStartTime),
                                 startTime: dateTimeFormat(
-                                  'Hm',
-                                  FFAppState()
-                                      .createTask
-                                      .taskSchedule
-                                      .startTime,
-                                  locale:
-                                      FFLocalizations.of(context).languageCode,
-                                ),
+                                    'Hm',
+                                    FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .startTime),
                                 startRangeTime: FFAppState()
                                     .createTask
                                     .taskSchedule
@@ -1633,15 +1613,12 @@ class _CalendarWidgetState extends State<CalendarWidget> {
                                     .repeatableTaskDetails
                                     .endDateType,
                                 endOn: dateTimeFormat(
-                                  'yyyy-MM-dd',
-                                  FFAppState()
-                                      .createTask
-                                      .taskSchedule
-                                      .repeatableTaskDetails
-                                      .endOn,
-                                  locale:
-                                      FFLocalizations.of(context).languageCode,
-                                ),
+                                    'yyyy-MM-dd',
+                                    FFAppState()
+                                        .createTask
+                                        .taskSchedule
+                                        .repeatableTaskDetails
+                                        .endOn),
                                 endAfterNumberOfSessions: FFAppState()
                                     .createTask
                                     .taskSchedule

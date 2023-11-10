@@ -929,11 +929,8 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                                         ),
                                                                         Text(
                                                                           dateTimeFormat(
-                                                                            'MMMEd',
-                                                                            functions.jsonToDateTime(myChatsItem.modified),
-                                                                            locale:
-                                                                                FFLocalizations.of(context).languageCode,
-                                                                          ),
+                                                                              'MMMEd',
+                                                                              functions.jsonToDateTime(myChatsItem.modified)),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(

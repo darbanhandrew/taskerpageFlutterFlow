@@ -1756,12 +1756,9 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                                     valueOrDefault<
                                                                         String>(
                                                                       dateTimeFormat(
-                                                                        'yMMMd',
-                                                                        _model
-                                                                            .datePicked,
-                                                                        locale:
-                                                                            FFLocalizations.of(context).languageCode,
-                                                                      ),
+                                                                          'yMMMd',
+                                                                          _model
+                                                                              .datePicked),
                                                                       'select date',
                                                                     ),
                                                                     style: FlutterFlowTheme.of(

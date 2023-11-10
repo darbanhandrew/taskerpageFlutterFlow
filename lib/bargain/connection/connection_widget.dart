@@ -465,13 +465,11 @@ class _ConnectionWidgetState extends State<ConnectionWidget> {
                                                                           children: [
                                                                             Text(
                                                                               dateTimeFormat(
-                                                                                'relative',
-                                                                                functions.jsonToDateTime(getJsonField(
-                                                                                  invationItem,
-                                                                                  r'''$.creation''',
-                                                                                ).toString()),
-                                                                                locale: FFLocalizations.of(context).languageCode,
-                                                                              ),
+                                                                                  'relative',
+                                                                                  functions.jsonToDateTime(getJsonField(
+                                                                                    invationItem,
+                                                                                    r'''$.creation''',
+                                                                                  ).toString())),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Lato',
                                                                                     color: Color(0xFF8A8A8A),

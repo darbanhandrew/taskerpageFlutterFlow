@@ -596,13 +596,11 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           child:
                                                                               Text(
                                                                             dateTimeFormat(
-                                                                              'yMMMd',
-                                                                              functions.jsonToDateTime(getJsonField(
-                                                                                FFAppState().userProfile,
-                                                                                r'''$.data.date_of_birth''',
-                                                                              ).toString()),
-                                                                              locale: FFLocalizations.of(context).languageCode,
-                                                                            ),
+                                                                                'yMMMd',
+                                                                                functions.jsonToDateTime(getJsonField(
+                                                                                  FFAppState().userProfile,
+                                                                                  r'''$.data.date_of_birth''',
+                                                                                ).toString())),
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: FlutterFlowTheme.of(context).alternate,

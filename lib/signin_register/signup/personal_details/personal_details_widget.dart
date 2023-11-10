@@ -1241,12 +1241,7 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                           child: Text(
                                             valueOrDefault<String>(
                                               dateTimeFormat(
-                                                'd/M/y',
-                                                _model.datePicked,
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ),
+                                                  'd/M/y', _model.datePicked),
                                               'Set your birth day',
                                             ),
                                             style: FlutterFlowTheme.of(context)
@@ -1335,11 +1330,7 @@ class _PersonalDetailsWidgetState extends State<PersonalDetailsWidget> {
                                     phoneNumber:
                                         '${_model.dropDownValue}-${functions.extractNumber(_model.textController4.text)}',
                                     dateOfBirth: dateTimeFormat(
-                                      'y-MM-dd',
-                                      _model.datePicked,
-                                      locale: FFLocalizations.of(context)
-                                          .languageCode,
-                                    ),
+                                        'y-MM-dd', _model.datePicked),
                                     id: getJsonField(
                                       FFAppState().userProfile,
                                       r'''$.data.name''',

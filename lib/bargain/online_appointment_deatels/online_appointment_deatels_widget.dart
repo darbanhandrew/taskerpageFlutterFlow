@@ -443,17 +443,13 @@ class _OnlineAppointmentDeatelsWidgetState
                                                     0.0, 5.0, 0.0, 0.0),
                                             child: Text(
                                               dateTimeFormat(
-                                                'jm',
-                                                functions.jsonToDateTime(
-                                                    getJsonField(
-                                                  onlineAppointmentDeatelsAppointmentReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.appointment_start_time''',
-                                                ).toString()),
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ),
+                                                  'jm',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    onlineAppointmentDeatelsAppointmentReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.appointment_start_time''',
+                                                  ).toString())),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium
@@ -539,17 +535,13 @@ class _OnlineAppointmentDeatelsWidgetState
                                                     0.0, 5.0, 0.0, 0.0),
                                             child: Text(
                                               dateTimeFormat(
-                                                'jm',
-                                                functions.jsonToDateTime(
-                                                    getJsonField(
-                                                  onlineAppointmentDeatelsAppointmentReadResponse
-                                                      .jsonBody,
-                                                  r'''$.data.appointment_end_time''',
-                                                ).toString()),
-                                                locale:
-                                                    FFLocalizations.of(context)
-                                                        .languageCode,
-                                              ),
+                                                  'jm',
+                                                  functions.jsonToDateTime(
+                                                      getJsonField(
+                                                    onlineAppointmentDeatelsAppointmentReadResponse
+                                                        .jsonBody,
+                                                    r'''$.data.appointment_end_time''',
+                                                  ).toString())),
                                               style:
                                                   FlutterFlowTheme.of(context)
                                                       .bodyMedium

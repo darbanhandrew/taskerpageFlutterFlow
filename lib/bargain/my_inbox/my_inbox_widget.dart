@@ -757,13 +757,11 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                             child:
                                                                                 Text(
                                                                               dateTimeFormat(
-                                                                                'MMMEd',
-                                                                                functions.jsonToDateTime(getJsonField(
-                                                                                  myBargainsPostItem,
-                                                                                  r'''$.creation''',
-                                                                                ).toString()),
-                                                                                locale: FFLocalizations.of(context).languageCode,
-                                                                              ),
+                                                                                  'MMMEd',
+                                                                                  functions.jsonToDateTime(getJsonField(
+                                                                                    myBargainsPostItem,
+                                                                                    r'''$.creation''',
+                                                                                  ).toString())),
                                                                               style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                     fontFamily: 'Lato',
                                                                                     fontSize: 12.0,
@@ -1163,17 +1161,12 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                   ),
                                                                   Text(
                                                                     dateTimeFormat(
-                                                                      'yMMMd',
-                                                                      functions
-                                                                          .jsonToDateTime(
-                                                                              getJsonField(
-                                                                        myBidsItem,
-                                                                        r'''$.creation''',
-                                                                      ).toString()),
-                                                                      locale: FFLocalizations.of(
-                                                                              context)
-                                                                          .languageCode,
-                                                                    ),
+                                                                        'yMMMd',
+                                                                        functions
+                                                                            .jsonToDateTime(getJsonField(
+                                                                          myBidsItem,
+                                                                          r'''$.creation''',
+                                                                        ).toString())),
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium

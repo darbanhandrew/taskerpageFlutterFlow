@@ -96,13 +96,11 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
                         children: [
                           Text(
                             dateTimeFormat(
-                              'yyyy-MM-dd',
-                              functions.jsonToDateTime(getJsonField(
-                                widget.userProfile,
-                                r'''$.creation''',
-                              ).toString()),
-                              locale: FFLocalizations.of(context).languageCode,
-                            ),
+                                'yyyy-MM-dd',
+                                functions.jsonToDateTime(getJsonField(
+                                  widget.userProfile,
+                                  r'''$.creation''',
+                                ).toString())),
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

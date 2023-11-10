@@ -417,12 +417,8 @@ class _Id2WidgetState extends State<Id2Widget> {
                                         .textFieldAndTitleModel
                                         .stateController
                                         .text
-                                    ..expiryDate = dateTimeFormat(
-                                      'yyyy/MM/dd',
-                                      _model.dateOfBirthPickModel.datePicked,
-                                      locale: FFLocalizations.of(context)
-                                          .languageCode,
-                                    ),
+                                    ..expiryDate = dateTimeFormat('yyyy/MM/dd',
+                                        _model.dateOfBirthPickModel.datePicked),
                                 );
                               });
                               _model.apiResultv1s = await TaskerpageBackendGroup

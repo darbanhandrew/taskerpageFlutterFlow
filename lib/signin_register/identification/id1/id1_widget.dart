@@ -381,12 +381,8 @@ class _Id1WidgetState extends State<Id1Widget> {
                                         .stateController.text
                                     ..lastName = _model.textFieldAndTitleModel2
                                         .stateController.text
-                                    ..dateOfBirth = dateTimeFormat(
-                                      'yyyy/MM/dd',
-                                      _model.dateOfBirthPickModel.datePicked,
-                                      locale: FFLocalizations.of(context)
-                                          .languageCode,
-                                    ),
+                                    ..dateOfBirth = dateTimeFormat('yyyy/MM/dd',
+                                        _model.dateOfBirthPickModel.datePicked),
                                 );
                               });
                               if (_model.identification?.name == 'new') {
