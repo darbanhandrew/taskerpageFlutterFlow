@@ -381,15 +381,7 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                         Colors.transparent,
                                                     onTap: () async {
                                                       context.pushNamed(
-                                                        'RateSignUp',
-                                                        queryParameters: {
-                                                          'name':
-                                                              serializeParam(
-                                                            '',
-                                                            ParamType.String,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
+                                                          'RateSignUp');
                                                     },
                                                     child: Container(
                                                       width: 100.0,

@@ -45,18 +45,20 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       if (widget.name == 'new') {
-        _model.userRate = UserRateStruct(
-          name: '',
-          customerProfile: getJsonField(
-            FFAppState().userProfile,
-            r'''$.data.name''',
-          ).toString().toString(),
-          customerProfileUser: getJsonField(
-            FFAppState().userProfile,
-            r'''$.data.user''',
-          ).toString().toString(),
-          isAll: 1,
-        );
+        setState(() {
+          _model.userRate = UserRateStruct(
+            name: '',
+            customerProfile: getJsonField(
+              FFAppState().userProfile,
+              r'''$.data.name''',
+            ).toString().toString(),
+            customerProfileUser: getJsonField(
+              FFAppState().userProfile,
+              r'''$.data.user''',
+            ).toString().toString(),
+            isAll: 1,
+          );
+        });
       } else {
         _model.userRateDetails =
             await TaskerpageBackendGroup.getUserRateDetailsCall.call(

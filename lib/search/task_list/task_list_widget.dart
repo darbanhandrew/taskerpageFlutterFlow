@@ -606,7 +606,9 @@ class _TaskListWidgetState extends State<TaskListWidget>
                                                   0.0, 24.0, 0.0, 0.0),
                                           child: Container(
                                             width: double.infinity,
-                                            height: 500.0,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                1.0,
                                             decoration: BoxDecoration(
                                               color: Color(0xFFF6F6F6),
                                               borderRadius:

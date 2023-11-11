@@ -58,7 +58,7 @@ class _NavBarWidgetState extends State<NavBarWidget> {
         ],
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(20.0, 0.0, 20.0, 0.0),
+        padding: EdgeInsetsDirectional.fromSTEB(26.0, 0.0, 26.0, 0.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -219,6 +219,14 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 ].divide(SizedBox(height: 4.0)),
               ),
             ),
+            SizedBox(
+              height: 35.0,
+              child: VerticalDivider(
+                width: 0.0,
+                thickness: 1.0,
+                color: FlutterFlowTheme.of(context).tertiary,
+              ),
+            ),
             InkWell(
               splashColor: Colors.transparent,
               focusColor: Colors.transparent,
@@ -235,23 +243,20 @@ class _NavBarWidgetState extends State<NavBarWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
-                    Icons.person_outline,
-                    color: _model.footerState == 5
-                        ? FlutterFlowTheme.of(context).primary
-                        : Color(0xFF8A8A8A),
-                    size: 25.0,
-                  ),
-                  Text(
-                    'Profile',
-                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                          fontFamily: 'Lato',
-                          color: _model.footerState == 5
-                              ? FlutterFlowTheme.of(context).primary
-                              : Color(0xFF8A8A8A),
-                          fontSize: 12.0,
-                          fontWeight: FontWeight.w500,
-                        ),
+                  Container(
+                    width: 40.0,
+                    height: 40.0,
+                    clipBehavior: Clip.antiAlias,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: Image.network(
+                      '${FFAppState().baseUrl}${getJsonField(
+                        FFAppState().userProfile,
+                        r'''$.data.avatar''',
+                      ).toString()}',
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ].divide(SizedBox(height: 4.0)),
               ),

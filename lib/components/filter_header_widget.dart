@@ -223,13 +223,9 @@ class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {
                 highlightColor: Colors.transparent,
                 onTap: () async {
                   if (FFAppState().SortViewTasker) {
-                    setState(() {
-                      FFAppState().SortViewTasker = false;
-                    });
+                    FFAppState().SortViewTasker = false;
                   } else {
-                    setState(() {
-                      FFAppState().SortViewTasker = true;
-                    });
+                    FFAppState().SortViewTasker = true;
                   }
                 },
                 child: Container(
@@ -240,15 +236,15 @@ class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {
                     shape: BoxShape.circle,
                     border: Border.all(
                       color: FFAppState().SortViewTasker
-                          ? Color(0xFF494949)
-                          : FlutterFlowTheme.of(context).primary,
+                          ? FlutterFlowTheme.of(context).primary
+                          : Color(0xFF494949),
                     ),
                   ),
                   child: Icon(
                     Icons.sort_rounded,
                     color: FFAppState().SortViewTasker
-                        ? Color(0xFF494949)
-                        : FlutterFlowTheme.of(context).primary,
+                        ? FlutterFlowTheme.of(context).primary
+                        : Color(0xFF494949),
                     size: 16.0,
                   ),
                 ),
@@ -265,7 +261,7 @@ class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      context.safePop();
+                      context.pushNamed('User_profile');
                     },
                     child: Icon(
                       Icons.close_rounded,

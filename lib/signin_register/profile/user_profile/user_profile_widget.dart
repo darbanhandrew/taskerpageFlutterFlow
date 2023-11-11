@@ -409,19 +409,32 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceBetween,
                                                                           children: [
-                                                                            Container(
-                                                                              width: 70.0,
-                                                                              height: 70.0,
-                                                                              clipBehavior: Clip.antiAlias,
-                                                                              decoration: BoxDecoration(
-                                                                                shape: BoxShape.circle,
-                                                                              ),
-                                                                              child: Image.network(
-                                                                                '${FFAppState().baseUrl}${getJsonField(
-                                                                                  userProfileUserProfileReadResponse.jsonBody,
-                                                                                  r'''$.data.avatar''',
-                                                                                ).toString()}',
-                                                                                fit: BoxFit.cover,
+                                                                            Align(
+                                                                              alignment: AlignmentDirectional(0.00, 1.00),
+                                                                              child: Stack(
+                                                                                alignment: AlignmentDirectional(0.0, 1.5),
+                                                                                children: [
+                                                                                  Container(
+                                                                                    width: 70.0,
+                                                                                    height: 70.0,
+                                                                                    clipBehavior: Clip.antiAlias,
+                                                                                    decoration: BoxDecoration(
+                                                                                      shape: BoxShape.circle,
+                                                                                    ),
+                                                                                    child: Image.network(
+                                                                                      '${FFAppState().baseUrl}${getJsonField(
+                                                                                        userProfileUserProfileReadResponse.jsonBody,
+                                                                                        r'''$.data.avatar''',
+                                                                                      ).toString()}',
+                                                                                      fit: BoxFit.cover,
+                                                                                    ),
+                                                                                  ),
+                                                                                  Icon(
+                                                                                    Icons.edit,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 20.0,
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ),
                                                                             Padding(
