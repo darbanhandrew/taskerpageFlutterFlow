@@ -188,8 +188,8 @@ class _Task1WidgetState extends State<Task1Widget> {
                             ),
                           ),
                           Container(
-                            width: 50.0,
-                            height: 50.0,
+                            width: 45.0,
+                            height: 45.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,

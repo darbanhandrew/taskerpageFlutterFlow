@@ -53,8 +53,8 @@ class _ShareCustomerProfileWidgetState
         borderRadius: BorderRadius.only(
           bottomLeft: Radius.circular(0.0),
           bottomRight: Radius.circular(0.0),
-          topLeft: Radius.circular(16.0),
-          topRight: Radius.circular(16.0),
+          topLeft: Radius.circular(5.0),
+          topRight: Radius.circular(5.0),
         ),
       ),
       child: Padding(
@@ -75,7 +75,7 @@ class _ShareCustomerProfileWidgetState
                       width: 100.0,
                       height: 3.0,
                       decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryText,
+                        color: FlutterFlowTheme.of(context).secondary,
                         borderRadius: BorderRadius.circular(8.0),
                       ),
                     ),
@@ -83,41 +83,38 @@ class _ShareCustomerProfileWidgetState
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
                 child: Text(
                   'Share Customer Profile',
                   style: FlutterFlowTheme.of(context).headlineSmall.override(
                         fontFamily: 'Lato',
-                        fontWeight: FontWeight.w600,
+                        color: FlutterFlowTheme.of(context).alternate,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.bold,
                       ),
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 0.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                        child: Text(
-                          'Do you want to share your customer profile with others?',
-                          style: FlutterFlowTheme.of(context)
-                              .bodyMedium
-                              .override(
-                                fontFamily: 'Lato',
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                              ),
-                        ),
+                      child: Text(
+                        'Do you want to share your customer profile with others?',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: FlutterFlowTheme.of(context).secondary,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.w500,
+                            ),
                       ),
                     ),
                   ],
                 ),
               ),
               Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 30.0),
+                padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 20.0),
                 child: Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -141,36 +138,7 @@ class _ShareCustomerProfileWidgetState
                           text: 'Share',
                           options: FFButtonOptions(
                             width: 160.0,
-                            height: 50.0,
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 0.0),
-                            color:
-                                FlutterFlowTheme.of(context).primaryBackground,
-                            textStyle: FlutterFlowTheme.of(context)
-                                .labelLarge
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontWeight: FontWeight.normal,
-                                ),
-                            elevation: 2.0,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(7.0, 0.0, 0.0, 0.0),
-                        child: FFButtonWidget(
-                          onPressed: () {
-                            print('Button pressed ...');
-                          },
-                          text: 'Cancel',
-                          options: FFButtonOptions(
-                            width: 160.0,
-                            height: 50.0,
+                            height: 36.0,
                             padding: EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 0.0),
                             iconPadding: EdgeInsetsDirectional.fromSTEB(
@@ -181,8 +149,42 @@ class _ShareCustomerProfileWidgetState
                                 .override(
                                   fontFamily: 'Lato',
                                   color: Colors.white,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.normal,
                                 ),
-                            elevation: 2.0,
+                            borderRadius: BorderRadius.circular(2.0),
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(7.0, 0.0, 0.0, 0.0),
+                        child: FFButtonWidget(
+                          onPressed: () async {
+                            Navigator.pop(context);
+                          },
+                          text: 'Cancel',
+                          options: FFButtonOptions(
+                            width: 160.0,
+                            height: 36.0,
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                0.0, 0.0, 0.0, 0.0),
+                            color: Colors.white,
+                            textStyle: FlutterFlowTheme.of(context)
+                                .labelLarge
+                                .override(
+                                  fontFamily: 'Lato',
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  fontSize: 13.0,
+                                ),
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                            borderRadius: BorderRadius.circular(2.0),
                           ),
                         ),
                       ),

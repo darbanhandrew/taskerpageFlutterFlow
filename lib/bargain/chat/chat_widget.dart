@@ -130,7 +130,7 @@ class _ChatWidgetState extends State<ChatWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Color(0xFFF2F2F2),
+        backgroundColor: Colors.white,
         body: SafeArea(
           top: true,
           child: Column(

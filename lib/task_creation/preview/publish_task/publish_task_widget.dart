@@ -207,8 +207,8 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                             ),
                                           ),
                                           Container(
-                                            width: 50.0,
-                                            height: 50.0,
+                                            width: 45.0,
+                                            height: 45.0,
                                             decoration: BoxDecoration(
                                               color: Color(0xFFF6F6F6),
                                               shape: BoxShape.circle,

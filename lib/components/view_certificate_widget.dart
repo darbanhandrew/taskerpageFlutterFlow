@@ -88,20 +88,20 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                 offset: Offset(0.0, 2.0),
               )
             ],
-            borderRadius: BorderRadius.circular(2.0),
+            borderRadius: BorderRadius.circular(5.0),
             border: Border.all(
               color: Color(0xFFE0E3E7),
             ),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 20.0),
+            padding: EdgeInsetsDirectional.fromSTEB(16.0, 20.0, 16.0, 20.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
                   mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     InkWell(
@@ -146,23 +146,48 @@ class _ViewCertificateWidgetState extends State<ViewCertificateWidget>
                       onTap: () async {
                         Navigator.pop(context);
                       },
-                      child: Icon(
-                        Icons.close_rounded,
-                        color: FlutterFlowTheme.of(context).secondaryText,
-                        size: 20.0,
+                      child: Container(
+                        width: 110.0,
+                        height: 36.0,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(2.0),
+                          border: Border.all(
+                            color: FlutterFlowTheme.of(context).primary,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Close',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    fontSize: 12.0,
+                                  ),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
-                  ],
+                  ].divide(SizedBox(width: 12.0)),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 40.0, 0.0, 0.0),
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(0.0),
-                    child: Image.network(
-                      'https://taskerpage.com${widget.certificateUrl}',
-                      width: MediaQuery.sizeOf(context).width * 0.7,
-                      height: 350.0,
-                      fit: BoxFit.cover,
+                Expanded(
+                  child: Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(0.0, 25.0, 0.0, 0.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(0.0),
+                      child: Image.network(
+                        'https://taskerpage.com${widget.certificateUrl}',
+                        width: MediaQuery.sizeOf(context).width * 1.0,
+                        height: 350.0,
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),

@@ -67,7 +67,7 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(15.0, 25.0, 15.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(15.0, 32.0, 15.0, 0.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               children: [

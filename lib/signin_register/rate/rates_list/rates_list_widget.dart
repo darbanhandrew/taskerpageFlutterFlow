@@ -276,112 +276,86 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                                 : null)
                                                             .withoutNulls
                                                             .toList();
-                                                    return InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        context.pushNamed(
-                                                          'RateSignUp',
-                                                          queryParameters: {
-                                                            'name':
-                                                                serializeParam(
-                                                              '',
-                                                              ParamType.String,
-                                                            ),
-                                                          }.withoutNulls,
-                                                        );
-                                                      },
-                                                      child: ListView.separated(
-                                                        padding:
-                                                            EdgeInsets.zero,
-                                                        shrinkWrap: true,
-                                                        scrollDirection:
-                                                            Axis.vertical,
-                                                        itemCount:
-                                                            userRateNamesList
-                                                                .length,
-                                                        separatorBuilder:
-                                                            (_, __) => SizedBox(
-                                                                height: 16.0),
-                                                        itemBuilder: (context,
-                                                            userRateNamesListIndex) {
-                                                          final userRateNamesListItem =
-                                                              userRateNamesList[
-                                                                  userRateNamesListIndex];
-                                                          return FutureBuilder<
-                                                              ApiCallResponse>(
-                                                            future: TaskerpageBackendGroup
-                                                                .getUserRateDetailsCall
-                                                                .call(
-                                                              name:
-                                                                  userRateNamesListItem
-                                                                      .name,
-                                                              apiGlobalKey:
-                                                                  FFAppState()
-                                                                      .apiKey,
-                                                            ),
-                                                            builder: (context,
-                                                                snapshot) {
-                                                              // Customize what your widget looks like when it's loading.
-                                                              if (!snapshot
-                                                                  .hasData) {
-                                                                return Center(
+                                                    return ListView.separated(
+                                                      padding: EdgeInsets.zero,
+                                                      shrinkWrap: true,
+                                                      scrollDirection:
+                                                          Axis.vertical,
+                                                      itemCount:
+                                                          userRateNamesList
+                                                              .length,
+                                                      separatorBuilder:
+                                                          (_, __) => SizedBox(
+                                                              height: 16.0),
+                                                      itemBuilder: (context,
+                                                          userRateNamesListIndex) {
+                                                        final userRateNamesListItem =
+                                                            userRateNamesList[
+                                                                userRateNamesListIndex];
+                                                        return FutureBuilder<
+                                                            ApiCallResponse>(
+                                                          future: TaskerpageBackendGroup
+                                                              .getUserRateDetailsCall
+                                                              .call(
+                                                            name:
+                                                                userRateNamesListItem
+                                                                    .name,
+                                                            apiGlobalKey:
+                                                                FFAppState()
+                                                                    .apiKey,
+                                                          ),
+                                                          builder: (context,
+                                                              snapshot) {
+                                                            // Customize what your widget looks like when it's loading.
+                                                            if (!snapshot
+                                                                .hasData) {
+                                                              return Center(
+                                                                child: SizedBox(
+                                                                  width: 35.0,
+                                                                  height: 35.0,
                                                                   child:
-                                                                      SizedBox(
-                                                                    width: 35.0,
-                                                                    height:
-                                                                        35.0,
-                                                                    child:
-                                                                        SpinKitThreeBounce(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .primary,
-                                                                      size:
-                                                                          35.0,
-                                                                    ),
+                                                                      SpinKitThreeBounce(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primary,
+                                                                    size: 35.0,
                                                                   ),
-                                                                );
-                                                              }
-                                                              final rateCardGetUserRateDetailsResponse =
-                                                                  snapshot
-                                                                      .data!;
-                                                              return wrapWithModel(
-                                                                model: _model
-                                                                    .rateCardModels
-                                                                    .getModel(
-                                                                  userRateNamesListItem
-                                                                      .name,
-                                                                  userRateNamesListIndex,
-                                                                ),
-                                                                updateCallback:
-                                                                    () => setState(
-                                                                        () {}),
-                                                                child:
-                                                                    RateCardWidget(
-                                                                  key: Key(
-                                                                    'Keyxtb_${userRateNamesListItem.name}',
-                                                                  ),
-                                                                  userRate: UserRateStruct
-                                                                      .fromMap(
-                                                                          getJsonField(
-                                                                    rateCardGetUserRateDetailsResponse
-                                                                        .jsonBody,
-                                                                    r'''$.data''',
-                                                                  )),
-                                                                  indexInList:
-                                                                      userRateNamesListIndex,
                                                                 ),
                                                               );
-                                                            },
-                                                          );
-                                                        },
-                                                      ),
+                                                            }
+                                                            final rateCardGetUserRateDetailsResponse =
+                                                                snapshot.data!;
+                                                            return wrapWithModel(
+                                                              model: _model
+                                                                  .rateCardModels
+                                                                  .getModel(
+                                                                userRateNamesListItem
+                                                                    .name,
+                                                                userRateNamesListIndex,
+                                                              ),
+                                                              updateCallback:
+                                                                  () => setState(
+                                                                      () {}),
+                                                              child:
+                                                                  RateCardWidget(
+                                                                key: Key(
+                                                                  'Keyxtb_${userRateNamesListItem.name}',
+                                                                ),
+                                                                userRate:
+                                                                    UserRateStruct
+                                                                        .fromMap(
+                                                                            getJsonField(
+                                                                  rateCardGetUserRateDetailsResponse
+                                                                      .jsonBody,
+                                                                  r'''$.data''',
+                                                                )),
+                                                                indexInList:
+                                                                    userRateNamesListIndex,
+                                                              ),
+                                                            );
+                                                          },
+                                                        );
+                                                      },
                                                     );
                                                   },
                                                 );

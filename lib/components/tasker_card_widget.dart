@@ -271,7 +271,10 @@ class _TaskerCardWidgetState extends State<TaskerCardWidget> {
                           shape: BoxShape.circle,
                         ),
                         child: Image.network(
-                          'https://picsum.photos/seed/716/600',
+                          '${FFAppState().baseUrl}${getJsonField(
+                            widget.userProfile,
+                            r'''$.avatar''',
+                          ).toString()}',
                           fit: BoxFit.cover,
                         ),
                       ),

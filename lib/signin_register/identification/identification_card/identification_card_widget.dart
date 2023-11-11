@@ -339,506 +339,485 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                       : null)
                                                                   .withoutNulls
                                                                   .toList();
-                                                          if (userIdentifications
-                                                              .isEmpty) {
-                                                            return Image.asset(
-                                                              'assets/images/Group_2177.png',
-                                                              fit: BoxFit
-                                                                  .contain,
-                                                            );
-                                                          }
-                                                          return InkWell(
-                                                            splashColor: Colors
-                                                                .transparent,
-                                                            focusColor: Colors
-                                                                .transparent,
-                                                            hoverColor: Colors
-                                                                .transparent,
-                                                            highlightColor:
-                                                                Colors
-                                                                    .transparent,
-                                                            onTap: () async {
-                                                              context.pushNamed(
-                                                                'ID1',
-                                                                queryParameters:
-                                                                    {
-                                                                  'name':
-                                                                      serializeParam(
-                                                                    '',
-                                                                    ParamType
-                                                                        .String,
+                                                          return ListView
+                                                              .separated(
+                                                            padding:
+                                                                EdgeInsets.zero,
+                                                            shrinkWrap: true,
+                                                            scrollDirection:
+                                                                Axis.vertical,
+                                                            itemCount:
+                                                                userIdentifications
+                                                                    .length,
+                                                            separatorBuilder: (_,
+                                                                    __) =>
+                                                                SizedBox(
+                                                                    height:
+                                                                        16.0),
+                                                            itemBuilder: (context,
+                                                                userIdentificationsIndex) {
+                                                              final userIdentificationsItem =
+                                                                  userIdentifications[
+                                                                      userIdentificationsIndex];
+                                                              return Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            5.0,
+                                                                            0.0,
+                                                                            5.0,
+                                                                            0.0),
+                                                                child:
+                                                                    Container(
+                                                                  width: double
+                                                                      .infinity,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    boxShadow: [
+                                                                      BoxShadow(
+                                                                        blurRadius:
+                                                                            4.0,
+                                                                        color: Color(
+                                                                            0x33000000),
+                                                                        offset: Offset(
+                                                                            0.0,
+                                                                            2.0),
+                                                                        spreadRadius:
+                                                                            2.0,
+                                                                      )
+                                                                    ],
                                                                   ),
-                                                                }.withoutNulls,
-                                                              );
-                                                            },
-                                                            child: ListView
-                                                                .separated(
-                                                              padding:
-                                                                  EdgeInsets
-                                                                      .zero,
-                                                              shrinkWrap: true,
-                                                              scrollDirection:
-                                                                  Axis.vertical,
-                                                              itemCount:
-                                                                  userIdentifications
-                                                                      .length,
-                                                              separatorBuilder: (_,
-                                                                      __) =>
-                                                                  SizedBox(
-                                                                      height:
-                                                                          16.0),
-                                                              itemBuilder: (context,
-                                                                  userIdentificationsIndex) {
-                                                                final userIdentificationsItem =
-                                                                    userIdentifications[
-                                                                        userIdentificationsIndex];
-                                                                return Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          5.0,
-                                                                          0.0,
-                                                                          5.0,
-                                                                          0.0),
                                                                   child:
-                                                                      Container(
-                                                                    width: double
-                                                                        .infinity,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryBackground,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                          blurRadius:
-                                                                              4.0,
-                                                                          color:
-                                                                              Color(0x33000000),
-                                                                          offset: Offset(
-                                                                              0.0,
-                                                                              2.0),
-                                                                          spreadRadius:
-                                                                              2.0,
-                                                                        )
-                                                                      ],
-                                                                    ),
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            16.0,
+                                                                            16.0,
+                                                                            16.0,
+                                                                            30.0),
                                                                     child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          16.0,
-                                                                          16.0,
-                                                                          16.0,
-                                                                          30.0),
-                                                                      child:
-                                                                          Column(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        children: [
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            crossAxisAlignment:
-                                                                                CrossAxisAlignment.start,
-                                                                            children: [
-                                                                              ClipRRect(
-                                                                                borderRadius: BorderRadius.circular(0.0),
-                                                                                child: Image.network(
-                                                                                  '${FFAppState().baseUrl}${userIdentificationsItem.documentUserPhoto}',
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            ClipRRect(
+                                                                              borderRadius: BorderRadius.circular(0.0),
+                                                                              child: Image.network(
+                                                                                '${FFAppState().baseUrl}${userIdentificationsItem.documentUserPhoto}',
+                                                                                width: 70.0,
+                                                                                height: 94.0,
+                                                                                fit: BoxFit.cover,
+                                                                                errorBuilder: (context, error, stackTrace) => Image.asset(
+                                                                                  'assets/images/error_image.jpg',
                                                                                   width: 70.0,
                                                                                   height: 94.0,
                                                                                   fit: BoxFit.cover,
-                                                                                  errorBuilder: (context, error, stackTrace) => Image.asset(
-                                                                                    'assets/images/error_image.jpg',
-                                                                                    width: 70.0,
-                                                                                    height: 94.0,
-                                                                                    fit: BoxFit.cover,
-                                                                                  ),
                                                                                 ),
                                                                               ),
-                                                                              InkWell(
-                                                                                splashColor: Colors.transparent,
-                                                                                focusColor: Colors.transparent,
-                                                                                hoverColor: Colors.transparent,
-                                                                                highlightColor: Colors.transparent,
-                                                                                onTap: () async {
-                                                                                  context.pushNamed(
-                                                                                    'ID4',
-                                                                                    queryParameters: {
-                                                                                      'name': serializeParam(
-                                                                                        userIdentificationsItem.name,
-                                                                                        ParamType.String,
-                                                                                      ),
-                                                                                    }.withoutNulls,
-                                                                                  );
-                                                                                },
-                                                                                child: FaIcon(
-                                                                                  FontAwesomeIcons.solidEdit,
-                                                                                  color: Color(0xFF8A8A8A),
-                                                                                  size: 18.0,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Divider(
-                                                                            height:
-                                                                                40.0,
-                                                                            thickness:
-                                                                                1.0,
-                                                                            color:
-                                                                                Color(0xFFD4D4D4),
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            children: [
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'Title :',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: FlutterFlowTheme.of(context).alternate,
-                                                                                          fontSize: 14.0,
-                                                                                        ),
-                                                                                  ),
-                                                                                  Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                    child: Text(
-                                                                                      userIdentificationsItem.title,
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                            fontWeight: FontWeight.bold,
-                                                                                          ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              InkWell(
-                                                                                splashColor: Colors.transparent,
-                                                                                focusColor: Colors.transparent,
-                                                                                hoverColor: Colors.transparent,
-                                                                                highlightColor: Colors.transparent,
-                                                                                onTap: () async {
-                                                                                  context.pushNamed(
-                                                                                    'ID1',
-                                                                                    queryParameters: {
-                                                                                      'name': serializeParam(
-                                                                                        userIdentificationsItem.name,
-                                                                                        ParamType.String,
-                                                                                      ),
-                                                                                    }.withoutNulls,
-                                                                                  );
-                                                                                },
-                                                                                child: FaIcon(
-                                                                                  FontAwesomeIcons.solidEdit,
-                                                                                  color: Color(0xFF8A8A8A),
-                                                                                  size: 18.0,
-                                                                                ),
-                                                                              ),
-                                                                            ],
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                6.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      'Name :',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                          ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                      child: Text(
-                                                                                        userIdentificationsItem.firstName,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
                                                                             ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                6.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      'Last name :',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                          ),
+                                                                            InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
+                                                                              onTap: () async {
+                                                                                context.pushNamed(
+                                                                                  'ID4',
+                                                                                  queryParameters: {
+                                                                                    'name': serializeParam(
+                                                                                      userIdentificationsItem.name,
+                                                                                      ParamType.String,
                                                                                     ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                      child: Text(
-                                                                                        userIdentificationsItem.lastName,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                6.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      'Date of birthday :',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                          ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                      child: Text(
-                                                                                        userIdentificationsItem.dateOfBirth,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
-                                                                            ),
-                                                                          ),
-                                                                          Divider(
-                                                                            height:
-                                                                                36.0,
-                                                                            thickness:
-                                                                                1.0,
-                                                                            color:
-                                                                                Color(0xFFD4D4D4),
-                                                                          ),
-                                                                          Row(
-                                                                            mainAxisSize:
-                                                                                MainAxisSize.max,
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.spaceBetween,
-                                                                            children: [
-                                                                              Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    'Document type :',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: FlutterFlowTheme.of(context).alternate,
-                                                                                          fontSize: 14.0,
-                                                                                        ),
-                                                                                  ),
-                                                                                  Padding(
-                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                    child: Text(
-                                                                                      userIdentificationsItem.documentType,
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                            fontWeight: FontWeight.bold,
-                                                                                          ),
-                                                                                    ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                              FaIcon(
+                                                                                  }.withoutNulls,
+                                                                                );
+                                                                              },
+                                                                              child: FaIcon(
                                                                                 FontAwesomeIcons.solidEdit,
                                                                                 color: Color(0xFF8A8A8A),
-                                                                                size: 19.0,
+                                                                                size: 18.0,
                                                                               ),
-                                                                            ],
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                6.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Row(
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        Divider(
+                                                                          height:
+                                                                              40.0,
+                                                                          thickness:
+                                                                              1.0,
+                                                                          color:
+                                                                              Color(0xFFD4D4D4),
+                                                                        ),
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Row(
                                                                               mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                                               children: [
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      'Document Number :',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                          ),
-                                                                                    ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                      child: Text(
-                                                                                        userIdentificationsItem.documentNumber,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                            ),
+                                                                                Text(
+                                                                                  'Title :',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Lato',
+                                                                                        color: FlutterFlowTheme.of(context).alternate,
+                                                                                        fontSize: 14.0,
                                                                                       ),
-                                                                                    ),
-                                                                                  ],
+                                                                                ),
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                  child: Text(
+                                                                                    userIdentificationsItem.title,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  ),
                                                                                 ),
                                                                               ],
                                                                             ),
-                                                                          ),
-                                                                          Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                0.0,
-                                                                                6.0,
-                                                                                0.0,
-                                                                                0.0),
-                                                                            child:
-                                                                                Row(
-                                                                              mainAxisSize: MainAxisSize.max,
-                                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                                              children: [
-                                                                                Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  children: [
-                                                                                    Text(
-                                                                                      'Expiry Date :',
-                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                            fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).alternate,
-                                                                                            fontSize: 14.0,
-                                                                                          ),
+                                                                            InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
+                                                                              onTap: () async {
+                                                                                context.pushNamed(
+                                                                                  'ID1',
+                                                                                  queryParameters: {
+                                                                                    'name': serializeParam(
+                                                                                      userIdentificationsItem.name,
+                                                                                      ParamType.String,
                                                                                     ),
-                                                                                    Padding(
-                                                                                      padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
-                                                                                      child: Text(
-                                                                                        userIdentificationsItem.expiryDate,
-                                                                                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                              fontFamily: 'Lato',
-                                                                                              color: FlutterFlowTheme.of(context).alternate,
-                                                                                              fontSize: 14.0,
-                                                                                              fontWeight: FontWeight.bold,
-                                                                                            ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  ],
-                                                                                ),
-                                                                              ],
+                                                                                  }.withoutNulls,
+                                                                                );
+                                                                              },
+                                                                              child: FaIcon(
+                                                                                FontAwesomeIcons.solidEdit,
+                                                                                color: Color(0xFF8A8A8A),
+                                                                                size: 18.0,
+                                                                              ),
                                                                             ),
-                                                                          ),
-                                                                          Divider(
-                                                                            height:
-                                                                                36.0,
-                                                                            thickness:
-                                                                                1.0,
-                                                                            color:
-                                                                                Color(0xFFD4D4D4),
-                                                                          ),
-                                                                          Row(
+                                                                          ],
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              6.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
                                                                             mainAxisSize:
                                                                                 MainAxisSize.max,
                                                                             mainAxisAlignment:
-                                                                                MainAxisAlignment.center,
+                                                                                MainAxisAlignment.spaceBetween,
                                                                             children: [
-                                                                              Container(
-                                                                                width: 174.0,
-                                                                                height: 36.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                                                                                  borderRadius: BorderRadius.circular(2.0),
-                                                                                  border: Border.all(
-                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Name :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                        ),
                                                                                   ),
-                                                                                ),
-                                                                                child: Row(
-                                                                                  mainAxisSize: MainAxisSize.max,
-                                                                                  mainAxisAlignment: MainAxisAlignment.center,
-                                                                                  children: [
-                                                                                    Icon(
-                                                                                      Icons.upload_file_outlined,
-                                                                                      color: FlutterFlowTheme.of(context).primary,
-                                                                                      size: 20.0,
-                                                                                    ),
-                                                                                    Text(
-                                                                                      'Upload document',
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      userIdentificationsItem.firstName,
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Lato',
-                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
                                                                                             fontSize: 14.0,
-                                                                                            fontWeight: FontWeight.w500,
+                                                                                            fontWeight: FontWeight.bold,
                                                                                           ),
                                                                                     ),
-                                                                                  ].divide(SizedBox(width: 6.0)),
-                                                                                ),
+                                                                                  ),
+                                                                                ],
                                                                               ),
                                                                             ],
                                                                           ),
-                                                                        ],
-                                                                      ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              6.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Last name :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      userIdentificationsItem.lastName,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              6.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Date of birthday :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      userIdentificationsItem.dateOfBirth,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        Divider(
+                                                                          height:
+                                                                              36.0,
+                                                                          thickness:
+                                                                              1.0,
+                                                                          color:
+                                                                              Color(0xFFD4D4D4),
+                                                                        ),
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Row(
+                                                                              mainAxisSize: MainAxisSize.max,
+                                                                              children: [
+                                                                                Text(
+                                                                                  'Document type :',
+                                                                                  style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                        fontFamily: 'Lato',
+                                                                                        color: FlutterFlowTheme.of(context).alternate,
+                                                                                        fontSize: 14.0,
+                                                                                      ),
+                                                                                ),
+                                                                                Padding(
+                                                                                  padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                  child: Text(
+                                                                                    userIdentificationsItem.documentType,
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                          fontWeight: FontWeight.bold,
+                                                                                        ),
+                                                                                  ),
+                                                                                ),
+                                                                              ],
+                                                                            ),
+                                                                            FaIcon(
+                                                                              FontAwesomeIcons.solidEdit,
+                                                                              color: Color(0xFF8A8A8A),
+                                                                              size: 19.0,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              6.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Document Number :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      userIdentificationsItem.documentNumber,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        Padding(
+                                                                          padding: EdgeInsetsDirectional.fromSTEB(
+                                                                              0.0,
+                                                                              6.0,
+                                                                              0.0,
+                                                                              0.0),
+                                                                          child:
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.spaceBetween,
+                                                                            children: [
+                                                                              Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                children: [
+                                                                                  Text(
+                                                                                    'Expiry Date :',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).alternate,
+                                                                                          fontSize: 14.0,
+                                                                                        ),
+                                                                                  ),
+                                                                                  Padding(
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(4.0, 0.0, 0.0, 0.0),
+                                                                                    child: Text(
+                                                                                      userIdentificationsItem.expiryDate,
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: FlutterFlowTheme.of(context).alternate,
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.bold,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ),
+                                                                                ],
+                                                                              ),
+                                                                            ],
+                                                                          ),
+                                                                        ),
+                                                                        Divider(
+                                                                          height:
+                                                                              36.0,
+                                                                          thickness:
+                                                                              1.0,
+                                                                          color:
+                                                                              Color(0xFFD4D4D4),
+                                                                        ),
+                                                                        Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Container(
+                                                                              width: 174.0,
+                                                                              height: 36.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                borderRadius: BorderRadius.circular(2.0),
+                                                                                border: Border.all(
+                                                                                  color: FlutterFlowTheme.of(context).primary,
+                                                                                ),
+                                                                              ),
+                                                                              child: Row(
+                                                                                mainAxisSize: MainAxisSize.max,
+                                                                                mainAxisAlignment: MainAxisAlignment.center,
+                                                                                children: [
+                                                                                  Icon(
+                                                                                    Icons.upload_file_outlined,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 20.0,
+                                                                                  ),
+                                                                                  Text(
+                                                                                    'Upload document',
+                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                          fontFamily: 'Lato',
+                                                                                          color: FlutterFlowTheme.of(context).primary,
+                                                                                          fontSize: 14.0,
+                                                                                          fontWeight: FontWeight.w500,
+                                                                                        ),
+                                                                                  ),
+                                                                                ].divide(SizedBox(width: 6.0)),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ],
                                                                     ),
                                                                   ),
-                                                                );
-                                                              },
-                                                            ),
+                                                                ),
+                                                              );
+                                                            },
                                                           );
                                                         },
                                                       );

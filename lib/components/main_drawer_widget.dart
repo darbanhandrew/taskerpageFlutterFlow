@@ -82,7 +82,7 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
               children: [
                 Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 0.0),
+                      EdgeInsetsDirectional.fromSTEB(32.0, 32.0, 32.0, 0.0),
                   child: SingleChildScrollView(
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -560,9 +560,9 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                       child: DrawerCardWidget(
                                         textButton: 'Education',
                                         icon: Icon(
-                                          Icons.auto_stories_outlined,
+                                          Icons.school_outlined,
                                           color: Color(0xFF494949),
-                                          size: 25.0,
+                                          size: 26.0,
                                         ),
                                         clickAction: () async {
                                           context.pushNamed(
@@ -611,7 +611,7 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                         icon: Icon(
                                           Icons.discount_outlined,
                                           color: Color(0xFF494949),
-                                          size: 25.0,
+                                          size: 23.0,
                                         ),
                                         clickAction: () async {
                                           context.pushNamed(
@@ -660,9 +660,9 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                         model: _model.drawerCardModel9,
                                         updateCallback: () => setState(() {}),
                                         child: DrawerCardWidget(
-                                          textButton: 'Ticket',
+                                          textButton: 'Issue',
                                           icon: Icon(
-                                            Icons.support_agent,
+                                            Icons.headset_mic_outlined,
                                             color: Color(0xFF494949),
                                             size: 25.0,
                                           ),

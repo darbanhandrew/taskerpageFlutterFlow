@@ -203,7 +203,7 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                           EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           wrapWithModel(
                             model: _model.taskcreationMenueModel,
@@ -216,7 +216,7 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                20.0, 20.0, 0.0, 0.0),
+                                0.0, 20.0, 0.0, 0.0),
                             child: Text(
                               'Please add your addresses',
                               textAlign: TextAlign.center,
@@ -228,6 +228,15 @@ class _SelectAddressWidgetState extends State<SelectAddressWidget>
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                   ),
+                            ),
+                          ),
+                          Container(
+                            width: 45.0,
+                            height: 45.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              shape: BoxShape.circle,
                             ),
                           ),
                         ],

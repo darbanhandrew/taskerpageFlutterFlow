@@ -289,12 +289,6 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                                                       )
                                                                       ?.toList() ??
                                                                   [];
-                                                          if (myServices
-                                                              .isEmpty) {
-                                                            return Image.asset(
-                                                              'assets/images/Group_2020.png',
-                                                            );
-                                                          }
                                                           return ListView
                                                               .separated(
                                                             padding:

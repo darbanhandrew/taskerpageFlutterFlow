@@ -99,306 +99,275 @@ class _Education2WidgetState extends State<Education2Widget> {
             ),
           )),
         ),
-        body: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            if (responsiveVisibility(
-              context: context,
-              phone: false,
-              tablet: false,
-              tabletLandscape: false,
-            ))
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: wrapWithModel(
-                      model: _model.headerWebModel,
-                      updateCallback: () => setState(() {}),
-                      child: HeaderWebWidget(),
+        body: SafeArea(
+          top: true,
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+                tabletLandscape: false,
+              ))
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: wrapWithModel(
+                        model: _model.headerWebModel,
+                        updateCallback: () => setState(() {}),
+                        child: HeaderWebWidget(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            Expanded(
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: wrapWithModel(
-                            model: _model.sideBarLeftProfileModel,
-                            updateCallback: () => setState(() {}),
-                            child: SideBarLeftProfileWidget(),
-                          ),
-                        ),
-                      ],
-                    ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: Container(
-                            width: double.infinity,
-                            height: 100.0,
-                            decoration: BoxDecoration(
-                              color: Color(0x00FFFFFF),
+                  ],
+                ),
+              Expanded(
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (responsiveVisibility(
+                      context: context,
+                      phone: false,
+                      tablet: false,
+                      tabletLandscape: false,
+                    ))
+                      Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: wrapWithModel(
+                              model: _model.sideBarLeftProfileModel,
+                              updateCallback: () => setState(() {}),
+                              child: SideBarLeftProfileWidget(),
                             ),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: MediaQuery.sizeOf(context).width * 1.0,
-                                  height:
-                                      MediaQuery.sizeOf(context).height * 1.0,
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              if (responsiveVisibility(
-                                                context: context,
-                                                desktop: false,
-                                              ))
-                                                wrapWithModel(
-                                                  model: _model.headerModel,
-                                                  updateCallback: () =>
-                                                      setState(() {}),
-                                                  child: HeaderWidget(
-                                                    openDrawer: () async {
-                                                      scaffoldKey.currentState!
-                                                          .openEndDrawer();
-                                                    },
+                          ),
+                        ],
+                      ),
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: Container(
+                              width: double.infinity,
+                              height: 100.0,
+                              decoration: BoxDecoration(
+                                color: Color(0x00FFFFFF),
+                              ),
+                              child: Stack(
+                                children: [
+                                  Container(
+                                    width:
+                                        MediaQuery.sizeOf(context).width * 1.0,
+                                    height:
+                                        MediaQuery.sizeOf(context).height * 1.0,
+                                    child: Stack(
+                                      alignment: AlignmentDirectional(0.0, 0.0),
+                                      children: [
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                if (responsiveVisibility(
+                                                  context: context,
+                                                  desktop: false,
+                                                ))
+                                                  wrapWithModel(
+                                                    model: _model.headerModel,
+                                                    updateCallback: () =>
+                                                        setState(() {}),
+                                                    child: HeaderWidget(
+                                                      openDrawer: () async {
+                                                        scaffoldKey
+                                                            .currentState!
+                                                            .openEndDrawer();
+                                                      },
+                                                    ),
                                                   ),
-                                                ),
-                                            ],
-                                          ),
-                                          Expanded(
-                                            child: SingleChildScrollView(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                children: [
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                    tabletLandscape: false,
-                                                  ))
+                                              ],
+                                            ),
+                                            Expanded(
+                                              child: SingleChildScrollView(
+                                                child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.start,
+                                                  children: [
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                      tablet: false,
+                                                      tabletLandscape: false,
+                                                    ))
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    32.0,
+                                                                    0.0,
+                                                                    32.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child:
+                                                                  wrapWithModel(
+                                                                model: _model
+                                                                    .badgesHeaderModel,
+                                                                updateCallback:
+                                                                    () => setState(
+                                                                        () {}),
+                                                                child:
+                                                                    BadgesHeaderWidget(),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   32.0,
-                                                                  0.0,
+                                                                  32.0,
                                                                   32.0,
                                                                   0.0),
                                                       child: Row(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .end,
                                                         children: [
-                                                          Expanded(
-                                                            child:
-                                                                wrapWithModel(
-                                                              model: _model
-                                                                  .badgesHeaderModel,
-                                                              updateCallback:
-                                                                  () => setState(
-                                                                      () {}),
-                                                              child:
-                                                                  BadgesHeaderWidget(),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        8.0),
+                                                            child: Text(
+                                                              'Education',
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    fontFamily:
+                                                                        'Lato',
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .alternate,
+                                                                    fontSize:
+                                                                        16.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold,
+                                                                  ),
                                                             ),
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            children: [
+                                                              wrapWithModel(
+                                                                model: _model
+                                                                    .badgeSingleIconModel,
+                                                                updateCallback:
+                                                                    () => setState(
+                                                                        () {}),
+                                                                child:
+                                                                    BadgeSingleIconWidget(
+                                                                  appBadge:
+                                                                      'EDUCATION',
+                                                                  customerProfile:
+                                                                      getJsonField(
+                                                                    FFAppState()
+                                                                        .userProfile,
+                                                                    r'''$.data.name''',
+                                                                  ).toString(),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ],
                                                       ),
                                                     ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                32.0,
-                                                                32.0,
-                                                                32.0,
-                                                                0.0),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceBetween,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .end,
-                                                      children: [
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0),
-                                                          child: Text(
-                                                            'Education',
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily:
-                                                                      'Lato',
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  32.0,
+                                                                  20.0,
+                                                                  32.0,
+                                                                  24.0),
+                                                      child: FutureBuilder<
+                                                          ApiCallResponse>(
+                                                        future: (_model
+                                                                    .apiRequestCompleter ??=
+                                                                Completer<
+                                                                    ApiCallResponse>()
+                                                                  ..complete(
+                                                                      TaskerpageBackendGroup
+                                                                          .myEducationsCall
+                                                                          .call(
+                                                                    apiGlobalKey:
+                                                                        FFAppState()
+                                                                            .apiKey,
+                                                                    filters:
+                                                                        '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                                      FFAppState()
+                                                                          .userProfile,
+                                                                      r'''$.data.name''',
+                                                                    ).toString()}\"]]',
+                                                                    fields:
+                                                                        '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
+                                                                  )))
+                                                            .future,
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 35.0,
+                                                                height: 35.0,
+                                                                child:
+                                                                    SpinKitThreeBounce(
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .alternate,
-                                                                  fontSize:
-                                                                      16.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold,
+                                                                      .primary,
+                                                                  size: 35.0,
                                                                 ),
-                                                          ),
-                                                        ),
-                                                        Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            wrapWithModel(
-                                                              model: _model
-                                                                  .badgeSingleIconModel,
-                                                              updateCallback:
-                                                                  () => setState(
-                                                                      () {}),
-                                                              child:
-                                                                  BadgeSingleIconWidget(
-                                                                appBadge:
-                                                                    'EDUCATION',
-                                                                customerProfile:
-                                                                    getJsonField(
-                                                                  FFAppState()
-                                                                      .userProfile,
-                                                                  r'''$.data.name''',
-                                                                ).toString(),
                                                               ),
-                                                            ),
-                                                          ],
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                32.0,
-                                                                20.0,
-                                                                32.0,
-                                                                24.0),
-                                                    child: FutureBuilder<
-                                                        ApiCallResponse>(
-                                                      future: (_model
-                                                                  .apiRequestCompleter ??=
-                                                              Completer<
-                                                                  ApiCallResponse>()
-                                                                ..complete(
-                                                                    TaskerpageBackendGroup
-                                                                        .myEducationsCall
-                                                                        .call(
-                                                                  apiGlobalKey:
-                                                                      FFAppState()
-                                                                          .apiKey,
-                                                                  filters:
-                                                                      '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                                                    FFAppState()
-                                                                        .userProfile,
-                                                                    r'''$.data.name''',
-                                                                  ).toString()}\"]]',
-                                                                  fields:
-                                                                      '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
-                                                                )))
-                                                          .future,
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 35.0,
-                                                              height: 35.0,
-                                                              child:
-                                                                  SpinKitThreeBounce(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                size: 35.0,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }
-                                                        final listViewMyEducationsResponse =
-                                                            snapshot.data!;
-                                                        return Builder(
-                                                          builder: (context) {
-                                                            final myEducationList =
-                                                                getJsonField(
-                                                              listViewMyEducationsResponse
-                                                                  .jsonBody,
-                                                              r'''$.data''',
-                                                            ).toList();
-                                                            if (myEducationList
-                                                                .isEmpty) {
-                                                              return Image
-                                                                  .asset(
-                                                                'assets/images/Group_2178.png',
-                                                              );
-                                                            }
-                                                            return InkWell(
-                                                              splashColor: Colors
-                                                                  .transparent,
-                                                              focusColor: Colors
-                                                                  .transparent,
-                                                              hoverColor: Colors
-                                                                  .transparent,
-                                                              highlightColor:
-                                                                  Colors
-                                                                      .transparent,
-                                                              onTap: () async {
-                                                                context
-                                                                    .pushNamed(
-                                                                  'Add_another_education',
-                                                                  queryParameters:
-                                                                      {
-                                                                    'isSignUp':
-                                                                        serializeParam(
-                                                                      false,
-                                                                      ParamType
-                                                                          .bool,
-                                                                    ),
-                                                                    'addAnother':
-                                                                        serializeParam(
-                                                                      false,
-                                                                      ParamType
-                                                                          .bool,
-                                                                    ),
-                                                                  }.withoutNulls,
-                                                                );
-                                                              },
-                                                              child: ListView
+                                                            );
+                                                          }
+                                                          final listViewMyEducationsResponse =
+                                                              snapshot.data!;
+                                                          return Builder(
+                                                            builder: (context) {
+                                                              final myEducationList =
+                                                                  getJsonField(
+                                                                listViewMyEducationsResponse
+                                                                    .jsonBody,
+                                                                r'''$.data''',
+                                                              ).toList();
+                                                              return ListView
                                                                   .separated(
                                                                 padding:
                                                                     EdgeInsets
@@ -719,248 +688,391 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                     ),
                                                                   );
                                                                 },
-                                                              ),
-                                                            );
-                                                          },
-                                                        );
-                                                      },
-                                                    ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                0.0, 30.0),
-                                                    child: FutureBuilder<
-                                                        ApiCallResponse>(
-                                                      future:
-                                                          TaskerpageBackendGroup
-                                                              .myEducationsCall
-                                                              .call(
-                                                        apiGlobalKey:
-                                                            FFAppState().apiKey,
-                                                        filters:
-                                                            '[[\"customer_profile\",\"=\",\"${getJsonField(
-                                                          FFAppState()
-                                                              .userProfile,
-                                                          r'''$.data.name''',
-                                                        ).toString()}\"]]',
-                                                        fields:
-                                                            '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
-                                                      ),
-                                                      builder:
-                                                          (context, snapshot) {
-                                                        // Customize what your widget looks like when it's loading.
-                                                        if (!snapshot.hasData) {
-                                                          return Center(
-                                                            child: SizedBox(
-                                                              width: 35.0,
-                                                              height: 35.0,
-                                                              child:
-                                                                  SpinKitThreeBounce(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                size: 35.0,
-                                                              ),
-                                                            ),
+                                                              );
+                                                            },
                                                           );
-                                                        }
-                                                        final rowMyEducationsResponse =
-                                                            snapshot.data!;
-                                                        return Row(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: [
-                                                            if (getJsonField(
-                                                                  rowMyEducationsResponse
-                                                                      .jsonBody,
-                                                                  r'''$.data''',
-                                                                ) !=
-                                                                null)
-                                                              Expanded(
-                                                                child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          32.0,
-                                                                          0.0,
-                                                                          32.0,
-                                                                          0.0),
-                                                                  child:
-                                                                      Container(
-                                                                    height:
-                                                                        152.0,
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: Color(
-                                                                          0x00DAD3D3),
-                                                                      image:
-                                                                          DecorationImage(
-                                                                        fit: BoxFit
-                                                                            .fill,
-                                                                        image: Image
-                                                                            .asset(
-                                                                          'assets/images/Rectangle_1937.png',
-                                                                        ).image,
-                                                                      ),
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: Color(
-                                                                            0x00707070),
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          32.0,
-                                                                          0.0,
-                                                                          32.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          InkWell(
-                                                                            splashColor:
-                                                                                Colors.transparent,
-                                                                            focusColor:
-                                                                                Colors.transparent,
-                                                                            hoverColor:
-                                                                                Colors.transparent,
-                                                                            highlightColor:
-                                                                                Colors.transparent,
-                                                                            onTap:
-                                                                                () async {
-                                                                              context.pushNamed(
-                                                                                'Add_another_education',
-                                                                                queryParameters: {
-                                                                                  'addAnother': serializeParam(
-                                                                                    true,
-                                                                                    ParamType.bool,
-                                                                                  ),
-                                                                                }.withoutNulls,
-                                                                              );
-                                                                            },
-                                                                            child:
-                                                                                Container(
-                                                                              width: 252.0,
-                                                                              height: 36.0,
-                                                                              decoration: BoxDecoration(
-                                                                                color: Color(0x00FFFFFF),
-                                                                                borderRadius: BorderRadius.circular(0.0),
-                                                                                border: Border.all(
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                ),
-                                                                              ),
-                                                                              child: Row(
-                                                                                mainAxisSize: MainAxisSize.max,
-                                                                                mainAxisAlignment: MainAxisAlignment.center,
-                                                                                children: [
-                                                                                  Text(
-                                                                                    '+ Add another Training or Education',
-                                                                                    style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                          fontFamily: 'Lato',
-                                                                                          color: FlutterFlowTheme.of(context).primary,
-                                                                                          fontSize: 14.0,
-                                                                                          fontWeight: FontWeight.w500,
-                                                                                        ),
-                                                                                  ),
-                                                                                ],
-                                                                              ),
-                                                                            ),
-                                                                          ),
-                                                                        ],
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                          ],
-                                                        );
-                                                      },
+                                                        },
+                                                      ),
                                                     ),
-                                                  ),
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                    tabletLandscape: false,
-                                                  ))
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
                                                               .fromSTEB(
-                                                                  32.0,
                                                                   0.0,
-                                                                  32.0,
-                                                                  0.0),
-                                                      child: wrapWithModel(
-                                                        model: _model
-                                                            .adCardWebModel,
-                                                        updateCallback: () =>
-                                                            setState(() {}),
-                                                        child:
-                                                            AdCardWebWidget(),
+                                                                  0.0,
+                                                                  0.0,
+                                                                  30.0),
+                                                      child: FutureBuilder<
+                                                          ApiCallResponse>(
+                                                        future:
+                                                            TaskerpageBackendGroup
+                                                                .myEducationsCall
+                                                                .call(
+                                                          apiGlobalKey:
+                                                              FFAppState()
+                                                                  .apiKey,
+                                                          filters:
+                                                              '[[\"customer_profile\",\"=\",\"${getJsonField(
+                                                            FFAppState()
+                                                                .userProfile,
+                                                            r'''$.data.name''',
+                                                          ).toString()}\"]]',
+                                                          fields:
+                                                              '[\"title\",\"name\",\"school_title\",\"education_type\",\"certificate\"]',
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 35.0,
+                                                                height: 35.0,
+                                                                child:
+                                                                    SpinKitThreeBounce(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  size: 35.0,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          final rowMyEducationsResponse =
+                                                              snapshot.data!;
+                                                          return Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              if (getJsonField(
+                                                                    rowMyEducationsResponse
+                                                                        .jsonBody,
+                                                                    r'''$.data''',
+                                                                  ) !=
+                                                                  null)
+                                                                Expanded(
+                                                                  child:
+                                                                      Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            32.0,
+                                                                            0.0,
+                                                                            32.0,
+                                                                            0.0),
+                                                                    child:
+                                                                        Container(
+                                                                      height:
+                                                                          152.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: Color(
+                                                                            0x00DAD3D3),
+                                                                        image:
+                                                                            DecorationImage(
+                                                                          fit: BoxFit
+                                                                              .fill,
+                                                                          image:
+                                                                              Image.asset(
+                                                                            'assets/images/Rectangle_1937.png',
+                                                                          ).image,
+                                                                        ),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              Color(0x00707070),
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            32.0,
+                                                                            0.0,
+                                                                            32.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            InkWell(
+                                                                              splashColor: Colors.transparent,
+                                                                              focusColor: Colors.transparent,
+                                                                              hoverColor: Colors.transparent,
+                                                                              highlightColor: Colors.transparent,
+                                                                              onTap: () async {
+                                                                                context.pushNamed(
+                                                                                  'Add_another_education',
+                                                                                  queryParameters: {
+                                                                                    'addAnother': serializeParam(
+                                                                                      true,
+                                                                                      ParamType.bool,
+                                                                                    ),
+                                                                                  }.withoutNulls,
+                                                                                );
+                                                                              },
+                                                                              child: Container(
+                                                                                width: 252.0,
+                                                                                height: 36.0,
+                                                                                decoration: BoxDecoration(
+                                                                                  color: Color(0x00FFFFFF),
+                                                                                  borderRadius: BorderRadius.circular(0.0),
+                                                                                  border: Border.all(
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                  ),
+                                                                                ),
+                                                                                child: Row(
+                                                                                  mainAxisSize: MainAxisSize.max,
+                                                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                                                  children: [
+                                                                                    Text(
+                                                                                      '+ Add another Training or Education',
+                                                                                      style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                            fontFamily: 'Lato',
+                                                                                            color: FlutterFlowTheme.of(context).primary,
+                                                                                            fontSize: 14.0,
+                                                                                            fontWeight: FontWeight.w500,
+                                                                                          ),
+                                                                                    ),
+                                                                                  ],
+                                                                                ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                            ],
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                      tablet: false,
+                                                      tabletLandscape: false,
+                                                    ))
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    32.0,
+                                                                    0.0,
+                                                                    32.0,
+                                                                    0.0),
+                                                        child: wrapWithModel(
+                                                          model: _model
+                                                              .adCardWebModel,
+                                                          updateCallback: () =>
+                                                              setState(() {}),
+                                                          child:
+                                                              AdCardWebWidget(),
+                                                        ),
+                                                      ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            if (widget.isSignUp)
+                                              Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  if (responsiveVisibility(
+                                                    context: context,
+                                                    desktop: false,
+                                                  ))
+                                                    Container(
+                                                      width: MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          1.0,
+                                                      height: 60.0,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            blurRadius: 5.0,
+                                                            color: Color(
+                                                                0x33000000),
+                                                            offset: Offset(
+                                                                5.0, 5.0),
+                                                            spreadRadius: 10.0,
+                                                          )
+                                                        ],
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    32.0,
+                                                                    0.0,
+                                                                    32.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .end,
+                                                          children: [
+                                                            InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                await action_blocks
+                                                                    .updateCustomerProfileBadge(
+                                                                  context,
+                                                                  appBadge:
+                                                                      'EDUCATION',
+                                                                );
+
+                                                                context
+                                                                    .pushNamed(
+                                                                  'RateSignUp',
+                                                                  queryParameters:
+                                                                      {
+                                                                    'name':
+                                                                        serializeParam(
+                                                                      '',
+                                                                      ParamType
+                                                                          .String,
+                                                                    ),
+                                                                  }.withoutNulls,
+                                                                );
+                                                              },
+                                                              child: Container(
+                                                                width: 104.0,
+                                                                height: 36.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              1.0),
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      'Save',
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color:
+                                                                                Colors.white,
+                                                                            fontSize:
+                                                                                14.0,
+                                                                          ),
+                                                                    ),
+                                                                    Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          5.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .arrow_forward_ios_rounded,
+                                                                        color: Colors
+                                                                            .white,
+                                                                        size:
+                                                                            10.0,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
                                                       ),
                                                     ),
                                                 ],
                                               ),
+                                          ],
+                                        ),
+                                        if (FFAppState()
+                                                .AddCertificateForEducation ==
+                                            true)
+                                          Container(
+                                            width: MediaQuery.sizeOf(context)
+                                                    .width *
+                                                1.0,
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                1.0,
+                                            decoration: BoxDecoration(
+                                              color: Color(0x00FFFFFF),
                                             ),
-                                          ),
-                                          if (widget.isSignUp)
-                                            Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.end,
-                                              children: [
-                                                if (responsiveVisibility(
-                                                  context: context,
-                                                  desktop: false,
-                                                ))
-                                                  Container(
-                                                    width: MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        1.0,
-                                                    height: 60.0,
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(0.0),
+                                              child: BackdropFilter(
+                                                filter: ImageFilter.blur(
+                                                  sigmaX: 2.0,
+                                                  sigmaY: 2.0,
+                                                ),
+                                                child: Align(
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.00, 0.00),
+                                                  child: Container(
+                                                    width: 269.0,
+                                                    height: 149.0,
                                                     decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      boxShadow: [
-                                                        BoxShadow(
-                                                          blurRadius: 5.0,
-                                                          color:
-                                                              Color(0x33000000),
-                                                          offset:
-                                                              Offset(5.0, 5.0),
-                                                          spreadRadius: 10.0,
-                                                        )
-                                                      ],
+                                                      color: Color(0xFFF6F6F6),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
                                                     ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  32.0,
-                                                                  0.0,
-                                                                  32.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .end,
-                                                        children: [
-                                                          InkWell(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      15.0),
+                                                          child: InkWell(
                                                             splashColor: Colors
                                                                 .transparent,
                                                             focusColor: Colors
@@ -971,38 +1083,75 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                 Colors
                                                                     .transparent,
                                                             onTap: () async {
-                                                              await action_blocks
-                                                                  .updateCustomerProfileBadge(
-                                                                context,
-                                                                appBadge:
-                                                                    'EDUCATION',
+                                                              final selectedMedia =
+                                                                  await selectMedia(
+                                                                mediaSource:
+                                                                    MediaSource
+                                                                        .photoGallery,
+                                                                multiImage:
+                                                                    false,
                                                               );
+                                                              if (selectedMedia !=
+                                                                      null &&
+                                                                  selectedMedia.every((m) =>
+                                                                      validateFileFormat(
+                                                                          m.storagePath,
+                                                                          context))) {
+                                                                setState(() =>
+                                                                    _model.isDataUploading1 =
+                                                                        true);
+                                                                var selectedUploadedFiles =
+                                                                    <FFUploadedFile>[];
 
-                                                              context.pushNamed(
-                                                                'RateSignUp',
-                                                                queryParameters:
-                                                                    {
-                                                                  'name':
-                                                                      serializeParam(
-                                                                    '',
-                                                                    ParamType
-                                                                        .String,
-                                                                  ),
-                                                                }.withoutNulls,
-                                                              );
+                                                                try {
+                                                                  selectedUploadedFiles =
+                                                                      selectedMedia
+                                                                          .map((m) =>
+                                                                              FFUploadedFile(
+                                                                                name: m.storagePath.split('/').last,
+                                                                                bytes: m.bytes,
+                                                                                height: m.dimensions?.height,
+                                                                                width: m.dimensions?.width,
+                                                                                blurHash: m.blurHash,
+                                                                              ))
+                                                                          .toList();
+                                                                } finally {
+                                                                  _model.isDataUploading1 =
+                                                                      false;
+                                                                }
+                                                                if (selectedUploadedFiles
+                                                                        .length ==
+                                                                    selectedMedia
+                                                                        .length) {
+                                                                  setState(() {
+                                                                    _model.uploadedLocalFile1 =
+                                                                        selectedUploadedFiles
+                                                                            .first;
+                                                                  });
+                                                                } else {
+                                                                  setState(
+                                                                      () {});
+                                                                  return;
+                                                                }
+                                                              }
+
+                                                              setState(() {
+                                                                FFAppState()
+                                                                        .AddCertificateForEducation =
+                                                                    false;
+                                                              });
                                                             },
                                                             child: Container(
-                                                              width: 104.0,
-                                                              height: 36.0,
+                                                              width: 209.0,
+                                                              height: 44.0,
                                                               decoration:
                                                                   BoxDecoration(
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
+                                                                color: Color(
+                                                                    0xFF5450E2),
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            1.0),
+                                                                            5.0),
                                                               ),
                                                               child: Row(
                                                                 mainAxisSize:
@@ -1013,7 +1162,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                         .center,
                                                                 children: [
                                                                   Text(
-                                                                    'Save',
+                                                                    'From Gallery',
                                                                     style: FlutterFlowTheme.of(
                                                                             context)
                                                                         .bodyMedium
@@ -1026,83 +1175,12 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                               14.0,
                                                                         ),
                                                                   ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            5.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Icon(
-                                                                      Icons
-                                                                          .arrow_forward_ios_rounded,
-                                                                      color: Colors
-                                                                          .white,
-                                                                      size:
-                                                                          10.0,
-                                                                    ),
-                                                                  ),
                                                                 ],
                                                               ),
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                  ),
-                                              ],
-                                            ),
-                                        ],
-                                      ),
-                                      if (FFAppState()
-                                              .AddCertificateForEducation ==
-                                          true)
-                                        Container(
-                                          width:
-                                              MediaQuery.sizeOf(context).width *
-                                                  1.0,
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              1.0,
-                                          decoration: BoxDecoration(
-                                            color: Color(0x00FFFFFF),
-                                          ),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(0.0),
-                                            child: BackdropFilter(
-                                              filter: ImageFilter.blur(
-                                                sigmaX: 2.0,
-                                                sigmaY: 2.0,
-                                              ),
-                                              child: Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.00, 0.00),
-                                                child: Container(
-                                                  width: 269.0,
-                                                  height: 149.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFFF6F6F6),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    15.0),
-                                                        child: InkWell(
+                                                        ),
+                                                        InkWell(
                                                           splashColor: Colors
                                                               .transparent,
                                                           focusColor: Colors
@@ -1114,9 +1192,6 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                           onTap: () async {
                                                             final selectedMedia =
                                                                 await selectMedia(
-                                                              mediaSource:
-                                                                  MediaSource
-                                                                      .photoGallery,
                                                               multiImage: false,
                                                             );
                                                             if (selectedMedia !=
@@ -1126,7 +1201,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                         m.storagePath,
                                                                         context))) {
                                                               setState(() =>
-                                                                  _model.isDataUploading1 =
+                                                                  _model.isDataUploading2 =
                                                                       true);
                                                               var selectedUploadedFiles =
                                                                   <FFUploadedFile>[];
@@ -1144,7 +1219,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                             ))
                                                                         .toList();
                                                               } finally {
-                                                                _model.isDataUploading1 =
+                                                                _model.isDataUploading2 =
                                                                     false;
                                                               }
                                                               if (selectedUploadedFiles
@@ -1152,7 +1227,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                   selectedMedia
                                                                       .length) {
                                                                 setState(() {
-                                                                  _model.uploadedLocalFile1 =
+                                                                  _model.uploadedLocalFile2 =
                                                                       selectedUploadedFiles
                                                                           .first;
                                                                 });
@@ -1189,7 +1264,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                       .center,
                                                               children: [
                                                                 Text(
-                                                                  'From Gallery',
+                                                                  'Take Photo',
                                                                   style: FlutterFlowTheme.of(
                                                                           context)
                                                                       .bodyMedium
@@ -1206,162 +1281,56 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                             ),
                                                           ),
                                                         ),
-                                                      ),
-                                                      InkWell(
-                                                        splashColor:
-                                                            Colors.transparent,
-                                                        focusColor:
-                                                            Colors.transparent,
-                                                        hoverColor:
-                                                            Colors.transparent,
-                                                        highlightColor:
-                                                            Colors.transparent,
-                                                        onTap: () async {
-                                                          final selectedMedia =
-                                                              await selectMedia(
-                                                            multiImage: false,
-                                                          );
-                                                          if (selectedMedia !=
-                                                                  null &&
-                                                              selectedMedia.every((m) =>
-                                                                  validateFileFormat(
-                                                                      m.storagePath,
-                                                                      context))) {
-                                                            setState(() => _model
-                                                                    .isDataUploading2 =
-                                                                true);
-                                                            var selectedUploadedFiles =
-                                                                <FFUploadedFile>[];
-
-                                                            try {
-                                                              selectedUploadedFiles =
-                                                                  selectedMedia
-                                                                      .map((m) =>
-                                                                          FFUploadedFile(
-                                                                            name:
-                                                                                m.storagePath.split('/').last,
-                                                                            bytes:
-                                                                                m.bytes,
-                                                                            height:
-                                                                                m.dimensions?.height,
-                                                                            width:
-                                                                                m.dimensions?.width,
-                                                                            blurHash:
-                                                                                m.blurHash,
-                                                                          ))
-                                                                      .toList();
-                                                            } finally {
-                                                              _model.isDataUploading2 =
-                                                                  false;
-                                                            }
-                                                            if (selectedUploadedFiles
-                                                                    .length ==
-                                                                selectedMedia
-                                                                    .length) {
-                                                              setState(() {
-                                                                _model.uploadedLocalFile2 =
-                                                                    selectedUploadedFiles
-                                                                        .first;
-                                                              });
-                                                            } else {
-                                                              setState(() {});
-                                                              return;
-                                                            }
-                                                          }
-
-                                                          setState(() {
-                                                            FFAppState()
-                                                                    .AddCertificateForEducation =
-                                                                false;
-                                                          });
-                                                        },
-                                                        child: Container(
-                                                          width: 209.0,
-                                                          height: 44.0,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                            color: Color(
-                                                                0xFF5450E2),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        5.0),
-                                                          ),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .center,
-                                                            children: [
-                                                              Text(
-                                                                'Take Photo',
-                                                                style: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMedium
-                                                                    .override(
-                                                                      fontFamily:
-                                                                          'Lato',
-                                                                      color: Colors
-                                                                          .white,
-                                                                      fontSize:
-                                                                          14.0,
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
-                    SingleChildScrollView(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          wrapWithModel(
-                            model: _model.sideBarRightModel,
-                            updateCallback: () => setState(() {}),
-                            child: SideBarRightWidget(),
                           ),
                         ],
                       ),
                     ),
-                ],
+                    if (responsiveVisibility(
+                      context: context,
+                      phone: false,
+                      tablet: false,
+                      tabletLandscape: false,
+                    ))
+                      SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            wrapWithModel(
+                              model: _model.sideBarRightModel,
+                              updateCallback: () => setState(() {}),
+                              child: SideBarRightWidget(),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ],
+                ),
               ),
-            ),
-            if (responsiveVisibility(
-              context: context,
-              phone: false,
-              tablet: false,
-              tabletLandscape: false,
-            ))
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [],
-              ),
-          ],
+              if (responsiveVisibility(
+                context: context,
+                phone: false,
+                tablet: false,
+                tabletLandscape: false,
+              ))
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
+            ],
+          ),
         ),
       ),
     );

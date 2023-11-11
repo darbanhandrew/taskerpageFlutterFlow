@@ -107,7 +107,7 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                       ),
                     ),
                     Container(
-                      width: 135.0,
+                      width: 140.0,
                       height: 36.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF2F2F2),

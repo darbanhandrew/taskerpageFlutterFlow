@@ -47,7 +47,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
         child: appStateNotifier.showSplashImage
             ? Builder(
                 builder: (context) => Container(
-                  color: Colors.transparent,
+                  color: Colors.white,
                   child: Image.asset(
                     'assets/images/tasker.page.png',
                     fit: BoxFit.none,
@@ -63,7 +63,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, _) => appStateNotifier.showSplashImage
               ? Builder(
                   builder: (context) => Container(
-                    color: Colors.transparent,
+                    color: Colors.white,
                     child: Image.asset(
                       'assets/images/tasker.page.png',
                       fit: BoxFit.none,

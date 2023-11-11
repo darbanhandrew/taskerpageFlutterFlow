@@ -191,8 +191,8 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                             ),
                           ),
                           Container(
-                            width: 50.0,
-                            height: 50.0,
+                            width: 45.0,
+                            height: 45.0,
                             decoration: BoxDecoration(
                               color: FlutterFlowTheme.of(context)
                                   .secondaryBackground,
@@ -228,135 +228,141 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) => e..taskerGender = 'Male',
-                                    ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              width: 155.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerGender ==
-                                          'Male'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
-                                  width: 1.3,
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) => e..taskerGender = 'Male',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerGender ==
+                                            'Male'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Male',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerGender ==
-                                                    'Male'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) => e..taskerGender = 'Female',
-                                    ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              width: 155.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerGender ==
-                                          'Female'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
-                                  width: 1.3,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Female',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerGender ==
-                                                    'Female'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Male',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerGender ==
+                                                      'Male'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) => e..taskerGender = 'Female',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerGender ==
+                                            'Female'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Female',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerGender ==
+                                                      'Female'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 12.0)),
                       ),
                     ),
                     Padding(
@@ -365,22 +371,75 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) =>
-                                          e..taskerGender = 'Dosn\'t  matter',
-                                    ),
-                                );
-                              });
-                            },
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) =>
+                                            e..taskerGender = 'Doesn\'t matter',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerGender ==
+                                            'Dosn\'t  matter'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Doesn\'t matter',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerGender ==
+                                                      'Dosn\'t  matter'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
                             child: Container(
                               width: 155.0,
                               height: 36.0,
@@ -389,48 +448,13 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                                     .secondaryBackground,
                                 borderRadius: BorderRadius.circular(2.0),
                                 border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerGender ==
-                                          'Dosn\'t  matter'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
+                                  color: Colors.white,
                                   width: 1.3,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Doesn\'t matter',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerGender ==
-                                                    'Dosn\'t  matter'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
                                 ),
                               ),
                             ),
                           ),
-                        ],
+                        ].divide(SizedBox(width: 12.0)),
                       ),
                     ),
                     Padding(
@@ -459,135 +483,141 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) => e..taskerAgeRange = '<20',
-                                    ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              width: 155.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerAgeRange ==
-                                          '<20'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
-                                  width: 1.3,
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) => e..taskerAgeRange = '<20',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerAgeRange ==
+                                            '<20'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '<20',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerAgeRange ==
-                                                    '<20'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) => e..taskerAgeRange = '20-40',
-                                    ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              width: 155.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerAgeRange ==
-                                          '20-40'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
-                                  width: 1.3,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '20-40',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerAgeRange ==
-                                                    '20-40'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '<20',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerAgeRange ==
+                                                      '<20'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) => e..taskerAgeRange = '20-40',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerAgeRange ==
+                                            '20-40'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '20-40',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerAgeRange ==
+                                                      '20-40'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 12.0)),
                       ),
                     ),
                     Padding(
@@ -597,136 +627,142 @@ class _TaskertypeWidgetState extends State<TaskertypeWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) => e..taskerAgeRange = '40>',
-                                    ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              width: 155.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerAgeRange ==
-                                          '40>'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
-                                  width: 1.3,
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) => e..taskerAgeRange = '40>',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerAgeRange ==
+                                            '40>'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
                                 ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      '40>',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerAgeRange ==
-                                                    '40>'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              setState(() {
-                                FFAppState().updateCreateTaskStruct(
-                                  (e) => e
-                                    ..updateTaskerType(
-                                      (e) =>
-                                          e..taskerAgeRange = 'Doesn\'t matter',
-                                    ),
-                                );
-                              });
-                            },
-                            child: Container(
-                              width: 155.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                borderRadius: BorderRadius.circular(2.0),
-                                border: Border.all(
-                                  color: FFAppState()
-                                              .createTask
-                                              .taskerType
-                                              .taskerAgeRange ==
-                                          'Doesn\'t matter'
-                                      ? FlutterFlowTheme.of(context).primary
-                                      : FlutterFlowTheme.of(context).secondary,
-                                  width: 1.3,
-                                ),
-                              ),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    15.0, 0.0, 15.0, 0.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Doesn\'t matter',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FFAppState()
-                                                        .createTask
-                                                        .taskerType
-                                                        .taskerAgeRange ==
-                                                    'Doesn\'t matter'
-                                                ? FlutterFlowTheme.of(context)
-                                                    .primary
-                                                : FlutterFlowTheme.of(context)
-                                                    .secondary,
-                                            fontSize: 12.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        '40>',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerAgeRange ==
+                                                      '40>'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ],
+                          Expanded(
+                            child: InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                setState(() {
+                                  FFAppState().updateCreateTaskStruct(
+                                    (e) => e
+                                      ..updateTaskerType(
+                                        (e) => e
+                                          ..taskerAgeRange = 'Doesn\'t matter',
+                                      ),
+                                  );
+                                });
+                              },
+                              child: Container(
+                                width: 155.0,
+                                height: 36.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(2.0),
+                                  border: Border.all(
+                                    color: FFAppState()
+                                                .createTask
+                                                .taskerType
+                                                .taskerAgeRange ==
+                                            'Doesn\'t matter'
+                                        ? FlutterFlowTheme.of(context).primary
+                                        : FlutterFlowTheme.of(context)
+                                            .secondary,
+                                    width: 1.3,
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      15.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Doesn\'t matter',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: FFAppState()
+                                                          .createTask
+                                                          .taskerType
+                                                          .taskerAgeRange ==
+                                                      'Doesn\'t matter'
+                                                  ? FlutterFlowTheme.of(context)
+                                                      .primary
+                                                  : FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ].divide(SizedBox(width: 12.0)),
                       ),
                     ),
                     Divider(
