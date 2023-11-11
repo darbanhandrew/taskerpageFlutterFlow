@@ -409,32 +409,53 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.spaceBetween,
                                                                           children: [
-                                                                            Align(
-                                                                              alignment: AlignmentDirectional(0.00, 1.00),
-                                                                              child: Stack(
-                                                                                alignment: AlignmentDirectional(0.0, 1.5),
-                                                                                children: [
-                                                                                  Container(
-                                                                                    width: 70.0,
-                                                                                    height: 70.0,
-                                                                                    clipBehavior: Clip.antiAlias,
-                                                                                    decoration: BoxDecoration(
-                                                                                      shape: BoxShape.circle,
+                                                                            Expanded(
+                                                                              child: Align(
+                                                                                alignment: AlignmentDirectional(0.00, 1.00),
+                                                                                child: Stack(
+                                                                                  alignment: AlignmentDirectional(0.0, 1.5),
+                                                                                  children: [
+                                                                                    Align(
+                                                                                      alignment: AlignmentDirectional(0.00, 0.00),
+                                                                                      child: Container(
+                                                                                        width: 80.0,
+                                                                                        height: 80.0,
+                                                                                        decoration: BoxDecoration(
+                                                                                          color: Color(0x00FFFFFF),
+                                                                                          shape: BoxShape.circle,
+                                                                                          border: Border.all(
+                                                                                            color: Color(0xFFDBDBDB),
+                                                                                          ),
+                                                                                        ),
+                                                                                        child: Padding(
+                                                                                          padding: EdgeInsetsDirectional.fromSTEB(6.0, 6.0, 6.0, 6.0),
+                                                                                          child: InkWell(
+                                                                                            splashColor: Colors.transparent,
+                                                                                            focusColor: Colors.transparent,
+                                                                                            hoverColor: Colors.transparent,
+                                                                                            highlightColor: Colors.transparent,
+                                                                                            onTap: () async {
+                                                                                              context.pushNamed('Profile_details_seeting');
+                                                                                            },
+                                                                                            child: Container(
+                                                                                              clipBehavior: Clip.antiAlias,
+                                                                                              decoration: BoxDecoration(
+                                                                                                shape: BoxShape.circle,
+                                                                                              ),
+                                                                                              child: Image.network(
+                                                                                                '${FFAppState().baseUrl}${getJsonField(
+                                                                                                  userProfileUserProfileReadResponse.jsonBody,
+                                                                                                  r'''$.data.avatar''',
+                                                                                                ).toString()}',
+                                                                                                fit: BoxFit.cover,
+                                                                                              ),
+                                                                                            ),
+                                                                                          ),
+                                                                                        ),
+                                                                                      ),
                                                                                     ),
-                                                                                    child: Image.network(
-                                                                                      '${FFAppState().baseUrl}${getJsonField(
-                                                                                        userProfileUserProfileReadResponse.jsonBody,
-                                                                                        r'''$.data.avatar''',
-                                                                                      ).toString()}',
-                                                                                      fit: BoxFit.cover,
-                                                                                    ),
-                                                                                  ),
-                                                                                  Icon(
-                                                                                    Icons.edit,
-                                                                                    color: FlutterFlowTheme.of(context).primary,
-                                                                                    size: 20.0,
-                                                                                  ),
-                                                                                ],
+                                                                                  ],
+                                                                                ),
                                                                               ),
                                                                             ),
                                                                             Padding(

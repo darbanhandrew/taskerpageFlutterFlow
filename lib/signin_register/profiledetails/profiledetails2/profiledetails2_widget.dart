@@ -473,8 +473,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                   alignment: AlignmentDirectional(0.0, 1.3),
                                   children: [
                                     Container(
-                                      width: 100.0,
-                                      height: 100.0,
+                                      width: 80.0,
+                                      height: 80.0,
                                       clipBehavior: Clip.antiAlias,
                                       decoration: BoxDecoration(
                                         shape: BoxShape.circle,

@@ -44,12 +44,20 @@ class ProfileDetailsSeetingModel
 
   // Stores action output result for [Backend Call - API (upload)] action in Container widget.
   ApiCallResponse? apiResultekx33;
+  // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
+  ApiCallResponse? apiResultbf8;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? apiResult55z5;
   bool isDataUploading2 = false;
   FFUploadedFile uploadedLocalFile2 =
       FFUploadedFile(bytes: Uint8List.fromList([]));
 
   // Stores action output result for [Backend Call - API (upload)] action in Container widget.
   ApiCallResponse? apiResultekx44;
+  // Stores action output result for [Backend Call - API (update profile)] action in Container widget.
+  ApiCallResponse? apiResultbf88;
+  // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
+  ApiCallResponse? apiResult55z59;
   // State field(s) for TextField widget.
   FocusNode? textFieldFocusNode;
   TextEditingController? textController;

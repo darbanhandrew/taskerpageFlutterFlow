@@ -402,14 +402,51 @@ class _ProfileDetailsSeetingWidgetState
                                                                             r'''$.message.file_url''',
                                                                           ).toString();
                                                                         });
-                                                                        setState(
-                                                                            () {
-                                                                          FFAppState()
-                                                                              .updateUserInformationStruct(
-                                                                            (e) => e
-                                                                              ..avatar = _model.avatarURL,
+                                                                        _model.apiResultbf8 = await TaskerpageBackendGroup
+                                                                            .updateProfileCall
+                                                                            .call(
+                                                                          id: getJsonField(
+                                                                            FFAppState().userProfile,
+                                                                            r'''$.data.name''',
+                                                                          ).toString(),
+                                                                          avatar:
+                                                                              _model.avatarURL,
+                                                                          apiGlobalKey:
+                                                                              FFAppState().apiKey,
+                                                                        );
+                                                                        if ((_model.apiResultbf8?.succeeded ??
+                                                                            true)) {
+                                                                          _model.apiResult55z5 = await TaskerpageBackendGroup
+                                                                              .userProfileMeCall
+                                                                              .call(
+                                                                            apiGlobalKey:
+                                                                                FFAppState().apiKey,
                                                                           );
-                                                                        });
+                                                                          setState(
+                                                                              () {
+                                                                            FFAppState().userProfile =
+                                                                                (_model.apiResult55z5?.jsonBody ?? '');
+                                                                          });
+                                                                        } else {
+                                                                          await showDialog(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return WebViewAware(
+                                                                                  child: AlertDialog(
+                                                                                title: Text('Not Done'),
+                                                                                content: Text('Pleas try again !'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                    child: Text('Ok'),
+                                                                                  ),
+                                                                                ],
+                                                                              ));
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       } else {
                                                                         await showDialog(
                                                                           context:
@@ -573,14 +610,51 @@ class _ProfileDetailsSeetingWidgetState
                                                                             r'''$.message.file_url''',
                                                                           ).toString();
                                                                         });
-                                                                        setState(
-                                                                            () {
-                                                                          FFAppState()
-                                                                              .updateUserInformationStruct(
-                                                                            (e) => e
-                                                                              ..avatar = _model.avatarURL,
+                                                                        _model.apiResultbf88 = await TaskerpageBackendGroup
+                                                                            .updateProfileCall
+                                                                            .call(
+                                                                          id: getJsonField(
+                                                                            FFAppState().userProfile,
+                                                                            r'''$.data.name''',
+                                                                          ).toString(),
+                                                                          avatar:
+                                                                              _model.avatarURL,
+                                                                          apiGlobalKey:
+                                                                              FFAppState().apiKey,
+                                                                        );
+                                                                        if ((_model.apiResultbf88?.succeeded ??
+                                                                            true)) {
+                                                                          _model.apiResult55z59 = await TaskerpageBackendGroup
+                                                                              .userProfileMeCall
+                                                                              .call(
+                                                                            apiGlobalKey:
+                                                                                FFAppState().apiKey,
                                                                           );
-                                                                        });
+                                                                          setState(
+                                                                              () {
+                                                                            FFAppState().userProfile =
+                                                                                (_model.apiResult55z59?.jsonBody ?? '');
+                                                                          });
+                                                                        } else {
+                                                                          await showDialog(
+                                                                            context:
+                                                                                context,
+                                                                            builder:
+                                                                                (alertDialogContext) {
+                                                                              return WebViewAware(
+                                                                                  child: AlertDialog(
+                                                                                title: Text('Not Done'),
+                                                                                content: Text('Pleas try again !'),
+                                                                                actions: [
+                                                                                  TextButton(
+                                                                                    onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                    child: Text('Ok'),
+                                                                                  ),
+                                                                                ],
+                                                                              ));
+                                                                            },
+                                                                          );
+                                                                        }
                                                                       } else {
                                                                         await showDialog(
                                                                           context:

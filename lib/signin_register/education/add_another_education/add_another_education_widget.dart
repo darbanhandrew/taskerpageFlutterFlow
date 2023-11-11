@@ -1409,12 +1409,13 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                             width: 269.0,
                             height: 149.0,
                             decoration: BoxDecoration(
-                              color: Color(0xFFF6F6F6),
+                              color: Colors.white,
                               boxShadow: [
                                 BoxShadow(
                                   blurRadius: 4.0,
                                   color: Color(0x33000000),
-                                  offset: Offset(0.0, 2.0),
+                                  offset: Offset(0.0, 0.0),
+                                  spreadRadius: 2.0,
                                 )
                               ],
                               borderRadius: BorderRadius.circular(5.0),

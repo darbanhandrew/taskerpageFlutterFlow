@@ -332,69 +332,66 @@ class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {
                       ),
                     ),
                   ),
-                  Expanded(
-                    child: InkWell(
-                      splashColor: Colors.transparent,
-                      focusColor: Colors.transparent,
-                      hoverColor: Colors.transparent,
-                      highlightColor: Colors.transparent,
-                      onTap: () async {
-                        var _shouldSetState = false;
-                        _model.update = await TaskerpageBackendGroup
-                            .updateNameAndLastNameCall
-                            .call(
-                          id: getJsonField(
-                            FFAppState().userProfile,
-                            r'''$.data.name''',
-                          ).toString(),
-                          firstName: _model.textController1.text,
-                          lastName: _model.textController2.text,
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      var _shouldSetState = false;
+                      _model.update = await TaskerpageBackendGroup
+                          .updateNameAndLastNameCall
+                          .call(
+                        id: getJsonField(
+                          FFAppState().userProfile,
+                          r'''$.data.name''',
+                        ).toString(),
+                        firstName: _model.textController1.text,
+                        lastName: _model.textController2.text,
+                        apiGlobalKey: FFAppState().apiKey,
+                      );
+                      _shouldSetState = true;
+                      if ((_model.update?.succeeded ?? true)) {
+                        _model.profile =
+                            await TaskerpageBackendGroup.userProfileMeCall.call(
                           apiGlobalKey: FFAppState().apiKey,
                         );
                         _shouldSetState = true;
-                        if ((_model.update?.succeeded ?? true)) {
-                          _model.profile = await TaskerpageBackendGroup
-                              .userProfileMeCall
-                              .call(
-                            apiGlobalKey: FFAppState().apiKey,
-                          );
-                          _shouldSetState = true;
-                          setState(() {
-                            FFAppState().userProfile =
-                                (_model.profile?.jsonBody ?? '');
-                          });
-                          Navigator.pop(context);
-                        } else {
-                          if (_shouldSetState) setState(() {});
-                          return;
-                        }
-
+                        setState(() {
+                          FFAppState().userProfile =
+                              (_model.profile?.jsonBody ?? '');
+                        });
+                        Navigator.pop(context);
+                      } else {
                         if (_shouldSetState) setState(() {});
-                      },
-                      child: Container(
-                        width: 120.0,
-                        height: 36.0,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primary,
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Save change',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Colors.white,
-                                    fontSize: 13.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
+                        return;
+                      }
+
+                      if (_shouldSetState) setState(() {});
+                    },
+                    child: Container(
+                      width: 120.0,
+                      height: 36.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).primary,
+                        borderRadius: BorderRadius.circular(2.0),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            'Save change',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Lato',
+                                  color: Colors.white,
+                                  fontSize: 13.0,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
