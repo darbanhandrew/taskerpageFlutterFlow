@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -31,21 +31,28 @@ class ChatListModel extends FlutterFlowModel<ChatListWidget> {
   Completer<ApiCallResponse>? apiRequestCompleter1;
   Completer<ApiCallResponse>? apiRequestCompleter4;
   Completer<ApiCallResponse>? apiRequestCompleter2;
-  // Model for Header component.
-  late HeaderModel headerModel;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
   // Model for Main_Drawer component.
   late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
+    navBarModel = createModel(context, () => NavBarModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    headerModel.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+
+    navBarModel.dispose();
     mainDrawerModel.dispose();
   }
 

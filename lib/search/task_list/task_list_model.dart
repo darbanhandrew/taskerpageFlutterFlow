@@ -1,6 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/ad_card_widget.dart';
 import '/components/filter_header_widget.dart';
+import '/components/filter_web_widget.dart';
+import '/components/header_web_search_filter_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/task_card_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
@@ -25,6 +27,12 @@ class TaskListModel extends FlutterFlowModel<TaskListWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for Header_web_search_filter component.
+  late HeaderWebSearchFilterModel headerWebSearchFilterModel;
+  // Model for filter_web component.
+  late FilterWebModel filterWebModel;
   // Model for filterHeader component.
   late FilterHeaderModel filterHeaderModel;
   Completer<ApiCallResponse>? apiRequestCompleter;
@@ -35,27 +43,33 @@ class TaskListModel extends FlutterFlowModel<TaskListWidget> {
   // Model for Ad_Card component.
   late AdCardModel adCardModel;
   // State field(s) for GoogleMap widget.
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
+  LatLng? googleMapsCenter1;
+  final googleMapsController1 = Completer<GoogleMapController>();
+  // State field(s) for GoogleMap widget.
+  LatLng? googleMapsCenter2;
+  final googleMapsController2 = Completer<GoogleMapController>();
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    headerWebSearchFilterModel =
+        createModel(context, () => HeaderWebSearchFilterModel());
+    filterWebModel = createModel(context, () => FilterWebModel());
     filterHeaderModel = createModel(context, () => FilterHeaderModel());
     adCardModel = createModel(context, () => AdCardModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    headerWebSearchFilterModel.dispose();
+    filterWebModel.dispose();
     filterHeaderModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
 
     adCardModel.dispose();
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

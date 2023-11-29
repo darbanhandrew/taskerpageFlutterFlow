@@ -46,7 +46,7 @@ class _SideBarLeftProfileWidgetState extends State<SideBarLeftProfileWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(74.0, 20.0, 24.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(74.0, 5.0, 24.0, 0.0),
       child: Column(
         mainAxisSize: MainAxisSize.max,
         children: [

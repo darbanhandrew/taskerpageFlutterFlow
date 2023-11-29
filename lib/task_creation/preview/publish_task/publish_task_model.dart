@@ -1,7 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/ad_card_widget.dart';
+import '/components/filter_web_widget.dart';
+import '/components/header_web_search_filter_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
+import '/components/task_card_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/components/termof_service_widget.dart';
 import '/flutter_flow/flutter_flow_google_map.dart';
@@ -21,40 +25,72 @@ class PublishTaskModel extends FlutterFlowModel<PublishTaskWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel;
+  // Model for Header_web_search_filter component.
+  late HeaderWebSearchFilterModel headerWebSearchFilterModel;
+  // Model for filter_web component.
+  late FilterWebModel filterWebModel;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  // Model for Ad_Card component.
+  late AdCardModel adCardModel;
+  // State field(s) for GoogleMap widget.
+  LatLng? googleMapsCenter1;
+  final googleMapsController1 = Completer<GoogleMapController>();
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for taskcreationMenue component.
   late TaskcreationMenueModel taskcreationMenueModel;
-  // State field(s) for GoogleMap widget.
-  LatLng? googleMapsCenter;
-  final googleMapsController = Completer<GoogleMapController>();
   // Stores action output result for [Backend Call - API (UpdateStatusPost)] action in Container widget.
   ApiCallResponse? updateStatusPost;
   // Stores action output result for [Backend Call - API (userProfileRead)] action in Container widget.
   ApiCallResponse? userRead;
   // Stores action output result for [Backend Call - API (create chat)] action in Container widget.
   ApiCallResponse? startChat22;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
-  // Model for navigationBar component.
-  late NavigationBarModel navigationBarModel;
+  // State field(s) for GoogleMap widget.
+  LatLng? googleMapsCenter2;
+  final googleMapsController2 = Completer<GoogleMapController>();
+  // State field(s) for GoogleMap widget.
+  LatLng? googleMapsCenter3;
+  final googleMapsController3 = Completer<GoogleMapController>();
+  // Stores action output result for [Backend Call - API (UpdateStatusPost)] action in Container widget.
+  ApiCallResponse? updateStatusPost2;
+  // Stores action output result for [Backend Call - API (userProfileRead)] action in Container widget.
+  ApiCallResponse? userRead1;
+  // Stores action output result for [Backend Call - API (create chat)] action in Container widget.
+  ApiCallResponse? startChat229;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    navigationBarModel = createModel(context, () => NavigationBarModel());
+    headerWebSearchFilterModel =
+        createModel(context, () => HeaderWebSearchFilterModel());
+    filterWebModel = createModel(context, () => FilterWebModel());
+    adCardModel = createModel(context, () => AdCardModel());
     headerModel = createModel(context, () => HeaderModel());
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
-    navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    headerModel.dispose();
-    taskcreationMenueModel.dispose();
     mainDrawerModel.dispose();
     navigationBarModel.dispose();
+    headerWebSearchFilterModel.dispose();
+    filterWebModel.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+
+    adCardModel.dispose();
+    headerModel.dispose();
+    taskcreationMenueModel.dispose();
   }
 
   /// Action blocks are added here.

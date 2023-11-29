@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -101,7 +102,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                         model: _model.navigateBackModel,
                         updateCallback: () => setState(() {}),
                         child: NavigateBackWidget(
-                          text: 'Payments history',
+                          text: 'Back to dashbord',
                         ),
                       ),
                     ),
@@ -111,7 +112,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
               Expanded(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(27.0, 20.0, 27.0, 20.0),
+                      EdgeInsetsDirectional.fromSTEB(27.0, 10.0, 27.0, 0.0),
                   child: FutureBuilder<ApiCallResponse>(
                     future: TaskerpageBackendGroup.paymentsHistoryCall.call(
                       filters: '[[\"customer\",\"=\",\"${'${getJsonField(
@@ -144,12 +145,11 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                             listViewPaymentsHistoryResponse.jsonBody,
                             r'''$.data''',
                           ).toList();
-                          return ListView.separated(
+                          return ListView.builder(
                             padding: EdgeInsets.zero,
                             shrinkWrap: true,
                             scrollDirection: Axis.vertical,
                             itemCount: paymentshistory.length,
-                            separatorBuilder: (_, __) => SizedBox(height: 8.0),
                             itemBuilder: (context, paymentshistoryIndex) {
                               final paymentshistoryItem =
                                   paymentshistory[paymentshistoryIndex];
@@ -163,7 +163,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  5.0, 5.0, 5.0, 0.0),
+                                                  5.0, 0.0, 5.0, 0.0),
                                           child: FutureBuilder<ApiCallResponse>(
                                             future: TaskerpageBackendGroup
                                                 .deatelsPaymentsHistoryReadCall
@@ -207,7 +207,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                                                   ],
                                                   borderRadius:
                                                       BorderRadius.circular(
-                                                          0.0),
+                                                          2.0),
                                                 ),
                                                 child: Padding(
                                                   padding: EdgeInsetsDirectional
@@ -266,31 +266,12 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                                                                   height: 25.0,
                                                                   decoration:
                                                                       BoxDecoration(
-                                                                    color: () {
-                                                                      if (functions.jsonToString(
-                                                                              getJsonField(
-                                                                            containerDeatelsPaymentsHistoryReadResponse.jsonBody,
-                                                                            r'''$.data.status''',
-                                                                          )) ==
-                                                                          'Overdue') {
-                                                                        return Color(
-                                                                            0xFFDD2525);
-                                                                      } else if (functions
-                                                                              .jsonToString(getJsonField(
-                                                                            containerDeatelsPaymentsHistoryReadResponse.jsonBody,
-                                                                            r'''$.data.status''',
-                                                                          )) ==
-                                                                          'Paid') {
-                                                                        return Color(
-                                                                            0xFF63D840);
-                                                                      } else {
-                                                                        return Color(
-                                                                            0xFFEA8433);
-                                                                      }
-                                                                    }(),
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .tertiary,
                                                                     borderRadius:
                                                                         BorderRadius.circular(
-                                                                            1.0),
+                                                                            2.0),
                                                                   ),
                                                                   child: Row(
                                                                     mainAxisSize:
@@ -474,51 +455,59 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                                                               MainAxisAlignment
                                                                   .end,
                                                           children: [
-                                                            Expanded(
-                                                              child: Container(
-                                                                width: 104.0,
-                                                                height: 36.0,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Color(
-                                                                      0x005450E2),
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              2.0),
-                                                                  border: Border
-                                                                      .all(
+                                                            Container(
+                                                              width: 130.0,
+                                                              height: 36.0,
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: Color(
+                                                                    0x005450E2),
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            2.0),
+                                                                border:
+                                                                    Border.all(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                ),
+                                                              ),
+                                                              child: Row(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .center,
+                                                                children: [
+                                                                  Icon(
+                                                                    Icons
+                                                                        .print_outlined,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
                                                                         .primary,
+                                                                    size: 18.0,
                                                                   ),
-                                                                ),
-                                                                child: Row(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .center,
-                                                                  children: [
-                                                                    Text(
-                                                                      'Print',
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                'Lato',
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primary,
-                                                                            fontSize:
-                                                                                14.0,
-                                                                            fontWeight:
-                                                                                FontWeight.w500,
-                                                                          ),
-                                                                    ),
-                                                                  ],
-                                                                ),
+                                                                  Text(
+                                                                    'Print',
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          fontFamily:
+                                                                              'Lato',
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primary,
+                                                                          fontSize:
+                                                                              14.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ].divide(SizedBox(
+                                                                    width:
+                                                                        8.0)),
                                                               ),
                                                             ),
                                                             if (functions
@@ -592,7 +581,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                                     ],
                                   ),
                                   Divider(
-                                    height: 20.0,
+                                    height: 15.0,
                                     thickness: 1.0,
                                     color: Color(0x2457636C),
                                   ),
@@ -605,6 +594,16 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                     },
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavBarWidget(),
+                  ),
+                ],
               ),
             ],
           ),

@@ -44,7 +44,7 @@ class _BadgesHeaderWidgetState extends State<BadgesHeaderWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 5.0, 0.0, 0.0),
       child: Row(
         mainAxisSize: MainAxisSize.max,
         children: [

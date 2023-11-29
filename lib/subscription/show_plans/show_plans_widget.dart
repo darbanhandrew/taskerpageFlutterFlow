@@ -189,7 +189,8 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                                   BoxShadow(
                                                     blurRadius: 4.0,
                                                     color: Color(0x33000000),
-                                                    offset: Offset(0.0, 2.0),
+                                                    offset: Offset(0.0, 1.0),
+                                                    spreadRadius: 1.0,
                                                   )
                                                 ],
                                                 borderRadius:
@@ -224,7 +225,9 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                                                   offset:
                                                                       Offset(
                                                                           0.0,
-                                                                          2.0),
+                                                                          1.0),
+                                                                  spreadRadius:
+                                                                      1.0,
                                                                 )
                                                               ],
                                                               borderRadius:
@@ -793,7 +796,7 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                               Container(
                                 decoration: BoxDecoration(
                                   color: Color(0xFFEBEBEB),
-                                  borderRadius: BorderRadius.circular(5.0),
+                                  borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -819,7 +822,8 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                             0.0, 0.0, 9.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF00C661),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
                                           ),
@@ -847,7 +851,8 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                             0.0, 0.0, 12.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF00C661),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
                                           ),
@@ -875,7 +880,8 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                             0.0, 0.0, 8.0, 0.0),
                                         child: Container(
                                           decoration: BoxDecoration(
-                                            color: Color(0xFF00C661),
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
                                             borderRadius:
                                                 BorderRadius.circular(15.0),
                                           ),

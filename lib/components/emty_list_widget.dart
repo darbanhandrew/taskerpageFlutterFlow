@@ -91,23 +91,14 @@ class _EmtyListWidgetState extends State<EmtyListWidget> {
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              if (widget.iconShow ?? true)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 6.0, 0.0),
-                                  child: Icon(
-                                    Icons.info_outlined,
-                                    color: Color(0xFFD20202),
-                                    size: 20.0,
-                                  ),
-                                ),
                               Text(
                                 widget.text!,
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
                                       fontFamily: 'Lato',
-                                      color: Color(0xFFD20202),
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
                                       fontSize: 14.0,
                                       fontWeight: FontWeight.w500,
                                     ),

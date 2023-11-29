@@ -89,7 +89,7 @@ class _DrawerCardWidgetState extends State<DrawerCardWidget> {
                     fontWeight: FontWeight.w500,
                   ),
             ),
-          ].divide(SizedBox(height: 4.3)),
+          ].divide(SizedBox(height: 6.0)),
         ),
       ),
     );

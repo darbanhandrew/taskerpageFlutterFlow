@@ -61,7 +61,7 @@ class _ChatMessageActionsWidgetState extends State<ChatMessageActionsWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(12.0, 8.0, 0.0, 0.0),
+      padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
       child: Builder(
         builder: (context) {
           final possibleTransitions = widget.parameter2?.toList() ?? [];

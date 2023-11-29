@@ -207,7 +207,7 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                       fontWeight: FontWeight.w500,
                                     ),
                               ),
-                              Flexible(
+                              Expanded(
                                 child: Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       13.0, 0.0, 0.0, 0.0),
@@ -216,47 +216,54 @@ class _SkillCardWidgetState extends State<SkillCardWidget> {
                                       final skills = widget.userService?.skills
                                               ?.toList() ??
                                           [];
-                                      return Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        children: List.generate(skills.length,
-                                            (skillsIndex) {
-                                          final skillsItem =
-                                              skills[skillsIndex];
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFD4D4D4),
-                                              borderRadius:
-                                                  BorderRadius.circular(2.0),
-                                            ),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      5.0, 3.0, 10.0, 3.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    skillsItem.skillName,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 13.0,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                        ),
-                                                  ),
-                                                ],
+                                      return SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: List.generate(skills.length,
+                                              (skillsIndex) {
+                                            final skillsItem =
+                                                skills[skillsIndex];
+                                            return Container(
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFD4D4D4),
+                                                borderRadius:
+                                                    BorderRadius.circular(2.0),
                                               ),
-                                            ),
-                                          );
-                                        }).divide(SizedBox(width: 8.0)),
+                                              child: Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        5.0, 3.0, 10.0, 3.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      skillsItem.skillName,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyMedium
+                                                              .override(
+                                                                fontFamily:
+                                                                    'Lato',
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .alternate,
+                                                                fontSize: 13.0,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .normal,
+                                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            );
+                                          }).divide(SizedBox(width: 8.0)),
+                                        ),
                                       );
                                     },
                                   ),

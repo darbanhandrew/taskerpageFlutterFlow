@@ -44,7 +44,7 @@ class _SideBarRightWidgetState extends State<SideBarRightWidget> {
     context.watch<FFAppState>();
 
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(14.0, 10.0, 90.0, 30.0),
+      padding: EdgeInsetsDirectional.fromSTEB(14.0, 0.0, 90.0, 30.0),
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -54,8 +54,7 @@ class _SideBarRightWidgetState extends State<SideBarRightWidget> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(10.0, 10.0, 10.0, 0.0),
+                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 5.0, 10.0, 0.0),
                   child: Container(
                     width: 240.0,
                     height: 300.0,

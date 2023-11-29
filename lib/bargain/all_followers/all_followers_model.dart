@@ -1,5 +1,8 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/navigate_back_widget.dart';
+import '/components/header_web_widget.dart';
+import '/components/nav_bar_widget.dart';
+import '/components/side_bar_left_network_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -15,18 +18,38 @@ class AllFollowersModel extends FlutterFlowModel<AllFollowersWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Model for NavigateBack component.
-  late NavigateBackModel navigateBackModel;
+  // Model for Header_web component.
+  late HeaderWebModel headerWebModel;
+  // Model for sideBar_left_Network component.
+  late SideBarLeftNetworkModel sideBarLeftNetworkModel;
+  // State field(s) for TextField widget.
+  FocusNode? textFieldFocusNode;
+  TextEditingController? textController;
+  String? Function(BuildContext, String?)? textControllerValidator;
+  // Model for NavBar component.
+  late NavBarModel navBarModel;
+  // Model for sideBar_Right component.
+  late SideBarRightModel sideBarRightModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    navigateBackModel = createModel(context, () => NavigateBackModel());
+    headerWebModel = createModel(context, () => HeaderWebModel());
+    sideBarLeftNetworkModel =
+        createModel(context, () => SideBarLeftNetworkModel());
+    navBarModel = createModel(context, () => NavBarModel());
+    sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    navigateBackModel.dispose();
+    headerWebModel.dispose();
+    sideBarLeftNetworkModel.dispose();
+    textFieldFocusNode?.dispose();
+    textController?.dispose();
+
+    navBarModel.dispose();
+    sideBarRightModel.dispose();
   }
 
   /// Action blocks are added here.

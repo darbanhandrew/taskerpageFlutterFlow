@@ -4,7 +4,6 @@ import '/components/appointment_card_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'chat_message_widget.dart' show ChatMessageWidget;
 import 'package:flutter/material.dart';

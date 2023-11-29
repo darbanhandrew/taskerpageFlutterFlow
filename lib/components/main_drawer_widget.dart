@@ -1,5 +1,6 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/drawer_card_widget.dart';
+import '/components/visit_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
@@ -9,6 +10,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:webviewx_plus/webviewx_plus.dart';
 import 'main_drawer_model.dart';
 export 'main_drawer_model.dart';
 
@@ -90,6 +92,7 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                         Row(
                           mainAxisSize: MainAxisSize.max,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Column(
                               mainAxisSize: MainAxisSize.max,
@@ -638,7 +641,24 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                           color: Color(0xFF494949),
                                           size: 25.0,
                                         ),
-                                        clickAction: () async {},
+                                        clickAction: () async {
+                                          await showModalBottomSheet(
+                                            isScrollControlled: true,
+                                            backgroundColor: Colors.transparent,
+                                            enableDrag: false,
+                                            context: context,
+                                            builder: (context) {
+                                              return WebViewAware(
+                                                  child: Padding(
+                                                padding:
+                                                    MediaQuery.viewInsetsOf(
+                                                        context),
+                                                child: VisitCardWidget(),
+                                              ));
+                                            },
+                                          ).then(
+                                              (value) => safeSetState(() {}));
+                                        },
                                       ),
                                     ),
                                   ),

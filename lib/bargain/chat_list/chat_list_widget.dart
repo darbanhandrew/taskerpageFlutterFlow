@@ -1,7 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
-import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -76,6 +76,9 @@ class _ChatListWidgetState extends State<ChatListWidget> {
       await _model.waitForApiRequestCompleted3();
     });
 
+    _model.textController ??= TextEditingController();
+    _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -126,13 +129,82 @@ class _ChatListWidgetState extends State<ChatListWidget> {
               Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  wrapWithModel(
-                    model: _model.headerModel,
-                    updateCallback: () => setState(() {}),
-                    child: HeaderWidget(
-                      openDrawer: () async {
-                        scaffoldKey.currentState!.openEndDrawer();
-                      },
+                  Expanded(
+                    child: Container(
+                      width: 100.0,
+                      height: 60.0,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  27.0, 0.0, 32.0, 0.0),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      context.pushNamed('User_profile');
+                                    },
+                                    child: Icon(
+                                      Icons.keyboard_arrow_left,
+                                      color: FlutterFlowTheme.of(context)
+                                          .alternate,
+                                      size: 20.0,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        4.0, 0.0, 0.0, 0.0),
+                                    child: InkWell(
+                                      splashColor: Colors.transparent,
+                                      focusColor: Colors.transparent,
+                                      hoverColor: Colors.transparent,
+                                      highlightColor: Colors.transparent,
+                                      onTap: () async {
+                                        context.pushNamed('User_profile');
+                                      },
+                                      child: Text(
+                                        'Back to dashboard ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .alternate,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Divider(
+                                height: 0.0,
+                                thickness: 1.0,
+                                color: Color(0xFFD2D2D2),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -353,7 +425,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                     },
                   ),
                 ),
-              if (widget.task! > 0)
+              if (false)
                 Divider(
                   height: 0.0,
                   thickness: 1.0,
@@ -367,135 +439,31 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     borderRadius: BorderRadius.circular(0.0),
                   ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(32.0, 20.0, 32.0, 0.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        if (false)
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                'Users related to this post',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    8.0, 0.0, 0.0, 0.0),
-                                child: FutureBuilder<ApiCallResponse>(
-                                  future: (_model.apiRequestCompleter1 ??=
-                                          Completer<ApiCallResponse>()
-                                            ..complete(TaskerpageBackendGroup
-                                                .getMyTasksGroupByCall
-                                                .call(
-                                              filters:
-                                                  '[[\"customer_task\",\"=\",\"${_model.taskID?.toString()}\"]]',
-                                              fields:
-                                                  '[\"customer_task\",\"user\"]',
-                                              orderBy: 'creation desc',
-                                              limitStart: 0,
-                                              limit: 100,
-                                              apiGlobalKey: FFAppState().apiKey,
-                                            )))
-                                      .future,
-                                  builder: (context, snapshot) {
-                                    // Customize what your widget looks like when it's loading.
-                                    if (!snapshot.hasData) {
-                                      return Center(
-                                        child: SizedBox(
-                                          width: 35.0,
-                                          height: 35.0,
-                                          child: SpinKitThreeBounce(
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            size: 35.0,
-                                          ),
-                                        ),
-                                      );
-                                    }
-                                    final containerGetMyTasksGroupByResponse =
-                                        snapshot.data!;
-                                    return Container(
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .tertiary,
-                                        boxShadow: [
-                                          BoxShadow(
-                                            blurRadius: 4.0,
-                                            color: Color(0x33000000),
-                                            offset: Offset(0.0, 2.0),
-                                          )
-                                        ],
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 8.0, 8.0, 8.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Text(
-                                              functions
-                                                  .numberofListitems(
-                                                      (TaskerpageBackendGroup
-                                                              .getMyTasksGroupByCall
-                                                              .users(
-                                                    containerGetMyTasksGroupByResponse
-                                                        .jsonBody,
-                                                  ) as List)
-                                                          .map<String>((s) =>
-                                                              s.toString())
-                                                          .toList()
-                                                          ?.map((e) =>
-                                                              e.toString())
-                                                          .toList()
-                                                          ?.toList())
-                                                  .toString(),
-                                              style:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Lato',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .alternate,
-                                                        fontSize: 10.0,
-                                                      ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        Container(
-                          width: double.infinity,
-                          decoration: BoxDecoration(
-                            color: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                          ),
-                          child: Visibility(
-                            visible: false,
-                            child: Padding(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (false)
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Users related to this post',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color:
+                                        FlutterFlowTheme.of(context).secondary,
+                                    fontSize: 14.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Padding(
                               padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 15.0, 0.0, 0.0),
+                                  8.0, 0.0, 0.0, 0.0),
                               child: FutureBuilder<ApiCallResponse>(
-                                future: (_model.apiRequestCompleter4 ??=
+                                future: (_model.apiRequestCompleter1 ??=
                                         Completer<ApiCallResponse>()
                                           ..complete(TaskerpageBackendGroup
                                               .getMyTasksGroupByCall
@@ -525,233 +493,88 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                       ),
                                     );
                                   }
-                                  final rowGetMyTasksGroupByResponse =
+                                  final containerGetMyTasksGroupByResponse =
                                       snapshot.data!;
-                                  return Builder(
-                                    builder: (context) {
-                                      final usersThisPost = getJsonField(
-                                        rowGetMyTasksGroupByResponse.jsonBody,
-                                        r'''$.data''',
-                                      ).toList();
-                                      return SingleChildScrollView(
-                                        scrollDirection: Axis.horizontal,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: List.generate(
-                                              usersThisPost.length,
-                                              (usersThisPostIndex) {
-                                            final usersThisPostItem =
-                                                usersThisPost[
-                                                    usersThisPostIndex];
-                                            return Stack(
-                                              alignment: AlignmentDirectional(
-                                                  1.0, 1.0),
-                                              children: [
-                                                FutureBuilder<ApiCallResponse>(
-                                                  future: TaskerpageBackendGroup
-                                                      .readByEmailCall
-                                                      .call(
-                                                    filters:
-                                                        '[[\"user\",\"=\",\"${getJsonField(
-                                                      usersThisPostItem,
-                                                      r'''$.user''',
-                                                    ).toString()}\"]]',
-                                                    fields: '[\"avatar\"]',
-                                                    apiGlobalKey:
-                                                        FFAppState().apiKey,
-                                                  ),
-                                                  builder: (context, snapshot) {
-                                                    // Customize what your widget looks like when it's loading.
-                                                    if (!snapshot.hasData) {
-                                                      return Center(
-                                                        child: SizedBox(
-                                                          width: 35.0,
-                                                          height: 35.0,
-                                                          child:
-                                                              SpinKitThreeBounce(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primary,
-                                                            size: 35.0,
-                                                          ),
-                                                        ),
-                                                      );
-                                                    }
-                                                    final circleImageReadByEmailResponse =
-                                                        snapshot.data!;
-                                                    return Container(
-                                                      width: 50.0,
-                                                      height: 50.0,
-                                                      clipBehavior:
-                                                          Clip.antiAlias,
-                                                      decoration: BoxDecoration(
-                                                        shape: BoxShape.circle,
-                                                      ),
-                                                      child: Image.network(
-                                                        '${FFAppState().baseUrl}${TaskerpageBackendGroup.readByEmailCall.avatar(
-                                                              circleImageReadByEmailResponse
-                                                                  .jsonBody,
-                                                            ).toString()}',
-                                                        fit: BoxFit.cover,
-                                                      ),
-                                                    );
-                                                  },
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 8.0, 8.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            functions
+                                                .numberofListitems(
+                                                    (TaskerpageBackendGroup
+                                                            .getMyTasksGroupByCall
+                                                            .users(
+                                                  containerGetMyTasksGroupByResponse
+                                                      .jsonBody,
+                                                ) as List)
+                                                        .map<String>(
+                                                            (s) => s.toString())
+                                                        .toList()
+                                                        ?.map(
+                                                            (e) => e.toString())
+                                                        .toList()
+                                                        ?.toList())
+                                                .toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  fontSize: 10.0,
                                                 ),
-                                                Container(
-                                                  width: 13.0,
-                                                  height: 13.0,
-                                                  decoration: BoxDecoration(
-                                                    color: Color(0xFF71DD3A),
-                                                    shape: BoxShape.circle,
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            );
-                                          }).divide(SizedBox(width: 13.0)),
-                                        ),
-                                      );
-                                    },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   );
                                 },
                               ),
                             ),
-                          ),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 25.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                widget.task != null ? 'Chats related' : 'Chats',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondary,
-                                      fontSize: 14.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                              ),
-                              if (false)
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      8.0, 0.0, 0.0, 0.0),
-                                  child: FutureBuilder<ApiCallResponse>(
-                                    future: (_model.apiRequestCompleter2 ??=
-                                            Completer<ApiCallResponse>()
-                                              ..complete(TaskerpageBackendGroup
-                                                  .chatListCall
-                                                  .call(
-                                                user: getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.user''',
-                                                ).toString(),
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
-                                                task: _model.taskID,
-                                              )))
-                                        .future,
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 35.0,
-                                            height: 35.0,
-                                            child: SpinKitThreeBounce(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primary,
-                                              size: 35.0,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      final containerChatListResponse =
-                                          snapshot.data!;
-                                      return Container(
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .tertiary,
-                                          boxShadow: [
-                                            BoxShadow(
-                                              blurRadius: 4.0,
-                                              color: Color(0x33000000),
-                                              offset: Offset(0.0, 2.0),
-                                            )
-                                          ],
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  8.0, 8.0, 8.0, 8.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                functions
-                                                    .numberofListitems(
-                                                        (TaskerpageBackendGroup
-                                                                .chatListCall
-                                                                .name(
-                                                      containerChatListResponse
-                                                          .jsonBody,
-                                                    ) as List)
-                                                            .map<String>((s) =>
-                                                                s.toString())
-                                                            .toList()
-                                                            ?.toList())
-                                                    .toString(),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .bodyMedium
-                                                        .override(
-                                                          fontFamily: 'Lato',
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .alternate,
-                                                          fontSize: 10.0,
-                                                        ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                            ],
-                          ),
+                      Container(
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color:
+                              FlutterFlowTheme.of(context).secondaryBackground,
                         ),
-                        Expanded(
+                        child: Visibility(
+                          visible: false,
                           child: Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 15.0, 0.0, 20.0),
+                                0.0, 15.0, 0.0, 0.0),
                             child: FutureBuilder<ApiCallResponse>(
-                              future: (_model.apiRequestCompleter3 ??=
+                              future: (_model.apiRequestCompleter4 ??=
                                       Completer<ApiCallResponse>()
                                         ..complete(TaskerpageBackendGroup
-                                            .chatListCall
+                                            .getMyTasksGroupByCall
                                             .call(
-                                          user: getJsonField(
-                                            FFAppState().userProfile,
-                                            r'''$.data.user''',
-                                          ).toString(),
+                                          filters:
+                                              '[[\"customer_task\",\"=\",\"${_model.taskID?.toString()}\"]]',
+                                          fields:
+                                              '[\"customer_task\",\"user\"]',
+                                          orderBy: 'creation desc',
+                                          limitStart: 0,
+                                          limit: 100,
                                           apiGlobalKey: FFAppState().apiKey,
-                                          task: valueOrDefault<int>(
-                                            widget.task,
-                                            0,
-                                          ),
                                         )))
                                   .future,
                               builder: (context, snapshot) {
@@ -769,35 +592,460 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                     ),
                                   );
                                 }
-                                final listViewChatListResponse = snapshot.data!;
+                                final rowGetMyTasksGroupByResponse =
+                                    snapshot.data!;
                                 return Builder(
                                   builder: (context) {
-                                    final myChats = functions
-                                        .convertMap(
-                                            TaskerpageBackendGroup.chatListCall
-                                                .chatListJson(
-                                                  listViewChatListResponse
+                                    final usersThisPost = getJsonField(
+                                      rowGetMyTasksGroupByResponse.jsonBody,
+                                      r'''$.data''',
+                                    ).toList();
+                                    return SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children:
+                                            List.generate(usersThisPost.length,
+                                                (usersThisPostIndex) {
+                                          final usersThisPostItem =
+                                              usersThisPost[usersThisPostIndex];
+                                          return Stack(
+                                            alignment:
+                                                AlignmentDirectional(1.0, 1.0),
+                                            children: [
+                                              FutureBuilder<ApiCallResponse>(
+                                                future: TaskerpageBackendGroup
+                                                    .readByEmailCall
+                                                    .call(
+                                                  filters:
+                                                      '[[\"user\",\"=\",\"${getJsonField(
+                                                    usersThisPostItem,
+                                                    r'''$.user''',
+                                                  ).toString()}\"]]',
+                                                  fields: '[\"avatar\"]',
+                                                  apiGlobalKey:
+                                                      FFAppState().apiKey,
+                                                ),
+                                                builder: (context, snapshot) {
+                                                  // Customize what your widget looks like when it's loading.
+                                                  if (!snapshot.hasData) {
+                                                    return Center(
+                                                      child: SizedBox(
+                                                        width: 35.0,
+                                                        height: 35.0,
+                                                        child:
+                                                            SpinKitThreeBounce(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 35.0,
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }
+                                                  final circleImageReadByEmailResponse =
+                                                      snapshot.data!;
+                                                  return Container(
+                                                    width: 50.0,
+                                                    height: 50.0,
+                                                    clipBehavior:
+                                                        Clip.antiAlias,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: Image.network(
+                                                      '${FFAppState().baseUrl}${TaskerpageBackendGroup.readByEmailCall.avatar(
+                                                            circleImageReadByEmailResponse
+                                                                .jsonBody,
+                                                          ).toString()}',
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                              Container(
+                                                width: 13.0,
+                                                height: 13.0,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF71DD3A),
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        }).divide(SizedBox(width: 13.0)),
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            32.0, 8.0, 32.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Messaning',
+                              style: FlutterFlowTheme.of(context)
+                                  .bodyMedium
+                                  .override(
+                                    fontFamily: 'Lato',
+                                    color:
+                                        FlutterFlowTheme.of(context).alternate,
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                            ),
+                            Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  8.0, 0.0, 0.0, 0.0),
+                              child: FutureBuilder<ApiCallResponse>(
+                                future: (_model.apiRequestCompleter2 ??=
+                                        Completer<ApiCallResponse>()
+                                          ..complete(TaskerpageBackendGroup
+                                              .chatListCall
+                                              .call(
+                                            user: getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.user''',
+                                            ).toString(),
+                                            apiGlobalKey: FFAppState().apiKey,
+                                            task: _model.taskID,
+                                          )))
+                                    .future,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 35.0,
+                                        height: 35.0,
+                                        child: SpinKitThreeBounce(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          size: 35.0,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  final containerChatListResponse =
+                                      snapshot.data!;
+                                  return Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          blurRadius: 4.0,
+                                          color: Color(0x33000000),
+                                          offset: Offset(0.0, 2.0),
+                                        )
+                                      ],
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          8.0, 8.0, 8.0, 8.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            functions
+                                                .numberofListitems(
+                                                    (TaskerpageBackendGroup
+                                                            .chatListCall
+                                                            .name(
+                                                  containerChatListResponse
                                                       .jsonBody,
-                                                )!
-                                                .toList())
-                                        .map((e) => e != null && e != ''
-                                            ? ChatRoomStruct.fromMap(e)
-                                            : null)
-                                        .withoutNulls
-                                        .toList();
-                                    return ListView.builder(
-                                      padding: EdgeInsets.zero,
-                                      primary: false,
-                                      shrinkWrap: true,
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: myChats.length,
-                                      itemBuilder: (context, myChatsIndex) {
-                                        final myChatsItem =
-                                            myChats[myChatsIndex];
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            InkWell(
+                                                ) as List)
+                                                        .map<String>(
+                                                            (s) => s.toString())
+                                                        .toList()
+                                                        ?.toList())
+                                                .toString(),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyMedium
+                                                .override(
+                                                  fontFamily: 'Lato',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .alternate,
+                                                  fontSize: 10.0,
+                                                ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(0.0),
+                                    child: Image.asset(
+                                      'assets/images/Mask_Group_571.png',
+                                      width: 20.0,
+                                      height: 20.0,
+                                      fit: BoxFit.none,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 14.0, 0.0, 0.0),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Container(
+                                width: 100.0,
+                                height: 50.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFF9F9F9),
+                                ),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Divider(
+                                      height: 0.0,
+                                      thickness: 1.0,
+                                      color: Color(0xFFDEDEDE),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          32.0, 0.0, 32.0, 0.0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Container(
+                                            width: 169.0,
+                                            child: TextFormField(
+                                              controller: _model.textController,
+                                              focusNode:
+                                                  _model.textFieldFocusNode,
+                                              obscureText: false,
+                                              decoration: InputDecoration(
+                                                isDense: true,
+                                                labelStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium,
+                                                hintText: 'Search messages',
+                                                hintStyle:
+                                                    FlutterFlowTheme.of(context)
+                                                        .labelMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color:
+                                                              Color(0xFFD2D2D2),
+                                                          fontWeight:
+                                                              FontWeight.w500,
+                                                        ),
+                                                enabledBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: Color(0xFFDEDEDE),
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                                focusedBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                                errorBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                                focusedErrorBorder:
+                                                    UnderlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .error,
+                                                    width: 1.0,
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          0.0),
+                                                ),
+                                                contentPadding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            0.0, 0.0, 0.0, 8.0),
+                                              ),
+                                              style: FlutterFlowTheme.of(
+                                                      context)
+                                                  .bodyMedium
+                                                  .override(
+                                                    fontFamily: 'Lato',
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .alternate,
+                                                    fontSize: 14.0,
+                                                    fontWeight: FontWeight.w500,
+                                                  ),
+                                              textAlign: TextAlign.start,
+                                              cursorColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondary,
+                                              validator: _model
+                                                  .textControllerValidator
+                                                  .asValidator(context),
+                                            ),
+                                          ),
+                                          Expanded(
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                Text(
+                                                  'All',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .alternate,
+                                                        fontSize: 14.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                                ),
+                                                Icon(
+                                                  Icons.filter_list,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 24.0,
+                                                ),
+                                              ].divide(SizedBox(width: 11.0)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Divider(
+                                      height: 0.0,
+                                      thickness: 1.0,
+                                      color: Color(0xFFDEDEDE),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        child: FutureBuilder<ApiCallResponse>(
+                          future: (_model.apiRequestCompleter3 ??= Completer<
+                                  ApiCallResponse>()
+                                ..complete(
+                                    TaskerpageBackendGroup.chatListCall.call(
+                                  user: getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.user''',
+                                  ).toString(),
+                                  apiGlobalKey: FFAppState().apiKey,
+                                  task: valueOrDefault<int>(
+                                    widget.task,
+                                    0,
+                                  ),
+                                )))
+                              .future,
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 35.0,
+                                  height: 35.0,
+                                  child: SpinKitThreeBounce(
+                                    color: FlutterFlowTheme.of(context).primary,
+                                    size: 35.0,
+                                  ),
+                                ),
+                              );
+                            }
+                            final listViewChatListResponse = snapshot.data!;
+                            return Builder(
+                              builder: (context) {
+                                final myChats = functions
+                                    .convertMap(
+                                        TaskerpageBackendGroup.chatListCall
+                                            .chatListJson(
+                                              listViewChatListResponse.jsonBody,
+                                            )!
+                                            .toList())
+                                    .map((e) => e != null && e != ''
+                                        ? ChatRoomStruct.fromMap(e)
+                                        : null)
+                                    .withoutNulls
+                                    .toList();
+                                return ListView.builder(
+                                  padding: EdgeInsets.zero,
+                                  primary: false,
+                                  shrinkWrap: true,
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: myChats.length,
+                                  itemBuilder: (context, myChatsIndex) {
+                                    final myChatsItem = myChats[myChatsIndex];
+                                    return Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 15.0, 0.0, 0.0),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    32.0, 0.0, 32.0, 20.0),
+                                            child: InkWell(
                                               splashColor: Colors.transparent,
                                               focusColor: Colors.transparent,
                                               hoverColor: Colors.transparent,
@@ -992,8 +1240,8 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                                               Padding(
                                                                                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 8.0, 0.0),
                                                                                 child: Container(
-                                                                                  width: 10.0,
-                                                                                  height: 10.0,
+                                                                                  width: 7.0,
+                                                                                  height: 7.0,
                                                                                   decoration: BoxDecoration(
                                                                                     color: FlutterFlowTheme.of(context).primary,
                                                                                     shape: BoxShape.circle,
@@ -1023,25 +1271,35 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                 ],
                                               ),
                                             ),
-                                            Divider(
-                                              height: 26.0,
-                                              thickness: 1.0,
-                                              color: Color(0xFFDEDEDE),
-                                            ),
-                                          ],
-                                        );
-                                      },
+                                          ),
+                                          Divider(
+                                            height: 0.0,
+                                            thickness: 1.0,
+                                            color: Color(0xFFDEDEDE),
+                                          ),
+                                        ],
+                                      ),
                                     );
                                   },
                                 );
                               },
-                            ),
-                          ),
+                            );
+                          },
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavBarWidget(),
+                  ),
+                ],
               ),
             ],
           ),

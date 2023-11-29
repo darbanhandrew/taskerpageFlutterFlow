@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/components/navigate_back_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -60,7 +61,7 @@ class _IssueListWidgetState extends State<IssueListWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
           child: WebViewAware(
@@ -93,14 +94,14 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                   model: _model.navigateBackModel,
                   updateCallback: () => setState(() {}),
                   child: NavigateBackWidget(
-                    text: 'Ticket list',
+                    text: 'Back to dashbord',
                   ),
                 ),
               ),
               Expanded(
                 child: Padding(
                   padding:
-                      EdgeInsetsDirectional.fromSTEB(32.0, 15.0, 32.0, 32.0),
+                      EdgeInsetsDirectional.fromSTEB(32.0, 10.0, 32.0, 32.0),
                   child: FutureBuilder<ApiCallResponse>(
                     future: TaskerpageBackendGroup.issueListCall.call(
                       filters: '[[\"customer_profile\",\"=\",\"${getJsonField(
@@ -153,7 +154,7 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                                             )
                                           ],
                                           borderRadius:
-                                              BorderRadius.circular(1.0),
+                                              BorderRadius.circular(2.0),
                                         ),
                                         child: Padding(
                                           padding:
@@ -178,7 +179,7 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                                                         shape: BoxShape.circle,
                                                       ),
                                                       child: Image.asset(
-                                                        'assets/images/Search___LogoLounge_Logo_Design_Inspiration_and_Logo_Design_Competition.jfif',
+                                                        'assets/images/Group_2176.png',
                                                         fit: BoxFit.contain,
                                                       ),
                                                     ),
@@ -284,7 +285,7 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                                     ),
                                   ],
                                 );
-                              }).divide(SizedBox(height: 15.0)),
+                              }).divide(SizedBox(height: 8.0)),
                             ),
                           );
                         },
@@ -292,6 +293,16 @@ class _IssueListWidgetState extends State<IssueListWidget> {
                     },
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavBarWidget(),
+                  ),
+                ],
               ),
             ],
           ),

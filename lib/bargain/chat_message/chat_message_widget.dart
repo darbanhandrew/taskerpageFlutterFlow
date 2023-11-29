@@ -4,7 +4,6 @@ import '/components/appointment_card_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -100,7 +99,7 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
       children: [
         if (widget.chatMessage?.hasHeader() ?? true)
           Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
+            padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
             child: Row(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -171,8 +170,8 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                         padding:
                             EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 0.0, 0.0),
                         child: Container(
-                          width: 40.0,
-                          height: 40.0,
+                          width: 46.0,
+                          height: 46.0,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
@@ -355,77 +354,38 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                               }
                               final containerUserProfileReadResponse =
                                   snapshot.data!;
-                              return InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await actions.downloadVCard(
-                                    functions.createVCardString(
-                                        '${getJsonField(
-                                          containerUserProfileReadResponse
-                                              .jsonBody,
-                                          r'''$.data.first_name''',
-                                        ).toString()} ${getJsonField(
-                                          containerUserProfileReadResponse
-                                              .jsonBody,
-                                          r'''$.data.last_name''',
-                                        ).toString()}',
-                                        getJsonField(
-                                          containerUserProfileReadResponse
-                                              .jsonBody,
-                                          r'''$.data.phone_number''',
-                                        ).toString(),
-                                        getJsonField(
-                                          containerUserProfileReadResponse
-                                              .jsonBody,
-                                          r'''$.data.user''',
-                                        ).toString())!,
-                                    '${getJsonField(
-                                      containerUserProfileReadResponse.jsonBody,
-                                      r'''$.data.first_name''',
-                                    ).toString()} ${getJsonField(
-                                      containerUserProfileReadResponse.jsonBody,
-                                      r'''$.data.last_name''',
-                                    ).toString()}.vcf',
-                                  );
-                                },
-                                child: Container(
-                                  width: 100.0,
-                                  height: 26.0,
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryBackground,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                    border: Border.all(
-                                      color:
-                                          FlutterFlowTheme.of(context).primary,
-                                    ),
+                              return Container(
+                                width: 100.0,
+                                height: 26.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  border: Border.all(
+                                    color: FlutterFlowTheme.of(context).primary,
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        8.0, 0.0, 8.0, 0.0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          'Add to contact',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: 'Lato',
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                fontSize: 11.5,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                        ),
-                                      ],
-                                    ),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 8.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Add to contact',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primary,
+                                              fontSize: 11.5,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               );
@@ -541,8 +501,8 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                     padding:
                         EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
                     child: Container(
-                      width: 40.0,
-                      height: 40.0,
+                      width: 46.0,
+                      height: 46.0,
                       clipBehavior: Clip.antiAlias,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,

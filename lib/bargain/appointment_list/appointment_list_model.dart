@@ -2,8 +2,11 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/aler_modal_massage_accept_appointment_widget.dart';
 import '/components/aler_modal_massage_reject_appointment_widget.dart';
 import '/components/appointment_card_widget.dart';
+import '/components/header_web_widget.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/nav_bar_widget.dart';
+import '/components/side_bar_left_appointment_widget.dart';
+import '/components/side_bar_right_widget.dart';
 import '/components/user_rate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -30,9 +33,17 @@ class AppointmentListModel extends FlutterFlowModel<AppointmentListWidget> {
   void updateCheckReviewAtIndex(int index, Function(String) updateFn) =>
       checkReview[index] = updateFn(checkReview[index]);
 
+  DateTime? selectDate;
+
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for Header_web component.
+  late HeaderWebModel headerWebModel;
+  // Model for sideBar_left_Appointment component.
+  late SideBarLeftAppointmentModel sideBarLeftAppointmentModel;
   DateTime? datePicked;
   // State field(s) for TabBar widget.
   TabController? tabBarController;
@@ -43,21 +54,28 @@ class AppointmentListModel extends FlutterFlowModel<AppointmentListWidget> {
   ApiCallResponse? review;
   // Model for NavBar component.
   late NavBarModel navBarModel;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
+  // Model for sideBar_Right component.
+  late SideBarRightModel sideBarRightModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    navBarModel = createModel(context, () => NavBarModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
+    headerWebModel = createModel(context, () => HeaderWebModel());
+    sideBarLeftAppointmentModel =
+        createModel(context, () => SideBarLeftAppointmentModel());
+    navBarModel = createModel(context, () => NavBarModel());
+    sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    headerWebModel.dispose();
+    sideBarLeftAppointmentModel.dispose();
     tabBarController?.dispose();
     navBarModel.dispose();
-    mainDrawerModel.dispose();
+    sideBarRightModel.dispose();
   }
 
   /// Action blocks are added here.

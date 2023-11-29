@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
-import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -131,25 +130,12 @@ class _Test2WidgetState extends State<Test2Widget> {
                     itemCount: chatRooms.length,
                     itemBuilder: (context, chatRoomsIndex) {
                       final chatRoomsItem = chatRooms[chatRoomsIndex];
-                      return InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          await actions.downloadVCard(
-                            functions.createVCardString('Mohammad',
-                                '+989129568172', 'darbanhandrew@gmail.com')!,
-                            'vcard.vcf',
-                          );
-                        },
-                        child: Text(
-                          valueOrDefault<String>(
-                            chatRoomsItem.room,
-                            '000',
-                          ),
-                          style: FlutterFlowTheme.of(context).bodyMedium,
+                      return Text(
+                        valueOrDefault<String>(
+                          chatRoomsItem.room,
+                          '000',
                         ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
                       );
                     },
                   );
