@@ -295,7 +295,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                               getJsonField(
                                                                 categorysItem,
                                                                 r'''$[:].icon_url''',
-                                                              ),
+                                                              ).toString(),
                                                               width: 25.0,
                                                               height: 25.0,
                                                               fit: BoxFit.cover,
@@ -1353,7 +1353,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Stack(
                                                         children: [
                                                           Text(
@@ -1376,7 +1376,7 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child: Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional

@@ -154,7 +154,7 @@ class _VisitCardWidgetState extends State<VisitCardWidget> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Stack(
                                 alignment: AlignmentDirectional(0.0, 0.0),
                                 children: [

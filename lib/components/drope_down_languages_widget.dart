@@ -105,7 +105,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
           children: [
             Expanded(
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Stack(
                   children: [
                     InkWell(
@@ -222,7 +222,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(8.0, 7.0, 40.0, 0.0),

@@ -56,7 +56,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
         if (TaskerpageBackendGroup.notificationLogCall
                 .notificationList(
                   (_model.notificationRead?.jsonBody ?? ''),
-                )
+                )!
                 .length >
             0) {
           setState(() {

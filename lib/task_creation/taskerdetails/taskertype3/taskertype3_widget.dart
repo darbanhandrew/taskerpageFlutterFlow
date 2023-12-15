@@ -339,7 +339,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                   ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Switch.adaptive(
                                 value: _model.switchValue1 ??= false,
                                 onChanged: (newValue) async {
@@ -538,7 +538,7 @@ class _Taskertype3WidgetState extends State<Taskertype3Widget>
                                   ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Switch.adaptive(
                                 value: _model.switchValue2 ??= false,
                                 onChanged: (newValue) async {

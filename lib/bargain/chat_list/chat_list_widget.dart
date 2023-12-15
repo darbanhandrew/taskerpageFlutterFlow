@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
 import '/components/nav_bar_widget.dart';
@@ -321,7 +322,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                           children: [
                                             Align(
                                               alignment: AlignmentDirectional(
-                                                  0.00, 0.00),
+                                                  0.0, 0.0),
                                               child: Stack(
                                                 alignment: AlignmentDirectional(
                                                     0.0, 1.0),
@@ -509,8 +510,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [
@@ -755,8 +755,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          8.0, 8.0, 8.0, 8.0),
+                                      padding: EdgeInsets.all(8.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         children: [

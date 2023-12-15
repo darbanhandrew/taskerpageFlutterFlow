@@ -809,7 +809,8 @@ class _OnlineAppointmentDeatelsWidgetState
                                                                     .CopyText =
                                                                 false;
                                                           });
-                                                          null?.cancel();
+                                                          _model.instantTimer
+                                                              ?.cancel();
                                                         },
                                                         startImmediately: false,
                                                       );
@@ -844,7 +845,7 @@ class _OnlineAppointmentDeatelsWidgetState
                               children: [
                                 Expanded(
                                   child: Align(
-                                    alignment: AlignmentDirectional(0.00, 0.00),
+                                    alignment: AlignmentDirectional(0.0, 0.0),
                                     child: Stack(
                                       alignment: AlignmentDirectional(0.0, 0.0),
                                       children: [

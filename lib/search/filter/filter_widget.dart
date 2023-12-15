@@ -212,7 +212,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Switch.adaptive(
                                                         value: _model
                                                                 .switchValue1 ??=
@@ -862,7 +862,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.00, 0.00),
+                                                            0.0, 0.0),
                                                     child: Switch.adaptive(
                                                       value: _model
                                                               .switchValue2 ??=
@@ -1599,7 +1599,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.00, 0.00),
+                                                            0.0, 0.0),
                                                     child: Switch.adaptive(
                                                       value: _model
                                                               .switchValue3 ??=
@@ -1910,7 +1910,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.00, 0.00),
+                                                            0.0, 0.0),
                                                     child: Switch.adaptive(
                                                       value: _model
                                                               .switchValue4 ??=
@@ -2323,7 +2323,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                         Align(
                                                           alignment:
                                                               AlignmentDirectional(
-                                                                  0.00, 0.00),
+                                                                  0.0, 0.0),
                                                           child:
                                                               Switch.adaptive(
                                                             value: _model
@@ -2412,7 +2412,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                                         Align(
                                                           alignment:
                                                               AlignmentDirectional(
-                                                                  0.00, 0.00),
+                                                                  0.0, 0.0),
                                                           child:
                                                               Switch.adaptive(
                                                             value: _model
@@ -2643,7 +2643,7 @@ class _FilterWidgetState extends State<FilterWidget> {
                                       ),
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.00, 0.00),
+                                  alignment: AlignmentDirectional(0.0, 0.0),
                                   child: Switch.adaptive(
                                     value: _model.switchValue7 ??=
                                         FFAppState().taskFilter.onlyOpen,

@@ -118,8 +118,7 @@ class _TextFieldAndTitleWidgetState extends State<TextFieldAndTitleWidget> {
                       ),
                       borderRadius: BorderRadius.circular(2.0),
                     ),
-                    contentPadding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    contentPadding: EdgeInsets.all(16.0),
                   ),
                   style: FlutterFlowTheme.of(context).bodyMedium.override(
                         fontFamily: 'Lato',

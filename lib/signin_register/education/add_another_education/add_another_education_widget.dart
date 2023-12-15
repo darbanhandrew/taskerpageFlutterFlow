@@ -659,9 +659,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       ),
                                       borderRadius: BorderRadius.circular(2.0),
                                     ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 16.0, 16.0),
+                                    contentPadding: EdgeInsets.all(16.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -763,9 +761,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                       ),
                                       borderRadius: BorderRadius.circular(2.0),
                                     ),
-                                    contentPadding:
-                                        EdgeInsetsDirectional.fromSTEB(
-                                            16.0, 16.0, 16.0, 16.0),
+                                    contentPadding: EdgeInsets.all(16.0),
                                   ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
@@ -1404,7 +1400,7 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                           sigmaY: 2.0,
                         ),
                         child: Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Container(
                             width: 269.0,
                             height: 149.0,

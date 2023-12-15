@@ -96,12 +96,12 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
         ),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(2.0, 2.0, 2.0, 2.0),
+        padding: EdgeInsets.all(2.0),
         child: Stack(
           alignment: AlignmentDirectional(0.0, 0.0),
           children: [
             Align(
-              alignment: AlignmentDirectional(-0.90, 0.00),
+              alignment: AlignmentDirectional(-0.9, 0.0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(6.0, 0.0, 0.0, 0.0),
                 child: Icon(
@@ -112,7 +112,7 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
               ),
             ),
             Align(
-              alignment: AlignmentDirectional(1.00, 0.00),
+              alignment: AlignmentDirectional(1.0, 0.0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 6.0, 0.0),
                 child: Icon(
@@ -124,7 +124,7 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
             ),
             if (!true)
               Align(
-                alignment: AlignmentDirectional(1.00, 0.00),
+                alignment: AlignmentDirectional(1.0, 0.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,
@@ -153,7 +153,7 @@ class _DarkLightSwitchSmallWidgetState extends State<DarkLightSwitchSmallWidget>
               ),
             if (false)
               Align(
-                alignment: AlignmentDirectional(-1.00, 0.00),
+                alignment: AlignmentDirectional(-1.0, 0.0),
                 child: InkWell(
                   splashColor: Colors.transparent,
                   focusColor: Colors.transparent,

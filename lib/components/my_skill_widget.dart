@@ -102,7 +102,7 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                         customerProfile: getJsonField(
                           FFAppState().userProfile,
                           r'''$.data.name''',
-                        ),
+                        ).toString(),
                         apiGlobalKey: FFAppState().apiKey,
                       ),
                       builder: (context, snapshot) {

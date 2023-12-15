@@ -801,12 +801,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                               2.0),
                                                     ),
                                                     contentPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                16.0,
-                                                                16.0,
-                                                                16.0,
-                                                                16.0),
+                                                        EdgeInsets.all(16.0),
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -926,9 +921,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                             2.0),
                                                   ),
                                                   contentPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(16.0, 16.0,
-                                                              16.0, 16.0),
+                                                      EdgeInsets.all(16.0),
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -1069,9 +1062,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                             2.0),
                                                   ),
                                                   contentPadding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(16.0, 16.0,
-                                                              16.0, 16.0),
+                                                      EdgeInsets.all(16.0),
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -1194,12 +1185,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                               2.0),
                                                     ),
                                                     contentPadding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(
-                                                                16.0,
-                                                                16.0,
-                                                                16.0,
-                                                                16.0),
+                                                        EdgeInsets.all(16.0),
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -1321,9 +1307,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     BorderRadius.circular(2.0),
                                               ),
                                               contentPadding:
-                                                  EdgeInsetsDirectional
-                                                      .fromSTEB(16.0, 16.0,
-                                                          16.0, 16.0),
+                                                  EdgeInsets.all(16.0),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
@@ -1441,9 +1425,7 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                                                     BorderRadius.circular(2.0),
                                               ),
                                               contentPadding:
-                                                  EdgeInsetsDirectional
-                                                      .fromSTEB(16.0, 16.0,
-                                                          16.0, 16.0),
+                                                  EdgeInsets.all(16.0),
                                             ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium

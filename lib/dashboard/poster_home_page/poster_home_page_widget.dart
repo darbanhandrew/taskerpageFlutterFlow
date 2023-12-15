@@ -331,7 +331,7 @@ class _PosterHomePageWidgetState extends State<PosterHomePageWidget> {
                                                                     getJsonField(
                                                                       categorysItem,
                                                                       r'''$[:].icon_url''',
-                                                                    ),
+                                                                    ).toString(),
                                                                     width: 25.0,
                                                                     height:
                                                                         25.0,

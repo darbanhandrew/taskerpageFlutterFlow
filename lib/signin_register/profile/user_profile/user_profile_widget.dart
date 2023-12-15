@@ -756,11 +756,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                           ),
                                                                           child:
                                                                               Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                8.0,
-                                                                                8.0,
-                                                                                8.0,
-                                                                                8.0),
+                                                                            padding:
+                                                                                EdgeInsets.all(8.0),
                                                                             child:
                                                                                 FlutterFlowGoogleMap(
                                                                               controller: _model.googleMapsController,
@@ -1117,12 +1114,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                 children: [
                                                                                                   Expanded(
                                                                                                     child: Align(
-                                                                                                      alignment: AlignmentDirectional(0.00, 1.00),
+                                                                                                      alignment: AlignmentDirectional(0.0, 1.0),
                                                                                                       child: Stack(
                                                                                                         alignment: AlignmentDirectional(0.0, 1.5),
                                                                                                         children: [
                                                                                                           Align(
-                                                                                                            alignment: AlignmentDirectional(0.00, 0.00),
+                                                                                                            alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                             child: Container(
                                                                                                               width: 80.0,
                                                                                                               height: 80.0,
@@ -1134,7 +1131,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                                 ),
                                                                                                               ),
                                                                                                               child: Padding(
-                                                                                                                padding: EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
+                                                                                                                padding: EdgeInsets.all(4.0),
                                                                                                                 child: InkWell(
                                                                                                                   splashColor: Colors.transparent,
                                                                                                                   focusColor: Colors.transparent,
@@ -2463,12 +2460,12 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                   children: [
                                                                                                     Expanded(
                                                                                                       child: Align(
-                                                                                                        alignment: AlignmentDirectional(0.00, 1.00),
+                                                                                                        alignment: AlignmentDirectional(0.0, 1.0),
                                                                                                         child: Stack(
                                                                                                           alignment: AlignmentDirectional(0.0, 1.5),
                                                                                                           children: [
                                                                                                             Align(
-                                                                                                              alignment: AlignmentDirectional(0.00, 0.00),
+                                                                                                              alignment: AlignmentDirectional(0.0, 0.0),
                                                                                                               child: Container(
                                                                                                                 width: 80.0,
                                                                                                                 height: 80.0,
@@ -2480,7 +2477,7 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                                                                                                   ),
                                                                                                                 ),
                                                                                                                 child: Padding(
-                                                                                                                  padding: EdgeInsetsDirectional.fromSTEB(4.0, 4.0, 4.0, 4.0),
+                                                                                                                  padding: EdgeInsets.all(4.0),
                                                                                                                   child: InkWell(
                                                                                                                     splashColor: Colors.transparent,
                                                                                                                     focusColor: Colors.transparent,

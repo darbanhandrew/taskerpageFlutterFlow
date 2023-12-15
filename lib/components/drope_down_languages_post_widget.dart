@@ -105,7 +105,7 @@ class _DropeDownLanguagesPostWidgetState
           children: [
             Expanded(
               child: Align(
-                alignment: AlignmentDirectional(0.00, 0.00),
+                alignment: AlignmentDirectional(0.0, 0.0),
                 child: Stack(
                   children: [
                     Container(
@@ -203,7 +203,7 @@ class _DropeDownLanguagesPostWidgetState
                       ),
                     ),
                     Align(
-                      alignment: AlignmentDirectional(0.00, 0.00),
+                      alignment: AlignmentDirectional(0.0, 0.0),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             15.0, 7.0, 40.0, 0.0),

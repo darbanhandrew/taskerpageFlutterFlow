@@ -446,7 +446,12 @@ class _PhoneVerificationPageWidgetState
                           fieldHeight: 36.0,
                           fieldWidth: 50.0,
                           borderWidth: 1.0,
-                          borderRadius: BorderRadius.circular(2.0),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(2.0),
+                            bottomRight: Radius.circular(2.0),
+                            topLeft: Radius.circular(2.0),
+                            topRight: Radius.circular(2.0),
+                          ),
                           shape: PinCodeFieldShape.box,
                           activeColor: FlutterFlowTheme.of(context).primary,
                           inactiveColor: FlutterFlowTheme.of(context).tertiary,

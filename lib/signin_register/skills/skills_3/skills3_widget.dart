@@ -46,7 +46,7 @@ class _Skills3WidgetState extends State<Skills3Widget> {
         customerProfile: getJsonField(
           FFAppState().userProfile,
           r'''$.data.name''',
-        ),
+        ).toString().toString(),
       );
       if ((_model.mySkillCategories?.succeeded ?? true)) {
         setState(() {
@@ -57,8 +57,6 @@ class _Skills3WidgetState extends State<Skills3Widget> {
           ) as List)
               .map<String>((s) => s.toString())
               .toList()!
-              .map((e) => e.toString())
-              .toList()
               .toList()
               .cast<String>();
         });
@@ -518,7 +516,7 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                   customerProfileName: getJsonField(
                                     FFAppState().userProfile,
                                     r'''$.data.name''',
-                                  ),
+                                  ).toString(),
                                   apiGlobalKey: FFAppState().apiKey,
                                 );
                                 if ((_model.syncedSkills?.succeeded ?? true)) {

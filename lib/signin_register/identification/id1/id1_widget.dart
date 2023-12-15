@@ -43,51 +43,7 @@ class _Id1WidgetState extends State<Id1Widget> {
     _model = createModel(context, () => Id1Model());
 
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.name == 'create') {
-        _model.updateIdentificationStruct(
-          (e) => e
-            ..name = 'new'
-            ..customerProfile = getJsonField(
-              FFAppState().userProfile,
-              r'''$.data.name''',
-            ).toString().toString(),
-        );
-      } else {
-        _model.apiResultd0a =
-            await TaskerpageBackendGroup.getIdentificationDetailsCall.call(
-          name: widget.name,
-          apiGlobalKey: FFAppState().apiKey,
-        );
-        if ((_model.apiResultd0a?.succeeded ?? true)) {
-          setState(() {
-            _model.identification = functions.jsonToIdentificationStruct(
-                TaskerpageBackendGroup.getIdentificationDetailsCall
-                    .identificationJson(
-              (_model.apiResultd0a?.jsonBody ?? ''),
-            ));
-          });
-        } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(
-                'Identification doesn\'t exist,create a new one',
-                style: TextStyle(
-                  color: FlutterFlowTheme.of(context).primaryText,
-                ),
-              ),
-              duration: Duration(milliseconds: 4000),
-              backgroundColor: FlutterFlowTheme.of(context).secondary,
-            ),
-          );
-          setState(() {
-            _model.updateIdentificationStruct(
-              (e) => e..name = 'new',
-            );
-          });
-        }
-      }
-    });
+    SchedulerBinding.instance.addPostFrameCallback((_) async {});
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }

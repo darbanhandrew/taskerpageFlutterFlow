@@ -424,7 +424,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                   ),
                             ),
                             Align(
-                              alignment: AlignmentDirectional(0.00, 0.00),
+                              alignment: AlignmentDirectional(0.0, 0.0),
                               child: Switch.adaptive(
                                 value: _model.switchValue ??= true,
                                 onChanged: (newValue) async {
@@ -507,6 +507,16 @@ class _SignInWidgetState extends State<SignInWidget> {
                                         ).toString()}') {
                                       context.pushNamed('User_profile');
                                     }
+
+                                    context.pushNamed(
+                                      'Contactdata-2',
+                                      queryParameters: {
+                                        'isSignUp': serializeParam(
+                                          true,
+                                          ParamType.bool,
+                                        ),
+                                      }.withoutNulls,
+                                    );
                                   } else {
                                     if (_shouldSetState) setState(() {});
                                     return;

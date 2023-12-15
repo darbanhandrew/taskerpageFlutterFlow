@@ -147,3 +147,4 @@ export '/signin_register/profile/user_profile/user_profile_widget.dart'
 export '/bargain/profile/profile_widget.dart' show ProfileWidget;
 export '/bargain/profile_details_seeting/profile_details_seeting_widget.dart'
     show ProfileDetailsSeetingWidget;
+export '/web_page/web_page_widget.dart' show WebPageWidget;

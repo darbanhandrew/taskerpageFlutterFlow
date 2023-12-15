@@ -584,9 +584,7 @@ class _SetAppointmentWidgetState extends State<SetAppointmentWidget>
                                                 ),
                                               ),
                                               child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        8.0, 8.0, 8.0, 8.0),
+                                                padding: EdgeInsets.all(8.0),
                                                 child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.max,

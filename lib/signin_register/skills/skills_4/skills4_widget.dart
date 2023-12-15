@@ -70,7 +70,7 @@ class _Skills4WidgetState extends State<Skills4Widget> {
           _model.selectedCustomerProfile =
               TaskerpageBackendGroup.customerProfileSkillsListCall.myServices(
             (_model.apiResultfko?.jsonBody ?? ''),
-          )[_model.selectedCategoryIndex!];
+          )?[_model.selectedCategoryIndex!];
         });
       } else {
         context.pushNamed(
@@ -876,6 +876,10 @@ class _Skills4WidgetState extends State<Skills4Widget> {
                                 ),
                               ],
                             ),
+                          ),
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [],
                           ),
                         ],
                       ),

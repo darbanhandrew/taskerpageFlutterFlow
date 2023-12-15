@@ -480,8 +480,8 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                       children: [
                                         Expanded(
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Stack(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
@@ -595,8 +595,8 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                       children: [
                                         Expanded(
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Stack(
                                               alignment: AlignmentDirectional(
                                                   0.0, 0.0),
@@ -710,8 +710,8 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
                                       children: [
                                         Expanded(
                                           child: Align(
-                                            alignment: AlignmentDirectional(
-                                                0.00, 0.00),
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
                                             child: Stack(
                                               alignment: AlignmentDirectional(
                                                   0.0, 1.0),

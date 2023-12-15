@@ -247,7 +247,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                         getJsonField(
                                                           categorysItem,
                                                           r'''$[:].icon_url''',
-                                                        ),
+                                                        ).toString(),
                                                         width: 25.0,
                                                         height: 25.0,
                                                         fit: BoxFit.cover,
@@ -453,7 +453,7 @@ class _CategoriesWidgetState extends State<CategoriesWidget> {
                                                               getJsonField(
                                                                 servicesItem,
                                                                 r'''$.icon_url''',
-                                                              ),
+                                                              ).toString(),
                                                               width: 25.0,
                                                               height: 25.0,
                                                               fit: BoxFit.cover,

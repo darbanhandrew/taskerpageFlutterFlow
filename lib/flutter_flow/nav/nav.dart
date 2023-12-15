@@ -8,6 +8,7 @@ import 'package:page_transition/page_transition.dart';
 import 'package:provider/provider.dart';
 
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 
 import '/index.dart';
 import '/main.dart';
@@ -574,6 +575,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'Profile_details_seeting',
           path: '/profileDetailsSeeting',
           builder: (context, params) => ProfileDetailsSeetingWidget(),
+        ),
+        FFRoute(
+          name: 'WebPage',
+          path: '/webpage/:name',
+          builder: (context, params) => WebPageWidget(
+            name: params.getParam('name', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -702,13 +710,20 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder: PageTransition(
+                  transitionsBuilder:
+                      (context, animation, secondaryAnimation, child) =>
+                          PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
                     alignment: transitionInfo.alignment,
                     child: child,
-                  ).transitionsBuilder,
+                  ).buildTransitions(
+                    context,
+                    animation,
+                    secondaryAnimation,
+                    child,
+                  ),
                 )
               : MaterialPage(key: state.pageKey, child: child);
         },
@@ -755,7 +770,8 @@ class _RouteErrorBuilderState extends State<_RouteErrorBuilder> {
   void initState() {
     super.initState();
     // Handle erroneous links from Firebase Dynamic Links.
-    if (widget.state.location.startsWith('/link?request_ip_version')) {
+    if (widget.state.location.startsWith('/link') &&
+        widget.state.location.contains('request_ip_version')) {
       SchedulerBinding.instance.addPostFrameCallback((_) => context.go('/'));
     }
   }

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/ad_card_web_widget.dart';
 import '/components/badges_header_widget.dart';
 import '/components/header_web_widget.dart';

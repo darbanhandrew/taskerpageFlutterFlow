@@ -351,7 +351,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                         getJsonField(
                                                           categorysItem,
                                                           r'''$[:].icon_url''',
-                                                        ),
+                                                        ).toString(),
                                                         width: 25.0,
                                                         height: 25.0,
                                                         fit: BoxFit.cover,
@@ -1675,7 +1675,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Stack(
                                                         children: [
                                                           Text(
@@ -1698,7 +1698,7 @@ class _MainHomePageWidgetState extends State<MainHomePageWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child: Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional

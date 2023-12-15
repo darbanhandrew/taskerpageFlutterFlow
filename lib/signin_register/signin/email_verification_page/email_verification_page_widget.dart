@@ -264,7 +264,12 @@ class _EmailVerificationPageWidgetState
                           fieldHeight: 40.0,
                           fieldWidth: 50.0,
                           borderWidth: 1.0,
-                          borderRadius: BorderRadius.circular(5.0),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(5.0),
+                            bottomRight: Radius.circular(5.0),
+                            topLeft: Radius.circular(5.0),
+                            topRight: Radius.circular(5.0),
+                          ),
                           shape: PinCodeFieldShape.box,
                           activeColor: Color(0xFF5450E2),
                           inactiveColor:

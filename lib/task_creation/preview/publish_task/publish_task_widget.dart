@@ -650,12 +650,10 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                                               2.0),
                                                                 ),
                                                                 child: Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          8.0,
-                                                                          8.0,
-                                                                          8.0,
-                                                                          8.0),
+                                                                  padding:
+                                                                      EdgeInsets
+                                                                          .all(
+                                                                              8.0),
                                                                   child:
                                                                       FlutterFlowGoogleMap(
                                                                     controller:

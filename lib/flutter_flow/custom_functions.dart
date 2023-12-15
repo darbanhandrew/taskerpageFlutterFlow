@@ -9,6 +9,7 @@ import 'lat_lng.dart';
 import 'place.dart';
 import 'uploaded_file.dart';
 import '/backend/schema/structs/index.dart';
+import '/backend/schema/enums/enums.dart';
 
 bool checkIfServiceCategoryExists(
   List<UserServiceStruct>? userServices,
@@ -1662,4 +1663,13 @@ String? createVCardString(
   EMAIL;TYPE=PREF,INTERNET:$email
   END:VCARD
   ''';
+}
+
+dynamic jsonStringToJson(String? jsonString) {
+  // convert jsonString from input to Json, if error, return null
+  try {
+    return json.decode(jsonString!);
+  } catch (e) {
+    return null;
+  }
 }

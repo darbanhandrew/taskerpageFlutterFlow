@@ -360,7 +360,7 @@ class _MainHomePageForAdWidgetState extends State<MainHomePageForAdWidget> {
                                                         getJsonField(
                                                           categorysItem,
                                                           r'''$[:].icon_url''',
-                                                        ),
+                                                        ).toString(),
                                                         width: 25.0,
                                                         height: 25.0,
                                                         fit: BoxFit.cover,
@@ -1684,7 +1684,7 @@ class _MainHomePageForAdWidgetState extends State<MainHomePageForAdWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Stack(
                                                         children: [
                                                           Text(
@@ -1707,7 +1707,7 @@ class _MainHomePageForAdWidgetState extends State<MainHomePageForAdWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child: Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional

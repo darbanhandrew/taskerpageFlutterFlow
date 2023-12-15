@@ -101,7 +101,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                           ),
                         ),
                         Align(
-                          alignment: AlignmentDirectional(0.00, 0.00),
+                          alignment: AlignmentDirectional(0.0, 0.0),
                           child: Icon(
                             Icons.place,
                             color: FlutterFlowTheme.of(context).primary,
@@ -115,7 +115,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
               ],
             ),
             Align(
-              alignment: AlignmentDirectional(0.00, 1.00),
+              alignment: AlignmentDirectional(0.0, 1.0),
               child: Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 25.0),
                 child: Row(

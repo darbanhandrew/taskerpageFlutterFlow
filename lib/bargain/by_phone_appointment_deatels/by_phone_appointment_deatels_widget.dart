@@ -800,7 +800,8 @@ class _ByPhoneAppointmentDeatelsWidgetState
                                                                     .CopyText =
                                                                 false;
                                                           });
-                                                          null?.cancel();
+                                                          _model.instantTimer
+                                                              ?.cancel();
                                                         },
                                                         startImmediately: false,
                                                       );

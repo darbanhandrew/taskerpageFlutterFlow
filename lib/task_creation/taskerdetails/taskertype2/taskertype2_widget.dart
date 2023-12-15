@@ -296,7 +296,7 @@ class _Taskertype2WidgetState extends State<Taskertype2Widget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Switch.adaptive(
                               value: _model.switchValue ??=
                                   FFAppState().createTask.taskerType.insurance,

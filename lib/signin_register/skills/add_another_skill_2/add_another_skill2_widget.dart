@@ -356,7 +356,7 @@ class _AddAnotherSkill2WidgetState extends State<AddAnotherSkill2Widget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Switch.adaptive(
                               value: _model.switchValue1 ??= true,
                               onChanged: (newValue) async {
@@ -410,7 +410,7 @@ class _AddAnotherSkill2WidgetState extends State<AddAnotherSkill2Widget> {
                                 ),
                           ),
                           Align(
-                            alignment: AlignmentDirectional(0.00, 0.00),
+                            alignment: AlignmentDirectional(0.0, 0.0),
                             child: Switch.adaptive(
                               value: _model.switchValue2 ??= true,
                               onChanged: (newValue) async {

@@ -110,7 +110,7 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
               ),
               Expanded(
                 child: Align(
-                  alignment: AlignmentDirectional(0.00, 0.00),
+                  alignment: AlignmentDirectional(0.0, 0.0),
                   child: Padding(
                     padding:
                         EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),

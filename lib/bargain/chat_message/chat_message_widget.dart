@@ -452,8 +452,14 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                                     ),
                                     Text(
                                       valueOrDefault<String>(
-                                        widget.chatRoom?.roomName,
-                                        'Unkown User',
+                                        '${getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.first_name''',
+                                        ).toString()} ${getJsonField(
+                                          FFAppState().userProfile,
+                                          r'''$.data.last_name''',
+                                        ).toString()}',
+                                        'Unknown User',
                                       ),
                                       style: FlutterFlowTheme.of(context)
                                           .bodyMedium
@@ -508,7 +514,10 @@ class _ChatMessageWidgetState extends State<ChatMessageWidget>
                         shape: BoxShape.circle,
                       ),
                       child: Image.network(
-                        '${FFAppState().baseUrl}${widget.chatRoom?.oppositePersonAvatar}',
+                        '${FFAppState().baseUrl}${getJsonField(
+                          FFAppState().userProfile,
+                          r'''$.data.avatar''',
+                        ).toString()}',
                         fit: BoxFit.cover,
                       ),
                     ),

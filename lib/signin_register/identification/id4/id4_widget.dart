@@ -364,8 +364,7 @@ class _Id4WidgetState extends State<Id4Widget> {
                                   children: [
                                     Expanded(
                                       child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            3.0, 3.0, 3.0, 3.0),
+                                        padding: EdgeInsets.all(3.0),
                                         child: InkWell(
                                           splashColor: Colors.transparent,
                                           focusColor: Colors.transparent,

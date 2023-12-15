@@ -58,7 +58,7 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
       speed: 400,
       front: Container(
         width: 326.0,
-        height: 190.0,
+        height: 180.0,
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -307,8 +307,8 @@ class _TaskCardWidgetState extends State<TaskCardWidget> {
                             final circleImageUserProfileReadResponse =
                                 snapshot.data!;
                             return Container(
-                              width: 50.0,
-                              height: 50.0,
+                              width: 35.0,
+                              height: 35.0,
                               clipBehavior: Clip.antiAlias,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,

@@ -213,7 +213,7 @@ class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
                                                       getJsonField(
                                                         categorysItem,
                                                         r'''$[:].icon_url''',
-                                                      ),
+                                                      ).toString(),
                                                       width: 25.0,
                                                       height: 25.0,
                                                       fit: BoxFit.cover,

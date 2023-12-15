@@ -248,7 +248,7 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                       children: [
                                         Align(
                                           alignment:
-                                              AlignmentDirectional(0.00, 0.00),
+                                              AlignmentDirectional(0.0, 0.0),
                                           child: Stack(
                                             alignment:
                                                 AlignmentDirectional(0.0, 0.0),

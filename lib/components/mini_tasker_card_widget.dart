@@ -52,7 +52,7 @@ class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {
     context.watch<FFAppState>();
 
     return Align(
-      alignment: AlignmentDirectional(-1.00, 0.00),
+      alignment: AlignmentDirectional(-1.0, 0.0),
       child: FlipCard(
         fill: Fill.fillBack,
         direction: FlipDirection.HORIZONTAL,

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/badge_single_icon_widget.dart';
 import '/components/badges_header_widget.dart';
 import '/components/header_web_widget.dart';
@@ -1064,7 +1065,7 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                           Text(
                                                                             '${functions.compeletedProfile(TaskerpageBackendGroup.userProfileReadCall.badges(
                                                                                   columnUserProfileReadResponse.jsonBody,
-                                                                                ).length).toString()}%',
+                                                                                )?.length).toString()}%',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: FlutterFlowTheme.of(context).alternate,

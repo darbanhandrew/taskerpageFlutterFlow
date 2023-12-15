@@ -1047,7 +1047,7 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                 child: Align(
                                                   alignment:
                                                       AlignmentDirectional(
-                                                          0.00, 0.00),
+                                                          0.0, 0.0),
                                                   child: Container(
                                                     width: 269.0,
                                                     height: 149.0,

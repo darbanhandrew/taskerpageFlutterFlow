@@ -208,7 +208,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Switch.adaptive(
                                                         value: _model
                                                                 .switchValue1 ??=
@@ -821,7 +821,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                   Align(
                                                     alignment:
                                                         AlignmentDirectional(
-                                                            0.00, 0.00),
+                                                            0.0, 0.0),
                                                     child: Switch.adaptive(
                                                       value: _model
                                                               .switchValue2 ??=
@@ -1552,7 +1552,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                     Align(
                                                       alignment:
                                                           AlignmentDirectional(
-                                                              0.00, 0.00),
+                                                              0.0, 0.0),
                                                       child: Switch.adaptive(
                                                         value: _model
                                                                 .switchValue3 ??=
@@ -1986,7 +1986,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child:
                                                                 Switch.adaptive(
                                                               value: _model
@@ -2054,7 +2054,7 @@ class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child:
                                                                 Switch.adaptive(
                                                               value: _model

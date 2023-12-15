@@ -49,7 +49,7 @@ class _NotificationComponentWidgetState
       width: 300.0,
       height: MediaQuery.sizeOf(context).height * 1.0,
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +66,7 @@ class _NotificationComponentWidgetState
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.notifications_none_outlined,
                       color: FlutterFlowTheme.of(context).primaryText,
@@ -74,7 +74,7 @@ class _NotificationComponentWidgetState
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Text(
                       'Notification',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -88,7 +88,7 @@ class _NotificationComponentWidgetState
               ),
             ),
             Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(8.0, 8.0, 8.0, 8.0),
+              padding: EdgeInsets.all(8.0),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.start,

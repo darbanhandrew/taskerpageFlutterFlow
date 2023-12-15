@@ -468,7 +468,7 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(0.00, 0.00),
+                                alignment: AlignmentDirectional(0.0, 0.0),
                                 child: Stack(
                                   alignment: AlignmentDirectional(0.0, 1.3),
                                   children: [

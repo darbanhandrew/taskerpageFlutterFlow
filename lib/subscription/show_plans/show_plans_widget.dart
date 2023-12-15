@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/components/bottom_sheetfor_pay_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/nav_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -60,7 +61,7 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
           : FocusScope.of(context).unfocus(),
       child: Scaffold(
         key: scaffoldKey,
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
           child: WebViewAware(
@@ -431,7 +432,7 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                                           Align(
                                                             alignment:
                                                                 AlignmentDirectional(
-                                                                    0.00, 0.00),
+                                                                    0.0, 0.0),
                                                             child: Stack(
                                                               children: [
                                                                 Text(
@@ -462,8 +463,8 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                                                 Align(
                                                                   alignment:
                                                                       AlignmentDirectional(
-                                                                          0.00,
-                                                                          0.00),
+                                                                          0.0,
+                                                                          0.0),
                                                                   child:
                                                                       Padding(
                                                                     padding: EdgeInsetsDirectional
@@ -799,8 +800,7 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                                   borderRadius: BorderRadius.circular(2.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10.0, 10.0, 10.0, 10.0),
+                                  padding: EdgeInsets.all(10.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment:
@@ -915,6 +915,16 @@ class _ShowPlansWidgetState extends State<ShowPlansWidget> {
                     ),
                   ),
                 ),
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  wrapWithModel(
+                    model: _model.navBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavBarWidget(),
+                  ),
+                ],
               ),
             ],
           ),

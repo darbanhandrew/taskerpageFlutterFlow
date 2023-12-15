@@ -210,9 +210,7 @@ class _PaymentshistoryWidgetState extends State<PaymentshistoryWidget> {
                                                           2.0),
                                                 ),
                                                 child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(16.0, 16.0,
-                                                          16.0, 16.0),
+                                                  padding: EdgeInsets.all(16.0),
                                                   child: Column(
                                                     mainAxisSize:
                                                         MainAxisSize.max,

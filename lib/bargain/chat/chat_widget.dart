@@ -475,8 +475,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                   Align(
                                                                     alignment:
                                                                         AlignmentDirectional(
-                                                                            0.00,
-                                                                            0.00),
+                                                                            0.0,
+                                                                            0.0),
                                                                     child:
                                                                         Stack(
                                                                       alignment:
@@ -674,12 +674,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8.0,
-                                                                        8.0,
-                                                                        8.0,
-                                                                        8.0),
+                                                                EdgeInsets.all(
+                                                                    8.0),
                                                             child: Row(
                                                               mainAxisSize:
                                                                   MainAxisSize
@@ -990,12 +986,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                           ),
                                                           child: Padding(
                                                             padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8.0,
-                                                                        8.0,
-                                                                        8.0,
-                                                                        8.0),
+                                                                EdgeInsets.all(
+                                                                    8.0),
                                                             child: Row(
                                                               mainAxisSize:
                                                                   MainAxisSize

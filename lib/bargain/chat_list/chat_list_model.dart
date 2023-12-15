@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/components/main_drawer_widget.dart';
 import '/components/my_post_card_widget.dart';
 import '/components/nav_bar_widget.dart';

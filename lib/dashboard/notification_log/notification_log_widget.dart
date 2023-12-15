@@ -450,8 +450,8 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                                                   child: Align(
                                                                     alignment:
                                                                         AlignmentDirectional(
-                                                                            0.00,
-                                                                            0.00),
+                                                                            0.0,
+                                                                            0.0),
                                                                     child: Text(
                                                                       '5',
                                                                       style: FlutterFlowTheme.of(
@@ -516,8 +516,8 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                                                   child: Align(
                                                                     alignment:
                                                                         AlignmentDirectional(
-                                                                            0.00,
-                                                                            0.00),
+                                                                            0.0,
+                                                                            0.0),
                                                                     child: Text(
                                                                       '5',
                                                                       style: FlutterFlowTheme.of(
@@ -587,9 +587,10 @@ class _NotificationLogWidgetState extends State<NotificationLogWidget> {
                                                                     ),
                                                                     child:
                                                                         Align(
-                                                                      alignment: AlignmentDirectional(
-                                                                          0.00,
-                                                                          0.00),
+                                                                      alignment:
+                                                                          AlignmentDirectional(
+                                                                              0.0,
+                                                                              0.0),
                                                                       child:
                                                                           Text(
                                                                         '5',

@@ -135,8 +135,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                 borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 4.0, 4.0, 4.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -167,8 +166,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                 borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 4.0, 4.0, 4.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -205,8 +203,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                 borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 4.0, 4.0, 4.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
@@ -238,8 +235,7 @@ class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {
                                 borderRadius: BorderRadius.circular(2.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    4.0, 4.0, 4.0, 4.0),
+                                padding: EdgeInsets.all(4.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
