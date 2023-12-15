@@ -201,7 +201,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
                                         child: MySkillWidget(
-                                          userRate: _model.userRate!,
+                                          userRate: _model.userRate,
                                         ),
                                       ),
                                     ));

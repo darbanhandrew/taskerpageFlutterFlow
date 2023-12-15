@@ -43,7 +43,54 @@ class _Id1WidgetState extends State<Id1Widget> {
     _model = createModel(context, () => Id1Model());
 
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {});
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      if ((widget.name == 'create') ||
+          (widget.name == null || widget.name == '')) {
+        setState(() {
+          _model.updateIdentificationStruct(
+            (e) => e
+              ..name = 'new'
+              ..customerProfile = getJsonField(
+                FFAppState().userProfile,
+                r'''$.data.name''',
+              ).toString().toString(),
+          );
+        });
+      } else {
+        _model.apiResultd0a =
+            await TaskerpageBackendGroup.getIdentificationDetailsCall.call(
+          name: widget.name,
+          apiGlobalKey: FFAppState().apiKey,
+        );
+        if ((_model.apiResultd0a?.succeeded ?? true)) {
+          setState(() {
+            _model.identification = functions.jsonToIdentificationStruct(
+                TaskerpageBackendGroup.getIdentificationDetailsCall
+                    .identificationJson(
+              (_model.apiResultd0a?.jsonBody ?? ''),
+            ));
+          });
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                'Identification doesn\'t exist,create a new one',
+                style: TextStyle(
+                  color: FlutterFlowTheme.of(context).primaryText,
+                ),
+              ),
+              duration: Duration(milliseconds: 4000),
+              backgroundColor: FlutterFlowTheme.of(context).secondary,
+            ),
+          );
+          setState(() {
+            _model.updateIdentificationStruct(
+              (e) => e..name = 'new',
+            );
+          });
+        }
+      }
+    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
@@ -257,7 +304,9 @@ class _Id1WidgetState extends State<Id1Widget> {
                         updateCallback: () => setState(() {}),
                         child: TextFieldAndTitleWidget(
                           label: 'First name (Exactly as Id)',
-                          defaultValue: _model.identification!.firstName,
+                          defaultValue: _model.identification!.hasFirstName()
+                              ? _model.identification!.firstName
+                              : '',
                         ),
                       ),
                       Padding(
@@ -268,7 +317,9 @@ class _Id1WidgetState extends State<Id1Widget> {
                           updateCallback: () => setState(() {}),
                           child: TextFieldAndTitleWidget(
                             label: 'Last Name (Exactly as Id)',
-                            defaultValue: _model.identification!.lastName,
+                            defaultValue: _model.identification!.hasLastName()
+                                ? _model.identification!.lastName
+                                : '',
                           ),
                         ),
                       ),
@@ -280,8 +331,11 @@ class _Id1WidgetState extends State<Id1Widget> {
                           updateCallback: () => setState(() {}),
                           child: DateOfBirthPickWidget(
                             label: 'Date of birth',
-                            defaultValue: functions.jsonToDateTime(
-                                _model.identification?.dateOfBirth),
+                            defaultValue:
+                                _model.identification!.hasDateOfBirth()
+                                    ? functions.jsonToDateTime(
+                                        _model.identification?.dateOfBirth)
+                                    : null,
                           ),
                         ),
                       ),

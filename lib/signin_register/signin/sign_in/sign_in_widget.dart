@@ -509,11 +509,11 @@ class _SignInWidgetState extends State<SignInWidget> {
                                     }
 
                                     context.pushNamed(
-                                      'Contactdata-2',
+                                      'RateSignUp',
                                       queryParameters: {
-                                        'isSignUp': serializeParam(
-                                          true,
-                                          ParamType.bool,
+                                        'name': serializeParam(
+                                          'new',
+                                          ParamType.String,
                                         ),
                                       }.withoutNulls,
                                     );

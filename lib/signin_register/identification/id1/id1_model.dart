@@ -30,6 +30,8 @@ class Id1Model extends FlutterFlowModel<Id1Widget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Stores action output result for [Backend Call - API (Get Identification Details)] action in ID1 widget.
+  ApiCallResponse? apiResultd0a;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for text_field_and_title component.

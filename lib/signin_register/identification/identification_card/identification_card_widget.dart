@@ -1065,7 +1065,7 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                           Text(
                                                                             '${functions.compeletedProfile(TaskerpageBackendGroup.userProfileReadCall.badges(
                                                                                   columnUserProfileReadResponse.jsonBody,
-                                                                                )?.length).toString()}%',
+                                                                                )?.toList()).toString()}%',
                                                                             style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                   fontFamily: 'Lato',
                                                                                   color: FlutterFlowTheme.of(context).alternate,
@@ -1093,7 +1093,8 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                               percent: functions.compeletedProgresbar(functions.compeletedProfile(getJsonField(
                                                                                 columnUserProfileReadResponse.jsonBody,
                                                                                 r'''$.data.badges''',
-                                                                              )))!,
+                                                                                true,
+                                                                              ))),
                                                                               lineHeight: 6.0,
                                                                               animation: true,
                                                                               animateFromLastPercent: true,

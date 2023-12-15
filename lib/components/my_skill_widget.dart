@@ -3,6 +3,7 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/backend/schema/structs/index.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -15,7 +16,7 @@ export 'my_skill_model.dart';
 class MySkillWidget extends StatefulWidget {
   const MySkillWidget({
     Key? key,
-    required this.userRate,
+    this.userRate,
   }) : super(key: key);
 
   final UserRateStruct? userRate;
@@ -44,8 +45,6 @@ class _MySkillWidgetState extends State<MySkillWidget> {
         setState(() {
           _model.userRate = widget.userRate;
         });
-      } else {
-        Navigator.pop(context);
       }
     });
 
@@ -103,7 +102,6 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                           FFAppState().userProfile,
                           r'''$.data.name''',
                         ).toString(),
-                        apiGlobalKey: FFAppState().apiKey,
                       ),
                       builder: (context, snapshot) {
                         // Customize what your widget looks like when it's loading.
@@ -123,19 +121,19 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                             snapshot.data!;
                         return Builder(
                           builder: (context) {
-                            final mySkillCategories = TaskerpageBackendGroup
+                            final mySkillCategories = functions
+                                .convertMap(TaskerpageBackendGroup
                                     .getMySkillCategoriesCall
                                     .mySkillCategories(
                                       gridViewGetMySkillCategoriesResponse
                                           .jsonBody,
-                                    )
-                                    ?.map((e) => e != null && e != ''
-                                        ? ChildSkillCategoryStruct.fromMap(e)
-                                        : null)
-                                    .withoutNulls
-                                    .toList()
-                                    ?.toList() ??
-                                [];
+                                    )!
+                                    .toList())
+                                .map((e) => e != null && e != ''
+                                    ? UserServiceStruct.fromMap(e)
+                                    : null)
+                                .withoutNulls
+                                .toList();
                             return GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:

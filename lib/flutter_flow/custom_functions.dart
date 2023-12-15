@@ -1555,17 +1555,27 @@ List<IdentificationStruct> listJsonToIdentificationStruct(
       .cast<IdentificationStruct>();
 }
 
-int? compeletedProfile(int? badgesNumber) {
-  // Multiply the badgesNumber by 25
-  return badgesNumber != null ? badgesNumber * 25 : null;
+int? compeletedProfile(List<dynamic>? badgesNumber) {
+  // in the list each object has a completed_percent. add them all together to get the final result
+  if (badgesNumber == null || badgesNumber.isEmpty) {
+    return null;
+  }
+  int totalCompleted = 0;
+  for (final badge in badgesNumber) {
+    if (badge is Map<String, dynamic> &&
+        badge.containsKey('completed_percent')) {
+      totalCompleted += badge['completed_percent'] as int;
+    }
+  }
+  return totalCompleted;
 }
 
-double? compeletedProgresbar(int? compeletedProfile) {
-  // Divide the compeletedProfile by 100
+double compeletedProgresbar(int? compeletedProfile) {
+  // convert to double
   if (compeletedProfile != null) {
-    return compeletedProfile / 100;
+    return compeletedProfile.toDouble() * 0.01;
   } else {
-    return null;
+    return 0.0;
   }
 }
 
