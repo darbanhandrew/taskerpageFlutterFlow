@@ -22,10 +22,9 @@ class CustomerProfileItemStruct extends BaseStruct {
         customerProfile: data['customer_profile'] as String?,
       );
 
-  static CustomerProfileItemStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? CustomerProfileItemStruct.fromMap(data)
-          : null;
+  static CustomerProfileItemStruct? maybeFromMap(dynamic data) => data is Map
+      ? CustomerProfileItemStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'customer_profile': _customerProfile,

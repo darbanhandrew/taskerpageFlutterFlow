@@ -371,11 +371,11 @@ class _SkillsListWidgetState extends State<SkillsListWidget> {
                                                                           'Key935_${myServicesIndex.toString()}',
                                                                         ),
                                                                         userService:
-                                                                            UserServiceStruct.fromMap(getJsonField(
+                                                                            UserServiceStruct.maybeFromMap(getJsonField(
                                                                           skillCardGetCustomerProfileSkillsDetailsResponse
                                                                               .jsonBody,
                                                                           r'''$.data''',
-                                                                        )),
+                                                                        ))!,
                                                                         index:
                                                                             myServicesIndex,
                                                                         action:

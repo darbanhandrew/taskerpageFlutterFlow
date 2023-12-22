@@ -31,10 +31,9 @@ class ChatMessageHeaderStruct extends BaseStruct {
         value: data['value'] as String?,
       );
 
-  static ChatMessageHeaderStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? ChatMessageHeaderStruct.fromMap(data)
-          : null;
+  static ChatMessageHeaderStruct? maybeFromMap(dynamic data) => data is Map
+      ? ChatMessageHeaderStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'type': _type,

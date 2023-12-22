@@ -94,157 +94,252 @@ class _SignUpVerificationAcceptedWidgetState
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              if (FFAppState().closeHeaderInacceptedDigitCode == false)
-                Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 88.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF3F3F3),
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    }
+                  }(),
+                  0.0,
+                )),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4.0,
+                    color: Color(0x33000000),
+                    offset: Offset(0.0, 0.0),
+                    spreadRadius: 2.0,
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if ((FFAppState().closeHeaderInacceptedDigitCode == false) &&
+                      responsiveVisibility(
+                        context: context,
+                        desktop: false,
+                      ))
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 88.0,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF3F3F3),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 16.0, 16.0, 0.0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'We have sent you verified email',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                            Text(
-                              'Please verify your email ',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await launchUrl(Uri(
-                                      scheme: 'mailto',
-                                      path: FFAppState().UserInformation.email,
-                                      query: {
-                                        'subject': 'welcome to taskerPage',
-                                      }
-                                          .entries
-                                          .map((MapEntry<String, String> e) =>
-                                              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-                                          .join('&')));
-                                },
-                                child: Text(
-                                  'Resend verification email',
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'We have sent you verified email',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Lato',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        fontSize: 12.0,
-                                        decoration: TextDecoration.underline,
+                                        color: Color(0xFF8A8A8A),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                 ),
-                              ),
+                                Text(
+                                  'Please verify your email ',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF8A8A8A),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 10.0, 0.0, 0.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      await launchUrl(Uri(
+                                          scheme: 'mailto',
+                                          path: FFAppState()
+                                              .UserInformation
+                                              .email,
+                                          query: {
+                                            'subject': 'welcome to taskerPage',
+                                          }
+                                              .entries
+                                              .map((MapEntry<String, String>
+                                                      e) =>
+                                                  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                                              .join('&')));
+                                    },
+                                    child: Text(
+                                      'Resend verification email',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            fontSize: 12.0,
+                                            decoration:
+                                                TextDecoration.underline,
+                                          ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      FFAppState()
+                                              .closeHeaderInacceptedDigitCode =
+                                          true;
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.close_rounded,
+                                    color: Color(0xFFACACAC),
+                                    size: 20.0,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  FFAppState().closeHeaderInacceptedDigitCode =
-                                      true;
-                                });
-                              },
-                              child: Icon(
-                                Icons.close_rounded,
-                                color: Color(0xFFACACAC),
-                                size: 20.0,
-                              ),
+                      ),
+                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (responsiveVisibility(
+                        context: context,
+                        desktop: false,
+                      ))
+                        wrapWithModel(
+                          model: _model.headerModel,
+                          updateCallback: () => setState(() {}),
+                          child: HeaderWidget(
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openEndDrawer();
+                            },
+                          ),
+                        ),
+                    ],
+                  ),
+                  Flexible(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(0.0),
+                            child: Image.asset(
+                              'assets/images/Group_1756.png',
+                              width: 70.0,
+                              height: 70.0,
+                              fit: BoxFit.none,
                             ),
-                          ],
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 8.0, 0.0, 0.0),
+                          child: Text(
+                            'Digit code is verified',
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: 'Lato',
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                          ),
                         ),
                       ],
                     ),
                   ),
-                ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  wrapWithModel(
-                    model: _model.headerModel,
-                    updateCallback: () => setState(() {}),
-                    child: HeaderWidget(
-                      openDrawer: () async {
-                        scaffoldKey.currentState!.openEndDrawer();
-                      },
-                    ),
-                  ),
                 ],
               ),
-              Flexible(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(0.0),
-                        child: Image.asset(
-                          'assets/images/Group_1756.png',
-                          width: 70.0,
-                          height: 70.0,
-                          fit: BoxFit.none,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
-                      child: Text(
-                        'Digit code is verified',
-                        style: FlutterFlowTheme.of(context).bodyMedium.override(
-                              fontFamily: 'Lato',
-                              fontSize: 17.0,
-                              fontWeight: FontWeight.bold,
-                            ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ),
         ),
       ),

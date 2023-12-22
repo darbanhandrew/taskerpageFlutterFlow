@@ -27,7 +27,7 @@ class ListStruct extends BaseStruct {
       );
 
   static ListStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? ListStruct.fromMap(data) : null;
+      data is Map ? ListStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'message': _message?.map((e) => e.toMap()).toList(),

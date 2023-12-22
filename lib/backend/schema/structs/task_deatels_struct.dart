@@ -69,8 +69,9 @@ class TaskDeatelsStruct extends BaseStruct {
         isOnline: data['is_online'] as bool?,
       );
 
-  static TaskDeatelsStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskDeatelsStruct.fromMap(data) : null;
+  static TaskDeatelsStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskDeatelsStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skill_name': _skillName,

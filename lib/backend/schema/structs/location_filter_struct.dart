@@ -71,8 +71,9 @@ class LocationFilterStruct extends BaseStruct {
         latLng: data['latLng'] as LatLng?,
       );
 
-  static LocationFilterStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? LocationFilterStruct.fromMap(data) : null;
+  static LocationFilterStruct? maybeFromMap(dynamic data) => data is Map
+      ? LocationFilterStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'addressName': _addressName,

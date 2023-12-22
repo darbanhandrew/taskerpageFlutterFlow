@@ -36,8 +36,9 @@ class HowItWorksInputStruct extends BaseStruct {
         ),
       );
 
-  static HowItWorksInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? HowItWorksInputStruct.fromMap(data) : null;
+  static HowItWorksInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? HowItWorksInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

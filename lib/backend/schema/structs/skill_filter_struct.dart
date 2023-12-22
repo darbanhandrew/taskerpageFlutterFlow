@@ -49,8 +49,9 @@ class SkillFilterStruct extends BaseStruct {
         options: data['options'] as String?,
       );
 
-  static SkillFilterStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? SkillFilterStruct.fromMap(data) : null;
+  static SkillFilterStruct? maybeFromMap(dynamic data) => data is Map
+      ? SkillFilterStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skillCategoryName': _skillCategoryName,

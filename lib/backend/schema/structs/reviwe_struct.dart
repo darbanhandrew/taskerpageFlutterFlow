@@ -32,7 +32,7 @@ class ReviweStruct extends BaseStruct {
       );
 
   static ReviweStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? ReviweStruct.fromMap(data) : null;
+      data is Map ? ReviweStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'Rate': _rate,

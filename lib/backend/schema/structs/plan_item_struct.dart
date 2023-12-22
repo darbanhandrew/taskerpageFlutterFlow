@@ -22,7 +22,7 @@ class PlanItemStruct extends BaseStruct {
       );
 
   static PlanItemStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? PlanItemStruct.fromMap(data) : null;
+      data is Map ? PlanItemStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'plan': _plan,

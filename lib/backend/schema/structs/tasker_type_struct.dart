@@ -79,8 +79,9 @@ class TaskerTypeStruct extends BaseStruct {
         maxDistance: castToType<int>(data['max_distance']),
       );
 
-  static TaskerTypeStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskerTypeStruct.fromMap(data) : null;
+  static TaskerTypeStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskerTypeStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'tasker_gender': _taskerGender,

@@ -140,8 +140,9 @@ class AddressesStruct extends BaseStruct {
         userProfile: castToType<int>(data['user_profile']),
       );
 
-  static AddressesStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? AddressesStruct.fromMap(data) : null;
+  static AddressesStruct? maybeFromMap(dynamic data) => data is Map
+      ? AddressesStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'id': _id,

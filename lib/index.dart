@@ -141,10 +141,16 @@ export '/signin_register/rate/rate_sign_up/rate_sign_up_widget.dart'
     show RateSignUpWidget;
 export '/signin_register/rate/rates_list/rates_list_widget.dart'
     show RatesListWidget;
-export '/test2/test2_widget.dart' show Test2Widget;
+export '/more/test2/test2_widget.dart' show Test2Widget;
 export '/signin_register/profile/user_profile/user_profile_widget.dart'
     show UserProfileWidget;
 export '/bargain/profile/profile_widget.dart' show ProfileWidget;
 export '/bargain/profile_details_seeting/profile_details_seeting_widget.dart'
     show ProfileDetailsSeetingWidget;
-export '/web_page/web_page_widget.dart' show WebPageWidget;
+export '/more/web_page/web_page_widget.dart' show WebPageWidget;
+export '/signin_register/rate/rate_list_web_register/rate_list_web_register_widget.dart'
+    show RateListWebRegisterWidget;
+export '/signin_register/skills/skill_list_web_register/skill_list_web_register_widget.dart'
+    show SkillListWebRegisterWidget;
+export '/signin_register/education/education_list_web_register/education_list_web_register_widget.dart'
+    show EducationListWebRegisterWidget;

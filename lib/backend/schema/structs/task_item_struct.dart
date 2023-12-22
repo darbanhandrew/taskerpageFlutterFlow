@@ -24,7 +24,7 @@ class TaskItemStruct extends BaseStruct {
       );
 
   static TaskItemStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskItemStruct.fromMap(data) : null;
+      data is Map ? TaskItemStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'customer_task': _customerTask,

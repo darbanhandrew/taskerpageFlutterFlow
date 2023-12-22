@@ -3,6 +3,7 @@ import '/backend/schema/structs/index.dart';
 import '/components/date_of_birth_pick_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/components/text_field_and_title_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -32,6 +33,10 @@ class Id1Model extends FlutterFlowModel<Id1Widget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (Get Identification Details)] action in ID1 widget.
   ApiCallResponse? apiResultd0a;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for side_bar_left_sign_up component.
+  late SideBarLeftSignUpModel sideBarLeftSignUpModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for text_field_and_title component.
@@ -44,28 +49,29 @@ class Id1Model extends FlutterFlowModel<Id1Widget> {
   ApiCallResponse? createdIdentification;
   // Stores action output result for [Backend Call - API (Update Identification Details)] action in Container widget.
   ApiCallResponse? apiResultemi;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    sideBarLeftSignUpModel =
+        createModel(context, () => SideBarLeftSignUpModel());
     headerModel = createModel(context, () => HeaderModel());
     textFieldAndTitleModel1 =
         createModel(context, () => TextFieldAndTitleModel());
     textFieldAndTitleModel2 =
         createModel(context, () => TextFieldAndTitleModel());
     dateOfBirthPickModel = createModel(context, () => DateOfBirthPickModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    sideBarLeftSignUpModel.dispose();
     headerModel.dispose();
     textFieldAndTitleModel1.dispose();
     textFieldAndTitleModel2.dispose();
     dateOfBirthPickModel.dispose();
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

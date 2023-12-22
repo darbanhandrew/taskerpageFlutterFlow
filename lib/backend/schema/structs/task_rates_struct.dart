@@ -40,8 +40,9 @@ class TaskRatesStruct extends BaseStruct {
         currency: data['Currency'] as String?,
       );
 
-  static TaskRatesStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskRatesStruct.fromMap(data) : null;
+  static TaskRatesStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskRatesStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'Type': _type,

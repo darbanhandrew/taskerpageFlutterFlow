@@ -330,14 +330,10 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
                                                                             .jsonBody,
                                                                       )!
                                                                       .toList())
-                                                                  .map((e) => e !=
-                                                                              null &&
-                                                                          e !=
-                                                                              ''
-                                                                      ? IdentificationStruct
-                                                                          .fromMap(
-                                                                              e)
-                                                                      : null)
+                                                                  .map((e) =>
+                                                                      IdentificationStruct
+                                                                          .maybeFromMap(
+                                                                              e))
                                                                   .withoutNulls
                                                                   .toList();
                                                           return ListView

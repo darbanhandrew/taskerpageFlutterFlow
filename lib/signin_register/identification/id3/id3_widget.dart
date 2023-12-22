@@ -53,22 +53,11 @@ class _Id3WidgetState extends State<Id3Widget> {
         );
         if ((_model.identificationDetails?.succeeded ?? true)) {
           setState(() {
-            _model.identification = functions.convertSingleMap(getJsonField(
-                          (_model.identificationDetails?.jsonBody ?? ''),
-                          r'''$.data''',
-                        )) !=
-                        null &&
-                    functions.convertSingleMap(getJsonField(
-                          (_model.identificationDetails?.jsonBody ?? ''),
-                          r'''$.data''',
-                        )) !=
-                        ''
-                ? IdentificationStruct.fromMap(
-                    functions.convertSingleMap(getJsonField(
-                    (_model.identificationDetails?.jsonBody ?? ''),
-                    r'''$.data''',
-                  )))
-                : null;
+            _model.identification = IdentificationStruct.maybeFromMap(
+                functions.convertSingleMap(getJsonField(
+              (_model.identificationDetails?.jsonBody ?? ''),
+              r'''$.data''',
+            )));
           });
         } else {
           context.goNamed('ID1');

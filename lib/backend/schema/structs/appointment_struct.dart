@@ -58,8 +58,9 @@ class AppointmentStruct extends BaseStruct {
         lng: data['lng'] as String?,
       );
 
-  static AppointmentStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? AppointmentStruct.fromMap(data) : null;
+  static AppointmentStruct? maybeFromMap(dynamic data) => data is Map
+      ? AppointmentStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'AppointmentType': _appointmentType,

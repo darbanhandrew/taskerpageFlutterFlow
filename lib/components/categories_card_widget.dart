@@ -100,7 +100,7 @@ class _CategoriesCardWidgetState extends State<CategoriesCardWidget> {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(0.0),
                     child: Image.network(
-                      '${FFAppState().baseUrl}${(columnGetSkillCategoryDetailsResponse.jsonBody != null && columnGetSkillCategoryDetailsResponse.jsonBody != '' ? CategoriesCardInputStruct.fromMap(columnGetSkillCategoryDetailsResponse.jsonBody) : null)?.icon}',
+                      '${FFAppState().baseUrl}${CategoriesCardInputStruct.maybeFromMap(columnGetSkillCategoryDetailsResponse.jsonBody)?.icon}',
                       width: 25.0,
                       height: 25.0,
                       fit: BoxFit.none,

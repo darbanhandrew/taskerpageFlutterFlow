@@ -164,8 +164,8 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                                       r'''$.idx''',
                                                     ).toString()}',
                                                   ),
-                                                  slider:
-                                                      SliderInputStruct.fromMap(
+                                                  slider: SliderInputStruct
+                                                      .maybeFromMap(
                                                           getJsonField(
                                                     functions.jsonStringToJson(
                                                         getJsonField(
@@ -173,7 +173,7 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                                       r'''$.web_template_values''',
                                                     ).toString()),
                                                     r'''$''',
-                                                  )),
+                                                  ))!,
                                                 ),
                                               ),
                                             ),
@@ -189,16 +189,15 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                           child: HomePageCategoriesWidget(
                                             key: Key(
                                                 'Keyaxm_${pageBlocksIndex}_of_${pageBlocks.length}'),
-                                            categories:
-                                                CategoriesInputStruct.fromMap(
-                                                    getJsonField(
+                                            categories: CategoriesInputStruct
+                                                .maybeFromMap(getJsonField(
                                               functions.jsonStringToJson(
                                                   getJsonField(
                                                 pageBlocksItem,
                                                 r'''$.web_template_values''',
                                               ).toString()),
                                               r'''$''',
-                                            )),
+                                            ))!,
                                           ),
                                         );
                                       } else if ('Featured Items Section' ==
@@ -221,16 +220,15 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                             child: HomePageHowItWorksWidget(
                                               key: Key(
                                                   'Key34g_${pageBlocksIndex}_of_${pageBlocks.length}'),
-                                              howItWorks:
-                                                  HowItWorksInputStruct.fromMap(
-                                                      getJsonField(
+                                              howItWorks: HowItWorksInputStruct
+                                                  .maybeFromMap(getJsonField(
                                                 functions.jsonStringToJson(
                                                     getJsonField(
                                                   pageBlocksItem,
                                                   r'''$.web_template_values''',
                                                 ).toString()),
                                                 r'''$''',
-                                              )),
+                                              ))!,
                                             ),
                                           ),
                                         );
@@ -245,14 +243,14 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                             key: Key(
                                                 'Keymil_${pageBlocksIndex}_of_${pageBlocks.length}'),
                                             plans: HomePagePlansInputStruct
-                                                .fromMap(getJsonField(
+                                                .maybeFromMap(getJsonField(
                                               functions.jsonStringToJson(
                                                   getJsonField(
                                                 pageBlocksItem,
                                                 r'''$.web_template_values''',
                                               ).toString()),
                                               r'''$''',
-                                            )),
+                                            ))!,
                                           ),
                                         );
                                       } else if ('Customer Tasks Section' ==
@@ -271,14 +269,14 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                                 'Keyyq4_${pageBlocksIndex}_of_${pageBlocks.length}'),
                                             taskSugestions:
                                                 HomePageSugestionInputStruct
-                                                    .fromMap(getJsonField(
+                                                    .maybeFromMap(getJsonField(
                                               functions.jsonStringToJson(
                                                   getJsonField(
                                                 pageBlocksItem,
                                                 r'''$.web_template_values''',
                                               ).toString()),
                                               r'''$''',
-                                            )),
+                                            ))!,
                                           ),
                                         );
                                       } else if ('Ad Section' ==
@@ -289,16 +287,15 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                         return HomePageAdsWidget(
                                           key: Key(
                                               'Keyv7g_${pageBlocksIndex}_of_${pageBlocks.length}'),
-                                          homePageAds:
-                                              HomePageAdsInputStruct.fromMap(
-                                                  getJsonField(
+                                          homePageAds: HomePageAdsInputStruct
+                                              .maybeFromMap(getJsonField(
                                             functions
                                                 .jsonStringToJson(getJsonField(
                                               pageBlocksItem,
                                               r'''$.web_template_values''',
                                             ).toString()),
                                             r'''$''',
-                                          )),
+                                          ))!,
                                         );
                                       } else if ('Customer Profiles List' ==
                                           getJsonField(
@@ -332,12 +329,12 @@ class _WebPageWidgetState extends State<WebPageWidget> {
                                               ),
                                               taskerSugestion:
                                                   HomePageTaskerSugestionInputStruct
-                                                      .fromMap(functions
+                                                      .maybeFromMap(functions
                                                           .jsonStringToJson(
                                                               getJsonField(
                                                 pageBlocksItem,
                                                 r'''$.web_template_values''',
-                                              ).toString())!),
+                                              ).toString())!)!,
                                             ),
                                           ),
                                         );

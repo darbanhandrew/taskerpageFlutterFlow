@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/components/view_certificate_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -30,6 +31,10 @@ class AddAnotherEducationModel
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for side_bar_left_sign_up component.
+  late SideBarLeftSignUpModel sideBarLeftSignUpModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // State field(s) for TextField widget.
@@ -60,26 +65,26 @@ class AddAnotherEducationModel
 
   // Stores action output result for [Backend Call - API (upload)] action in Container widget.
   ApiCallResponse? apiResultekx2;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
+    sideBarLeftSignUpModel =
+        createModel(context, () => SideBarLeftSignUpModel());
+    headerModel = createModel(context, () => HeaderModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    sideBarLeftSignUpModel.dispose();
     headerModel.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
-
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.
@@ -91,7 +96,7 @@ class AddAnotherEducationModel
     dynamic? uploadFileResponse;
 
     uploadFileResponse = await actions.uploadFile(
-      uploadedLocalFile2,
+      uploadedLocalFile1,
       FFAppState().apiKey,
     );
     if (getJsonField(

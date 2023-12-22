@@ -67,10 +67,9 @@ class TaskerTypeFilterStruct extends BaseStruct {
         driverLicense: data['driverLicense'] as String?,
       );
 
-  static TaskerTypeFilterStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? TaskerTypeFilterStruct.fromMap(data)
-          : null;
+  static TaskerTypeFilterStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskerTypeFilterStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'gender': _gender,

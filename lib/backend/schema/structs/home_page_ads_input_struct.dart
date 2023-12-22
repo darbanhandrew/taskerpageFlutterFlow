@@ -67,10 +67,9 @@ class HomePageAdsInputStruct extends BaseStruct {
         colorMode: deserializeEnum<ColorMode>(data['color_mode']),
       );
 
-  static HomePageAdsInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? HomePageAdsInputStruct.fromMap(data)
-          : null;
+  static HomePageAdsInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? HomePageAdsInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

@@ -45,10 +45,9 @@ class HomePagePlansInputStruct extends BaseStruct {
         ),
       );
 
-  static HomePagePlansInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? HomePagePlansInputStruct.fromMap(data)
-          : null;
+  static HomePagePlansInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? HomePagePlansInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

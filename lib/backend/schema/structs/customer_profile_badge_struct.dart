@@ -104,10 +104,9 @@ class CustomerProfileBadgeStruct extends BaseStruct {
         doctype: data['doctype'] as String?,
       );
 
-  static CustomerProfileBadgeStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? CustomerProfileBadgeStruct.fromMap(data)
-          : null;
+  static CustomerProfileBadgeStruct? maybeFromMap(dynamic data) => data is Map
+      ? CustomerProfileBadgeStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,

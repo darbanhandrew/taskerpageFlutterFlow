@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,6 +16,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +30,10 @@ class Profiledetails2Model extends FlutterFlowModel<Profiledetails2Widget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for side_bar_left_sign_up component.
+  late SideBarLeftSignUpModel sideBarLeftSignUpModel;
   // Model for Header component.
   late HeaderModel headerModel;
   bool isDataUploading1 = false;
@@ -50,23 +56,23 @@ class Profiledetails2Model extends FlutterFlowModel<Profiledetails2Widget> {
   ApiCallResponse? update;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? apiResulteh8;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
+    sideBarLeftSignUpModel =
+        createModel(context, () => SideBarLeftSignUpModel());
+    headerModel = createModel(context, () => HeaderModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    sideBarLeftSignUpModel.dispose();
     headerModel.dispose();
     textFieldFocusNode?.dispose();
     textController?.dispose();
-
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

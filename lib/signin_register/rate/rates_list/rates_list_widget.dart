@@ -1,5 +1,4 @@
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/ad_card_web_widget.dart';
 import '/components/badges_header_widget.dart';
 import '/components/header_web_widget.dart';
@@ -13,7 +12,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -261,22 +259,14 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                 return Builder(
                                                   builder: (context) {
                                                     final userRateNamesList =
-                                                        functions
-                                                            .convertMap(TaskerpageBackendGroup
+                                                        TaskerpageBackendGroup
                                                                 .getUserRateListCall
-                                                                .userRateJsonList(
+                                                                .userRateNamesList(
                                                                   listViewGetUserRateListResponse
                                                                       .jsonBody,
-                                                                )!
-                                                                .toList())
-                                                            .map((e) => e !=
-                                                                        null &&
-                                                                    e != ''
-                                                                ? UserRateStruct
-                                                                    .fromMap(e)
-                                                                : null)
-                                                            .withoutNulls
-                                                            .toList();
+                                                                )
+                                                                ?.toList() ??
+                                                            [];
                                                     return ListView.separated(
                                                       padding: EdgeInsets.zero,
                                                       shrinkWrap: true,
@@ -298,9 +288,10 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                           future: TaskerpageBackendGroup
                                                               .getUserRateDetailsCall
                                                               .call(
-                                                            name:
-                                                                userRateNamesListItem
-                                                                    .name,
+                                                            name: getJsonField(
+                                                              userRateNamesListItem,
+                                                              r'''$.name''',
+                                                            ).toString(),
                                                             apiGlobalKey:
                                                                 FFAppState()
                                                                     .apiKey,
@@ -330,8 +321,8 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                               model: _model
                                                                   .rateCardModels
                                                                   .getModel(
-                                                                userRateNamesListItem
-                                                                    .name,
+                                                                userRateNamesListIndex
+                                                                    .toString(),
                                                                 userRateNamesListIndex,
                                                               ),
                                                               updateCallback:
@@ -340,16 +331,15 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                               child:
                                                                   RateCardWidget(
                                                                 key: Key(
-                                                                  'Keyxtb_${userRateNamesListItem.name}',
+                                                                  'Keyxtb_${userRateNamesListIndex.toString()}',
                                                                 ),
-                                                                userRate:
-                                                                    UserRateStruct
-                                                                        .fromMap(
-                                                                            getJsonField(
+                                                                userRate: UserRateStruct
+                                                                    .maybeFromMap(
+                                                                        getJsonField(
                                                                   rateCardGetUserRateDetailsResponse
                                                                       .jsonBody,
                                                                   r'''$.data''',
-                                                                )),
+                                                                ))!,
                                                                 indexInList:
                                                                     userRateNamesListIndex,
                                                               ),

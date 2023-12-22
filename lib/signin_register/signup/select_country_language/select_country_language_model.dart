@@ -23,26 +23,26 @@ class SelectCountryLanguageModel
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
     headerModel.dispose();
     buttonNextModel.dispose();
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

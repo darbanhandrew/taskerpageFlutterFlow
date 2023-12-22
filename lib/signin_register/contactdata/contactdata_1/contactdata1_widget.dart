@@ -307,15 +307,19 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                 mainAxisSize: MainAxisSize.max,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  wrapWithModel(
-                    model: _model.headerModel,
-                    updateCallback: () => setState(() {}),
-                    child: HeaderWidget(
-                      openDrawer: () async {
-                        scaffoldKey.currentState!.openDrawer();
-                      },
+                  if (responsiveVisibility(
+                    context: context,
+                    desktop: false,
+                  ))
+                    wrapWithModel(
+                      model: _model.headerModel,
+                      updateCallback: () => setState(() {}),
+                      child: HeaderWidget(
+                        openDrawer: () async {
+                          scaffoldKey.currentState!.openDrawer();
+                        },
+                      ),
                     ),
-                  ),
                 ],
               ),
               Expanded(
@@ -324,8 +328,27 @@ class _Contactdata1WidgetState extends State<Contactdata1Widget>
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(15.0, 32.0, 15.0, 0.0),
+                      padding: EdgeInsetsDirectional.fromSTEB(
+                          15.0,
+                          valueOrDefault<double>(
+                            () {
+                              if (MediaQuery.sizeOf(context).width <
+                                  kBreakpointSmall) {
+                                return 32.0;
+                              } else if (MediaQuery.sizeOf(context).width <
+                                  kBreakpointMedium) {
+                                return 32.0;
+                              } else if (MediaQuery.sizeOf(context).width <
+                                  kBreakpointLarge) {
+                                return 94.0;
+                              } else {
+                                return 94.0;
+                              }
+                            }(),
+                            0.0,
+                          ),
+                          15.0,
+                          0.0),
                       child: Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,

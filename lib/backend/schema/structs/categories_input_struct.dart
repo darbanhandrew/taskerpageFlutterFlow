@@ -39,8 +39,9 @@ class CategoriesInputStruct extends BaseStruct {
         ),
       );
 
-  static CategoriesInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? CategoriesInputStruct.fromMap(data) : null;
+  static CategoriesInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? CategoriesInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

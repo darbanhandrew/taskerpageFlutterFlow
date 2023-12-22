@@ -31,7 +31,7 @@ class SkillStruct extends BaseStruct {
       );
 
   static SkillStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? SkillStruct.fromMap(data) : null;
+      data is Map ? SkillStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'skill': _skill,

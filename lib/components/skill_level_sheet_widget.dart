@@ -366,10 +366,11 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                                   ),
                                                   skillOption:
                                                       SkillOptionsStruct
-                                                          .fromMap(getJsonField(
+                                                          .maybeFromMap(
+                                                              getJsonField(
                                                     skillOptionsItem,
                                                     r'''$''',
-                                                  )),
+                                                  ))!,
                                                   defaultValue: false,
                                                 ),
                                               ),
@@ -403,10 +404,11 @@ class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {
                                                   ),
                                                   skillOption:
                                                       SkillOptionsStruct
-                                                          .fromMap(getJsonField(
+                                                          .maybeFromMap(
+                                                              getJsonField(
                                                     skillOptionsItem,
                                                     r'''$''',
-                                                  )),
+                                                  ))!,
                                                 ),
                                               ),
                                             ),

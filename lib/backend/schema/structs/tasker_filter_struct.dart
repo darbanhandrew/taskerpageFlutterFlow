@@ -114,8 +114,9 @@ class TaskerFilterStruct extends BaseStruct {
         searchString: data['searchString'] as String?,
       );
 
-  static TaskerFilterStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskerFilterStruct.fromMap(data) : null;
+  static TaskerFilterStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskerFilterStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'anyLocation': _anyLocation,

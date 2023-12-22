@@ -151,7 +151,7 @@ class ChatRoomStruct extends BaseStruct {
       );
 
   static ChatRoomStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? ChatRoomStruct.fromMap(data) : null;
+      data is Map ? ChatRoomStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'room_name': _roomName,

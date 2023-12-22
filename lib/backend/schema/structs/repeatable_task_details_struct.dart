@@ -81,10 +81,9 @@ class RepeatableTaskDetailsStruct extends BaseStruct {
         preferredDays: getDataList(data['preferred_days']),
       );
 
-  static RepeatableTaskDetailsStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? RepeatableTaskDetailsStruct.fromMap(data)
-          : null;
+  static RepeatableTaskDetailsStruct? maybeFromMap(dynamic data) => data is Map
+      ? RepeatableTaskDetailsStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'repeat_type': _repeatType,

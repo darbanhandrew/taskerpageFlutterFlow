@@ -58,10 +58,10 @@ class HomePageTaskerSugestionInputStruct extends BaseStruct {
         cardType: deserializeEnum<CardType>(data['card_type']),
       );
 
-  static HomePageTaskerSugestionInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? HomePageTaskerSugestionInputStruct.fromMap(data)
-          : null;
+  static HomePageTaskerSugestionInputStruct? maybeFromMap(dynamic data) => data
+          is Map
+      ? HomePageTaskerSugestionInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

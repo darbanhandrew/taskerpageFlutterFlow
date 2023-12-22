@@ -40,8 +40,9 @@ class CheapsChatStruct extends BaseStruct {
         message: data['message'] as String?,
       );
 
-  static CheapsChatStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? CheapsChatStruct.fromMap(data) : null;
+  static CheapsChatStruct? maybeFromMap(dynamic data) => data is Map
+      ? CheapsChatStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'type': _type,

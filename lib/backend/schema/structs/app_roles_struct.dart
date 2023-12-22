@@ -50,7 +50,7 @@ class AppRolesStruct extends BaseStruct {
       );
 
   static AppRolesStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? AppRolesStruct.fromMap(data) : null;
+      data is Map ? AppRolesStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'role_profile_name': _roleProfileName,

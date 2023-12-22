@@ -309,8 +309,9 @@ class CrateTaskStruct extends BaseStruct {
         preferredDays: getDataList(data['preferred_days']),
       );
 
-  static CrateTaskStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? CrateTaskStruct.fromMap(data) : null;
+  static CrateTaskStruct? maybeFromMap(dynamic data) => data is Map
+      ? CrateTaskStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skill': _skill,

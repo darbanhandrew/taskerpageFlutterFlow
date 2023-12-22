@@ -99,8 +99,9 @@ class UserServiceStruct extends BaseStruct {
         name: castToType<int>(data['name']),
       );
 
-  static UserServiceStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? UserServiceStruct.fromMap(data) : null;
+  static UserServiceStruct? maybeFromMap(dynamic data) => data is Map
+      ? UserServiceStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skill_category_name': _skillCategoryName,

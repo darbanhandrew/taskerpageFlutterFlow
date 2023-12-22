@@ -582,6 +582,27 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => WebPageWidget(
             name: params.getParam('name', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'rate_list_web_register',
+          path: '/user-rate-register',
+          builder: (context, params) => RateListWebRegisterWidget(
+            name: params.getParam('name', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'skill_list_web_register',
+          path: '/skill-list-web-register',
+          builder: (context, params) => SkillListWebRegisterWidget(
+            name: params.getParam('name', ParamType.String),
+          ),
+        ),
+        FFRoute(
+          name: 'education-list-web-register',
+          path: '/education-list-web-register',
+          builder: (context, params) => EducationListWebRegisterWidget(
+            name: params.getParam('name', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

@@ -398,8 +398,9 @@ class TaskCreationStruct extends BaseStruct {
         skill: data['skill'] as String?,
       );
 
-  static TaskCreationStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskCreationStruct.fromMap(data) : null;
+  static TaskCreationStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskCreationStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'tasker_languages': _taskerLanguages,

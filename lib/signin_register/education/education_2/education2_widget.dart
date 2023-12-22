@@ -404,7 +404,9 @@ class _Education2WidgetState extends State<Education2Widget> {
                                                                               Color(0x33000000),
                                                                           offset: Offset(
                                                                               0.0,
-                                                                              6.0),
+                                                                              0.0),
+                                                                          spreadRadius:
+                                                                              2.0,
                                                                         )
                                                                       ],
                                                                       borderRadius:

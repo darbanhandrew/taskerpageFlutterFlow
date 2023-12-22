@@ -23,6 +23,7 @@ export 'appointment_struct.dart';
 export 'categories_card_input_struct.dart';
 export 'categories_input_struct.dart';
 export 'cheaps_chat_struct.dart';
+export 'child_user_service_struct.dart';
 export 'crate_task_struct.dart';
 export 'create_task_struct.dart';
 export 'customer_profile_item_struct.dart';

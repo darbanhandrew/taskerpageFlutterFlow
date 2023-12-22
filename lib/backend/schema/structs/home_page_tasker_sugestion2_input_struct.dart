@@ -44,8 +44,9 @@ class HomePageTaskerSugestion2InputStruct extends BaseStruct {
       );
 
   static HomePageTaskerSugestion2InputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? HomePageTaskerSugestion2InputStruct.fromMap(data)
+      data is Map
+          ? HomePageTaskerSugestion2InputStruct.fromMap(
+              data.cast<String, dynamic>())
           : null;
 
   Map<String, dynamic> toMap() => {

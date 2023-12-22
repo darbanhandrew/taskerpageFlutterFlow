@@ -28,6 +28,8 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // State field(s) for EmailAddress widget.
@@ -52,20 +54,19 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
   ApiCallResponse? apiResultfu7;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? apiResultd93;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
     password1Visibility = false;
     password2Visibility = false;
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
     headerModel.dispose();
     emailAddressFocusNode?.dispose();
     emailAddressController?.dispose();
@@ -75,8 +76,6 @@ class SignupModel extends FlutterFlowModel<SignupWidget> {
 
     password2FocusNode?.dispose();
     password2Controller?.dispose();
-
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

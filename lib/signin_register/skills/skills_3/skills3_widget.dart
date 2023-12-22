@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -107,496 +108,698 @@ class _Skills3WidgetState extends State<Skills3Widget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Flexible(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  FFAppConstants.mediumCardUD.toDouble(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  FFAppConstants.mediumCardUD.toDouble(),
+                  0.0,
+                )),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4.0,
+                    color: Color(0x33000000),
+                    offset: Offset(0.0, 0.0),
+                    spreadRadius: 2.0,
+                  )
+                ],
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    Column(
                       mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        wrapWithModel(
-                          model: _model.headerModel,
-                          updateCallback: () => setState(() {}),
-                          child: Hero(
-                            tag: 'header',
-                            transitionOnUserGestures: true,
-                            child: Material(
-                              color: Colors.transparent,
-                              child: HeaderWidget(
-                                openDrawer: () async {
-                                  scaffoldKey.currentState!.openEndDrawer();
-                                },
-                              ),
-                            ),
+                        Expanded(
+                          child: wrapWithModel(
+                            model: _model.sideBarLeftSignUpModel,
+                            updateCallback: () => setState(() {}),
+                            child: SideBarLeftSignUpWidget(),
                           ),
                         ),
                       ],
                     ),
-                    FutureBuilder<ApiCallResponse>(
-                      future: FFAppState().appRoleDetails(
-                        uniqueQueryKey:
-                            '${FFAppState().apiKey}_${valueOrDefault<String>(
-                          getJsonField(
-                            FFAppState().userProfile,
-                            r'''$.data.role_profile_name''',
-                          ).toString(),
-                          'End User',
-                        )}',
-                        requestFn: () =>
-                            TaskerpageBackendGroup.readAppRoleCall.call(
-                          name: valueOrDefault<String>(
-                            getJsonField(
-                              FFAppState().userProfile,
-                              r'''$.data.role_profile_name''',
-                            ).toString(),
-                            'End User',
-                          ),
-                          apiGlobalKey: FFAppState().apiKey,
-                        ),
-                      ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 35.0,
-                              height: 35.0,
-                              child: SpinKitThreeBounce(
-                                color: FlutterFlowTheme.of(context).primary,
-                                size: 35.0,
-                              ),
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    VerticalDivider(
+                      width: 1.0,
+                      thickness: 1.0,
+                      color: FlutterFlowTheme.of(context).tertiary,
+                    ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
                             ),
-                          );
-                        }
-                        final columnReadAppRoleResponse = snapshot.data!;
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  44.0, 32.0, 44.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      TaskerpageBackendGroup.readAppRoleCall
-                                          .addSkillsText(
-                                            columnReadAppRoleResponse.jsonBody,
-                                          )
-                                          .toString(),
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 38.0, 32.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Expanded(
-                                    child: FutureBuilder<ApiCallResponse>(
-                                      future: TaskerpageBackendGroup
-                                          .serviceCategoryListCall
-                                          .call(
-                                        apiGlobalKey: FFAppState().apiKey,
-                                      ),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 35.0,
-                                              height: 35.0,
-                                              child: SpinKitThreeBounce(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primary,
-                                                size: 35.0,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            desktop: false,
+                                          ))
+                                            wrapWithModel(
+                                              model: _model.headerModel,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: Hero(
+                                                tag: 'header',
+                                                transitionOnUserGestures: true,
+                                                child: Material(
+                                                  color: Colors.transparent,
+                                                  child: HeaderWidget(
+                                                    openDrawer: () async {
+                                                      scaffoldKey.currentState!
+                                                          .openEndDrawer();
+                                                    },
+                                                  ),
+                                                ),
                                               ),
                                             ),
-                                          );
-                                        }
-                                        final gridViewServiceCategoryListResponse =
-                                            snapshot.data!;
-                                        return Builder(
-                                          builder: (context) {
-                                            final serviceCategories =
-                                                TaskerpageBackendGroup
-                                                        .serviceCategoryListCall
-                                                        .serviceCategoryList(
-                                                          gridViewServiceCategoryListResponse
-                                                              .jsonBody,
-                                                        )
-                                                        ?.toList() ??
-                                                    [];
-                                            return GridView.builder(
-                                              padding: EdgeInsets.zero,
-                                              gridDelegate:
-                                                  SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 2,
-                                                crossAxisSpacing: 12.0,
-                                                mainAxisSpacing: 6.0,
-                                                childAspectRatio: 4.2,
+                                        ],
+                                      ),
+                                      FutureBuilder<ApiCallResponse>(
+                                        future: FFAppState().appRoleDetails(
+                                          uniqueQueryKey:
+                                              '${FFAppState().apiKey}_${valueOrDefault<String>(
+                                            getJsonField(
+                                              FFAppState().userProfile,
+                                              r'''$.data.role_profile_name''',
+                                            ).toString(),
+                                            'End User',
+                                          )}',
+                                          requestFn: () =>
+                                              TaskerpageBackendGroup
+                                                  .readAppRoleCall
+                                                  .call(
+                                            name: valueOrDefault<String>(
+                                              getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.role_profile_name''',
+                                              ).toString(),
+                                              'End User',
+                                            ),
+                                            apiGlobalKey: FFAppState().apiKey,
+                                          ),
+                                        ),
+                                        builder: (context, snapshot) {
+                                          // Customize what your widget looks like when it's loading.
+                                          if (!snapshot.hasData) {
+                                            return Center(
+                                              child: SizedBox(
+                                                width: 35.0,
+                                                height: 35.0,
+                                                child: SpinKitThreeBounce(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  size: 35.0,
+                                                ),
                                               ),
-                                              shrinkWrap: true,
-                                              scrollDirection: Axis.vertical,
-                                              itemCount:
-                                                  serviceCategories.length,
-                                              itemBuilder: (context,
-                                                  serviceCategoriesIndex) {
-                                                final serviceCategoriesItem =
-                                                    serviceCategories[
-                                                        serviceCategoriesIndex];
-                                                return InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    if (_model
-                                                        .chosenSkillCategory
-                                                        .contains(getJsonField(
-                                                      serviceCategoriesItem,
-                                                      r'''$.name''',
-                                                    ).toString())) {
-                                                      setState(() {
-                                                        _model
-                                                            .removeFromChosenSkillCategory(
-                                                                getJsonField(
-                                                          serviceCategoriesItem,
-                                                          r'''$.name''',
-                                                        ).toString());
-                                                      });
-                                                    } else {
-                                                      if (_model
-                                                              .chosenSkillCategory
-                                                              .length <
-                                                          TaskerpageBackendGroup
-                                                              .readAppRoleCall
-                                                              .skillsLimit(
-                                                            columnReadAppRoleResponse
-                                                                .jsonBody,
-                                                          )) {
-                                                        setState(() {
-                                                          _model
-                                                              .addToChosenSkillCategory(
-                                                                  getJsonField(
-                                                            serviceCategoriesItem,
-                                                            r'''$.name''',
-                                                          ).toString());
-                                                        });
-                                                      } else {
-                                                        ScaffoldMessenger.of(
-                                                                context)
-                                                            .showSnackBar(
-                                                          SnackBar(
-                                                            content: Text(
-                                                              'You can\'t choose more than ${TaskerpageBackendGroup.readAppRoleCall.skillsLimit(
-                                                                    columnReadAppRoleResponse
-                                                                        .jsonBody,
-                                                                  ).toString()} Categories.',
-                                                              style: TextStyle(
-                                                                color: FlutterFlowTheme.of(
+                                            );
+                                          }
+                                          final columnReadAppRoleResponse =
+                                              snapshot.data!;
+                                          return Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        44.0,
+                                                        valueOrDefault<double>(
+                                                          () {
+                                                            if (MediaQuery.sizeOf(
                                                                         context)
-                                                                    .primaryText,
-                                                              ),
-                                                            ),
-                                                            duration: Duration(
-                                                                milliseconds:
-                                                                    4000),
-                                                            backgroundColor:
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .error,
-                                                          ),
-                                                        );
-                                                      }
-                                                    }
-                                                  },
-                                                  child: Container(
-                                                    width: 100.0,
-                                                    height: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              2.0),
-                                                      border: Border.all(
-                                                        color: valueOrDefault<
-                                                            Color>(
-                                                          _model.chosenSkillCategory
-                                                                      .contains(
-                                                                          getJsonField(
-                                                                    serviceCategoriesItem,
-                                                                    r'''$.name''',
-                                                                  )
-                                                                              .toString()) ==
-                                                                  true
-                                                              ? FlutterFlowTheme
-                                                                      .of(
-                                                                          context)
-                                                                  .primary
-                                                              : FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondary,
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .secondaryText,
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 32.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 32.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 85.0;
+                                                            } else {
+                                                              return 85.0;
+                                                            }
+                                                          }(),
+                                                          0.0,
                                                         ),
-                                                        width: 1.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  15.0,
-                                                                  0.0,
-                                                                  15.0,
-                                                                  0.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Text(
-                                                            getJsonField(
-                                                              serviceCategoriesItem,
-                                                              r'''$.name''',
+                                                        44.0,
+                                                        0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Flexible(
+                                                      child: Text(
+                                                        TaskerpageBackendGroup
+                                                            .readAppRoleCall
+                                                            .addSkillsText(
+                                                              columnReadAppRoleResponse
+                                                                  .jsonBody,
                                                             )
-                                                                .toString()
-                                                                .maybeHandleOverflow(
-                                                                  maxChars: 17,
-                                                                  replacement:
-                                                                      '…',
-                                                                ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
+                                                            .toString(),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
                                                                 .bodyMedium
                                                                 .override(
                                                                   fontFamily:
                                                                       'Lato',
-                                                                  color:
-                                                                      valueOrDefault<
-                                                                          Color>(
-                                                                    _model.chosenSkillCategory.contains(
-                                                                                getJsonField(
-                                                                              serviceCategoriesItem,
-                                                                              r'''$.name''',
-                                                                            )
-                                                                                    .toString()) ==
-                                                                            true
-                                                                        ? FlutterFlowTheme.of(context)
-                                                                            .primary
-                                                                        : FlutterFlowTheme.of(context)
-                                                                            .secondary,
-                                                                    FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                  ),
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .alternate,
                                                                   fontSize:
-                                                                      12.0,
+                                                                      18.0,
                                                                   fontWeight:
                                                                       FontWeight
                                                                           .w500,
                                                                 ),
-                                                          ),
-                                                        ],
                                                       ),
                                                     ),
-                                                  ),
-                                                );
-                                              },
-                                            );
-                                          },
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5.0,
-                          color: Color(0x33000000),
-                          offset: Offset(5.0, 5.0),
-                          spreadRadius: 10.0,
-                        )
-                      ],
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              if (!widget.addAnother)
-                                InkWell(
-                                  splashColor: Colors.transparent,
-                                  focusColor: Colors.transparent,
-                                  hoverColor: Colors.transparent,
-                                  highlightColor: Colors.transparent,
-                                  onTap: () async {
-                                    context.pushNamed('Contactdata-1');
-                                  },
-                                  child: Text(
-                                    'I\'ll do it later',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF8A8A8A),
-                                          fontSize: 14.0,
-                                        ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        32.0, 38.0, 32.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Expanded(
+                                                      child: FutureBuilder<
+                                                          ApiCallResponse>(
+                                                        future: TaskerpageBackendGroup
+                                                            .serviceCategoryListCall
+                                                            .call(
+                                                          apiGlobalKey:
+                                                              FFAppState()
+                                                                  .apiKey,
+                                                        ),
+                                                        builder: (context,
+                                                            snapshot) {
+                                                          // Customize what your widget looks like when it's loading.
+                                                          if (!snapshot
+                                                              .hasData) {
+                                                            return Center(
+                                                              child: SizedBox(
+                                                                width: 35.0,
+                                                                height: 35.0,
+                                                                child:
+                                                                    SpinKitThreeBounce(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  size: 35.0,
+                                                                ),
+                                                              ),
+                                                            );
+                                                          }
+                                                          final gridViewServiceCategoryListResponse =
+                                                              snapshot.data!;
+                                                          return Builder(
+                                                            builder: (context) {
+                                                              final serviceCategories =
+                                                                  TaskerpageBackendGroup
+                                                                          .serviceCategoryListCall
+                                                                          .serviceCategoryList(
+                                                                            gridViewServiceCategoryListResponse.jsonBody,
+                                                                          )
+                                                                          ?.toList() ??
+                                                                      [];
+                                                              return GridView
+                                                                  .builder(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .zero,
+                                                                gridDelegate:
+                                                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                                                  crossAxisCount:
+                                                                      2,
+                                                                  crossAxisSpacing:
+                                                                      12.0,
+                                                                  mainAxisSpacing:
+                                                                      6.0,
+                                                                  childAspectRatio:
+                                                                      4.2,
+                                                                ),
+                                                                shrinkWrap:
+                                                                    true,
+                                                                scrollDirection:
+                                                                    Axis.vertical,
+                                                                itemCount:
+                                                                    serviceCategories
+                                                                        .length,
+                                                                itemBuilder:
+                                                                    (context,
+                                                                        serviceCategoriesIndex) {
+                                                                  final serviceCategoriesItem =
+                                                                      serviceCategories[
+                                                                          serviceCategoriesIndex];
+                                                                  return InkWell(
+                                                                    splashColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    focusColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    hoverColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    highlightColor:
+                                                                        Colors
+                                                                            .transparent,
+                                                                    onTap:
+                                                                        () async {
+                                                                      if (_model
+                                                                          .chosenSkillCategory
+                                                                          .contains(
+                                                                              getJsonField(
+                                                                        serviceCategoriesItem,
+                                                                        r'''$.name''',
+                                                                      ).toString())) {
+                                                                        setState(
+                                                                            () {
+                                                                          _model
+                                                                              .removeFromChosenSkillCategory(getJsonField(
+                                                                            serviceCategoriesItem,
+                                                                            r'''$.name''',
+                                                                          ).toString());
+                                                                        });
+                                                                      } else {
+                                                                        if (_model.chosenSkillCategory.length <
+                                                                            TaskerpageBackendGroup.readAppRoleCall.skillsLimit(
+                                                                              columnReadAppRoleResponse.jsonBody,
+                                                                            )) {
+                                                                          setState(
+                                                                              () {
+                                                                            _model.addToChosenSkillCategory(getJsonField(
+                                                                              serviceCategoriesItem,
+                                                                              r'''$.name''',
+                                                                            ).toString());
+                                                                          });
+                                                                        } else {
+                                                                          ScaffoldMessenger.of(context)
+                                                                              .showSnackBar(
+                                                                            SnackBar(
+                                                                              content: Text(
+                                                                                'You can\'t choose more than ${TaskerpageBackendGroup.readAppRoleCall.skillsLimit(
+                                                                                      columnReadAppRoleResponse.jsonBody,
+                                                                                    ).toString()} Categories.',
+                                                                                style: TextStyle(
+                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                ),
+                                                                              ),
+                                                                              duration: Duration(milliseconds: 4000),
+                                                                              backgroundColor: FlutterFlowTheme.of(context).error,
+                                                                            ),
+                                                                          );
+                                                                        }
+                                                                      }
+                                                                    },
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          100.0,
+                                                                      height:
+                                                                          100.0,
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        borderRadius:
+                                                                            BorderRadius.circular(2.0),
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              valueOrDefault<Color>(
+                                                                            _model.chosenSkillCategory.contains(getJsonField(
+                                                                                      serviceCategoriesItem,
+                                                                                      r'''$.name''',
+                                                                                    ).toString()) ==
+                                                                                    true
+                                                                                ? FlutterFlowTheme.of(context).primary
+                                                                                : FlutterFlowTheme.of(context).secondary,
+                                                                            FlutterFlowTheme.of(context).secondaryText,
+                                                                          ),
+                                                                          width:
+                                                                              1.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            15.0,
+                                                                            0.0,
+                                                                            15.0,
+                                                                            0.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            Text(
+                                                                              getJsonField(
+                                                                                serviceCategoriesItem,
+                                                                                r'''$.name''',
+                                                                              ).toString().maybeHandleOverflow(
+                                                                                    maxChars: 17,
+                                                                                    replacement: '…',
+                                                                                  ),
+                                                                              style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                    fontFamily: 'Lato',
+                                                                                    color: valueOrDefault<Color>(
+                                                                                      _model.chosenSkillCategory.contains(getJsonField(
+                                                                                                serviceCategoriesItem,
+                                                                                                r'''$.name''',
+                                                                                              ).toString()) ==
+                                                                                              true
+                                                                                          ? FlutterFlowTheme.of(context).primary
+                                                                                          : FlutterFlowTheme.of(context).secondary,
+                                                                                      FlutterFlowTheme.of(context).secondaryText,
+                                                                                    ),
+                                                                                    fontSize: 12.0,
+                                                                                    fontWeight: FontWeight.w500,
+                                                                                  ),
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  );
+                                                                },
+                                                              );
+                                                            },
+                                                          );
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
+                                    ],
                                   ),
                                 ),
-                            ],
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              if (_model.chosenSkillCategory.length > 0) {
-                                _model.syncedSkills =
-                                    await TaskerpageBackendGroup
-                                        .syncSkillCategoriesCall
-                                        .call(
-                                  newSkillsList:
-                                      functions.convertListOfStringToString(
-                                          _model.chosenSkillCategory.toList()),
-                                  customerProfileName: getJsonField(
-                                    FFAppState().userProfile,
-                                    r'''$.data.name''',
-                                  ).toString(),
-                                  apiGlobalKey: FFAppState().apiKey,
-                                );
-                                if ((_model.syncedSkills?.succeeded ?? true)) {
-                                  context.pushNamed(
-                                    'Skills-4',
-                                    queryParameters: {
-                                      'addAnother': serializeParam(
-                                        widget.addAnother ? true : false,
-                                        ParamType.bool,
-                                      ),
-                                    }.withoutNulls,
-                                  );
-                                } else {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                        'there was a problem syncing your skill categories',
-                                        style: TextStyle(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryText,
-                                        ),
-                                      ),
-                                      duration: Duration(milliseconds: 4000),
-                                      backgroundColor:
-                                          FlutterFlowTheme.of(context)
-                                              .secondary,
-                                    ),
-                                  );
-                                }
-                              } else {
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  SnackBar(
-                                    content: Text(
-                                      'You must choose at least one',
-                                      style: TextStyle(
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height: 60.0,
+                                      decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .primaryText,
+                                            .secondaryBackground,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 5.0,
+                                            color: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return Color(0x33000000);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return Color(0x33000000);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return Colors.transparent;
+                                              } else {
+                                                return Colors.transparent;
+                                              }
+                                            }(),
+                                            offset: Offset(5.0, 5.0),
+                                            spreadRadius: 10.0,
+                                          )
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            32.0, 0.0, 32.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                if (!widget.addAnother)
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      context.pushNamed(
+                                                          'Contactdata-1');
+                                                    },
+                                                    child: Text(
+                                                      'I\'ll do it later',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Color(
+                                                                0xFF8A8A8A),
+                                                            fontSize: 14.0,
+                                                          ),
+                                                    ),
+                                                  ),
+                                              ],
+                                            ),
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                if (_model.chosenSkillCategory
+                                                        .length >
+                                                    0) {
+                                                  _model.syncedSkills =
+                                                      await TaskerpageBackendGroup
+                                                          .syncSkillCategoriesCall
+                                                          .call(
+                                                    newSkillsList: functions
+                                                        .convertListOfStringToString(
+                                                            _model
+                                                                .chosenSkillCategory
+                                                                .toList()),
+                                                    customerProfileName:
+                                                        getJsonField(
+                                                      FFAppState().userProfile,
+                                                      r'''$.data.name''',
+                                                    ).toString(),
+                                                    apiGlobalKey:
+                                                        FFAppState().apiKey,
+                                                  );
+                                                  if ((_model.syncedSkills
+                                                          ?.succeeded ??
+                                                      true)) {
+                                                    context.pushNamed(
+                                                      'Skills-4',
+                                                      queryParameters: {
+                                                        'addAnother':
+                                                            serializeParam(
+                                                          widget.addAnother
+                                                              ? true
+                                                              : false,
+                                                          ParamType.bool,
+                                                        ),
+                                                      }.withoutNulls,
+                                                    );
+                                                  } else {
+                                                    ScaffoldMessenger.of(
+                                                            context)
+                                                        .showSnackBar(
+                                                      SnackBar(
+                                                        content: Text(
+                                                          'there was a problem syncing your skill categories',
+                                                          style: TextStyle(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                          ),
+                                                        ),
+                                                        duration: Duration(
+                                                            milliseconds: 4000),
+                                                        backgroundColor:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .secondary,
+                                                      ),
+                                                    );
+                                                  }
+                                                } else {
+                                                  ScaffoldMessenger.of(context)
+                                                      .showSnackBar(
+                                                    SnackBar(
+                                                      content: Text(
+                                                        'You must choose at least one',
+                                                        style: TextStyle(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                        ),
+                                                      ),
+                                                      duration: Duration(
+                                                          milliseconds: 4000),
+                                                      backgroundColor:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .secondary,
+                                                    ),
+                                                  );
+                                                }
+
+                                                setState(() {});
+                                              },
+                                              child: Container(
+                                                width: 104.0,
+                                                height: 36.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primary,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          1.0),
+                                                ),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    Text(
+                                                      'Save',
+                                                      style: FlutterFlowTheme
+                                                              .of(context)
+                                                          .bodyMedium
+                                                          .override(
+                                                            fontFamily: 'Lato',
+                                                            color: Colors.white,
+                                                            fontSize: 14.0,
+                                                          ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
-                                    duration: Duration(milliseconds: 4000),
-                                    backgroundColor:
-                                        FlutterFlowTheme.of(context).secondary,
-                                  ),
-                                );
-                              }
-
-                              setState(() {});
-                            },
-                            child: Container(
-                              width: 104.0,
-                              height: 36.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                borderRadius: BorderRadius.circular(1.0),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Save',
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Colors.white,
-                                          fontSize: 14.0,
-                                        ),
-                                  ),
-                                ],
-                              ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),

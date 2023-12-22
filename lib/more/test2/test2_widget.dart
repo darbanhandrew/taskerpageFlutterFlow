@@ -120,9 +120,7 @@ class _Test2WidgetState extends State<Test2Widget> {
                             listViewChatListResponse.jsonBody,
                           )!
                           .toList())
-                      .map((e) => e != null && e != ''
-                          ? ChatRoomStruct.fromMap(e)
-                          : null)
+                      .map((e) => ChatRoomStruct.maybeFromMap(e))
                       .withoutNulls
                       .toList();
                   return ListView.builder(

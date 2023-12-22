@@ -388,8 +388,9 @@ class CurrentUserStruct extends BaseStruct {
         avatar: data['avatar'] as String?,
       );
 
-  static CurrentUserStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? CurrentUserStruct.fromMap(data) : null;
+  static CurrentUserStruct? maybeFromMap(dynamic data) => data is Map
+      ? CurrentUserStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'Email': _email,

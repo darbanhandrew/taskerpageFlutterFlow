@@ -29,6 +29,8 @@ class PhoneVerificationPageModel
   ApiCallResponse? sendCode;
   // Stores action output result for [Backend Call - API (send to verification code)] action in PhoneVerificationPage widget.
   ApiCallResponse? apiResult5wf;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Stores action output result for [Backend Call - API (userProfileRead)] action in Text widget.
@@ -36,28 +38,31 @@ class PhoneVerificationPageModel
   // Stores action output result for [Backend Call - API (send to verification code)] action in Text widget.
   ApiCallResponse? apiResult5wf3;
   // State field(s) for PinCode widget.
-  TextEditingController? pinCodeController;
-  String? Function(BuildContext, String?)? pinCodeControllerValidator;
+  TextEditingController? pinCodeController1;
+  String? Function(BuildContext, String?)? pinCodeController1Validator;
   // Stores action output result for [Backend Call - API (check verification code)] action in Container widget.
   ApiCallResponse? apiResult3lo;
   // Stores action output result for [Backend Call - API (Update phone verification)] action in Container widget.
   ApiCallResponse? apiResult77u;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
+  // State field(s) for PinCode widget.
+  TextEditingController? pinCodeController2;
+  String? Function(BuildContext, String?)? pinCodeController2Validator;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
-    pinCodeController = TextEditingController();
     mainDrawerModel = createModel(context, () => MainDrawerModel());
+    headerModel = createModel(context, () => HeaderModel());
+    pinCodeController1 = TextEditingController();
+    pinCodeController2 = TextEditingController();
   }
 
   void dispose() {
     unfocusNode.dispose();
-    headerModel.dispose();
-    pinCodeController?.dispose();
     mainDrawerModel.dispose();
+    headerModel.dispose();
+    pinCodeController1?.dispose();
+    pinCodeController2?.dispose();
   }
 
   /// Action blocks are added here.

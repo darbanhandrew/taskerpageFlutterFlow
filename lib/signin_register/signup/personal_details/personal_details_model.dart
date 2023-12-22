@@ -27,6 +27,8 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for requard_star component.
@@ -62,23 +64,22 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (userProfileBasicInfo)] action in button_Next widget.
   ApiCallResponse? userProfileBasicInfoResult;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
     requardStarModel1 = createModel(context, () => RequardStarModel());
     requardStarModel2 = createModel(context, () => RequardStarModel());
     requardStarModel3 = createModel(context, () => RequardStarModel());
     requardStarModel4 = createModel(context, () => RequardStarModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
     headerModel.dispose();
     requardStarModel1.dispose();
     companyNameFocusNode?.dispose();
@@ -97,7 +98,6 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
 
     requardStarModel4.dispose();
     buttonNextModel.dispose();
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

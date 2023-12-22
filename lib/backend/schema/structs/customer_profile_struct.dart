@@ -352,8 +352,9 @@ class CustomerProfileStruct extends BaseStruct {
         ),
       );
 
-  static CustomerProfileStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? CustomerProfileStruct.fromMap(data) : null;
+  static CustomerProfileStruct? maybeFromMap(dynamic data) => data is Map
+      ? CustomerProfileStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,

@@ -69,8 +69,9 @@ class TaskAddressStruct extends BaseStruct {
         city: data['city'] as String?,
       );
 
-  static TaskAddressStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskAddressStruct.fromMap(data) : null;
+  static TaskAddressStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskAddressStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'address': _address,

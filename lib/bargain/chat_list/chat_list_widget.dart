@@ -1021,9 +1021,7 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                               listViewChatListResponse.jsonBody,
                                             )!
                                             .toList())
-                                    .map((e) => e != null && e != ''
-                                        ? ChatRoomStruct.fromMap(e)
-                                        : null)
+                                    .map((e) => ChatRoomStruct.maybeFromMap(e))
                                     .withoutNulls
                                     .toList();
                                 return ListView.builder(

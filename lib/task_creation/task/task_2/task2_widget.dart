@@ -706,11 +706,11 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                         ),
                                                         skillOption:
                                                             SkillOptionsStruct
-                                                                .fromMap(
+                                                                .maybeFromMap(
                                                                     getJsonField(
                                                           skillOptionsItem,
                                                           r'''$''',
-                                                        )),
+                                                        ))!,
                                                         defaultValue: FFAppState()
                                                                     .createTask
                                                                     .taskOptions[
@@ -751,11 +751,11 @@ class _Task2WidgetState extends State<Task2Widget> {
                                                         ),
                                                         skillOption:
                                                             SkillOptionsStruct
-                                                                .fromMap(
+                                                                .maybeFromMap(
                                                                     getJsonField(
                                                           skillOptionsItem,
                                                           r'''$''',
-                                                        )),
+                                                        ))!,
                                                         selectedChips: '',
                                                       ),
                                                     ),

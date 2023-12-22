@@ -61,8 +61,9 @@ class HowItWorksItemStruct extends BaseStruct {
         idx: castToType<int>(data['idx']),
       );
 
-  static HowItWorksItemStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? HowItWorksItemStruct.fromMap(data) : null;
+  static HowItWorksItemStruct? maybeFromMap(dynamic data) => data is Map
+      ? HowItWorksItemStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'item_title': _itemTitle,

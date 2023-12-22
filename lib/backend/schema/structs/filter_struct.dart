@@ -122,7 +122,7 @@ class FilterStruct extends BaseStruct {
       );
 
   static FilterStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? FilterStruct.fromMap(data) : null;
+      data is Map ? FilterStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'anyLocation': _anyLocation,

@@ -85,8 +85,9 @@ class TaskScheduleStruct extends BaseStruct {
             data['repeatableTaskDetails']),
       );
 
-  static TaskScheduleStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TaskScheduleStruct.fromMap(data) : null;
+  static TaskScheduleStruct? maybeFromMap(dynamic data) => data is Map
+      ? TaskScheduleStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'start_date': _startDate,

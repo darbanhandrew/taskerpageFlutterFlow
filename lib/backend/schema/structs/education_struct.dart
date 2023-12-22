@@ -59,8 +59,9 @@ class EducationStruct extends BaseStruct {
         relatedUserProfile: castToType<int>(data['related_user_profile']),
       );
 
-  static EducationStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? EducationStruct.fromMap(data) : null;
+  static EducationStruct? maybeFromMap(dynamic data) => data is Map
+      ? EducationStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

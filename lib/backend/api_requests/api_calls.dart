@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
+import '../schema/structs/index.dart';
 
 import '/flutter_flow/flutter_flow_util.dart';
 import 'api_manager.dart';
@@ -338,14 +339,14 @@ class LoginCall {
     );
   }
 
-  dynamic refreshKey(dynamic response) => getJsonField(
+  String? refreshKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.refresh''',
-      );
-  dynamic apiKey(dynamic response) => getJsonField(
+      ));
+  String? apiKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.access''',
-      );
+      ));
 }
 
 class TestAPICall {
@@ -377,14 +378,14 @@ class TestAPICall {
     );
   }
 
-  dynamic refreshKey(dynamic response) => getJsonField(
+  String? refreshKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.refresh''',
-      );
-  dynamic apiKey(dynamic response) => getJsonField(
+      ));
+  String? apiKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.access''',
-      );
+      ));
 }
 
 class GetUserCall {
@@ -408,14 +409,14 @@ class GetUserCall {
     );
   }
 
-  dynamic refreshKey(dynamic response) => getJsonField(
+  String? refreshKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.refresh''',
-      );
-  dynamic apiKey(dynamic response) => getJsonField(
+      ));
+  String? apiKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.api_key''',
-      );
+      ));
 }
 
 class UserProfileMeCall {
@@ -439,55 +440,60 @@ class UserProfileMeCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  String? id(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.name''',
-      );
+      ));
   List? userServices(dynamic response) => getJsonField(
         response,
         r'''$.user_services''',
         true,
       ) as List?;
-  dynamic relatedUser(dynamic response) => getJsonField(
+  dynamic? relatedUser(dynamic response) => getJsonField(
         response,
         r'''$.related_user''',
       );
-  dynamic relatedUserId(dynamic response) => getJsonField(
+  int? relatedUserId(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_user.id''',
-      );
-  dynamic relatedUserPassword(dynamic response) => getJsonField(
+      ));
+  String? relatedUserPassword(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.related_user.password''',
-      );
-  dynamic relatedUserLogin(dynamic response) => getJsonField(
+      ));
+  String? relatedUserLogin(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.related_user.last_login''',
-      );
-  dynamic relatedUserIsSuperUser(dynamic response) => getJsonField(
+      ));
+  bool? relatedUserIsSuperUser(dynamic response) =>
+      castToType<bool>(getJsonField(
         response,
         r'''$.related_user.is_superuser''',
-      );
-  dynamic relatedUserUserName(dynamic response) => getJsonField(
+      ));
+  String? relatedUserUserName(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.related_user.username''',
-      );
-  dynamic relatedUserIsStaff(dynamic response) => getJsonField(
+      ));
+  bool? relatedUserIsStaff(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.related_user.is_staff''',
-      );
-  dynamic relatedUserIsActive(dynamic response) => getJsonField(
+      ));
+  bool? relatedUserIsActive(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.related_user.is_active''',
-      );
-  dynamic relatedUserEmailAddress(dynamic response) => getJsonField(
+      ));
+  String? relatedUserEmailAddress(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.related_user.email''',
-      );
-  dynamic relatedUserDateJoined(dynamic response) => getJsonField(
+      ));
+  String? relatedUserDateJoined(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.related_user.date_joined''',
-      );
+      ));
   List? relatedUserGroups(dynamic response) => getJsonField(
         response,
         r'''$.related_user.groups''',
@@ -543,58 +549,59 @@ class UserProfileMeCall {
         r'''$.my_appointments''',
         true,
       ) as List?;
-  dynamic createAt(dynamic response) => getJsonField(
+  String? createAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic userProfileVisibility(dynamic response) => getJsonField(
+      ));
+  String? userProfileVisibility(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user_profile_visibility''',
-      );
-  dynamic userTitle(dynamic response) => getJsonField(
+      ));
+  String? userTitle(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_title''',
-      );
-  dynamic userRole(dynamic response) => getJsonField(
+      ));
+  String? userRole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_role''',
-      );
-  dynamic driverLicnese(dynamic response) => getJsonField(
+      ));
+  String? driverLicnese(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.driver_license''',
-      );
-  dynamic userCountry(dynamic response) => getJsonField(
+      ));
+  String? userCountry(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_country''',
-      );
-  dynamic isSubscribed(dynamic response) => getJsonField(
+      ));
+  bool? isSubscribed(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_subscribed''',
-      );
-  dynamic isVerified(dynamic response) => getJsonField(
+      ));
+  bool? isVerified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic hasInsurance(dynamic response) => getJsonField(
+      ));
+  bool? hasInsurance(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.has_insurance''',
-      );
-  dynamic reviewCount(dynamic response) => getJsonField(
+      ));
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic name(dynamic response) => getJsonField(
+      ));
+  String? name(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.related_user.first_name''',
-      );
-  dynamic family(dynamic response) => getJsonField(
+      ));
+  String? family(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.related_user.last_name''',
-      );
+      ));
   dynamic reviewAverage(dynamic response) => getJsonField(
         response,
         r'''$.review_average''',
@@ -603,14 +610,14 @@ class UserProfileMeCall {
         response,
         r'''$.avatar''',
       );
-  dynamic phone(dynamic response) => getJsonField(
+  String? phone(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.phone_number''',
-      );
-  dynamic dateOfBirth(dynamic response) => getJsonField(
+      ));
+  String? dateOfBirth(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.date_of_birth''',
-      );
+      ));
   List? selectedServicesCategory(dynamic response) => getJsonField(
         response,
         r'''$.user_services[:].service_category.id''',
@@ -770,62 +777,62 @@ class AddressCreateCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
-  dynamic modifiedat(dynamic response) => getJsonField(
+      ));
+  String? modifiedat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic address(dynamic response) => getJsonField(
+      ));
+  String? address(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.address''',
-      );
-  dynamic city(dynamic response) => getJsonField(
+      ));
+  String? city(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.city''',
-      );
-  dynamic createdat(dynamic response) => getJsonField(
+      ));
+  String? createdat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic country(dynamic response) => getJsonField(
+      ));
+  String? country(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.country''',
-      );
-  dynamic postalcode(dynamic response) => getJsonField(
+      ));
+  String? postalcode(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.postal_code''',
-      );
-  dynamic state(dynamic response) => getJsonField(
+      ));
+  String? state(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.state''',
-      );
-  dynamic streetaddress(dynamic response) => getJsonField(
+      ));
+  String? streetaddress(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.street_address''',
-      );
-  dynamic aptno(dynamic response) => getJsonField(
+      ));
+  String? aptno(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.apt_no''',
-      );
-  dynamic locationlat(dynamic response) => getJsonField(
+      ));
+  String? locationlat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.location_lat''',
-      );
-  dynamic locationlng(dynamic response) => getJsonField(
+      ));
+  String? locationlng(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.location_lng''',
-      );
-  dynamic mainAddress(dynamic response) => getJsonField(
+      ));
+  bool? mainAddress(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_main_address''',
-      );
-  dynamic userProfile(dynamic response) => getJsonField(
+      ));
+  int? userProfile(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.user_profile''',
-      );
+      ));
 }
 
 class UploadCall {
@@ -1062,10 +1069,10 @@ class CreateUserServiceCall {
     );
   }
 
-  dynamic nameID(dynamic response) => getJsonField(
+  int? nameID(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.data.name''',
-      );
+      ));
   dynamic createAt(dynamic response) => getJsonField(
         response,
         r'''$.created_at''',
@@ -1233,39 +1240,40 @@ class DeleteUserServiceByIdCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
-  dynamic serviceCategory(dynamic response) => getJsonField(
+      ));
+  dynamic? serviceCategory(dynamic response) => getJsonField(
         response,
         r'''$.service_category''',
       );
-  dynamic service(dynamic response) => getJsonField(
+  dynamic? service(dynamic response) => getJsonField(
         response,
         r'''$.service''',
       );
-  dynamic serviceSkillLevel(dynamic response) => getJsonField(
+  String? serviceSkillLevel(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.service_skill_level''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic createdAt(dynamic response) => getJsonField(
+      ));
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
+      ));
   List? serviceOptions(dynamic response) => getJsonField(
         response,
         r'''$.service_options''',
         true,
       ) as List?;
-  dynamic userProfile(dynamic response) => getJsonField(
+  int? userProfile(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.user_profile''',
-      );
+      ));
 }
 
 class SetAddressMainCall {
@@ -1370,21 +1378,27 @@ class CustomerProfileSkillsListCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<int>();
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
   List<String>? myServicesSkils(dynamic response) => (getJsonField(
         response,
         r'''$.data[:].skill_name''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? myServicesCategories(dynamic response) => (getJsonField(
         response,
         r'''$.data[:].skill_category_name''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? customerProfileList(dynamic response) => getJsonField(
         response,
         r'''$.data[:].customer_profile''',
@@ -1540,83 +1554,84 @@ class ChangeProfileDeatelsCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
+      ));
   List? userLanguages(dynamic response) => getJsonField(
         response,
         r'''$.user_languages''',
         true,
       ) as List?;
-  dynamic createdAt(dynamic response) => getJsonField(
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic userProfileVisibility(dynamic response) => getJsonField(
+      ));
+  String? userProfileVisibility(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user_profile_visibility''',
-      );
-  dynamic userTitle(dynamic response) => getJsonField(
+      ));
+  String? userTitle(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_title''',
-      );
-  dynamic userRole(dynamic response) => getJsonField(
+      ));
+  String? userRole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_role''',
-      );
-  dynamic driverlicense(dynamic response) => getJsonField(
+      ));
+  String? driverlicense(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.driver_license''',
-      );
-  dynamic userCountry(dynamic response) => getJsonField(
+      ));
+  String? userCountry(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_country''',
-      );
-  dynamic isSubscribed(dynamic response) => getJsonField(
+      ));
+  bool? isSubscribed(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_subscribed''',
-      );
-  dynamic isVerified(dynamic response) => getJsonField(
+      ));
+  bool? isVerified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic hasInsurance(dynamic response) => getJsonField(
+      ));
+  bool? hasInsurance(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.has_insurance''',
-      );
-  dynamic dateOfBirth(dynamic response) => getJsonField(
+      ));
+  String? dateOfBirth(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.date_of_birth''',
-      );
-  dynamic firstName(dynamic response) => getJsonField(
+      ));
+  String? firstName(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.first_name''',
-      );
-  dynamic lastName(dynamic response) => getJsonField(
+      ));
+  String? lastName(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.last_name''',
-      );
-  dynamic phoneNumber(dynamic response) => getJsonField(
+      ));
+  String? phoneNumber(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.phone_number''',
-      );
-  dynamic reviewCount(dynamic response) => getJsonField(
+      ));
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic accountType(dynamic response) => getJsonField(
+      ));
+  String? accountType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.account_type''',
-      );
-  dynamic relatedUser(dynamic response) => getJsonField(
+      ));
+  int? relatedUser(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_user''',
-      );
+      ));
 }
 
 class ChangeDescriptionAndProfileImageCall {
@@ -1649,83 +1664,84 @@ class ChangeDescriptionAndProfileImageCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
+      ));
   List? userLanguages(dynamic response) => getJsonField(
         response,
         r'''$.user_languages''',
         true,
       ) as List?;
-  dynamic createdAt(dynamic response) => getJsonField(
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic userProfileVisibility(dynamic response) => getJsonField(
+      ));
+  String? userProfileVisibility(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user_profile_visibility''',
-      );
-  dynamic userTitle(dynamic response) => getJsonField(
+      ));
+  String? userTitle(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_title''',
-      );
-  dynamic userRole(dynamic response) => getJsonField(
+      ));
+  String? userRole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_role''',
-      );
-  dynamic driverlicense(dynamic response) => getJsonField(
+      ));
+  String? driverlicense(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.driver_license''',
-      );
-  dynamic userCountry(dynamic response) => getJsonField(
+      ));
+  String? userCountry(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_country''',
-      );
-  dynamic isSubscribed(dynamic response) => getJsonField(
+      ));
+  bool? isSubscribed(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_subscribed''',
-      );
-  dynamic isVerified(dynamic response) => getJsonField(
+      ));
+  bool? isVerified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic hasInsurance(dynamic response) => getJsonField(
+      ));
+  bool? hasInsurance(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.has_insurance''',
-      );
-  dynamic dateOfBirth(dynamic response) => getJsonField(
+      ));
+  String? dateOfBirth(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.date_of_birth''',
-      );
-  dynamic firstName(dynamic response) => getJsonField(
+      ));
+  String? firstName(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.first_name''',
-      );
-  dynamic lastName(dynamic response) => getJsonField(
+      ));
+  String? lastName(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.last_name''',
-      );
-  dynamic phoneNumber(dynamic response) => getJsonField(
+      ));
+  String? phoneNumber(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.phone_number''',
-      );
-  dynamic reviewCount(dynamic response) => getJsonField(
+      ));
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic accountType(dynamic response) => getJsonField(
+      ));
+  String? accountType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.account_type''',
-      );
-  dynamic relatedUser(dynamic response) => getJsonField(
+      ));
+  int? relatedUser(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_user''',
-      );
+      ));
 }
 
 class MyPostsCall {
@@ -1857,11 +1873,11 @@ class CreatePostCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
-  dynamic poster(dynamic response) => getJsonField(
+      ));
+  dynamic? poster(dynamic response) => getJsonField(
         response,
         r'''$.poster''',
       );
@@ -1871,124 +1887,128 @@ class CreatePostCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? bargains(dynamic response) => getJsonField(
         response,
         r'''$.bargains''',
         true,
       ) as List?;
-  dynamic createdAt(dynamic response) => getJsonField(
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic description(dynamic response) => getJsonField(
+      ));
+  String? description(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.description''',
-      );
-  dynamic radiusOfWork(dynamic response) => getJsonField(
+      ));
+  int? radiusOfWork(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.radius_of_work''',
-      );
-  dynamic isVerified(dynamic response) => getJsonField(
+      ));
+  bool? isVerified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic postOpenCloseState(dynamic response) => getJsonField(
+      ));
+  String? postOpenCloseState(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.post_open_close_status''',
-      );
-  dynamic skillLevel(dynamic response) => getJsonField(
+      ));
+  String? skillLevel(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.skill_level''',
-      );
-  dynamic appointmentCount(dynamic response) => getJsonField(
+      ));
+  int? appointmentCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.appointment_count''',
-      );
-  dynamic bargianCount(dynamic response) => getJsonField(
+      ));
+  int? bargianCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.bargain_count''',
-      );
-  dynamic reviewCount(dynamic response) => getJsonField(
+      ));
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic startDate(dynamic response) => getJsonField(
+      ));
+  String? startDate(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.start_date''',
-      );
-  dynamic startTime(dynamic response) => getJsonField(
+      ));
+  String? startTime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.start_time''',
-      );
-  dynamic customStatTime(dynamic response) => getJsonField(
+      ));
+  String? customStatTime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.custom_start_time''',
-      );
-  dynamic endDateTime(dynamic response) => getJsonField(
+      ));
+  String? endDateTime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.end_datetime''',
-      );
-  dynamic isPeriodic(dynamic response) => getJsonField(
+      ));
+  bool? isPeriodic(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_periodic''',
-      );
-  dynamic numSessions(dynamic response) => getJsonField(
+      ));
+  int? numSessions(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.num_sessions''',
-      );
-  dynamic sessionDuration(dynamic response) => getJsonField(
+      ));
+  String? sessionDuration(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.session_duration''',
-      );
-  dynamic repeatDate(dynamic response) => getJsonField(
+      ));
+  bool? repeatDate(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.repeat_date''',
-      );
-  dynamic repeatType(dynamic response) => getJsonField(
+      ));
+  String? repeatType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.repeat_type''',
-      );
-  dynamic repeatEvery(dynamic response) => getJsonField(
+      ));
+  String? repeatEvery(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.repeat_every''',
-      );
-  dynamic preferredDays(dynamic response) => getJsonField(
+      ));
+  String? preferredDays(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.preferred_days''',
-      );
-  dynamic monthlyRepeatType(dynamic response) => getJsonField(
+      ));
+  String? monthlyRepeatType(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.monthly_repeat_type''',
-      );
-  dynamic endDateType(dynamic response) => getJsonField(
+      ));
+  String? endDateType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.end_date_type''',
-      );
-  dynamic session(dynamic response) => getJsonField(
+      ));
+  int? session(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.session''',
-      );
-  dynamic address(dynamic response) => getJsonField(
+      ));
+  int? address(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.address''',
-      );
-  dynamic postStatus(dynamic response) => getJsonField(
+      ));
+  int? postStatus(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.post_status''',
-      );
-  dynamic relatedService(dynamic response) => getJsonField(
+      ));
+  int? relatedService(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_service''',
-      );
-  dynamic relatedServiceCategory(dynamic response) => getJsonField(
+      ));
+  int? relatedServiceCategory(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_service_category''',
-      );
+      ));
 }
 
 class UpdatePostCall {
@@ -2094,11 +2114,11 @@ class UpdatePostCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
-  dynamic poster(dynamic response) => getJsonField(
+      ));
+  dynamic? poster(dynamic response) => getJsonField(
         response,
         r'''$.poster''',
       );
@@ -2108,124 +2128,128 @@ class UpdatePostCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? bargains(dynamic response) => getJsonField(
         response,
         r'''$.bargains''',
         true,
       ) as List?;
-  dynamic createdAt(dynamic response) => getJsonField(
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic description(dynamic response) => getJsonField(
+      ));
+  String? description(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.description''',
-      );
-  dynamic radiusOfWork(dynamic response) => getJsonField(
+      ));
+  int? radiusOfWork(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.radius_of_work''',
-      );
-  dynamic isVerified(dynamic response) => getJsonField(
+      ));
+  bool? isVerified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic postOpenCloseState(dynamic response) => getJsonField(
+      ));
+  String? postOpenCloseState(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.post_open_close_status''',
-      );
-  dynamic skillLevel(dynamic response) => getJsonField(
+      ));
+  String? skillLevel(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.skill_level''',
-      );
-  dynamic appointmentCount(dynamic response) => getJsonField(
+      ));
+  int? appointmentCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.appointment_count''',
-      );
-  dynamic bargianCount(dynamic response) => getJsonField(
+      ));
+  int? bargianCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.bargain_count''',
-      );
-  dynamic reviewCount(dynamic response) => getJsonField(
+      ));
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic startDate(dynamic response) => getJsonField(
+      ));
+  String? startDate(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.start_date''',
-      );
-  dynamic startTime(dynamic response) => getJsonField(
+      ));
+  String? startTime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.start_time''',
-      );
-  dynamic customStatTime(dynamic response) => getJsonField(
+      ));
+  String? customStatTime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.custom_start_time''',
-      );
-  dynamic endDateTime(dynamic response) => getJsonField(
+      ));
+  String? endDateTime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.end_datetime''',
-      );
-  dynamic isPeriodic(dynamic response) => getJsonField(
+      ));
+  bool? isPeriodic(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_periodic''',
-      );
-  dynamic numSessions(dynamic response) => getJsonField(
+      ));
+  int? numSessions(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.num_sessions''',
-      );
-  dynamic sessionDuration(dynamic response) => getJsonField(
+      ));
+  String? sessionDuration(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.session_duration''',
-      );
-  dynamic repeatDate(dynamic response) => getJsonField(
+      ));
+  bool? repeatDate(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.repeat_date''',
-      );
-  dynamic repeatType(dynamic response) => getJsonField(
+      ));
+  String? repeatType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.repeat_type''',
-      );
-  dynamic repeatEvery(dynamic response) => getJsonField(
+      ));
+  String? repeatEvery(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.repeat_every''',
-      );
-  dynamic preferredDays(dynamic response) => getJsonField(
+      ));
+  String? preferredDays(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.preferred_days''',
-      );
-  dynamic monthlyRepeatType(dynamic response) => getJsonField(
+      ));
+  String? monthlyRepeatType(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.monthly_repeat_type''',
-      );
-  dynamic endDateType(dynamic response) => getJsonField(
+      ));
+  String? endDateType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.end_date_type''',
-      );
-  dynamic session(dynamic response) => getJsonField(
+      ));
+  int? session(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.session''',
-      );
-  dynamic address(dynamic response) => getJsonField(
+      ));
+  int? address(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.address''',
-      );
-  dynamic postStatus(dynamic response) => getJsonField(
+      ));
+  int? postStatus(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.post_status''',
-      );
-  dynamic relatedService(dynamic response) => getJsonField(
+      ));
+  int? relatedService(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_service''',
-      );
-  dynamic relatedServiceCategory(dynamic response) => getJsonField(
+      ));
+  int? relatedServiceCategory(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_service_category''',
-      );
+      ));
 }
 
 class InitiatePostCall {
@@ -2591,54 +2615,55 @@ class UserProfileReadCall {
         r'''$.my_appointments''',
         true,
       ) as List?;
-  dynamic createdAt(dynamic response) => getJsonField(
+  String? createdAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedAt(dynamic response) => getJsonField(
+      ));
+  String? modifiedAt(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic userprofilevisibility(dynamic response) => getJsonField(
+      ));
+  String? userprofilevisibility(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.user_profile_visibility''',
-      );
-  dynamic usertitle(dynamic response) => getJsonField(
+      ));
+  String? usertitle(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_title''',
-      );
-  dynamic userrole(dynamic response) => getJsonField(
+      ));
+  String? userrole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_role''',
-      );
-  dynamic driverlicense(dynamic response) => getJsonField(
+      ));
+  String? driverlicense(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.driver_license''',
-      );
-  dynamic userCountry(dynamic response) => getJsonField(
+      ));
+  String? userCountry(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_country''',
-      );
-  dynamic isSubscribed(dynamic response) => getJsonField(
+      ));
+  bool? isSubscribed(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_subscribed''',
-      );
-  dynamic isVerified(dynamic response) => getJsonField(
+      ));
+  bool? isVerified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic hasinsurance(dynamic response) => getJsonField(
+      ));
+  bool? hasinsurance(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.has_insurance''',
-      );
-  dynamic reviewCount(dynamic response) => getJsonField(
+      ));
+  int? reviewCount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic accountType(dynamic response) => getJsonField(
+      ));
+  String? accountType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.account_type''',
-      );
+      ));
   List? userServices(dynamic response) => getJsonField(
         response,
         r'''$.user_services''',
@@ -2781,175 +2806,184 @@ class PostReadCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.id''',
-      );
-  dynamic poster(dynamic response) => getJsonField(
+      ));
+  dynamic? poster(dynamic response) => getJsonField(
         response,
         r'''$.poster''',
       );
-  dynamic posterid(dynamic response) => getJsonField(
+  int? posterid(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.poster.id''',
-      );
-  dynamic postercreatedat(dynamic response) => getJsonField(
+      ));
+  String? postercreatedat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.poster.created_at''',
-      );
-  dynamic postermodifiedat(dynamic response) => getJsonField(
+      ));
+  String? postermodifiedat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.poster.modified_at''',
-      );
-  dynamic posteruserprofilevisibility(dynamic response) => getJsonField(
+      ));
+  String? posteruserprofilevisibility(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.poster.user_profile_visibility''',
-      );
-  dynamic posterusertitle(dynamic response) => getJsonField(
+      ));
+  String? posterusertitle(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.poster.user_title''',
-      );
-  dynamic posteruserrole(dynamic response) => getJsonField(
+      ));
+  String? posteruserrole(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.poster.user_role''',
-      );
-  dynamic posterdriverlicense(dynamic response) => getJsonField(
+      ));
+  String? posterdriverlicense(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.poster.driver_license''',
-      );
+      ));
   List? posteruserlanguages(dynamic response) => getJsonField(
         response,
         r'''$.poster.user_languages''',
         true,
       ) as List?;
-  dynamic posterusercountry(dynamic response) => getJsonField(
+  String? posterusercountry(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.poster.user_country''',
-      );
-  dynamic posterissubscribed(dynamic response) => getJsonField(
+      ));
+  bool? posterissubscribed(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.poster.is_subscribed''',
-      );
-  dynamic posterisverified(dynamic response) => getJsonField(
+      ));
+  bool? posterisverified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.poster.is_verified''',
-      );
-  dynamic posterhasinsurance(dynamic response) => getJsonField(
+      ));
+  bool? posterhasinsurance(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.poster.has_insurance''',
-      );
-  dynamic posterreviewcount(dynamic response) => getJsonField(
+      ));
+  int? posterreviewcount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.poster.review_count''',
-      );
-  dynamic posteraccounttype(dynamic response) => getJsonField(
+      ));
+  String? posteraccounttype(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.poster.account_type''',
-      );
+      ));
   List<String>? taskerlanguages(dynamic response) => (getJsonField(
         response,
         r'''$.tasker_languages''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? bargains(dynamic response) => getJsonField(
         response,
         r'''$.bargains''',
         true,
       ) as List?;
-  dynamic createdat(dynamic response) => getJsonField(
+  String? createdat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.created_at''',
-      );
-  dynamic modifiedat(dynamic response) => getJsonField(
+      ));
+  String? modifiedat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.modified_at''',
-      );
-  dynamic isverified(dynamic response) => getJsonField(
+      ));
+  bool? isverified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_verified''',
-      );
-  dynamic postopenclosestatus(dynamic response) => getJsonField(
+      ));
+  String? postopenclosestatus(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.post_open_close_status''',
-      );
+      ));
   List<String>? skilllevel(dynamic response) => (getJsonField(
         response,
         r'''$.skill_level''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
-  dynamic appointmentcount(dynamic response) => getJsonField(
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  int? appointmentcount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.appointment_count''',
-      );
-  dynamic bargaincount(dynamic response) => getJsonField(
+      ));
+  int? bargaincount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.bargain_count''',
-      );
-  dynamic reviewcount(dynamic response) => getJsonField(
+      ));
+  int? reviewcount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.review_count''',
-      );
-  dynamic starttime(dynamic response) => getJsonField(
+      ));
+  String? starttime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.start_time''',
-      );
-  dynamic isperiodic(dynamic response) => getJsonField(
+      ));
+  bool? isperiodic(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.is_periodic''',
-      );
-  dynamic repeatdate(dynamic response) => getJsonField(
+      ));
+  bool? repeatdate(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.repeat_date''',
-      );
-  dynamic enddatetype(dynamic response) => getJsonField(
+      ));
+  String? enddatetype(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.end_date_type''',
-      );
-  dynamic session(dynamic response) => getJsonField(
+      ));
+  int? session(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.session''',
-      );
-  dynamic identified(dynamic response) => getJsonField(
+      ));
+  bool? identified(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.identified''',
-      );
-  dynamic insurance(dynamic response) => getJsonField(
+      ));
+  bool? insurance(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.insurance''',
-      );
-  dynamic travelcosts(dynamic response) => getJsonField(
+      ));
+  bool? travelcosts(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.travel_costs''',
-      );
-  dynamic cancellationpenalty(dynamic response) => getJsonField(
+      ));
+  bool? cancellationpenalty(dynamic response) => castToType<bool>(getJsonField(
         response,
         r'''$.cancellation_penalty''',
-      );
-  dynamic poststatus(dynamic response) => getJsonField(
+      ));
+  int? poststatus(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.post_status''',
-      );
-  dynamic serviceCategory(dynamic response) => getJsonField(
+      ));
+  dynamic? serviceCategory(dynamic response) => getJsonField(
         response,
         r'''$.related_service_category''',
       );
-  dynamic city(dynamic response) => getJsonField(
+  String? city(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.address.city''',
-      );
-  dynamic description(dynamic response) => getJsonField(
+      ));
+  String? description(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.description''',
-      );
-  dynamic name(dynamic response) => getJsonField(
+      ));
+  dynamic? name(dynamic response) => getJsonField(
         response,
         r'''$.poster.first_name''',
       );
-  dynamic family(dynamic response) => getJsonField(
+  dynamic? family(dynamic response) => getJsonField(
         response,
         r'''$.poster.last_name''',
       );
@@ -2983,55 +3017,58 @@ class AppointmentListCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].id''',
-      );
-  dynamic createdat(dynamic response) => getJsonField(
+      ));
+  String? createdat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].created_at''',
-      );
-  dynamic modifiedat(dynamic response) => getJsonField(
+      ));
+  String? modifiedat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].modified_at''',
-      );
-  dynamic appointmentstatus(dynamic response) => getJsonField(
+      ));
+  String? appointmentstatus(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_status''',
-      );
-  dynamic appointmenttime(dynamic response) => getJsonField(
+      ));
+  String? appointmenttime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_time''',
-      );
-  dynamic appointmenttype(dynamic response) => getJsonField(
+      ));
+  String? appointmenttype(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_type''',
-      );
-  dynamic appointmentgoal(dynamic response) => getJsonField(
+      ));
+  String? appointmentgoal(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_goal''',
-      );
-  dynamic appointmentlocationlat(dynamic response) => getJsonField(
+      ));
+  String? appointmentlocationlat(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_location_lat''',
-      );
-  dynamic appointmentlocationlng(dynamic response) => getJsonField(
+      ));
+  String? appointmentlocationlng(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_location_lng''',
-      );
-  dynamic reviewcount(dynamic response) => getJsonField(
+      ));
+  int? reviewcount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].review_count''',
-      );
-  dynamic interviewee(dynamic response) => getJsonField(
+      ));
+  dynamic? interviewee(dynamic response) => getJsonField(
         response,
         r'''$[:].interviewee''',
       );
-  dynamic interviewer(dynamic response) => getJsonField(
+  dynamic? interviewer(dynamic response) => getJsonField(
         response,
         r'''$[:].interviewer''',
       );
-  dynamic relatedpost(dynamic response) => getJsonField(
+  dynamic? relatedpost(dynamic response) => getJsonField(
         response,
         r'''$[:].related_post''',
       );
@@ -3058,55 +3095,58 @@ class AppointmentListCopyCall {
     );
   }
 
-  dynamic id(dynamic response) => getJsonField(
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].id''',
-      );
-  dynamic createdat(dynamic response) => getJsonField(
+      ));
+  String? createdat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].created_at''',
-      );
-  dynamic modifiedat(dynamic response) => getJsonField(
+      ));
+  String? modifiedat(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].modified_at''',
-      );
-  dynamic appointmentstatus(dynamic response) => getJsonField(
+      ));
+  String? appointmentstatus(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_status''',
-      );
-  dynamic appointmenttime(dynamic response) => getJsonField(
+      ));
+  String? appointmenttime(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_time''',
-      );
-  dynamic appointmenttype(dynamic response) => getJsonField(
+      ));
+  String? appointmenttype(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_type''',
-      );
-  dynamic appointmentgoal(dynamic response) => getJsonField(
+      ));
+  String? appointmentgoal(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_goal''',
-      );
-  dynamic appointmentlocationlat(dynamic response) => getJsonField(
+      ));
+  String? appointmentlocationlat(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_location_lat''',
-      );
-  dynamic appointmentlocationlng(dynamic response) => getJsonField(
+      ));
+  String? appointmentlocationlng(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].appointment_location_lng''',
-      );
-  dynamic reviewcount(dynamic response) => getJsonField(
+      ));
+  int? reviewcount(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].review_count''',
-      );
-  dynamic interviewee(dynamic response) => getJsonField(
+      ));
+  dynamic? interviewee(dynamic response) => getJsonField(
         response,
         r'''$[:].interviewee''',
       );
-  dynamic interviewer(dynamic response) => getJsonField(
+  dynamic? interviewer(dynamic response) => getJsonField(
         response,
         r'''$[:].interviewer''',
       );
-  dynamic relatedpost(dynamic response) => getJsonField(
+  dynamic? relatedpost(dynamic response) => getJsonField(
         response,
         r'''$[:].related_post''',
       );
@@ -3273,146 +3313,177 @@ class MyAppointmentCall {
     );
   }
 
-  dynamic posterName(dynamic response) => getJsonField(
+  String? posterName(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].related_post.poster.related_user.first_name''',
-      );
-  dynamic posterFamily(dynamic response) => getJsonField(
+      ));
+  String? posterFamily(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$[:].related_post.poster.related_user.last_name''',
-      );
+      ));
   List? relatedPost(dynamic response) => getJsonField(
         response,
         r'''$[:].related_post''',
         true,
       ) as List?;
-  dynamic relatedPostId(dynamic response) => getJsonField(
+  int? relatedPostId(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].related_post.id''',
-      );
-  dynamic relatedpostposterrelateduser(dynamic response) => getJsonField(
+      ));
+  dynamic? relatedpostposterrelateduser(dynamic response) => getJsonField(
         response,
         r'''$[:].related_post.poster.related_user''',
       );
-  dynamic relatedpostposterrelateduserissuperuser(dynamic response) =>
-      getJsonField(
+  bool? relatedpostposterrelateduserissuperuser(dynamic response) =>
+      castToType<bool>(getJsonField(
         response,
         r'''$[:].related_post.poster.related_user.is_superuser''',
-      );
-  dynamic relatedpostposterrelateduserusername(dynamic response) =>
-      getJsonField(
+      ));
+  String? relatedpostposterrelateduserusername(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].related_post.poster.related_user.username''',
-      );
-  dynamic posterEmailAddress(dynamic response) => getJsonField(
+      ));
+  String? posterEmailAddress(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$[:].related_post.poster.related_user.email''',
-      );
+      ));
   List<String>? crateAt(dynamic response) => (getJsonField(
         response,
         r'''$[:].created_at''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? modifiedAt(dynamic response) => (getJsonField(
         response,
         r'''$[:].modified_at''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentStatus(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_status''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentTime(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_time''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentType(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_type''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentGoal(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_goal''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentMeta(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_meta''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? meetinglink(dynamic response) => (getJsonField(
         response,
         r'''$[:].meeting_link''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentLat(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_location_lat''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? appointmentLng(dynamic response) => (getJsonField(
         response,
         r'''$[:].appointment_location_lng''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<int>? reviewCount(dynamic response) => (getJsonField(
         response,
         r'''$[:].review_count''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<int>();
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
   List<int>? reviewAverage(dynamic response) => (getJsonField(
         response,
         r'''$[:].review_average''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<int>();
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
   List<String>? interVieweeName(dynamic response) => (getJsonField(
         response,
         r'''$[:].interviewee.related_user.first_name''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? interVieweeFamily(dynamic response) => (getJsonField(
         response,
         r'''$[:].interviewee.related_user.last_name''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? interVieweeEmailAddress(dynamic response) => (getJsonField(
         response,
         r'''$[:].interviewee.related_user.email''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class MyBargainsCall {
@@ -3462,7 +3533,9 @@ class ServiceCategoryCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class MyBargainsPostCall {
@@ -3494,19 +3567,19 @@ class MyBargainsPostCall {
     );
   }
 
-  dynamic postId(dynamic response) => getJsonField(
+  int? postId(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].post_id''',
-      );
-  dynamic id(dynamic response) => getJsonField(
+      ));
+  int? id(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$[:].id''',
-      );
-  dynamic bargainer(dynamic response) => getJsonField(
+      ));
+  dynamic? bargainer(dynamic response) => getJsonField(
         response,
         r'''$[:].bargainer''',
       );
-  dynamic bargainee(dynamic response) => getJsonField(
+  dynamic? bargainee(dynamic response) => getJsonField(
         response,
         r'''$[:].bargainee''',
       );
@@ -4077,26 +4150,26 @@ class RandomAdsCall {
     );
   }
 
-  dynamic translations(dynamic response) => getJsonField(
+  dynamic? translations(dynamic response) => getJsonField(
         response,
         r'''$.translations''',
       );
-  dynamic img(dynamic response) => getJsonField(
+  String? img(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.image_url''',
-      );
-  dynamic weight(dynamic response) => getJsonField(
+      ));
+  int? weight(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.weight''',
-      );
-  dynamic placement(dynamic response) => getJsonField(
+      ));
+  String? placement(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.ad_placement''',
-      );
-  dynamic relatedCompony(dynamic response) => getJsonField(
+      ));
+  int? relatedCompony(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.related_campaign''',
-      );
+      ));
   dynamic targetURL(dynamic response) => getJsonField(
         response,
         r'''$.target_url''',
@@ -4204,14 +4277,14 @@ class GenerateKeysCall {
     );
   }
 
-  dynamic apiSecret(dynamic response) => getJsonField(
+  String? apiSecret(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.api_secret''',
-      );
-  dynamic apiKey(dynamic response) => getJsonField(
+      ));
+  String? apiKey(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.api_key''',
-      );
+      ));
 }
 
 class UpdateProfileDeatelsCall {
@@ -4515,46 +4588,47 @@ class GetSkillCategoryDetailsCall {
     );
   }
 
-  dynamic skillCategory(dynamic response) => getJsonField(
+  dynamic? skillCategory(dynamic response) => getJsonField(
         response,
         r'''$.data''',
       );
-  dynamic name(dynamic response) => getJsonField(
+  String? name(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.name''',
-      );
-  dynamic owner(dynamic response) => getJsonField(
+      ));
+  String? owner(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.owner''',
-      );
-  dynamic creation(dynamic response) => getJsonField(
+      ));
+  String? creation(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.creation''',
-      );
-  dynamic modified(dynamic response) => getJsonField(
+      ));
+  String? modified(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.modified''',
-      );
-  dynamic modifiedBy(dynamic response) => getJsonField(
+      ));
+  String? modifiedBy(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.modified_by''',
-      );
-  dynamic docstatus(dynamic response) => getJsonField(
+      ));
+  int? docstatus(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.data.docstatus''',
-      );
-  dynamic skillCategoryName(dynamic response) => getJsonField(
+      ));
+  String? skillCategoryName(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.data.skill_category_name''',
-      );
-  dynamic idx(dynamic response) => getJsonField(
+      ));
+  int? idx(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.data.idx''',
-      );
-  dynamic doctype(dynamic response) => getJsonField(
+      ));
+  String? doctype(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.doctype''',
-      );
+      ));
   List? skills(dynamic response) => getJsonField(
         response,
         r'''$.data.skills''',
@@ -4628,26 +4702,26 @@ class CreateBidCall {
     );
   }
 
-  dynamic poster(dynamic response) => getJsonField(
+  String? poster(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.poster''',
-      );
-  dynamic post(dynamic response) => getJsonField(
+      ));
+  int? post(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.data.post''',
-      );
-  dynamic bider(dynamic response) => getJsonField(
+      ));
+  String? bider(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.bider''',
-      );
-  dynamic price(dynamic response) => getJsonField(
+      ));
+  int? price(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.data.price''',
-      );
-  dynamic priceType(dynamic response) => getJsonField(
+      ));
+  String? priceType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data.price_type''',
-      );
+      ));
 }
 
 class BidListCall {
@@ -4803,7 +4877,7 @@ class CustomerProfileDetailsCall {
         response,
         r'''$.data.doctype''',
       );
-  dynamic reviewAverage(dynamic response) => getJsonField(
+  dynamic? reviewAverage(dynamic response) => getJsonField(
         response,
         r'''$.data.review_average''',
       );
@@ -5216,10 +5290,10 @@ class PayCall {
     );
   }
 
-  dynamic checkoutURL(dynamic response) => getJsonField(
+  String? checkoutURL(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message''',
-      );
+      ));
 }
 
 class GetCustomerAdCall {
@@ -5763,10 +5837,10 @@ class InitSubCall {
     );
   }
 
-  dynamic name(dynamic response) => getJsonField(
+  String? name(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.name''',
-      );
+      ));
 }
 
 class GetSubscriptionUpdateCall {
@@ -6208,14 +6282,18 @@ class ChatListCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? modified(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].modified''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? lastmessage(dynamic response) => getJsonField(
         response,
         r'''$.message[:].last_message''',
@@ -6227,35 +6305,45 @@ class ChatListCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<int>();
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
   List<String>? roomName(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].room_name''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? members(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].members''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? type(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].type''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? customerTasks(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].customer_task''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? catBots(dynamic response) => getJsonField(
         response,
         r'''$.message[:].chat_bot''',
@@ -6267,7 +6355,9 @@ class ChatListCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? chatListJson(dynamic response) => getJsonField(
         response,
         r'''$.message''',
@@ -6314,28 +6404,36 @@ class ChatRoomMessagesCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? sender(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].sender''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? creation(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].creation''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? senderemail(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].sender_email''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? chatMessagesJson(dynamic response) => getJsonField(
         response,
         r'''$.message''',
@@ -6655,22 +6753,22 @@ class ReadByEmailCall {
     );
   }
 
-  dynamic name(dynamic response) => getJsonField(
+  String? name(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data[:].first_name''',
-      );
-  dynamic family(dynamic response) => getJsonField(
+      ));
+  String? family(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data[:].last_name''',
-      );
-  dynamic avatar(dynamic response) => getJsonField(
+      ));
+  String? avatar(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data[:].avatar''',
-      );
-  dynamic id(dynamic response) => getJsonField(
+      ));
+  String? id(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.data[:].name''',
-      );
+      ));
 }
 
 class UpdateTasksTimeCall {
@@ -6800,14 +6898,18 @@ class GetAppRolesCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List<String>? roleProfileMessages(dynamic response) => (getJsonField(
         response,
         r'''$.data[:].message''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? nameList(dynamic response) => getJsonField(
         response,
         r'''$.data[:].name''',
@@ -7066,14 +7168,18 @@ class GetMySkillCategoriesCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<int>();
+          .map((x) => castToType<int>(x))
+          .withoutNulls
+          .toList();
   List<String>? mySkillCategoryNames(dynamic response) => (getJsonField(
         response,
         r'''$.message[:].skill_category_name''',
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
 }
 
 class SyncSkillCategoriesCall {
@@ -7109,7 +7215,9 @@ class SyncSkillCategoriesCall {
         true,
       ) as List?)
           ?.withoutNulls
-          .cast<String>();
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
   List? docNames(dynamic response) => getJsonField(
         response,
         r'''$.message[:].name''',
@@ -7149,7 +7257,7 @@ class UpdateSkillsCall {
     );
   }
 
-  dynamic addedChildSkill(dynamic response) => getJsonField(
+  dynamic? addedChildSkill(dynamic response) => getJsonField(
         response,
         r'''$.message''',
       );
@@ -7205,7 +7313,7 @@ class DeleteSkillsCall {
     );
   }
 
-  dynamic addedChildSkill(dynamic response) => getJsonField(
+  dynamic? addedChildSkill(dynamic response) => getJsonField(
         response,
         r'''$.message''',
       );
@@ -7725,75 +7833,77 @@ class GetChatRoomDetailsCall {
     );
   }
 
-  dynamic chatRoomJson(dynamic response) => getJsonField(
+  dynamic? chatRoomJson(dynamic response) => getJsonField(
         response,
         r'''$.message''',
       );
-  dynamic name(dynamic response) => getJsonField(
+  String? name(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.name''',
-      );
-  dynamic owner(dynamic response) => getJsonField(
+      ));
+  String? owner(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.owner''',
-      );
-  dynamic creation(dynamic response) => getJsonField(
+      ));
+  String? creation(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.creation''',
-      );
-  dynamic modified(dynamic response) => getJsonField(
+      ));
+  String? modified(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.modified''',
-      );
-  dynamic modifiedBy(dynamic response) => getJsonField(
+      ));
+  String? modifiedBy(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.modified_by''',
-      );
-  dynamic docstatus(dynamic response) => getJsonField(
+      ));
+  int? docstatus(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.message.docstatus''',
-      );
-  dynamic idx(dynamic response) => getJsonField(
+      ));
+  int? idx(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.message.idx''',
-      );
-  dynamic roomName(dynamic response) => getJsonField(
+      ));
+  String? roomName(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.room_name''',
-      );
-  dynamic type(dynamic response) => getJsonField(
+      ));
+  String? type(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.type''',
-      );
-  dynamic members(dynamic response) => getJsonField(
+      ));
+  String? members(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.members''',
-      );
-  dynamic isRead(dynamic response) => getJsonField(
+      ));
+  int? isRead(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.message.is_read''',
-      );
-  dynamic customerTask(dynamic response) => getJsonField(
+      ));
+  String? customerTask(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.customer_task''',
-      );
-  dynamic doctype(dynamic response) => getJsonField(
+      ));
+  String? doctype(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.message.doctype''',
-      );
+      ));
   List? users(dynamic response) => getJsonField(
         response,
         r'''$.message.users''',
         true,
       ) as List?;
-  dynamic oppositePersonEmail(dynamic response) => getJsonField(
+  String? oppositePersonEmail(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.message.opposite_person_email''',
-      );
-  dynamic oppositePersonAvatar(dynamic response) => getJsonField(
+      ));
+  String? oppositePersonAvatar(dynamic response) =>
+      castToType<String>(getJsonField(
         response,
         r'''$.message.opposite_person_avatar''',
-      );
+      ));
   dynamic oppositePersonCustomerProfile(dynamic response) => getJsonField(
         response,
         r'''$.message.opposite_person_customer_profile''',

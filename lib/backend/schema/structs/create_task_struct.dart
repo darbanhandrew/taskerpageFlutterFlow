@@ -101,8 +101,9 @@ class CreateTaskStruct extends BaseStruct {
         daysPerWeek: castToType<int>(data['days_per_week']),
       );
 
-  static CreateTaskStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? CreateTaskStruct.fromMap(data) : null;
+  static CreateTaskStruct? maybeFromMap(dynamic data) => data is Map
+      ? CreateTaskStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skill_category': _skillCategory,

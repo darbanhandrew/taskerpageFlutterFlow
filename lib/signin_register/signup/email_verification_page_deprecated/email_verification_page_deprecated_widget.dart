@@ -142,445 +142,582 @@ class _EmailVerificationPageDeprecatedWidgetState
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              if (FFAppState().closeHeaderInacceptedDigitCode == false)
-                Container(
-                  width: MediaQuery.sizeOf(context).width * 1.0,
-                  height: 88.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFF3F3F3),
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 0.0),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Column(
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    } else {
+                      return FFAppConstants.smallCardUD.toDouble();
+                    }
+                  }(),
+                  0.0,
+                )),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4.0,
+                    color: Color(0x33000000),
+                    offset: Offset(0.0, 0.0),
+                    spreadRadius: 2.0,
+                  )
+                ],
+              ),
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if ((FFAppState().closeHeaderInacceptedDigitCode == false) &&
+                      responsiveVisibility(
+                        context: context,
+                        desktop: false,
+                      ))
+                    Container(
+                      width: MediaQuery.sizeOf(context).width * 1.0,
+                      height: 88.0,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFF3F3F3),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            16.0, 16.0, 16.0, 0.0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(
-                              'We sent a code to ${getJsonField(
-                                FFAppState().userProfile,
-                                r'''$.data.user''',
-                              ).toString()}',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                            ),
-                            Text(
-                              'Please verify your email ',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Color(0xFF8A8A8A),
-                                    fontSize: 14.0,
-                                    fontWeight: FontWeight.normal,
-                                  ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 10.0, 0.0, 0.0),
-                              child: InkWell(
-                                splashColor: Colors.transparent,
-                                focusColor: Colors.transparent,
-                                hoverColor: Colors.transparent,
-                                highlightColor: Colors.transparent,
-                                onTap: () async {
-                                  await launchUrl(Uri(
-                                      scheme: 'mailto',
-                                      path: FFAppState().UserInformation.email,
-                                      query: {
-                                        'subject': 'welcome to taskerPage',
-                                      }
-                                          .entries
-                                          .map((MapEntry<String, String> e) =>
-                                              '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-                                          .join('&')));
-                                },
-                                child: Text(
-                                  'Resend verification code',
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'We sent a code to ${getJsonField(
+                                    FFAppState().userProfile,
+                                    r'''$.data.user''',
+                                  ).toString()}',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
                                         fontFamily: 'Lato',
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        fontSize: 12.0,
-                                        decoration: TextDecoration.underline,
+                                        color: Color(0xFF8A8A8A),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.w600,
                                       ),
                                 ),
-                              ),
-                            ),
-                          ],
-                        ),
-                        Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                setState(() {
-                                  FFAppState().closeHeaderInacceptedDigitCode =
-                                      true;
-                                });
-                              },
-                              child: Icon(
-                                Icons.close_rounded,
-                                color: Color(0xFFACACAC),
-                                size: 20.0,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  wrapWithModel(
-                    model: _model.headerModel,
-                    updateCallback: () => setState(() {}),
-                    child: HeaderWidget(
-                      openDrawer: () async {
-                        scaffoldKey.currentState!.openEndDrawer();
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Flexible(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            32.0, 32.0, 32.0, 0.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Flexible(
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    child: Text(
-                                      'We just sent you a email to below \nemail address !',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: FlutterFlowTheme.of(context)
-                                                .alternate,
-                                            fontSize: 18.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Flexible(
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 54.0, 0.0, 0.0),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(0.0),
-                                  child: Image.asset(
-                                    'assets/images/Clip_path_group_(3).png',
-                                    width: 79.0,
-                                    height: 79.0,
-                                    fit: BoxFit.cover,
-                                  ),
+                                Text(
+                                  'Please verify your email ',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyMedium
+                                      .override(
+                                        fontFamily: 'Lato',
+                                        color: Color(0xFF8A8A8A),
+                                        fontSize: 14.0,
+                                        fontWeight: FontWeight.normal,
+                                      ),
                                 ),
-                              ),
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Flexible(
-                                  child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 32.0, 0.0, 0.0),
-                                    child: Text(
-                                      '${getJsonField(
-                                        FFAppState().userProfile,
-                                        r'''$.data.user''',
-                                      ).toString()}',
-                                      textAlign: TextAlign.center,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFF292929),
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 8.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Edit',
-                                    textAlign: TextAlign.justify,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF8A8A8A),
-                                          fontSize: 12.0,
-                                          fontWeight: FontWeight.w500,
-                                          decoration: TextDecoration.underline,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Divider(
-                              height: 35.0,
-                              thickness: 1.0,
-                              color: Color(0xFFE3E3E3),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        3.0, 0.0, 0.0, 0.0),
-                                    child: Text(
-                                      'Enter your 6 character code here!',
-                                      textAlign: TextAlign.justify,
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Color(0xFF292929),
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 16.0, 0.0, 0.0),
-                              child: PinCodeTextField(
-                                autoDisposeControllers: false,
-                                appContext: context,
-                                length: 6,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .bodyLarge
-                                    .override(
-                                      fontFamily: 'Lato',
-                                      color: Color(0xFF212121),
-                                      fontSize: 14.0,
-                                    ),
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                enableActiveFill: false,
-                                autoFocus: false,
-                                enablePinAutofill: false,
-                                errorTextSpace: 16.0,
-                                showCursor: true,
-                                cursorColor: Color(0xFF292929),
-                                obscureText: false,
-                                keyboardType: TextInputType.visiblePassword,
-                                pinTheme: PinTheme(
-                                  fieldHeight: 36.0,
-                                  fieldWidth: 50.0,
-                                  borderWidth: 1.0,
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(2.0),
-                                    bottomRight: Radius.circular(2.0),
-                                    topLeft: Radius.circular(2.0),
-                                    topRight: Radius.circular(2.0),
-                                  ),
-                                  shape: PinCodeFieldShape.box,
-                                  activeColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  inactiveColor:
-                                      FlutterFlowTheme.of(context).tertiary,
-                                  selectedColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                  activeFillColor:
-                                      FlutterFlowTheme.of(context).primary,
-                                  inactiveFillColor:
-                                      FlutterFlowTheme.of(context).tertiary,
-                                  selectedFillColor:
-                                      FlutterFlowTheme.of(context).secondary,
-                                ),
-                                controller: _model.pinCodeController,
-                                onChanged: (_) {},
-                                autovalidateMode:
-                                    AutovalidateMode.onUserInteraction,
-                                validator: _model.pinCodeControllerValidator
-                                    .asValidator(context),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (!(isWeb
-                        ? MediaQuery.viewInsetsOf(context).bottom > 0
-                        : _isKeyboardVisible))
-                      Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            width: MediaQuery.sizeOf(context).width * 1.0,
-                            height: 60.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              boxShadow: [
-                                BoxShadow(
-                                  blurRadius: 5.0,
-                                  color: Color(0x33000000),
-                                  offset: Offset(5.0, 5.0),
-                                  spreadRadius: 10.0,
-                                )
-                              ],
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  32.0, 0.0, 32.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  InkWell(
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 10.0, 0.0, 0.0),
+                                  child: InkWell(
                                     splashColor: Colors.transparent,
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
                                     onTap: () async {
-                                      if (_model.pinCodeController!.text ==
-                                          '111111') {
-                                        context.pushNamed('welcome');
-                                      } else {
-                                        _model.apiResult3lo8 =
-                                            await TaskerpageBackendGroup
-                                                .checkEmailVerificationCall
-                                                .call(
-                                          name: getJsonField(
-                                            FFAppState().userProfile,
-                                            r'''$.data.name''',
-                                          ).toString(),
-                                          code: _model.pinCodeController!.text,
-                                          apiGlobalKey: FFAppState().apiKey,
-                                        );
-                                        if ((_model.apiResult3lo8?.succeeded ??
-                                                true) &&
-                                            (functions
-                                                    .jsonToString(getJsonField(
-                                                  (_model.apiResult3lo8
-                                                          ?.jsonBody ??
-                                                      ''),
-                                                  r'''$.message.status''',
-                                                )) ==
-                                                'true')) {
-                                          context.pushNamed('welcome');
-                                        } else {
-                                          ScaffoldMessenger.of(context)
-                                              .showSnackBar(
-                                            SnackBar(
-                                              content: Text(
-                                                'Code is not correct !',
-                                                style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 14.0,
-                                                ),
-                                              ),
-                                              duration:
-                                                  Duration(milliseconds: 4000),
-                                              backgroundColor:
-                                                  Color(0xFFDD2525),
-                                            ),
-                                          );
-                                        }
-                                      }
-
-                                      setState(() {});
+                                      await launchUrl(Uri(
+                                          scheme: 'mailto',
+                                          path: FFAppState()
+                                              .UserInformation
+                                              .email,
+                                          query: {
+                                            'subject': 'welcome to taskerPage',
+                                          }
+                                              .entries
+                                              .map((MapEntry<String, String>
+                                                      e) =>
+                                                  '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+                                              .join('&')));
                                     },
-                                    child: Container(
-                                      width: 104.0,
-                                      height: 36.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        borderRadius:
-                                            BorderRadius.circular(2.0),
-                                      ),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          Text(
-                                            'Verify',
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyMedium
-                                                .override(
-                                                  fontFamily: 'Lato',
-                                                  color: Colors.white,
-                                                  fontSize: 14.0,
-                                                ),
+                                    child: Text(
+                                      'Resend verification code',
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyMedium
+                                          .override(
+                                            fontFamily: 'Lato',
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            fontSize: 12.0,
+                                            decoration:
+                                                TextDecoration.underline,
                                           ),
-                                        ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                InkWell(
+                                  splashColor: Colors.transparent,
+                                  focusColor: Colors.transparent,
+                                  hoverColor: Colors.transparent,
+                                  highlightColor: Colors.transparent,
+                                  onTap: () async {
+                                    setState(() {
+                                      FFAppState()
+                                              .closeHeaderInacceptedDigitCode =
+                                          true;
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.close_rounded,
+                                    color: Color(0xFFACACAC),
+                                    size: 20.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (responsiveVisibility(
+                        context: context,
+                        desktop: false,
+                      ))
+                        wrapWithModel(
+                          model: _model.headerModel,
+                          updateCallback: () => setState(() {}),
+                          child: HeaderWidget(
+                            openDrawer: () async {
+                              scaffoldKey.currentState!.openEndDrawer();
+                            },
+                          ),
+                        ),
+                    ],
+                  ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Flexible(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                32.0,
+                                valueOrDefault<double>(
+                                  () {
+                                    if (MediaQuery.sizeOf(context).width <
+                                        kBreakpointSmall) {
+                                      return 32.0;
+                                    } else if (MediaQuery.sizeOf(context)
+                                            .width <
+                                        kBreakpointMedium) {
+                                      return 32.0;
+                                    } else if (MediaQuery.sizeOf(context)
+                                            .width <
+                                        kBreakpointLarge) {
+                                      return 105.0;
+                                    } else {
+                                      return 105.0;
+                                    }
+                                  }(),
+                                  0.0,
+                                ),
+                                32.0,
+                                0.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Flexible(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Flexible(
+                                        child: Text(
+                                          'We just sent you a email to below \nemail address !',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .alternate,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.w500,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Flexible(
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 54.0, 0.0, 0.0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(0.0),
+                                      child: Image.asset(
+                                        'assets/images/Clip_path_group_(3).png',
+                                        width: 79.0,
+                                        height: 79.0,
+                                        fit: BoxFit.cover,
                                       ),
                                     ),
-                                  )
-                                      .animateOnPageLoad(animationsMap[
-                                          'containerOnPageLoadAnimation']!)
-                                      .animateOnActionTrigger(
-                                        animationsMap[
-                                            'containerOnActionTriggerAnimation']!,
+                                  ),
+                                ),
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Flexible(
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 32.0, 0.0, 0.0),
+                                        child: Text(
+                                          '${getJsonField(
+                                            FFAppState().userProfile,
+                                            r'''$.data.user''',
+                                          ).toString()}',
+                                          textAlign: TextAlign.center,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF292929),
+                                                fontSize: 16.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
                                       ),
-                                ],
-                              ),
+                                    ),
+                                  ],
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 8.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        'Edit',
+                                        textAlign: TextAlign.justify,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFF8A8A8A),
+                                              fontSize: 12.0,
+                                              fontWeight: FontWeight.w500,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Divider(
+                                  height: 35.0,
+                                  thickness: 1.0,
+                                  color: Color(0xFFE3E3E3),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            3.0, 0.0, 0.0, 0.0),
+                                        child: Text(
+                                          'Enter your 6 character code here!',
+                                          textAlign: TextAlign.justify,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyMedium
+                                              .override(
+                                                fontFamily: 'Lato',
+                                                color: Color(0xFF292929),
+                                                fontSize: 15.0,
+                                                fontWeight: FontWeight.w600,
+                                              ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 16.0, 0.0, 0.0),
+                                  child: PinCodeTextField(
+                                    autoDisposeControllers: false,
+                                    appContext: context,
+                                    length: 6,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .bodyLarge
+                                        .override(
+                                          fontFamily: 'Lato',
+                                          color: Color(0xFF212121),
+                                          fontSize: 14.0,
+                                        ),
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    enableActiveFill: false,
+                                    autoFocus: false,
+                                    enablePinAutofill: false,
+                                    errorTextSpace: 16.0,
+                                    showCursor: true,
+                                    cursorColor: Color(0xFF292929),
+                                    obscureText: false,
+                                    keyboardType: TextInputType.visiblePassword,
+                                    pinTheme: PinTheme(
+                                      fieldHeight: 36.0,
+                                      fieldWidth: 50.0,
+                                      borderWidth: 1.0,
+                                      borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(2.0),
+                                        bottomRight: Radius.circular(2.0),
+                                        topLeft: Radius.circular(2.0),
+                                        topRight: Radius.circular(2.0),
+                                      ),
+                                      shape: PinCodeFieldShape.box,
+                                      activeColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      inactiveColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      selectedColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                      activeFillColor:
+                                          FlutterFlowTheme.of(context).primary,
+                                      inactiveFillColor:
+                                          FlutterFlowTheme.of(context).tertiary,
+                                      selectedFillColor:
+                                          FlutterFlowTheme.of(context)
+                                              .secondary,
+                                    ),
+                                    controller: _model.pinCodeController,
+                                    onChanged: (_) {},
+                                    autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                    validator: _model.pinCodeControllerValidator
+                                        .asValidator(context),
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
-                  ],
-                ),
+                        ),
+                        if (!(isWeb
+                            ? MediaQuery.viewInsetsOf(context).bottom > 0
+                            : _isKeyboardVisible))
+                          Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: MediaQuery.sizeOf(context).width * 1.0,
+                                height: 60.0,
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      blurRadius: 5.0,
+                                      color: () {
+                                        if (MediaQuery.sizeOf(context).width <
+                                            kBreakpointSmall) {
+                                          return Color(0x33000000);
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointMedium) {
+                                          return Color(0x33000000);
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointLarge) {
+                                          return Colors.transparent;
+                                        } else {
+                                          return Colors.transparent;
+                                        }
+                                      }(),
+                                      offset: Offset(5.0, 5.0),
+                                      spreadRadius: 10.0,
+                                    )
+                                  ],
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      32.0, 0.0, 32.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: [
+                                      InkWell(
+                                        splashColor: Colors.transparent,
+                                        focusColor: Colors.transparent,
+                                        hoverColor: Colors.transparent,
+                                        highlightColor: Colors.transparent,
+                                        onTap: () async {
+                                          if (_model.pinCodeController!.text ==
+                                              '111111') {
+                                            context.pushNamed('welcome');
+                                          } else {
+                                            _model.apiResult3lo8 =
+                                                await TaskerpageBackendGroup
+                                                    .checkEmailVerificationCall
+                                                    .call(
+                                              name: getJsonField(
+                                                FFAppState().userProfile,
+                                                r'''$.data.name''',
+                                              ).toString(),
+                                              code: _model
+                                                  .pinCodeController!.text,
+                                              apiGlobalKey: FFAppState().apiKey,
+                                            );
+                                            if ((_model.apiResult3lo8
+                                                        ?.succeeded ??
+                                                    true) &&
+                                                (functions.jsonToString(
+                                                        getJsonField(
+                                                      (_model.apiResult3lo8
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                      r'''$.message.status''',
+                                                    )) ==
+                                                    'true')) {
+                                              context.pushNamed('welcome');
+                                            } else {
+                                              ScaffoldMessenger.of(context)
+                                                  .showSnackBar(
+                                                SnackBar(
+                                                  content: Text(
+                                                    'Code is not correct !',
+                                                    style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.w500,
+                                                      fontSize: 14.0,
+                                                    ),
+                                                  ),
+                                                  duration: Duration(
+                                                      milliseconds: 4000),
+                                                  backgroundColor:
+                                                      Color(0xFFDD2525),
+                                                ),
+                                              );
+                                            }
+                                          }
+
+                                          setState(() {});
+                                        },
+                                        child: Container(
+                                          width: 104.0,
+                                          height: 36.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primary,
+                                            borderRadius:
+                                                BorderRadius.circular(2.0),
+                                          ),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              Text(
+                                                'Verify',
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: 'Lato',
+                                                          color: Colors.white,
+                                                          fontSize: 14.0,
+                                                        ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                          .animateOnPageLoad(animationsMap[
+                                              'containerOnPageLoadAnimation']!)
+                                          .animateOnActionTrigger(
+                                            animationsMap[
+                                                'containerOnActionTriggerAnimation']!,
+                                          ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

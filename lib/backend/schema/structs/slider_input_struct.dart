@@ -58,8 +58,9 @@ class SliderInputStruct extends BaseStruct {
         butttonText: data['buttton_text'] as String?,
       );
 
-  static SliderInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? SliderInputStruct.fromMap(data) : null;
+  static SliderInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? SliderInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'background_image': _backgroundImage,

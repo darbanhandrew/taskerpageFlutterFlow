@@ -31,10 +31,9 @@ class CategoriesCardInputStruct extends BaseStruct {
         icon: data['icon'] as String?,
       );
 
-  static CategoriesCardInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? CategoriesCardInputStruct.fromMap(data)
-          : null;
+  static CategoriesCardInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? CategoriesCardInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skill_category_name': _skillCategoryName,

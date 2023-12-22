@@ -26,6 +26,8 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // State field(s) for TextField widget.
@@ -43,27 +45,24 @@ class SignInModel extends FlutterFlowModel<SignInWidget> {
   ApiCallResponse? login;
   // Stores action output result for [Backend Call - API (userProfileMe)] action in Container widget.
   ApiCallResponse? apiResultem2;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
     passwordVisibility = false;
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
     headerModel.dispose();
     textFieldFocusNode1?.dispose();
     textController1?.dispose();
 
     textFieldFocusNode2?.dispose();
     textController2?.dispose();
-
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

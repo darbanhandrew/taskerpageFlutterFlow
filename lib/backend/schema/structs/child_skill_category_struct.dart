@@ -31,10 +31,9 @@ class ChildSkillCategoryStruct extends BaseStruct {
         name: data['name'] as String?,
       );
 
-  static ChildSkillCategoryStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? ChildSkillCategoryStruct.fromMap(data)
-          : null;
+  static ChildSkillCategoryStruct? maybeFromMap(dynamic data) => data is Map
+      ? ChildSkillCategoryStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'skill_category_name': _skillCategoryName,

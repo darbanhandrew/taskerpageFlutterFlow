@@ -156,7 +156,7 @@ class _UserRateWidgetState extends State<UserRateWidget> {
                     initialRating: _model.ratingBarValue ??= 3.0,
                     unratedColor: Color(0xFFFFF3C2),
                     itemCount: 5,
-                    itemSize: 45.0,
+                    itemSize: 50.0,
                     glowColor: Color(0xFFFBD927),
                   ),
                 ],

@@ -187,7 +187,8 @@ class _RateCardWidgetState extends State<RateCardWidget> {
                   child: Builder(
                     builder: (context) {
                       final skillCategories =
-                          widget.userRate?.skillCategories?.toList() ?? [];
+                          widget.userRate?.customerProfileSkills?.toList() ??
+                              [];
                       return Row(
                         mainAxisSize: MainAxisSize.max,
                         children: List.generate(skillCategories.length,

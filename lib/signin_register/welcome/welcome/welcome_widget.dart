@@ -1,6 +1,7 @@
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -74,69 +75,226 @@ class _WelcomeWidgetState extends State<WelcomeWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              wrapWithModel(
-                model: _model.headerModel,
-                updateCallback: () => setState(() {}),
-                child: HeaderWidget(
-                  openDrawer: () async {
-                    scaffoldKey.currentState!.openEndDrawer();
-                  },
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
                 ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.mediumCardUD.toDouble();
+                    } else {
+                      return FFAppConstants.mediumCardUD.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    } else {
+                      return FFAppConstants.mediumCardLR.toDouble();
+                    }
+                  }(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  () {
+                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointMedium) {
+                      return 0.0;
+                    } else if (MediaQuery.sizeOf(context).width <
+                        kBreakpointLarge) {
+                      return FFAppConstants.mediumCardUD.toDouble();
+                    } else {
+                      return FFAppConstants.mediumCardUD.toDouble();
+                    }
+                  }(),
+                  0.0,
+                )),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4.0,
+                    color: Color(0x33000000),
+                    offset: Offset(0.0, 0.0),
+                    spreadRadius: 2.0,
+                  )
+                ],
               ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(0.0),
-                child: Image.asset(
-                  'assets/images/image_2.png',
-                  width: 270.0,
-                  height: 380.0,
-                  fit: BoxFit.none,
-                ),
-              ),
-              Container(
-                width: MediaQuery.sizeOf(context).width * 1.0,
-                height: 60.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 5.0,
-                      color: Color(0x33000000),
-                      offset: Offset(5.0, 5.0),
-                      spreadRadius: 10.0,
-                    )
-                  ],
-                ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          context.pushNamed('Profile-intersted');
-                        },
-                        child: wrapWithModel(
-                          model: _model.buttonNextModel,
-                          updateCallback: () => setState(() {}),
-                          child: ButtonNextWidget(
-                            text: 'Next',
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: wrapWithModel(
+                            model: _model.sideBarLeftSignUpModel,
+                            updateCallback: () => setState(() {}),
+                            child: SideBarLeftSignUpWidget(),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    VerticalDivider(
+                      width: 1.0,
+                      thickness: 1.0,
+                      color: FlutterFlowTheme.of(context).tertiary,
+                    ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                if (responsiveVisibility(
+                                  context: context,
+                                  desktop: false,
+                                ))
+                                  wrapWithModel(
+                                    model: _model.headerModel,
+                                    updateCallback: () => setState(() {}),
+                                    child: HeaderWidget(
+                                      openDrawer: () async {
+                                        scaffoldKey.currentState!
+                                            .openEndDrawer();
+                                      },
+                                    ),
+                                  ),
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(0.0),
+                                  child: Image.asset(
+                                    'assets/images/image_2.png',
+                                    width: 270.0,
+                                    height: 380.0,
+                                    fit: BoxFit.none,
+                                  ),
+                                ),
+                                Container(
+                                  width: MediaQuery.sizeOf(context).width * 1.0,
+                                  height: 60.0,
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        blurRadius: 5.0,
+                                        color: () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return Color(0x33000000);
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return Color(0x33000000);
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return Colors.transparent;
+                                          } else {
+                                            return Colors.transparent;
+                                          }
+                                        }(),
+                                        offset: Offset(5.0, 5.0),
+                                        spreadRadius: 10.0,
+                                      )
+                                    ],
+                                  ),
+                                  child: Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        32.0, 0.0, 32.0, 0.0),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        InkWell(
+                                          splashColor: Colors.transparent,
+                                          focusColor: Colors.transparent,
+                                          hoverColor: Colors.transparent,
+                                          highlightColor: Colors.transparent,
+                                          onTap: () async {
+                                            context
+                                                .pushNamed('Profile-intersted');
+                                          },
+                                          child: wrapWithModel(
+                                            model: _model.buttonNextModel,
+                                            updateCallback: () =>
+                                                setState(() {}),
+                                            child: ButtonNextWidget(
+                                              text: 'Next',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
         ),
       ),

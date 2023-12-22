@@ -139,8 +139,9 @@ class IdentificationStruct extends BaseStruct {
         expiryDate: data['expiry_date'] as String?,
       );
 
-  static IdentificationStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? IdentificationStruct.fromMap(data) : null;
+  static IdentificationStruct? maybeFromMap(dynamic data) => data is Map
+      ? IdentificationStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,

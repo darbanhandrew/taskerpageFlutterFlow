@@ -49,8 +49,9 @@ class TransitionsStruct extends BaseStruct {
         action: data['action'] as String?,
       );
 
-  static TransitionsStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? TransitionsStruct.fromMap(data) : null;
+  static TransitionsStruct? maybeFromMap(dynamic data) => data is Map
+      ? TransitionsStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'state': _state,

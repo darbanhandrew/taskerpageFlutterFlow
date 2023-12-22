@@ -1,6 +1,7 @@
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -16,26 +17,31 @@ class WelcomeModel extends FlutterFlowModel<WelcomeWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for side_bar_left_sign_up component.
+  late SideBarLeftSignUpModel sideBarLeftSignUpModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for button_Next component.
   late ButtonNextModel buttonNextModel;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    sideBarLeftSignUpModel =
+        createModel(context, () => SideBarLeftSignUpModel());
     headerModel = createModel(context, () => HeaderModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    sideBarLeftSignUpModel.dispose();
     headerModel.dispose();
     buttonNextModel.dispose();
-    mainDrawerModel.dispose();
   }
 
   /// Action blocks are added here.

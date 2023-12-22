@@ -1,6 +1,7 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -33,24 +34,29 @@ class Skills3Model extends FlutterFlowModel<Skills3Widget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (Get My Skill Categories)] action in Skills-3 widget.
   ApiCallResponse? mySkillCategories;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for side_bar_left_sign_up component.
+  late SideBarLeftSignUpModel sideBarLeftSignUpModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // Stores action output result for [Backend Call - API (Sync Skill Categories)] action in Container widget.
   ApiCallResponse? syncedSkills;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {
-    headerModel = createModel(context, () => HeaderModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
+    sideBarLeftSignUpModel =
+        createModel(context, () => SideBarLeftSignUpModel());
+    headerModel = createModel(context, () => HeaderModel());
   }
 
   void dispose() {
     unfocusNode.dispose();
-    headerModel.dispose();
     mainDrawerModel.dispose();
+    sideBarLeftSignUpModel.dispose();
+    headerModel.dispose();
   }
 
   /// Action blocks are added here.

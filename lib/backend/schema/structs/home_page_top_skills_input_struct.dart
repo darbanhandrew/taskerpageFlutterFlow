@@ -33,10 +33,9 @@ class HomePageTopSkillsInputStruct extends BaseStruct {
         topSkills: getDataList(data['top_skills']),
       );
 
-  static HomePageTopSkillsInputStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic>
-          ? HomePageTopSkillsInputStruct.fromMap(data)
-          : null;
+  static HomePageTopSkillsInputStruct? maybeFromMap(dynamic data) => data is Map
+      ? HomePageTopSkillsInputStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'title': _title,

@@ -16,6 +16,7 @@ class UserRateStruct extends BaseStruct {
     String? customerProfile,
     String? customerProfileUser,
     int? isAll,
+    List<ChildUserServiceStruct>? customerProfileSkills,
   })  : _name = name,
         _label = label,
         _skillCategories = skillCategories,
@@ -23,7 +24,8 @@ class UserRateStruct extends BaseStruct {
         _currency = currency,
         _customerProfile = customerProfile,
         _customerProfileUser = customerProfileUser,
-        _isAll = isAll;
+        _isAll = isAll,
+        _customerProfileSkills = customerProfileSkills;
 
   // "name" field.
   String? _name;
@@ -80,6 +82,17 @@ class UserRateStruct extends BaseStruct {
   void incrementIsAll(int amount) => _isAll = isAll + amount;
   bool hasIsAll() => _isAll != null;
 
+  // "customer_profile_skills" field.
+  List<ChildUserServiceStruct>? _customerProfileSkills;
+  List<ChildUserServiceStruct> get customerProfileSkills =>
+      _customerProfileSkills ?? const [];
+  set customerProfileSkills(List<ChildUserServiceStruct>? val) =>
+      _customerProfileSkills = val;
+  void updateCustomerProfileSkills(
+          Function(List<ChildUserServiceStruct>) updateFn) =>
+      updateFn(_customerProfileSkills ??= []);
+  bool hasCustomerProfileSkills() => _customerProfileSkills != null;
+
   static UserRateStruct fromMap(Map<String, dynamic> data) => UserRateStruct(
         name: data['name'] as String?,
         label: data['label'] as String?,
@@ -92,10 +105,14 @@ class UserRateStruct extends BaseStruct {
         customerProfile: data['customer_profile'] as String?,
         customerProfileUser: data['customer_profile_user'] as String?,
         isAll: castToType<int>(data['is_all']),
+        customerProfileSkills: getStructList(
+          data['customer_profile_skills'],
+          ChildUserServiceStruct.fromMap,
+        ),
       );
 
   static UserRateStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? UserRateStruct.fromMap(data) : null;
+      data is Map ? UserRateStruct.fromMap(data.cast<String, dynamic>()) : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,
@@ -106,6 +123,8 @@ class UserRateStruct extends BaseStruct {
         'customer_profile': _customerProfile,
         'customer_profile_user': _customerProfileUser,
         'is_all': _isAll,
+        'customer_profile_skills':
+            _customerProfileSkills?.map((e) => e.toMap()).toList(),
       }.withoutNulls;
 
   @override
@@ -142,6 +161,11 @@ class UserRateStruct extends BaseStruct {
         'is_all': serializeParam(
           _isAll,
           ParamType.int,
+        ),
+        'customer_profile_skills': serializeParam(
+          _customerProfileSkills,
+          ParamType.DataStruct,
+          true,
         ),
       }.withoutNulls;
 
@@ -188,6 +212,12 @@ class UserRateStruct extends BaseStruct {
           ParamType.int,
           false,
         ),
+        customerProfileSkills: deserializeStructParam<ChildUserServiceStruct>(
+          data['customer_profile_skills'],
+          ParamType.DataStruct,
+          true,
+          structBuilder: ChildUserServiceStruct.fromSerializableMap,
+        ),
       );
 
   @override
@@ -204,7 +234,8 @@ class UserRateStruct extends BaseStruct {
         currency == other.currency &&
         customerProfile == other.customerProfile &&
         customerProfileUser == other.customerProfileUser &&
-        isAll == other.isAll;
+        isAll == other.isAll &&
+        listEquality.equals(customerProfileSkills, other.customerProfileSkills);
   }
 
   @override
@@ -216,7 +247,8 @@ class UserRateStruct extends BaseStruct {
         currency,
         customerProfile,
         customerProfileUser,
-        isAll
+        isAll,
+        customerProfileSkills
       ]);
 }
 

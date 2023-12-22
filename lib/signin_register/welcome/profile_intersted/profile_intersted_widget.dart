@@ -3,6 +3,7 @@ import '/backend/schema/structs/index.dart';
 import '/components/button_next_widget.dart';
 import '/components/header_widget.dart';
 import '/components/main_drawer_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -77,302 +78,483 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
         ),
         body: SafeArea(
           top: true,
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Flexible(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        wrapWithModel(
-                          model: _model.headerModel,
-                          updateCallback: () => setState(() {}),
-                          child: HeaderWidget(
-                            openDrawer: () async {
-                              scaffoldKey.currentState!.openEndDrawer();
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 32.0, 0.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            'What are you intersted in!',
-                            textAlign: TextAlign.center,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            0.0, 142.0, 0.0, 0.0),
-                        child: FutureBuilder<ApiCallResponse>(
-                          future: FFAppState().appRoles(
-                            uniqueQueryKey: FFAppState().apiKey,
-                            requestFn: () =>
-                                TaskerpageBackendGroup.getAppRolesCall.call(
-                              apiGlobalKey: FFAppState().apiKey,
-                              fields:
-                                  '[\"name\",\"role_profile_name\",\"message\",\"add_skills_text\",\"skills_limit\"]',
-                            ),
-                          ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 35.0,
-                                  height: 35.0,
-                                  child: SpinKitThreeBounce(
-                                    color: FlutterFlowTheme.of(context).primary,
-                                    size: 35.0,
-                                  ),
-                                ),
-                              );
-                            }
-                            final columnGetAppRolesResponse = snapshot.data!;
-                            return Builder(
-                              builder: (context) {
-                                final roleProfile = functions
-                                        .listJsonToAppRolesStruct(
-                                            TaskerpageBackendGroup
-                                                .getAppRolesCall
-                                                .roleProfilesList(
-                                                  columnGetAppRolesResponse
-                                                      .jsonBody,
-                                                )!
-                                                .toList())
-                                        ?.toList() ??
-                                    [];
-                                return Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: List.generate(roleProfile.length,
-                                      (roleProfileIndex) {
-                                    final roleProfileItem =
-                                        roleProfile[roleProfileIndex];
-                                    return Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          32.0, 0.0, 32.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          InkWell(
-                                            splashColor: Colors.transparent,
-                                            focusColor: Colors.transparent,
-                                            hoverColor: Colors.transparent,
-                                            highlightColor: Colors.transparent,
-                                            onTap: () async {
-                                              setState(() {
-                                                FFAppState()
-                                                    .watingForSelectRole = true;
-                                              });
-                                              setState(() {
-                                                FFAppState()
-                                                    .updateUserInformationStruct(
-                                                  (e) => e
-                                                    ..role =
-                                                        '${roleProfileItem.roleProfileName}',
-                                                );
-                                              });
-                                              _model.apiResult786 =
-                                                  await TaskerpageBackendGroup
-                                                      .updateUserRoleCall
-                                                      .call(
-                                                roleProfileName: roleProfileItem
-                                                    .roleProfileName,
-                                                name: getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.user''',
-                                                ).toString(),
-                                              );
-                                              _model.apiResultgzf =
-                                                  await TaskerpageBackendGroup
-                                                      .updateRoleCall
-                                                      .call(
-                                                id: getJsonField(
-                                                  FFAppState().userProfile,
-                                                  r'''$.data.name''',
-                                                ).toString(),
-                                                roleProfileName: roleProfileItem
-                                                    .roleProfileName,
-                                                role: roleProfileItem
-                                                    .roleProfileName,
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
-                                              );
-                                              setState(() {
-                                                FFAppState()
-                                                        .watingForSelectRole =
-                                                    false;
-                                              });
-
-                                              setState(() {});
-                                            },
-                                            child: Container(
-                                              width: 216.0,
-                                              height: 36.0,
-                                              decoration: BoxDecoration(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                borderRadius:
-                                                    BorderRadius.circular(2.0),
-                                                border: Border.all(
-                                                  color: FFAppState()
-                                                              .UserInformation
-                                                              .role ==
-                                                          roleProfileItem
-                                                              .roleProfileName
-                                                      ? FlutterFlowTheme.of(
-                                                              context)
-                                                          .primary
-                                                      : FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondary,
-                                                ),
-                                              ),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Text(
-                                                    roleProfileItem.message,
-                                                    style:
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMedium
-                                                            .override(
-                                                              fontFamily:
-                                                                  'Lato',
-                                                              color: FFAppState()
-                                                                          .UserInformation
-                                                                          .role ==
-                                                                      roleProfileItem
-                                                                          .roleProfileName
-                                                                  ? FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primary
-                                                                  : FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .secondary,
-                                                              fontSize: 14.0,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                            ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  }).divide(SizedBox(height: 8.0)),
-                                );
-                              },
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
+          child: Padding(
+            padding: EdgeInsetsDirectional.fromSTEB(
+                valueOrDefault<double>(
+                  FFAppConstants.mediumCardLR.toDouble(),
+                  0.0,
                 ),
+                valueOrDefault<double>(
+                  FFAppConstants.mediumCardUD.toDouble(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  FFAppConstants.mediumCardLR.toDouble(),
+                  0.0,
+                ),
+                valueOrDefault<double>(
+                  FFAppConstants.mediumCardUD.toDouble(),
+                  0.0,
+                )),
+            child: Container(
+              width: double.infinity,
+              height: double.infinity,
+              decoration: BoxDecoration(
+                color: FlutterFlowTheme.of(context).secondaryBackground,
+                boxShadow: [
+                  BoxShadow(
+                    blurRadius: 4.0,
+                    color: Color(0x33000000),
+                    offset: Offset(0.0, 0.0),
+                    spreadRadius: 2.0,
+                  )
+                ],
               ),
-              Column(
+              child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
-                    width: MediaQuery.sizeOf(context).width * 1.0,
-                    height: 60.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5.0,
-                          color: Color(0x33000000),
-                          offset: Offset(5.0, 5.0),
-                          spreadRadius: 10.0,
-                        )
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: wrapWithModel(
+                            model: _model.sideBarLeftSignUpModel,
+                            updateCallback: () => setState(() {}),
+                            child: SideBarLeftSignUpWidget(),
+                          ),
+                        ),
                       ],
                     ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(32.0, 0.0, 32.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              var _shouldSetState = false;
-                              if (FFAppState().watingForSelectRole) {
-                                if (_shouldSetState) setState(() {});
-                                return;
-                              }
+                  if (responsiveVisibility(
+                    context: context,
+                    phone: false,
+                    tablet: false,
+                    tabletLandscape: false,
+                  ))
+                    VerticalDivider(
+                      width: 1.0,
+                      thickness: 1.0,
+                      color: FlutterFlowTheme.of(context).tertiary,
+                    ),
+                  Expanded(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: Container(
+                            width: double.infinity,
+                            height: 100.0,
+                            decoration: BoxDecoration(
+                              color: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                            ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Flexible(
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            desktop: false,
+                                          ))
+                                            wrapWithModel(
+                                              model: _model.headerModel,
+                                              updateCallback: () =>
+                                                  setState(() {}),
+                                              child: HeaderWidget(
+                                                openDrawer: () async {
+                                                  scaffoldKey.currentState!
+                                                      .openEndDrawer();
+                                                },
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0,
+                                            valueOrDefault<double>(
+                                              () {
+                                                if (MediaQuery.sizeOf(context)
+                                                        .width <
+                                                    kBreakpointSmall) {
+                                                  return 32.0;
+                                                } else if (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width <
+                                                    kBreakpointMedium) {
+                                                  return 32.0;
+                                                } else if (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width <
+                                                    kBreakpointLarge) {
+                                                  return 94.0;
+                                                } else {
+                                                  return 94.0;
+                                                }
+                                              }(),
+                                              0.0,
+                                            ),
+                                            0.0,
+                                            0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Text(
+                                              'What are you intersted in!',
+                                              textAlign: TextAlign.center,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily: 'Lato',
+                                                        fontSize: 18.0,
+                                                        fontWeight:
+                                                            FontWeight.w500,
+                                                      ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 142.0, 0.0, 0.0),
+                                          child: FutureBuilder<ApiCallResponse>(
+                                            future: FFAppState().appRoles(
+                                              uniqueQueryKey:
+                                                  FFAppState().apiKey,
+                                              requestFn: () =>
+                                                  TaskerpageBackendGroup
+                                                      .getAppRolesCall
+                                                      .call(
+                                                apiGlobalKey:
+                                                    FFAppState().apiKey,
+                                                fields:
+                                                    '[\"name\",\"role_profile_name\",\"message\",\"add_skills_text\",\"skills_limit\"]',
+                                              ),
+                                            ),
+                                            builder: (context, snapshot) {
+                                              // Customize what your widget looks like when it's loading.
+                                              if (!snapshot.hasData) {
+                                                return Center(
+                                                  child: SizedBox(
+                                                    width: 35.0,
+                                                    height: 35.0,
+                                                    child: SpinKitThreeBounce(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 35.0,
+                                                    ),
+                                                  ),
+                                                );
+                                              }
+                                              final columnGetAppRolesResponse =
+                                                  snapshot.data!;
+                                              return Builder(
+                                                builder: (context) {
+                                                  final roleProfile = functions
+                                                          .listJsonToAppRolesStruct(
+                                                              TaskerpageBackendGroup
+                                                                  .getAppRolesCall
+                                                                  .roleProfilesList(
+                                                                    columnGetAppRolesResponse
+                                                                        .jsonBody,
+                                                                  )!
+                                                                  .toList())
+                                                          ?.toList() ??
+                                                      [];
+                                                  return Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: List.generate(
+                                                        roleProfile.length,
+                                                        (roleProfileIndex) {
+                                                      final roleProfileItem =
+                                                          roleProfile[
+                                                              roleProfileIndex];
+                                                      return Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    32.0,
+                                                                    0.0,
+                                                                    32.0,
+                                                                    0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            InkWell(
+                                                              splashColor: Colors
+                                                                  .transparent,
+                                                              focusColor: Colors
+                                                                  .transparent,
+                                                              hoverColor: Colors
+                                                                  .transparent,
+                                                              highlightColor:
+                                                                  Colors
+                                                                      .transparent,
+                                                              onTap: () async {
+                                                                setState(() {
+                                                                  FFAppState()
+                                                                          .watingForSelectRole =
+                                                                      true;
+                                                                });
+                                                                setState(() {
+                                                                  FFAppState()
+                                                                      .updateUserInformationStruct(
+                                                                    (e) => e
+                                                                      ..role =
+                                                                          '${roleProfileItem.roleProfileName}',
+                                                                  );
+                                                                });
+                                                                _model.apiResult786 =
+                                                                    await TaskerpageBackendGroup
+                                                                        .updateUserRoleCall
+                                                                        .call(
+                                                                  roleProfileName:
+                                                                      roleProfileItem
+                                                                          .roleProfileName,
+                                                                  name:
+                                                                      getJsonField(
+                                                                    FFAppState()
+                                                                        .userProfile,
+                                                                    r'''$.data.user''',
+                                                                  ).toString(),
+                                                                );
+                                                                _model.apiResultgzf =
+                                                                    await TaskerpageBackendGroup
+                                                                        .updateRoleCall
+                                                                        .call(
+                                                                  id: getJsonField(
+                                                                    FFAppState()
+                                                                        .userProfile,
+                                                                    r'''$.data.name''',
+                                                                  ).toString(),
+                                                                  roleProfileName:
+                                                                      roleProfileItem
+                                                                          .roleProfileName,
+                                                                  role: roleProfileItem
+                                                                      .roleProfileName,
+                                                                  apiGlobalKey:
+                                                                      FFAppState()
+                                                                          .apiKey,
+                                                                );
+                                                                setState(() {
+                                                                  FFAppState()
+                                                                          .watingForSelectRole =
+                                                                      false;
+                                                                });
 
-                              _model.apiResults8k = await TaskerpageBackendGroup
-                                  .userProfileMeCall
-                                  .call(
-                                apiGlobalKey: FFAppState().apiKey,
-                              );
-                              _shouldSetState = true;
-                              setState(() {
-                                FFAppState().userProfile =
-                                    (_model.apiResults8k?.jsonBody ?? '');
-                              });
-                              if (FFAppState().UserInformation.role == 'test') {
-                                context.pushNamed('Skills-1');
-                              } else {
-                                context.pushNamed('Skills-3');
-                              }
+                                                                setState(() {});
+                                                              },
+                                                              child: Container(
+                                                                width: 216.0,
+                                                                height: 36.0,
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              2.0),
+                                                                  border: Border
+                                                                      .all(
+                                                                    color: FFAppState().UserInformation.role ==
+                                                                            roleProfileItem
+                                                                                .roleProfileName
+                                                                        ? FlutterFlowTheme.of(context)
+                                                                            .primary
+                                                                        : FlutterFlowTheme.of(context)
+                                                                            .secondary,
+                                                                  ),
+                                                                ),
+                                                                child: Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    Text(
+                                                                      roleProfileItem
+                                                                          .message,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .bodyMedium
+                                                                          .override(
+                                                                            fontFamily:
+                                                                                'Lato',
+                                                                            color: FFAppState().UserInformation.role == roleProfileItem.roleProfileName
+                                                                                ? FlutterFlowTheme.of(context).primary
+                                                                                : FlutterFlowTheme.of(context).secondary,
+                                                                            fontSize:
+                                                                                14.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      );
+                                                    }).divide(
+                                                        SizedBox(height: 8.0)),
+                                                  );
+                                                },
+                                              );
+                                            },
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.sizeOf(context).width *
+                                          1.0,
+                                      height: 60.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            blurRadius: 5.0,
+                                            color: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return Color(0x33000000);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return Color(0x33000000);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return Colors.transparent;
+                                              } else {
+                                                return Colors.transparent;
+                                              }
+                                            }(),
+                                            offset: Offset(5.0, 5.0),
+                                            spreadRadius: 10.0,
+                                          )
+                                        ],
+                                      ),
+                                      child: Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            32.0, 0.0, 32.0, 0.0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.end,
+                                          children: [
+                                            InkWell(
+                                              splashColor: Colors.transparent,
+                                              focusColor: Colors.transparent,
+                                              hoverColor: Colors.transparent,
+                                              highlightColor:
+                                                  Colors.transparent,
+                                              onTap: () async {
+                                                var _shouldSetState = false;
+                                                if (FFAppState()
+                                                    .watingForSelectRole) {
+                                                  if (_shouldSetState)
+                                                    setState(() {});
+                                                  return;
+                                                }
 
-                              if (_shouldSetState) setState(() {});
-                            },
-                            child: wrapWithModel(
-                              model: _model.buttonNextModel,
-                              updateCallback: () => setState(() {}),
-                              child: ButtonNextWidget(
-                                text: FFAppState().watingForSelectRole
-                                    ? 'Wating'
-                                    : 'Next',
-                              ),
+                                                _model.apiResults8k =
+                                                    await TaskerpageBackendGroup
+                                                        .userProfileMeCall
+                                                        .call(
+                                                  apiGlobalKey:
+                                                      FFAppState().apiKey,
+                                                );
+                                                _shouldSetState = true;
+                                                setState(() {
+                                                  FFAppState().userProfile =
+                                                      (_model.apiResults8k
+                                                              ?.jsonBody ??
+                                                          '');
+                                                });
+                                                if (FFAppState()
+                                                        .UserInformation
+                                                        .role ==
+                                                    'test') {
+                                                  context.pushNamed('Skills-1');
+                                                } else {
+                                                  context.pushNamed('Skills-3');
+                                                }
+
+                                                if (_shouldSetState)
+                                                  setState(() {});
+                                              },
+                                              child: wrapWithModel(
+                                                model: _model.buttonNextModel,
+                                                updateCallback: () =>
+                                                    setState(() {}),
+                                                child: ButtonNextWidget(
+                                                  text: FFAppState()
+                                                          .watingForSelectRole
+                                                      ? 'Wating'
+                                                      : 'Next',
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
-            ],
+            ),
           ),
         ),
       ),

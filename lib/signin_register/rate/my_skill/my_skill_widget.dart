@@ -2,8 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
@@ -41,11 +39,9 @@ class _MySkillWidgetState extends State<MySkillWidget> {
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      if (widget.userRate == null) {
-        setState(() {
-          _model.userRate = widget.userRate;
-        });
-      }
+      setState(() {
+        _model.userRate = widget.userRate;
+      });
     });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
@@ -121,19 +117,14 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                             snapshot.data!;
                         return Builder(
                           builder: (context) {
-                            final mySkillCategories = functions
-                                .convertMap(TaskerpageBackendGroup
-                                    .getMySkillCategoriesCall
-                                    .mySkillCategories(
-                                      gridViewGetMySkillCategoriesResponse
-                                          .jsonBody,
-                                    )!
-                                    .toList())
-                                .map((e) => e != null && e != ''
-                                    ? UserServiceStruct.fromMap(e)
-                                    : null)
-                                .withoutNulls
-                                .toList();
+                            final mySkillCategories =
+                                TaskerpageBackendGroup.getMySkillCategoriesCall
+                                        .mySkillCategories(
+                                          gridViewGetMySkillCategoriesResponse
+                                              .jsonBody,
+                                        )
+                                        ?.toList() ??
+                                    [];
                             return GridView.builder(
                               padding: EdgeInsets.zero,
                               gridDelegate:
@@ -155,26 +146,31 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                                   hoverColor: Colors.transparent,
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
-                                    if (_model.userRate!.skillCategories
-                                            .where((e) =>
-                                                e.skillCategoryName ==
-                                                mySkillCategoriesItem
-                                                    .skillCategoryName)
-                                            .toList()
-                                            .length >
-                                        0) {
+                                    if (_model.userRate!.customerProfileSkills
+                                        .where((e) =>
+                                            e.skillCategoryName ==
+                                            getJsonField(
+                                              mySkillCategoriesItem,
+                                              r'''$.skill_category_name''',
+                                            ))
+                                        .toList()
+                                        .isNotEmpty) {
                                       setState(() {
                                         _model.updateUserRateStruct(
                                           (e) => e
-                                            ..updateSkillCategories(
-                                              (e) => e.remove(_model
-                                                  .userRate?.skillCategories
-                                                  ?.where((e) =>
-                                                      e.skillCategoryName ==
-                                                      mySkillCategoriesItem
-                                                          .skillCategoryName)
-                                                  .toList()
-                                                  ?.first),
+                                            ..updateCustomerProfileSkills(
+                                              (e) => e.remove(
+                                                  ChildUserServiceStruct(
+                                                customerProfileSkillsName:
+                                                    getJsonField(
+                                                  mySkillCategoriesItem,
+                                                  r'''$.name''',
+                                                ),
+                                                skillCategoryName: getJsonField(
+                                                  mySkillCategoriesItem,
+                                                  r'''$.skill_category_name''',
+                                                ).toString(),
+                                              )),
                                             ),
                                         );
                                       });
@@ -182,12 +178,18 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                                       setState(() {
                                         _model.updateUserRateStruct(
                                           (e) => e
-                                            ..updateSkillCategories(
-                                              (e) => e
-                                                  .add(ChildSkillCategoryStruct(
-                                                skillCategoryName:
-                                                    mySkillCategoriesItem
-                                                        .skillCategoryName,
+                                            ..updateCustomerProfileSkills(
+                                              (e) =>
+                                                  e.add(ChildUserServiceStruct(
+                                                customerProfileSkillsName:
+                                                    getJsonField(
+                                                  mySkillCategoriesItem,
+                                                  r'''$.name''',
+                                                ),
+                                                skillCategoryName: getJsonField(
+                                                  mySkillCategoriesItem,
+                                                  r'''$.skill_category_name''',
+                                                ).toString(),
                                               )),
                                             ),
                                         );
@@ -198,26 +200,30 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                                     width: 100.0,
                                     height: 100.0,
                                     decoration: BoxDecoration(
-                                      color: _model.userRate!.skillCategories
-                                                  .where((e) =>
-                                                      e.skillCategoryName ==
-                                                      mySkillCategoriesItem
-                                                          .skillCategoryName)
-                                                  .toList()
-                                                  .length >
-                                              0
+                                      color: _model
+                                              .userRate!.customerProfileSkills
+                                              .where((e) =>
+                                                  e.skillCategoryName ==
+                                                  getJsonField(
+                                                    mySkillCategoriesItem,
+                                                    r'''$.skill_category_name''',
+                                                  ))
+                                              .toList()
+                                              .isNotEmpty
                                           ? FlutterFlowTheme.of(context).primary
                                           : Colors.transparent,
                                       borderRadius: BorderRadius.circular(2.0),
                                       border: Border.all(
-                                        color: _model.userRate!.skillCategories
-                                                    .where((e) =>
-                                                        e.skillCategoryName ==
-                                                        mySkillCategoriesItem
-                                                            .skillCategoryName)
-                                                    .toList()
-                                                    .length >
-                                                0
+                                        color: _model
+                                                .userRate!.customerProfileSkills
+                                                .where((e) =>
+                                                    e.skillCategoryName ==
+                                                    getJsonField(
+                                                      mySkillCategoriesItem,
+                                                      r'''$.skill_category_name''',
+                                                    ))
+                                                .toList()
+                                                .isNotEmpty
                                             ? FlutterFlowTheme.of(context)
                                                 .primary
                                             : FlutterFlowTheme.of(context)
@@ -230,21 +236,25 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                                           MainAxisAlignment.center,
                                       children: [
                                         Text(
-                                          mySkillCategoriesItem
-                                              .skillCategoryName,
+                                          getJsonField(
+                                            mySkillCategoriesItem,
+                                            r'''$.skill_category_name''',
+                                          ).toString(),
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
                                                 fontFamily: 'Lato',
                                                 color: _model.userRate!
-                                                            .skillCategories
-                                                            .where((e) =>
-                                                                e.skillCategoryName ==
-                                                                mySkillCategoriesItem
-                                                                    .skillCategoryName)
-                                                            .toList()
-                                                            .length >
-                                                        0
+                                                        .customerProfileSkills
+                                                        .where((e) =>
+                                                            e
+                                                                .skillCategoryName ==
+                                                            getJsonField(
+                                                              mySkillCategoriesItem,
+                                                              r'''$.skill_category_name''',
+                                                            ))
+                                                        .toList()
+                                                        .isNotEmpty
                                                     ? FlutterFlowTheme.of(
                                                             context)
                                                         .primaryBackground

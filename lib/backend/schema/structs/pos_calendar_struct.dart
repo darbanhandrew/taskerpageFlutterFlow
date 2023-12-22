@@ -128,8 +128,9 @@ class PosCalendarStruct extends BaseStruct {
         customPeriodicType: data['customPeriodicType'] as String?,
       );
 
-  static PosCalendarStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? PosCalendarStruct.fromMap(data) : null;
+  static PosCalendarStruct? maybeFromMap(dynamic data) => data is Map
+      ? PosCalendarStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'startDate': _startDate,

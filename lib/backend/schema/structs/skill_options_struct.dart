@@ -49,8 +49,9 @@ class SkillOptionsStruct extends BaseStruct {
         optionName: data['option_name'] as String?,
       );
 
-  static SkillOptionsStruct? maybeFromMap(dynamic data) =>
-      data is Map<String, dynamic> ? SkillOptionsStruct.fromMap(data) : null;
+  static SkillOptionsStruct? maybeFromMap(dynamic data) => data is Map
+      ? SkillOptionsStruct.fromMap(data.cast<String, dynamic>())
+      : null;
 
   Map<String, dynamic> toMap() => {
         'name': _name,

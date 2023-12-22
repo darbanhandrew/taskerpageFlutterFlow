@@ -59,20 +59,10 @@ class _ChatWidgetState extends State<ChatWidget> {
       );
       if ((_model.chatRoomDetails?.succeeded ?? true)) {
         setState(() {
-          _model.chatRoom = TaskerpageBackendGroup.getChatRoomDetailsCall
-                          .chatRoomJson(
-                        (_model.chatRoomDetails?.jsonBody ?? ''),
-                      ) !=
-                      null &&
-                  TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
-                        (_model.chatRoomDetails?.jsonBody ?? ''),
-                      ) !=
-                      ''
-              ? ChatRoomStruct.fromMap(
-                  TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
-                  (_model.chatRoomDetails?.jsonBody ?? ''),
-                ))
-              : null;
+          _model.chatRoom = ChatRoomStruct.maybeFromMap(
+              TaskerpageBackendGroup.getChatRoomDetailsCall.chatRoomJson(
+            (_model.chatRoomDetails?.jsonBody ?? ''),
+          ));
         });
         _model.apiResult39c = await TaskerpageBackendGroup.markAsReadCall.call(
           room: widget.room,
@@ -1303,12 +1293,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                         .jsonBody,
                                                                   )!
                                                                   .toList())
-                                                          .map((e) => e !=
-                                                                      null &&
-                                                                  e != ''
-                                                              ? ChatRoomStruct
-                                                                  .fromMap(e)
-                                                              : null)
+                                                          .map((e) =>
+                                                              ChatRoomStruct
+                                                                  .maybeFromMap(
+                                                                      e))
                                                           .withoutNulls
                                                           .toList();
                                                       return ListView.builder(
@@ -1987,13 +1975,9 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                               .jsonBody,
                                                                         )!
                                                                         .toList())
-                                                                    .map((e) => e !=
-                                                                                null &&
-                                                                            e !=
-                                                                                ''
-                                                                        ? ChatMessageStruct
-                                                                            .fromMap(e)
-                                                                        : null)
+                                                                    .map((e) =>
+                                                                        ChatMessageStruct
+                                                                            .maybeFromMap(e))
                                                                     .withoutNulls
                                                                     .toList();
                                                             return ListView
@@ -2115,12 +2099,10 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                           .jsonBody,
                                                                     )!
                                                                     .toList())
-                                                            .map((e) => e !=
-                                                                        null &&
-                                                                    e != ''
-                                                                ? TransitionsStruct
-                                                                    .fromMap(e)
-                                                                : null)
+                                                            .map((e) =>
+                                                                TransitionsStruct
+                                                                    .maybeFromMap(
+                                                                        e))
                                                             .withoutNulls
                                                             .toList(),
                                                         doctype: 'Chat Room',
