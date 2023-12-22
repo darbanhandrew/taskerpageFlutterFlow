@@ -777,15 +777,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                                       }
 
                                                       context.pushNamed(
-                                                        'Rates_list',
-                                                        queryParameters: {
-                                                          'isEdit':
-                                                              serializeParam(
-                                                            false,
-                                                            ParamType.bool,
-                                                          ),
-                                                        }.withoutNulls,
-                                                      );
+                                                          'Profiledetails2');
                                                     } else {
                                                       if (_shouldSetState)
                                                         setState(() {});

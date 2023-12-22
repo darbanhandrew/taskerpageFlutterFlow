@@ -234,8 +234,6 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                   r'''$.data.name''',
                                                 ).toString()}\"]]',
                                                 fields: '[\"name\"]',
-                                                apiGlobalKey:
-                                                    FFAppState().apiKey,
                                               ),
                                               builder: (context, snapshot) {
                                                 // Customize what your widget looks like when it's loading.
@@ -288,10 +286,9 @@ class _RatesListWidgetState extends State<RatesListWidget> {
                                                           future: TaskerpageBackendGroup
                                                               .getUserRateDetailsCall
                                                               .call(
-                                                            name: getJsonField(
-                                                              userRateNamesListItem,
-                                                              r'''$.name''',
-                                                            ).toString(),
+                                                            name:
+                                                                userRateNamesListItem
+                                                                    .toString(),
                                                             apiGlobalKey:
                                                                 FFAppState()
                                                                     .apiKey,

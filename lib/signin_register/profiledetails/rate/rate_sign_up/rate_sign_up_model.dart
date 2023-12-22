@@ -8,7 +8,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/signin_register/rate/my_skill/my_skill_widget.dart';
+import '/signin_register/profiledetails/rate/my_skill/my_skill_widget.dart';
 import '/backend/schema/structs/index.dart';
 import 'rate_sign_up_widget.dart' show RateSignUpWidget;
 import 'package:flutter/material.dart';

@@ -168,67 +168,73 @@ class _RateCardWidgetState extends State<RateCardWidget> {
             endIndent: 17.0,
             color: Color(0xFFD4D4D4),
           ),
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(17.0, 10.0, 17.0, 17.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Skills : ',
-                  style: FlutterFlowTheme.of(context).bodyMedium.override(
-                        fontFamily: 'Lato',
-                        color: FlutterFlowTheme.of(context).alternate,
-                        fontSize: 14.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
-                  child: Builder(
-                    builder: (context) {
-                      final skillCategories =
-                          widget.userRate?.customerProfileSkills?.toList() ??
-                              [];
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: List.generate(skillCategories.length,
-                            (skillCategoriesIndex) {
-                          final skillCategoriesItem =
-                              skillCategories[skillCategoriesIndex];
-                          return Container(
-                            height: 22.0,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFD4D4D4),
-                              borderRadius: BorderRadius.circular(2.0),
-                            ),
-                            child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 15.0, 0.0),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    skillCategoriesItem.skillCategoryName,
-                                    style: FlutterFlowTheme.of(context)
-                                        .bodyMedium
-                                        .override(
-                                          fontFamily: 'Lato',
-                                          color: Color(0xFF494949),
-                                          fontSize: 13.0,
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }).divide(SizedBox(width: 9.0)),
-                      );
-                    },
+          Flexible(
+            child: Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(17.0, 10.0, 17.0, 17.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    'Skills : ',
+                    style: FlutterFlowTheme.of(context).bodyMedium.override(
+                          fontFamily: 'Lato',
+                          color: FlutterFlowTheme.of(context).alternate,
+                          fontSize: 14.0,
+                          fontWeight: FontWeight.w500,
+                        ),
                   ),
-                ),
-              ],
+                  Padding(
+                    padding:
+                        EdgeInsetsDirectional.fromSTEB(10.0, 0.0, 0.0, 0.0),
+                    child: Builder(
+                      builder: (context) {
+                        final skillCategories =
+                            widget.userRate?.customerProfileSkills?.toList() ??
+                                [];
+                        return SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: List.generate(skillCategories.length,
+                                (skillCategoriesIndex) {
+                              final skillCategoriesItem =
+                                  skillCategories[skillCategoriesIndex];
+                              return Container(
+                                height: 22.0,
+                                decoration: BoxDecoration(
+                                  color: Color(0xFFD4D4D4),
+                                  borderRadius: BorderRadius.circular(2.0),
+                                ),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 15.0, 0.0),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        skillCategoriesItem.skillCategoryName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyMedium
+                                            .override(
+                                              fontFamily: 'Lato',
+                                              color: Color(0xFF494949),
+                                              fontSize: 13.0,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            }).divide(SizedBox(width: 9.0)),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],

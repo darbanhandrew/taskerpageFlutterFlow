@@ -225,12 +225,13 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
+                  if (false &&
+                      responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                      ))
                     Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -243,12 +244,13 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                         ),
                       ],
                     ),
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
+                  if (false &&
+                      responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                      ))
                     VerticalDivider(
                       width: 1.0,
                       thickness: 1.0,
@@ -1254,23 +1256,25 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                       ],
                     ),
                   ),
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
+                  if (false &&
+                      responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                      ))
                     VerticalDivider(
                       width: 1.0,
                       thickness: 1.0,
                       color: FlutterFlowTheme.of(context).tertiary,
                     ),
-                  if (responsiveVisibility(
-                    context: context,
-                    phone: false,
-                    tablet: false,
-                    tabletLandscape: false,
-                  ))
+                  if (false &&
+                      responsiveVisibility(
+                        context: context,
+                        phone: false,
+                        tablet: false,
+                        tabletLandscape: false,
+                      ))
                     Expanded(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,

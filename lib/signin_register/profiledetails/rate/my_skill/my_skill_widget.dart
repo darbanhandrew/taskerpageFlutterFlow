@@ -161,14 +161,14 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                                             ..updateCustomerProfileSkills(
                                               (e) => e.remove(
                                                   ChildUserServiceStruct(
+                                                skillCategoryName: getJsonField(
+                                                  mySkillCategoriesItem,
+                                                  r'''$.skill_category_name''',
+                                                ).toString(),
                                                 customerProfileSkillsName:
                                                     getJsonField(
                                                   mySkillCategoriesItem,
                                                   r'''$.name''',
-                                                ),
-                                                skillCategoryName: getJsonField(
-                                                  mySkillCategoriesItem,
-                                                  r'''$.skill_category_name''',
                                                 ).toString(),
                                               )),
                                             ),
@@ -181,14 +181,14 @@ class _MySkillWidgetState extends State<MySkillWidget> {
                                             ..updateCustomerProfileSkills(
                                               (e) =>
                                                   e.add(ChildUserServiceStruct(
+                                                skillCategoryName: getJsonField(
+                                                  mySkillCategoriesItem,
+                                                  r'''$.skill_category_name''',
+                                                ).toString(),
                                                 customerProfileSkillsName:
                                                     getJsonField(
                                                   mySkillCategoriesItem,
                                                   r'''$.name''',
-                                                ),
-                                                skillCategoryName: getJsonField(
-                                                  mySkillCategoriesItem,
-                                                  r'''$.skill_category_name''',
                                                 ).toString(),
                                               )),
                                             ),
