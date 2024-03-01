@@ -9,7 +9,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'knowledge_base_widget.dart' show KnowledgeBaseWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +30,14 @@ class KnowledgeBaseModel extends FlutterFlowModel<KnowledgeBaseWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

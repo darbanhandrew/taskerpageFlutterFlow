@@ -1,7 +1,8 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +10,10 @@ import 'side_bar_left_appointment_model.dart';
 export 'side_bar_left_appointment_model.dart';
 
 class SideBarLeftAppointmentWidget extends StatefulWidget {
-  const SideBarLeftAppointmentWidget({Key? key}) : super(key: key);
+  const SideBarLeftAppointmentWidget({super.key});
 
   @override
-  _SideBarLeftAppointmentWidgetState createState() =>
+  State<SideBarLeftAppointmentWidget> createState() =>
       _SideBarLeftAppointmentWidgetState();
 }
 
@@ -68,24 +69,33 @@ class _SideBarLeftAppointmentWidgetState
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 8.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(
-                      Icons.keyboard_arrow_left,
-                      color: Color(0xFF222222),
-                      size: 24.0,
-                    ),
-                    Text(
-                      'Back to dashboard ',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: FlutterFlowTheme.of(context).alternate,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ].divide(SizedBox(width: 6.0)),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.safePop();
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Icon(
+                        Icons.keyboard_arrow_left,
+                        color: Color(0xFF222222),
+                        size: 24.0,
+                      ),
+                      Text(
+                        'Back to dashboard ',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: FlutterFlowTheme.of(context).alternate,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ].divide(SizedBox(width: 6.0)),
+                  ),
                 ),
               ),
               Divider(
@@ -113,22 +123,67 @@ class _SideBarLeftAppointmentWidgetState
                           ),
                     ),
                     Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            '5',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
+                      child: FutureBuilder<ApiCallResponse>(
+                        future: TaskerpageBackendGroup.appointmentListCall.call(
+                          filters: '[[\"${functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role_profile_name''',
+                              )) == 'Tasker' ? 'tasker' : 'poster'}\",\"=\",\"${getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.name''',
+                          ).toString()}\"],[\"is_${functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role_profile_name''',
+                              )) == 'Tasker' ? 'tasker' : 'poster'}_accepted\",\"=\",\"1\"],[\"is_${functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role_profile_name''',
+                              )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"1\"]]',
+                          fields:
+                              '[\"appointment_type\",\"post\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"creation\",\"appointment_start_time\",\"appointment_end_time\"]',
+                          apiGlobalKey: FFAppState().apiKey,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 35.0,
+                                height: 35.0,
+                                child: SpinKitThreeBounce(
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
+                                  size: 35.0,
                                 ),
-                          ),
-                        ],
+                              ),
+                            );
+                          }
+                          final rowAppointmentListResponse = snapshot.data!;
+                          return Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                functions
+                                    .numberofListitems((getJsonField(
+                                      rowAppointmentListResponse.jsonBody,
+                                      r'''$.data''',
+                                      true,
+                                    ) as List)
+                                        .map<String>((s) => s.toString())
+                                        .toList())
+                                    .toString(),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ].divide(SizedBox(width: 8.0)),
@@ -159,7 +214,7 @@ class _SideBarLeftAppointmentWidgetState
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '5',
+                            '0',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -195,7 +250,7 @@ class _SideBarLeftAppointmentWidgetState
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '5',
+                            '0',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -231,7 +286,7 @@ class _SideBarLeftAppointmentWidgetState
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '5',
+                            '0',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -262,22 +317,67 @@ class _SideBarLeftAppointmentWidgetState
                           ),
                     ),
                     Expanded(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        children: [
-                          Text(
-                            '5',
-                            style: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
-                                  fontFamily: 'Lato',
+                      child: FutureBuilder<ApiCallResponse>(
+                        future: TaskerpageBackendGroup.appointmentListCall.call(
+                          filters: '[[\"${functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role_profile_name''',
+                              )) == 'Tasker' ? 'tasker' : 'poster'}\",\"=\",\"${getJsonField(
+                            FFAppState().userProfile,
+                            r'''$.data.name''',
+                          ).toString()}\"],[\"is_${functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role_profile_name''',
+                              )) == 'Tasker' ? 'tasker' : 'poster'}_accepted\",\"=\",\"0\"],[\"is_${functions.jsonToString(getJsonField(
+                                FFAppState().userProfile,
+                                r'''$.data.role_profile_name''',
+                              )) == 'Tasker' ? 'poster' : 'tasker'}_accepted\",\"=\",\"1\"]]',
+                          fields:
+                              '[\"appointment_type\",\"post\",\"appointment_time\",\"poster\",\"tasker\",\"is_tasker_accepted\",\"is_poster_accepted\",\"name\",\"creation\",\"appointment_start_time\",\"appointment_end_time\"]',
+                          apiGlobalKey: FFAppState().apiKey,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 35.0,
+                                height: 35.0,
+                                child: SpinKitThreeBounce(
                                   color: FlutterFlowTheme.of(context).primary,
-                                  fontSize: 14.0,
-                                  fontWeight: FontWeight.bold,
+                                  size: 35.0,
                                 ),
-                          ),
-                        ],
+                              ),
+                            );
+                          }
+                          final rowAppointmentListResponse = snapshot.data!;
+                          return Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Text(
+                                functions
+                                    .numberofListitems((getJsonField(
+                                      rowAppointmentListResponse.jsonBody,
+                                      r'''$.data''',
+                                      true,
+                                    ) as List)
+                                        .map<String>((s) => s.toString())
+                                        .toList())
+                                    .toString(),
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyMedium
+                                    .override(
+                                      fontFamily: 'Lato',
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                      fontSize: 14.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                              ),
+                            ],
+                          );
+                        },
                       ),
                     ),
                   ].divide(SizedBox(width: 8.0)),
@@ -303,7 +403,7 @@ class _SideBarLeftAppointmentWidgetState
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '5',
+                            '0',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
@@ -339,7 +439,7 @@ class _SideBarLeftAppointmentWidgetState
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            '5',
+                            '0',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

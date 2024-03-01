@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +11,10 @@ import 'aler_modal_massage_share_phone_model.dart';
 export 'aler_modal_massage_share_phone_model.dart';
 
 class AlerModalMassageSharePhoneWidget extends StatefulWidget {
-  const AlerModalMassageSharePhoneWidget({Key? key}) : super(key: key);
+  const AlerModalMassageSharePhoneWidget({super.key});
 
   @override
-  _AlerModalMassageSharePhoneWidgetState createState() =>
+  State<AlerModalMassageSharePhoneWidget> createState() =>
       _AlerModalMassageSharePhoneWidgetState();
 }
 

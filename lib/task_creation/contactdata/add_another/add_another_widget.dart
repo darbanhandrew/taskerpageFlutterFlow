@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/place.dart';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +15,10 @@ import 'add_another_model.dart';
 export 'add_another_model.dart';
 
 class AddAnotherWidget extends StatefulWidget {
-  const AddAnotherWidget({Key? key}) : super(key: key);
+  const AddAnotherWidget({super.key});
 
   @override
-  _AddAnotherWidgetState createState() => _AddAnotherWidgetState();
+  State<AddAnotherWidget> createState() => _AddAnotherWidgetState();
 }
 
 class _AddAnotherWidgetState extends State<AddAnotherWidget> {
@@ -67,15 +66,6 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -87,22 +77,23 @@ class _AddAnotherWidgetState extends State<AddAnotherWidget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: WebViewAware(
+              child: Container(
+                width: 100.0,
+                height: 100.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFFE8EAFF),
+                ),
+                child: wrapWithModel(
+                  model: _model.drawerContentModel,
+                  updateCallback: () => setState(() {}),
+                  child: DrawerContentWidget(),
+                ),
               ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

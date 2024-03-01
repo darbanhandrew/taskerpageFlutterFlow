@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,10 +12,10 @@ import 'forget_password5_model.dart';
 export 'forget_password5_model.dart';
 
 class ForgetPassword5Widget extends StatefulWidget {
-  const ForgetPassword5Widget({Key? key}) : super(key: key);
+  const ForgetPassword5Widget({super.key});
 
   @override
-  _ForgetPassword5WidgetState createState() => _ForgetPassword5WidgetState();
+  State<ForgetPassword5Widget> createState() => _ForgetPassword5WidgetState();
 }
 
 class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
@@ -47,15 +46,6 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -67,15 +57,16 @@ class _ForgetPassword5WidgetState extends State<ForgetPassword5Widget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

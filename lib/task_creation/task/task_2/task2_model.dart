@@ -8,6 +8,7 @@ import '/components/main_drawer_widget.dart';
 import '/components/navigation_bar_widget.dart';
 import '/components/skill_options_check_component_widget.dart';
 import '/components/skill_options_chips_component_widget.dart';
+import '/components/task_task_creation_web_widget.dart';
 import '/components/taskcreation_menue_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -18,7 +19,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'task2_widget.dart' show Task2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +58,12 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (postRead)] action in Task-2 widget.
   ApiCallResponse? apiResultpuo;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel1;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel2;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for taskcreationMenue component.
@@ -92,14 +98,16 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
   late ButtonNextModel buttonNextModel;
   // Stores action output result for [Backend Call - API (update task details)] action in button_Next widget.
   ApiCallResponse? updatedTask;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
-  // Model for navigationBar component.
-  late NavigationBarModel navigationBarModel;
+  // Model for task_task_creation_web component.
+  late TaskTaskCreationWebModel taskTaskCreationWebModel;
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    navigationBarModel1 = createModel(context, () => NavigationBarModel());
+    navigationBarModel2 = createModel(context, () => NavigationBarModel());
     headerModel = createModel(context, () => HeaderModel());
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
@@ -110,12 +118,16 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
     dropeDownLanguagesModel =
         createModel(context, () => DropeDownLanguagesModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
-    navigationBarModel = createModel(context, () => NavigationBarModel());
+    taskTaskCreationWebModel =
+        createModel(context, () => TaskTaskCreationWebModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    navigationBarModel1.dispose();
+    navigationBarModel2.dispose();
     headerModel.dispose();
     taskcreationMenueModel.dispose();
     skillOptionsCheckComponentModels.dispose();
@@ -125,8 +137,7 @@ class Task2Model extends FlutterFlowModel<Task2Widget> {
     textController?.dispose();
 
     buttonNextModel.dispose();
-    mainDrawerModel.dispose();
-    navigationBarModel.dispose();
+    taskTaskCreationWebModel.dispose();
   }
 
   /// Action blocks are added here.

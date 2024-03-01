@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,10 +19,10 @@ import 'my_inbox_model.dart';
 export 'my_inbox_model.dart';
 
 class MyInboxWidget extends StatefulWidget {
-  const MyInboxWidget({Key? key}) : super(key: key);
+  const MyInboxWidget({super.key});
 
   @override
-  _MyInboxWidgetState createState() => _MyInboxWidgetState();
+  State<MyInboxWidget> createState() => _MyInboxWidgetState();
 }
 
 class _MyInboxWidgetState extends State<MyInboxWidget>
@@ -54,15 +53,6 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -74,15 +64,16 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -144,6 +135,9 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                               ),
                             ],
                             controller: _model.tabBarController,
+                            onTap: (i) async {
+                              [() async {}, () async {}][i]();
+                            },
                           ),
                         ),
                         Expanded(
@@ -179,26 +173,27 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                     context: context,
                                                     builder: (context) {
                                                       return WebViewAware(
-                                                          child:
-                                                              GestureDetector(
-                                                        onTap: () => _model
-                                                                .unfocusNode
-                                                                .canRequestFocus
-                                                            ? FocusScope.of(
-                                                                    context)
-                                                                .requestFocus(_model
-                                                                    .unfocusNode)
-                                                            : FocusScope.of(
-                                                                    context)
-                                                                .unfocus(),
-                                                        child: Padding(
-                                                          padding: MediaQuery
-                                                              .viewInsetsOf(
-                                                                  context),
-                                                          child:
-                                                              BargainFilterWidget(),
+                                                        child: GestureDetector(
+                                                          onTap: () => _model
+                                                                  .unfocusNode
+                                                                  .canRequestFocus
+                                                              ? FocusScope.of(
+                                                                      context)
+                                                                  .requestFocus(
+                                                                      _model
+                                                                          .unfocusNode)
+                                                              : FocusScope.of(
+                                                                      context)
+                                                                  .unfocus(),
+                                                          child: Padding(
+                                                            padding: MediaQuery
+                                                                .viewInsetsOf(
+                                                                    context),
+                                                            child:
+                                                                BargainFilterWidget(),
+                                                          ),
                                                         ),
-                                                      ));
+                                                      );
                                                     },
                                                   ).then((value) =>
                                                       safeSetState(() {}));
@@ -232,25 +227,26 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                   context: context,
                                                   builder: (context) {
                                                     return WebViewAware(
-                                                        child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            BargainFilterWidget(),
+                                                      child: GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              BargainFilterWidget(),
+                                                        ),
                                                       ),
-                                                    ));
+                                                    );
                                                   },
                                                 ).then((value) =>
                                                     safeSetState(() {}));
@@ -289,25 +285,26 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                   context: context,
                                                   builder: (context) {
                                                     return WebViewAware(
-                                                        child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            SortBargainWidget(),
+                                                      child: GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              SortBargainWidget(),
+                                                        ),
                                                       ),
-                                                    ));
+                                                    );
                                                   },
                                                 ).then((value) =>
                                                     safeSetState(() {}));
@@ -338,23 +335,26 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                 context: context,
                                                 builder: (context) {
                                                   return WebViewAware(
-                                                      child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          SortBargainWidget(),
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            SortBargainWidget(),
+                                                      ),
                                                     ),
-                                                  ));
+                                                  );
                                                 },
                                               ).then((value) =>
                                                   safeSetState(() {}));
@@ -652,7 +652,7 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                                                             getJsonField(
                                                                                               containerUserProfileReadResponse.jsonBody,
                                                                                               r'''$.data.review_average''',
-                                                                                            ).toString(),
+                                                                                            )?.toString(),
                                                                                             '0',
                                                                                           ),
                                                                                           style: FlutterFlowTheme.of(context).bodyMedium.override(
@@ -849,25 +849,26 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                   context: context,
                                                   builder: (context) {
                                                     return WebViewAware(
-                                                        child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            SortBargainWidget(),
+                                                      child: GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              SortBargainWidget(),
+                                                        ),
                                                       ),
-                                                    ));
+                                                    );
                                                   },
                                                 ).then((value) =>
                                                     safeSetState(() {}));
@@ -898,23 +899,26 @@ class _MyInboxWidgetState extends State<MyInboxWidget>
                                                 context: context,
                                                 builder: (context) {
                                                   return WebViewAware(
-                                                      child: GestureDetector(
-                                                    onTap: () => _model
-                                                            .unfocusNode
-                                                            .canRequestFocus
-                                                        ? FocusScope.of(context)
-                                                            .requestFocus(_model
-                                                                .unfocusNode)
-                                                        : FocusScope.of(context)
-                                                            .unfocus(),
-                                                    child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          SortBargainWidget(),
+                                                    child: GestureDetector(
+                                                      onTap: () => _model
+                                                              .unfocusNode
+                                                              .canRequestFocus
+                                                          ? FocusScope.of(
+                                                                  context)
+                                                              .requestFocus(_model
+                                                                  .unfocusNode)
+                                                          : FocusScope.of(
+                                                                  context)
+                                                              .unfocus(),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            SortBargainWidget(),
+                                                      ),
                                                     ),
-                                                  ));
+                                                  );
                                                 },
                                               ).then((value) =>
                                                   safeSetState(() {}));

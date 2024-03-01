@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,10 @@ import 'nav_bar2_model.dart';
 export 'nav_bar2_model.dart';
 
 class NavBar2Widget extends StatefulWidget {
-  const NavBar2Widget({Key? key}) : super(key: key);
+  const NavBar2Widget({super.key});
 
   @override
-  _NavBar2WidgetState createState() => _NavBar2WidgetState();
+  State<NavBar2Widget> createState() => _NavBar2WidgetState();
 }
 
 class _NavBar2WidgetState extends State<NavBar2Widget> {

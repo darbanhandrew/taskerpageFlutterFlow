@@ -7,7 +7,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'skill_card_widget.dart' show SkillCardWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -22,10 +21,12 @@ class SkillCardModel extends FlutterFlowModel<SkillCardWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     checkboxModels = FlutterFlowDynamicModels(() => CheckboxModel());
   }
 
+  @override
   void dispose() {
     checkboxModels.dispose();
   }

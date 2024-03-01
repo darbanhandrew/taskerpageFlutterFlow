@@ -4,7 +4,6 @@ import '/components/bottom_sheetfor_pay_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,14 +13,14 @@ export 'home_page_plans_model.dart';
 
 class HomePagePlansWidget extends StatefulWidget {
   const HomePagePlansWidget({
-    Key? key,
+    super.key,
     required this.plans,
-  }) : super(key: key);
+  });
 
   final HomePagePlansInputStruct? plans;
 
   @override
-  _HomePagePlansWidgetState createState() => _HomePagePlansWidgetState();
+  State<HomePagePlansWidget> createState() => _HomePagePlansWidgetState();
 }
 
 class _HomePagePlansWidgetState extends State<HomePagePlansWidget> {
@@ -417,25 +416,26 @@ class _HomePagePlansWidgetState extends State<HomePagePlansWidget> {
                                                   context: context,
                                                   builder: (context) {
                                                     return WebViewAware(
-                                                        child: Padding(
-                                                      padding: MediaQuery
-                                                          .viewInsetsOf(
-                                                              context),
-                                                      child:
-                                                          BottomSheetforPayWidget(
-                                                        planID: getJsonField(
-                                                          columnPlanReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.name''',
-                                                        ).toString(),
-                                                        subscriptionId:
-                                                            getJsonField(
-                                                          columnPlanReadResponse
-                                                              .jsonBody,
-                                                          r'''$.data.message.name''',
-                                                        ).toString(),
+                                                      child: Padding(
+                                                        padding: MediaQuery
+                                                            .viewInsetsOf(
+                                                                context),
+                                                        child:
+                                                            BottomSheetforPayWidget(
+                                                          planID: getJsonField(
+                                                            columnPlanReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.name''',
+                                                          ).toString(),
+                                                          subscriptionId:
+                                                              getJsonField(
+                                                            columnPlanReadResponse
+                                                                .jsonBody,
+                                                            r'''$.data.message.name''',
+                                                          ).toString(),
+                                                        ),
                                                       ),
-                                                    ));
+                                                    );
                                                   },
                                                 ).then((value) =>
                                                     safeSetState(() {}));

@@ -8,7 +8,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'email_verification_page_widget.dart' show EmailVerificationPageWidget;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -33,12 +32,14 @@ class EmailVerificationPageModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     pinCodeController = TextEditingController();
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

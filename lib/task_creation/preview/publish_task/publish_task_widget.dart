@@ -14,7 +14,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,14 +23,14 @@ export 'publish_task_model.dart';
 
 class PublishTaskWidget extends StatefulWidget {
   const PublishTaskWidget({
-    Key? key,
+    super.key,
     required this.id,
-  }) : super(key: key);
+  });
 
   final String? id;
 
   @override
-  _PublishTaskWidgetState createState() => _PublishTaskWidgetState();
+  State<PublishTaskWidget> createState() => _PublishTaskWidgetState();
 }
 
 class _PublishTaskWidgetState extends State<PublishTaskWidget> {
@@ -62,15 +61,6 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
     if (currentUserLocationValue == null) {
       return Container(
@@ -121,36 +111,38 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
             backgroundColor: Color(0xFFF6F6F6),
             drawer: Container(
               width: MediaQuery.sizeOf(context).width * 0.6,
-              child: WebViewAware(
-                  child: Drawer(
+              child: Drawer(
                 elevation: 16.0,
-                child: wrapWithModel(
-                  model: _model.navigationBarModel,
-                  updateCallback: () => setState(() {}),
-                  child: NavigationBarWidget(
-                    currentPage: 'task',
-                    postId: widget.id,
-                    closeDrawer: () async {
-                      if (scaffoldKey.currentState!.isDrawerOpen ||
-                          scaffoldKey.currentState!.isEndDrawerOpen) {
-                        Navigator.pop(context);
-                      }
-                    },
+                child: WebViewAware(
+                  child: wrapWithModel(
+                    model: _model.navigationBarModel,
+                    updateCallback: () => setState(() {}),
+                    child: NavigationBarWidget(
+                      currentPage: 'task',
+                      postId: widget.id,
+                      closeDrawer: () async {
+                        if (scaffoldKey.currentState!.isDrawerOpen ||
+                            scaffoldKey.currentState!.isEndDrawerOpen) {
+                          Navigator.pop(context);
+                        }
+                      },
+                    ),
                   ),
                 ),
-              )),
+              ),
             ),
             endDrawer: Container(
               width: double.infinity,
-              child: WebViewAware(
-                  child: Drawer(
+              child: Drawer(
                 elevation: 16.0,
-                child: wrapWithModel(
-                  model: _model.mainDrawerModel,
-                  updateCallback: () => setState(() {}),
-                  child: MainDrawerWidget(),
+                child: WebViewAware(
+                  child: wrapWithModel(
+                    model: _model.mainDrawerModel,
+                    updateCallback: () => setState(() {}),
+                    child: MainDrawerWidget(),
+                  ),
                 ),
-              )),
+              ),
             ),
             body: SafeArea(
               top: true,
@@ -1163,11 +1155,18 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                                   ],
                                                                 ),
                                                               ),
+                                                              Divider(
+                                                                thickness: 1.0,
+                                                                indent: 32.0,
+                                                                endIndent: 32.0,
+                                                                color: Color(
+                                                                    0xFFDEDEDE),
+                                                              ),
                                                               Padding(
                                                                 padding: EdgeInsetsDirectional
                                                                     .fromSTEB(
                                                                         32.0,
-                                                                        17.5,
+                                                                        12.0,
                                                                         32.0,
                                                                         0.0),
                                                                 child: Row(
@@ -1872,7 +1871,7 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                                           32.0,
                                                                           29.0,
                                                                           32.0,
-                                                                          0.0),
+                                                                          2.0),
                                                                       child:
                                                                           Row(
                                                                         mainAxisSize:
@@ -1890,10 +1889,20 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                                         ],
                                                                       ),
                                                                     ),
+                                                                    Divider(
+                                                                      thickness:
+                                                                          1.0,
+                                                                      indent:
+                                                                          32.0,
+                                                                      endIndent:
+                                                                          32.0,
+                                                                      color: Color(
+                                                                          0xFFDEDEDE),
+                                                                    ),
                                                                     Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
                                                                           32.0,
-                                                                          17.5,
+                                                                          12.0,
                                                                           32.0,
                                                                           0.0),
                                                                       child:
@@ -3344,27 +3353,27 @@ class _PublishTaskWidgetState extends State<PublishTaskWidget> {
                                                           context: context,
                                                           builder: (context) {
                                                             return WebViewAware(
-                                                                child:
-                                                                    GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
-                                                              child: Padding(
-                                                                padding: MediaQuery
-                                                                    .viewInsetsOf(
-                                                                        context),
-                                                                child:
-                                                                    TermofServiceWidget(),
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      TermofServiceWidget(),
+                                                                ),
                                                               ),
-                                                            ));
+                                                            );
                                                           },
                                                         ).then((value) =>
                                                             safeSetState(

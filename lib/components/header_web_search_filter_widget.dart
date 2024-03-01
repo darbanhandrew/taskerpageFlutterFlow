@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'header_web_search_filter_model.dart';
 export 'header_web_search_filter_model.dart';
 
 class HeaderWebSearchFilterWidget extends StatefulWidget {
-  const HeaderWebSearchFilterWidget({Key? key}) : super(key: key);
+  const HeaderWebSearchFilterWidget({super.key});
 
   @override
-  _HeaderWebSearchFilterWidgetState createState() =>
+  State<HeaderWebSearchFilterWidget> createState() =>
       _HeaderWebSearchFilterWidgetState();
 }
 

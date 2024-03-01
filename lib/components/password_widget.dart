@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +9,14 @@ export 'password_model.dart';
 
 class PasswordWidget extends StatefulWidget {
   const PasswordWidget({
-    Key? key,
+    super.key,
     required this.borderColor,
     required this.icon,
     required this.lableText,
     required this.borderFocus,
     required this.borderError,
     required this.hideIconColor,
-  }) : super(key: key);
+  });
 
   final Color? borderColor;
   final Widget? icon;
@@ -27,7 +26,7 @@ class PasswordWidget extends StatefulWidget {
   final Color? hideIconColor;
 
   @override
-  _PasswordWidgetState createState() => _PasswordWidgetState();
+  State<PasswordWidget> createState() => _PasswordWidgetState();
 }
 
 class _PasswordWidgetState extends State<PasswordWidget> {
@@ -102,6 +101,7 @@ class _PasswordWidgetState extends State<PasswordWidget> {
             ),
             borderRadius: BorderRadius.circular(5.0),
           ),
+          prefixIcon: widget.icon,
           suffixIcon: InkWell(
             onTap: () => setState(
               () => _model.passwordVisibility = !_model.passwordVisibility,

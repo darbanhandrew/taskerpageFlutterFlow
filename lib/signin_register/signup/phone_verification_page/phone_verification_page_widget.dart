@@ -11,7 +11,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -23,14 +22,14 @@ export 'phone_verification_page_model.dart';
 
 class PhoneVerificationPageWidget extends StatefulWidget {
   const PhoneVerificationPageWidget({
-    Key? key,
+    super.key,
     required this.phoneNumber,
-  }) : super(key: key);
+  });
 
   final String? phoneNumber;
 
   @override
-  _PhoneVerificationPageWidgetState createState() =>
+  State<PhoneVerificationPageWidget> createState() =>
       _PhoneVerificationPageWidgetState();
 }
 
@@ -134,15 +133,6 @@ class _PhoneVerificationPageWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -154,15 +144,16 @@ class _PhoneVerificationPageWidgetState
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -441,25 +432,26 @@ class _PhoneVerificationPageWidgetState
                                                   context: context,
                                                   builder: (context) {
                                                     return WebViewAware(
-                                                        child: GestureDetector(
-                                                      onTap: () => _model
-                                                              .unfocusNode
-                                                              .canRequestFocus
-                                                          ? FocusScope.of(
-                                                                  context)
-                                                              .requestFocus(_model
-                                                                  .unfocusNode)
-                                                          : FocusScope.of(
-                                                                  context)
-                                                              .unfocus(),
-                                                      child: Padding(
-                                                        padding: MediaQuery
-                                                            .viewInsetsOf(
-                                                                context),
-                                                        child:
-                                                            EditNumberWidget(),
+                                                      child: GestureDetector(
+                                                        onTap: () => _model
+                                                                .unfocusNode
+                                                                .canRequestFocus
+                                                            ? FocusScope.of(
+                                                                    context)
+                                                                .requestFocus(_model
+                                                                    .unfocusNode)
+                                                            : FocusScope.of(
+                                                                    context)
+                                                                .unfocus(),
+                                                        child: Padding(
+                                                          padding: MediaQuery
+                                                              .viewInsetsOf(
+                                                                  context),
+                                                          child:
+                                                              EditNumberWidget(),
+                                                        ),
                                                       ),
-                                                    ));
+                                                    );
                                                   },
                                                 ).then((value) =>
                                                     safeSetState(() {}));

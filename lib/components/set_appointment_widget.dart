@@ -7,7 +7,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,18 +16,18 @@ export 'set_appointment_model.dart';
 
 class SetAppointmentWidget extends StatefulWidget {
   const SetAppointmentWidget({
-    Key? key,
+    super.key,
     required this.setOredit,
     required this.id,
     required this.postID,
-  }) : super(key: key);
+  });
 
   final bool? setOredit;
   final String? id;
   final String? postID;
 
   @override
-  _SetAppointmentWidgetState createState() => _SetAppointmentWidgetState();
+  State<SetAppointmentWidget> createState() => _SetAppointmentWidgetState();
 }
 
 class _SetAppointmentWidgetState extends State<SetAppointmentWidget>

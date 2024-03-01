@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +16,10 @@ import 'knowledge_base_model.dart';
 export 'knowledge_base_model.dart';
 
 class KnowledgeBaseWidget extends StatefulWidget {
-  const KnowledgeBaseWidget({Key? key}) : super(key: key);
+  const KnowledgeBaseWidget({super.key});
 
   @override
-  _KnowledgeBaseWidgetState createState() => _KnowledgeBaseWidgetState();
+  State<KnowledgeBaseWidget> createState() => _KnowledgeBaseWidgetState();
 }
 
 class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
@@ -46,15 +45,6 @@ class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -66,15 +56,16 @@ class _KnowledgeBaseWidgetState extends State<KnowledgeBaseWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

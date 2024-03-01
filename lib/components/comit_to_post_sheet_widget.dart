@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,18 +12,18 @@ export 'comit_to_post_sheet_model.dart';
 
 class ComitToPostSheetWidget extends StatefulWidget {
   const ComitToPostSheetWidget({
-    Key? key,
+    super.key,
     required this.id,
     required this.name,
     required this.family,
-  }) : super(key: key);
+  });
 
   final int? id;
   final String? name;
   final String? family;
 
   @override
-  _ComitToPostSheetWidgetState createState() => _ComitToPostSheetWidgetState();
+  State<ComitToPostSheetWidget> createState() => _ComitToPostSheetWidgetState();
 }
 
 class _ComitToPostSheetWidgetState extends State<ComitToPostSheetWidget> {

@@ -12,7 +12,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -22,15 +21,14 @@ export 'id1_model.dart';
 
 class Id1Widget extends StatefulWidget {
   const Id1Widget({
-    Key? key,
+    super.key,
     String? name,
-  })  : this.name = name ?? 'create',
-        super(key: key);
+  }) : this.name = name ?? 'create';
 
   final String name;
 
   @override
-  _Id1WidgetState createState() => _Id1WidgetState();
+  State<Id1Widget> createState() => _Id1WidgetState();
 }
 
 class _Id1WidgetState extends State<Id1Widget> {
@@ -105,15 +103,6 @@ class _Id1WidgetState extends State<Id1Widget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -125,15 +114,16 @@ class _Id1WidgetState extends State<Id1Widget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -233,7 +223,9 @@ class _Id1WidgetState extends State<Id1Widget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 5,
+                            ),
                           ),
                         ),
                       ],

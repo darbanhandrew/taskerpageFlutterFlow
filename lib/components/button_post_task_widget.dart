@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'button_post_task_model.dart';
 export 'button_post_task_model.dart';
 
 class ButtonPostTaskWidget extends StatefulWidget {
-  const ButtonPostTaskWidget({Key? key}) : super(key: key);
+  const ButtonPostTaskWidget({super.key});
 
   @override
-  _ButtonPostTaskWidgetState createState() => _ButtonPostTaskWidgetState();
+  State<ButtonPostTaskWidget> createState() => _ButtonPostTaskWidgetState();
 }
 
 class _ButtonPostTaskWidgetState extends State<ButtonPostTaskWidget> {

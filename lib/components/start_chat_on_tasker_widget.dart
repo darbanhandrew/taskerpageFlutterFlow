@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,18 +12,18 @@ export 'start_chat_on_tasker_model.dart';
 
 class StartChatOnTaskerWidget extends StatefulWidget {
   const StartChatOnTaskerWidget({
-    Key? key,
+    super.key,
     required this.post,
     required this.customerProfile,
     required this.action,
-  }) : super(key: key);
+  });
 
   final String? post;
   final dynamic customerProfile;
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
 
   @override
-  _StartChatOnTaskerWidgetState createState() =>
+  State<StartChatOnTaskerWidget> createState() =>
       _StartChatOnTaskerWidgetState();
 }
 

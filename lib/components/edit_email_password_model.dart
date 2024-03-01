@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'edit_email_password_widget.dart' show EditEmailPasswordWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -28,12 +27,14 @@ class EditEmailPasswordModel extends FlutterFlowModel<EditEmailPasswordWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     passwordVisibility1 = false;
     passwordVisibility2 = false;
     passwordVisibility3 = false;
   }
 
+  @override
   void dispose() {
     textFieldFocusNode1?.dispose();
     textController1?.dispose();

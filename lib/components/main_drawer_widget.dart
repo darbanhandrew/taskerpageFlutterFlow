@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,10 +14,10 @@ import 'main_drawer_model.dart';
 export 'main_drawer_model.dart';
 
 class MainDrawerWidget extends StatefulWidget {
-  const MainDrawerWidget({Key? key}) : super(key: key);
+  const MainDrawerWidget({super.key});
 
   @override
-  _MainDrawerWidgetState createState() => _MainDrawerWidgetState();
+  State<MainDrawerWidget> createState() => _MainDrawerWidgetState();
 }
 
 class _MainDrawerWidgetState extends State<MainDrawerWidget> {
@@ -649,12 +648,13 @@ class _MainDrawerWidgetState extends State<MainDrawerWidget> {
                                             context: context,
                                             builder: (context) {
                                               return WebViewAware(
-                                                  child: Padding(
-                                                padding:
-                                                    MediaQuery.viewInsetsOf(
-                                                        context),
-                                                child: VisitCardWidget(),
-                                              ));
+                                                child: Padding(
+                                                  padding:
+                                                      MediaQuery.viewInsetsOf(
+                                                          context),
+                                                  child: VisitCardWidget(),
+                                                ),
+                                              );
                                             },
                                           ).then(
                                               (value) => safeSetState(() {}));

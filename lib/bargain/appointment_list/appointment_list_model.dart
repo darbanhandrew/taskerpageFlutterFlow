@@ -15,7 +15,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'appointment_list_widget.dart' show AppointmentListWidget;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +58,7 @@ class AppointmentListModel extends FlutterFlowModel<AppointmentListWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
@@ -68,6 +68,7 @@ class AppointmentListModel extends FlutterFlowModel<AppointmentListWidget> {
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

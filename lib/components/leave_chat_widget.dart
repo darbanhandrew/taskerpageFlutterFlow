@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,10 +13,10 @@ import 'leave_chat_model.dart';
 export 'leave_chat_model.dart';
 
 class LeaveChatWidget extends StatefulWidget {
-  const LeaveChatWidget({Key? key}) : super(key: key);
+  const LeaveChatWidget({super.key});
 
   @override
-  _LeaveChatWidgetState createState() => _LeaveChatWidgetState();
+  State<LeaveChatWidget> createState() => _LeaveChatWidgetState();
 }
 
 class _LeaveChatWidgetState extends State<LeaveChatWidget>
@@ -165,13 +164,14 @@ class _LeaveChatWidgetState extends State<LeaveChatWidget>
                             context: context,
                             builder: (context) {
                               return WebViewAware(
-                                  child: Padding(
-                                padding: MediaQuery.viewInsetsOf(context),
-                                child: UserRateWidget(
-                                  appointmentId: '',
-                                  action: () async {},
+                                child: Padding(
+                                  padding: MediaQuery.viewInsetsOf(context),
+                                  child: UserRateWidget(
+                                    appointmentId: '',
+                                    action: () async {},
+                                  ),
                                 ),
-                              ));
+                              );
                             },
                           ).then((value) => safeSetState(() {}));
 

@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,14 +12,14 @@ export 'mini_tasker_card_model.dart';
 
 class MiniTaskerCardWidget extends StatefulWidget {
   const MiniTaskerCardWidget({
-    Key? key,
+    super.key,
     required this.userProfile,
-  }) : super(key: key);
+  });
 
   final dynamic userProfile;
 
   @override
-  _MiniTaskerCardWidgetState createState() => _MiniTaskerCardWidgetState();
+  State<MiniTaskerCardWidget> createState() => _MiniTaskerCardWidgetState();
 }
 
 class _MiniTaskerCardWidgetState extends State<MiniTaskerCardWidget> {

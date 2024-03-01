@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,18 +9,18 @@ export 'footer5_model.dart';
 
 class Footer5Widget extends StatefulWidget {
   const Footer5Widget({
-    Key? key,
+    super.key,
     required this.text,
     required this.buttonText,
     required this.icon,
-  }) : super(key: key);
+  });
 
   final String? text;
   final String? buttonText;
   final Widget? icon;
 
   @override
-  _Footer5WidgetState createState() => _Footer5WidgetState();
+  State<Footer5Widget> createState() => _Footer5WidgetState();
 }
 
 class _Footer5WidgetState extends State<Footer5Widget> {

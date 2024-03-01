@@ -1,14 +1,10 @@
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/main_drawer_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/backend/schema/structs/index.dart';
-import '/flutter_flow/custom_functions.dart' as functions;
+import 'package:aligned_tooltip/aligned_tooltip.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,18 +14,17 @@ export 'test2_model.dart';
 
 class Test2Widget extends StatefulWidget {
   const Test2Widget({
-    Key? key,
+    super.key,
     int? task,
     String? user,
   })  : this.task = task ?? 0,
-        this.user = user ?? 'emad123@yahoo.com',
-        super(key: key);
+        this.user = user ?? 'emad123@yahoo.com';
 
   final int task;
   final String user;
 
   @override
-  _Test2WidgetState createState() => _Test2WidgetState();
+  State<Test2Widget> createState() => _Test2WidgetState();
 }
 
 class _Test2WidgetState extends State<Test2Widget> {
@@ -59,15 +54,6 @@ class _Test2WidgetState extends State<Test2Widget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -79,68 +65,46 @@ class _Test2WidgetState extends State<Test2Widget> {
         backgroundColor: Color(0x00FFFFFF),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
-          child: FutureBuilder<ApiCallResponse>(
-            future: TaskerpageBackendGroup.chatListCall.call(
-              user: widget.user,
-              task: widget.task,
-              apiGlobalKey: FFAppState().apiKey,
-            ),
-            builder: (context, snapshot) {
-              // Customize what your widget looks like when it's loading.
-              if (!snapshot.hasData) {
-                return Center(
-                  child: SizedBox(
-                    width: 35.0,
-                    height: 35.0,
-                    child: SpinKitThreeBounce(
-                      color: FlutterFlowTheme.of(context).primary,
-                      size: 35.0,
-                    ),
-                  ),
-                );
-              }
-              final listViewChatListResponse = snapshot.data!;
-              return Builder(
-                builder: (context) {
-                  final chatRooms = functions
-                      .convertMap(TaskerpageBackendGroup.chatListCall
-                          .chatListJson(
-                            listViewChatListResponse.jsonBody,
-                          )!
-                          .toList())
-                      .map((e) => ChatRoomStruct.maybeFromMap(e))
-                      .withoutNulls
-                      .toList();
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    itemCount: chatRooms.length,
-                    itemBuilder: (context, chatRoomsIndex) {
-                      final chatRoomsItem = chatRooms[chatRoomsIndex];
-                      return Text(
-                        valueOrDefault<String>(
-                          chatRoomsItem.room,
-                          '000',
-                        ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
-                      );
-                    },
-                  );
-                },
-              );
-            },
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              AlignedTooltip(
+                content: Padding(
+                    padding: EdgeInsets.all(4.0),
+                    child: Text(
+                      'Message...',
+                      style: FlutterFlowTheme.of(context).bodyLarge,
+                    )),
+                offset: 4.0,
+                preferredDirection: AxisDirection.down,
+                borderRadius: BorderRadius.circular(8.0),
+                backgroundColor:
+                    FlutterFlowTheme.of(context).secondaryBackground,
+                elevation: 4.0,
+                tailBaseWidth: 24.0,
+                tailLength: 12.0,
+                waitDuration: Duration(milliseconds: 100),
+                showDuration: Duration(milliseconds: 1500),
+                triggerMode: TooltipTriggerMode.tap,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [],
+                ),
+              ),
+            ],
           ),
         ),
       ),

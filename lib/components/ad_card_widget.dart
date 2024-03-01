@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,14 +13,14 @@ export 'ad_card_model.dart';
 
 class AdCardWidget extends StatefulWidget {
   const AdCardWidget({
-    Key? key,
+    super.key,
     required this.position,
-  }) : super(key: key);
+  });
 
   final String? position;
 
   @override
-  _AdCardWidgetState createState() => _AdCardWidgetState();
+  State<AdCardWidget> createState() => _AdCardWidgetState();
 }
 
 class _AdCardWidgetState extends State<AdCardWidget>

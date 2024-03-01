@@ -12,7 +12,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'task1_widget.dart' show Task1Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,6 +23,12 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
   final unfocusNode = FocusNode();
   // Stores action output result for [Backend Call - API (postRead)] action in Task-1 widget.
   ApiCallResponse? apiResulture;
+  // Model for Main_Drawer component.
+  late MainDrawerModel mainDrawerModel;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel1;
+  // Model for navigationBar component.
+  late NavigationBarModel navigationBarModel2;
   // Model for Header component.
   late HeaderModel headerModel;
   // Model for taskcreationMenue component.
@@ -37,32 +42,32 @@ class Task1Model extends FlutterFlowModel<Task1Widget> {
   ApiCallResponse? create;
   // Stores action output result for [Backend Call - API (update skillCategoryInTask)] action in button_Next widget.
   ApiCallResponse? apiResultggw;
-  // Model for Main_Drawer component.
-  late MainDrawerModel mainDrawerModel;
-  // Model for navigationBar component.
-  late NavigationBarModel navigationBarModel;
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
+    mainDrawerModel = createModel(context, () => MainDrawerModel());
+    navigationBarModel1 = createModel(context, () => NavigationBarModel());
+    navigationBarModel2 = createModel(context, () => NavigationBarModel());
     headerModel = createModel(context, () => HeaderModel());
     taskcreationMenueModel =
         createModel(context, () => TaskcreationMenueModel());
     selectableContainerModels =
         FlutterFlowDynamicModels(() => SelectableContainerModel());
     buttonNextModel = createModel(context, () => ButtonNextModel());
-    mainDrawerModel = createModel(context, () => MainDrawerModel());
-    navigationBarModel = createModel(context, () => NavigationBarModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
+    mainDrawerModel.dispose();
+    navigationBarModel1.dispose();
+    navigationBarModel2.dispose();
     headerModel.dispose();
     taskcreationMenueModel.dispose();
     selectableContainerModels.dispose();
     buttonNextModel.dispose();
-    mainDrawerModel.dispose();
-    navigationBarModel.dispose();
   }
 
   /// Action blocks are added here.

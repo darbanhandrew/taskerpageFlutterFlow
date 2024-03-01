@@ -4,7 +4,6 @@ import '/components/chat_action_bottom_sheet_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,13 +13,12 @@ export 'chat_message_actions_model.dart';
 
 class ChatMessageActionsWidget extends StatefulWidget {
   const ChatMessageActionsWidget({
-    Key? key,
+    super.key,
     this.parameter1,
     this.parameter2,
     String? doctype,
     required this.chatRoom,
-  })  : this.doctype = doctype ?? 'Chat Message',
-        super(key: key);
+  }) : this.doctype = doctype ?? 'Chat Message';
 
   final String? parameter1;
   final List<TransitionsStruct>? parameter2;
@@ -28,7 +26,7 @@ class ChatMessageActionsWidget extends StatefulWidget {
   final ChatRoomStruct? chatRoom;
 
   @override
-  _ChatMessageActionsWidgetState createState() =>
+  State<ChatMessageActionsWidget> createState() =>
       _ChatMessageActionsWidgetState();
 }
 
@@ -85,13 +83,14 @@ class _ChatMessageActionsWidgetState extends State<ChatMessageActionsWidget> {
                     context: context,
                     builder: (context) {
                       return WebViewAware(
-                          child: Padding(
-                        padding: MediaQuery.viewInsetsOf(context),
-                        child: ChatActionBottomSheetWidget(
-                          action: possibleTransitionsItem.action,
-                          chatRoom: widget.chatRoom!,
+                        child: Padding(
+                          padding: MediaQuery.viewInsetsOf(context),
+                          child: ChatActionBottomSheetWidget(
+                            action: possibleTransitionsItem.action,
+                            chatRoom: widget.chatRoom!,
+                          ),
                         ),
-                      ));
+                      );
                     },
                   ).then((value) =>
                       safeSetState(() => _model.chatActionBottomSheet = value));

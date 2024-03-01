@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +11,10 @@ import 'drawer_model.dart';
 export 'drawer_model.dart';
 
 class DrawerWidget extends StatefulWidget {
-  const DrawerWidget({Key? key}) : super(key: key);
+  const DrawerWidget({super.key});
 
   @override
-  _DrawerWidgetState createState() => _DrawerWidgetState();
+  State<DrawerWidget> createState() => _DrawerWidgetState();
 }
 
 class _DrawerWidgetState extends State<DrawerWidget>

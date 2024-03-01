@@ -1,7 +1,7 @@
+import '/components/ad_card_for_web_side_bar_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +9,10 @@ import 'side_bar_right_model.dart';
 export 'side_bar_right_model.dart';
 
 class SideBarRightWidget extends StatefulWidget {
-  const SideBarRightWidget({Key? key}) : super(key: key);
+  const SideBarRightWidget({super.key});
 
   @override
-  _SideBarRightWidgetState createState() => _SideBarRightWidgetState();
+  State<SideBarRightWidget> createState() => _SideBarRightWidgetState();
 }
 
 class _SideBarRightWidgetState extends State<SideBarRightWidget> {
@@ -330,115 +330,11 @@ class _SideBarRightWidgetState extends State<SideBarRightWidget> {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 240.0,
-                  height: 288.0,
-                  decoration: BoxDecoration(
-                    color: FlutterFlowTheme.of(context).secondaryBackground,
-                    image: DecorationImage(
-                      fit: BoxFit.none,
-                      image: Image.asset(
-                        'assets/images/Group_2135.png',
-                      ).image,
-                    ),
-                    boxShadow: [
-                      BoxShadow(
-                        blurRadius: 4.0,
-                        color: Color(0x33000000),
-                        offset: Offset(0.0, 0.0),
-                        spreadRadius: 2.0,
-                      )
-                    ],
-                  ),
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(22.0, 20.0, 22.0, 20.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Trade FX options',
-                              style: FlutterFlowTheme.of(context)
-                                  .bodyMedium
-                                  .override(
-                                    fontFamily: 'Lato',
-                                    color: Colors.white,
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 6.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  'grounds customized maps \ncustom collections customized \nshops translation',
-                                  style: FlutterFlowTheme.of(context)
-                                      .bodyMedium
-                                      .override(
-                                        fontFamily: 'Lato',
-                                        color: Colors.white,
-                                        fontSize: 13.0,
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 15.0, 0.0, 0.0),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 144.0,
-                                height: 36.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context).primary,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      blurRadius: 4.0,
-                                      color: Color(0x33000000),
-                                      offset: Offset(0.0, 2.0),
-                                    )
-                                  ],
-                                  borderRadius: BorderRadius.circular(1.0),
-                                ),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Click here',
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyMedium
-                                          .override(
-                                            fontFamily: 'Lato',
-                                            color: Colors.white,
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.w500,
-                                          ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
+                wrapWithModel(
+                  model: _model.adCardForWebSideBarModel,
+                  updateCallback: () => setState(() {}),
+                  child: AdCardForWebSideBarWidget(
+                    position: 'side_bar',
                   ),
                 ),
               ],

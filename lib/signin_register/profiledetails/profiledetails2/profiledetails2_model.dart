@@ -13,7 +13,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'profiledetails2_widget.dart' show Profiledetails2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -59,6 +58,7 @@ class Profiledetails2Model extends FlutterFlowModel<Profiledetails2Widget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -66,6 +66,7 @@ class Profiledetails2Model extends FlutterFlowModel<Profiledetails2Widget> {
     headerModel = createModel(context, () => HeaderModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

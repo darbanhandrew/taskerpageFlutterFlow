@@ -5,7 +5,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,16 +13,16 @@ export 'badge_single_icon_model.dart';
 
 class BadgeSingleIconWidget extends StatefulWidget {
   const BadgeSingleIconWidget({
-    Key? key,
+    super.key,
     required this.appBadge,
     this.customerProfile,
-  }) : super(key: key);
+  });
 
   final String? appBadge;
   final String? customerProfile;
 
   @override
-  _BadgeSingleIconWidgetState createState() => _BadgeSingleIconWidgetState();
+  State<BadgeSingleIconWidget> createState() => _BadgeSingleIconWidgetState();
 }
 
 class _BadgeSingleIconWidgetState extends State<BadgeSingleIconWidget> {

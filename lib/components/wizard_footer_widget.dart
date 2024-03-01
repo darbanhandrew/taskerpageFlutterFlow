@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,22 +9,21 @@ export 'wizard_footer_model.dart';
 
 class WizardFooterWidget extends StatefulWidget {
   const WizardFooterWidget({
-    Key? key,
+    super.key,
     String? cancelText,
     String? saveText,
     required this.saveAction,
     required this.cancelAction,
   })  : this.cancelText = cancelText ?? 'I\'ll do it later',
-        this.saveText = saveText ?? 'save',
-        super(key: key);
+        this.saveText = saveText ?? 'save';
 
   final String cancelText;
   final String saveText;
-  final Future<dynamic> Function()? saveAction;
-  final Future<dynamic> Function()? cancelAction;
+  final Future Function()? saveAction;
+  final Future Function()? cancelAction;
 
   @override
-  _WizardFooterWidgetState createState() => _WizardFooterWidgetState();
+  State<WizardFooterWidget> createState() => _WizardFooterWidgetState();
 }
 
 class _WizardFooterWidgetState extends State<WizardFooterWidget> {

@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'header_web_model.dart';
 export 'header_web_model.dart';
 
 class HeaderWebWidget extends StatefulWidget {
-  const HeaderWebWidget({Key? key}) : super(key: key);
+  const HeaderWebWidget({super.key});
 
   @override
-  _HeaderWebWidgetState createState() => _HeaderWebWidgetState();
+  State<HeaderWebWidget> createState() => _HeaderWebWidgetState();
 }
 
 class _HeaderWebWidgetState extends State<HeaderWebWidget> {

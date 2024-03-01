@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,16 +11,16 @@ export 'addresses_in_list_model.dart';
 
 class AddressesInListWidget extends StatefulWidget {
   const AddressesInListWidget({
-    Key? key,
+    super.key,
     required this.action,
     required this.address,
-  }) : super(key: key);
+  });
 
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
   final dynamic address;
 
   @override
-  _AddressesInListWidgetState createState() => _AddressesInListWidgetState();
+  State<AddressesInListWidget> createState() => _AddressesInListWidgetState();
 }
 
 class _AddressesInListWidgetState extends State<AddressesInListWidget> {

@@ -7,7 +7,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -17,16 +16,16 @@ export 'bid_copy_model.dart';
 
 class BidCopyWidget extends StatefulWidget {
   const BidCopyWidget({
-    Key? key,
+    super.key,
     required this.post,
     required this.poster,
-  }) : super(key: key);
+  });
 
   final dynamic post;
   final String? poster;
 
   @override
-  _BidCopyWidgetState createState() => _BidCopyWidgetState();
+  State<BidCopyWidget> createState() => _BidCopyWidgetState();
 }
 
 class _BidCopyWidgetState extends State<BidCopyWidget> {

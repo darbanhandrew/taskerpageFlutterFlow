@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,14 +13,14 @@ export 'aler_modal_massage_accept_appointment_model.dart';
 
 class AlerModalMassageAcceptAppointmentWidget extends StatefulWidget {
   const AlerModalMassageAcceptAppointmentWidget({
-    Key? key,
+    super.key,
     required this.id,
-  }) : super(key: key);
+  });
 
   final int? id;
 
   @override
-  _AlerModalMassageAcceptAppointmentWidgetState createState() =>
+  State<AlerModalMassageAcceptAppointmentWidget> createState() =>
       _AlerModalMassageAcceptAppointmentWidgetState();
 }
 

@@ -1,10 +1,10 @@
+import '/components/location_filter_web_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'filter_web_widget.dart' show FilterWebWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -25,21 +25,21 @@ class FilterWebModel extends FlutterFlowModel<FilterWebWidget> {
   // State field(s) for DropDown widget.
   String? dropDownValue3;
   FormFieldController<String>? dropDownValueController3;
-  // State field(s) for DropDown widget.
-  String? dropDownValue4;
-  FormFieldController<String>? dropDownValueController4;
-  // State field(s) for DropDown widget.
-  String? dropDownValue5;
-  FormFieldController<String>? dropDownValueController5;
-  // State field(s) for DropDown widget.
-  String? dropDownValue6;
-  FormFieldController<String>? dropDownValueController6;
+  // Model for location_filter_web component.
+  late LocationFilterWebModel locationFilterWebModel;
 
   /// Initialization and disposal methods.
 
-  void initState(BuildContext context) {}
+  @override
+  void initState(BuildContext context) {
+    locationFilterWebModel =
+        createModel(context, () => LocationFilterWebModel());
+  }
 
-  void dispose() {}
+  @override
+  void dispose() {
+    locationFilterWebModel.dispose();
+  }
 
   /// Action blocks are added here.
 

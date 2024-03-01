@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +12,16 @@ export 'start_chat_model.dart';
 
 class StartChatWidget extends StatefulWidget {
   const StartChatWidget({
-    Key? key,
+    super.key,
     required this.post,
     required this.poster,
-  }) : super(key: key);
+  });
 
   final dynamic post;
   final String? poster;
 
   @override
-  _StartChatWidgetState createState() => _StartChatWidgetState();
+  State<StartChatWidget> createState() => _StartChatWidgetState();
 }
 
 class _StartChatWidgetState extends State<StartChatWidget> {

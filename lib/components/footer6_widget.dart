@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,16 +9,16 @@ export 'footer6_model.dart';
 
 class Footer6Widget extends StatefulWidget {
   const Footer6Widget({
-    Key? key,
+    super.key,
     required this.textButton,
     required this.textBack,
-  }) : super(key: key);
+  });
 
   final String? textButton;
   final String? textBack;
 
   @override
-  _Footer6WidgetState createState() => _Footer6WidgetState();
+  State<Footer6Widget> createState() => _Footer6WidgetState();
 }
 
 class _Footer6WidgetState extends State<Footer6Widget> {

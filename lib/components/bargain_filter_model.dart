@@ -7,7 +7,6 @@ import 'bargain_filter_widget.dart' show BargainFilterWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,8 +29,10 @@ class BargainFilterModel extends FlutterFlowModel<BargainFilterWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     expandableController1.dispose();
     expandableController2.dispose();

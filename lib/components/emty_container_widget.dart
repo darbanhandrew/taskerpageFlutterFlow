@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,17 +9,16 @@ export 'emty_container_model.dart';
 
 class EmtyContainerWidget extends StatefulWidget {
   const EmtyContainerWidget({
-    Key? key,
+    super.key,
     String? title,
     this.goTo,
-  })  : this.title = title ?? '',
-        super(key: key);
+  }) : this.title = title ?? '';
 
   final String title;
-  final Future<dynamic> Function()? goTo;
+  final Future Function()? goTo;
 
   @override
-  _EmtyContainerWidgetState createState() => _EmtyContainerWidgetState();
+  State<EmtyContainerWidget> createState() => _EmtyContainerWidgetState();
 }
 
 class _EmtyContainerWidgetState extends State<EmtyContainerWidget> {

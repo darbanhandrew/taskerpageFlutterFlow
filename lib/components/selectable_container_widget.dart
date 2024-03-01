@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,20 +9,20 @@ export 'selectable_container_model.dart';
 
 class SelectableContainerWidget extends StatefulWidget {
   const SelectableContainerWidget({
-    Key? key,
+    super.key,
     this.parameter1,
     required this.action,
     required this.selected,
     required this.text,
-  }) : super(key: key);
+  });
 
   final dynamic parameter1;
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
   final bool? selected;
   final String? text;
 
   @override
-  _SelectableContainerWidgetState createState() =>
+  State<SelectableContainerWidget> createState() =>
       _SelectableContainerWidgetState();
 }
 

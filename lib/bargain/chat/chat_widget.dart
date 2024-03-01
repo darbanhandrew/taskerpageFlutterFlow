@@ -16,7 +16,6 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -26,14 +25,14 @@ export 'chat_model.dart';
 
 class ChatWidget extends StatefulWidget {
   const ChatWidget({
-    Key? key,
+    super.key,
     required this.room,
-  }) : super(key: key);
+  });
 
   final String? room;
 
   @override
-  _ChatWidgetState createState() => _ChatWidgetState();
+  State<ChatWidget> createState() => _ChatWidgetState();
 }
 
 class _ChatWidgetState extends State<ChatWidget> {
@@ -108,15 +107,6 @@ class _ChatWidgetState extends State<ChatWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -673,15 +663,11 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                               children: [
                                                                 Text(
                                                                   functions
-                                                                      .numberofListitems((TaskerpageBackendGroup
-                                                                              .getMyTasksGroupByCall
-                                                                              .users(
-                                                                        containerGetMyTasksGroupByResponse
-                                                                            .jsonBody,
-                                                                      ) as List)
-                                                                          .map<String>((s) => s
-                                                                              .toString())
-                                                                          .toList()
+                                                                      .numberofListitems(TaskerpageBackendGroup
+                                                                          .getMyTasksGroupByCall
+                                                                          .users(
+                                                                            containerGetMyTasksGroupByResponse.jsonBody,
+                                                                          )
                                                                           ?.map((e) =>
                                                                               e.toString())
                                                                           .toList()
@@ -845,8 +831,8 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                                           child:
                                                                               Image.network(
                                                                             '${FFAppState().baseUrl}${TaskerpageBackendGroup.readByEmailCall.avatar(
-                                                                                  circleImageReadByEmailResponse.jsonBody,
-                                                                                ).toString()}',
+                                                                              circleImageReadByEmailResponse.jsonBody,
+                                                                            )}',
                                                                             fit:
                                                                                 BoxFit.cover,
                                                                           ),
@@ -985,15 +971,11 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                               children: [
                                                                 Text(
                                                                   functions
-                                                                      .numberofListitems((TaskerpageBackendGroup
-                                                                              .chatListCall
-                                                                              .name(
-                                                                        containerChatListResponse
-                                                                            .jsonBody,
-                                                                      ) as List)
-                                                                          .map<String>((s) =>
-                                                                              s.toString())
-                                                                          .toList()
+                                                                      .numberofListitems(TaskerpageBackendGroup
+                                                                          .chatListCall
+                                                                          .name(
+                                                                            containerChatListResponse.jsonBody,
+                                                                          )
                                                                           ?.toList())
                                                                       .toString(),
                                                                   style: FlutterFlowTheme.of(
@@ -2300,20 +2282,20 @@ class _ChatWidgetState extends State<ChatWidget> {
                                                         builder:
                                                             (alertDialogContext) {
                                                           return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                            title:
-                                                                Text('error'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ));
+                                                            child: AlertDialog(
+                                                              title:
+                                                                  Text('error'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
                                                         },
                                                       );
                                                     }

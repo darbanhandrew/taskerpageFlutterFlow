@@ -4,7 +4,6 @@ import '/components/chooseacategoriestoget_started_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ export 'home_page_categories_model.dart';
 
 class HomePageCategoriesWidget extends StatefulWidget {
   const HomePageCategoriesWidget({
-    Key? key,
+    super.key,
     required this.categories,
-  }) : super(key: key);
+  });
 
   final CategoriesInputStruct? categories;
 
   @override
-  _HomePageCategoriesWidgetState createState() =>
+  State<HomePageCategoriesWidget> createState() =>
       _HomePageCategoriesWidgetState();
 }
 

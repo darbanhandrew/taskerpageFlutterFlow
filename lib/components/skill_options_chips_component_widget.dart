@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,16 +13,16 @@ export 'skill_options_chips_component_model.dart';
 
 class SkillOptionsChipsComponentWidget extends StatefulWidget {
   const SkillOptionsChipsComponentWidget({
-    Key? key,
+    super.key,
     required this.skillOption,
     this.selectedChips,
-  }) : super(key: key);
+  });
 
   final SkillOptionsStruct? skillOption;
   final String? selectedChips;
 
   @override
-  _SkillOptionsChipsComponentWidgetState createState() =>
+  State<SkillOptionsChipsComponentWidget> createState() =>
       _SkillOptionsChipsComponentWidgetState();
 }
 

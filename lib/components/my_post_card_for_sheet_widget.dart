@@ -6,7 +6,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -17,16 +16,16 @@ export 'my_post_card_for_sheet_model.dart';
 
 class MyPostCardForSheetWidget extends StatefulWidget {
   const MyPostCardForSheetWidget({
-    Key? key,
+    super.key,
     required this.postData,
     required this.customerProfile,
-  }) : super(key: key);
+  });
 
   final dynamic postData;
   final dynamic customerProfile;
 
   @override
-  _MyPostCardForSheetWidgetState createState() =>
+  State<MyPostCardForSheetWidget> createState() =>
       _MyPostCardForSheetWidgetState();
 }
 
@@ -500,19 +499,20 @@ class _MyPostCardForSheetWidgetState extends State<MyPostCardForSheetWidget> {
                   context: context,
                   builder: (context) {
                     return WebViewAware(
-                        child: Padding(
-                      padding: MediaQuery.viewInsetsOf(context),
-                      child: StartChatOnTaskerWidget(
-                        post: getJsonField(
-                          widget.postData,
-                          r'''$.name''',
-                        ).toString(),
-                        customerProfile: widget.customerProfile!,
-                        action: () async {
-                          Navigator.pop(context);
-                        },
+                      child: Padding(
+                        padding: MediaQuery.viewInsetsOf(context),
+                        child: StartChatOnTaskerWidget(
+                          post: getJsonField(
+                            widget.postData,
+                            r'''$.name''',
+                          ).toString(),
+                          customerProfile: widget.customerProfile!,
+                          action: () async {
+                            Navigator.pop(context);
+                          },
+                        ),
                       ),
-                    ));
+                    );
                   },
                 ).then((value) => safeSetState(() {}));
               },

@@ -22,14 +22,14 @@ export 'online_appointment_deatels_model.dart';
 
 class OnlineAppointmentDeatelsWidget extends StatefulWidget {
   const OnlineAppointmentDeatelsWidget({
-    Key? key,
+    super.key,
     required this.appointmentId,
-  }) : super(key: key);
+  });
 
   final String? appointmentId;
 
   @override
-  _OnlineAppointmentDeatelsWidgetState createState() =>
+  State<OnlineAppointmentDeatelsWidget> createState() =>
       _OnlineAppointmentDeatelsWidgetState();
 }
 
@@ -63,15 +63,6 @@ class _OnlineAppointmentDeatelsWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -106,15 +97,16 @@ class _OnlineAppointmentDeatelsWidgetState
             backgroundColor: Color(0xFFF2F2F2),
             endDrawer: Container(
               width: double.infinity,
-              child: WebViewAware(
-                  child: Drawer(
+              child: Drawer(
                 elevation: 16.0,
-                child: wrapWithModel(
-                  model: _model.mainDrawerModel,
-                  updateCallback: () => setState(() {}),
-                  child: MainDrawerWidget(),
+                child: WebViewAware(
+                  child: wrapWithModel(
+                    model: _model.mainDrawerModel,
+                    updateCallback: () => setState(() {}),
+                    child: MainDrawerWidget(),
+                  ),
                 ),
-              )),
+              ),
             ),
             body: SafeArea(
               top: true,
@@ -753,7 +745,7 @@ class _OnlineAppointmentDeatelsWidgetState
                                                                 onlineAppointmentDeatelsAppointmentReadResponse
                                                                     .jsonBody,
                                                                 r'''$.data.meeting_link''',
-                                                              ).toString(),
+                                                              )?.toString(),
                                                               'Google Meet Link',
                                                             ),
                                                             style: FlutterFlowTheme

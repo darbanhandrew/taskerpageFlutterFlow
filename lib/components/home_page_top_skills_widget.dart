@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,14 +10,14 @@ export 'home_page_top_skills_model.dart';
 
 class HomePageTopSkillsWidget extends StatefulWidget {
   const HomePageTopSkillsWidget({
-    Key? key,
+    super.key,
     required this.topSkills,
-  }) : super(key: key);
+  });
 
   final HomePageTopSkillsInputStruct? topSkills;
 
   @override
-  _HomePageTopSkillsWidgetState createState() =>
+  State<HomePageTopSkillsWidget> createState() =>
       _HomePageTopSkillsWidgetState();
 }
 

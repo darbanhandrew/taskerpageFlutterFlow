@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'home_page_tasker_sugestion2_widget.dart'
     show HomePageTaskerSugestion2Widget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,8 +14,10 @@ class HomePageTaskerSugestion2Model
     extends FlutterFlowModel<HomePageTaskerSugestion2Widget> {
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {}
 
   /// Action blocks are added here.

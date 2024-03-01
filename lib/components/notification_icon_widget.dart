@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,15 +9,14 @@ export 'notification_icon_model.dart';
 
 class NotificationIconWidget extends StatefulWidget {
   const NotificationIconWidget({
-    Key? key,
+    super.key,
     bool? hasNotification,
-  })  : this.hasNotification = hasNotification ?? false,
-        super(key: key);
+  }) : this.hasNotification = hasNotification ?? false;
 
   final bool hasNotification;
 
   @override
-  _NotificationIconWidgetState createState() => _NotificationIconWidgetState();
+  State<NotificationIconWidget> createState() => _NotificationIconWidgetState();
 }
 
 class _NotificationIconWidgetState extends State<NotificationIconWidget> {

@@ -19,7 +19,6 @@ import 'contactdata3_widget.dart' show Contactdata3Widget;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,6 +52,7 @@ class Contactdata3Model extends FlutterFlowModel<Contactdata3Widget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerWebModel = createModel(context, () => HeaderWebModel());
     sideBarLeftProfileModel =
@@ -65,6 +65,7 @@ class Contactdata3Model extends FlutterFlowModel<Contactdata3Widget> {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     instantTimer?.cancel();

@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +15,10 @@ import 'all_connection_model.dart';
 export 'all_connection_model.dart';
 
 class AllConnectionWidget extends StatefulWidget {
-  const AllConnectionWidget({Key? key}) : super(key: key);
+  const AllConnectionWidget({super.key});
 
   @override
-  _AllConnectionWidgetState createState() => _AllConnectionWidgetState();
+  State<AllConnectionWidget> createState() => _AllConnectionWidgetState();
 }
 
 class _AllConnectionWidgetState extends State<AllConnectionWidget> {
@@ -47,15 +46,6 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -624,11 +614,9 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                                               {
                                                                             'id':
                                                                                 serializeParam(
-                                                                              TaskerpageBackendGroup.readByEmailCall
-                                                                                  .id(
-                                                                                    columnReadByEmailResponse.jsonBody,
-                                                                                  )
-                                                                                  .toString(),
+                                                                              TaskerpageBackendGroup.readByEmailCall.id(
+                                                                                columnReadByEmailResponse.jsonBody,
+                                                                              ),
                                                                               ParamType.String,
                                                                             ),
                                                                           }.withoutNulls,
@@ -673,10 +661,10 @@ class _AllConnectionWidgetState extends State<AllConnectionWidget> {
                                                                                   children: [
                                                                                     Text(
                                                                                       '${TaskerpageBackendGroup.readByEmailCall.name(
-                                                                                            columnReadByEmailResponse.jsonBody,
-                                                                                          ).toString()} ${TaskerpageBackendGroup.readByEmailCall.family(
-                                                                                            columnReadByEmailResponse.jsonBody,
-                                                                                          ).toString()}',
+                                                                                        columnReadByEmailResponse.jsonBody,
+                                                                                      )} ${TaskerpageBackendGroup.readByEmailCall.family(
+                                                                                        columnReadByEmailResponse.jsonBody,
+                                                                                      )}',
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Lato',
                                                                                             color: FlutterFlowTheme.of(context).alternate,

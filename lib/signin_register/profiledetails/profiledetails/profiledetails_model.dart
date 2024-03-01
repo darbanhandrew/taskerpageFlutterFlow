@@ -11,7 +11,6 @@ import '/actions/actions.dart' as action_blocks;
 import 'profiledetails_widget.dart' show ProfiledetailsWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -38,6 +37,7 @@ class ProfiledetailsModel extends FlutterFlowModel<ProfiledetailsWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -47,6 +47,7 @@ class ProfiledetailsModel extends FlutterFlowModel<ProfiledetailsWidget> {
         createModel(context, () => DropeDownLanguagesModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

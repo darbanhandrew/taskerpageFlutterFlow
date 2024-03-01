@@ -7,7 +7,6 @@ import 'my_post_card_widget.dart' show MyPostCardWidget;
 import 'package:flip_card/flip_card.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -24,8 +23,10 @@ class MyPostCardModel extends FlutterFlowModel<MyPostCardWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     timerController.dispose();
   }

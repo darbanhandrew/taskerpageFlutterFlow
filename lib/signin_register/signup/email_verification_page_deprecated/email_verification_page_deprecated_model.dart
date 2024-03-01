@@ -12,7 +12,6 @@ import 'email_verification_page_deprecated_widget.dart'
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -38,12 +37,14 @@ class EmailVerificationPageDeprecatedModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     pinCodeController = TextEditingController();
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

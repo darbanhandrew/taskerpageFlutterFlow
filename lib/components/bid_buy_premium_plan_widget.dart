@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +11,14 @@ export 'bid_buy_premium_plan_model.dart';
 
 class BidBuyPremiumPlanWidget extends StatefulWidget {
   const BidBuyPremiumPlanWidget({
-    Key? key,
+    super.key,
     required this.post,
-  }) : super(key: key);
+  });
 
   final dynamic post;
 
   @override
-  _BidBuyPremiumPlanWidgetState createState() =>
+  State<BidBuyPremiumPlanWidget> createState() =>
       _BidBuyPremiumPlanWidgetState();
 }
 

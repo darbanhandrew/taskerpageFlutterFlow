@@ -15,7 +15,6 @@ import '/flutter_flow/upload_data.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'profile_details_seeting_widget.dart' show ProfileDetailsSeetingWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -73,6 +72,7 @@ class ProfileDetailsSeetingModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerWebModel = createModel(context, () => HeaderWebModel());
     sideBarLeftProfileModel =
@@ -85,6 +85,7 @@ class ProfileDetailsSeetingModel
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerWebModel.dispose();

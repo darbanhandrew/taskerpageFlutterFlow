@@ -15,7 +15,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'add_another_education_widget.dart' show AddAnotherEducationWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -68,6 +67,7 @@ class AddAnotherEducationModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -75,6 +75,7 @@ class AddAnotherEducationModel
     headerModel = createModel(context, () => HeaderModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();
@@ -113,16 +114,17 @@ class AddAnotherEducationModel
         context: context,
         builder: (alertDialogContext) {
           return WebViewAware(
-              child: AlertDialog(
-            title: Text('Not Done'),
-            content: Text('Not Done'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.pop(alertDialogContext),
-                child: Text('Ok'),
-              ),
-            ],
-          ));
+            child: AlertDialog(
+              title: Text('Not Done'),
+              content: Text('Not Done'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(alertDialogContext),
+                  child: Text('Ok'),
+                ),
+              ],
+            ),
+          );
         },
       );
     }

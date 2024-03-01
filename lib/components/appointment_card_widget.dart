@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,7 +11,7 @@ export 'appointment_card_model.dart';
 
 class AppointmentCardWidget extends StatefulWidget {
   const AppointmentCardWidget({
-    Key? key,
+    super.key,
     required this.json,
     required this.accept,
     required this.reject,
@@ -20,18 +19,18 @@ class AppointmentCardWidget extends StatefulWidget {
     required this.edit,
     required this.accepted,
     required this.state,
-  }) : super(key: key);
+  });
 
   final dynamic json;
-  final Future<dynamic> Function()? accept;
-  final Future<dynamic> Function()? reject;
-  final Future<dynamic> Function()? view;
-  final Future<dynamic> Function()? edit;
+  final Future Function()? accept;
+  final Future Function()? reject;
+  final Future Function()? view;
+  final Future Function()? edit;
   final bool? accepted;
   final String? state;
 
   @override
-  _AppointmentCardWidgetState createState() => _AppointmentCardWidgetState();
+  State<AppointmentCardWidget> createState() => _AppointmentCardWidgetState();
 }
 
 class _AppointmentCardWidgetState extends State<AppointmentCardWidget> {

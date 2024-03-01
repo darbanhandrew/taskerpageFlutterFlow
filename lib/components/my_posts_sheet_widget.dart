@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ export 'my_posts_sheet_model.dart';
 
 class MyPostsSheetWidget extends StatefulWidget {
   const MyPostsSheetWidget({
-    Key? key,
+    super.key,
     required this.customerProfile,
-  }) : super(key: key);
+  });
 
   final dynamic customerProfile;
 
   @override
-  _MyPostsSheetWidgetState createState() => _MyPostsSheetWidgetState();
+  State<MyPostsSheetWidget> createState() => _MyPostsSheetWidgetState();
 }
 
 class _MyPostsSheetWidgetState extends State<MyPostsSheetWidget> {

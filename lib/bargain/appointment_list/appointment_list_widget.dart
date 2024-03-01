@@ -14,7 +14,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,10 +22,10 @@ import 'appointment_list_model.dart';
 export 'appointment_list_model.dart';
 
 class AppointmentListWidget extends StatefulWidget {
-  const AppointmentListWidget({Key? key}) : super(key: key);
+  const AppointmentListWidget({super.key});
 
   @override
-  _AppointmentListWidgetState createState() => _AppointmentListWidgetState();
+  State<AppointmentListWidget> createState() => _AppointmentListWidgetState();
 }
 
 class _AppointmentListWidgetState extends State<AppointmentListWidget>
@@ -57,15 +56,6 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -77,15 +67,16 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -1195,6 +1186,15 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                 ],
                                                 controller:
                                                     _model.tabBarController,
+                                                onTap: (i) async {
+                                                  [
+                                                    () async {},
+                                                    () async {},
+                                                    () async {},
+                                                    () async {},
+                                                    () async {}
+                                                  ][i]();
+                                                },
                                               ),
                                             ),
                                             Expanded(
@@ -1330,18 +1330,19 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                                               context: context,
                                                                               builder: (context) {
                                                                                 return WebViewAware(
-                                                                                    child: GestureDetector(
-                                                                                  onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                                  child: Padding(
-                                                                                    padding: MediaQuery.viewInsetsOf(context),
-                                                                                    child: AlerModalMassageAcceptAppointmentWidget(
-                                                                                      id: getJsonField(
-                                                                                        invationAppointmentItem,
-                                                                                        r'''$.name''',
+                                                                                  child: GestureDetector(
+                                                                                    onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                    child: Padding(
+                                                                                      padding: MediaQuery.viewInsetsOf(context),
+                                                                                      child: AlerModalMassageAcceptAppointmentWidget(
+                                                                                        id: getJsonField(
+                                                                                          invationAppointmentItem,
+                                                                                          r'''$.name''',
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                ));
+                                                                                );
                                                                               },
                                                                             ).then((value) =>
                                                                                 safeSetState(() {}));
@@ -1355,18 +1356,19 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                                               context: context,
                                                                               builder: (context) {
                                                                                 return WebViewAware(
-                                                                                    child: GestureDetector(
-                                                                                  onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                                  child: Padding(
-                                                                                    padding: MediaQuery.viewInsetsOf(context),
-                                                                                    child: AlerModalMassageRejectAppointmentWidget(
-                                                                                      id: getJsonField(
-                                                                                        invationAppointmentItem,
-                                                                                        r'''$.name''',
+                                                                                  child: GestureDetector(
+                                                                                    onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                    child: Padding(
+                                                                                      padding: MediaQuery.viewInsetsOf(context),
+                                                                                      child: AlerModalMassageRejectAppointmentWidget(
+                                                                                        id: getJsonField(
+                                                                                          invationAppointmentItem,
+                                                                                          r'''$.name''',
+                                                                                        ),
                                                                                       ),
                                                                                     ),
                                                                                   ),
-                                                                                ));
+                                                                                );
                                                                               },
                                                                             ).then((value) =>
                                                                                 safeSetState(() {}));
@@ -2156,19 +2158,20 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                                                 context: context,
                                                                                 builder: (context) {
                                                                                   return WebViewAware(
-                                                                                      child: GestureDetector(
-                                                                                    onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                                    child: Padding(
-                                                                                      padding: MediaQuery.viewInsetsOf(context),
-                                                                                      child: UserRateWidget(
-                                                                                        appointmentId: getJsonField(
-                                                                                          acceptedAppointmentItem,
-                                                                                          r'''$.name''',
-                                                                                        ).toString(),
-                                                                                        action: () async {},
+                                                                                    child: GestureDetector(
+                                                                                      onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                      child: Padding(
+                                                                                        padding: MediaQuery.viewInsetsOf(context),
+                                                                                        child: UserRateWidget(
+                                                                                          appointmentId: getJsonField(
+                                                                                            acceptedAppointmentItem,
+                                                                                            r'''$.name''',
+                                                                                          ).toString(),
+                                                                                          action: () async {},
+                                                                                        ),
                                                                                       ),
                                                                                     ),
-                                                                                  ));
+                                                                                  );
                                                                                 },
                                                                               ).then((value) => safeSetState(() {}));
                                                                             } else {
@@ -2176,16 +2179,17 @@ class _AppointmentListWidgetState extends State<AppointmentListWidget>
                                                                                 context: context,
                                                                                 builder: (alertDialogContext) {
                                                                                   return WebViewAware(
-                                                                                      child: AlertDialog(
-                                                                                    title: Text('Review'),
-                                                                                    content: Text('You have already commented on this appointment !'),
-                                                                                    actions: [
-                                                                                      TextButton(
-                                                                                        onPressed: () => Navigator.pop(alertDialogContext),
-                                                                                        child: Text('Ok'),
-                                                                                      ),
-                                                                                    ],
-                                                                                  ));
+                                                                                    child: AlertDialog(
+                                                                                      title: Text('Review'),
+                                                                                      content: Text('You have already commented on this appointment !'),
+                                                                                      actions: [
+                                                                                        TextButton(
+                                                                                          onPressed: () => Navigator.pop(alertDialogContext),
+                                                                                          child: Text('Ok'),
+                                                                                        ),
+                                                                                      ],
+                                                                                    ),
+                                                                                  );
                                                                                 },
                                                                               );
                                                                             }

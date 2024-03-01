@@ -20,7 +20,6 @@ import 'user_profile_widget.dart' show UserProfileWidget;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -77,6 +76,7 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebSearchFilterModel =
@@ -87,6 +87,7 @@ class UserProfileModel extends FlutterFlowModel<UserProfileWidget> {
     navBarModel = createModel(context, () => NavBarModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

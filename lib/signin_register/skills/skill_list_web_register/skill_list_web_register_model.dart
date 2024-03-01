@@ -12,7 +12,6 @@ import 'dart:async';
 import 'skill_list_web_register_widget.dart' show SkillListWebRegisterWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -44,6 +43,7 @@ class SkillListWebRegisterModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -52,6 +52,7 @@ class SkillListWebRegisterModel
     skillCardModels = FlutterFlowDynamicModels(() => SkillCardModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

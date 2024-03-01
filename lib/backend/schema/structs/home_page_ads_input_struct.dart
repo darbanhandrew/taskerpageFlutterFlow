@@ -77,7 +77,7 @@ class HomePageAdsInputStruct extends BaseStruct {
         'button_link': _buttonLink,
         'button_text': _buttonText,
         'background_image': _backgroundImage,
-        'color_mode': _colorMode?.toString(),
+        'color_mode': _colorMode?.serialize(),
       }.withoutNulls;
 
   @override

@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'home_page_footer_model.dart';
 export 'home_page_footer_model.dart';
 
 class HomePageFooterWidget extends StatefulWidget {
-  const HomePageFooterWidget({Key? key}) : super(key: key);
+  const HomePageFooterWidget({super.key});
 
   @override
-  _HomePageFooterWidgetState createState() => _HomePageFooterWidgetState();
+  State<HomePageFooterWidget> createState() => _HomePageFooterWidgetState();
 }
 
 class _HomePageFooterWidgetState extends State<HomePageFooterWidget> {

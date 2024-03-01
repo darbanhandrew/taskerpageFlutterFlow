@@ -12,7 +12,6 @@ import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -24,10 +23,10 @@ import 'profiledetails2_model.dart';
 export 'profiledetails2_model.dart';
 
 class Profiledetails2Widget extends StatefulWidget {
-  const Profiledetails2Widget({Key? key}) : super(key: key);
+  const Profiledetails2Widget({super.key});
 
   @override
-  _Profiledetails2WidgetState createState() => _Profiledetails2WidgetState();
+  State<Profiledetails2Widget> createState() => _Profiledetails2WidgetState();
 }
 
 class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
@@ -110,15 +109,6 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -130,15 +120,16 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -209,8 +200,8 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                   0.0,
                 )),
             child: Container(
-              width: double.infinity,
-              height: double.infinity,
+              width: MediaQuery.sizeOf(context).width * 1.0,
+              height: MediaQuery.sizeOf(context).height * 1.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 boxShadow: [
@@ -239,7 +230,9 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 4,
+                            ),
                           ),
                         ),
                       ],
@@ -470,22 +463,22 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                                         builder:
                                                             (alertDialogContext) {
                                                           return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                            title: Text(
-                                                                'Not Done'),
-                                                            content: Text(
-                                                                'Not Done'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ));
+                                                            child: AlertDialog(
+                                                              title: Text(
+                                                                  'Not Done'),
+                                                              content: Text(
+                                                                  'Not Done'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
                                                         },
                                                       );
                                                     }
@@ -658,22 +651,22 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                                                         builder:
                                                             (alertDialogContext) {
                                                           return WebViewAware(
-                                                              child:
-                                                                  AlertDialog(
-                                                            title: Text(
-                                                                'Not Done'),
-                                                            content: Text(
-                                                                'Not Done'),
-                                                            actions: [
-                                                              TextButton(
-                                                                onPressed: () =>
-                                                                    Navigator.pop(
-                                                                        alertDialogContext),
-                                                                child:
-                                                                    Text('Ok'),
-                                                              ),
-                                                            ],
-                                                          ));
+                                                            child: AlertDialog(
+                                                              title: Text(
+                                                                  'Not Done'),
+                                                              content: Text(
+                                                                  'Not Done'),
+                                                              actions: [
+                                                                TextButton(
+                                                                  onPressed: () =>
+                                                                      Navigator.pop(
+                                                                          alertDialogContext),
+                                                                  child: Text(
+                                                                      'Ok'),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          );
                                                         },
                                                       );
                                                     }
@@ -1281,15 +1274,15 @@ class _Profiledetails2WidgetState extends State<Profiledetails2Widget>
                         children: [
                           Expanded(
                             child: Container(
-                              width: double.infinity,
-                              height: 100.0,
+                              width: MediaQuery.sizeOf(context).width * 1.0,
+                              height: MediaQuery.sizeOf(context).height * 1.0,
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
                                 image: DecorationImage(
-                                  fit: BoxFit.fill,
+                                  fit: BoxFit.cover,
                                   image: Image.asset(
-                                    'assets/images/Group_2400.png',
+                                    'assets/images/Group_2401.png',
                                   ).image,
                                 ),
                               ),

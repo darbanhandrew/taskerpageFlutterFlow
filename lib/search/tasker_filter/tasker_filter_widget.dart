@@ -13,7 +13,6 @@ import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -22,14 +21,14 @@ export 'tasker_filter_model.dart';
 
 class TaskerFilterWidget extends StatefulWidget {
   const TaskerFilterWidget({
-    Key? key,
+    super.key,
     required this.action,
-  }) : super(key: key);
+  });
 
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
 
   @override
-  _TaskerFilterWidgetState createState() => _TaskerFilterWidgetState();
+  State<TaskerFilterWidget> createState() => _TaskerFilterWidgetState();
 }
 
 class _TaskerFilterWidgetState extends State<TaskerFilterWidget> {

@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +15,10 @@ import 'all_followers_model.dart';
 export 'all_followers_model.dart';
 
 class AllFollowersWidget extends StatefulWidget {
-  const AllFollowersWidget({Key? key}) : super(key: key);
+  const AllFollowersWidget({super.key});
 
   @override
-  _AllFollowersWidgetState createState() => _AllFollowersWidgetState();
+  State<AllFollowersWidget> createState() => _AllFollowersWidgetState();
 }
 
 class _AllFollowersWidgetState extends State<AllFollowersWidget> {
@@ -47,15 +46,6 @@ class _AllFollowersWidgetState extends State<AllFollowersWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -623,11 +613,9 @@ class _AllFollowersWidgetState extends State<AllFollowersWidget> {
                                                                               {
                                                                             'id':
                                                                                 serializeParam(
-                                                                              TaskerpageBackendGroup.readByEmailCall
-                                                                                  .id(
-                                                                                    columnReadByEmailResponse.jsonBody,
-                                                                                  )
-                                                                                  .toString(),
+                                                                              TaskerpageBackendGroup.readByEmailCall.id(
+                                                                                columnReadByEmailResponse.jsonBody,
+                                                                              ),
                                                                               ParamType.String,
                                                                             ),
                                                                           }.withoutNulls,
@@ -672,10 +660,10 @@ class _AllFollowersWidgetState extends State<AllFollowersWidget> {
                                                                                   children: [
                                                                                     Text(
                                                                                       '${TaskerpageBackendGroup.readByEmailCall.name(
-                                                                                            columnReadByEmailResponse.jsonBody,
-                                                                                          ).toString()} ${TaskerpageBackendGroup.readByEmailCall.family(
-                                                                                            columnReadByEmailResponse.jsonBody,
-                                                                                          ).toString()}',
+                                                                                        columnReadByEmailResponse.jsonBody,
+                                                                                      )} ${TaskerpageBackendGroup.readByEmailCall.family(
+                                                                                        columnReadByEmailResponse.jsonBody,
+                                                                                      )}',
                                                                                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                             fontFamily: 'Lato',
                                                                                             color: FlutterFlowTheme.of(context).alternate,

@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,10 +11,10 @@ import 'edit_email_or_pass_model.dart';
 export 'edit_email_or_pass_model.dart';
 
 class EditEmailOrPassWidget extends StatefulWidget {
-  const EditEmailOrPassWidget({Key? key}) : super(key: key);
+  const EditEmailOrPassWidget({super.key});
 
   @override
-  _EditEmailOrPassWidgetState createState() => _EditEmailOrPassWidgetState();
+  State<EditEmailOrPassWidget> createState() => _EditEmailOrPassWidgetState();
 }
 
 class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
@@ -1267,22 +1266,23 @@ class _EditEmailOrPassWidgetState extends State<EditEmailOrPassWidget> {
                                                           builder:
                                                               (alertDialogContext) {
                                                             return WebViewAware(
-                                                                child:
-                                                                    AlertDialog(
-                                                              title: Text(
-                                                                  'New password'),
-                                                              content: Text(
-                                                                  'Your password has been successfully changed'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            ));
+                                                              child:
+                                                                  AlertDialog(
+                                                                title: Text(
+                                                                    'New password'),
+                                                                content: Text(
+                                                                    'Your password has been successfully changed'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext),
+                                                                    child: Text(
+                                                                        'Ok'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
                                                           },
                                                         );
                                                       } else {

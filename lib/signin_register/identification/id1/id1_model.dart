@@ -13,7 +13,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'id1_widget.dart' show Id1Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -52,6 +51,7 @@ class Id1Model extends FlutterFlowModel<Id1Widget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -64,6 +64,7 @@ class Id1Model extends FlutterFlowModel<Id1Widget> {
     dateOfBirthPickModel = createModel(context, () => DateOfBirthPickModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

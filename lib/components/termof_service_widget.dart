@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'termof_service_model.dart';
 export 'termof_service_model.dart';
 
 class TermofServiceWidget extends StatefulWidget {
-  const TermofServiceWidget({Key? key}) : super(key: key);
+  const TermofServiceWidget({super.key});
 
   @override
-  _TermofServiceWidgetState createState() => _TermofServiceWidgetState();
+  State<TermofServiceWidget> createState() => _TermofServiceWidgetState();
 }
 
 class _TermofServiceWidgetState extends State<TermofServiceWidget> {

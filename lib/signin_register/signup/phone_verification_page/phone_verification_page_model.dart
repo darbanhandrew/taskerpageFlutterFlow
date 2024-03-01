@@ -12,7 +12,6 @@ import 'package:pin_code_fields/pin_code_fields.dart';
 import 'phone_verification_page_widget.dart' show PhoneVerificationPageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -50,6 +49,7 @@ class PhoneVerificationPageModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
@@ -57,6 +57,7 @@ class PhoneVerificationPageModel
     pinCodeController2 = TextEditingController();
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

@@ -11,7 +11,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'main_home_page_widget.dart' show MainHomePageWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +33,7 @@ class MainHomePageModel extends FlutterFlowModel<MainHomePageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     miniTaskCardModels = FlutterFlowDynamicModels(() => MiniTaskCardModel());
@@ -42,6 +42,7 @@ class MainHomePageModel extends FlutterFlowModel<MainHomePageWidget> {
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

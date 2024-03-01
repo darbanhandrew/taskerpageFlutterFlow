@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'accept_notification_model.dart';
 export 'accept_notification_model.dart';
 
 class AcceptNotificationWidget extends StatefulWidget {
-  const AcceptNotificationWidget({Key? key}) : super(key: key);
+  const AcceptNotificationWidget({super.key});
 
   @override
-  _AcceptNotificationWidgetState createState() =>
+  State<AcceptNotificationWidget> createState() =>
       _AcceptNotificationWidgetState();
 }
 

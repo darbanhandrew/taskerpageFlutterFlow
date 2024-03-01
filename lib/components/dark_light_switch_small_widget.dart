@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +11,10 @@ import 'dark_light_switch_small_model.dart';
 export 'dark_light_switch_small_model.dart';
 
 class DarkLightSwitchSmallWidget extends StatefulWidget {
-  const DarkLightSwitchSmallWidget({Key? key}) : super(key: key);
+  const DarkLightSwitchSmallWidget({super.key});
 
   @override
-  _DarkLightSwitchSmallWidgetState createState() =>
+  State<DarkLightSwitchSmallWidget> createState() =>
       _DarkLightSwitchSmallWidgetState();
 }
 

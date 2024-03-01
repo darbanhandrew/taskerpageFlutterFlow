@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,10 @@ import 'edit_name_family_model.dart';
 export 'edit_name_family_model.dart';
 
 class EditNameFamilyWidget extends StatefulWidget {
-  const EditNameFamilyWidget({Key? key}) : super(key: key);
+  const EditNameFamilyWidget({super.key});
 
   @override
-  _EditNameFamilyWidgetState createState() => _EditNameFamilyWidgetState();
+  State<EditNameFamilyWidget> createState() => _EditNameFamilyWidgetState();
 }
 
 class _EditNameFamilyWidgetState extends State<EditNameFamilyWidget> {

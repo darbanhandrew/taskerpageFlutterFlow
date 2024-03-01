@@ -8,7 +8,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'bid_copy_widget.dart' show BidCopyWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -36,10 +35,12 @@ class BidCopyModel extends FlutterFlowModel<BidCopyWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     taskCardModel = createModel(context, () => TaskCardModel());
   }
 
+  @override
   void dispose() {
     taskCardModel.dispose();
     bidAmountFocusNode?.dispose();

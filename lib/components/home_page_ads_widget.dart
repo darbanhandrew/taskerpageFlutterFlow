@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,14 +10,14 @@ export 'home_page_ads_model.dart';
 
 class HomePageAdsWidget extends StatefulWidget {
   const HomePageAdsWidget({
-    Key? key,
+    super.key,
     required this.homePageAds,
-  }) : super(key: key);
+  });
 
   final HomePageAdsInputStruct? homePageAds;
 
   @override
-  _HomePageAdsWidgetState createState() => _HomePageAdsWidgetState();
+  State<HomePageAdsWidget> createState() => _HomePageAdsWidgetState();
 }
 
 class _HomePageAdsWidgetState extends State<HomePageAdsWidget> {

@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,16 +9,16 @@ export 'text_field_and_title_model.dart';
 
 class TextFieldAndTitleWidget extends StatefulWidget {
   const TextFieldAndTitleWidget({
-    Key? key,
+    super.key,
     required this.label,
     required this.defaultValue,
-  }) : super(key: key);
+  });
 
   final String? label;
   final String? defaultValue;
 
   @override
-  _TextFieldAndTitleWidgetState createState() =>
+  State<TextFieldAndTitleWidget> createState() =>
       _TextFieldAndTitleWidgetState();
 }
 

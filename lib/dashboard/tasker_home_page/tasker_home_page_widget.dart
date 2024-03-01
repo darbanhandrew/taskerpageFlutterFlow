@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +17,10 @@ import 'tasker_home_page_model.dart';
 export 'tasker_home_page_model.dart';
 
 class TaskerHomePageWidget extends StatefulWidget {
-  const TaskerHomePageWidget({Key? key}) : super(key: key);
+  const TaskerHomePageWidget({super.key});
 
   @override
-  _TaskerHomePageWidgetState createState() => _TaskerHomePageWidgetState();
+  State<TaskerHomePageWidget> createState() => _TaskerHomePageWidgetState();
 }
 
 class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
@@ -46,15 +45,6 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -66,22 +56,23 @@ class _TaskerHomePageWidgetState extends State<TaskerHomePageWidget> {
         backgroundColor: Colors.white,
         drawer: Container(
           width: MediaQuery.sizeOf(context).width * 0.85,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: Container(
-              width: 100.0,
-              height: 100.0,
-              decoration: BoxDecoration(
-                color: Color(0xFFE8EAFF),
-              ),
-              child: wrapWithModel(
-                model: _model.drawerContentModel,
-                updateCallback: () => setState(() {}),
-                child: DrawerContentWidget(),
+            child: WebViewAware(
+              child: Container(
+                width: 100.0,
+                height: 100.0,
+                decoration: BoxDecoration(
+                  color: Color(0xFFE8EAFF),
+                ),
+                child: wrapWithModel(
+                  model: _model.drawerContentModel,
+                  updateCallback: () => setState(() {}),
+                  child: DrawerContentWidget(),
+                ),
               ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

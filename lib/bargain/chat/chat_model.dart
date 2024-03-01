@@ -19,7 +19,6 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -99,6 +98,7 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerWebModel = createModel(context, () => HeaderWebModel());
     chatMessageModels = FlutterFlowDynamicModels(() => ChatMessageModel());
@@ -108,6 +108,7 @@ class ChatModel extends FlutterFlowModel<ChatWidget> {
     navBarModel = createModel(context, () => NavBarModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerWebModel.dispose();

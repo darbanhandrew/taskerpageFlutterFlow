@@ -6,7 +6,6 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,10 +14,10 @@ import 'bargain_filter_model.dart';
 export 'bargain_filter_model.dart';
 
 class BargainFilterWidget extends StatefulWidget {
-  const BargainFilterWidget({Key? key}) : super(key: key);
+  const BargainFilterWidget({super.key});
 
   @override
-  _BargainFilterWidgetState createState() => _BargainFilterWidgetState();
+  State<BargainFilterWidget> createState() => _BargainFilterWidgetState();
 }
 
 class _BargainFilterWidgetState extends State<BargainFilterWidget>

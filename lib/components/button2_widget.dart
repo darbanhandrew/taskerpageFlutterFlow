@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +9,14 @@ export 'button2_model.dart';
 
 class Button2Widget extends StatefulWidget {
   const Button2Widget({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String? text;
 
   @override
-  _Button2WidgetState createState() => _Button2WidgetState();
+  State<Button2Widget> createState() => _Button2WidgetState();
 }
 
 class _Button2WidgetState extends State<Button2Widget> {

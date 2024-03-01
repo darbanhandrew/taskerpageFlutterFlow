@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,13 +9,13 @@ export 'secendry_button_icon_model.dart';
 
 class SecendryButtonIconWidget extends StatefulWidget {
   const SecendryButtonIconWidget({
-    Key? key,
+    super.key,
     required this.text,
     required this.borderColor,
     required this.fillColor,
     required this.testColor,
     required this.img,
-  }) : super(key: key);
+  });
 
   final String? text;
   final Color? borderColor;
@@ -25,7 +24,7 @@ class SecendryButtonIconWidget extends StatefulWidget {
   final String? img;
 
   @override
-  _SecendryButtonIconWidgetState createState() =>
+  State<SecendryButtonIconWidget> createState() =>
       _SecendryButtonIconWidgetState();
 }
 

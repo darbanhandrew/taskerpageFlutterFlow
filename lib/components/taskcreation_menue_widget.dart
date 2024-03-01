@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +9,14 @@ export 'taskcreation_menue_model.dart';
 
 class TaskcreationMenueWidget extends StatefulWidget {
   const TaskcreationMenueWidget({
-    Key? key,
+    super.key,
     required this.openDrawer,
-  }) : super(key: key);
+  });
 
-  final Future<dynamic> Function()? openDrawer;
+  final Future Function()? openDrawer;
 
   @override
-  _TaskcreationMenueWidgetState createState() =>
+  State<TaskcreationMenueWidget> createState() =>
       _TaskcreationMenueWidgetState();
 }
 

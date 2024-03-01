@@ -15,7 +15,6 @@ import 'personal_details_widget.dart' show PersonalDetailsWidget;
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -67,6 +66,7 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerModel = createModel(context, () => HeaderModel());
@@ -77,6 +77,7 @@ class PersonalDetailsModel extends FlutterFlowModel<PersonalDetailsWidget> {
     buttonNextModel = createModel(context, () => ButtonNextModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

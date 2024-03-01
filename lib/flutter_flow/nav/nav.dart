@@ -603,6 +603,13 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           builder: (context, params) => EducationListWebRegisterWidget(
             name: params.getParam('name', ParamType.String),
           ),
+        ),
+        FFRoute(
+          name: 'PublishTask_web',
+          path: '/publishTaskWeb',
+          builder: (context, params) => PublishTaskWebWidget(
+            id: params.getParam('id', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );
@@ -716,6 +723,7 @@ class FFRoute {
         name: name,
         path: path,
         pageBuilder: (context, state) {
+          fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
           final page = ffParams.hasFutures
               ? FutureBuilder(

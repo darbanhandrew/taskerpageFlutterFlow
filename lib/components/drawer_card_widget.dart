@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,18 +9,18 @@ export 'drawer_card_model.dart';
 
 class DrawerCardWidget extends StatefulWidget {
   const DrawerCardWidget({
-    Key? key,
+    super.key,
     required this.textButton,
     required this.icon,
     required this.clickAction,
-  }) : super(key: key);
+  });
 
   final String? textButton;
   final Widget? icon;
-  final Future<dynamic> Function()? clickAction;
+  final Future Function()? clickAction;
 
   @override
-  _DrawerCardWidgetState createState() => _DrawerCardWidgetState();
+  State<DrawerCardWidget> createState() => _DrawerCardWidgetState();
 }
 
 class _DrawerCardWidgetState extends State<DrawerCardWidget> {

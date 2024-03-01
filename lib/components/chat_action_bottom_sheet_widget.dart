@@ -4,7 +4,6 @@ import '/components/share_customer_profile_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,16 +12,16 @@ export 'chat_action_bottom_sheet_model.dart';
 
 class ChatActionBottomSheetWidget extends StatefulWidget {
   const ChatActionBottomSheetWidget({
-    Key? key,
+    super.key,
     required this.action,
     required this.chatRoom,
-  }) : super(key: key);
+  });
 
   final String? action;
   final ChatRoomStruct? chatRoom;
 
   @override
-  _ChatActionBottomSheetWidgetState createState() =>
+  State<ChatActionBottomSheetWidget> createState() =>
       _ChatActionBottomSheetWidgetState();
 }
 

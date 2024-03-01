@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'main_drawer_widget.dart' show MainDrawerWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -39,6 +38,7 @@ class MainDrawerModel extends FlutterFlowModel<MainDrawerWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     drawerCardModel1 = createModel(context, () => DrawerCardModel());
     drawerCardModel2 = createModel(context, () => DrawerCardModel());
@@ -52,6 +52,7 @@ class MainDrawerModel extends FlutterFlowModel<MainDrawerWidget> {
     drawerCardModel10 = createModel(context, () => DrawerCardModel());
   }
 
+  @override
   void dispose() {
     drawerCardModel1.dispose();
     drawerCardModel2.dispose();

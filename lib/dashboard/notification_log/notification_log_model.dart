@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'notification_log_widget.dart' show NotificationLogWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +33,7 @@ class NotificationLogModel extends FlutterFlowModel<NotificationLogWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
@@ -44,6 +44,7 @@ class NotificationLogModel extends FlutterFlowModel<NotificationLogWidget> {
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

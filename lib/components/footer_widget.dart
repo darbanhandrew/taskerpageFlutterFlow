@@ -2,7 +2,6 @@ import '/components/button_next_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +10,16 @@ export 'footer_model.dart';
 
 class FooterWidget extends StatefulWidget {
   const FooterWidget({
-    Key? key,
+    super.key,
     required this.textButton,
     required this.action,
-  }) : super(key: key);
+  });
 
   final String? textButton;
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
 
   @override
-  _FooterWidgetState createState() => _FooterWidgetState();
+  State<FooterWidget> createState() => _FooterWidgetState();
 }
 
 class _FooterWidgetState extends State<FooterWidget> {

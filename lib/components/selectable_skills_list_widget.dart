@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,16 +13,16 @@ export 'selectable_skills_list_model.dart';
 
 class SelectableSkillsListWidget extends StatefulWidget {
   const SelectableSkillsListWidget({
-    Key? key,
+    super.key,
     required this.selectedServiceCategory,
     this.selectedSkills,
-  }) : super(key: key);
+  });
 
   final String? selectedServiceCategory;
   final List<SkillStruct>? selectedSkills;
 
   @override
-  _SelectableSkillsListWidgetState createState() =>
+  State<SelectableSkillsListWidget> createState() =>
       _SelectableSkillsListWidgetState();
 }
 

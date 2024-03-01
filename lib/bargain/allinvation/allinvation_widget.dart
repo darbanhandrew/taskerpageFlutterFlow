@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,10 +16,10 @@ import 'allinvation_model.dart';
 export 'allinvation_model.dart';
 
 class AllinvationWidget extends StatefulWidget {
-  const AllinvationWidget({Key? key}) : super(key: key);
+  const AllinvationWidget({super.key});
 
   @override
-  _AllinvationWidgetState createState() => _AllinvationWidgetState();
+  State<AllinvationWidget> createState() => _AllinvationWidgetState();
 }
 
 class _AllinvationWidgetState extends State<AllinvationWidget> {
@@ -45,15 +44,6 @@ class _AllinvationWidgetState extends State<AllinvationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(

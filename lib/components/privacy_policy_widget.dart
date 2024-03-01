@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_google_map.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,14 +10,14 @@ export 'privacy_policy_model.dart';
 
 class PrivacyPolicyWidget extends StatefulWidget {
   const PrivacyPolicyWidget({
-    Key? key,
+    super.key,
     required this.latLong,
-  }) : super(key: key);
+  });
 
   final LatLng? latLong;
 
   @override
-  _PrivacyPolicyWidgetState createState() => _PrivacyPolicyWidgetState();
+  State<PrivacyPolicyWidget> createState() => _PrivacyPolicyWidgetState();
 }
 
 class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {

@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +11,14 @@ export 'mini_task_card_model.dart';
 
 class MiniTaskCardWidget extends StatefulWidget {
   const MiniTaskCardWidget({
-    Key? key,
+    super.key,
     required this.post,
-  }) : super(key: key);
+  });
 
   final dynamic post;
 
   @override
-  _MiniTaskCardWidgetState createState() => _MiniTaskCardWidgetState();
+  State<MiniTaskCardWidget> createState() => _MiniTaskCardWidgetState();
 }
 
 class _MiniTaskCardWidgetState extends State<MiniTaskCardWidget> {

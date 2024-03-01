@@ -3,7 +3,6 @@ import '/components/how_it_works_item_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,14 +11,14 @@ export 'home_page_how_it_works_model.dart';
 
 class HomePageHowItWorksWidget extends StatefulWidget {
   const HomePageHowItWorksWidget({
-    Key? key,
+    super.key,
     required this.howItWorks,
-  }) : super(key: key);
+  });
 
   final HowItWorksInputStruct? howItWorks;
 
   @override
-  _HomePageHowItWorksWidgetState createState() =>
+  State<HomePageHowItWorksWidget> createState() =>
       _HomePageHowItWorksWidgetState();
 }
 

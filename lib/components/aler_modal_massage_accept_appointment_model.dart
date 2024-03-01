@@ -6,7 +6,6 @@ import 'aler_modal_massage_accept_appointment_widget.dart'
     show AlerModalMassageAcceptAppointmentWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,8 +20,10 @@ class AlerModalMassageAcceptAppointmentModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {}
 
   /// Action blocks are added here.

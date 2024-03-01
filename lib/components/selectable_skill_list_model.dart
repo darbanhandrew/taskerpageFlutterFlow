@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'selectable_skill_list_widget.dart' show SelectableSkillListWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +17,12 @@ class SelectableSkillListModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     selectableBoxModels = FlutterFlowDynamicModels(() => SelectableBoxModel());
   }
 
+  @override
   void dispose() {
     selectableBoxModels.dispose();
   }

@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,16 +12,16 @@ export 'view_certificate_model.dart';
 
 class ViewCertificateWidget extends StatefulWidget {
   const ViewCertificateWidget({
-    Key? key,
+    super.key,
     required this.certificateUrl,
     required this.updateCertificateUrl,
-  }) : super(key: key);
+  });
 
   final String? certificateUrl;
-  final Future<dynamic> Function()? updateCertificateUrl;
+  final Future Function()? updateCertificateUrl;
 
   @override
-  _ViewCertificateWidgetState createState() => _ViewCertificateWidgetState();
+  State<ViewCertificateWidget> createState() => _ViewCertificateWidgetState();
 }
 
 class _ViewCertificateWidgetState extends State<ViewCertificateWidget>

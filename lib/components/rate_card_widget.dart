@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,17 +12,16 @@ export 'rate_card_model.dart';
 
 class RateCardWidget extends StatefulWidget {
   const RateCardWidget({
-    Key? key,
+    super.key,
     required this.userRate,
     int? indexInList,
-  })  : this.indexInList = indexInList ?? 0,
-        super(key: key);
+  }) : this.indexInList = indexInList ?? 0;
 
   final UserRateStruct? userRate;
   final int indexInList;
 
   @override
-  _RateCardWidgetState createState() => _RateCardWidgetState();
+  State<RateCardWidget> createState() => _RateCardWidgetState();
 }
 
 class _RateCardWidgetState extends State<RateCardWidget> {

@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,16 +11,16 @@ export 'drop_down_model.dart';
 
 class DropDownWidget extends StatefulWidget {
   const DropDownWidget({
-    Key? key,
+    super.key,
     required this.lableText,
     required this.borderColor,
-  }) : super(key: key);
+  });
 
   final String? lableText;
   final Color? borderColor;
 
   @override
-  _DropDownWidgetState createState() => _DropDownWidgetState();
+  State<DropDownWidget> createState() => _DropDownWidgetState();
 }
 
 class _DropDownWidgetState extends State<DropDownWidget> {

@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,10 @@ import 'edit_number_model.dart';
 export 'edit_number_model.dart';
 
 class EditNumberWidget extends StatefulWidget {
-  const EditNumberWidget({Key? key}) : super(key: key);
+  const EditNumberWidget({super.key});
 
   @override
-  _EditNumberWidgetState createState() => _EditNumberWidgetState();
+  State<EditNumberWidget> createState() => _EditNumberWidgetState();
 }
 
 class _EditNumberWidgetState extends State<EditNumberWidget> {

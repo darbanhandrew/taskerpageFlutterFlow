@@ -13,7 +13,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:page_transition/page_transition.dart';
@@ -24,14 +23,14 @@ export 'id4_model.dart';
 
 class Id4Widget extends StatefulWidget {
   const Id4Widget({
-    Key? key,
+    super.key,
     required this.name,
-  }) : super(key: key);
+  });
 
   final String? name;
 
   @override
-  _Id4WidgetState createState() => _Id4WidgetState();
+  State<Id4Widget> createState() => _Id4WidgetState();
 }
 
 class _Id4WidgetState extends State<Id4Widget> {
@@ -81,15 +80,6 @@ class _Id4WidgetState extends State<Id4Widget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -101,15 +91,16 @@ class _Id4WidgetState extends State<Id4Widget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -209,7 +200,9 @@ class _Id4WidgetState extends State<Id4Widget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 5,
+                            ),
                           ),
                         ),
                       ],
@@ -543,9 +536,13 @@ class _Id4WidgetState extends State<Id4Widget> {
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           children: [
-                                            if (_model.identification
-                                                    ?.hasDocumentUserPhoto() ??
-                                                true)
+                                            if ((_model.identification
+                                                        ?.hasDocumentUserPhoto() ??
+                                                    true) &&
+                                                responsiveVisibility(
+                                                  context: context,
+                                                  desktop: false,
+                                                ))
                                               Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(

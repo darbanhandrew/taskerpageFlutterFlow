@@ -35,12 +35,14 @@ class OnlineAppointmentDeatelsModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navBarModel = createModel(context, () => NavBarModel());
     mainDrawerModel = createModel(context, () => MainDrawerModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

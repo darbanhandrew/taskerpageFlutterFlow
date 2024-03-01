@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,12 +15,12 @@ export 'selectable_skill_details_model.dart';
 
 class SelectableSkillDetailsWidget extends StatefulWidget {
   const SelectableSkillDetailsWidget({
-    Key? key,
+    super.key,
     required this.customerProfileSkills,
     this.selectedCategoryIndex,
     required this.skillCategory,
     required this.selectedCustomerProfileSkill,
-  }) : super(key: key);
+  });
 
   final List<UserServiceStruct>? customerProfileSkills;
   final int? selectedCategoryIndex;
@@ -29,7 +28,7 @@ class SelectableSkillDetailsWidget extends StatefulWidget {
   final UserServiceStruct? selectedCustomerProfileSkill;
 
   @override
-  _SelectableSkillDetailsWidgetState createState() =>
+  State<SelectableSkillDetailsWidget> createState() =>
       _SelectableSkillDetailsWidgetState();
 }
 

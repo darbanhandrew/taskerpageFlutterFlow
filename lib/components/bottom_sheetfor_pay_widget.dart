@@ -7,7 +7,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -17,16 +16,16 @@ export 'bottom_sheetfor_pay_model.dart';
 
 class BottomSheetforPayWidget extends StatefulWidget {
   const BottomSheetforPayWidget({
-    Key? key,
+    super.key,
     required this.planID,
     required this.subscriptionId,
-  }) : super(key: key);
+  });
 
   final String? planID;
   final String? subscriptionId;
 
   @override
-  _BottomSheetforPayWidgetState createState() =>
+  State<BottomSheetforPayWidget> createState() =>
       _BottomSheetforPayWidgetState();
 }
 
@@ -625,7 +624,7 @@ class _BottomSheetforPayWidgetState extends State<BottomSheetforPayWidget>
                             ],
                           ),
                           Text(
-                            '${(_model.grandTotal! - _model.netTotlal!).toString()} €',
+                            '${((_model.grandTotal!) - (_model.netTotlal!)).toString()} €',
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(

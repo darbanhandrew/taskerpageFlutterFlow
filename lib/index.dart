@@ -137,9 +137,9 @@ export '/signin_register/identification/id3/id3_widget.dart' show Id3Widget;
 export '/signin_register/identification/id4/id4_widget.dart' show Id4Widget;
 export '/signin_register/identification/identification_card/identification_card_widget.dart'
     show IdentificationCardWidget;
-export '/signin_register/profiledetails/rate/rate_sign_up/rate_sign_up_widget.dart'
+export '/signin_register/rate/rate_sign_up/rate_sign_up_widget.dart'
     show RateSignUpWidget;
-export '/signin_register/profiledetails/rate/rates_list/rates_list_widget.dart'
+export '/signin_register/rate/rates_list/rates_list_widget.dart'
     show RatesListWidget;
 export '/more/test2/test2_widget.dart' show Test2Widget;
 export '/signin_register/profile/user_profile/user_profile_widget.dart'
@@ -148,9 +148,11 @@ export '/bargain/profile/profile_widget.dart' show ProfileWidget;
 export '/bargain/profile_details_seeting/profile_details_seeting_widget.dart'
     show ProfileDetailsSeetingWidget;
 export '/more/web_page/web_page_widget.dart' show WebPageWidget;
-export '/signin_register/profiledetails/rate/rate_list_web_register/rate_list_web_register_widget.dart'
+export '/signin_register/rate/rate_list_web_register/rate_list_web_register_widget.dart'
     show RateListWebRegisterWidget;
 export '/signin_register/skills/skill_list_web_register/skill_list_web_register_widget.dart'
     show SkillListWebRegisterWidget;
 export '/signin_register/education/education_list_web_register/education_list_web_register_widget.dart'
     show EducationListWebRegisterWidget;
+export '/task_creation/preview/publish_task_web/publish_task_web_widget.dart'
+    show PublishTaskWebWidget;

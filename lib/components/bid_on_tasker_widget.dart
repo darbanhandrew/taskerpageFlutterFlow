@@ -7,7 +7,6 @@ import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -17,18 +16,18 @@ export 'bid_on_tasker_model.dart';
 
 class BidOnTaskerWidget extends StatefulWidget {
   const BidOnTaskerWidget({
-    Key? key,
+    super.key,
     required this.post,
     required this.customerProfile,
     required this.action,
-  }) : super(key: key);
+  });
 
   final String? post;
   final dynamic customerProfile;
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
 
   @override
-  _BidOnTaskerWidgetState createState() => _BidOnTaskerWidgetState();
+  State<BidOnTaskerWidget> createState() => _BidOnTaskerWidgetState();
 }
 
 class _BidOnTaskerWidgetState extends State<BidOnTaskerWidget> {

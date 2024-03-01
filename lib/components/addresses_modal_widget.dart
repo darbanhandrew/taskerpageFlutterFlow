@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,10 +12,10 @@ import 'addresses_modal_model.dart';
 export 'addresses_modal_model.dart';
 
 class AddressesModalWidget extends StatefulWidget {
-  const AddressesModalWidget({Key? key}) : super(key: key);
+  const AddressesModalWidget({super.key});
 
   @override
-  _AddressesModalWidgetState createState() => _AddressesModalWidgetState();
+  State<AddressesModalWidget> createState() => _AddressesModalWidgetState();
 }
 
 class _AddressesModalWidgetState extends State<AddressesModalWidget>

@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,10 +15,10 @@ import 'issue_list_model.dart';
 export 'issue_list_model.dart';
 
 class IssueListWidget extends StatefulWidget {
-  const IssueListWidget({Key? key}) : super(key: key);
+  const IssueListWidget({super.key});
 
   @override
-  _IssueListWidgetState createState() => _IssueListWidgetState();
+  State<IssueListWidget> createState() => _IssueListWidgetState();
 }
 
 class _IssueListWidgetState extends State<IssueListWidget> {
@@ -44,15 +43,6 @@ class _IssueListWidgetState extends State<IssueListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -64,15 +54,16 @@ class _IssueListWidgetState extends State<IssueListWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

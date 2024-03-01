@@ -2,7 +2,6 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,14 +10,14 @@ export 'connection_list_model.dart';
 
 class ConnectionListWidget extends StatefulWidget {
   const ConnectionListWidget({
-    Key? key,
+    super.key,
     this.parameter1,
-  }) : super(key: key);
+  });
 
   final dynamic parameter1;
 
   @override
-  _ConnectionListWidgetState createState() => _ConnectionListWidgetState();
+  State<ConnectionListWidget> createState() => _ConnectionListWidgetState();
 }
 
 class _ConnectionListWidgetState extends State<ConnectionListWidget> {
@@ -90,11 +89,9 @@ class _ConnectionListWidgetState extends State<ConnectionListWidget> {
                       'User_profile',
                       queryParameters: {
                         'id': serializeParam(
-                          TaskerpageBackendGroup.readByEmailCall
-                              .id(
-                                columnReadByEmailResponse.jsonBody,
-                              )
-                              .toString(),
+                          TaskerpageBackendGroup.readByEmailCall.id(
+                            columnReadByEmailResponse.jsonBody,
+                          ),
                           ParamType.String,
                         ),
                       }.withoutNulls,
@@ -180,10 +177,10 @@ class _ConnectionListWidgetState extends State<ConnectionListWidget> {
                               children: [
                                 Text(
                                   '${TaskerpageBackendGroup.readByEmailCall.name(
-                                        columnReadByEmailResponse.jsonBody,
-                                      ).toString()} ${TaskerpageBackendGroup.readByEmailCall.family(
-                                        columnReadByEmailResponse.jsonBody,
-                                      ).toString()}',
+                                    columnReadByEmailResponse.jsonBody,
+                                  )} ${TaskerpageBackendGroup.readByEmailCall.family(
+                                    columnReadByEmailResponse.jsonBody,
+                                  )}',
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

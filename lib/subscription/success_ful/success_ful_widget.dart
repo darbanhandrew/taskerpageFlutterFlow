@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,10 +17,10 @@ import 'success_ful_model.dart';
 export 'success_ful_model.dart';
 
 class SuccessFulWidget extends StatefulWidget {
-  const SuccessFulWidget({Key? key}) : super(key: key);
+  const SuccessFulWidget({super.key});
 
   @override
-  _SuccessFulWidgetState createState() => _SuccessFulWidgetState();
+  State<SuccessFulWidget> createState() => _SuccessFulWidgetState();
 }
 
 class _SuccessFulWidgetState extends State<SuccessFulWidget>
@@ -90,15 +89,6 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -110,15 +100,16 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -142,10 +133,16 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 250.0,
                       height: 37.0,
                       decoration: BoxDecoration(
                         color: Color(0xFFF6F6F6),
+                        boxShadow: [
+                          BoxShadow(
+                            blurRadius: 4.0,
+                            color: Color(0x33000000),
+                            offset: Offset(0.0, 2.0),
+                          )
+                        ],
                         borderRadius: BorderRadius.circular(10.0),
                       ),
                       child: Padding(
@@ -182,7 +179,7 @@ class _SuccessFulWidgetState extends State<SuccessFulWidget>
                                     fontWeight: FontWeight.w500,
                                   ),
                             ),
-                          ],
+                          ].divide(SizedBox(width: 8.0)),
                         ),
                       ),
                     ).animateOnPageLoad(

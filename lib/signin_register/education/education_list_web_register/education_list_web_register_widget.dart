@@ -10,7 +10,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -21,15 +20,14 @@ export 'education_list_web_register_model.dart';
 
 class EducationListWebRegisterWidget extends StatefulWidget {
   const EducationListWebRegisterWidget({
-    Key? key,
+    super.key,
     String? name,
-  })  : this.name = name ?? 'new',
-        super(key: key);
+  }) : this.name = name ?? 'new';
 
   final String name;
 
   @override
-  _EducationListWebRegisterWidgetState createState() =>
+  State<EducationListWebRegisterWidget> createState() =>
       _EducationListWebRegisterWidgetState();
 }
 
@@ -90,15 +88,6 @@ class _EducationListWebRegisterWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -110,15 +99,16 @@ class _EducationListWebRegisterWidgetState
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -218,7 +208,9 @@ class _EducationListWebRegisterWidgetState
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 6,
+                            ),
                           ),
                         ),
                       ],

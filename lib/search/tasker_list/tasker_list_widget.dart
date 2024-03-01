@@ -17,7 +17,6 @@ import 'dart:async';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -27,10 +26,10 @@ import 'tasker_list_model.dart';
 export 'tasker_list_model.dart';
 
 class TaskerListWidget extends StatefulWidget {
-  const TaskerListWidget({Key? key}) : super(key: key);
+  const TaskerListWidget({super.key});
 
   @override
-  _TaskerListWidgetState createState() => _TaskerListWidgetState();
+  State<TaskerListWidget> createState() => _TaskerListWidgetState();
 }
 
 class _TaskerListWidgetState extends State<TaskerListWidget>
@@ -98,15 +97,6 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
     if (currentUserLocationValue == null) {
       return Container(
@@ -134,15 +124,16 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -247,35 +238,37 @@ class _TaskerListWidgetState extends State<TaskerListWidget>
                                                       context: context,
                                                       builder: (context) {
                                                         return WebViewAware(
-                                                            child:
-                                                                GestureDetector(
-                                                          onTap: () => _model
-                                                                  .unfocusNode
-                                                                  .canRequestFocus
-                                                              ? FocusScope.of(
-                                                                      context)
-                                                                  .requestFocus(
-                                                                      _model
-                                                                          .unfocusNode)
-                                                              : FocusScope.of(
-                                                                      context)
-                                                                  .unfocus(),
-                                                          child: Padding(
-                                                            padding: MediaQuery
-                                                                .viewInsetsOf(
-                                                                    context),
-                                                            child:
-                                                                TaskerFilterWidget(
-                                                              action: () async {
-                                                                setState(() =>
-                                                                    _model.apiRequestCompleter2 =
-                                                                        null);
-                                                                await _model
-                                                                    .waitForApiRequestCompleted2();
-                                                              },
+                                                          child:
+                                                              GestureDetector(
+                                                            onTap: () => _model
+                                                                    .unfocusNode
+                                                                    .canRequestFocus
+                                                                ? FocusScope.of(
+                                                                        context)
+                                                                    .requestFocus(
+                                                                        _model
+                                                                            .unfocusNode)
+                                                                : FocusScope.of(
+                                                                        context)
+                                                                    .unfocus(),
+                                                            child: Padding(
+                                                              padding: MediaQuery
+                                                                  .viewInsetsOf(
+                                                                      context),
+                                                              child:
+                                                                  TaskerFilterWidget(
+                                                                action:
+                                                                    () async {
+                                                                  setState(() =>
+                                                                      _model.apiRequestCompleter2 =
+                                                                          null);
+                                                                  await _model
+                                                                      .waitForApiRequestCompleted2();
+                                                                },
+                                                              ),
                                                             ),
                                                           ),
-                                                        ));
+                                                        );
                                                       },
                                                     ).then((value) =>
                                                         safeSetState(() => _model

@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,18 +10,18 @@ export 'selectable_box_model.dart';
 
 class SelectableBoxWidget extends StatefulWidget {
   const SelectableBoxWidget({
-    Key? key,
+    super.key,
     required this.label,
     required this.value,
     required this.isActive,
-  }) : super(key: key);
+  });
 
   final String? label;
   final dynamic value;
   final bool? isActive;
 
   @override
-  _SelectableBoxWidgetState createState() => _SelectableBoxWidgetState();
+  State<SelectableBoxWidget> createState() => _SelectableBoxWidgetState();
 }
 
 class _SelectableBoxWidgetState extends State<SelectableBoxWidget> {

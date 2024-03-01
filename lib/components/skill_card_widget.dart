@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,18 +14,18 @@ export 'skill_card_model.dart';
 
 class SkillCardWidget extends StatefulWidget {
   const SkillCardWidget({
-    Key? key,
+    super.key,
     required this.userService,
     required this.action,
     required this.index,
-  }) : super(key: key);
+  });
 
   final UserServiceStruct? userService;
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
   final int? index;
 
   @override
-  _SkillCardWidgetState createState() => _SkillCardWidgetState();
+  State<SkillCardWidget> createState() => _SkillCardWidgetState();
 }
 
 class _SkillCardWidgetState extends State<SkillCardWidget> {

@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,10 +14,10 @@ import 'edit_email_or_pass_copy_model.dart';
 export 'edit_email_or_pass_copy_model.dart';
 
 class EditEmailOrPassCopyWidget extends StatefulWidget {
-  const EditEmailOrPassCopyWidget({Key? key}) : super(key: key);
+  const EditEmailOrPassCopyWidget({super.key});
 
   @override
-  _EditEmailOrPassCopyWidgetState createState() =>
+  State<EditEmailOrPassCopyWidget> createState() =>
       _EditEmailOrPassCopyWidgetState();
 }
 

@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,10 +12,10 @@ import 'drope_down_languages_post_model.dart';
 export 'drope_down_languages_post_model.dart';
 
 class DropeDownLanguagesPostWidget extends StatefulWidget {
-  const DropeDownLanguagesPostWidget({Key? key}) : super(key: key);
+  const DropeDownLanguagesPostWidget({super.key});
 
   @override
-  _DropeDownLanguagesPostWidgetState createState() =>
+  State<DropeDownLanguagesPostWidget> createState() =>
       _DropeDownLanguagesPostWidgetState();
 }
 

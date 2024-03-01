@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,15 +17,14 @@ export 'skills3_model.dart';
 
 class Skills3Widget extends StatefulWidget {
   const Skills3Widget({
-    Key? key,
+    super.key,
     bool? addAnother,
-  })  : this.addAnother = addAnother ?? false,
-        super(key: key);
+  }) : this.addAnother = addAnother ?? false;
 
   final bool addAnother;
 
   @override
-  _Skills3WidgetState createState() => _Skills3WidgetState();
+  State<Skills3Widget> createState() => _Skills3WidgetState();
 }
 
 class _Skills3WidgetState extends State<Skills3Widget> {
@@ -51,15 +49,13 @@ class _Skills3WidgetState extends State<Skills3Widget> {
       );
       if ((_model.mySkillCategories?.succeeded ?? true)) {
         setState(() {
-          _model.chosenSkillCategory = (TaskerpageBackendGroup
-                  .getMySkillCategoriesCall
+          _model.chosenSkillCategory =
+              TaskerpageBackendGroup.getMySkillCategoriesCall
                   .mySkillCategoryNames(
-            (_model.mySkillCategories?.jsonBody ?? ''),
-          ) as List)
-              .map<String>((s) => s.toString())
-              .toList()!
-              .toList()
-              .cast<String>();
+                    (_model.mySkillCategories?.jsonBody ?? ''),
+                  )!
+                  .toList()
+                  .cast<String>();
         });
       }
     });
@@ -76,15 +72,6 @@ class _Skills3WidgetState extends State<Skills3Widget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -96,15 +83,16 @@ class _Skills3WidgetState extends State<Skills3Widget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -180,7 +168,9 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 3,
+                            ),
                           ),
                         ),
                       ],
@@ -252,7 +242,7 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                             getJsonField(
                                               FFAppState().userProfile,
                                               r'''$.data.role_profile_name''',
-                                            ).toString(),
+                                            )?.toString(),
                                             'End User',
                                           )}',
                                           requestFn: () =>
@@ -263,7 +253,7 @@ class _Skills3WidgetState extends State<Skills3Widget> {
                                               getJsonField(
                                                 FFAppState().userProfile,
                                                 r'''$.data.role_profile_name''',
-                                              ).toString(),
+                                              )?.toString(),
                                               'End User',
                                             ),
                                             apiGlobalKey: FFAppState().apiKey,

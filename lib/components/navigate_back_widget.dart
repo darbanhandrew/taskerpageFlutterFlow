@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +9,14 @@ export 'navigate_back_model.dart';
 
 class NavigateBackWidget extends StatefulWidget {
   const NavigateBackWidget({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
 
   final String? text;
 
   @override
-  _NavigateBackWidgetState createState() => _NavigateBackWidgetState();
+  State<NavigateBackWidget> createState() => _NavigateBackWidgetState();
 }
 
 class _NavigateBackWidgetState extends State<NavigateBackWidget> {

@@ -12,7 +12,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,10 +21,10 @@ import 'posters_dashboard_model.dart';
 export 'posters_dashboard_model.dart';
 
 class PostersDashboardWidget extends StatefulWidget {
-  const PostersDashboardWidget({Key? key}) : super(key: key);
+  const PostersDashboardWidget({super.key});
 
   @override
-  _PostersDashboardWidgetState createState() => _PostersDashboardWidgetState();
+  State<PostersDashboardWidget> createState() => _PostersDashboardWidgetState();
 }
 
 class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
@@ -50,15 +49,6 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -92,22 +82,23 @@ class _PostersDashboardWidgetState extends State<PostersDashboardWidget> {
             backgroundColor: Colors.white,
             drawer: Container(
               width: MediaQuery.sizeOf(context).width * 0.85,
-              child: WebViewAware(
-                  child: Drawer(
+              child: Drawer(
                 elevation: 16.0,
-                child: Container(
-                  width: 100.0,
-                  height: 100.0,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFE8EAFF),
-                  ),
-                  child: wrapWithModel(
-                    model: _model.drawerContentModel,
-                    updateCallback: () => setState(() {}),
-                    child: DrawerContentWidget(),
+                child: WebViewAware(
+                  child: Container(
+                    width: 100.0,
+                    height: 100.0,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFE8EAFF),
+                    ),
+                    child: wrapWithModel(
+                      model: _model.drawerContentModel,
+                      updateCallback: () => setState(() {}),
+                      child: DrawerContentWidget(),
+                    ),
                   ),
                 ),
-              )),
+              ),
             ),
             body: SafeArea(
               top: true,

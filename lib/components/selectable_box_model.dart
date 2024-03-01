@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'selectable_box_widget.dart' show SelectableBoxWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +17,10 @@ class SelectableBoxModel extends FlutterFlowModel<SelectableBoxWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {}
 
+  @override
   void dispose() {
     textFieldFocusNode?.dispose();
     textController?.dispose();

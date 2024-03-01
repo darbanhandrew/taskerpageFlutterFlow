@@ -13,7 +13,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,15 +22,14 @@ export 'rates_list_model.dart';
 
 class RatesListWidget extends StatefulWidget {
   const RatesListWidget({
-    Key? key,
+    super.key,
     bool? isEdit,
-  })  : this.isEdit = isEdit ?? true,
-        super(key: key);
+  }) : this.isEdit = isEdit ?? true;
 
   final bool isEdit;
 
   @override
-  _RatesListWidgetState createState() => _RatesListWidgetState();
+  State<RatesListWidget> createState() => _RatesListWidgetState();
 }
 
 class _RatesListWidgetState extends State<RatesListWidget> {
@@ -56,15 +54,6 @@ class _RatesListWidgetState extends State<RatesListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -76,15 +65,16 @@ class _RatesListWidgetState extends State<RatesListWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

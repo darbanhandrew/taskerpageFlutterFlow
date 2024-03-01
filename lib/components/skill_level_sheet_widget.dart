@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,14 +16,14 @@ export 'skill_level_sheet_model.dart';
 
 class SkillLevelSheetWidget extends StatefulWidget {
   const SkillLevelSheetWidget({
-    Key? key,
+    super.key,
     required this.userService,
-  }) : super(key: key);
+  });
 
   final dynamic userService;
 
   @override
-  _SkillLevelSheetWidgetState createState() => _SkillLevelSheetWidgetState();
+  State<SkillLevelSheetWidget> createState() => _SkillLevelSheetWidgetState();
 }
 
 class _SkillLevelSheetWidgetState extends State<SkillLevelSheetWidget> {

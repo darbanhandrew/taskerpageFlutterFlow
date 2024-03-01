@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,16 +9,16 @@ export 'filter_header_model.dart';
 
 class FilterHeaderWidget extends StatefulWidget {
   const FilterHeaderWidget({
-    Key? key,
+    super.key,
     required this.taskORtasker,
     required this.filterAction,
-  }) : super(key: key);
+  });
 
   final String? taskORtasker;
-  final Future<dynamic> Function()? filterAction;
+  final Future Function()? filterAction;
 
   @override
-  _FilterHeaderWidgetState createState() => _FilterHeaderWidgetState();
+  State<FilterHeaderWidget> createState() => _FilterHeaderWidgetState();
 }
 
 class _FilterHeaderWidgetState extends State<FilterHeaderWidget> {

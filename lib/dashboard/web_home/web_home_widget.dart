@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_web_view.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -15,10 +14,10 @@ import 'web_home_model.dart';
 export 'web_home_model.dart';
 
 class WebHomeWidget extends StatefulWidget {
-  const WebHomeWidget({Key? key}) : super(key: key);
+  const WebHomeWidget({super.key});
 
   @override
-  _WebHomeWidgetState createState() => _WebHomeWidgetState();
+  State<WebHomeWidget> createState() => _WebHomeWidgetState();
 }
 
 class _WebHomeWidgetState extends State<WebHomeWidget> {
@@ -43,15 +42,6 @@ class _WebHomeWidgetState extends State<WebHomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -63,15 +53,16 @@ class _WebHomeWidgetState extends State<WebHomeWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

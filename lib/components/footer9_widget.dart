@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,14 +9,14 @@ export 'footer9_model.dart';
 
 class Footer9Widget extends StatefulWidget {
   const Footer9Widget({
-    Key? key,
+    super.key,
     required this.textButton,
-  }) : super(key: key);
+  });
 
   final String? textButton;
 
   @override
-  _Footer9WidgetState createState() => _Footer9WidgetState();
+  State<Footer9Widget> createState() => _Footer9WidgetState();
 }
 
 class _Footer9WidgetState extends State<Footer9Widget> {

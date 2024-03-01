@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,10 +12,10 @@ import 'drope_down_languages_model.dart';
 export 'drope_down_languages_model.dart';
 
 class DropeDownLanguagesWidget extends StatefulWidget {
-  const DropeDownLanguagesWidget({Key? key}) : super(key: key);
+  const DropeDownLanguagesWidget({super.key});
 
   @override
-  _DropeDownLanguagesWidgetState createState() =>
+  State<DropeDownLanguagesWidget> createState() =>
       _DropeDownLanguagesWidgetState();
 }
 
@@ -326,7 +325,7 @@ class _DropeDownLanguagesWidgetState extends State<DropeDownLanguagesWidget>
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Flexible(
+                  Expanded(
                     child: Container(
                       height: 100.0,
                       decoration: BoxDecoration(

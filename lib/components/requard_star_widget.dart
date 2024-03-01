@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'requard_star_model.dart';
 export 'requard_star_model.dart';
 
 class RequardStarWidget extends StatefulWidget {
-  const RequardStarWidget({Key? key}) : super(key: key);
+  const RequardStarWidget({super.key});
 
   @override
-  _RequardStarWidgetState createState() => _RequardStarWidgetState();
+  State<RequardStarWidget> createState() => _RequardStarWidgetState();
 }
 
 class _RequardStarWidgetState extends State<RequardStarWidget> {

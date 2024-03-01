@@ -4,10 +4,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/custom_code/actions/index.dart' as actions;
 import '/flutter_flow/custom_functions.dart' as functions;
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -17,14 +15,14 @@ export 'header_model.dart';
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({
-    Key? key,
+    super.key,
     required this.openDrawer,
-  }) : super(key: key);
+  });
 
-  final Future<dynamic> Function()? openDrawer;
+  final Future Function()? openDrawer;
 
   @override
-  _HeaderWidgetState createState() => _HeaderWidgetState();
+  State<HeaderWidget> createState() => _HeaderWidgetState();
 }
 
 class _HeaderWidgetState extends State<HeaderWidget> {
@@ -71,24 +69,23 @@ class _HeaderWidgetState extends State<HeaderWidget> {
       await actions.listenSocketEvent(
         'notification',
         () async {
-          await showAlignedDialog(
+          await showDialog(
             barrierColor: Colors.transparent,
             context: context,
-            isGlobal: true,
-            avoidOverflow: false,
-            targetAnchor: AlignmentDirectional(0.0, 0.0)
-                .resolve(Directionality.of(context)),
-            followerAnchor: AlignmentDirectional(1.0, -1.0)
-                .resolve(Directionality.of(context)),
             builder: (dialogContext) {
-              return Material(
-                color: Colors.transparent,
+              return Dialog(
+                elevation: 0,
+                insetPadding: EdgeInsets.zero,
+                backgroundColor: Colors.transparent,
+                alignment: AlignmentDirectional(1.0, -1.0)
+                    .resolve(Directionality.of(context)),
                 child: WebViewAware(
-                    child: Container(
-                  height: 200.0,
-                  width: MediaQuery.sizeOf(context).width * 0.3,
-                  child: NotificationComponentWidget(),
-                )),
+                  child: Container(
+                    height: 200.0,
+                    width: MediaQuery.sizeOf(context).width * 0.3,
+                    child: NotificationComponentWidget(),
+                  ),
+                ),
               );
             },
           ).then((value) => setState(() {}));

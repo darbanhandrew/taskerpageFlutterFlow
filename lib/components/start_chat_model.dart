@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'start_chat_widget.dart' show StartChatWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -20,10 +19,12 @@ class StartChatModel extends FlutterFlowModel<StartChatWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     taskCardModel = createModel(context, () => TaskCardModel());
   }
 
+  @override
   void dispose() {
     taskCardModel.dispose();
   }

@@ -13,7 +13,6 @@ import 'dart:async';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -23,16 +22,16 @@ export 'chat_list_model.dart';
 
 class ChatListWidget extends StatefulWidget {
   const ChatListWidget({
-    Key? key,
+    super.key,
     required this.task,
     this.myPost,
-  }) : super(key: key);
+  });
 
   final int? task;
   final dynamic myPost;
 
   @override
-  _ChatListWidgetState createState() => _ChatListWidgetState();
+  State<ChatListWidget> createState() => _ChatListWidgetState();
 }
 
 class _ChatListWidgetState extends State<ChatListWidget> {
@@ -92,15 +91,6 @@ class _ChatListWidgetState extends State<ChatListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -112,15 +102,16 @@ class _ChatListWidgetState extends State<ChatListWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -517,15 +508,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                           Text(
                                             functions
                                                 .numberofListitems(
-                                                    (TaskerpageBackendGroup
-                                                            .getMyTasksGroupByCall
-                                                            .users(
-                                                  containerGetMyTasksGroupByResponse
-                                                      .jsonBody,
-                                                ) as List)
-                                                        .map<String>(
-                                                            (s) => s.toString())
-                                                        .toList()
+                                                    TaskerpageBackendGroup
+                                                        .getMyTasksGroupByCall
+                                                        .users(
+                                                          containerGetMyTasksGroupByResponse
+                                                              .jsonBody,
+                                                        )
                                                         ?.map(
                                                             (e) => e.toString())
                                                         .toList()
@@ -657,9 +645,9 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                                     ),
                                                     child: Image.network(
                                                       '${FFAppState().baseUrl}${TaskerpageBackendGroup.readByEmailCall.avatar(
-                                                            circleImageReadByEmailResponse
-                                                                .jsonBody,
-                                                          ).toString()}',
+                                                        circleImageReadByEmailResponse
+                                                            .jsonBody,
+                                                      )}',
                                                       fit: BoxFit.cover,
                                                     ),
                                                   );
@@ -762,15 +750,12 @@ class _ChatListWidgetState extends State<ChatListWidget> {
                                           Text(
                                             functions
                                                 .numberofListitems(
-                                                    (TaskerpageBackendGroup
-                                                            .chatListCall
-                                                            .name(
-                                                  containerChatListResponse
-                                                      .jsonBody,
-                                                ) as List)
-                                                        .map<String>(
-                                                            (s) => s.toString())
-                                                        .toList()
+                                                    TaskerpageBackendGroup
+                                                        .chatListCall
+                                                        .name(
+                                                          containerChatListResponse
+                                                              .jsonBody,
+                                                        )
                                                         ?.toList())
                                                 .toString(),
                                             style: FlutterFlowTheme.of(context)

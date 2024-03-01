@@ -18,7 +18,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'identification_card_widget.dart' show IdentificationCardWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -58,6 +57,7 @@ class IdentificationCardModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
@@ -71,6 +71,7 @@ class IdentificationCardModel
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

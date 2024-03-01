@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -14,16 +13,16 @@ export 'address_card_model.dart';
 
 class AddressCardWidget extends StatefulWidget {
   const AddressCardWidget({
-    Key? key,
+    super.key,
     required this.address,
     required this.action,
-  }) : super(key: key);
+  });
 
   final dynamic address;
-  final Future<dynamic> Function()? action;
+  final Future Function()? action;
 
   @override
-  _AddressCardWidgetState createState() => _AddressCardWidgetState();
+  State<AddressCardWidget> createState() => _AddressCardWidgetState();
 }
 
 class _AddressCardWidgetState extends State<AddressCardWidget> {
@@ -300,18 +299,19 @@ class _AddressCardWidgetState extends State<AddressCardWidget> {
                           context: context,
                           builder: (alertDialogContext) {
                             return WebViewAware(
-                                child: AlertDialog(
-                              title: Text('LinkExistsError'),
-                              content: Text(
-                                  'you cant remove this address , This address has been used somewhere before !'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () =>
-                                      Navigator.pop(alertDialogContext),
-                                  child: Text('Ok'),
-                                ),
-                              ],
-                            ));
+                              child: AlertDialog(
+                                title: Text('LinkExistsError'),
+                                content: Text(
+                                    'you cant remove this address , This address has been used somewhere before !'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              ),
+                            );
                           },
                         );
                       }

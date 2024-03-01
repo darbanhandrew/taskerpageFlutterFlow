@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +11,10 @@ import 'visit_card_model.dart';
 export 'visit_card_model.dart';
 
 class VisitCardWidget extends StatefulWidget {
-  const VisitCardWidget({Key? key}) : super(key: key);
+  const VisitCardWidget({super.key});
 
   @override
-  _VisitCardWidgetState createState() => _VisitCardWidgetState();
+  State<VisitCardWidget> createState() => _VisitCardWidgetState();
 }
 
 class _VisitCardWidgetState extends State<VisitCardWidget> {

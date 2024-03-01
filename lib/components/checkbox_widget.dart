@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,18 +9,18 @@ export 'checkbox_model.dart';
 
 class CheckboxWidget extends StatefulWidget {
   const CheckboxWidget({
-    Key? key,
+    super.key,
     required this.selected,
     required this.trueIcon,
     required this.falsIcon,
-  }) : super(key: key);
+  });
 
   final bool? selected;
   final Widget? trueIcon;
   final Widget? falsIcon;
 
   @override
-  _CheckboxWidgetState createState() => _CheckboxWidgetState();
+  State<CheckboxWidget> createState() => _CheckboxWidgetState();
 }
 
 class _CheckboxWidgetState extends State<CheckboxWidget> {

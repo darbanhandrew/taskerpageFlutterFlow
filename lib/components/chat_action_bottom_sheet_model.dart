@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'chat_action_bottom_sheet_widget.dart' show ChatActionBottomSheetWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -31,12 +30,14 @@ class ChatActionBottomSheetModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     setAppointmentModel = createModel(context, () => SetAppointmentModel());
     shareCustomerProfileModel =
         createModel(context, () => ShareCustomerProfileModel());
   }
 
+  @override
   void dispose() {
     setAppointmentModel.dispose();
     shareCustomerProfileModel.dispose();

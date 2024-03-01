@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ export 'categories_card_model.dart';
 
 class CategoriesCardWidget extends StatefulWidget {
   const CategoriesCardWidget({
-    Key? key,
+    super.key,
     required this.categoriesCard,
-  }) : super(key: key);
+  });
 
   final CategoriesCardInputStruct? categoriesCard;
 
   @override
-  _CategoriesCardWidgetState createState() => _CategoriesCardWidgetState();
+  State<CategoriesCardWidget> createState() => _CategoriesCardWidgetState();
 }
 
 class _CategoriesCardWidgetState extends State<CategoriesCardWidget> {

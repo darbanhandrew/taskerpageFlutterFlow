@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,16 +9,16 @@ export 'notification_model.dart';
 
 class NotificationWidget extends StatefulWidget {
   const NotificationWidget({
-    Key? key,
+    super.key,
     required this.title,
     required this.message,
-  }) : super(key: key);
+  });
 
   final String? title;
   final String? message;
 
   @override
-  _NotificationWidgetState createState() => _NotificationWidgetState();
+  State<NotificationWidget> createState() => _NotificationWidgetState();
 }
 
 class _NotificationWidgetState extends State<NotificationWidget> {

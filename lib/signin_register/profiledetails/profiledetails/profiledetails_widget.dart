@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/actions/actions.dart' as action_blocks;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -21,10 +20,10 @@ import 'profiledetails_model.dart';
 export 'profiledetails_model.dart';
 
 class ProfiledetailsWidget extends StatefulWidget {
-  const ProfiledetailsWidget({Key? key}) : super(key: key);
+  const ProfiledetailsWidget({super.key});
 
   @override
-  _ProfiledetailsWidgetState createState() => _ProfiledetailsWidgetState();
+  State<ProfiledetailsWidget> createState() => _ProfiledetailsWidgetState();
 }
 
 class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
@@ -56,15 +55,6 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -76,15 +66,16 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -155,8 +146,8 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
                   0.0,
                 )),
             child: Container(
-              width: double.infinity,
-              height: double.infinity,
+              width: MediaQuery.sizeOf(context).width * 1.0,
+              height: MediaQuery.sizeOf(context).height * 1.0,
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
                 boxShadow: [
@@ -184,7 +175,9 @@ class _ProfiledetailsWidgetState extends State<ProfiledetailsWidget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 4,
+                            ),
                           ),
                         ),
                       ],

@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'edit_email_password_model.dart';
 export 'edit_email_password_model.dart';
 
 class EditEmailPasswordWidget extends StatefulWidget {
-  const EditEmailPasswordWidget({Key? key}) : super(key: key);
+  const EditEmailPasswordWidget({super.key});
 
   @override
-  _EditEmailPasswordWidgetState createState() =>
+  State<EditEmailPasswordWidget> createState() =>
       _EditEmailPasswordWidgetState();
 }
 

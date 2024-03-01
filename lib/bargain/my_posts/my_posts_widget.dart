@@ -12,7 +12,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -21,10 +20,10 @@ import 'my_posts_model.dart';
 export 'my_posts_model.dart';
 
 class MyPostsWidget extends StatefulWidget {
-  const MyPostsWidget({Key? key}) : super(key: key);
+  const MyPostsWidget({super.key});
 
   @override
-  _MyPostsWidgetState createState() => _MyPostsWidgetState();
+  State<MyPostsWidget> createState() => _MyPostsWidgetState();
 }
 
 class _MyPostsWidgetState extends State<MyPostsWidget> {
@@ -49,15 +48,6 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -69,15 +59,16 @@ class _MyPostsWidgetState extends State<MyPostsWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

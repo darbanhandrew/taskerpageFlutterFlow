@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -18,10 +17,10 @@ import 'profile_intersted_model.dart';
 export 'profile_intersted_model.dart';
 
 class ProfileInterstedWidget extends StatefulWidget {
-  const ProfileInterstedWidget({Key? key}) : super(key: key);
+  const ProfileInterstedWidget({super.key});
 
   @override
-  _ProfileInterstedWidgetState createState() => _ProfileInterstedWidgetState();
+  State<ProfileInterstedWidget> createState() => _ProfileInterstedWidgetState();
 }
 
 class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
@@ -46,15 +45,6 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -66,15 +56,16 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -126,7 +117,9 @@ class _ProfileInterstedWidgetState extends State<ProfileInterstedWidget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 1,
+                            ),
                           ),
                         ),
                       ],

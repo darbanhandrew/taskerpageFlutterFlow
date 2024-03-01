@@ -104,8 +104,7 @@ class FFAppState extends ChangeNotifier {
       _INPERSON = prefs.getString('ff_INPERSON') ?? _INPERSON;
     });
     _safeInit(() {
-      _location =
-          _latLngFromString(prefs.getString('ff_location')) ?? _location;
+      _location = latLngFromString(prefs.getString('ff_location')) ?? _location;
     });
     _safeInit(() {
       _selectedServiceCategory = prefs
@@ -1149,16 +1148,6 @@ class FFAppState extends ChangeNotifier {
   void clearAppRoleDetailsCache() => _appRoleDetailsManager.clear();
   void clearAppRoleDetailsCacheKey(String? uniqueKey) =>
       _appRoleDetailsManager.clearRequest(uniqueKey);
-}
-
-LatLng? _latLngFromString(String? val) {
-  if (val == null) {
-    return null;
-  }
-  final split = val.split(',');
-  final lat = double.parse(split.first);
-  final lng = double.parse(split.last);
-  return LatLng(lat, lng);
 }
 
 void _safeInit(Function() initializeField) {

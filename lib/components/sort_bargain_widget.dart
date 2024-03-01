@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'sort_bargain_model.dart';
 export 'sort_bargain_model.dart';
 
 class SortBargainWidget extends StatefulWidget {
-  const SortBargainWidget({Key? key}) : super(key: key);
+  const SortBargainWidget({super.key});
 
   @override
-  _SortBargainWidgetState createState() => _SortBargainWidgetState();
+  State<SortBargainWidget> createState() => _SortBargainWidgetState();
 }
 
 class _SortBargainWidgetState extends State<SortBargainWidget> {

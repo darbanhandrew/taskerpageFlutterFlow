@@ -11,7 +11,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,10 +20,10 @@ import 'contactdata7_model.dart';
 export 'contactdata7_model.dart';
 
 class Contactdata7Widget extends StatefulWidget {
-  const Contactdata7Widget({Key? key}) : super(key: key);
+  const Contactdata7Widget({super.key});
 
   @override
-  _Contactdata7WidgetState createState() => _Contactdata7WidgetState();
+  State<Contactdata7Widget> createState() => _Contactdata7WidgetState();
 }
 
 class _Contactdata7WidgetState extends State<Contactdata7Widget>
@@ -126,15 +125,6 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -146,15 +136,16 @@ class _Contactdata7WidgetState extends State<Contactdata7Widget>
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

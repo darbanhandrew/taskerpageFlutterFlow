@@ -8,11 +8,10 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/signin_register/profiledetails/rate/my_skill/my_skill_widget.dart';
+import '/signin_register/rate/my_skill/my_skill_widget.dart';
 import '/backend/schema/structs/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -23,15 +22,14 @@ export 'rate_sign_up_model.dart';
 
 class RateSignUpWidget extends StatefulWidget {
   const RateSignUpWidget({
-    Key? key,
+    super.key,
     String? name,
-  })  : this.name = name ?? 'new',
-        super(key: key);
+  }) : this.name = name ?? 'new';
 
   final String name;
 
   @override
-  _RateSignUpWidgetState createState() => _RateSignUpWidgetState();
+  State<RateSignUpWidget> createState() => _RateSignUpWidgetState();
 }
 
 class _RateSignUpWidgetState extends State<RateSignUpWidget> {
@@ -98,15 +96,6 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -118,15 +107,16 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -226,7 +216,9 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 7,
+                            ),
                           ),
                         ),
                       ],
@@ -359,30 +351,30 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                                           context: context,
                                                           builder: (context) {
                                                             return WebViewAware(
-                                                                child:
-                                                                    GestureDetector(
-                                                              onTap: () => _model
-                                                                      .unfocusNode
-                                                                      .canRequestFocus
-                                                                  ? FocusScope.of(
-                                                                          context)
-                                                                      .requestFocus(
-                                                                          _model
-                                                                              .unfocusNode)
-                                                                  : FocusScope.of(
-                                                                          context)
-                                                                      .unfocus(),
-                                                              child: Padding(
-                                                                padding: MediaQuery
-                                                                    .viewInsetsOf(
-                                                                        context),
-                                                                child:
-                                                                    MySkillWidget(
-                                                                  userRate: _model
-                                                                      .userRate,
+                                                              child:
+                                                                  GestureDetector(
+                                                                onTap: () => _model
+                                                                        .unfocusNode
+                                                                        .canRequestFocus
+                                                                    ? FocusScope.of(
+                                                                            context)
+                                                                        .requestFocus(_model
+                                                                            .unfocusNode)
+                                                                    : FocusScope.of(
+                                                                            context)
+                                                                        .unfocus(),
+                                                                child: Padding(
+                                                                  padding: MediaQuery
+                                                                      .viewInsetsOf(
+                                                                          context),
+                                                                  child:
+                                                                      MySkillWidget(
+                                                                    userRate: _model
+                                                                        .userRate,
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ));
+                                                            );
                                                           },
                                                         ).then((value) =>
                                                             safeSetState(() =>
@@ -885,7 +877,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      0.0),
+                                                                      8.0),
                                                         ),
                                                         focusedBorder:
                                                             UnderlineInputBorder(
@@ -899,7 +891,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      0.0),
+                                                                      8.0),
                                                         ),
                                                         errorBorder:
                                                             UnderlineInputBorder(
@@ -913,7 +905,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      0.0),
+                                                                      8.0),
                                                         ),
                                                         focusedErrorBorder:
                                                             UnderlineInputBorder(
@@ -927,7 +919,7 @@ class _RateSignUpWidgetState extends State<RateSignUpWidget> {
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
-                                                                      0.0),
+                                                                      8.0),
                                                         ),
                                                       ),
                                                       style:

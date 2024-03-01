@@ -9,7 +9,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,14 +19,14 @@ export 'scaned_q_r_c_o_d_e_model.dart';
 
 class ScanedQRCODEWidget extends StatefulWidget {
   const ScanedQRCODEWidget({
-    Key? key,
+    super.key,
     required this.appointmentID,
-  }) : super(key: key);
+  });
 
   final int? appointmentID;
 
   @override
-  _ScanedQRCODEWidgetState createState() => _ScanedQRCODEWidgetState();
+  State<ScanedQRCODEWidget> createState() => _ScanedQRCODEWidgetState();
 }
 
 class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
@@ -84,16 +83,17 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
             context: context,
             builder: (alertDialogContext) {
               return WebViewAware(
-                  child: AlertDialog(
-                title: Text('identification '),
-                content: Text('your appopointment is done'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(alertDialogContext),
-                    child: Text('Ok'),
-                  ),
-                ],
-              ));
+                child: AlertDialog(
+                  title: Text('identification '),
+                  content: Text('your appopointment is done'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(alertDialogContext),
+                      child: Text('Ok'),
+                    ),
+                  ],
+                ),
+              );
             },
           );
         } else {
@@ -118,15 +118,6 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -162,15 +153,16 @@ class _ScanedQRCODEWidgetState extends State<ScanedQRCODEWidget> {
             backgroundColor: Color(0xFFF2F2F2),
             endDrawer: Container(
               width: double.infinity,
-              child: WebViewAware(
-                  child: Drawer(
+              child: Drawer(
                 elevation: 16.0,
-                child: wrapWithModel(
-                  model: _model.mainDrawerModel,
-                  updateCallback: () => setState(() {}),
-                  child: MainDrawerWidget(),
+                child: WebViewAware(
+                  child: wrapWithModel(
+                    model: _model.mainDrawerModel,
+                    updateCallback: () => setState(() {}),
+                    child: MainDrawerWidget(),
+                  ),
                 ),
-              )),
+              ),
             ),
             body: SafeArea(
               top: true,

@@ -17,7 +17,6 @@ import '/actions/actions.dart' as action_blocks;
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -29,15 +28,14 @@ export 'identification_card_model.dart';
 
 class IdentificationCardWidget extends StatefulWidget {
   const IdentificationCardWidget({
-    Key? key,
+    super.key,
     bool? signUp,
-  })  : this.signUp = signUp ?? false,
-        super(key: key);
+  }) : this.signUp = signUp ?? false;
 
   final bool signUp;
 
   @override
-  _IdentificationCardWidgetState createState() =>
+  State<IdentificationCardWidget> createState() =>
       _IdentificationCardWidgetState();
 }
 
@@ -63,15 +61,6 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -83,15 +72,16 @@ class _IdentificationCardWidgetState extends State<IdentificationCardWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

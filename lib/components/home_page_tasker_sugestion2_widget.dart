@@ -3,7 +3,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -13,14 +12,14 @@ export 'home_page_tasker_sugestion2_model.dart';
 
 class HomePageTaskerSugestion2Widget extends StatefulWidget {
   const HomePageTaskerSugestion2Widget({
-    Key? key,
+    super.key,
     required this.taskerSugestion2,
-  }) : super(key: key);
+  });
 
   final HomePageTaskerSugestion2InputStruct? taskerSugestion2;
 
   @override
-  _HomePageTaskerSugestion2WidgetState createState() =>
+  State<HomePageTaskerSugestion2Widget> createState() =>
       _HomePageTaskerSugestion2WidgetState();
 }
 

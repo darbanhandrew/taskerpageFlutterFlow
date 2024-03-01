@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,10 @@ import 'sort_tasker_list_model.dart';
 export 'sort_tasker_list_model.dart';
 
 class SortTaskerListWidget extends StatefulWidget {
-  const SortTaskerListWidget({Key? key}) : super(key: key);
+  const SortTaskerListWidget({super.key});
 
   @override
-  _SortTaskerListWidgetState createState() => _SortTaskerListWidgetState();
+  State<SortTaskerListWidget> createState() => _SortTaskerListWidgetState();
 }
 
 class _SortTaskerListWidgetState extends State<SortTaskerListWidget> {

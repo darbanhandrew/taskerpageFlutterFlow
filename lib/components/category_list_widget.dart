@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'category_list_model.dart';
 export 'category_list_model.dart';
 
 class CategoryListWidget extends StatefulWidget {
-  const CategoryListWidget({Key? key}) : super(key: key);
+  const CategoryListWidget({super.key});
 
   @override
-  _CategoryListWidgetState createState() => _CategoryListWidgetState();
+  State<CategoryListWidget> createState() => _CategoryListWidgetState();
 }
 
 class _CategoryListWidgetState extends State<CategoryListWidget> {

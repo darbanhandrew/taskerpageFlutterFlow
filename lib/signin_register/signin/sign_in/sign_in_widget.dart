@@ -8,7 +8,6 @@ import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,10 +17,10 @@ import 'sign_in_model.dart';
 export 'sign_in_model.dart';
 
 class SignInWidget extends StatefulWidget {
-  const SignInWidget({Key? key}) : super(key: key);
+  const SignInWidget({super.key});
 
   @override
-  _SignInWidgetState createState() => _SignInWidgetState();
+  State<SignInWidget> createState() => _SignInWidgetState();
 }
 
 class _SignInWidgetState extends State<SignInWidget> {
@@ -73,15 +72,6 @@ class _SignInWidgetState extends State<SignInWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -93,15 +83,16 @@ class _SignInWidgetState extends State<SignInWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -777,7 +768,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                                       }
 
                                                       context.pushNamed(
-                                                          'Profiledetails2');
+                                                          'TaskList');
                                                     } else {
                                                       if (_shouldSetState)
                                                         setState(() {});
@@ -992,8 +983,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                    MainAxisAlignment.center,
                                                 children: [
                                                   Container(
                                                     width: 159.0,
@@ -1123,7 +1113,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                                                       ],
                                                     ),
                                                   ),
-                                                ],
+                                                ].divide(SizedBox(width: 8.0)),
                                               ),
                                             ),
                                           ],

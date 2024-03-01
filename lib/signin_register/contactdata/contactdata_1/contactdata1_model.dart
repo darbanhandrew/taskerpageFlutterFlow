@@ -1,8 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
 import '/backend/schema/structs/index.dart';
+import '/components/address_card_widget.dart';
 import '/components/drawer_content_widget.dart';
 import '/components/header_widget.dart';
 import '/components/privacy_policy_widget.dart';
+import '/components/side_bar_left_sign_up_widget.dart';
 import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_place_picker.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -13,9 +15,9 @@ import 'dart:async';
 import 'dart:io';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'contactdata1_widget.dart' show Contactdata1Widget;
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -33,6 +35,8 @@ class Contactdata1Model extends FlutterFlowModel<Contactdata1Widget> {
   final unfocusNode = FocusNode();
   // Model for drawerContent component.
   late DrawerContentModel drawerContentModel;
+  // Model for side_bar_left_sign_up component.
+  late SideBarLeftSignUpModel sideBarLeftSignUpModel;
   // Model for Header component.
   late HeaderModel headerModel;
   // State field(s) for PlacePicker widget.
@@ -67,17 +71,24 @@ class Contactdata1Model extends FlutterFlowModel<Contactdata1Widget> {
   ApiCallResponse? apiResultpek;
   // Stores action output result for [Backend Call - API (addressCreate)] action in Container widget.
   ApiCallResponse? createAddress1;
+  Completer<ApiCallResponse>? apiRequestCompleter2;
+  Completer<ApiCallResponse>? apiRequestCompleter1;
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     drawerContentModel = createModel(context, () => DrawerContentModel());
+    sideBarLeftSignUpModel =
+        createModel(context, () => SideBarLeftSignUpModel());
     headerModel = createModel(context, () => HeaderModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     drawerContentModel.dispose();
+    sideBarLeftSignUpModel.dispose();
     headerModel.dispose();
     streetFocusNode?.dispose();
     streetController?.dispose();
@@ -101,4 +112,34 @@ class Contactdata1Model extends FlutterFlowModel<Contactdata1Widget> {
   /// Action blocks are added here.
 
   /// Additional helper methods are added here.
+
+  Future waitForApiRequestCompleted2({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter2?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
+
+  Future waitForApiRequestCompleted1({
+    double minWait = 0,
+    double maxWait = double.infinity,
+  }) async {
+    final stopwatch = Stopwatch()..start();
+    while (true) {
+      await Future.delayed(Duration(milliseconds: 50));
+      final timeElapsed = stopwatch.elapsedMilliseconds;
+      final requestComplete = apiRequestCompleter1?.isCompleted ?? false;
+      if (timeElapsed > maxWait || (requestComplete && timeElapsed > minWait)) {
+        break;
+      }
+    }
+  }
 }

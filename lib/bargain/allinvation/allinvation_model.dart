@@ -10,7 +10,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'allinvation_widget.dart' show AllinvationWidget;
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +34,7 @@ class AllinvationModel extends FlutterFlowModel<AllinvationWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerWebModel = createModel(context, () => HeaderWebModel());
     sideBarLeftNetworkModel =
@@ -43,6 +43,7 @@ class AllinvationModel extends FlutterFlowModel<AllinvationWidget> {
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerWebModel.dispose();

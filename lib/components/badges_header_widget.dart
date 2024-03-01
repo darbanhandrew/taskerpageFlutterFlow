@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'badges_header_model.dart';
 export 'badges_header_model.dart';
 
 class BadgesHeaderWidget extends StatefulWidget {
-  const BadgesHeaderWidget({Key? key}) : super(key: key);
+  const BadgesHeaderWidget({super.key});
 
   @override
-  _BadgesHeaderWidgetState createState() => _BadgesHeaderWidgetState();
+  State<BadgesHeaderWidget> createState() => _BadgesHeaderWidgetState();
 }
 
 class _BadgesHeaderWidgetState extends State<BadgesHeaderWidget> {

@@ -10,7 +10,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -22,10 +21,10 @@ import 'email_verification_page_deprecated_model.dart';
 export 'email_verification_page_deprecated_model.dart';
 
 class EmailVerificationPageDeprecatedWidget extends StatefulWidget {
-  const EmailVerificationPageDeprecatedWidget({Key? key}) : super(key: key);
+  const EmailVerificationPageDeprecatedWidget({super.key});
 
   @override
-  _EmailVerificationPageDeprecatedWidgetState createState() =>
+  State<EmailVerificationPageDeprecatedWidget> createState() =>
       _EmailVerificationPageDeprecatedWidgetState();
 }
 
@@ -110,15 +109,6 @@ class _EmailVerificationPageDeprecatedWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -130,15 +120,16 @@ class _EmailVerificationPageDeprecatedWidgetState
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

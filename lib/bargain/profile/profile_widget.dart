@@ -14,7 +14,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -24,10 +23,10 @@ import 'profile_model.dart';
 export 'profile_model.dart';
 
 class ProfileWidget extends StatefulWidget {
-  const ProfileWidget({Key? key}) : super(key: key);
+  const ProfileWidget({super.key});
 
   @override
-  _ProfileWidgetState createState() => _ProfileWidgetState();
+  State<ProfileWidget> createState() => _ProfileWidgetState();
 }
 
 class _ProfileWidgetState extends State<ProfileWidget> {
@@ -52,15 +51,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -72,15 +62,16 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -684,13 +675,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                     context: context,
                                                                                     builder: (context) {
                                                                                       return WebViewAware(
-                                                                                          child: GestureDetector(
-                                                                                        onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
-                                                                                        child: Padding(
-                                                                                          padding: MediaQuery.viewInsetsOf(context),
-                                                                                          child: EditEmailOrPassWidget(),
+                                                                                        child: GestureDetector(
+                                                                                          onTap: () => _model.unfocusNode.canRequestFocus ? FocusScope.of(context).requestFocus(_model.unfocusNode) : FocusScope.of(context).unfocus(),
+                                                                                          child: Padding(
+                                                                                            padding: MediaQuery.viewInsetsOf(context),
+                                                                                            child: EditEmailOrPassWidget(),
+                                                                                          ),
                                                                                         ),
-                                                                                      ));
+                                                                                      );
                                                                                     },
                                                                                   ).then((value) => safeSetState(() {}));
                                                                                 },

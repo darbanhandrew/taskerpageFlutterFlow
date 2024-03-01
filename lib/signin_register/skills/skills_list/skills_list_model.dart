@@ -16,7 +16,6 @@ import '/backend/schema/structs/index.dart';
 import 'dart:async';
 import 'skills_list_widget.dart' show SkillsListWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +49,7 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
@@ -64,6 +64,7 @@ class SkillsListModel extends FlutterFlowModel<SkillsListWidget> {
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

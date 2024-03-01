@@ -2,7 +2,6 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,17 +10,16 @@ export 'skill_options_check_component_model.dart';
 
 class SkillOptionsCheckComponentWidget extends StatefulWidget {
   const SkillOptionsCheckComponentWidget({
-    Key? key,
+    super.key,
     required this.skillOption,
     bool? defaultValue,
-  })  : this.defaultValue = defaultValue ?? false,
-        super(key: key);
+  }) : this.defaultValue = defaultValue ?? false;
 
   final SkillOptionsStruct? skillOption;
   final bool defaultValue;
 
   @override
-  _SkillOptionsCheckComponentWidgetState createState() =>
+  State<SkillOptionsCheckComponentWidget> createState() =>
       _SkillOptionsCheckComponentWidgetState();
 }
 

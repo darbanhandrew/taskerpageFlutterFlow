@@ -2,7 +2,6 @@ import '/components/button_next_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +10,16 @@ export 'footer2_model.dart';
 
 class Footer2Widget extends StatefulWidget {
   const Footer2Widget({
-    Key? key,
+    super.key,
     required this.textButton,
     required this.textBack,
-  }) : super(key: key);
+  });
 
   final String? textButton;
   final String? textBack;
 
   @override
-  _Footer2WidgetState createState() => _Footer2WidgetState();
+  State<Footer2Widget> createState() => _Footer2WidgetState();
 }
 
 class _Footer2WidgetState extends State<Footer2Widget> {

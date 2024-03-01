@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'side_bar_left_notification_model.dart';
 export 'side_bar_left_notification_model.dart';
 
 class SideBarLeftNotificationWidget extends StatefulWidget {
-  const SideBarLeftNotificationWidget({Key? key}) : super(key: key);
+  const SideBarLeftNotificationWidget({super.key});
 
   @override
-  _SideBarLeftNotificationWidgetState createState() =>
+  State<SideBarLeftNotificationWidget> createState() =>
       _SideBarLeftNotificationWidgetState();
 }
 
@@ -68,24 +67,33 @@ class _SideBarLeftNotificationWidgetState
             children: [
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Icon(
-                      Icons.keyboard_arrow_left,
-                      color: Color(0xFF222222),
-                      size: 24.0,
-                    ),
-                    Text(
-                      'Back to dashboard ',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Lato',
-                            color: FlutterFlowTheme.of(context).alternate,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.w500,
-                          ),
-                    ),
-                  ].divide(SizedBox(width: 6.0)),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    context.safePop();
+                  },
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Icon(
+                        Icons.keyboard_arrow_left,
+                        color: Color(0xFF222222),
+                        size: 24.0,
+                      ),
+                      Text(
+                        'Back to dashboard ',
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: 'Lato',
+                              color: FlutterFlowTheme.of(context).alternate,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                      ),
+                    ].divide(SizedBox(width: 6.0)),
+                  ),
                 ),
               ),
               Divider(

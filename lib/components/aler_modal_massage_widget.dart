@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,10 +11,10 @@ import 'aler_modal_massage_model.dart';
 export 'aler_modal_massage_model.dart';
 
 class AlerModalMassageWidget extends StatefulWidget {
-  const AlerModalMassageWidget({Key? key}) : super(key: key);
+  const AlerModalMassageWidget({super.key});
 
   @override
-  _AlerModalMassageWidgetState createState() => _AlerModalMassageWidgetState();
+  State<AlerModalMassageWidget> createState() => _AlerModalMassageWidgetState();
 }
 
 class _AlerModalMassageWidgetState extends State<AlerModalMassageWidget>

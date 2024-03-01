@@ -10,7 +10,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:styled_divider/styled_divider.dart';
 import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,14 +20,14 @@ export 'on_site_appointment_deatels_model.dart';
 
 class OnSiteAppointmentDeatelsWidget extends StatefulWidget {
   const OnSiteAppointmentDeatelsWidget({
-    Key? key,
+    super.key,
     required this.appointmentId,
-  }) : super(key: key);
+  });
 
   final String? appointmentId;
 
   @override
-  _OnSiteAppointmentDeatelsWidgetState createState() =>
+  State<OnSiteAppointmentDeatelsWidget> createState() =>
       _OnSiteAppointmentDeatelsWidgetState();
 }
 
@@ -55,15 +54,6 @@ class _OnSiteAppointmentDeatelsWidgetState
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
@@ -99,15 +89,16 @@ class _OnSiteAppointmentDeatelsWidgetState
             backgroundColor: Color(0xFFF2F2F2),
             endDrawer: Container(
               width: double.infinity,
-              child: WebViewAware(
-                  child: Drawer(
+              child: Drawer(
                 elevation: 16.0,
-                child: wrapWithModel(
-                  model: _model.mainDrawerModel,
-                  updateCallback: () => setState(() {}),
-                  child: MainDrawerWidget(),
+                child: WebViewAware(
+                  child: wrapWithModel(
+                    model: _model.mainDrawerModel,
+                    updateCallback: () => setState(() {}),
+                    child: MainDrawerWidget(),
+                  ),
                 ),
-              )),
+              ),
             ),
             body: SafeArea(
               top: true,

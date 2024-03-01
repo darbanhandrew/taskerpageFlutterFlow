@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'nav_bar_model.dart';
 export 'nav_bar_model.dart';
 
 class NavBarWidget extends StatefulWidget {
-  const NavBarWidget({Key? key}) : super(key: key);
+  const NavBarWidget({super.key});
 
   @override
-  _NavBarWidgetState createState() => _NavBarWidgetState();
+  State<NavBarWidget> createState() => _NavBarWidgetState();
 }
 
 class _NavBarWidgetState extends State<NavBarWidget> {

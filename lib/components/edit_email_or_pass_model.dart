@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'edit_email_or_pass_widget.dart' show EditEmailOrPassWidget;
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -60,6 +59,7 @@ class EditEmailOrPassModel extends FlutterFlowModel<EditEmailOrPassWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     passwordVisibility1 = false;
     passwordVisibility2 = false;
@@ -67,6 +67,7 @@ class EditEmailOrPassModel extends FlutterFlowModel<EditEmailOrPassWidget> {
     passwordVisibility4 = false;
   }
 
+  @override
   void dispose() {
     expandableController1.dispose();
     textFieldFocusNode1?.dispose();

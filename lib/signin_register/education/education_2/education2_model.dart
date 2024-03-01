@@ -18,7 +18,6 @@ import 'dart:async';
 import 'education2_widget.dart' show Education2Widget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -56,6 +55,7 @@ class Education2Model extends FlutterFlowModel<Education2Widget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
@@ -68,6 +68,7 @@ class Education2Model extends FlutterFlowModel<Education2Widget> {
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

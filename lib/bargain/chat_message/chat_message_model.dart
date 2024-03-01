@@ -8,7 +8,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'chat_message_widget.dart' show ChatMessageWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,10 +21,12 @@ class ChatMessageModel extends FlutterFlowModel<ChatMessageWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     appointmentCardModel = createModel(context, () => AppointmentCardModel());
   }
 
+  @override
   void dispose() {
     appointmentCardModel.dispose();
   }

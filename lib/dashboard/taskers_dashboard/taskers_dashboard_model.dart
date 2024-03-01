@@ -13,7 +13,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import '/flutter_flow/random_data_util.dart' as random_data;
 import 'taskers_dashboard_widget.dart' show TaskersDashboardWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,6 +36,7 @@ class TaskersDashboardModel extends FlutterFlowModel<TaskersDashboardWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     navigateBackModel = createModel(context, () => NavigateBackModel());
@@ -45,6 +45,7 @@ class TaskersDashboardModel extends FlutterFlowModel<TaskersDashboardWidget> {
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

@@ -67,7 +67,7 @@ class HomePageTaskerSugestionInputStruct extends BaseStruct {
         'title': _title,
         'subtitle': _subtitle,
         'customer_profiles': _customerProfiles?.map((e) => e.toMap()).toList(),
-        'card_type': _cardType?.toString(),
+        'card_type': _cardType?.serialize(),
       }.withoutNulls;
 
   @override

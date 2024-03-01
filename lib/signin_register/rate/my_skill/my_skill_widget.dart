@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ export 'my_skill_model.dart';
 
 class MySkillWidget extends StatefulWidget {
   const MySkillWidget({
-    Key? key,
+    super.key,
     this.userRate,
-  }) : super(key: key);
+  });
 
   final UserRateStruct? userRate;
 
   @override
-  _MySkillWidgetState createState() => _MySkillWidgetState();
+  State<MySkillWidget> createState() => _MySkillWidgetState();
 }
 
 class _MySkillWidgetState extends State<MySkillWidget> {

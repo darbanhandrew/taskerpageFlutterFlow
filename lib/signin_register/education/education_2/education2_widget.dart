@@ -17,7 +17,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -27,15 +26,14 @@ export 'education2_model.dart';
 
 class Education2Widget extends StatefulWidget {
   const Education2Widget({
-    Key? key,
+    super.key,
     bool? isSignUp,
-  })  : this.isSignUp = isSignUp ?? false,
-        super(key: key);
+  }) : this.isSignUp = isSignUp ?? false;
 
   final bool isSignUp;
 
   @override
-  _Education2WidgetState createState() => _Education2WidgetState();
+  State<Education2Widget> createState() => _Education2WidgetState();
 }
 
 class _Education2WidgetState extends State<Education2Widget> {
@@ -69,15 +67,6 @@ class _Education2WidgetState extends State<Education2Widget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -89,15 +78,16 @@ class _Education2WidgetState extends State<Education2Widget> {
         backgroundColor: Color(0xFFF2F2F2),
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,

@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ export 'select_skill_level_model.dart';
 
 class SelectSkillLevelWidget extends StatefulWidget {
   const SelectSkillLevelWidget({
-    Key? key,
+    super.key,
     this.selectedSkillLevel,
-  }) : super(key: key);
+  });
 
   final String? selectedSkillLevel;
 
   @override
-  _SelectSkillLevelWidgetState createState() => _SelectSkillLevelWidgetState();
+  State<SelectSkillLevelWidget> createState() => _SelectSkillLevelWidgetState();
 }
 
 class _SelectSkillLevelWidgetState extends State<SelectSkillLevelWidget> {
@@ -80,8 +79,8 @@ class _SelectSkillLevelWidgetState extends State<SelectSkillLevelWidget> {
                         .returnSkillLevelEnums()
                         .map((label) => ChipData(label))
                         .toList(),
-                    onChanged: (val) =>
-                        setState(() => _model.choiceChipsValue = val?.first),
+                    onChanged: (val) => setState(
+                        () => _model.choiceChipsValue = val?.firstOrNull),
                     selectedChipStyle: ChipStyle(
                       backgroundColor: FlutterFlowTheme.of(context).secondary,
                       textStyle:

@@ -6,7 +6,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'sign_in_verification_accepted_widget.dart'
     show SignInVerificationAcceptedWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -24,11 +23,13 @@ class SignInVerificationAcceptedModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     headerModel = createModel(context, () => HeaderModel());
     drawerContentModel = createModel(context, () => DrawerContentModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     headerModel.dispose();

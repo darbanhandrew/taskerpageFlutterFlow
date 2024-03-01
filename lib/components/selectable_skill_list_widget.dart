@@ -3,7 +3,6 @@ import '/components/selectable_box_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,13 +11,12 @@ export 'selectable_skill_list_model.dart';
 
 class SelectableSkillListWidget extends StatefulWidget {
   const SelectableSkillListWidget({
-    Key? key,
+    super.key,
     bool? isMultiple,
     required this.filters,
     this.selectedSkill,
     this.selectedSkillList,
-  })  : this.isMultiple = isMultiple ?? false,
-        super(key: key);
+  }) : this.isMultiple = isMultiple ?? false;
 
   final bool isMultiple;
   final String? filters;
@@ -26,7 +24,7 @@ class SelectableSkillListWidget extends StatefulWidget {
   final List<String>? selectedSkillList;
 
   @override
-  _SelectableSkillListWidgetState createState() =>
+  State<SelectableSkillListWidget> createState() =>
       _SelectableSkillListWidgetState();
 }
 

@@ -6,7 +6,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flip_card/flip_card.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -16,14 +15,14 @@ export 'my_post_card_model.dart';
 
 class MyPostCardWidget extends StatefulWidget {
   const MyPostCardWidget({
-    Key? key,
+    super.key,
     required this.postData,
-  }) : super(key: key);
+  });
 
   final dynamic postData;
 
   @override
-  _MyPostCardWidgetState createState() => _MyPostCardWidgetState();
+  State<MyPostCardWidget> createState() => _MyPostCardWidgetState();
 }
 
 class _MyPostCardWidgetState extends State<MyPostCardWidget> {

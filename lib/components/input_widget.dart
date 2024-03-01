@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,13 +9,13 @@ export 'input_model.dart';
 
 class InputWidget extends StatefulWidget {
   const InputWidget({
-    Key? key,
+    super.key,
     required this.borderColor,
     required this.icon,
     required this.lableText,
     required this.borderFocus,
     required this.borderError,
-  }) : super(key: key);
+  });
 
   final Color? borderColor;
   final Widget? icon;
@@ -25,7 +24,7 @@ class InputWidget extends StatefulWidget {
   final Color? borderError;
 
   @override
-  _InputWidgetState createState() => _InputWidgetState();
+  State<InputWidget> createState() => _InputWidgetState();
 }
 
 class _InputWidgetState extends State<InputWidget> {
@@ -100,6 +99,8 @@ class _InputWidgetState extends State<InputWidget> {
             ),
             borderRadius: BorderRadius.circular(5.0),
           ),
+          prefixIcon: widget.icon,
+          suffixIcon: widget.icon,
         ),
         style: FlutterFlowTheme.of(context).bodyMedium,
         validator: _model.textControllerValidator.asValidator(context),

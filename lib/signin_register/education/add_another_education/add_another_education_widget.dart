@@ -13,7 +13,6 @@ import 'dart:ui';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -24,20 +23,19 @@ export 'add_another_education_model.dart';
 
 class AddAnotherEducationWidget extends StatefulWidget {
   const AddAnotherEducationWidget({
-    Key? key,
+    super.key,
     bool? isSignUp,
     this.education,
     bool? addAnother,
   })  : this.isSignUp = isSignUp ?? false,
-        this.addAnother = addAnother ?? false,
-        super(key: key);
+        this.addAnother = addAnother ?? false;
 
   final bool isSignUp;
   final dynamic education;
   final bool addAnother;
 
   @override
-  _AddAnotherEducationWidgetState createState() =>
+  State<AddAnotherEducationWidget> createState() =>
       _AddAnotherEducationWidgetState();
 }
 
@@ -124,15 +122,6 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
 
   @override
   Widget build(BuildContext context) {
-    if (isiOS) {
-      SystemChrome.setSystemUIOverlayStyle(
-        SystemUiOverlayStyle(
-          statusBarBrightness: Theme.of(context).brightness,
-          systemStatusBarContrastEnforced: true,
-        ),
-      );
-    }
-
     context.watch<FFAppState>();
 
     return GestureDetector(
@@ -144,15 +133,16 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
         backgroundColor: Colors.white,
         endDrawer: Container(
           width: double.infinity,
-          child: WebViewAware(
-              child: Drawer(
+          child: Drawer(
             elevation: 16.0,
-            child: wrapWithModel(
-              model: _model.mainDrawerModel,
-              updateCallback: () => setState(() {}),
-              child: MainDrawerWidget(),
+            child: WebViewAware(
+              child: wrapWithModel(
+                model: _model.mainDrawerModel,
+                updateCallback: () => setState(() {}),
+                child: MainDrawerWidget(),
+              ),
             ),
-          )),
+          ),
         ),
         body: SafeArea(
           top: true,
@@ -252,7 +242,9 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                           child: wrapWithModel(
                             model: _model.sideBarLeftSignUpModel,
                             updateCallback: () => setState(() {}),
-                            child: SideBarLeftSignUpWidget(),
+                            child: SideBarLeftSignUpWidget(
+                              selectedColor: 6,
+                            ),
                           ),
                         ),
                       ],
@@ -1094,38 +1086,40 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                         context: context,
                                                         builder: (context) {
                                                           return WebViewAware(
-                                                              child:
-                                                                  GestureDetector(
-                                                            onTap: () => _model
-                                                                    .unfocusNode
-                                                                    .canRequestFocus
-                                                                ? FocusScope.of(
-                                                                        context)
-                                                                    .requestFocus(
-                                                                        _model
-                                                                            .unfocusNode)
-                                                                : FocusScope.of(
-                                                                        context)
-                                                                    .unfocus(),
-                                                            child: Padding(
-                                                              padding: MediaQuery
-                                                                  .viewInsetsOf(
-                                                                      context),
-                                                              child:
-                                                                  ViewCertificateWidget(
-                                                                certificateUrl:
-                                                                    _model
-                                                                        .certificateUrl!,
-                                                                updateCertificateUrl:
-                                                                    () async {
-                                                                  setState(() {
-                                                                    _model.certificateUrl =
-                                                                        '';
-                                                                  });
-                                                                },
+                                                            child:
+                                                                GestureDetector(
+                                                              onTap: () => _model
+                                                                      .unfocusNode
+                                                                      .canRequestFocus
+                                                                  ? FocusScope.of(
+                                                                          context)
+                                                                      .requestFocus(
+                                                                          _model
+                                                                              .unfocusNode)
+                                                                  : FocusScope.of(
+                                                                          context)
+                                                                      .unfocus(),
+                                                              child: Padding(
+                                                                padding: MediaQuery
+                                                                    .viewInsetsOf(
+                                                                        context),
+                                                                child:
+                                                                    ViewCertificateWidget(
+                                                                  certificateUrl:
+                                                                      _model
+                                                                          .certificateUrl!,
+                                                                  updateCertificateUrl:
+                                                                      () async {
+                                                                    setState(
+                                                                        () {
+                                                                      _model.certificateUrl =
+                                                                          '';
+                                                                    });
+                                                                  },
+                                                                ),
                                                               ),
                                                             ),
-                                                          ));
+                                                          );
                                                         },
                                                       ).then((value) =>
                                                           safeSetState(() {}));
@@ -2067,22 +2061,23 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                             builder:
                                                                 (alertDialogContext) {
                                                               return WebViewAware(
-                                                                  child:
-                                                                      AlertDialog(
-                                                                title: Text(
-                                                                    'Not Done'),
-                                                                content: Text(
-                                                                    'Not Done'),
-                                                                actions: [
-                                                                  TextButton(
-                                                                    onPressed: () =>
-                                                                        Navigator.pop(
-                                                                            alertDialogContext),
-                                                                    child: Text(
-                                                                        'Ok'),
-                                                                  ),
-                                                                ],
-                                                              ));
+                                                                child:
+                                                                    AlertDialog(
+                                                                  title: Text(
+                                                                      'Not Done'),
+                                                                  content: Text(
+                                                                      'Not Done'),
+                                                                  actions: [
+                                                                    TextButton(
+                                                                      onPressed:
+                                                                          () =>
+                                                                              Navigator.pop(alertDialogContext),
+                                                                      child: Text(
+                                                                          'Ok'),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                              );
                                                             },
                                                           );
                                                         }
@@ -2229,22 +2224,23 @@ class _AddAnotherEducationWidgetState extends State<AddAnotherEducationWidget> {
                                                           builder:
                                                               (alertDialogContext) {
                                                             return WebViewAware(
-                                                                child:
-                                                                    AlertDialog(
-                                                              title: Text(
-                                                                  'Not Done'),
-                                                              content: Text(
-                                                                  'Not Done'),
-                                                              actions: [
-                                                                TextButton(
-                                                                  onPressed: () =>
-                                                                      Navigator.pop(
-                                                                          alertDialogContext),
-                                                                  child: Text(
-                                                                      'Ok'),
-                                                                ),
-                                                              ],
-                                                            ));
+                                                              child:
+                                                                  AlertDialog(
+                                                                title: Text(
+                                                                    'Not Done'),
+                                                                content: Text(
+                                                                    'Not Done'),
+                                                                actions: [
+                                                                  TextButton(
+                                                                    onPressed: () =>
+                                                                        Navigator.pop(
+                                                                            alertDialogContext),
+                                                                    child: Text(
+                                                                        'Ok'),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                            );
                                                           },
                                                         );
                                                       }

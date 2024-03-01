@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -11,10 +10,10 @@ import 'share_customer_profile_model.dart';
 export 'share_customer_profile_model.dart';
 
 class ShareCustomerProfileWidget extends StatefulWidget {
-  const ShareCustomerProfileWidget({Key? key}) : super(key: key);
+  const ShareCustomerProfileWidget({super.key});
 
   @override
-  _ShareCustomerProfileWidgetState createState() =>
+  State<ShareCustomerProfileWidget> createState() =>
       _ShareCustomerProfileWidgetState();
 }
 

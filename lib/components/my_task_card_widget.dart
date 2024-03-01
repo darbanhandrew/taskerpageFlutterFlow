@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flip_card/flip_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,10 +9,10 @@ import 'my_task_card_model.dart';
 export 'my_task_card_model.dart';
 
 class MyTaskCardWidget extends StatefulWidget {
-  const MyTaskCardWidget({Key? key}) : super(key: key);
+  const MyTaskCardWidget({super.key});
 
   @override
-  _MyTaskCardWidgetState createState() => _MyTaskCardWidgetState();
+  State<MyTaskCardWidget> createState() => _MyTaskCardWidgetState();
 }
 
 class _MyTaskCardWidgetState extends State<MyTaskCardWidget> {

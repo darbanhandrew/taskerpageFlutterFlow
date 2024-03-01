@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'profile_intersted_widget.dart' show ProfileInterstedWidget;
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -37,6 +36,7 @@ class ProfileInterstedModel extends FlutterFlowModel<ProfileInterstedWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -45,6 +45,7 @@ class ProfileInterstedModel extends FlutterFlowModel<ProfileInterstedWidget> {
     buttonNextModel = createModel(context, () => ButtonNextModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

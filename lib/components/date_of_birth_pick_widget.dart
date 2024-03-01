@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -12,16 +11,16 @@ export 'date_of_birth_pick_model.dart';
 
 class DateOfBirthPickWidget extends StatefulWidget {
   const DateOfBirthPickWidget({
-    Key? key,
+    super.key,
     required this.label,
     this.defaultValue,
-  }) : super(key: key);
+  });
 
   final String? label;
   final DateTime? defaultValue;
 
   @override
-  _DateOfBirthPickWidgetState createState() => _DateOfBirthPickWidgetState();
+  State<DateOfBirthPickWidget> createState() => _DateOfBirthPickWidgetState();
 }
 
 class _DateOfBirthPickWidgetState extends State<DateOfBirthPickWidget> {

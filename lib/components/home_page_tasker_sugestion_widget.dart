@@ -4,7 +4,6 @@ import '/components/tasker_card_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ export 'home_page_tasker_sugestion_model.dart';
 
 class HomePageTaskerSugestionWidget extends StatefulWidget {
   const HomePageTaskerSugestionWidget({
-    Key? key,
+    super.key,
     required this.taskerSugestion,
-  }) : super(key: key);
+  });
 
   final HomePageTaskerSugestionInputStruct? taskerSugestion;
 
   @override
-  _HomePageTaskerSugestionWidgetState createState() =>
+  State<HomePageTaskerSugestionWidget> createState() =>
       _HomePageTaskerSugestionWidgetState();
 }
 

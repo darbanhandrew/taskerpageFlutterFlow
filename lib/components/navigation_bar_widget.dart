@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -10,18 +9,18 @@ export 'navigation_bar_model.dart';
 
 class NavigationBarWidget extends StatefulWidget {
   const NavigationBarWidget({
-    Key? key,
+    super.key,
     required this.currentPage,
     this.postId,
     required this.closeDrawer,
-  }) : super(key: key);
+  });
 
   final String? currentPage;
   final String? postId;
-  final Future<dynamic> Function()? closeDrawer;
+  final Future Function()? closeDrawer;
 
   @override
-  _NavigationBarWidgetState createState() => _NavigationBarWidgetState();
+  State<NavigationBarWidget> createState() => _NavigationBarWidgetState();
 }
 
 class _NavigationBarWidgetState extends State<NavigationBarWidget> {
@@ -64,30 +63,34 @@ class _NavigationBarWidgetState extends State<NavigationBarWidget> {
       ),
       child: Column(
         mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(15.0, 32.0, 15.0, 0.0),
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    await widget.closeDrawer?.call();
-                  },
-                  child: Icon(
-                    Icons.arrow_back_ios_rounded,
-                    color: FlutterFlowTheme.of(context).primary,
-                    size: 20.0,
+          if (responsiveVisibility(
+            context: context,
+            desktop: false,
+          ))
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(15.0, 0.0, 15.0, 0.0),
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      await widget.closeDrawer?.call();
+                    },
+                    child: Icon(
+                      Icons.arrow_back_ios_rounded,
+                      color: FlutterFlowTheme.of(context).primary,
+                      size: 20.0,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0.0, 30.0, 0.0, 0.0),
             child: Column(

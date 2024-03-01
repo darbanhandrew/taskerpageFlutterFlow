@@ -12,7 +12,6 @@ import 'education_list_web_register_widget.dart'
     show EducationListWebRegisterWidget;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -41,6 +40,7 @@ class EducationListWebRegisterModel
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     sideBarLeftSignUpModel =
@@ -48,6 +48,7 @@ class EducationListWebRegisterModel
     headerModel = createModel(context, () => HeaderModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

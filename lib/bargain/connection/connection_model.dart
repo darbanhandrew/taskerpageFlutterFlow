@@ -12,7 +12,6 @@ import '/flutter_flow/custom_functions.dart' as functions;
 import 'connection_widget.dart' show ConnectionWidget;
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +39,7 @@ class ConnectionModel extends FlutterFlowModel<ConnectionWidget> {
 
   /// Initialization and disposal methods.
 
+  @override
   void initState(BuildContext context) {
     mainDrawerModel = createModel(context, () => MainDrawerModel());
     headerWebModel = createModel(context, () => HeaderWebModel());
@@ -49,6 +49,7 @@ class ConnectionModel extends FlutterFlowModel<ConnectionWidget> {
     sideBarRightModel = createModel(context, () => SideBarRightModel());
   }
 
+  @override
   void dispose() {
     unfocusNode.dispose();
     mainDrawerModel.dispose();

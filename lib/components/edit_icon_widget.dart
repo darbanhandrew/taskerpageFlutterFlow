@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -9,10 +8,10 @@ import 'edit_icon_model.dart';
 export 'edit_icon_model.dart';
 
 class EditIconWidget extends StatefulWidget {
-  const EditIconWidget({Key? key}) : super(key: key);
+  const EditIconWidget({super.key});
 
   @override
-  _EditIconWidgetState createState() => _EditIconWidgetState();
+  State<EditIconWidget> createState() => _EditIconWidgetState();
 }
 
 class _EditIconWidgetState extends State<EditIconWidget> {
